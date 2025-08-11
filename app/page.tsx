@@ -26,7 +26,7 @@ export default function Home() {
               <img 
                 src="/hendricks_logo.png" 
                 alt="Hendricks.AI" 
-                className="h-12 w-auto object-contain"
+                className="h-8 w-auto object-contain"
               />
             </div>
 
@@ -326,7 +326,7 @@ export default function Home() {
                 <img 
                   src="/hendricks_logo.png" 
                   alt="Hendricks.AI" 
-                  className="h-10 w-auto object-contain"
+                  className="h-6 w-auto object-contain"
                 />
               </div>
               <p className="text-gray-400 mb-4 max-w-md">
