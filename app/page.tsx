@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false)
@@ -32,15 +33,11 @@ export default function Home() {
 
             {/* Center Menu */}
             <nav className="hidden md:flex items-center space-x-8">
-              {['Home', 'Services', 'How It Works', 'Results', 'Contact'].map((item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
-                >
-                  {item}
-                </a>
-              ))}
+              <a href="#home" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Home</a>
+              <Link href="/services" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Services</Link>
+              <a href="#how-it-works" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">How It Works</a>
+              <a href="#results" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Results</a>
+              <a href="#contact" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Contact</a>
             </nav>
 
             {/* CTA Button */}
@@ -233,7 +230,7 @@ export default function Home() {
                 features: ['Custom KPIs', 'Predictive alerts', 'White-label']
               }
             ].map((service, index) => (
-              <div key={index} className="group relative overflow-hidden rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-transparent transition-all duration-300">
+              <Link href="/services" key={index} className="group relative overflow-hidden rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-transparent transition-all duration-300 block cursor-pointer">
                 {/* Gradient Background on Hover */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
                 
@@ -248,15 +245,19 @@ export default function Home() {
                     {service.description}
                   </p>
                   {/* Feature pills */}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 mb-4">
                     {service.features.map((feature, idx) => (
                       <span key={idx} className="text-xs px-2 py-1 bg-gray-800 rounded-full text-gray-300">
                         {feature}
                       </span>
                     ))}
                   </div>
+                  {/* Learn More Link */}
+                  <div className="mt-4 text-sm font-semibold text-blue-400 group-hover:text-blue-300 transition-colors">
+                    Learn More →
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
