@@ -35,7 +35,7 @@ export default function Home() {
             <nav className="hidden md:flex items-center space-x-8">
               <a href="#home" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Home</a>
               <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Solutions</Link>
-              <a href="#how-it-works" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">How It Works</a>
+              <Link href="/how-it-works" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">How It Works</Link>
               <a href="#results" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Results</a>
               <a href="#contact" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Contact</a>
             </nav>

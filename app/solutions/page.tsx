@@ -193,7 +193,7 @@ export default function SolutionsPage() {
             <div className="hidden md:flex items-center space-x-8">
               <Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
               <Link href="/solutions" className="text-white font-semibold">Solutions</Link>
-              <Link href="/#how-it-works" className="text-gray-300 hover:text-white transition-colors">How It Works</Link>
+              <Link href="/how-it-works" className="text-gray-300 hover:text-white transition-colors">How It Works</Link>
               <Link href="/#results" className="text-gray-300 hover:text-white transition-colors">Results</Link>
               <Link href="/#contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
             </div>
