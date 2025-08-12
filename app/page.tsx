@@ -37,14 +37,14 @@ export default function Home() {
               <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Solutions</Link>
               <Link href="/how-it-works" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">How It Works</Link>
               <Link href="/results" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Results</Link>
-              <a href="#contact" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Contact</a>
+              <Link href="/contact" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Contact</Link>
             </nav>
 
             {/* CTA Button */}
             <div className="flex-shrink-0">
-              <button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-blue-500/25">
+              <Link href="/contact" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-blue-500/25">
                 Get Intelligence Report
-              </button>
+              </Link>
             </div>
           </div>
         </div>
