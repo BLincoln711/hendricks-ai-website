@@ -34,7 +34,7 @@ export default function Home() {
             {/* Center Menu */}
             <nav className="hidden md:flex items-center space-x-8">
               <a href="#home" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Home</a>
-              <Link href="/services" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Services</Link>
+              <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Solutions</Link>
               <a href="#how-it-works" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">How It Works</a>
               <a href="#results" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Results</a>
               <a href="#contact" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Contact</a>
@@ -171,8 +171,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* UPDATED Services Grid Section - Your Actual Services */}
-      <section id="services" className="py-20 bg-gradient-to-b from-black to-gray-900">
+      {/* Solutions Grid Section */}
+      <section id="solutions" className="py-20 bg-gradient-to-b from-black to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">
@@ -230,7 +230,7 @@ export default function Home() {
                 features: ['Custom KPIs', 'Predictive alerts', 'White-label']
               }
             ].map((service, index) => (
-              <Link href="/services" key={index} className="group relative overflow-hidden rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-transparent transition-all duration-300 block cursor-pointer">
+              <Link href="/solutions" key={index} className="group relative overflow-hidden rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-transparent transition-all duration-300 block cursor-pointer">
                 {/* Gradient Background on Hover */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
                 
@@ -261,7 +261,7 @@ export default function Home() {
             ))}
           </div>
 
-          {/* CTA Below Services */}
+          {/* CTA Below Solutions */}
           <div className="text-center mt-12">
             <p className="text-lg text-gray-300 mb-6">
               Stop reacting to yesterday&apos;s data. Start predicting tomorrow&apos;s opportunities.
