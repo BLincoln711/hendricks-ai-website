@@ -36,7 +36,7 @@ export default function Home() {
               <a href="#home" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Home</a>
               <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Solutions</Link>
               <Link href="/how-it-works" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">How It Works</Link>
-              <a href="#results" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Results</a>
+              <Link href="/results" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Results</Link>
               <a href="#contact" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Contact</a>
             </nav>
 
