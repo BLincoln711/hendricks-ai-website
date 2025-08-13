@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 
 export default function AboutPage() {
   return (
@@ -57,7 +56,7 @@ export default function AboutPage() {
               Hendricks.AI is the Predictive AI Marketing Agency that gives brands an unfair advantage by forecasting market demand 2–4 weeks before it materializes — with 74% accuracy — and converting that foresight into measurable ROI.
             </p>
             <p>
-              We're the only agency mastering both Google Performance Max & Bing Performance Max with predictive intelligence, transforming how enterprise brands capture demand from pre-intent discovery through high-intent conversion.
+              We&apos;re the only agency mastering both Google Performance Max & Bing Performance Max with predictive intelligence, transforming how enterprise brands capture demand from pre-intent discovery through high-intent conversion.
             </p>
           </div>
         </div>
@@ -79,13 +78,13 @@ export default function AboutPage() {
               That foundation of performance excellence now powers something revolutionary: predictive systems that see market shifts before they happen.
             </p>
             <p className="text-xl font-semibold text-blue-400">
-              While traditional agencies react to yesterday's data, we're already positioned for next month's opportunity.
+              While traditional agencies react to yesterday&apos;s data, we&apos;re already positioned for next month&apos;s opportunity.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Brandon's Bio Section */}
+      {/* Brandon Bio Section */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-12 items-start">
@@ -111,13 +110,13 @@ export default function AboutPage() {
             <div className="lg:col-span-2 space-y-8">
               <div>
                 <p className="text-lg text-gray-300 leading-relaxed">
-                  Brandon is a certified Google Machine Learning Engineer who has spent over 15 years architecting the intersection of search technology and artificial intelligence — long before "AI marketing" became an industry standard.
+                  Brandon is a certified Google Machine Learning Engineer who has spent over 15 years architecting the intersection of search technology and artificial intelligence — long before &quot;AI marketing&quot; became an industry standard.
                 </p>
               </div>
 
               {/* Building Tomorrow's Marketing */}
               <div className="bg-gray-900/50 p-8 rounded-2xl border border-gray-800">
-                <h3 className="text-2xl font-bold mb-4 text-blue-400">Building Tomorrow's Marketing Infrastructure</h3>
+                <h3 className="text-2xl font-bold mb-4 text-blue-400">Building Tomorrow&apos;s Marketing Infrastructure</h3>
                 <div className="space-y-4 text-gray-300">
                   <p>
                     Most recently as Global Lead of Total Search at SolarWinds, Brandon developed predictive intent systems that unified search strategies across 150+ markets worldwide. His approach to demand forecasting and cross-platform optimization caught the attention of industry leaders, leading to strategic engagements with Foursquare, Workday, Evernote, and Warby Parker.
@@ -133,14 +132,14 @@ export default function AboutPage() {
                 <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                   Shaping the AI Marketing Revolution
                 </h3>
-                <p className="text-gray-300 mb-6">Brandon's involvement in AI extends beyond traditional marketing applications:</p>
+                <p className="text-gray-300 mb-6">Brandon&apos;s involvement in AI extends beyond traditional marketing applications:</p>
                 
                 <div className="space-y-6">
                   {/* 2013-2014 */}
                   <div className="border-l-4 border-blue-500 pl-6">
                     <h4 className="font-bold text-blue-400">2013-2014</h4>
                     <p className="text-gray-300">
-                      Participated in Google's internal AI research groups and invite-only Google Brain workshops — laying groundwork for understanding machine learning applications in search
+                      Participated in Google&apos;s internal AI research groups and invite-only Google Brain workshops — laying groundwork for understanding machine learning applications in search
                     </p>
                   </div>
 
@@ -149,8 +148,8 @@ export default function AboutPage() {
                     <h4 className="font-bold text-purple-400">2019-2021: Selected for foundational AI programs</h4>
                     <ul className="list-disc list-inside text-gray-300 space-y-1 mt-2">
                       <li>GPT-3 API beta testing before public launch</li>
-                      <li>ChatGPT prototype testing through OpenAI's trusted tester program</li>
-                      <li>Claude's first iterations via Anthropic's private program</li>
+                      <li>ChatGPT prototype testing through OpenAI&apos;s trusted tester program</li>
+                      <li>Claude&apos;s first iterations via Anthropic&apos;s private program</li>
                       <li>Google LaMDA early access demos</li>
                     </ul>
                   </div>
@@ -180,7 +179,7 @@ export default function AboutPage() {
 
               <div className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 p-8 rounded-2xl border border-blue-500/20">
                 <p className="text-lg text-gray-300 italic">
-                  "This unique vantage point — seeing AI developments before they reach market while understanding enterprise search needs — enables Brandon to build predictive systems that don't just respond to demand, they anticipate it."
+                  &quot;This unique vantage point — seeing AI developments before they reach market while understanding enterprise search needs — enables Brandon to build predictive systems that don&apos;t just respond to demand, they anticipate it.&quot;
                 </p>
               </div>
             </div>
@@ -387,17 +386,17 @@ export default function AboutPage() {
           <div className="space-y-8">
             {[
               {
-                title: 'We See What Others Can't',
-                description: 'Our predictive models analyze hundreds of demand signals, identifying market shifts 2-4 weeks before they materialize. This isn't guesswork — it's systematic pattern recognition powered by custom ML models.'
+                title: 'We See What Others Can\'t',
+                description: 'Our predictive models analyze hundreds of demand signals, identifying market shifts 2-4 weeks before they materialize. This isn\'t guesswork — it\'s systematic pattern recognition powered by custom ML models.'
               },
               {
-                title: 'We Master What Others Won't',
+                title: 'We Master What Others Won\'t',
                 description: 'As the only agency truly optimizing both Google and Microsoft ecosystems, we capture demand wherever it emerges — from LinkedIn B2B audiences to Microsoft Edge users to traditional search queries.'
               },
               {
-                title: 'We Deliver What Others Don't',
+                title: 'We Deliver What Others Don\'t',
                 items: [
-                  'Transparent Predictions: Know exactly what's coming and why',
+                  'Transparent Predictions: Know exactly what\'s coming and why',
                   'Dual-Ecosystem Dominance: One strategy, two platforms, total coverage',
                   'Proactive Optimization: Adjustments before problems arise',
                   'White-Label Intelligence: Your brand, our predictive power'
@@ -435,7 +434,7 @@ export default function AboutPage() {
           </h2>
           
           <blockquote className="text-2xl text-gray-300 italic mb-8">
-            "The future of marketing isn't about having more data — it's about knowing what happens next."
+            &quot;The future of marketing isn&apos;t about having more data — it&apos;s about knowing what happens next.&quot;
           </blockquote>
           
           <p className="text-gray-300 mb-6">
@@ -447,7 +446,7 @@ export default function AboutPage() {
           </p>
           
           <p className="text-xl font-semibold text-purple-400">
-            For our clients, this isn't hypothetical. It's their competitive advantage.
+            For our clients, this isn&apos;t hypothetical. It&apos;s their competitive advantage.
           </p>
         </div>
       </section>
@@ -466,10 +465,10 @@ export default function AboutPage() {
               The marketing landscape has shifted. Reactive strategies based on historical data no longer win. The future belongs to brands that can predict, position, and capture demand before it peaks.
             </p>
             <p>
-              Brandon's unique position — testing tomorrow's AI today while architecting enterprise search strategies — created the blueprint for Hendricks.AI's predictive methodology.
+              Brandon&apos;s unique position — testing tomorrow&apos;s AI today while architecting enterprise search strategies — created the blueprint for Hendricks.AI&apos;s predictive methodology.
             </p>
             <p className="text-xl font-semibold text-blue-400">
-              We don't just use AI tools. We architect intelligence systems that transform marketing from a cost center into a predictive profit engine.
+              We don&apos;t just use AI tools. We architect intelligence systems that transform marketing from a cost center into a predictive profit engine.
             </p>
           </div>
         </div>
@@ -485,10 +484,10 @@ export default function AboutPage() {
           </h2>
           
           <div className="space-y-4 text-xl text-gray-300 mb-8">
-            <p>Your competitors are still optimizing last week's campaigns.</p>
-            <p className="text-blue-400 font-semibold">We're already positioned for next month's demand surge.</p>
-            <p>The question isn't whether AI will transform your marketing.</p>
-            <p className="font-semibold">It's whether you'll be ahead of that transformation or behind it.</p>
+            <p>Your competitors are still optimizing last week&apos;s campaigns.</p>
+            <p className="text-blue-400 font-semibold">We&apos;re already positioned for next month&apos;s demand surge.</p>
+            <p>The question isn&apos;t whether AI will transform your marketing.</p>
+            <p className="font-semibold">It&apos;s whether you&apos;ll be ahead of that transformation or behind it.</p>
           </div>
           
           <Link href="/contact" className="inline-block px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl mb-6">
@@ -496,7 +495,7 @@ export default function AboutPage() {
           </Link>
           
           <p className="text-2xl font-bold text-purple-400">
-            See Tomorrow's Demand Today
+            See Tomorrow&apos;s Demand Today
           </p>
         </div>
       </section>
