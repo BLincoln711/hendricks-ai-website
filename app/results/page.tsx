@@ -44,7 +44,7 @@ export default function ResultsPage() {
       industry: 'Software/Technology',
       logo: '💻',
       challenge: 'High customer acquisition costs and inability to identify when enterprises are in-market for their solution.',
-      solution: 'Used Microsoft Copilot Ads integration to reach decision-makers at the exact moment of need.',
+      solution: 'Used Bing Performance Max integration to reach decision-makers at the exact moment of need.',
       results: {
         headline: '2.6x Pipeline Growth',
         metrics: [
@@ -53,11 +53,11 @@ export default function ResultsPage() {
           { label: 'Sales Cycle', value: '42 days', change: '-35%' },
           { label: 'Customer LTV', value: '$127K', change: '+89%' }
         ],
-        quote: 'The Microsoft Copilot integration reached C-suite executives we could never access before. Game-changing for enterprise sales.',
+        quote: 'The Bing Performance Max integration reached C-suite executives we could never access before. Game-changing for enterprise sales.',
         author: 'Michael Rodriguez, VP Sales'
       },
       timeline: '4 months',
-      services: ['Microsoft Copilot Ads', 'Intelligence Command', 'Demand Intelligence']
+      services: ['Bing Performance Max', 'Intelligence Command', 'Demand Intelligence']
     },
     {
       id: 3,
@@ -369,7 +369,7 @@ export default function ResultsPage() {
                 rating: 5
               },
               {
-                quote: "The Microsoft Copilot integration alone paid for the entire year. Absolute game-changer for B2B.",
+                quote: "The Bing Performance Max integration alone paid for the entire year. Absolute game-changer for B2B.",
                 author: "Robert Chen",
                 title: "VP Sales, Enterprise SaaS",
                 rating: 5

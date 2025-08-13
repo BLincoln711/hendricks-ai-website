@@ -72,7 +72,7 @@ export default function Home() {
 
           {/* Updated Subtitle with Actual Metrics */}
           <p className="text-xl sm:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-            The only AI agency that masters both Google Performance Max & Microsoft Copilot. 
+            The only AI agency that masters both Google Performance Max & Bing Performance Max. 
             Predict demand 2-4 weeks early with 
             <span className="text-blue-400 font-semibold"> 74% accuracy</span> and 
             <span className="text-purple-400 font-semibold"> 312% ROI</span>.
@@ -110,6 +110,101 @@ export default function Home() {
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
           <div className="w-6 h-10 border-2 border-white/30 rounded-full p-1">
             <div className="w-1 h-3 bg-white/50 rounded-full mx-auto animate-scroll"></div>
+          </div>
+        </div>
+      </section>
+
+      {/* AI-Powered Growth Section */}
+      <section className="py-20 relative overflow-hidden bg-gradient-to-b from-black via-gray-900 to-black">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                AI-Powered Growth Across Google + Microsoft
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              From Discovery to Decision - We capture your buyers before they search, accelerate them across every channel, 
+              and close them when intent is at its highest — on both Google and Microsoft ecosystems.
+            </p>
+          </div>
+
+          {/* Three-Stage Process */}
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            {[
+              {
+                stage: '01',
+                title: 'Pre-Intent Discovery',
+                subtitle: 'Google Demand Gen',
+                description: 'Reach high-value prospects before they even search',
+                metric: '+3x ROAS / -32% CPA vs Search-only campaigns',
+                icon: '🎯',
+                gradient: 'from-blue-500 to-cyan-500'
+              },
+              {
+                stage: '02',
+                title: 'Cross-Channel Acceleration',
+                subtitle: 'Performance Max - Google + Microsoft',
+                description: 'Dominate both search ecosystems with one AI-powered asset library',
+                metric: '10% ROAS lift in global markets with Bing PMax',
+                icon: '🚀',
+                gradient: 'from-purple-500 to-pink-500'
+              },
+              {
+                stage: '03',
+                title: 'High-Intent Capture',
+                subtitle: 'AI Max for Search - Google + Microsoft Search Ads',
+                description: 'Win when intent is highest with AI-driven search coverage',
+                metric: '8x higher conversion rates at peak intent',
+                icon: '💎',
+                gradient: 'from-orange-500 to-red-500'
+              }
+            ].map((phase, index) => (
+              <div key={index} className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl transform group-hover:scale-105 transition-transform duration-300"></div>
+                <div className={`absolute inset-0 bg-gradient-to-br ${phase.gradient} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}></div>
+                <div className="relative p-8 h-full">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-5xl">{phase.icon}</span>
+                    <span className={`text-sm font-bold bg-gradient-to-r ${phase.gradient} bg-clip-text text-transparent`}>
+                      STAGE {phase.stage}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">{phase.title}</h3>
+                  <p className="text-sm text-purple-400 mb-3">{phase.subtitle}</p>
+                  <p className="text-gray-300 mb-4">{phase.description}</p>
+                  <div className="pt-4 border-t border-gray-700">
+                    <p className="text-sm text-green-400 font-semibold">{phase.metric}</p>
+                  </div>
+                </div>
+                {index < 2 && (
+                  <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-6 transform -translate-y-1/2 z-20">
+                    <svg className="w-full h-full text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Results Bar */}
+          <div className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-2xl p-8 border border-blue-500/20">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+              <div>
+                <div className="text-3xl font-bold text-white mb-2">8x</div>
+                <p className="text-gray-400">Higher conversion rates with full-funnel approach</p>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-white mb-2">-32%</div>
+                <p className="text-gray-400">Lower CPA than single-channel campaigns</p>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-white mb-2">10%</div>
+                <p className="text-gray-400">ROAS lift with Bing Performance Max</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -181,7 +276,7 @@ export default function Home() {
               </span>
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              The only agency mastering both Google AI Max & Microsoft Copilot ecosystems
+              The only agency mastering both Google AI Max & Bing Performance Max ecosystems
             </p>
           </div>
 
@@ -202,11 +297,11 @@ export default function Home() {
                 features: ['AI Max for Search', 'Smart Bidding', '95% coverage']
               },
               {
-                title: 'Microsoft Copilot Ads',
+                title: 'Bing Performance Max',
                 description: 'Dominate Microsoft ecosystem with 2.6x engagement and 32% lower CPA',
                 icon: '🎯',
                 gradient: 'from-green-500 to-blue-500',
-                features: ['Copilot optimization', 'LinkedIn B2B', 'Edge targeting']
+                features: ['Microsoft AI', 'LinkedIn B2B', 'Edge targeting']
               },
               {
                 title: 'Amplification Engine',
@@ -308,7 +403,7 @@ export default function Home() {
               {
                 company: 'B2B Enterprise',
                 result: '2.6x Engagement',
-                testimonial: 'Microsoft Copilot Ads integration reached decision-makers we never could before. LinkedIn targeting is incredible.',
+                testimonial: 'Bing Performance Max integration reached decision-makers we never could before. LinkedIn targeting is incredible.',
                 author: 'Jennifer Park, VP Marketing',
                 metric: '73% pipeline increase'
               }
@@ -473,7 +568,7 @@ export default function Home() {
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#" className="hover:text-white transition-colors">Demand Intelligence</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Google Performance Max</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Microsoft Copilot</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Bing Performance Max</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Intelligence Command</a></li>
               </ul>
             </div>

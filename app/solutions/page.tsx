@@ -65,18 +65,18 @@ export default function SolutionsPage() {
     },
     {
       id: 2,
-      title: 'Microsoft Copilot Ads',
+      title: 'Bing Performance Max',
       subtitle: 'Dominate the Microsoft Ecosystem',
       icon: '🎯',
       gradient: 'from-green-500 to-blue-500',
-      description: 'Be first to master Microsoft\'s Copilot advertising ecosystem, reaching high-value B2B audiences with 2.6x higher engagement rates.',
+      description: 'Master Bing Performance Max to reach high-value B2B audiences across the Microsoft ecosystem with 2.6x higher engagement rates.',
       features: [
-        'Copilot ad placement optimization',
+        'Bing Performance Max campaigns',
         'LinkedIn B2B integration',
         'Microsoft Edge targeting',
-        'Bing Chat advertising',
-        'Teams & Office integration',
-        'Azure audience matching'
+        'Cross-Microsoft inventory',
+        'AI-powered optimization',
+        'Audience intelligence'
       ],
       benefits: [
         '2.6x higher engagement rates',
@@ -88,7 +88,7 @@ export default function SolutionsPage() {
       caseStudy: {
         client: 'B2B SaaS Company',
         result: '2.6x engagement, 73% pipeline increase',
-        story: 'Reached decision-makers directly through Copilot ecosystem.'
+        story: 'Reached decision-makers directly through Bing Performance Max ecosystem.'
       }
     },
     {
@@ -214,7 +214,7 @@ export default function SolutionsPage() {
             </span>
           </h1>
           <p className="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto">
-            The only agency mastering both Google Performance Max & Microsoft Copilot ecosystems 
+            The only agency mastering both Google Performance Max & Bing Performance Max ecosystems 
             with predictive AI that sees demand 2-4 weeks early.
           </p>
         </div>

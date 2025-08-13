@@ -29,7 +29,7 @@ export default function ContactPage() {
   const interestOptions = [
     'Demand Intelligence',
     'Google Performance Max',
-    'Microsoft Copilot Ads',
+    'Bing Performance Max',
     'Conversion Optimization',
     'Full-Stack Management'
   ]
