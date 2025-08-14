@@ -91,7 +91,9 @@ export default function Home() {
               <Link href="/how-it-works" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">How It Works</Link>
               <Link href="/results" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Results</Link>
               <Link href="/insights" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Insights</Link>
+              <Link href="/resources" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Resources</Link>
               <Link href="/about" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">About</Link>
+              <Link href="/faq" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">FAQ</Link>
               <Link href="/contact" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Contact</Link>
             </nav>
 
@@ -670,8 +672,18 @@ export default function Home() {
               <ul className="space-y-2 text-gray-400">
                 <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
                 <li><Link href="/results" className="hover:text-white transition-colors">Case Studies</Link></li>
+                <li><Link href="/insights" className="hover:text-white transition-colors">Insights</Link></li>
                 <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-4">Resources</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/resources" className="hover:text-white transition-colors">Downloads</Link></li>
+                <li><Link href="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
+                <li><Link href="/insights" className="hover:text-white transition-colors">Blog</Link></li>
+                <li><a href="#" className="hover:text-white transition-colors">Webinars</a></li>
               </ul>
             </div>
           </div>
