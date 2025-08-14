@@ -500,15 +500,156 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Footer Tagline */}
-      <section className="py-12 text-center border-t border-gray-800">
-        <p className="text-xl font-semibold">
-          <span className="text-gray-400">Hendricks.AI:</span>{' '}
-          <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            Where Demand Intelligence Meets Demand Capture
-          </span>
-        </p>
-      </section>
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-300 mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+            {/* Brand Section */}
+            <div className="lg:col-span-2">
+              <Link href="/" className="flex items-center space-x-2 mb-4">
+                <img 
+                  src="/hendricks_logo.png" 
+                  alt="Hendricks.AI" 
+                  className="h-8 w-auto object-contain brightness-0 invert"
+                />
+              </Link>
+              <p className="text-sm mb-4">
+                Demand Intelligence to Demand Capture. Transform your marketing with predictive AI technology.
+              </p>
+              <p className="text-xl font-semibold">
+                <span className="text-gray-400">Hendricks.AI:</span>{' '}
+                <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                  Where Demand Intelligence Meets Demand Capture
+                </span>
+              </p>
+            </div>
+
+            {/* Solutions */}
+            <div>
+              <h3 className="text-white font-semibold mb-4">Solutions</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/solutions" className="text-sm hover:text-white transition-colors duration-200">
+                    Demand Intelligence
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/solutions" className="text-sm hover:text-white transition-colors duration-200">
+                    Predictive Analytics
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/solutions" className="text-sm hover:text-white transition-colors duration-200">
+                    Campaign Optimization
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/solutions" className="text-sm hover:text-white transition-colors duration-200">
+                    ROI Maximization
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Company */}
+            <div>
+              <h3 className="text-white font-semibold mb-4">Company</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/about" className="text-sm hover:text-white transition-colors duration-200">
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/results" className="text-sm hover:text-white transition-colors duration-200">
+                    Case Studies
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/how-it-works" className="text-sm hover:text-white transition-colors duration-200">
+                    How It Works
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="text-sm hover:text-white transition-colors duration-200">
+                    Contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Resources */}
+            <div>
+              <h3 className="text-white font-semibold mb-4">Resources</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/contact" className="text-sm hover:text-white transition-colors duration-200">
+                    Get Started
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="text-sm hover:text-white transition-colors duration-200">
+                    Intelligence Report
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="text-sm hover:text-white transition-colors duration-200">
+                    Support
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="text-sm hover:text-white transition-colors duration-200">
+                    FAQ
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div>
+              <h3 className="text-white font-semibold mb-4">Legal</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/privacy" className="text-sm hover:text-white transition-colors duration-200">
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms" className="text-sm hover:text-white transition-colors duration-200">
+                    Terms of Service
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/cookies" className="text-sm hover:text-white transition-colors duration-200">
+                    Cookie Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/privacy#security" className="text-sm hover:text-white transition-colors duration-200">
+                    Security
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Bottom Section */}
+          <div className="mt-12 pt-8 border-t border-gray-800">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <p className="text-sm text-gray-400">
+                © {new Date().getFullYear()} Hendricks.AI. All rights reserved.
+              </p>
+              <div className="flex items-center mt-4 md:mt-0 text-sm text-gray-400">
+                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>Houston, Texas</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </main>
   )
 }

@@ -675,8 +675,15 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Hendricks.AI - Demand Intelligence to Demand Capture. All rights reserved.</p>
+          <div className="border-t border-gray-800 mt-12 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <p className="text-gray-400 mb-4 md:mb-0">&copy; 2025 Hendricks.AI - Demand Intelligence to Demand Capture. All rights reserved.</p>
+              <div className="flex space-x-6 text-sm">
+                <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link>
+                <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</Link>
+                <Link href="/cookies" className="text-gray-400 hover:text-white transition-colors">Cookie Policy</Link>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
