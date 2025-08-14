@@ -162,6 +162,8 @@ export default function HowItWorksPage() {
               <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors">Solutions</Link>
               <Link href="/how-it-works" className="text-white font-semibold">How It Works</Link>
               <Link href="/results" className="text-gray-300 hover:text-white transition-colors">Results</Link>
+              <Link href="/insights" className="text-gray-300 hover:text-white transition-colors">Insights</Link>
+              <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
               <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
             </div>
             <Link href="/contact" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105">
