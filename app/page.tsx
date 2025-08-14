@@ -86,14 +86,10 @@ export default function Home() {
 
             {/* Center Menu */}
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Home</a>
               <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Solutions</Link>
-              <Link href="/how-it-works" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">How It Works</Link>
               <Link href="/results" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Results</Link>
-              <Link href="/insights" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Insights</Link>
               <Link href="/resources" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Resources</Link>
               <Link href="/about" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">About</Link>
-              <Link href="/faq" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">FAQ</Link>
               <Link href="/contact" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Contact</Link>
             </nav>
 
