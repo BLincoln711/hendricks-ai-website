@@ -138,7 +138,7 @@ const blogPosts: { [key: string]: any } = {
       <div class="cta-box">
         <h3>Ready to See Tomorrow's Demand Today?</h3>
         <p>Get your custom Intelligence Report showing hidden opportunities in your market — delivered within 24 hours.</p>
-        <a href="/contact" class="cta-button">Get Your Intelligence Report</a>
+        <a href="https://calendar.app.google/DHopiSfnLiH5xwKo9" target="_blank" rel="noopener noreferrer" class="cta-button">📅 Book Your Strategy Call</a>
       </div>
     `
   },
@@ -292,7 +292,7 @@ Bing Performance Max → Leverage professional targeting and ecosystem data</cod
       <div class="cta-box">
         <h3>Ready to Unlock Your Hidden 10% ROAS?</h3>
         <p>Get a free dual-platform opportunity analysis showing exactly how much revenue you're leaving on the table.</p>
-        <a href="/contact" class="cta-button">Get Your Analysis</a>
+        <a href="https://calendar.app.google/DHopiSfnLiH5xwKo9" target="_blank" rel="noopener noreferrer" class="cta-button">📅 Book Your Strategy Call</a>
       </div>
     `
   }

@@ -115,9 +115,9 @@ export default function ContactPage() {
               <Link href="/faq" className="text-gray-300 hover:text-white transition-colors">FAQ</Link>
               <Link href="/contact" className="text-white font-semibold">Contact</Link>
             </div>
-            <Link href="/contact" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105">
-              Get Intelligence Report
-            </Link>
+            <a href="https://calendar.app.google/DHopiSfnLiH5xwKo9" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105">
+              Book Strategy Call
+            </a>
           </div>
         </div>
       </nav>
@@ -135,6 +135,29 @@ export default function ContactPage() {
             <p className="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto">
               Ready to see tomorrow today? Get your free Intelligence Report and discover 
               demand opportunities your competitors won't see for weeks.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Booking Option */}
+      <section className="py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 p-8 rounded-2xl border border-blue-500/30 text-center">
+            <h2 className="text-2xl font-bold mb-4">Prefer to Talk Directly?</h2>
+            <p className="text-gray-300 mb-6">
+              Book a 30-minute strategy call to discuss your specific needs and see a live demo of our predictive intelligence platform.
+            </p>
+            <a 
+              href="https://calendar.app.google/DHopiSfnLiH5xwKo9" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-block px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl"
+            >
+              📅 Book Your Strategy Call
+            </a>
+            <p className="text-sm text-gray-400 mt-4">
+              Available times update in real-time • No commitment required
             </p>
           </div>
         </div>

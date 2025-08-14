@@ -151,9 +151,9 @@ export default function FAQPage() {
               <Link href="/faq" className="text-white font-semibold">FAQ</Link>
               <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
             </div>
-            <Link href="/contact" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105">
-              Get Intelligence Report
-            </Link>
+            <a href="https://calendar.app.google/DHopiSfnLiH5xwKo9" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105">
+              Book Strategy Call
+            </a>
           </div>
         </div>
       </nav>
@@ -242,14 +242,14 @@ export default function FAQPage() {
             Still Have Questions?
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            Get your custom Intelligence Report and see exactly how predictive AI can transform your marketing.
+            Book a strategy call to get personalized answers and see how predictive AI can transform your marketing.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="inline-block px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl">
-              Get Your Intelligence Report
-            </Link>
-            <Link href="/insights" className="inline-block px-8 py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-gray-800 transition-all duration-300 border border-gray-700">
-              Read Our Insights
+            <a href="https://calendar.app.google/DHopiSfnLiH5xwKo9" target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl">
+              📅 Book Your Strategy Call
+            </a>
+            <Link href="/contact" className="inline-block px-8 py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-gray-800 transition-all duration-300 border border-gray-700">
+              Get Intelligence Report
             </Link>
           </div>
         </div>

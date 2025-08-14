@@ -196,8 +196,9 @@ export default function ResourcesPage() {
               <Link href="/resources" className="text-white font-semibold">Resources</Link>
               <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
             </div>
-            <Link href="/contact" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105">
-              Get Intelligence Report
+            <a href="https://calendar.app.google/DHopiSfnLiH5xwKo9" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105">
+              Book Strategy Call
+            </a>
             </Link>
           </div>
         </div>
@@ -327,11 +328,16 @@ export default function ResourcesPage() {
             Ready for Personalized Intelligence?
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            Get your custom Intelligence Report showing specific opportunities in your market.
+            Discuss your specific needs and get a custom Intelligence Report tailored to your market.
           </p>
-          <Link href="/contact" className="inline-block px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl">
-            Get Your Custom Report
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="https://calendar.app.google/DHopiSfnLiH5xwKo9" target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl">
+              📅 Book Strategy Call
+            </a>
+            <Link href="/contact" className="inline-block px-8 py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-gray-800 transition-all duration-300 border border-gray-700">
+              Get Intelligence Report
+            </Link>
+          </div>
         </div>
       </section>
 

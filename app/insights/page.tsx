@@ -104,9 +104,9 @@ export default function InsightsPage() {
               <Link href="/insights" className="text-white font-semibold">Insights</Link>
               <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
             </div>
-            <Link href="/contact" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105">
-              Get Intelligence Report
-            </Link>
+            <a href="https://calendar.app.google/DHopiSfnLiH5xwKo9" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105">
+              Book Strategy Call
+            </a>
           </div>
         </div>
       </nav>
