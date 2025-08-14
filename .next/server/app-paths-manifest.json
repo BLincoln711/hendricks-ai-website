@@ -1,9 +1,12 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
   "/about/page": "app/about/page.js",
+  "/api/generate-report/route": "app/api/generate-report/route.js",
+  "/api/contact/route": "app/api/contact/route.js",
   "/contact/page": "app/contact/page.js",
-  "/how-it-works/page": "app/how-it-works/page.js",
   "/page": "app/page.js",
-  "/results/page": "app/results/page.js",
-  "/solutions/page": "app/solutions/page.js"
+  "/how-it-works/page": "app/how-it-works/page.js",
+  "/report/[id]/page": "app/report/[id]/page.js",
+  "/solutions/page": "app/solutions/page.js",
+  "/results/page": "app/results/page.js"
 }
