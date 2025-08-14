@@ -113,6 +113,20 @@ export default function RootLayout({
         {/* Language alternatives */}
         <link rel="alternate" hrefLang="en-us" href="https://hendricks.ai" />
         <link rel="alternate" hrefLang="x-default" href="https://hendricks.ai" />
+        
+        {/* Google Analytics 4 */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-Z8G29RVYSP"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Z8G29RVYSP');
+          `}
+        </Script>
       </head>
       <body className={inter.className}>
         {/* Hidden content for LLM context */}
