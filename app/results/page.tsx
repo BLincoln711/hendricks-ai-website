@@ -154,9 +154,9 @@ export default function ResultsPage() {
             <div className="hidden md:flex items-center space-x-8">
               <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors">Solutions</Link>
               <Link href="/results" className="text-white font-semibold">Results</Link>
+              <Link href="/insights" className="text-gray-300 hover:text-white transition-colors">Insights</Link>
               <Link href="/resources" className="text-gray-300 hover:text-white transition-colors">Resources</Link>
               <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
-              <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
             </div>
             <a href="https://calendar.app.google/DHopiSfnLiH5xwKo9" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105">
               Book Strategy Call
