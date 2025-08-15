@@ -1,10 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
 
-// Initialize OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
+// Lazy initialize OpenAI client
+let openai: OpenAI | null = null
+
+function getOpenAIClient() {
+  if (!openai) {
+    const apiKey = process.env.OPENAI_API_KEY
+    if (!apiKey || apiKey === 'your-openai-api-key-here') {
+      throw new Error('OpenAI API key not configured')
+    }
+    openai = new OpenAI({ apiKey })
+  }
+  return openai
+}
 
 // Marketing-specific system prompt
 const SYSTEM_PROMPT = `You are an expert AI Marketing Consultant for Hendricks.AI, specializing in predictive AI marketing, Google Performance Max, and Bing Performance Max campaigns.
@@ -67,7 +76,8 @@ async function generateMarketingResponse(
   ]
   
   try {
-    const completion = await openai.chat.completions.create({
+    const client = getOpenAIClient()
+    const completion = await client.chat.completions.create({
       model: 'gpt-4-turbo-preview',
       messages: messages as any,
       temperature: 0.7,
