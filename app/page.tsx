@@ -5,7 +5,6 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { Sparkles } from 'lucide-react'
 import DemandPredictionDemo from './components/demand-prediction-demo'
-import PartnerLogos from './components/partner-logos'
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false)
@@ -214,11 +213,6 @@ export default function Home() {
                 </button>
               </div>
 
-              {/* Client Logos */}
-              <div className="space-y-4">
-                <p className="text-xs text-gray-500 uppercase tracking-wider">Trusted by Industry Leaders</p>
-                <PartnerLogos />
-              </div>
             </div>
 
             {/* Right Column - AI Visualization */}
