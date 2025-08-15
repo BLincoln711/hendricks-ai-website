@@ -114,169 +114,280 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section - Optimized for Conversion */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Dynamic Background with Depth */}
+      {/* Hero Section - AI Prediction Marketing Agency */}
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Advanced AI Grid Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-black via-blue-950 to-purple-950"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-        </div>
-        
-        {/* Animated Mesh Gradient */}
-        <div className="absolute inset-0 opacity-30">
+          <div className="absolute inset-0 bg-black"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-950/20 via-transparent to-purple-950/20"></div>
           <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                            radial-gradient(circle at 80% 80%, rgba(255, 76, 239, 0.2) 0%, transparent 50%),
-                            radial-gradient(circle at 40% 20%, rgba(59, 130, 246, 0.3) 0%, transparent 50%)`,
-            animation: 'moveGradient 20s ease infinite'
+            backgroundImage: 'linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)',
+            backgroundSize: '50px 50px',
+            animation: 'gridMove 20s linear infinite'
           }}></div>
         </div>
-
-        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-          {/* Trust Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-sm text-gray-300 mb-8">
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <span>Trusted by 100+ High-Growth Brands</span>
-          </div>
-
-          {/* Main Headline - Clearer Value Prop */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            <span className="block text-white">
-              See Demand Surges
-            </span>
-            <span className="block bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mt-2">
-              2-4 Weeks Early
-            </span>
-          </h1>
-
-          {/* Clear Value Proposition */}
-          <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
-            While competitors react to yesterday's data, you'll capture tomorrow's opportunities. 
-            Our AI predicts market demand with <span className="text-white font-semibold">74% accuracy</span>, 
-            delivering <span className="text-white font-semibold">312% average ROI</span>.
-          </p>
-
-          {/* Social Proof */}
-          <div className="flex items-center justify-center gap-8 mb-10">
-            <div className="flex -space-x-2">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-600 to-gray-700 border-2 border-black flex items-center justify-center text-xs font-semibold text-white">
-                  {i}
-                </div>
+        
+        {/* AI Neural Network Animation */}
+        <div className="absolute inset-0 overflow-hidden opacity-20">
+          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000">
+            <g className="animate-pulse">
+              {[...Array(20)].map((_, i) => (
+                <circle
+                  key={i}
+                  cx={Math.random() * 1000}
+                  cy={Math.random() * 1000}
+                  r="2"
+                  fill="rgba(59, 130, 246, 0.8)"
+                  className="animate-ping"
+                  style={{ animationDelay: `${i * 0.1}s` }}
+                />
               ))}
+            </g>
+          </svg>
+        </div>
+
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Content */}
+            <div>
+              {/* AI Prediction Badge */}
+              <div className="inline-flex items-center gap-3 px-5 py-2 bg-blue-950/50 backdrop-blur-xl border border-blue-800/50 rounded-full mb-8">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium text-blue-400">AI PREDICTION ENGINE</span>
+                </div>
+                <span className="text-xs text-gray-400">v3.2 • 2.8M predictions/day</span>
+              </div>
+
+              {/* Main Headline */}
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                <span className="block text-white">
+                  Predict Market
+                </span>
+                <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                  Demand in Advance
+                </span>
+              </h1>
+
+              {/* Subheadline */}
+              <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+                Our proprietary AI analyzes <span className="text-cyan-400 font-semibold">2.8M+ signals daily</span> to forecast 
+                customer behavior and market trends <span className="text-purple-400 font-semibold">2-4 weeks</span> before they materialize. 
+                Turn predictive intelligence into competitive advantage.
+              </p>
+
+              {/* Trust Metrics */}
+              <div className="grid grid-cols-3 gap-4 mb-10">
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
+                  <div className="text-2xl font-bold text-cyan-400">74%</div>
+                  <div className="text-xs text-gray-400">Prediction Accuracy</div>
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
+                  <div className="text-2xl font-bold text-purple-400">312%</div>
+                  <div className="text-xs text-gray-400">Average ROI</div>
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
+                  <div className="text-2xl font-bold text-blue-400">23 Days</div>
+                  <div className="text-xs text-gray-400">Avg Lead Time</div>
+                </div>
+              </div>
+
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <Link 
+                  href="/contact" 
+                  className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/25 inline-flex items-center justify-center gap-3 overflow-hidden"
+                >
+                  <span className="relative z-10">Get Predictive Intelligence Report</span>
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </Link>
+                <button className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-lg font-semibold text-lg hover:bg-white/10 transition-all duration-300 inline-flex items-center justify-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Watch 2-Min Demo
+                </button>
+              </div>
+
+              {/* Client Logos */}
+              <div className="flex items-center gap-4">
+                <p className="text-xs text-gray-500 uppercase tracking-wider">Trusted by</p>
+                <div className="flex items-center gap-6 opacity-50">
+                  {['Fortune 500', 'Y Combinator', 'TechStars'].map((client, i) => (
+                    <span key={i} className="text-xs font-medium text-gray-400">{client}</span>
+                  ))}
+                </div>
+              </div>
             </div>
-            <div className="text-left">
-              <div className="flex items-center gap-1 text-yellow-400">
-                {'★★★★★'.split('').map((star, i) => (
-                  <span key={i}>{star}</span>
+
+            {/* Right Column - AI Visualization */}
+            <div className="relative lg:block hidden">
+              {/* Real-time Prediction Feed */}
+              <div className="absolute top-0 right-0 bg-black/80 backdrop-blur-xl border border-cyan-800/50 rounded-lg p-4 max-w-xs">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <span className="text-xs font-medium text-gray-300">LIVE PREDICTIONS</span>
+                </div>
+                <div className="space-y-2">
+                  {[
+                    { trend: 'AI Automation Tools', surge: '+127%', time: '18 days' },
+                    { trend: 'Sustainable Fashion', surge: '+89%', time: '23 days' },
+                    { trend: 'Remote Work Security', surge: '+156%', time: '14 days' }
+                  ].map((prediction, i) => (
+                    <div key={i} className="bg-white/5 rounded p-2 text-xs">
+                      <div className="flex justify-between items-start">
+                        <span className="text-gray-300">{prediction.trend}</span>
+                        <span className="text-green-400 font-semibold">{prediction.surge}</span>
+                      </div>
+                      <span className="text-gray-500">in {prediction.time}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Central AI Orb */}
+              <div className="relative w-96 h-96 mx-auto">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute inset-8 bg-gradient-to-br from-blue-950 to-purple-950 rounded-full"></div>
+                <div className="absolute inset-12 bg-black rounded-full flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-6xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AI</div>
+                    <div className="text-xs text-gray-400 mt-2">PREDICTION ENGINE</div>
+                  </div>
+                </div>
+                {/* Orbiting Data Points */}
+                {[...Array(6)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-3 h-3 bg-cyan-400 rounded-full"
+                    style={{
+                      top: '50%',
+                      left: '50%',
+                      transform: `rotate(${i * 60}deg) translateX(150px)`,
+                      animation: `orbit 10s linear infinite`,
+                      animationDelay: `${i * 0.5}s`
+                    }}
+                  ></div>
                 ))}
               </div>
-              <p className="text-sm text-gray-400">4.9/5 from 127 reviews</p>
             </div>
-          </div>
-
-          {/* Primary CTA with Urgency */}
-          <div className="flex flex-col items-center gap-4 mb-6">
-            <Link 
-              href="/contact" 
-              className="group relative px-10 py-5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 inline-flex items-center gap-3"
-            >
-              <span>Get Your Free Intelligence Report</span>
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
-            <p className="text-sm text-gray-400">
-              <span className="text-green-400">●</span> 3 spots left this week • No credit card required
-            </p>
-          </div>
-
-          {/* Secondary CTA - Demo */}
-          <div className="mb-12">
-            <DemandPredictionDemo />
-          </div>
-
-          {/* Proof Points with Icons */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
-            {[
-              { 
-                icon: '🎯', 
-                value: '74%', 
-                label: 'Prediction Accuracy',
-                subtext: 'vs 23% industry avg'
-              },
-              { 
-                icon: '📈', 
-                value: '312%', 
-                label: 'Average ROI',
-                subtext: 'in first 6 months'
-              },
-              { 
-                icon: '⚡', 
-                value: '2-4 Weeks', 
-                label: 'Advance Notice',
-                subtext: 'before competitors'
-              }
-            ].map((stat, index) => (
-              <div key={index} className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
-                <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:border-white/20 transition-all duration-300">
-                  <div className="text-3xl mb-2">{stat.icon}</div>
-                  <div className="text-2xl font-bold text-white">{stat.value}</div>
-                  <div className="text-sm text-gray-300 font-medium">{stat.label}</div>
-                  <div className="text-xs text-gray-500 mt-1">{stat.subtext}</div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
 
         {/* Animated Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-          <div className="flex flex-col items-center gap-2 text-gray-400">
-            <p className="text-xs uppercase tracking-wider">Scroll to explore</p>
-            <div className="w-6 h-10 border-2 border-gray-600 rounded-full p-1">
-              <div className="w-1.5 h-3 bg-gradient-to-b from-blue-400 to-purple-400 rounded-full mx-auto animate-scroll"></div>
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-xs text-gray-500 uppercase tracking-wider">Discover Our Technology</p>
+            <div className="w-5 h-8 border-2 border-gray-700 rounded-full p-1">
+              <div className="w-1 h-2 bg-gradient-to-b from-blue-400 to-purple-400 rounded-full mx-auto animate-scroll"></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Social Proof Bar - Client Logos */}
-      <section className="relative py-12 bg-black border-y border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <p className="text-sm text-gray-500 uppercase tracking-wider">Trusted by Industry Leaders</p>
+      {/* Proprietary AI System Showcase */}
+      <section className="relative py-24 bg-black overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/10 via-transparent to-purple-950/10"></div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-950/50 backdrop-blur-sm border border-cyan-800/50 rounded-full text-sm text-cyan-400 mb-6">
+              <span>PROPRIETARY TECHNOLOGY</span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+              <span className="text-white">The </span>
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                Hendricks Prediction Engine™
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Our AI doesn't just analyze data—it predicts the future of consumer behavior 
+              with unprecedented accuracy using proprietary neural networks.
+            </p>
           </div>
-          <div className="relative overflow-hidden">
-            <div className="flex items-center justify-center space-x-12 opacity-50">
-              {['Google Partner', 'Microsoft Ads', 'Meta Business', 'Shopify Plus', 'BigCommerce', 'Amazon Ads'].map((partner, i) => (
-                <div key={i} className="flex-shrink-0">
-                  <div className="h-12 w-32 bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg flex items-center justify-center">
-                    <span className="text-xs font-medium text-gray-300">{partner}</span>
-                  </div>
+
+          {/* AI System Architecture */}
+          <div className="grid lg:grid-cols-3 gap-8 mb-16">
+            {[
+              {
+                phase: 'DATA INGESTION',
+                title: 'Multi-Source Intelligence',
+                features: [
+                  '2.8M+ signals analyzed daily',
+                  '100+ data sources integrated',
+                  'Real-time market monitoring',
+                  'Social sentiment analysis'
+                ],
+                icon: '🌐',
+                gradient: 'from-blue-600 to-cyan-600'
+              },
+              {
+                phase: 'AI PROCESSING',
+                title: 'Predictive Neural Networks',
+                features: [
+                  'Proprietary ML algorithms',
+                  'Pattern recognition AI',
+                  'Behavioral forecasting',
+                  'Trend emergence detection'
+                ],
+                icon: '🧠',
+                gradient: 'from-cyan-600 to-purple-600'
+              },
+              {
+                phase: 'INTELLIGENCE OUTPUT',
+                title: 'Actionable Predictions',
+                features: [
+                  '2-4 week advance notice',
+                  '74% prediction accuracy',
+                  'Campaign recommendations',
+                  'ROI optimization paths'
+                ],
+                icon: '🎯',
+                gradient: 'from-purple-600 to-pink-600'
+              }
+            ].map((system, index) => (
+              <div key={index} className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="relative bg-black border border-gray-800 rounded-2xl p-8 hover:border-cyan-800/50 transition-all duration-300">
+                  <div className="text-xs font-medium text-gray-500 mb-4">{system.phase}</div>
+                  <div className="text-4xl mb-4">{system.icon}</div>
+                  <h3 className={`text-xl font-bold mb-4 bg-gradient-to-r ${system.gradient} bg-clip-text text-transparent`}>
+                    {system.title}
+                  </h3>
+                  <ul className="space-y-2">
+                    {system.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm text-gray-400">
+                        <span className="text-cyan-400 mt-1">•</span>
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Technology Stack */}
+          <div className="bg-gradient-to-r from-blue-950/50 via-purple-950/50 to-blue-950/50 rounded-2xl p-8 border border-gray-800">
+            <h3 className="text-lg font-semibold text-gray-300 mb-6 text-center">Powered by Advanced Technologies</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {[
+                { name: 'TensorFlow', category: 'ML Framework' },
+                { name: 'GPT-4', category: 'Language AI' },
+                { name: 'Prophet', category: 'Forecasting' },
+                { name: 'Apache Spark', category: 'Big Data' },
+                { name: 'Kubernetes', category: 'Infrastructure' },
+                { name: 'Custom NLP', category: 'Proprietary' }
+              ].map((tech, i) => (
+                <div key={i} className="bg-black/50 rounded-lg p-3 text-center border border-gray-800 hover:border-cyan-800/50 transition-all">
+                  <div className="text-sm font-medium text-white">{tech.name}</div>
+                  <div className="text-xs text-gray-500 mt-1">{tech.category}</div>
                 </div>
               ))}
-            </div>
-            <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black to-transparent"></div>
-            <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black to-transparent"></div>
-          </div>
-          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div>
-              <p className="text-2xl font-bold text-white">$47M+</p>
-              <p className="text-xs text-gray-500">Ad Spend Managed</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-white">2.8M+</p>
-              <p className="text-xs text-gray-500">Data Points Daily</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-white">127+</p>
-              <p className="text-xs text-gray-500">Active Clients</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-white">4.9/5</p>
-              <p className="text-xs text-gray-500">Client Satisfaction</p>
             </div>
           </div>
         </div>
@@ -298,81 +409,108 @@ export default function Home() {
         <p>The Hendricks Method consists of three phases: PREDICT (identify demand 2-4 weeks early), AMPLIFY (position brand before competitors react), and DOMINATE (capture 73% share of voice when demand peaks).</p>
       </div>
 
-      {/* How It Works - 3 Simple Steps */}
-      <section className="py-20 relative overflow-hidden bg-gradient-to-b from-black via-gray-900 to-black">
+      {/* Case Studies - Proven Results */}
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-black via-gray-900 to-black">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-900/30 border border-blue-800/50 rounded-full text-sm text-blue-400 mb-6">
-              <span>How It Works</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-900/30 border border-purple-800/50 rounded-full text-sm text-purple-400 mb-6">
+              <span>PROVEN RESULTS</span>
             </div>
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-              <span className="text-white">3 Steps to </span>
-              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Market Domination
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+              <span className="text-white">Predictive Intelligence </span>
+              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                in Action
               </span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Our AI analyzes 2.8M+ data points daily to predict demand surges 
-              before your competitors even know they're coming.
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Real clients. Real predictions. Real revenue growth. 
+              See how our AI predictions translate into market dominance.
             </p>
           </div>
 
-          {/* Three-Stage Process */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
+          {/* Featured Case Studies */}
+          <div className="grid lg:grid-cols-3 gap-8 mb-16">
             {[
               {
-                stage: '01',
-                title: 'Pre-Intent Discovery',
-                subtitle: 'Google Demand Gen',
-                description: 'Reach high-value prospects before they even search',
-                metric: '+3x ROAS / -32% CPA vs Search-only campaigns',
-                icon: '🎯',
-                gradient: 'from-blue-500 to-cyan-500'
+                client: 'B2B SaaS Platform',
+                industry: 'Enterprise Software',
+                prediction: 'AI Implementation Tools',
+                timeline: '19 days early',
+                results: {
+                  roi: '+427%',
+                  revenue: '$2.3M',
+                  accuracy: '89%'
+                },
+                quote: 'We captured 73% of the market before competitors even noticed the trend.',
+                gradient: 'from-blue-600 to-cyan-600'
               },
               {
-                stage: '02',
-                title: 'Cross-Channel Acceleration',
-                subtitle: 'Performance Max - Google + Microsoft',
-                description: 'Dominate both search ecosystems with one AI-powered asset library',
-                metric: '10% ROAS lift in global markets with Bing PMax',
-                icon: '🚀',
-                gradient: 'from-purple-500 to-pink-500'
+                client: 'E-commerce Brand',
+                industry: 'Fashion Retail',
+                prediction: 'Sustainable Denim',
+                timeline: '23 days early',
+                results: {
+                  roi: '+312%',
+                  revenue: '$1.8M',
+                  accuracy: '76%'
+                },
+                quote: 'The prediction allowed us to secure inventory and ad space at 60% lower costs.',
+                gradient: 'from-purple-600 to-pink-600'
               },
               {
-                stage: '03',
-                title: 'High-Intent Capture',
-                subtitle: 'AI Max for Search - Google + Microsoft Search Ads',
-                description: 'Win when intent is highest with AI-driven search coverage',
-                metric: '8x higher conversion rates at peak intent',
-                icon: '💎',
-                gradient: 'from-orange-500 to-red-500'
+                client: 'FinTech Startup',
+                industry: 'Financial Services',
+                prediction: 'Crypto Tax Solutions',
+                timeline: '21 days early',
+                results: {
+                  roi: '+523%',
+                  revenue: '$3.1M',
+                  accuracy: '82%'
+                },
+                quote: 'Hendricks.AI predicted the exact week demand would spike. Incredible.',
+                gradient: 'from-cyan-600 to-blue-600'
               }
-            ].map((phase, index) => (
+            ].map((study, index) => (
               <div key={index} className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl transform group-hover:scale-105 transition-transform duration-300"></div>
-                <div className={`absolute inset-0 bg-gradient-to-br ${phase.gradient} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}></div>
-                <div className="relative p-8 h-full">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-5xl">{phase.icon}</span>
-                    <span className={`text-sm font-bold bg-gradient-to-r ${phase.gradient} bg-clip-text text-transparent`}>
-                      STAGE {phase.stage}
-                    </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="relative bg-black border border-gray-800 rounded-2xl overflow-hidden hover:border-purple-800/50 transition-all duration-300">
+                  {/* Header */}
+                  <div className={`bg-gradient-to-r ${study.gradient} p-6`}>
+                    <div className="text-xs font-medium text-white/80 mb-1">{study.industry}</div>
+                    <h3 className="text-xl font-bold text-white">{study.client}</h3>
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{phase.title}</h3>
-                  <p className="text-sm text-purple-400 mb-3">{phase.subtitle}</p>
-                  <p className="text-gray-300 mb-4">{phase.description}</p>
-                  <div className="pt-4 border-t border-gray-700">
-                    <p className="text-sm text-green-400 font-semibold">{phase.metric}</p>
+                  
+                  {/* Prediction */}
+                  <div className="p-6 border-b border-gray-800">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs text-gray-500 uppercase">AI Prediction</span>
+                      <span className="text-xs text-green-400">{study.timeline}</span>
+                    </div>
+                    <p className="text-lg font-medium text-white">{study.prediction}</p>
+                  </div>
+                  
+                  {/* Results */}
+                  <div className="p-6 grid grid-cols-3 gap-4 border-b border-gray-800">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-cyan-400">{study.results.roi}</div>
+                      <div className="text-xs text-gray-500">ROI</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-purple-400">{study.results.revenue}</div>
+                      <div className="text-xs text-gray-500">Revenue</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-blue-400">{study.results.accuracy}</div>
+                      <div className="text-xs text-gray-500">Accuracy</div>
+                    </div>
+                  </div>
+                  
+                  {/* Quote */}
+                  <div className="p-6">
+                    <p className="text-sm text-gray-300 italic">"{study.quote}"</p>
                   </div>
                 </div>
-                {index < 2 && (
-                  <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-6 transform -translate-y-1/2 z-20">
-                    <svg className="w-full h-full text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                )}
               </div>
             ))}
           </div>
@@ -633,150 +771,241 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+      {/* Enterprise Solutions */}
+      <section className="py-24 bg-gradient-to-b from-black via-blue-950/10 to-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-900/30 border border-blue-800/50 rounded-full text-sm text-blue-400 mb-6">
+              <span>ENTERPRISE SOLUTIONS</span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+              <span className="text-white">Investment in </span>
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Investment Levels
+                Predictive Intelligence
               </span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Transparent pricing. Guaranteed results. No surprises.
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Enterprise-grade AI prediction technology. White-glove service. 
+              Guaranteed ROI or we work for free.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          {/* Enterprise Tiers */}
+          <div className="grid lg:grid-cols-3 gap-8 mb-16">
             {[
               {
-                name: 'Intelligence Starter',
-                price: '$5-10K',
-                period: '/month',
+                tier: 'GROWTH',
+                investment: '$10-25K',
+                timeline: 'per month',
+                ideal: 'Growing Brands',
                 features: [
-                  'Demand prediction for 1 market',
-                  'Google Ads management',
-                  'Monthly intelligence reports',
-                  'Email support',
-                  'Basic dashboard access'
+                  'AI predictions for 5 markets',
+                  'Google + Bing management',
+                  'Weekly prediction reports',
+                  'Dedicated success manager',
+                  'Custom prediction dashboard',
+                  '74% accuracy guarantee'
                 ],
-                cta: 'Start Predicting',
-                gradient: 'from-gray-600 to-gray-700'
+                highlight: 'Best for scaling businesses',
+                gradient: 'from-blue-600 to-cyan-600',
+                cta: 'Schedule Discovery Call'
               },
               {
-                name: 'Growth Accelerator',
-                price: '$10-25K',
-                period: '/month',
+                tier: 'ENTERPRISE',
+                investment: '$25-50K',
+                timeline: 'per month',
+                ideal: 'Market Leaders',
                 features: [
-                  'Multi-market demand prediction',
-                  'Google + Microsoft management',
-                  'Weekly intelligence briefings',
-                  'Dedicated account manager',
-                  'Custom dashboards',
-                  'Conversion optimization'
+                  'Unlimited market predictions',
+                  'Full-funnel AI optimization',
+                  'Daily prediction updates',
+                  'C-suite strategy sessions',
+                  'Custom ML model training',
+                  'API access to predictions'
                 ],
-                cta: 'Accelerate Growth',
-                gradient: 'from-blue-600 to-purple-600',
-                popular: true
+                highlight: 'Most popular for enterprises',
+                gradient: 'from-purple-600 to-pink-600',
+                cta: 'Get Executive Briefing',
+                recommended: true
               },
               {
-                name: 'Market Dominator',
-                price: '$25K+',
-                period: '/month',
+                tier: 'CUSTOM',
+                investment: '$50K+',
+                timeline: 'per month',
+                ideal: 'Fortune 500',
                 features: [
-                  'Unlimited market coverage',
-                  'Full-stack management',
-                  'Daily intelligence updates',
-                  'Strategic consulting',
-                  'White-glove service',
-                  'Custom ML models',
-                  'C-suite reporting'
+                  'Bespoke AI solutions',
+                  'Dedicated data science team',
+                  'Real-time prediction API',
+                  'White-label dashboards',
+                  'Board-level reporting',
+                  'SLA guarantees'
                 ],
-                cta: 'Dominate Market',
-                gradient: 'from-purple-600 to-pink-600'
+                highlight: 'Full AI partnership',
+                gradient: 'from-cyan-600 to-blue-600',
+                cta: 'Contact Enterprise Team'
               }
-            ].map((tier, index) => (
-              <div key={index} className={`relative rounded-2xl ${tier.popular ? 'scale-105' : ''}`}>
-                {tier.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                    Most Popular
+            ].map((solution, index) => (
+              <div key={index} className={`relative group ${solution.recommended ? 'lg:scale-105' : ''}`}>
+                {solution.recommended && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                    <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                      RECOMMENDED
+                    </div>
                   </div>
                 )}
-                <div className={`bg-gradient-to-b from-gray-900 to-black p-8 rounded-2xl border ${tier.popular ? 'border-blue-500' : 'border-gray-800'} h-full`}>
-                  <h3 className="text-2xl font-bold mb-2">{tier.name}</h3>
-                  <div className="mb-6">
-                    <span className="text-4xl font-bold">{tier.price}</span>
-                    <span className="text-gray-400">{tier.period}</span>
+                <div className="relative h-full">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                  <div className={`relative bg-black border ${solution.recommended ? 'border-purple-500/50' : 'border-gray-800'} rounded-2xl p-8 h-full hover:border-cyan-500/50 transition-all duration-300`}>
+                    {/* Header */}
+                    <div className="mb-6">
+                      <h3 className={`text-lg font-bold mb-2 bg-gradient-to-r ${solution.gradient} bg-clip-text text-transparent`}>
+                        {solution.tier}
+                      </h3>
+                      <div className="mb-2">
+                        <span className="text-3xl font-bold text-white">{solution.investment}</span>
+                        <span className="text-gray-400 text-sm ml-2">{solution.timeline}</span>
+                      </div>
+                      <p className="text-sm text-gray-500">{solution.ideal}</p>
+                    </div>
+
+                    {/* Features */}
+                    <ul className="space-y-3 mb-8">
+                      {solution.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-3 text-sm">
+                          <span className="text-cyan-400 mt-0.5">•</span>
+                          <span className="text-gray-300">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Highlight */}
+                    <div className="mb-6 p-3 bg-gradient-to-r from-blue-950/50 to-purple-950/50 rounded-lg">
+                      <p className="text-xs text-center text-gray-300">{solution.highlight}</p>
+                    </div>
+
+                    {/* CTA */}
+                    <Link 
+                      href="/contact" 
+                      className={`block w-full py-3 text-center rounded-lg font-semibold bg-gradient-to-r ${solution.gradient} text-white hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300`}
+                    >
+                      {solution.cta}
+                    </Link>
                   </div>
-                  <ul className="space-y-3 mb-8">
-                    {tier.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <span className="text-green-400 mr-2">✓</span>
-                        <span className="text-gray-300 text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <button className={`w-full py-3 rounded-lg font-semibold bg-gradient-to-r ${tier.gradient} text-white hover:shadow-lg transition-all duration-300 transform hover:scale-105`}>
-                    {tier.cta}
-                  </button>
                 </div>
               </div>
             ))}
           </div>
+
+          {/* ROI Guarantee */}
+          <div className="bg-gradient-to-r from-blue-950/30 to-purple-950/30 rounded-2xl p-8 border border-blue-500/20 text-center">
+            <h3 className="text-2xl font-bold text-white mb-4">The Hendricks Guarantee</h3>
+            <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto">
+              We're so confident in our AI predictions that we guarantee a minimum 200% ROI 
+              within 6 months or we'll work for free until you hit that target.
+            </p>
+            <div className="flex items-center justify-center gap-8">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-cyan-400">200%</div>
+                <div className="text-sm text-gray-400">Minimum ROI</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-purple-400">6</div>
+                <div className="text-sm text-gray-400">Months</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-400">$0</div>
+                <div className="text-sm text-gray-400">Risk</div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 relative overflow-hidden">
+      {/* Final CTA - The Decision Point */}
+      <section className="py-32 relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-purple-900/80 to-blue-900/80"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-950 via-purple-950 to-blue-950"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
         </div>
         
-        <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          {/* Urgency Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-red-900/30 border border-red-800/50 rounded-full text-sm text-red-400 mb-8 animate-pulse">
-            <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-            <span>Limited Spots Available This Month</span>
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+        
+        <div className="relative z-10 max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          {/* Live Prediction Counter */}
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-black/50 backdrop-blur-xl border border-cyan-800/50 rounded-full mb-8">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-cyan-400">LIVE</span>
+            </div>
+            <div className="h-4 w-px bg-gray-700"></div>
+            <span className="text-sm text-gray-300">
+              <span className="font-bold text-white">2,847,923</span> predictions made today
+            </span>
           </div>
 
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-            Your Competitors Are <span className="bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">23 Days Behind</span>
+          <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-8 leading-tight">
+            <span className="text-white">The Future of </span>
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Marketing is Predictive
+            </span>
           </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Every day without predictive intelligence is money left on the table. 
-            Get your free Intelligence Report and see what demand is coming.
+          
+          <p className="text-2xl text-gray-300 mb-4 max-w-3xl mx-auto font-light">
+            While others react, you'll already be there.
+          </p>
+          
+          <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
+            Our AI has already identified <span className="text-cyan-400 font-semibold">47 emerging trends</span> this week 
+            that will peak in the next 14-28 days. Your competitors won't see them coming.
           </p>
 
-          {/* Value Props */}
-          <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto mb-10">
-            <div className="text-center">
-              <p className="text-2xl font-bold text-white">Free</p>
-              <p className="text-xs text-gray-400">Intelligence Report</p>
-            </div>
-            <div className="text-center border-x border-gray-700">
-              <p className="text-2xl font-bold text-white">48hr</p>
-              <p className="text-xs text-gray-400">Delivery Time</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl font-bold text-white">$0</p>
-              <p className="text-xs text-gray-400">No Obligation</p>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center gap-4">
+          {/* Dual CTA */}
+          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
             <Link 
               href="/contact" 
-              className="group relative px-12 py-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/50 inline-flex items-center gap-3"
+              className="group relative px-10 py-5 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/50 inline-flex items-center justify-center gap-3 overflow-hidden"
             >
-              <span>Get Your Free Intelligence Report</span>
-              <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span className="relative z-10">Get Your Predictive Intelligence Report</span>
+              <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </Link>
-            <p className="text-sm text-gray-400">
-              Join 127+ brands already seeing tomorrow's demand
-            </p>
+            
+            <button 
+              onClick={() => document.querySelector('[href="/contact"]')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-10 py-5 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl font-bold text-xl hover:bg-white/10 transition-all duration-300 inline-flex items-center justify-center gap-2"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l-4 4m0 0l-4-4m4 4V3" />
+              </svg>
+              See Live Demo
+            </button>
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-cyan-400">48hr</div>
+              <div className="text-xs text-gray-500 uppercase">Report Delivery</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-purple-400">$0</div>
+              <div className="text-xs text-gray-500 uppercase">To Get Started</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-blue-400">100%</div>
+              <div className="text-xs text-gray-500 uppercase">Confidential</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-pink-400">24/7</div>
+              <div className="text-xs text-gray-500 uppercase">AI Monitoring</div>
+            </div>
           </div>
         </div>
       </section>
