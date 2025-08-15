@@ -169,11 +169,15 @@ export default function Home() {
                 </span>
               </h1>
 
-              {/* Subheadline */}
-              <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-                Our proprietary AI analyzes <span className="text-cyan-400 font-semibold">2.8M+ signals daily</span> to forecast 
-                customer behavior and market trends <span className="text-purple-400 font-semibold">2-4 weeks</span> before they materialize. 
-                Turn predictive intelligence into competitive advantage.
+              {/* Subheadline - Main Tagline */}
+              <p className="text-2xl text-gray-200 mb-6 leading-relaxed font-light">
+                While your competitors react to yesterday's data, 
+                <span className="text-cyan-400 font-semibold"> you'll be capturing tomorrow's demand</span>
+              </p>
+              
+              {/* Supporting Details */}
+              <p className="text-lg text-gray-400 mb-8">
+                Our AI analyzes 2.8M+ signals daily to identify opportunities 2-4 weeks before the market.
               </p>
 
               {/* Trust Metrics */}

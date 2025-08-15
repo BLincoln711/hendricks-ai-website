@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const siteConfig = {
   name: 'Hendricks.AI',
-  description: 'Predictive AI Marketing Agency serving the United States - See demand 2-4 weeks early with 74% accuracy. Master Google Performance Max & Bing Performance Max. 312% average ROI.',
+  description: 'While your competitors react to yesterday\'s data, you\'ll be capturing tomorrow\'s demand. Predictive AI Marketing Agency - See demand 2-4 weeks early with 74% accuracy. 312% average ROI.',
   url: 'https://hendricks.ai',
   ogImage: 'https://hendricks.ai/og-image.jpg',
   links: {
