@@ -157,8 +157,13 @@ async function generateMarketingResponse(
 }
 
 export async function POST(req: NextRequest) {
+  let message = ''
+  
   try {
-    const { message, messages, context } = await req.json()
+    const body = await req.json()
+    message = body.message
+    const messages = body.messages
+    const context = body.context
     
     // Validate input
     if (!message || typeof message !== 'string') {
