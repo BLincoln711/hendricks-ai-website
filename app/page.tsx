@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Script from 'next/script'
+import { Sparkles } from 'lucide-react'
+import DemandPredictionDemo from './components/demand-prediction-demo'
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false)
@@ -145,6 +147,11 @@ export default function Home() {
             <Link href="/contact" className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg font-semibold text-lg hover:bg-white/20 transition-all duration-300 transform hover:scale-105 inline-block">
               Get Intelligence Report
             </Link>
+          </div>
+
+          {/* Demand Prediction Demo */}
+          <div className="flex justify-center mb-12">
+            <DemandPredictionDemo />
           </div>
 
           {/* Updated Stats Bar with Real Metrics */}
@@ -630,6 +637,48 @@ export default function Home() {
             <button className="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-lg hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105">
               Schedule Strategy Call
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive Demo Section */}
+      <section className="relative py-20 px-4">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/10 to-black"></div>
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-900/30 border border-purple-800/50 rounded-full text-purple-400 text-sm font-medium mb-6">
+            <Sparkles className="w-4 h-4" />
+            Interactive Demo
+          </div>
+          
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+            See Your Future Demand
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+              In Real-Time
+            </span>
+          </h2>
+          
+          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+            Experience how our AI predicts market demand 2-4 weeks before it happens. 
+            Input your business details and get an instant demand forecast.
+          </p>
+          
+          <div className="flex justify-center">
+            <DemandPredictionDemo />
+          </div>
+          
+          <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto text-center">
+            <div>
+              <div className="text-3xl font-bold text-purple-400">2.8M+</div>
+              <p className="text-sm text-gray-400 mt-1">Data Points Analyzed Daily</p>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-pink-400">74%</div>
+              <p className="text-sm text-gray-400 mt-1">Prediction Accuracy</p>
+            </div>
+            <div>
+              <div className="text-3xl font-bold text-blue-400">2-4 Weeks</div>
+              <p className="text-sm text-gray-400 mt-1">Advance Notice</p>
+            </div>
           </div>
         </div>
       </section>
