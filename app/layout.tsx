@@ -4,7 +4,7 @@ import './globals.css'
 import { defaultMetadata } from './metadata'
 import Script from 'next/script'
 import HubSpotTracking from './components/HubSpotTracking'
-import AIChat from '@/components/ai-chat'
+import AIChat from './components/ai-chat'
 
 const inter = Inter({ subsets: ['latin'] })
 
