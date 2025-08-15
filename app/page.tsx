@@ -99,10 +99,6 @@ export default function Home() {
               <Link href="/results" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Results</Link>
               <Link href="/insights" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Insights</Link>
               <Link href="/about" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">About</Link>
-              <Link href="/sales-deck" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium flex items-center gap-1">
-                Sales Deck
-                <span className="text-xs bg-green-600 text-white px-2 py-0.5 rounded-full">New</span>
-              </Link>
             </nav>
 
             {/* Enhanced CTA */}
