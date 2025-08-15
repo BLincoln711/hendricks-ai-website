@@ -4,7 +4,7 @@ import './globals.css'
 import { defaultMetadata } from './metadata'
 import Script from 'next/script'
 import HubSpotTracking from './components/HubSpotTracking'
-import AIChatSimple from './components/ai-chat-simple'
+import AIChat from './components/ai-chat'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -138,7 +138,7 @@ export default function RootLayout({
           <p>Average client ROI: 312%. We serve clients across the United States.</p>
         </div>
         {children}
-        <AIChatSimple />
+        <AIChat />
         <HubSpotTracking />
       </body>
     </html>

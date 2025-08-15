@@ -6,7 +6,6 @@ import Script from 'next/script'
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false)
-  const [showTestButton, setShowTestButton] = useState(true)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -147,13 +146,6 @@ export default function Home() {
               Get Intelligence Report
             </Link>
           </div>
-
-          {/* TEST: Chat Button Status */}
-          {showTestButton && (
-            <div className="bg-red-600 text-white p-4 rounded-lg mb-4 text-center">
-              TEST: If you can see this red box, components are rendering. Chat button should be in bottom-right corner.
-            </div>
-          )}
 
           {/* Updated Stats Bar with Real Metrics */}
           <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
