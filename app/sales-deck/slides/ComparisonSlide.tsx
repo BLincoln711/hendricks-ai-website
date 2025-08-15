@@ -59,7 +59,7 @@ export default function ComparisonSlide() {
               <tr className="border-b border-gray-800/50">
                 <td className="p-6 text-gray-300">Campaign launch time</td>
                 <td className="p-6 text-center bg-gradient-to-br from-blue-900/20 to-purple-900/20">
-                  <div className="text-green-400 font-semibold">< 24 hours</div>
+                  <div className="text-green-400 font-semibold">&lt; 24 hours</div>
                 </td>
                 <td className="p-6 text-center bg-gray-900/30">
                   <div className="text-gray-400">2-4 weeks</div>
