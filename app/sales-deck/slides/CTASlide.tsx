@@ -1,4 +1,4 @@
-import { Calendar, Phone, Mail, ArrowRight, Clock, Star } from 'lucide-react'
+import { Calendar, Mail, ArrowRight, Clock, Star } from 'lucide-react'
 
 export default function CTASlide() {
   return (
@@ -72,11 +72,7 @@ export default function CTASlide() {
         {/* Alternative Contact Options */}
         <div className="space-y-4">
           <p className="text-gray-400">Prefer to reach out directly?</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <a href="tel:+1-888-PREDICT" className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors">
-              <Phone className="w-5 h-5" />
-              <span>1-888-PREDICT</span>
-            </a>
+          <div className="flex items-center justify-center">
             <a href="mailto:growth@hendricks.ai" className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors">
               <Mail className="w-5 h-5" />
               <span>growth@hendricks.ai</span>

@@ -16,7 +16,6 @@ import ComparisonSlide from './slides/ComparisonSlide'
 import ROISlide from './slides/ROISlide'
 import PricingSlide from './slides/PricingSlide'
 import TimelineSlide from './slides/TimelineSlide'
-import TeamSlide from './slides/TeamSlide'
 import CTASlide from './slides/CTASlide'
 
 const slides = [
@@ -31,8 +30,7 @@ const slides = [
   { id: 9, component: ROISlide, title: 'ROI Calculator' },
   { id: 10, component: PricingSlide, title: 'Pricing' },
   { id: 11, component: TimelineSlide, title: 'Timeline' },
-  { id: 12, component: TeamSlide, title: 'Our Team' },
-  { id: 13, component: CTASlide, title: 'Next Steps' }
+  { id: 12, component: CTASlide, title: 'Next Steps' }
 ]
 
 export default function SalesDeck() {
