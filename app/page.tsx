@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { Sparkles } from 'lucide-react'
 import DemandPredictionDemo from './components/demand-prediction-demo'
+import PartnerLogos from './components/partner-logos'
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false)
@@ -98,6 +99,10 @@ export default function Home() {
               <Link href="/results" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Results</Link>
               <Link href="/insights" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Insights</Link>
               <Link href="/about" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">About</Link>
+              <Link href="/sales-deck" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium flex items-center gap-1">
+                Sales Deck
+                <span className="text-xs bg-green-600 text-white px-2 py-0.5 rounded-full">New</span>
+              </Link>
             </nav>
 
             {/* Enhanced CTA */}
@@ -214,13 +219,9 @@ export default function Home() {
               </div>
 
               {/* Client Logos */}
-              <div className="flex items-center gap-4">
-                <p className="text-xs text-gray-500 uppercase tracking-wider">Trusted by</p>
-                <div className="flex items-center gap-6 opacity-50">
-                  {['Fortune 500', 'Y Combinator', 'TechStars'].map((client, i) => (
-                    <span key={i} className="text-xs font-medium text-gray-400">{client}</span>
-                  ))}
-                </div>
+              <div className="space-y-4">
+                <p className="text-xs text-gray-500 uppercase tracking-wider">Trusted by Industry Leaders</p>
+                <PartnerLogos />
               </div>
             </div>
 
