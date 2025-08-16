@@ -102,7 +102,7 @@ export default function Home() {
             {/* Simplified Navigation */}
             <nav className="hidden md:flex items-center space-x-6">
               <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Solutions</Link>
-              <Link href="/" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium flex items-center gap-1">
+              <Link href="/demo" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium flex items-center gap-1">
                 Live Demo
                 <span className="text-xs text-green-400">●</span>
               </Link>
