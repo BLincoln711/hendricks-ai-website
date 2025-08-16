@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { Sparkles } from 'lucide-react'
 import DemandPredictionDemo from './components/demand-prediction-demo'
+import MarketDemandPredictor from './components/market-demand-predictor'
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false)
@@ -1044,6 +1045,13 @@ export default function Home() {
               <p className="text-sm text-gray-400 mt-1">Advance Notice</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Market Demand Predictor Widget */}
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <MarketDemandPredictor />
         </div>
       </section>
 
