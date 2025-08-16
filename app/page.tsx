@@ -786,61 +786,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Results/Testimonials Section */}
-      <section id="results" className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-900 to-black"></div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Proven Results
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Real companies. Real results. Real ROI.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                company: 'E-Commerce Giant',
-                result: '312% ROI',
-                testimonial: 'Hendricks.AI predicted Black Friday demand patterns 3 weeks early. We dominated while competitors scrambled.',
-                author: 'Sarah Chen, CMO',
-                metric: '$2.3M additional revenue'
-              },
-              {
-                company: 'SaaS Startup',
-                result: '14% Conversion Lift',
-                testimonial: 'Google Performance Max optimization drove 14% higher conversions at 32% lower CPA. Game-changing.',
-                author: 'Michael Rodriguez, Growth Lead',
-                metric: '5,400 new customers'
-              },
-              {
-                company: 'B2B Enterprise',
-                result: '2.6x Engagement',
-                testimonial: 'Bing Performance Max integration reached decision-makers we never could before. LinkedIn targeting is incredible.',
-                author: 'Jennifer Park, VP Marketing',
-                metric: '73% pipeline increase'
-              }
-            ].map((item, index) => (
-              <div key={index} className="bg-gradient-to-b from-gray-800/50 to-gray-900/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-700 hover:border-blue-500/50 transition-all duration-300 transform hover:-translate-y-2">
-                <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
-                  {item.result}
-                </div>
-                <div className="text-sm text-green-400 mb-4">{item.metric}</div>
-                <p className="text-gray-300 mb-6 italic">&quot;{item.testimonial}&quot;</p>
-                <div className="border-t border-gray-700 pt-4">
-                  <p className="font-semibold">{item.author}</p>
-                  <p className="text-sm text-gray-400">{item.company}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Enterprise Solutions */}
       <section className="py-24 bg-gradient-to-b from-black via-blue-950/10 to-black">
