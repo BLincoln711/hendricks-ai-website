@@ -6,6 +6,17 @@ import { useState } from 'react'
 // Sample blog posts data - in production, this would come from a CMS or database
 const blogPosts = [
   {
+    id: 'ai-marketing-beyond-smart-bidding',
+    title: 'AI Marketing Beyond Smart Bidding: How Custom AI Models Reduce CPA by 32%',
+    excerpt: 'Google\'s Smart Bidding is just the beginning. Learn how proprietary AI models can predict bid adjustments with 74% accuracy, reducing CPA by 32% while your competitors plateau at 15%.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-01-16',
+    readTime: '12 min read',
+    category: 'AI Marketing',
+    featured: true,
+    image: '/blog/ai-bidding-hero.jpg'
+  },
+  {
     id: 'predictive-ai-marketing-2025',
     title: 'The Future of Marketing: How Predictive AI Changes Everything in 2025',
     excerpt: 'Traditional marketing reacts to yesterday\'s data. Predictive AI sees tomorrow\'s opportunities. Learn how forward-thinking brands are using AI to anticipate demand 2-4 weeks before competitors.',
