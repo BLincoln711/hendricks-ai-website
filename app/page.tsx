@@ -96,6 +96,10 @@ export default function Home() {
             {/* Simplified Navigation */}
             <nav className="hidden md:flex items-center space-x-6">
               <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Solutions</Link>
+              <Link href="/demo" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium flex items-center gap-1">
+                Live Demo
+                <span className="text-xs text-green-400">●</span>
+              </Link>
               <Link href="/results" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Results</Link>
               <Link href="/insights" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Insights</Link>
               <Link href="/about" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">About</Link>
@@ -209,13 +213,16 @@ export default function Home() {
                   </svg>
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </Link>
-                <button className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-lg font-semibold text-lg hover:bg-white/10 transition-all duration-300 inline-flex items-center justify-center gap-2">
+                <Link 
+                  href="/demo"
+                  className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-lg font-semibold text-lg hover:bg-white/10 transition-all duration-300 inline-flex items-center justify-center gap-2"
+                >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  Watch 2-Min Demo
-                </button>
+                  See Live Predictions
+                </Link>
               </div>
 
             </div>
@@ -1045,13 +1052,6 @@ export default function Home() {
               <p className="text-sm text-gray-400 mt-1">Advance Notice</p>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Market Demand Predictor Widget */}
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <MarketDemandPredictor />
         </div>
       </section>
 
