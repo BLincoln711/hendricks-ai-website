@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { BreadcrumbSchema } from '../components/seo-improvements'
 
 export default function SolutionsPage() {
   const [activeService, setActiveService] = useState(0)
@@ -178,6 +179,13 @@ export default function SolutionsPage() {
   ]
 
   return (
+    <>
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Home', url: 'https://hendricks.ai' },
+          { name: 'Solutions', url: 'https://hendricks.ai/solutions' }
+        ]} 
+      />
     <main className="min-h-screen bg-black text-white">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
@@ -217,6 +225,17 @@ export default function SolutionsPage() {
             The only agency mastering both Google Performance Max & Bing Performance Max ecosystems 
             with predictive AI that sees demand 2-4 weeks early.
           </p>
+        </div>
+      </section>
+
+      {/* Quick Answer Box for AI Search Engines */}
+      <section className="py-8 bg-gray-900/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-blue-950/30 border-l-4 border-blue-500 p-6 rounded-r-lg">
+            <p className="text-gray-300">
+              <strong className="text-white">Quick Answer:</strong> Hendricks.AI offers 6 core solutions: Demand Intelligence (predict market demand 2-4 weeks early), Google Performance Max optimization, Bing Performance Max management, Full-Funnel Demand Capture, Conversion Intelligence, and Intelligence Command dashboard. All solutions leverage proprietary AI to deliver 74% prediction accuracy and 312% average ROI.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -353,5 +372,6 @@ export default function SolutionsPage() {
         </div>
       </section>
     </main>
+    </>
   )
 }
