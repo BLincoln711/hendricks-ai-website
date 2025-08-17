@@ -10,34 +10,6 @@ export default function SolutionsPage() {
   const services = [
     {
       id: 0,
-      title: 'Demand Intelligence',
-      subtitle: 'Predict Market Demand 2-4 Weeks Early',
-      icon: '🔮',
-      gradient: 'from-blue-500 to-purple-500',
-      description: 'Our proprietary AI models analyze billions of signals to predict market demand with 74% accuracy, giving you a 2-4 week advantage over competitors.',
-      features: [
-        'Custom ML models trained on your industry data',
-        '2-4 week advance demand predictions',
-        '74% prediction accuracy',
-        'Real-time signal monitoring',
-        'Competitor movement tracking',
-        'Market shift alerts'
-      ],
-      benefits: [
-        'Position inventory before demand spikes',
-        'Optimize ad spend timing',
-        'Capture market share before competitors react',
-        'Reduce waste from overproduction'
-      ],
-      pricing: 'Starting at $5,000/month',
-      caseStudy: {
-        client: 'E-Commerce Giant',
-        result: '312% ROI in 6 months',
-        story: 'Predicted Black Friday trends 3 weeks early, allowing strategic inventory and ad positioning.'
-      }
-    },
-    {
-      id: 1,
       title: 'Predictive Intelligence',
       subtitle: 'See Tomorrow\'s Opportunities Today',
       icon: '🔮',
@@ -65,63 +37,42 @@ export default function SolutionsPage() {
       }
     },
     {
-      id: 2,
+      id: 1,
       title: 'Cross-Channel Orchestration',
-      subtitle: 'Unified Intelligence Across Every Channel',
+      subtitle: 'Master Every Channel, Platform & Ecosystem',
       icon: '🎯',
       gradient: 'from-green-500 to-blue-500',
-      description: 'Our AI orchestrates your presence across Google, Microsoft, Meta, and emerging platforms, ensuring you capture demand wherever it appears with perfect timing.',
+      description: 'Our AI orchestrates your presence across Google, Microsoft, Meta, and emerging platforms. Leverage every placement, format, and opportunity within each ecosystem while ensuring perfect timing and budget allocation.',
       features: [
         'Unified campaign management across all platforms',
+        'Google Performance Max mastery',
+        'Microsoft Advertising ecosystem optimization',
         'AI-powered budget allocation',
         'Cross-channel attribution modeling',
-        'Predictive channel performance',
+        'YouTube & video intelligence',
+        'Shopping & marketplace optimization',
+        'Display network intelligence',
         'Real-time bid optimization',
+        'Emerging platform identification',
         'Automated creative adaptation'
       ],
       benefits: [
         '40% reduction in wasted spend',
-        'Capture demand on every channel',
-        'Unified customer journey tracking',
-        'Maximize ROI with AI allocation'
-      ],
-      pricing: 'Starting at $15,000/month + ad spend',
-      caseStudy: {
-        client: 'Multi-Channel Retailer',
-        result: '5x efficiency, 67% CAC reduction',
-        story: 'AI predicted which channels would drive conversions, reallocating budget in real-time.'
-      }
-    },
-    {
-      id: 3,
-      title: 'Ecosystem Intelligence',
-      subtitle: 'Master Google & Microsoft\'s Full Ecosystems',
-      icon: '📢',
-      gradient: 'from-orange-500 to-red-500',
-      description: 'Leverage every placement, format, and opportunity within Google and Microsoft ecosystems. Our AI identifies untapped channels and emerging platforms before competitors discover them.',
-      features: [
-        'Google Performance Max mastery',
-        'Microsoft Advertising ecosystem',
-        'YouTube & video intelligence',
-        'Shopping & marketplace optimization',
-        'Display network intelligence',
-        'Emerging platform identification'
-      ],
-      benefits: [
         'First-mover advantage on new formats',
         'Access hidden inventory opportunities',
+        'Capture demand on every channel',
         'Maximize ecosystem synergies',
-        'Capture demand everywhere it exists'
+        'Unified customer journey tracking'
       ],
-      pricing: 'Starting at $20,000/month',
+      pricing: 'Starting at $20,000/month + ad spend',
       caseStudy: {
         client: 'E-commerce Platform',
         result: '156% revenue growth, 89% market share',
-        story: 'Discovered untapped Microsoft Shopping opportunities 3 weeks before competitors.'
+        story: 'AI mastered cross-channel orchestration while discovering untapped Microsoft Shopping opportunities 3 weeks before competitors.'
       }
     },
     {
-      id: 4,
+      id: 2,
       title: 'Intelligence Command',
       subtitle: 'Your AI Marketing War Room',
       icon: '📊',
@@ -205,7 +156,7 @@ export default function SolutionsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-blue-950/30 border-l-4 border-blue-500 p-6 rounded-r-lg">
             <p className="text-gray-300">
-              <strong className="text-white">Quick Answer:</strong> Hendricks.AI offers 5 core solutions: Demand Intelligence (predict market demand 2-4 weeks early), Predictive Intelligence (see tomorrow's opportunities today), Cross-Channel Orchestration (unified intelligence across every channel), Ecosystem Intelligence (master Google & Microsoft's full ecosystems), and Intelligence Command dashboard. All solutions leverage proprietary AI to deliver 74% prediction accuracy and 312% average ROI.
+              <strong className="text-white">Quick Answer:</strong> Hendricks.AI offers 3 core solutions: Predictive Intelligence (see tomorrow's opportunities today with 74% accuracy), Cross-Channel Orchestration (master every channel, platform & ecosystem with unified AI), and Intelligence Command (your AI marketing war room). All solutions leverage proprietary AI to deliver 2-4 week advantage over competitors and 312% average ROI.
             </p>
           </div>
         </div>
@@ -214,7 +165,7 @@ export default function SolutionsPage() {
       {/* Service Selector */}
       <section className="py-12 border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {services.map((service, index) => (
               <button
                 key={service.id}

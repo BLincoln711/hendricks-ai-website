@@ -859,7 +859,6 @@ export default function Home() {
               <ul className="space-y-2 text-gray-400">
                 <li><Link href="/solutions" className="hover:text-white transition-colors">Predictive Intelligence</Link></li>
                 <li><Link href="/solutions" className="hover:text-white transition-colors">Cross-Channel Orchestration</Link></li>
-                <li><Link href="/solutions" className="hover:text-white transition-colors">Ecosystem Intelligence</Link></li>
                 <li><Link href="/solutions" className="hover:text-white transition-colors">Intelligence Command</Link></li>
               </ul>
             </div>
