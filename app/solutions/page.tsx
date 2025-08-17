@@ -38,118 +38,90 @@ export default function SolutionsPage() {
     },
     {
       id: 1,
-      title: 'Google Performance Max',
-      subtitle: 'Master Google\'s AI Ecosystem',
-      icon: '🚀',
+      title: 'Predictive Intelligence',
+      subtitle: 'See Tomorrow\'s Opportunities Today',
+      icon: '🔮',
       gradient: 'from-purple-500 to-pink-500',
-      description: 'Leverage Google\'s Performance Max campaigns with our advanced optimization strategies, delivering 14% higher conversions at scale.',
+      description: 'Our core predictive engine analyzes millions of signals to identify market opportunities 2-4 weeks before they materialize, giving you first-mover advantage.',
       features: [
-        'Performance Max campaign setup & management',
-        'AI-powered bid optimization',
-        'Dynamic creative testing',
-        'Cross-channel attribution',
-        'Smart Shopping integration',
-        'YouTube & Display expansion'
+        'Market demand prediction with 74% accuracy',
+        'Competitor movement tracking',
+        'Seasonal trend forecasting',
+        'Customer behavior prediction',
+        'Budget optimization recommendations',
+        'Weekly predictive reports'
       ],
       benefits: [
-        '14% average conversion lift',
-        '95% impression share coverage',
-        'Automated budget allocation',
-        'Simplified campaign management'
+        'Act 2-4 weeks before competitors',
+        'Capture demand at lower costs',
+        'Eliminate reactive marketing',
+        'Strategic resource allocation'
       ],
-      pricing: 'Starting at $7,500/month + ad spend',
+      pricing: 'Starting at $10,000/month',
       caseStudy: {
-        client: 'D2C Fashion Brand',
-        result: '14% conversion lift, 32% lower CPA',
-        story: 'Transformed scattered campaigns into unified Performance Max strategy.'
+        client: 'Enterprise SaaS Company',
+        result: '67% reduction in CAC',
+        story: 'Predicted enterprise buying surge, captured demand before competition.'
       }
     },
     {
       id: 2,
-      title: 'Bing Performance Max',
-      subtitle: 'Dominate the Microsoft Ecosystem',
+      title: 'Cross-Channel Orchestration',
+      subtitle: 'Unified Intelligence Across Every Channel',
       icon: '🎯',
       gradient: 'from-green-500 to-blue-500',
-      description: 'Master Bing Performance Max to reach high-value B2B audiences across the Microsoft ecosystem with 2.6x higher engagement rates.',
+      description: 'Our AI orchestrates your presence across Google, Microsoft, Meta, and emerging platforms, ensuring you capture demand wherever it appears with perfect timing.',
       features: [
-        'Bing Performance Max campaigns',
-        'LinkedIn B2B integration',
-        'Microsoft Edge targeting',
-        'Cross-Microsoft inventory',
-        'AI-powered optimization',
-        'Audience intelligence'
+        'Unified campaign management across all platforms',
+        'AI-powered budget allocation',
+        'Cross-channel attribution modeling',
+        'Predictive channel performance',
+        'Real-time bid optimization',
+        'Automated creative adaptation'
       ],
       benefits: [
-        '2.6x higher engagement rates',
-        '32% lower CPA for B2B',
-        'Access to exclusive placements',
-        'First-mover advantage'
+        '40% reduction in wasted spend',
+        'Capture demand on every channel',
+        'Unified customer journey tracking',
+        'Maximize ROI with AI allocation'
       ],
-      pricing: 'Starting at $10,000/month + ad spend',
+      pricing: 'Starting at $15,000/month + ad spend',
       caseStudy: {
-        client: 'B2B SaaS Company',
-        result: '2.6x engagement, 73% pipeline increase',
-        story: 'Reached decision-makers directly through Bing Performance Max ecosystem.'
+        client: 'Multi-Channel Retailer',
+        result: '5x efficiency, 67% CAC reduction',
+        story: 'AI predicted which channels would drive conversions, reallocating budget in real-time.'
       }
     },
     {
       id: 3,
-      title: 'Amplification Engine',
-      subtitle: 'Multi-Channel Orchestration',
+      title: 'Ecosystem Intelligence',
+      subtitle: 'Master Google & Microsoft\'s Full Ecosystems',
       icon: '📢',
       gradient: 'from-orange-500 to-red-500',
-      description: 'Synchronize your presence across all channels at the perfect moment, ensuring you\'re everywhere your customers are when demand peaks.',
+      description: 'Leverage every placement, format, and opportunity within Google and Microsoft ecosystems. Our AI identifies untapped channels and emerging platforms before competitors discover them.',
       features: [
-        'Cross-platform campaign sync',
-        'Dynamic budget allocation',
-        'Real-time performance optimization',
-        'Unified reporting dashboard',
-        'API integrations',
-        'Custom automation workflows'
+        'Google Performance Max mastery',
+        'Microsoft Advertising ecosystem',
+        'YouTube & video intelligence',
+        'Shopping & marketplace optimization',
+        'Display network intelligence',
+        'Emerging platform identification'
       ],
       benefits: [
-        'Unified campaign management',
-        'Consistent messaging across channels',
-        'Maximized reach at critical moments',
-        'Reduced management overhead'
+        'First-mover advantage on new formats',
+        'Access hidden inventory opportunities',
+        'Maximize ecosystem synergies',
+        'Capture demand everywhere it exists'
       ],
-      pricing: 'Starting at $15,000/month',
+      pricing: 'Starting at $20,000/month',
       caseStudy: {
-        client: 'Multi-location Retailer',
-        result: '5x efficiency, 45% cost reduction',
-        story: 'Unified 50+ local campaigns into single intelligent system.'
+        client: 'E-commerce Platform',
+        result: '156% revenue growth, 89% market share',
+        story: 'Discovered untapped Microsoft Shopping opportunities 3 weeks before competitors.'
       }
     },
     {
       id: 4,
-      title: 'Conversion Capture',
-      subtitle: 'Turn Predictions into Profits',
-      icon: '💰',
-      gradient: 'from-pink-500 to-purple-500',
-      description: 'Convert demand predictions into revenue with AI-optimized landing pages, cart recovery, and conversion rate optimization.',
-      features: [
-        'AI-powered landing page optimization',
-        'Dynamic content personalization',
-        'Cart abandonment recovery',
-        'A/B testing automation',
-        'Heatmap & user flow analysis',
-        'Conversion funnel optimization'
-      ],
-      benefits: [
-        '3-4x conversion rate improvement',
-        '312% average ROI',
-        'Reduced cart abandonment',
-        'Higher customer lifetime value'
-      ],
-      pricing: 'Starting at $8,000/month',
-      caseStudy: {
-        client: 'Subscription Service',
-        result: '4x conversion rate, 312% ROI',
-        story: 'Transformed landing pages based on predicted demand patterns.'
-      }
-    },
-    {
-      id: 5,
       title: 'Intelligence Command',
       subtitle: 'Your AI Marketing War Room',
       icon: '📊',
@@ -222,8 +194,8 @@ export default function SolutionsPage() {
             </span>
           </h1>
           <p className="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto">
-            The only agency mastering both Google Performance Max & Bing Performance Max ecosystems 
-            with predictive AI that sees demand 2-4 weeks early.
+            Unified predictive intelligence across every marketing channel, ecosystem, and platform. 
+            See demand 2-4 weeks before competitors with 74% accuracy.
           </p>
         </div>
       </section>
@@ -233,7 +205,7 @@ export default function SolutionsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-blue-950/30 border-l-4 border-blue-500 p-6 rounded-r-lg">
             <p className="text-gray-300">
-              <strong className="text-white">Quick Answer:</strong> Hendricks.AI offers 6 core solutions: Demand Intelligence (predict market demand 2-4 weeks early), Google Performance Max optimization, Bing Performance Max management, Full-Funnel Demand Capture, Conversion Intelligence, and Intelligence Command dashboard. All solutions leverage proprietary AI to deliver 74% prediction accuracy and 312% average ROI.
+              <strong className="text-white">Quick Answer:</strong> Hendricks.AI offers 5 core solutions: Demand Intelligence (predict market demand 2-4 weeks early), Predictive Intelligence (see tomorrow's opportunities today), Cross-Channel Orchestration (unified intelligence across every channel), Ecosystem Intelligence (master Google & Microsoft's full ecosystems), and Intelligence Command dashboard. All solutions leverage proprietary AI to deliver 74% prediction accuracy and 312% average ROI.
             </p>
           </div>
         </div>
@@ -242,7 +214,7 @@ export default function SolutionsPage() {
       {/* Service Selector */}
       <section className="py-12 border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {services.map((service, index) => (
               <button
                 key={service.id}
