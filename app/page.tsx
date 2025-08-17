@@ -644,41 +644,52 @@ export default function Home() {
               </span>
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Our proprietary system that moves you from Reactive to Predictive marketing in three phases
+              Unified intelligence across every major marketing channel
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                step: '01',
-                title: 'PREDICT',
-                description: 'Our AI analyzes billions of signals to identify demand 2-4 weeks before it materializes',
-                icon: '🔮',
-                timeline: 'Weeks -4 to -2'
+                category: 'SEARCH & SHOPPING',
+                title: 'High-Intent Capture',
+                description: 'Dominate when prospects are ready to buy',
+                icon: '🔍',
+                channels: ['Google Ads', 'Bing Ads', 'Google Shopping', 'Microsoft Shopping'],
+                color: 'from-blue-500 to-cyan-500'
               },
               {
-                step: '02',
-                title: 'AMPLIFY',
-                description: 'Position your brand exactly where demand will spike, before competitors react',
-                icon: '🚀',
-                timeline: 'Weeks -2 to 0'
+                category: 'DISPLAY & REACH',
+                title: 'Early Demand Signals',
+                description: 'Identify and nurture future customers',
+                icon: '🎯',
+                channels: ['Google Display Network', 'Microsoft Audience', 'YouTube Ads', 'LinkedIn Ads'],
+                color: 'from-purple-500 to-pink-500'
               },
               {
-                step: '03',
-                title: 'DOMINATE',
-                description: 'Capture 73% share of voice with 5x conversion rates when demand peaks',
-                icon: '👑',
-                timeline: 'Week 0+'
+                category: 'AI PLATFORMS',
+                title: 'Predictive Optimization',
+                description: 'Let machine learning maximize performance',
+                icon: '🤖',
+                channels: ['Performance Max', 'Demand Gen', 'Discovery Ads', 'Smart Campaigns'],
+                color: 'from-green-500 to-blue-500'
               }
             ].map((item, index) => (
               <div key={index} className="relative group">
                 <div className="bg-gradient-to-b from-gray-900 to-black p-8 rounded-2xl border border-gray-800 hover:border-blue-500/50 transition-all duration-300 transform hover:-translate-y-2">
-                  <div className="text-6xl mb-4">{item.icon}</div>
-                  <div className="text-blue-400 font-bold text-sm mb-2">PHASE {item.step}</div>
-                  <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
-                  <p className="text-xs text-purple-400 mb-3">{item.timeline}</p>
-                  <p className="text-gray-400">{item.description}</p>
+                  <div className="text-5xl mb-4 flex justify-center">{item.icon}</div>
+                  <div className="text-blue-400 font-bold text-xs mb-2 text-center">{item.category}</div>
+                  <h3 className="text-xl font-bold mb-3 text-center">{item.title}</h3>
+                  <p className="text-sm text-gray-400 mb-6 text-center">{item.description}</p>
+                  
+                  <div className="space-y-2">
+                    {item.channels.map((channel, idx) => (
+                      <div key={idx} className="flex items-center gap-2">
+                        <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.color}`}></div>
+                        <span className="text-sm text-gray-300">{channel}</span>
+                      </div>
+                    ))}
+                  </div>
                   
                   {/* Connecting Line */}
                   {index < 2 && (
