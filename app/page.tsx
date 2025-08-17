@@ -210,26 +210,6 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Supporting Details */}
-              <p className="text-lg text-gray-400 mb-8">
-                The Hendricks Prediction Engine™ analyzes 2.8M+ signals daily to identify opportunities 2-4 weeks before competitors see them.
-              </p>
-
-              {/* Trust Metrics */}
-              <div className="grid grid-cols-3 gap-4 mb-10">
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-                  <div className="text-2xl font-bold text-cyan-400">74%</div>
-                  <div className="text-xs text-gray-400">Prediction Accuracy</div>
-                </div>
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-                  <div className="text-2xl font-bold text-purple-400">312%</div>
-                  <div className="text-xs text-gray-400">Average ROI</div>
-                </div>
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4">
-                  <div className="text-2xl font-bold text-blue-400">23 Days</div>
-                  <div className="text-xs text-gray-400">Avg Lead Time</div>
-                </div>
-              </div>
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -618,6 +598,34 @@ export default function Home() {
                 <div className="text-3xl font-bold text-white mb-2">10%</div>
                 <p className="text-gray-400">ROAS lift with Bing Performance Max</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Metrics Bar - Proof of Performance */}
+      <section className="py-16 bg-gradient-to-r from-blue-950/20 via-purple-950/20 to-blue-950/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <p className="text-lg text-gray-300">
+              The Hendricks Prediction Engine™ analyzes <span className="text-cyan-400 font-semibold">2.8M+ signals daily</span> to identify opportunities before competitors
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2">74%</div>
+              <div className="text-gray-400">Prediction Accuracy</div>
+              <div className="text-sm text-gray-500 mt-1">Validated across 10,000+ campaigns</div>
+            </div>
+            <div className="text-center">
+              <div className="text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">312%</div>
+              <div className="text-gray-400">Average ROI</div>
+              <div className="text-sm text-gray-500 mt-1">10x industry standard</div>
+            </div>
+            <div className="text-center">
+              <div className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2">2-4 Weeks</div>
+              <div className="text-gray-400">Market Advantage</div>
+              <div className="text-sm text-gray-500 mt-1">Before demand materializes</div>
             </div>
           </div>
         </div>
