@@ -197,12 +197,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Three-Stage Process */}
+      {/* Our Predictive Process */}
       <section className="py-20 bg-gradient-to-b from-gray-900/20 to-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold mb-12 text-center">
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Our Three-Stage AI Growth Process
+              The Predictive Advantage Process
             </span>
           </h2>
 
@@ -210,34 +210,34 @@ export default function AboutPage() {
             {[
               {
                 stage: '01',
-                title: 'Pre-Intent Discovery',
-                subtitle: 'Google Demand Gen Campaigns',
+                title: 'Predict',
+                subtitle: 'See Tomorrow\'s Demand Today',
                 points: [
-                  'Reach high-value prospects before they search',
-                  '+3x ROAS compared to search-only campaigns',
-                  '-32% CPA through predictive audience targeting'
+                  'AI analyzes 2.8M+ signals daily',
+                  'Identify trends 2-4 weeks early',
+                  '74% prediction accuracy rate'
                 ],
                 gradient: 'from-blue-500 to-cyan-500'
               },
               {
                 stage: '02',
-                title: 'Cross-Channel Acceleration',
-                subtitle: 'Dual Performance Max Mastery',
+                title: 'Position',
+                subtitle: 'Get There Before Competition',
                 points: [
-                  'The only agency optimizing both Google & Microsoft Performance Max',
-                  '10% ROAS lift in global markets with Bing PMax',
-                  '2.6x higher engagement through Microsoft ecosystem integration'
+                  'Pre-position campaigns for emerging demand',
+                  'Capture lower-cost inventory early',
+                  'Build market dominance before surge'
                 ],
                 gradient: 'from-purple-500 to-pink-500'
               },
               {
                 stage: '03',
-                title: 'High-Intent Capture',
-                subtitle: 'AI Max for Search',
+                title: 'Profit',
+                subtitle: 'Maximize Returns at Scale',
                 points: [
-                  'Win when intent peaks with AI-driven coverage',
-                  '8x higher conversion rates at peak intent moments',
-                  'Full-funnel attribution across both ecosystems'
+                  '312% average ROI achieved',
+                  'First-mover advantage on trends',
+                  'Compound gains through prediction cycles'
                 ],
                 gradient: 'from-pink-500 to-red-500'
               }
@@ -262,12 +262,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Six Core Services */}
+      {/* Three Core Solutions */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold mb-12 text-center">
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Six Core Services That Define the Future
+              Three Solutions That Deliver 312% ROI
             </span>
           </h2>
 
@@ -275,33 +275,18 @@ export default function AboutPage() {
             {[
               {
                 number: '1',
-                title: 'Demand Intelligence',
-                description: 'Custom ML models trained on your industry data, delivering 2-4 week advance predictions with real-time signal monitoring and competitor movement tracking.'
+                title: 'Predictive Intelligence',
+                description: 'Our core AI engine analyzes millions of signals to predict market demand 2-4 weeks before it materializes, giving you first-mover advantage with 74% accuracy.'
               },
               {
                 number: '2',
-                title: 'Google Performance Max',
-                description: 'AI-powered bid optimization with dynamic creative testing, achieving 14% average conversion lift through cross-channel attribution.'
+                title: 'Cross-Channel Orchestration',
+                description: 'Unified campaign management across every channel, format, and placement. We orchestrate your presence across Google, Microsoft, and emerging platforms with AI-powered optimization.'
               },
               {
                 number: '3',
-                title: 'Bing Performance Max',
-                description: 'Cross-Microsoft inventory optimization with LinkedIn B2B integration, delivering 2.6x higher engagement rates through Edge and Microsoft ecosystem targeting.'
-              },
-              {
-                number: '4',
-                title: 'Amplification Engine',
-                description: 'Multi-channel orchestration with dynamic budget allocation, generating 5x efficiency gains through real-time performance optimization.'
-              },
-              {
-                number: '5',
-                title: 'Conversion Capture',
-                description: 'AI-powered landing page optimization with automated A/B testing, achieving 3-4x conversion rate improvement through intelligent cart recovery systems.'
-              },
-              {
-                number: '6',
                 title: 'Intelligence Command',
-                description: 'Custom KPI dashboards with predictive alert systems, white-label reporting, and real-time decision-making capabilities.'
+                description: 'Your real-time marketing war room with custom dashboards, predictive alerts, and white-label reporting. Make data-driven decisions before problems arise.'
               }
             ].map((service, index) => (
               <div key={index} className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl border border-gray-800 hover:border-blue-500/50 transition-all">
@@ -401,13 +386,13 @@ export default function AboutPage() {
               },
               {
                 title: 'We Master What Others Won\'t',
-                description: 'As the only agency truly optimizing both Google and Microsoft ecosystems, we capture demand wherever it emerges — from LinkedIn B2B audiences to Microsoft Edge users to traditional search queries.'
+                description: 'We orchestrate campaigns across every channel and platform, using predictive intelligence to position your brand exactly where demand will emerge — before competitors even know it exists.'
               },
               {
                 title: 'We Deliver What Others Don\'t',
                 items: [
                   'Transparent Predictions: Know exactly what\'s coming and why',
-                  'Dual-Ecosystem Dominance: One strategy, two platforms, total coverage',
+                  'Multi-Channel Mastery: One predictive strategy, every platform, total market coverage',
                   'Proactive Optimization: Adjustments before problems arise',
                   'White-Label Intelligence: Your brand, our predictive power'
                 ]
