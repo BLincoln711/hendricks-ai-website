@@ -103,7 +103,7 @@ export default function AboutPage() {
               <div className="sticky top-32">
                 <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-blue-500 to-purple-500 p-1">
                   <img 
-                    src="/brandon-headshot.jpg" 
+                    src="/brandon-lincoln-hendricks.jpg" 
                     alt="Brandon Lincoln Hendricks"
                     className="rounded-xl w-full"
                   />
