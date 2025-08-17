@@ -725,153 +725,42 @@ export default function Home() {
       </div>
 
 
-      {/* Enterprise Solutions */}
+      {/* Investment & ROI Guarantee */}
       <section className="py-24 bg-gradient-to-b from-black via-blue-950/10 to-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-900/30 border border-blue-800/50 rounded-full text-sm text-blue-400 mb-6">
-              <span>ENTERPRISE SOLUTIONS</span>
-            </div>
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              <span className="text-white">Evolution to </span>
-              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Predictive Marketing
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Enterprise-grade AI prediction technology. White-glove service. 
-              Guaranteed ROI or we work for free.
-            </p>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-900/30 border border-blue-800/50 rounded-full text-sm text-blue-400 mb-6">
+            <span>INVESTMENT</span>
           </div>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+            <span className="text-white">One Solution. </span>
+            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Complete Transformation.
+            </span>
+          </h2>
+          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+            The Hendricks Prediction Engine™ is a complete solution. No tiers. No upsells. 
+            Just predictive marketing dominance.
+          </p>
 
-          {/* Enterprise Tiers */}
-          <div className="grid lg:grid-cols-3 gap-8 mb-16">
-            {[
-              {
-                tier: 'GROWTH',
-                investment: '$10-25K',
-                timeline: 'per month',
-                ideal: 'Growing Brands',
-                features: [
-                  'AI predictions for 5 markets',
-                  'Google + Bing management',
-                  'Weekly prediction reports',
-                  'Dedicated success manager',
-                  'Custom prediction dashboard',
-                  '74% accuracy guarantee'
-                ],
-                highlight: 'Best for scaling businesses',
-                gradient: 'from-blue-600 to-cyan-600',
-                cta: 'Schedule Discovery Call'
-              },
-              {
-                tier: 'ENTERPRISE',
-                investment: '$25-50K',
-                timeline: 'per month',
-                ideal: 'Market Leaders',
-                features: [
-                  'Unlimited market predictions',
-                  'Full-funnel AI optimization',
-                  'Daily prediction updates',
-                  'C-suite strategy sessions',
-                  'Custom ML model training',
-                  'API access to predictions'
-                ],
-                highlight: 'Most popular for enterprises',
-                gradient: 'from-purple-600 to-pink-600',
-                cta: 'Get Executive Briefing',
-                recommended: true
-              },
-              {
-                tier: 'CUSTOM',
-                investment: '$50K+',
-                timeline: 'per month',
-                ideal: 'Fortune 500',
-                features: [
-                  'Bespoke AI solutions',
-                  'Dedicated data science team',
-                  'Real-time prediction API',
-                  'White-label dashboards',
-                  'Board-level reporting',
-                  'SLA guarantees'
-                ],
-                highlight: 'Full AI partnership',
-                gradient: 'from-cyan-600 to-blue-600',
-                cta: 'Contact Enterprise Team'
-              }
-            ].map((solution, index) => (
-              <div key={index} className={`relative group ${solution.recommended ? 'lg:scale-105' : ''}`}>
-                {solution.recommended && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                    <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                      RECOMMENDED
-                    </div>
-                  </div>
-                )}
-                <div className="relative h-full">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
-                  <div className={`relative bg-black border ${solution.recommended ? 'border-purple-500/50' : 'border-gray-800'} rounded-2xl p-8 h-full hover:border-cyan-500/50 transition-all duration-300`}>
-                    {/* Header */}
-                    <div className="mb-6">
-                      <h3 className={`text-lg font-bold mb-2 bg-gradient-to-r ${solution.gradient} bg-clip-text text-transparent`}>
-                        {solution.tier}
-                      </h3>
-                      <div className="mb-2">
-                        <span className="text-3xl font-bold text-white">{solution.investment}</span>
-                        <span className="text-gray-400 text-sm ml-2">{solution.timeline}</span>
-                      </div>
-                      <p className="text-sm text-gray-500">{solution.ideal}</p>
-                    </div>
-
-                    {/* Features */}
-                    <ul className="space-y-3 mb-8">
-                      {solution.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-3 text-sm">
-                          <span className="text-cyan-400 mt-0.5">•</span>
-                          <span className="text-gray-300">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Highlight */}
-                    <div className="mb-6 p-3 bg-gradient-to-r from-blue-950/50 to-purple-950/50 rounded-lg">
-                      <p className="text-xs text-center text-gray-300">{solution.highlight}</p>
-                    </div>
-
-                    {/* CTA */}
-                    <Link 
-                      href="/contact" 
-                      className={`block w-full py-3 text-center rounded-lg font-semibold bg-gradient-to-r ${solution.gradient} text-white hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300`}
-                    >
-                      {solution.cta}
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
+          {/* Investment Range */}
+          <div className="bg-gradient-to-r from-blue-950/30 to-purple-950/30 rounded-2xl p-8 border border-blue-500/20 mb-12">
+            <p className="text-lg text-gray-300 mb-4">
+              Investment typically ranges from <span className="text-2xl font-bold text-cyan-400">$15K-$50K</span> per month
+            </p>
+            <p className="text-gray-400">
+              Based on your scale and market complexity. Every client gets our complete Prediction Engine™.
+            </p>
           </div>
 
           {/* ROI Guarantee */}
-          <div className="bg-gradient-to-r from-blue-950/30 to-purple-950/30 rounded-2xl p-8 border border-blue-500/20 text-center">
-            <h3 className="text-2xl font-bold text-white mb-4">The Hendricks Guarantee</h3>
-            <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto">
-              We're so confident in our AI predictions that we guarantee a minimum 200% ROI 
-              within 6 months or we'll work for free until you hit that target.
+          <div className="bg-gradient-to-r from-green-950/30 to-emerald-950/30 rounded-2xl p-8 border border-green-500/20 text-center">
+            <h3 className="text-2xl font-bold text-white mb-4">ROI Guarantee</h3>
+            <p className="text-lg text-gray-300">
+              We guarantee <span className="text-2xl font-bold text-green-400">200% ROI</span> within 6 months
             </p>
-            <div className="flex items-center justify-center gap-8">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-cyan-400">200%</div>
-                <div className="text-sm text-gray-400">Minimum ROI</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-400">6</div>
-                <div className="text-sm text-gray-400">Months</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-400">$0</div>
-                <div className="text-sm text-gray-400">Risk</div>
-              </div>
-            </div>
+            <p className="text-sm text-gray-400 mt-2">
+              or we work for free until you hit that target
+            </p>
           </div>
         </div>
       </section>
