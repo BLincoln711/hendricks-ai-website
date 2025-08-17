@@ -49,7 +49,7 @@ export default function Home() {
         name: 'What is the average ROI with Hendricks.AI?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Clients achieve an average ROI of 312% through our predictive demand intelligence. We orchestrate demand capture across every channel, format, and placement within Google and Microsoft\'s ecosystems.'
+          text: 'Clients achieve an average ROI of 312% through our predictive intelligence platform. We predict market demand 2-4 weeks before it materializes, allowing you to capture opportunities while competitors are still analyzing last month\'s data.'
         }
       }
     ]
@@ -210,6 +210,21 @@ export default function Home() {
                 </div>
               </div>
 
+              {/* Problem Statements */}
+              <div className="mb-8 space-y-2">
+                <div className="flex items-center gap-2 text-sm text-gray-300">
+                  <span className="text-green-400">✓</span>
+                  <span>Predict market shifts 2-4 weeks before competitors</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-300">
+                  <span className="text-green-400">✓</span>
+                  <span>Eliminate 40% wasted ad spend with predictive optimization</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-gray-300">
+                  <span className="text-green-400">✓</span>
+                  <span>Know exactly which campaigns will drive revenue</span>
+                </div>
+              </div>
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -217,7 +232,7 @@ export default function Home() {
                   href="/contact" 
                   className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/25 inline-flex items-center justify-center gap-3 overflow-hidden"
                 >
-                  <span className="relative z-10">See Your Prediction Roadmap</span>
+                  <span className="relative z-10">Get Your Predictive Intelligence Audit</span>
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
@@ -842,7 +857,7 @@ export default function Home() {
             <div>
               <h4 className="font-semibold mb-4">Solutions</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><Link href="/solutions" className="hover:text-white transition-colors">Demand Intelligence</Link></li>
+                <li><Link href="/solutions" className="hover:text-white transition-colors">Predictive Intelligence</Link></li>
                 <li><Link href="/solutions" className="hover:text-white transition-colors">Cross-Channel Orchestration</Link></li>
                 <li><Link href="/solutions" className="hover:text-white transition-colors">Ecosystem Intelligence</Link></li>
                 <li><Link href="/solutions" className="hover:text-white transition-colors">Intelligence Command</Link></li>
@@ -872,7 +887,7 @@ export default function Home() {
           
           <div className="border-t border-gray-800 mt-12 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
-              <p className="text-gray-400 mb-4 md:mb-0">&copy; 2025 Hendricks.AI - Demand Intelligence to Demand Capture. All rights reserved.</p>
+              <p className="text-gray-400 mb-4 md:mb-0">&copy; 2025 Hendricks.AI - Stop Reacting. Start Predicting. All rights reserved.</p>
               <div className="flex space-x-6 text-sm">
                 <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link>
                 <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</Link>
