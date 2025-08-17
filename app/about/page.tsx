@@ -524,12 +524,11 @@ export default function AboutPage() {
                 />
               </Link>
               <p className="text-sm mb-4">
-                Demand Intelligence to Demand Capture. Transform your marketing with predictive AI technology.
+                The first AI Prediction Marketing Agency that sees demand 2-4 weeks before it happens with 74% accuracy.
               </p>
               <p className="text-xl font-semibold">
-                <span className="text-gray-400">Hendricks.AI:</span>{' '}
                 <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  Where Demand Intelligence Meets Demand Capture
+                  Stop Reacting. Start Predicting.
                 </span>
               </p>
             </div>
@@ -540,22 +539,17 @@ export default function AboutPage() {
               <ul className="space-y-2">
                 <li>
                   <Link href="/solutions" className="text-sm hover:text-white transition-colors duration-200">
-                    Demand Intelligence
+                    Predictive Intelligence
                   </Link>
                 </li>
                 <li>
                   <Link href="/solutions" className="text-sm hover:text-white transition-colors duration-200">
-                    Predictive Analytics
+                    Cross-Channel Orchestration
                   </Link>
                 </li>
                 <li>
                   <Link href="/solutions" className="text-sm hover:text-white transition-colors duration-200">
-                    Campaign Optimization
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/solutions" className="text-sm hover:text-white transition-colors duration-200">
-                    ROI Maximization
+                    Intelligence Command
                   </Link>
                 </li>
               </ul>

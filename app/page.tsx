@@ -116,7 +116,7 @@ export default function Home() {
                 href="/contact" 
                 className="group relative px-6 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 overflow-hidden"
               >
-                <span className="relative z-10">Get Free Report</span>
+                <span className="relative z-10">Book Strategy Call</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Link>
             </div>
@@ -659,52 +659,80 @@ export default function Home() {
               </span>
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Unified intelligence across every major marketing channel
+              Three powerful solutions that work together to dominate your market
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                category: 'SEARCH & SHOPPING',
-                title: 'High-Intent Capture',
-                description: 'Dominate when prospects are ready to buy',
-                icon: '🔍',
-                channels: ['Google Ads', 'Bing Ads', 'Google Shopping', 'Microsoft Shopping'],
-                color: 'from-blue-500 to-cyan-500'
+                title: 'Predictive Intelligence',
+                subtitle: 'See Tomorrow Today',
+                description: 'Our AI analyzes millions of signals to predict market demand 2-4 weeks before it materializes',
+                icon: '🔮',
+                benefits: [
+                  '74% prediction accuracy',
+                  '2-4 week advance warning',
+                  'Competitor movement tracking',
+                  'Demand surge detection'
+                ],
+                color: 'from-blue-500 to-cyan-500',
+                cta: 'Learn More',
+                href: '/solutions#predictive-intelligence'
               },
               {
-                category: 'DISPLAY & REACH',
-                title: 'Early Demand Signals',
-                description: 'Identify and nurture future customers',
+                title: 'Cross-Channel Orchestration',
+                subtitle: 'Execute Everywhere',
+                description: 'Unified campaign management across Google, Microsoft, and emerging platforms',
                 icon: '🎯',
-                channels: ['Google Display Network', 'Microsoft Audience', 'YouTube Ads', 'LinkedIn Ads'],
-                color: 'from-purple-500 to-pink-500'
+                benefits: [
+                  'All channels, one strategy',
+                  'Real-time optimization',
+                  '40% waste reduction',
+                  'Automated budget shifts'
+                ],
+                color: 'from-purple-500 to-pink-500',
+                cta: 'Learn More',
+                href: '/solutions#cross-channel'
               },
               {
-                category: 'AI PLATFORMS',
-                title: 'Predictive Optimization',
-                description: 'Let machine learning maximize performance',
-                icon: '🤖',
-                channels: ['Performance Max', 'Demand Gen', 'Discovery Ads', 'Smart Campaigns'],
-                color: 'from-green-500 to-blue-500'
+                title: 'Intelligence Command',
+                subtitle: 'Monitor & Optimize',
+                description: 'Real-time dashboards and AI-powered insights for data-driven decisions',
+                icon: '📊',
+                benefits: [
+                  'Custom KPI tracking',
+                  'Predictive alerts',
+                  'White-label reporting',
+                  '24/7 performance monitoring'
+                ],
+                color: 'from-green-500 to-blue-500',
+                cta: 'Learn More',
+                href: '/solutions#intelligence-command'
               }
-            ].map((item, index) => (
+            ].map((solution, index) => (
               <div key={index} className="relative group">
-                <div className="bg-gradient-to-b from-gray-900 to-black p-8 rounded-2xl border border-gray-800 hover:border-blue-500/50 transition-all duration-300 transform hover:-translate-y-2">
-                  <div className="text-5xl mb-4 flex justify-center">{item.icon}</div>
-                  <div className="text-blue-400 font-bold text-xs mb-2 text-center">{item.category}</div>
-                  <h3 className="text-xl font-bold mb-3 text-center">{item.title}</h3>
-                  <p className="text-sm text-gray-400 mb-6 text-center">{item.description}</p>
+                <div className="bg-gradient-to-b from-gray-900 to-black p-8 rounded-2xl border border-gray-800 hover:border-blue-500/50 transition-all duration-300 transform hover:-translate-y-2 h-full flex flex-col">
+                  <div className="text-5xl mb-4 flex justify-center">{solution.icon}</div>
+                  <h3 className="text-2xl font-bold mb-2 text-center">{solution.title}</h3>
+                  <p className="text-sm text-blue-400 mb-4 text-center font-medium">{solution.subtitle}</p>
+                  <p className="text-sm text-gray-400 mb-6 text-center flex-grow">{solution.description}</p>
                   
-                  <div className="space-y-2">
-                    {item.channels.map((channel, idx) => (
+                  <div className="space-y-2 mb-6">
+                    {solution.benefits.map((benefit, idx) => (
                       <div key={idx} className="flex items-center gap-2">
-                        <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.color}`}></div>
-                        <span className="text-sm text-gray-300">{channel}</span>
+                        <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${solution.color}`}></div>
+                        <span className="text-sm text-gray-300">{benefit}</span>
                       </div>
                     ))}
                   </div>
+                  
+                  <Link 
+                    href={solution.href}
+                    className={`block text-center py-2 px-4 rounded-lg bg-gradient-to-r ${solution.color} bg-opacity-10 text-white font-medium hover:bg-opacity-20 transition-all duration-300`}
+                  >
+                    {solution.cta} →
+                  </Link>
                   
                   {/* Connecting Line */}
                   {index < 2 && (
@@ -843,7 +871,7 @@ export default function Home() {
                 />
               </div>
               <p className="text-gray-400 mb-4 max-w-md">
-                The only AI-powered marketing intelligence platform that predicts demand 2-4 weeks early with 74% accuracy. We orchestrate demand capture across every channel within Google & Microsoft ecosystems.
+                The first AI Prediction Marketing Agency that sees demand 2-4 weeks before it happens with 74% accuracy. Stop reacting to yesterday's data. Start capturing tomorrow's opportunities.
               </p>
               <div className="flex space-x-4">
                 {['twitter', 'linkedin', 'facebook'].map((social) => (

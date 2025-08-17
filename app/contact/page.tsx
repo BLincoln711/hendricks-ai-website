@@ -27,11 +27,11 @@ export default function ContactPage() {
   ]
 
   const interestOptions = [
-    'Demand Intelligence',
-    'Google Performance Max',
-    'Bing Performance Max',
-    'Conversion Optimization',
-    'Full-Stack Management'
+    'Predictive Intelligence',
+    'Cross-Channel Orchestration',
+    'Intelligence Command',
+    'Full-Service Prediction',
+    'Custom AI Solutions'
   ]
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
