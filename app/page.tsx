@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Script from 'next/script'
 import { Sparkles } from 'lucide-react'
-import DemandPredictionDemo from './components/demand-prediction-demo'
 import MarketDemandPredictor from './components/market-demand-predictor'
 import { BreadcrumbSchema } from './components/seo-improvements'
 
@@ -663,107 +662,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Solutions Grid Section */}
-      <section id="solutions" className="py-20 bg-gradient-to-b from-black to-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Our Solutions
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              The only agency mastering both Google AI Max & Bing Performance Max ecosystems
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: 'Demand Intelligence',
-                description: 'Predict market demand 2-4 weeks early with 74% accuracy using proprietary AI models',
-                icon: '🔮',
-                gradient: 'from-blue-500 to-purple-500',
-                features: ['2-4 week advance', '74% accuracy', 'Custom ML models']
-              },
-              {
-                title: 'Google Performance Max',
-                description: 'Master Google\'s AI Max ecosystem with 14% higher conversions guaranteed',
-                icon: '🚀',
-                gradient: 'from-purple-500 to-pink-500',
-                features: ['AI Max for Search', 'Smart Bidding', '95% coverage']
-              },
-              {
-                title: 'Bing Performance Max',
-                description: 'Dominate Microsoft ecosystem with 2.6x engagement and 32% lower CPA',
-                icon: '🎯',
-                gradient: 'from-green-500 to-blue-500',
-                features: ['Microsoft AI', 'LinkedIn B2B', 'Edge targeting']
-              },
-              {
-                title: 'Amplification Engine',
-                description: 'Multi-channel orchestration that puts you everywhere at the perfect moment',
-                icon: '📢',
-                gradient: 'from-orange-500 to-red-500',
-                features: ['Cross-platform sync', 'Dynamic creative', 'Attribution']
-              },
-              {
-                title: 'Conversion Capture',
-                description: 'Turn predictions into profits with 3-4x conversion rate improvements',
-                icon: '💰',
-                gradient: 'from-pink-500 to-purple-500',
-                features: ['Landing page AI', 'Cart recovery', '312% ROI']
-              },
-              {
-                title: 'Intelligence Command',
-                description: 'Real-time dashboards and alerts for your AI marketing war room',
-                icon: '📊',
-                gradient: 'from-cyan-500 to-blue-500',
-                features: ['Custom KPIs', 'Predictive alerts', 'White-label']
-              }
-            ].map((service, index) => (
-              <Link href="/solutions" key={index} className="group relative overflow-hidden rounded-2xl bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-transparent transition-all duration-300 block cursor-pointer">
-                {/* Gradient Background on Hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
-                
-                <div className="relative p-8">
-                  <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
-                    {service.icon}
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-400 mb-4 text-sm">
-                    {service.description}
-                  </p>
-                  {/* Feature pills */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {service.features.map((feature, idx) => (
-                      <span key={idx} className="text-xs px-2 py-1 bg-gray-800 rounded-full text-gray-300">
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
-                  {/* Learn More Link */}
-                  <div className="mt-4 text-sm font-semibold text-blue-400 group-hover:text-blue-300 transition-colors">
-                    Learn More →
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          {/* CTA Below Solutions */}
-          <div className="text-center mt-12">
-            <p className="text-lg text-gray-300 mb-6">
-              Stop reacting to yesterday&apos;s data. Start predicting tomorrow&apos;s opportunities.
-            </p>
-            <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-2xl transform hover:scale-105 transition-all">
-              See Your Custom Intelligence Report
-            </button>
-          </div>
-        </div>
-      </section>
 
       {/* LLM FAQ Block for better AI discovery */}
       <div className="sr-only" aria-label="Frequently asked questions about Hendricks.AI">
@@ -1026,47 +924,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Interactive Demo Section */}
-      <section className="relative py-20 px-4">
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/10 to-black"></div>
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-900/30 border border-purple-800/50 rounded-full text-purple-400 text-sm font-medium mb-6">
-            <Sparkles className="w-4 h-4" />
-            Interactive Demo
-          </div>
-          
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            See Your Future Demand
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
-              In Real-Time
-            </span>
-          </h2>
-          
-          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
-            Experience how our AI predicts market demand 2-4 weeks before it happens. 
-            Input your business details and get an instant demand forecast.
-          </p>
-          
-          <div className="flex justify-center">
-            <DemandPredictionDemo />
-          </div>
-          
-          <div className="mt-12 grid grid-cols-3 gap-8 max-w-2xl mx-auto text-center">
-            <div>
-              <div className="text-3xl font-bold text-purple-400">2.8M+</div>
-              <p className="text-sm text-gray-400 mt-1">Data Points Analyzed Daily</p>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-pink-400">74%</div>
-              <p className="text-sm text-gray-400 mt-1">Prediction Accuracy</p>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-blue-400">2-4 Weeks</div>
-              <p className="text-sm text-gray-400 mt-1">Advance Notice</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer id="contact" className="bg-black border-t border-gray-800 py-12">
