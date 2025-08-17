@@ -651,15 +651,15 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-900/30 border border-blue-800/50 rounded-full text-sm text-blue-400 mb-6">
-              <span>THE PREDICTION ENGINE</span>
+              <span>OUR SOLUTIONS</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                The Hendricks Prediction Engine™
+                How We Deliver 312% ROI
               </span>
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Three powerful solutions that work together to dominate your market
+              Three powerful solutions that work together to predict and capture demand before competitors
             </p>
           </div>
 
