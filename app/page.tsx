@@ -172,10 +172,10 @@ export default function Home() {
               {/* Main Headline */}
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
                 <span className="block text-white">
-                  Predict Market
+                  Stop Reacting.
                 </span>
                 <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                  Demand in Advance
+                  Start Predicting.
                 </span>
               </h1>
 
@@ -192,9 +192,27 @@ export default function Home() {
                 <span className="text-cyan-400 font-semibold"> you'll be capturing tomorrow's demand</span>
               </p>
               
+              {/* Marketing Evolution Visual */}
+              <div className="flex items-center gap-2 mb-8 p-4 bg-gradient-to-r from-red-950/20 via-yellow-950/20 to-green-950/20 rounded-lg border border-white/10">
+                <div className="flex-1 text-center">
+                  <div className="text-red-400 font-semibold mb-1">Reactive</div>
+                  <div className="text-xs text-gray-500">Always Behind</div>
+                </div>
+                <div className="text-gray-600">→</div>
+                <div className="flex-1 text-center">
+                  <div className="text-yellow-400 font-semibold mb-1">Proactive</div>
+                  <div className="text-xs text-gray-500">Planning Ahead</div>
+                </div>
+                <div className="text-gray-600">→</div>
+                <div className="flex-1 text-center">
+                  <div className="text-green-400 font-semibold mb-1">Predictive ✓</div>
+                  <div className="text-xs text-gray-300">2-4 Weeks Early</div>
+                </div>
+              </div>
+
               {/* Supporting Details */}
               <p className="text-lg text-gray-400 mb-8">
-                Our AI analyzes 2.8M+ signals daily to identify opportunities 2-4 weeks before the market.
+                The Hendricks Prediction Engine™ analyzes 2.8M+ signals daily to identify opportunities 2-4 weeks before competitors see them.
               </p>
 
               {/* Trust Metrics */}
@@ -219,7 +237,7 @@ export default function Home() {
                   href="/contact" 
                   className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/25 inline-flex items-center justify-center gap-3 overflow-hidden"
                 >
-                  <span className="relative z-10">Get Predictive Intelligence Report</span>
+                  <span className="relative z-10">See Your Prediction Roadmap</span>
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
@@ -609,13 +627,16 @@ export default function Home() {
       <section id="how-it-works" className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-900/30 border border-blue-800/50 rounded-full text-sm text-blue-400 mb-6">
+              <span>THE PREDICTION ENGINE</span>
+            </div>
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                The Hendricks Method
+                The Hendricks Prediction Engine™
               </span>
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Three phases to dominate your market before competitors know what&apos;s happening
+              Our proprietary system that moves you from Reactive to Predictive marketing in three phases
             </p>
           </div>
 
@@ -693,9 +714,9 @@ export default function Home() {
               <span>ENTERPRISE SOLUTIONS</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-              <span className="text-white">Investment in </span>
+              <span className="text-white">Evolution to </span>
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Predictive Intelligence
+                Predictive Marketing
               </span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
