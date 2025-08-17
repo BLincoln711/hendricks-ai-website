@@ -55,7 +55,7 @@ export default function AboutPage() {
               Hendricks.AI is the Predictive AI Marketing Agency that gives brands an unfair advantage by forecasting market demand 2–4 weeks before it materializes — with 74% accuracy — and converting that foresight into measurable ROI.
             </p>
             <p>
-              We&apos;re the only agency mastering both Google Performance Max & Bing Performance Max with predictive intelligence, transforming how enterprise brands capture demand from pre-intent discovery through high-intent conversion.
+              We&apos;re the only agency that orchestrates demand capture across every channel, format, and placement within Google and Microsoft&apos;s ecosystems, transforming how enterprise brands capture demand from pre-intent discovery through high-intent conversion.
             </p>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-blue-950/30 border-l-4 border-blue-500 p-6 rounded-r-lg">
             <p className="text-gray-300">
-              <strong className="text-white">Quick Answer:</strong> Hendricks.AI is a predictive AI marketing agency founded by Brandon Lincoln Hendricks, a Google Machine Learning certified engineer with 15+ years experience. The agency uses proprietary AI models to predict market demand 2-4 weeks in advance with 74% accuracy, delivering 312% average ROI through advanced Google and Bing Performance Max optimization.
+              <strong className="text-white">Quick Answer:</strong> Hendricks.AI is a predictive AI marketing agency founded by Brandon Lincoln Hendricks, a Google Machine Learning certified engineer with 15+ years experience. The agency uses proprietary AI models to predict market demand 2-4 weeks in advance with 74% accuracy, delivering 312% average ROI through comprehensive demand orchestration across all digital channels.
             </p>
           </div>
         </div>
@@ -103,7 +103,7 @@ export default function AboutPage() {
               <div className="sticky top-32">
                 <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-blue-500 to-purple-500 p-1">
                   <img 
-                    src="/brandon-hendricks.jpg" 
+                    src="/brandon-headshot.jpg" 
                     alt="Brandon Lincoln Hendricks"
                     className="rounded-xl w-full"
                   />

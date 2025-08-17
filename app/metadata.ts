@@ -20,8 +20,8 @@ export const defaultMetadata: Metadata = {
   keywords: [
     'predictive AI marketing',
     'demand intelligence platform',
-    'Google Performance Max agency',
-    'Bing Performance Max agency',
+    'demand orchestration platform',
+    'cross-channel marketing intelligence',
     'AI marketing agency USA',
     'predictive demand forecasting',
     'marketing intelligence United States',
