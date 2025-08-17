@@ -725,45 +725,6 @@ export default function Home() {
       </div>
 
 
-      {/* Investment & ROI Guarantee */}
-      <section className="py-24 bg-gradient-to-b from-black via-blue-950/10 to-black">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-900/30 border border-blue-800/50 rounded-full text-sm text-blue-400 mb-6">
-            <span>INVESTMENT</span>
-          </div>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            <span className="text-white">One Solution. </span>
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Complete Transformation.
-            </span>
-          </h2>
-          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
-            The Hendricks Prediction Engine™ is a complete solution. No tiers. No upsells. 
-            Just predictive marketing dominance.
-          </p>
-
-          {/* Investment Range */}
-          <div className="bg-gradient-to-r from-blue-950/30 to-purple-950/30 rounded-2xl p-8 border border-blue-500/20 mb-12">
-            <p className="text-lg text-gray-300 mb-4">
-              Investment typically ranges from <span className="text-2xl font-bold text-cyan-400">$15K-$50K</span> per month
-            </p>
-            <p className="text-gray-400">
-              Based on your scale and market complexity. Every client gets our complete Prediction Engine™.
-            </p>
-          </div>
-
-          {/* ROI Guarantee */}
-          <div className="bg-gradient-to-r from-green-950/30 to-emerald-950/30 rounded-2xl p-8 border border-green-500/20 text-center">
-            <h3 className="text-2xl font-bold text-white mb-4">ROI Guarantee</h3>
-            <p className="text-lg text-gray-300">
-              We guarantee <span className="text-2xl font-bold text-green-400">200% ROI</span> within 6 months
-            </p>
-            <p className="text-sm text-gray-400 mt-2">
-              or we work for free until you hit that target
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* Final CTA - The Decision Point */}
       <section className="py-32 relative overflow-hidden">
