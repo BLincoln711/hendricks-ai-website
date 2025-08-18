@@ -38,7 +38,7 @@ export default function SolutionsPage() {
         name: 'How does Cross-Channel Orchestration work?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Cross-Channel Orchestration unifies campaign management across Google, Microsoft, Meta, and all major platforms using AI-powered optimization to ensure perfect timing and budget allocation.'
+          text: 'Cross-Channel Orchestration unifies campaign management across Google Ads, Microsoft Advertising, Meta, and LinkedIn using AI-powered optimization to ensure perfect timing and budget allocation.'
         }
       },
       {
@@ -87,18 +87,18 @@ export default function SolutionsPage() {
       subtitle: 'Master Every Channel, Platform & Ecosystem',
       icon: '🎯',
       gradient: 'from-green-500 to-blue-500',
-      description: 'Our AI orchestrates your presence across Google, Microsoft, Meta, and emerging platforms. Leverage every placement, format, and opportunity within each ecosystem while ensuring perfect timing and budget allocation.',
+      description: 'Our AI orchestrates your presence across Google, Microsoft, Meta, and LinkedIn. Leverage every placement, format, and opportunity within each ecosystem while ensuring perfect timing and budget allocation.',
       features: [
         'Unified campaign management across all platforms',
-        'Google Performance Max mastery',
+        'Google Ads ecosystem optimization',
         'Microsoft Advertising ecosystem optimization',
+        'LinkedIn integration through Microsoft Ads',
         'AI-powered budget allocation',
         'Cross-channel attribution modeling',
         'YouTube & video intelligence',
         'Shopping & marketplace optimization',
         'Display network intelligence',
         'Real-time bid optimization',
-        'Emerging platform identification',
         'Automated creative adaptation'
       ],
       benefits: [
@@ -363,7 +363,7 @@ export default function SolutionsPage() {
         <p>Our AI analyzes millions of signals to predict market demand with 74% accuracy. Features include market demand prediction, competitor tracking, seasonal forecasting, customer behavior prediction, budget optimization, and weekly reports.</p>
         
         <h3>2. Cross-Channel Orchestration ($20,000/month starting)</h3>
-        <p>Unified campaign management across Google, Microsoft, Meta, LinkedIn, YouTube, and all major platforms. Includes AI-powered budget allocation, real-time optimization, and 40% waste reduction.</p>
+        <p>Unified campaign management across Google Ads ecosystem, Microsoft Advertising ecosystem, Meta, and LinkedIn through Microsoft Ads. Includes AI-powered budget allocation, real-time optimization, and 40% waste reduction.</p>
         
         <h3>3. Intelligence Command (Included free)</h3>
         <p>Real-time marketing war room with custom KPI dashboards, predictive alerts, white-label reporting, API access, team collaboration tools, and executive briefing automation.</p>

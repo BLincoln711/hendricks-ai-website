@@ -84,7 +84,7 @@ export default function Home() {
           itemOffered: {
             '@type': 'Service',
             name: 'Cross-Channel Orchestration',
-            description: 'Unified campaign management across Google, Microsoft, and emerging platforms with AI-powered optimization'
+            description: 'Unified campaign management across Google Ads, Microsoft Advertising, Meta, and LinkedIn with AI-powered optimization'
           },
           priceSpecification: {
             '@type': 'PriceSpecification',
@@ -844,7 +844,7 @@ export default function Home() {
               {
                 title: 'Cross-Channel Orchestration',
                 subtitle: 'Execute Everywhere',
-                description: 'Unified campaign management across Google, Microsoft, and emerging platforms',
+                description: 'Unified campaign management across Google, Microsoft, Meta, and LinkedIn',
                 icon: '🎯',
                 benefits: [
                   'All channels, one strategy',
