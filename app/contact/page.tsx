@@ -19,11 +19,11 @@ export default function ContactPage() {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
   const budgetOptions = [
-    'Under $5K/month',
-    '$5K - $10K/month',
-    '$10K - $25K/month',
-    '$25K - $50K/month',
-    '$50K+/month'
+    '$50K - $100K/month',
+    '$100K - $250K/month',
+    '$250K - $500K/month',
+    '$500K - $1M/month',
+    '$1M+/month'
   ]
 
   const interestOptions = [
