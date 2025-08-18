@@ -30,8 +30,8 @@ export default function ContactPage() {
     'Predictive Intelligence',
     'Cross-Channel Orchestration',
     'Intelligence Command',
-    'Full-Service Prediction',
-    'Custom AI Solutions'
+    'Custom AI Solutions',
+    'All Three Solutions'
   ]
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
