@@ -252,7 +252,7 @@ export default function Home() {
             <nav className="hidden md:flex items-center space-x-6">
               <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Solutions</Link>
               <Link href="/demo" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium flex items-center gap-1">
-                Live Demo
+                Live AI Predictions
                 <span className="text-xs text-green-400">●</span>
               </Link>
               <Link href="/results" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Results</Link>
@@ -1020,7 +1020,7 @@ export default function Home() {
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l-4 4m0 0l-4-4m4 4V3" />
               </svg>
-              See Live Demo
+              See Live AI Predictions
             </button>
           </div>
 
