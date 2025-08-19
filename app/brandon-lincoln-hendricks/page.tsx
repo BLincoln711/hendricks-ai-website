@@ -28,7 +28,7 @@ export default function BrandonLincolnHendricksPage() {
       "name": "Hendricks.AI",
       "url": "https://hendricks.ai",
       "description": "First predictive AI marketing agency",
-      "foundingDate": "2024",
+      "foundingDate": "2025",
       "founder": { "@id": "https://hendricks.ai/brandon-lincoln-hendricks#person" }
     },
     "alumniOf": [
@@ -109,7 +109,7 @@ export default function BrandonLincolnHendricksPage() {
     "about": { "@id": "https://hendricks.ai/brandon-lincoln-hendricks#person" },
     "mainEntity": { "@id": "https://hendricks.ai/brandon-lincoln-hendricks#person" },
     "primaryImageOfPage": "https://hendricks.ai/brandon-lincoln-hendricks.jpg",
-    "datePublished": "2024-08-18",
+    "datePublished": "2025-08-18",
     "dateModified": new Date().toISOString(),
     "author": {
       "@type": "Organization",
@@ -155,7 +155,7 @@ export default function BrandonLincolnHendricksPage() {
 
   const timeline = [
     {
-      year: "2024",
+      year: "2025",
       role: "Founder & CEO",
       company: "Hendricks.AI",
       description: "Built the first predictive AI marketing agency that sees demand 2-4 weeks before it happens",
@@ -200,7 +200,7 @@ export default function BrandonLincolnHendricksPage() {
     { year: "2013", milestone: "Google Brain Workshop Participant", icon: Brain },
     { year: "2019", milestone: "GPT-3 Beta Tester", icon: Sparkles },
     { year: "2020", milestone: "ChatGPT Prototype Program", icon: Zap },
-    { year: "2024", milestone: "Continuous Beta Access (OpenAI, Anthropic, Google)", icon: Target }
+    { year: "2025", milestone: "Continuous Beta Access (OpenAI, Anthropic, Google)", icon: Target }
   ]
 
   return (

@@ -5,13 +5,13 @@ export default function ResearchPage() {
   const papers = [
     {
       title: "The Hendricks Method: A Novel Approach to Predictive AI Marketing with 74% Demand Forecasting Accuracy",
-      year: "2024",
+      year: "2025",
       journal: "Hendricks.AI Research Papers",
       abstract: "This paper presents the Hendricks Method, a revolutionary approach to digital marketing that leverages predictive AI to forecast market demand 2-4 weeks in advance with 74% accuracy.",
       keywords: ["predictive AI", "marketing analytics", "demand forecasting", "machine learning"],
       pdfUrl: "/research/hendricks-method-predictive-ai-marketing.pdf",
       htmlUrl: "/research/predictive-ai-marketing-hendricks-method.html",
-      citations: "Hendricks, B.L. (2024). Hendricks.AI Research Papers, 1(1), 1-15."
+      citations: "Hendricks, B.L. (2025). Hendricks.AI Research Papers, 1(1), 1-15."
     }
   ]
 
@@ -135,9 +135,9 @@ export default function ResearchPage() {
           <div className="mt-12 p-8 bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-xl border border-blue-500/20">
             <h3 className="text-xl font-bold mb-4">Upcoming Research</h3>
             <ul className="space-y-2 text-gray-300">
-              <li>• The Economic Impact of Predictive Marketing Systems (Q4 2024)</li>
-              <li>• Cross-Platform Signal Processing for Demand Intelligence (Q1 2025)</li>
-              <li>• AI-Driven Budget Optimization: A Comparative Study (Q1 2025)</li>
+              <li>• The Economic Impact of Predictive Marketing Systems (Q4 2025)</li>
+              <li>• Cross-Platform Signal Processing for Demand Intelligence (Q1 2026)</li>
+              <li>• AI-Driven Budget Optimization: A Comparative Study (Q1 2026)</li>
             </ul>
           </div>
         </div>
