@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  
+  <url>
+    <loc>https://hendricks.ai/news/hendricks-ai-achieves-74-percent-prediction-accuracy</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Hendricks.AI News</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-01-18</news:publication_date>
+      <news:title>Hendricks.AI Achieves 74% Accuracy in Predicting Market Demand 2-4 Weeks Early</news:title>
+      <news:keywords>predictive AI, marketing analytics, demand forecasting, Hendricks.AI</news:keywords>
+      <news:stock_tickers>GOOGL, MSFT</news:stock_tickers>
+    </news:news>
+  </url>
+  
+  <url>
+    <loc>https://hendricks.ai/news/former-solarwinds-exec-launches-predictive-ai-agency</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Hendricks.AI News</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-01-15</news:publication_date>
+      <news:title>Former SolarWinds Global Search Lead Launches First Predictive AI Marketing Agency</news:title>
+      <news:keywords>Brandon Lincoln Hendricks, SolarWinds, predictive AI, marketing agency</news:keywords>
+    </news:news>
+  </url>
+  
+  <url>
+    <loc>https://hendricks.ai/news/study-marketers-reactive-strategies-missing-revenue</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Hendricks.AI News</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-01-12</news:publication_date>
+      <news:title>Study: 87% of Marketers Still Using Reactive Strategies, Missing Revenue Opportunities</news:title>
+      <news:keywords>marketing research, reactive marketing, revenue optimization, market study</news:keywords>
+    </news:news>
+  </url>
+  
+  <url>
+    <loc>https://hendricks.ai/news/predictive-ai-forecasts-ecommerce-surge</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Hendricks.AI News</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-01-10</news:publication_date>
+      <news:title>Predictive AI Correctly Forecasts Post-Holiday E-commerce Surge 3 Weeks in Advance</news:title>
+      <news:keywords>e-commerce, predictive analytics, AI forecasting, market prediction</news:keywords>
+    </news:news>
+  </url>
+  
+  <url>
+    <loc>https://hendricks.ai/news/google-performance-max-predictive-ai</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Hendricks.AI News</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2025-01-08</news:publication_date>
+      <news:title>Google Performance Max Gets Predictive: How AI Changes the PMax Game</news:title>
+      <news:keywords>Google Performance Max, predictive AI, PMax optimization, Google Ads</news:keywords>
+      <news:stock_tickers>GOOGL</news:stock_tickers>
+    </news:news>
+  </url>
+  
+</urlset>

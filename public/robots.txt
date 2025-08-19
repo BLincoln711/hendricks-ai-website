@@ -72,5 +72,6 @@ Disallow: /api/
 Disallow: /_next/
 Disallow: /node_modules/
 
-# Sitemap location
+# Sitemap locations
 Sitemap: https://hendricks.ai/sitemap.xml
+Sitemap: https://hendricks.ai/news-sitemap.xml
