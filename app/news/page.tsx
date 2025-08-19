@@ -2,6 +2,19 @@ import Link from 'next/link'
 import { Calendar, User, ArrowRight, TrendingUp, Brain, BarChart3 } from 'lucide-react'
 import Script from 'next/script'
 
+export async function generateMetadata() {
+  return {
+    title: 'News | Hendricks.AI News',
+    description: 'Breaking news and insights on predictive AI marketing and AI engineering',
+    alternates: {
+      canonical: 'https://hendricks.ai/news',
+    },
+    other: {
+      'google-site-verification': 'E7JSaK23DaXqx3yMqAiM1WHNx6zrcWrg9zJ5yvfZN4I',
+    },
+  }
+}
+
 export default function NewsPage() {
   const newsArticles = [
     {
