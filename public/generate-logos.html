@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Hendricks.AI Logos</title>
+</head>
+<body style="background: #f0f0f0; padding: 40px; font-family: Arial, sans-serif;">
+    <h1>Hendricks.AI Logo Generator</h1>
+    
+    <div style="margin: 20px 0;">
+        <h2>Square Logo (1000x1000)</h2>
+        <canvas id="square" width="1000" height="1000" style="max-width: 500px; border: 1px solid #ddd;"></canvas>
+        <br>
+        <button onclick="downloadSquare()">Download Square Logo</button>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <h2>Rectangular Logo (400x80)</h2>
+        <canvas id="rect" width="400" height="80" style="border: 1px solid #ddd;"></canvas>
+        <br>
+        <button onclick="downloadRect()">Download Rectangular Logo</button>
+    </div>
+
+    <script>
+        // Square Logo
+        const sq = document.getElementById('square').getContext('2d');
+        
+        // Black background
+        sq.fillStyle = '#000';
+        sq.fillRect(0, 0, 1000, 1000);
+        
+        // White/gradient text
+        sq.fillStyle = '#fff';
+        sq.font = 'bold 150px Arial';
+        sq.textAlign = 'center';
+        sq.textBaseline = 'middle';
+        sq.fillText('HENDRICKS', 500, 450);
+        
+        // Blue gradient for .AI
+        const grad = sq.createLinearGradient(350, 0, 650, 0);
+        grad.addColorStop(0, '#60A5FA');
+        grad.addColorStop(1, '#A78BFA');
+        sq.fillStyle = grad;
+        sq.font = 'bold 120px Arial';
+        sq.fillText('.AI', 500, 580);
+        
+        // Tagline
+        sq.fillStyle = '#666';
+        sq.font = '36px Arial';
+        sq.fillText('PREDICTIVE AI MARKETING', 500, 720);
+        
+        // Rectangular Logo
+        const rc = document.getElementById('rect').getContext('2d');
+        
+        // Black background
+        rc.fillStyle = '#000';
+        rc.fillRect(0, 0, 400, 80);
+        
+        // Logo text
+        rc.fillStyle = '#fff';
+        rc.font = 'bold 32px Arial';
+        rc.textAlign = 'left';
+        rc.textBaseline = 'middle';
+        rc.fillText('HENDRICKS', 20, 40);
+        
+        // .AI
+        const grad2 = rc.createLinearGradient(200, 0, 280, 0);
+        grad2.addColorStop(0, '#60A5FA');
+        grad2.addColorStop(1, '#A78BFA');
+        rc.fillStyle = grad2;
+        rc.font = 'bold 28px Arial';
+        rc.fillText('.AI', 240, 40);
+        
+        // Download functions
+        function downloadSquare() {
+            const link = document.createElement('a');
+            link.download = 'hendricks-logo-square-1000.png';
+            link.href = document.getElementById('square').toDataURL();
+            link.click();
+        }
+        
+        function downloadRect() {
+            const link = document.createElement('a');
+            link.download = 'hendricks-logo-rect-400.png';
+            link.href = document.getElementById('rect').toDataURL();
+            link.click();
+        }
+    </script>
+</body>
+</html>
