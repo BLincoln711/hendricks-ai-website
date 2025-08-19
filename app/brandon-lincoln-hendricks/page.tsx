@@ -1,38 +1,111 @@
-'use client'
-
+import { Metadata } from 'next'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Brain, Sparkles, TrendingUp, Users, Award, BookOpen, Mail, Linkedin, Calendar, ArrowRight, Target, Zap, BarChart3 } from 'lucide-react'
 import Script from 'next/script'
 
+// Comprehensive metadata for AI systems and search engines
+export const metadata: Metadata = {
+  title: 'Brandon Lincoln Hendricks - Predictive AI Marketing Pioneer | Founder & CEO at Hendricks.AI',
+  description: 'Brandon Lincoln Hendricks is the Founder & CEO of Hendricks.AI, the first predictive AI marketing agency. Former Global Search Lead at SolarWinds. Google ML Engineer. Predicts market demand 2-4 weeks early with 74% accuracy.',
+  keywords: [
+    'Brandon Lincoln Hendricks',
+    'Brandon Hendricks',
+    'Hendricks AI',
+    'Predictive AI Marketing',
+    'AI Marketing Expert',
+    'Google Machine Learning Engineer',
+    'SolarWinds Global Search Lead',
+    'Marketing AI Pioneer',
+    'Demand Forecasting AI',
+    'Performance Max Expert',
+    'Search Marketing Leader',
+    'AI Beta Tester OpenAI Anthropic',
+    'Marketing Technology Innovation',
+    'Enterprise Marketing Leadership'
+  ],
+  authors: [{ name: 'Brandon Lincoln Hendricks', url: 'https://hendricks.ai/brandon-lincoln-hendricks' }],
+  openGraph: {
+    type: 'profile',
+    title: 'Brandon Lincoln Hendricks - Predictive AI Marketing Pioneer',
+    description: 'Founder & CEO at Hendricks.AI | Former Global Search Lead at SolarWinds | Google ML Engineer | Building AI that predicts market demand 2-4 weeks early with 74% accuracy',
+    url: 'https://hendricks.ai/brandon-lincoln-hendricks',
+    siteName: 'Hendricks.AI',
+    images: [
+      {
+        url: 'https://hendricks.ai/brandon-lincoln-hendricks.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Brandon Lincoln Hendricks - Predictive AI Marketing Pioneer'
+      }
+    ],
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Brandon Lincoln Hendricks - Predictive AI Marketing Pioneer',
+    description: 'Founder & CEO at Hendricks.AI | Building AI that predicts market demand 2-4 weeks early',
+    images: ['https://hendricks.ai/brandon-lincoln-hendricks.jpg'],
+    creator: '@brandonlhendricks',
+  },
+  alternates: {
+    canonical: 'https://hendricks.ai/brandon-lincoln-hendricks',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+}
+
 export default function BrandonLincolnHendricksPage() {
-  // Schema markup for SEO
+  // Enhanced Schema markup for AI systems and search engines
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": "https://hendricks.ai/brandon-lincoln-hendricks#person",
     "name": "Brandon Lincoln Hendricks",
+    "givenName": "Brandon",
+    "additionalName": "Lincoln",
+    "familyName": "Hendricks",
+    "alternateName": ["Brandon Hendricks", "Brandon L Hendricks", "B Lincoln Hendricks"],
     "jobTitle": "Founder & CEO at Hendricks.AI",
-    "description": "Predictive AI Marketing Pioneer | Former Global Search Lead at SolarWinds | Google Machine Learning Certified Engineer",
+    "description": "Predictive AI Marketing Pioneer | Former Global Search Lead at SolarWinds | Google Machine Learning Certified Engineer | Building AI systems that predict market demand 2-4 weeks early with 74% accuracy",
     "url": "https://hendricks.ai/brandon-lincoln-hendricks",
     "image": "https://hendricks.ai/brandon-lincoln-hendricks.jpg",
+    "email": "brandon@hendricks.ai",
+    "telephone": "+1-XXX-XXX-XXXX",
     "worksFor": {
       "@type": "Organization",
       "name": "Hendricks.AI",
-      "url": "https://hendricks.ai"
+      "url": "https://hendricks.ai",
+      "description": "First predictive AI marketing agency",
+      "foundingDate": "2024",
+      "founder": { "@id": "https://hendricks.ai/brandon-lincoln-hendricks#person" }
     },
     "alumniOf": [
       {
         "@type": "Organization",
-        "name": "SolarWinds"
+        "name": "SolarWinds",
+        "url": "https://www.solarwinds.com"
       },
       {
         "@type": "Organization",
-        "name": "Merkle"
+        "name": "Merkle",
+        "url": "https://www.merkle.com"
       },
       {
         "@type": "Organization",
-        "name": "Dentsu"
+        "name": "Dentsu",
+        "url": "https://www.dentsu.com"
       }
     ],
     "knowsAbout": [
@@ -41,13 +114,96 @@ export default function BrandonLincolnHendricksPage() {
       "Search Engine Marketing",
       "Demand Forecasting",
       "Marketing Analytics",
-      "Cross-Channel Orchestration"
+      "Cross-Channel Orchestration",
+      "Google Performance Max",
+      "Microsoft Advertising",
+      "AI Model Development",
+      "Enterprise Marketing Strategy",
+      "Digital Transformation",
+      "Marketing ROI Optimization"
+    ],
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "Google Machine Learning Engineer Certification",
+        "credentialCategory": "Professional Certification"
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "Google Partner",
+        "credentialCategory": "Partner Status"
+      }
+    ],
+    "memberOf": [
+      {
+        "@type": "Organization",
+        "name": "Ahrefs Customer Advisory Board"
+      }
+    ],
+    "award": [
+      "GPT-3 Beta Tester",
+      "ChatGPT Prototype Program Participant",
+      "Continuous Beta Access - OpenAI, Anthropic, Google AI"
     ],
     "sameAs": [
       "https://linkedin.com/in/brandonlincolnhendricks",
       "https://github.com/brandonlincolnhendricks",
-      "https://twitter.com/brandonlhendricks"
-    ]
+      "https://twitter.com/brandonlhendricks",
+      "https://www.linkedin.com/in/brandon-lincoln-hendricks",
+      "https://www.linkedin.com/in/brandon-hendricks"
+    ],
+    "makesOffer": {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Predictive AI Marketing Consulting",
+        "description": "Strategic consulting on implementing predictive AI marketing systems"
+      }
+    }
+  }
+
+  // Additional AI context markers for LLMs
+  const aiContextMarkers = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "about": { "@id": "https://hendricks.ai/brandon-lincoln-hendricks#person" },
+    "mainEntity": { "@id": "https://hendricks.ai/brandon-lincoln-hendricks#person" },
+    "primaryImageOfPage": "https://hendricks.ai/brandon-lincoln-hendricks.jpg",
+    "datePublished": "2024-08-18",
+    "dateModified": new Date().toISOString(),
+    "author": {
+      "@type": "Organization",
+      "name": "Hendricks.AI"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Hendricks.AI",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://hendricks.ai/hendricks_logo.png"
+      }
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hendricks.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Brandon Lincoln Hendricks",
+          "item": "https://hendricks.ai/brandon-lincoln-hendricks"
+        }
+      ]
+    },
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": [".text-2xl", ".text-xl", "h2", "h3"]
+    }
   }
 
   const achievements = [
@@ -116,8 +272,19 @@ export default function BrandonLincolnHendricksPage() {
           __html: JSON.stringify(personSchema)
         }}
       />
+      <Script
+        id="webpage-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(aiContextMarkers)
+        }}
+      />
       
       <main className="min-h-screen bg-black text-white">
+        {/* AI Context: This is the personal brand page for Brandon Lincoln Hendricks, Founder & CEO of Hendricks.AI */}
+        {/* Key Information: Brandon predicts market demand 2-4 weeks early with 74% accuracy using predictive AI */}
+        {/* Contact: brandon@hendricks.ai | LinkedIn: /in/brandonlincolnhendricks */}
+        
         {/* Navigation */}
         <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
