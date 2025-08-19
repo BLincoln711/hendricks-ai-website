@@ -48,6 +48,33 @@ export default function NewsPage() {
       image: "/news/google-performance-max.jpg",
       summary: "Analysis of how predictive AI transforms Performance Max campaigns from reactive optimization to proactive market capture, with case studies showing 287% ROI improvement.",
       slug: "google-performance-max-predictive-ai"
+    },
+    {
+      headline: "Building Production AI: Why 99% of AI POCs Fail to Scale",
+      date: "2025-01-20",
+      author: "Brandon Lincoln Hendricks",
+      category: "AI Engineering",
+      image: "/news/ai-engineering-scale.jpg",
+      summary: "Technical deep-dive into the engineering challenges of scaling AI from prototype to production, based on lessons learned building systems that process 2.8M signals daily.",
+      slug: "building-production-ai-why-pocs-fail"
+    },
+    {
+      headline: "The Hidden Cost of AI Hallucinations in Marketing: A $4.2B Problem",
+      date: "2025-01-19",
+      author: "Brandon Lincoln Hendricks",
+      category: "AI Research",
+      image: "/news/ai-hallucinations-cost.jpg",
+      summary: "New research reveals how AI hallucinations in marketing automation tools are costing enterprises billions in wasted ad spend and missed opportunities.",
+      slug: "ai-hallucinations-marketing-cost"
+    },
+    {
+      headline: "From GPT to Production: Engineering Lessons from Early OpenAI Beta Access",
+      date: "2025-01-17",
+      author: "Brandon Lincoln Hendricks",
+      category: "AI Engineering",
+      image: "/news/gpt-production-lessons.jpg",
+      summary: "Exclusive insights from beta testing GPT-3, ChatGPT, and GPT-4, including architectural decisions that enabled 74% prediction accuracy.",
+      slug: "gpt-to-production-engineering-lessons"
     }
   ]
 
