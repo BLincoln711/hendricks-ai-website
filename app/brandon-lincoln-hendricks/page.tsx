@@ -1,70 +1,10 @@
-import { Metadata } from 'next'
+'use client'
+
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Brain, Sparkles, TrendingUp, Users, Award, BookOpen, Mail, Linkedin, Calendar, ArrowRight, Target, Zap, BarChart3 } from 'lucide-react'
 import Script from 'next/script'
-
-// Comprehensive metadata for AI systems and search engines
-export const metadata: Metadata = {
-  title: 'Brandon Lincoln Hendricks - Predictive AI Marketing Pioneer | Founder & CEO at Hendricks.AI',
-  description: 'Brandon Lincoln Hendricks is the Founder & CEO of Hendricks.AI, the first predictive AI marketing agency. Former Global Search Lead at SolarWinds. Google ML Engineer. Predicts market demand 2-4 weeks early with 74% accuracy.',
-  keywords: [
-    'Brandon Lincoln Hendricks',
-    'Brandon Hendricks',
-    'Hendricks AI',
-    'Predictive AI Marketing',
-    'AI Marketing Expert',
-    'Google Machine Learning Engineer',
-    'SolarWinds Global Search Lead',
-    'Marketing AI Pioneer',
-    'Demand Forecasting AI',
-    'Performance Max Expert',
-    'Search Marketing Leader',
-    'AI Beta Tester OpenAI Anthropic',
-    'Marketing Technology Innovation',
-    'Enterprise Marketing Leadership'
-  ],
-  authors: [{ name: 'Brandon Lincoln Hendricks', url: 'https://hendricks.ai/brandon-lincoln-hendricks' }],
-  openGraph: {
-    type: 'profile',
-    title: 'Brandon Lincoln Hendricks - Predictive AI Marketing Pioneer',
-    description: 'Founder & CEO at Hendricks.AI | Former Global Search Lead at SolarWinds | Google ML Engineer | Building AI that predicts market demand 2-4 weeks early with 74% accuracy',
-    url: 'https://hendricks.ai/brandon-lincoln-hendricks',
-    siteName: 'Hendricks.AI',
-    images: [
-      {
-        url: 'https://hendricks.ai/brandon-lincoln-hendricks.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Brandon Lincoln Hendricks - Predictive AI Marketing Pioneer'
-      }
-    ],
-    locale: 'en_US',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Brandon Lincoln Hendricks - Predictive AI Marketing Pioneer',
-    description: 'Founder & CEO at Hendricks.AI | Building AI that predicts market demand 2-4 weeks early',
-    images: ['https://hendricks.ai/brandon-lincoln-hendricks.jpg'],
-    creator: '@brandonlhendricks',
-  },
-  alternates: {
-    canonical: 'https://hendricks.ai/brandon-lincoln-hendricks',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-}
 
 export default function BrandonLincolnHendricksPage() {
   // Enhanced Schema markup for AI systems and search engines

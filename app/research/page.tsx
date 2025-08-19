@@ -1,12 +1,5 @@
-import { Metadata } from 'next'
 import Link from 'next/link'
 import { FileText, Download, ExternalLink, BookOpen } from 'lucide-react'
-
-export const metadata: Metadata = {
-  title: 'Research Papers | Brandon Lincoln Hendricks | Hendricks.AI',
-  description: 'Academic research and papers by Brandon Lincoln Hendricks on predictive AI marketing, demand forecasting, and marketing analytics.',
-  keywords: ['research papers', 'predictive AI marketing', 'Brandon Lincoln Hendricks', 'marketing analytics', 'demand forecasting'],
-}
 
 export default function ResearchPage() {
   const papers = [
@@ -17,7 +10,7 @@ export default function ResearchPage() {
       abstract: "This paper presents the Hendricks Method, a revolutionary approach to digital marketing that leverages predictive AI to forecast market demand 2-4 weeks in advance with 74% accuracy.",
       keywords: ["predictive AI", "marketing analytics", "demand forecasting", "machine learning"],
       pdfUrl: "/research/hendricks-method-predictive-ai-marketing.pdf",
-      htmlUrl: "/research/predictive-ai-marketing-hendricks-method",
+      htmlUrl: "/research/predictive-ai-marketing-hendricks-method.html",
       citations: "Hendricks, B.L. (2024). Hendricks.AI Research Papers, 1(1), 1-15."
     }
   ]
