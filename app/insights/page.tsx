@@ -14,7 +14,7 @@ const blogPosts = [
     readTime: '6 min read',
     category: 'AI Marketing',
     featured: true,
-    image: '/blog/meridian-mmm-hero.jpg'
+    image: '/blog-images/google-meridian-mmm-visualization.html'
   },
   {
     id: 'ai-marketing-beyond-smart-bidding',

@@ -4,7 +4,17 @@ export const modernMeasurementArticle = {
   author: "Brandon Lincoln Hendricks",
   category: "Industry Analysis",
   readTime: "6 min read",
+  image: "/blog-images/google-meridian-mmm-visualization.html",
   content: `
+    <div class="mb-8">
+      <iframe 
+        src="/blog-images/google-meridian-mmm-visualization.html" 
+        class="w-full h-[630px] rounded-2xl border border-gray-800"
+        title="Google Meridian MMM + Predictive AI Attribution"
+        scrolling="no"
+      ></iframe>
+    </div>
+
     <p>Fresh from Google's Brandformance 2025 conference, I'm more convinced than ever that the future of marketing lies at the intersection of predictive AI and modern measurement. Google's emphasis on incrementality and advanced attribution isn't just an evolution—it's validation of what we've been building at Hendricks.AI.</p>
 
     <h2>The Attribution Revolution Google Announced</h2>
