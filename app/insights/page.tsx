@@ -182,8 +182,9 @@ export default function InsightsPage() {
                       {post.image && post.image.endsWith('.html') ? (
                         <iframe 
                           src={post.image}
-                          className="w-full h-full"
+                          className="w-full h-full border-0"
                           title={post.title}
+                          scrolling="no"
                         />
                       ) : post.image ? (
                         <img 

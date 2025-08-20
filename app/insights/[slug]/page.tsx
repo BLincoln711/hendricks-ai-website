@@ -29,6 +29,7 @@ const blogPosts: { [key: string]: any } = {
           src="/blog-images/predictive-ai-future-marketing.html" 
           class="w-full h-[630px] rounded-2xl border border-gray-800"
           title="Predictive AI Marketing Visualization"
+          scrolling="no"
         ></iframe>
       </div>
 
