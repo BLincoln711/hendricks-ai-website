@@ -25,7 +25,7 @@ const blogPosts = [
     readTime: '12 min read',
     category: 'AI Marketing',
     featured: true,
-    image: '/blog/ai-bidding-hero.jpg'
+    image: '/blog-images/ai-smart-bidding-visualization.html'
   },
   {
     id: 'predictive-ai-marketing-2025',

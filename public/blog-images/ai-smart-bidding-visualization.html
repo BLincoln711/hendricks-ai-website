@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom AI Models - 32% CPA Reduction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: transparent;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 100%;
+            height: 100%;
+            min-height: 630px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #000000 0%, #111827 100%);
+        }
+        
+        /* Neural network grid */
+        .neural-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.04;
+            background-image: 
+                linear-gradient(0deg, #8B5CF6 1px, transparent 1px),
+                linear-gradient(90deg, #8B5CF6 1px, transparent 1px);
+            background-size: 30px 30px;
+            animation: gridPulse 20s linear infinite;
+        }
+        
+        @keyframes gridPulse {
+            0% { 
+                transform: translate(0, 0);
+                opacity: 0.04;
+            }
+            50% {
+                opacity: 0.06;
+            }
+            100% { 
+                transform: translate(30px, 30px);
+                opacity: 0.04;
+            }
+        }
+        
+        /* Evolution path */
+        .evolution-path {
+            position: absolute;
+            width: 80%;
+            height: 2px;
+            left: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(90deg, 
+                rgba(96, 165, 250, 0.3) 0%,
+                rgba(139, 92, 246, 0.5) 50%,
+                rgba(16, 185, 129, 0.8) 100%);
+            animation: pathGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes pathGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        /* Smart bidding node (left) */
+        .smart-bidding {
+            position: absolute;
+            left: 20%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+        }
+        
+        .sb-core {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center,
+                rgba(96, 165, 250, 0.8) 0%,
+                rgba(96, 165, 250, 0.4) 40%,
+                transparent 80%);
+            border-radius: 50%;
+            animation: sbPulse 4s ease-in-out infinite;
+        }
+        
+        .sb-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(96, 165, 250, 0.3);
+            border-radius: 50%;
+            animation: ringExpand 3s ease-out infinite;
+        }
+        
+        @keyframes sbPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        @keyframes ringExpand {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        /* Custom AI model (right) */
+        .custom-ai {
+            position: absolute;
+            right: 20%;
+            top: 50%;
+            transform: translate(50%, -50%);
+            width: 200px;
+            height: 200px;
+        }
+        
+        .ai-core {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle at center,
+                #10B981 0%,
+                #059669 30%,
+                rgba(5, 150, 105, 0.3) 60%,
+                transparent 100%);
+            border-radius: 50%;
+            animation: aiCorePulse 2s ease-in-out infinite;
+            box-shadow: 0 0 100px rgba(16, 185, 129, 0.6);
+        }
+        
+        @keyframes aiCorePulse {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 0 100px rgba(16, 185, 129, 0.6);
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.2);
+                box-shadow: 0 0 150px rgba(16, 185, 129, 0.9);
+            }
+        }
+        
+        /* Neural connections */
+        .neural-node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #8B5CF6;
+            border-radius: 50%;
+            animation: nodeGlow 3s ease-in-out infinite;
+        }
+        
+        .node-1 { top: 0; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+        .node-2 { top: 20%; right: 10%; animation-delay: 0.2s; }
+        .node-3 { bottom: 20%; right: 10%; animation-delay: 0.4s; }
+        .node-4 { bottom: 0; left: 50%; transform: translateX(-50%); animation-delay: 0.6s; }
+        .node-5 { bottom: 20%; left: 10%; animation-delay: 0.8s; }
+        .node-6 { top: 20%; left: 10%; animation-delay: 1s; }
+        
+        @keyframes nodeGlow {
+            0%, 100% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+                box-shadow: 0 0 20px currentColor;
+            }
+        }
+        
+        /* Neural paths */
+        .neural-path {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .path-line {
+            stroke: rgba(139, 92, 246, 0.3);
+            stroke-width: 1;
+            fill: none;
+            stroke-dasharray: 5, 5;
+            animation: dashFlow 10s linear infinite;
+        }
+        
+        @keyframes dashFlow {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -100; }
+        }
+        
+        /* CPA reduction indicator */
+        .cpa-indicator {
+            position: absolute;
+            left: 50%;
+            bottom: 120px;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 60px;
+        }
+        
+        .cpa-bar-bg {
+            position: absolute;
+            width: 100%;
+            height: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(239, 68, 68, 0.2);
+            border-radius: 4px;
+        }
+        
+        .cpa-bar-fill {
+            position: absolute;
+            width: 68%;
+            height: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(90deg, #EF4444 0%, #F97316 50%, #10B981 100%);
+            border-radius: 4px;
+            animation: cpaReduce 4s ease-in-out infinite;
+        }
+        
+        @keyframes cpaReduce {
+            0% {
+                width: 100%;
+                background: linear-gradient(90deg, #EF4444 0%, #EF4444 100%);
+            }
+            50% {
+                width: 68%;
+                background: linear-gradient(90deg, #F97316 0%, #10B981 100%);
+            }
+            100% {
+                width: 68%;
+                background: linear-gradient(90deg, #F97316 0%, #10B981 100%);
+            }
+        }
+        
+        /* Data optimization particles */
+        .opt-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            opacity: 0;
+        }
+        
+        .particle-flow-1 {
+            background: #60A5FA;
+            animation: particleOptimize 4s linear infinite 0s;
+        }
+        
+        .particle-flow-2 {
+            background: #8B5CF6;
+            animation: particleOptimize 4s linear infinite 0.5s;
+        }
+        
+        .particle-flow-3 {
+            background: #10B981;
+            animation: particleOptimize 4s linear infinite 1s;
+        }
+        
+        .particle-flow-4 {
+            background: #F97316;
+            animation: particleOptimize 4s linear infinite 1.5s;
+        }
+        
+        .particle-flow-5 {
+            background: #60A5FA;
+            animation: particleOptimize 4s linear infinite 2s;
+        }
+        
+        @keyframes particleOptimize {
+            0% {
+                left: 20%;
+                top: 50%;
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+            }
+            10% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                left: 50%;
+                top: 50%;
+                opacity: 1;
+            }
+            90% {
+                left: 80%;
+                top: 50%;
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                left: 80%;
+                top: 50%;
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+            }
+        }
+        
+        /* ML layers visualization */
+        .ml-layer {
+            position: absolute;
+            right: 20%;
+            top: 50%;
+            transform: translate(50%, -50%);
+            width: 250px;
+            height: 250px;
+            pointer-events: none;
+        }
+        
+        .layer-ring {
+            position: absolute;
+            border: 1px solid;
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .layer-1 {
+            width: 250px;
+            height: 250px;
+            border-color: rgba(139, 92, 246, 0.2);
+            animation: layerRotate 20s linear infinite;
+        }
+        
+        .layer-2 {
+            width: 200px;
+            height: 200px;
+            border-color: rgba(96, 165, 250, 0.3);
+            animation: layerRotate 15s linear infinite reverse;
+        }
+        
+        .layer-3 {
+            width: 150px;
+            height: 150px;
+            border-color: rgba(16, 185, 129, 0.4);
+            animation: layerRotate 10s linear infinite;
+        }
+        
+        @keyframes layerRotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        /* Performance metrics */
+        .metric-point {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #10B981;
+            animation: metricPulse 2s ease-in-out infinite;
+        }
+        
+        .metric-1 { top: 20%; right: 35%; animation-delay: 0s; }
+        .metric-2 { top: 30%; right: 30%; animation-delay: 0.3s; }
+        .metric-3 { top: 40%; right: 32%; animation-delay: 0.6s; }
+        .metric-4 { bottom: 40%; right: 33%; animation-delay: 0.9s; }
+        .metric-5 { bottom: 30%; right: 31%; animation-delay: 1.2s; }
+        
+        @keyframes metricPulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+                box-shadow: 0 0 10px currentColor;
+            }
+        }
+        
+        /* Gradient overlay */
+        .gradient-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 50%,
+                rgba(16, 185, 129, 0.15) 0%,
+                transparent 40%);
+            animation: overlayShift 5s ease-in-out infinite;
+        }
+        
+        @keyframes overlayShift {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        /* Brand mark */
+        .brand {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: rgba(96, 165, 250, 0.4);
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Neural network grid -->
+        <div class="neural-grid"></div>
+        
+        <!-- Evolution path -->
+        <div class="evolution-path"></div>
+        
+        <!-- Smart bidding (starting point) -->
+        <div class="smart-bidding">
+            <div class="sb-ring"></div>
+            <div class="sb-core"></div>
+        </div>
+        
+        <!-- Custom AI model (destination) -->
+        <div class="custom-ai">
+            <div class="ai-core"></div>
+            <div class="neural-node node-1"></div>
+            <div class="neural-node node-2"></div>
+            <div class="neural-node node-3"></div>
+            <div class="neural-node node-4"></div>
+            <div class="neural-node node-5"></div>
+            <div class="neural-node node-6"></div>
+            
+            <!-- Neural paths -->
+            <svg class="neural-path">
+                <line class="path-line" x1="100" y1="0" x2="100" y2="200" />
+                <line class="path-line" x1="150" y1="40" x2="50" y2="160" />
+                <line class="path-line" x1="50" y1="40" x2="150" y2="160" />
+                <line class="path-line" x1="0" y1="100" x2="200" y2="100" />
+                <line class="path-line" x1="30" y1="30" x2="170" y2="170" />
+                <line class="path-line" x1="170" y1="30" x2="30" y2="170" />
+            </svg>
+        </div>
+        
+        <!-- ML layers -->
+        <div class="ml-layer">
+            <div class="layer-ring layer-1"></div>
+            <div class="layer-ring layer-2"></div>
+            <div class="layer-ring layer-3"></div>
+        </div>
+        
+        <!-- CPA reduction indicator -->
+        <div class="cpa-indicator">
+            <div class="cpa-bar-bg"></div>
+            <div class="cpa-bar-fill"></div>
+        </div>
+        
+        <!-- Data optimization particles -->
+        <div class="opt-particle particle-flow-1"></div>
+        <div class="opt-particle particle-flow-2"></div>
+        <div class="opt-particle particle-flow-3"></div>
+        <div class="opt-particle particle-flow-4"></div>
+        <div class="opt-particle particle-flow-5"></div>
+        
+        <!-- Performance metrics -->
+        <div class="metric-point metric-1"></div>
+        <div class="metric-point metric-2"></div>
+        <div class="metric-point metric-3"></div>
+        <div class="metric-point metric-4"></div>
+        <div class="metric-point metric-5"></div>
+        
+        <!-- Gradient overlay -->
+        <div class="gradient-overlay"></div>
+        
+        <!-- Brand mark -->
+        <div class="brand">HENDRICKS.AI</div>
+    </div>
+</body>
+</html>
