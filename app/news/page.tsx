@@ -22,7 +22,6 @@ export default function NewsPage() {
       date: "2025-08-20",
       author: "Brandon Lincoln Hendricks",
       category: "B2B Marketing",
-      image: "/news/b2b-funnel-chaos.jpg",
       summary: "The traditional B2B marketing funnel is obsolete. Modern buyers use 10+ channels with 6-10 stakeholders, spending 80% of their journey avoiding salespeople. Learn why the funnel failed and how predictive AI navigates the chaos.",
       slug: "b2b-funnel-is-dead"
     },
@@ -31,7 +30,6 @@ export default function NewsPage() {
       date: "2025-08-19",
       author: "Brandon Lincoln Hendricks", 
       category: "Industry Analysis",
-      image: "/news/modern-measurement.jpg",
       summary: "Breaking analysis from Brandformance 2025: How Hendricks.AI's predictive capabilities enhance Google's new Meridian MMM framework to forecast incrementality before spending.",
       slug: "modern-measurement-meets-predictive-ai"
     },
@@ -40,7 +38,6 @@ export default function NewsPage() {
       date: "2025-08-18",
       author: "Brandon Lincoln Hendricks",
       category: "Company News",
-      image: "/news/predictive-ai-breakthrough.jpg",
       summary: "New predictive AI system analyzes 2.8 million daily signals to forecast market demand with unprecedented accuracy, delivering average ROI of 312% for enterprise clients.",
       slug: "hendricks-ai-achieves-74-percent-prediction-accuracy"
     },
@@ -49,7 +46,6 @@ export default function NewsPage() {
       date: "2025-08-15",
       author: "Brandon Lincoln Hendricks",
       category: "Industry News",
-      image: "/news/hendricks-ai-launch.jpg",
       summary: "Brandon Lincoln Hendricks, former Global Lead of Total Search at SolarWinds, announces the launch of Hendricks.AI, the first marketing agency that predicts demand before it happens.",
       slug: "former-solarwinds-exec-launches-predictive-ai-agency"
     },
@@ -58,7 +54,6 @@ export default function NewsPage() {
       date: "2025-08-12",
       author: "Brandon Lincoln Hendricks",
       category: "Research",
-      image: "/news/marketing-study.jpg",
       summary: "New research reveals the majority of marketing teams are analyzing yesterday's data while tomorrow's opportunities pass by, resulting in an estimated $47 billion in missed revenue annually.",
       slug: "study-marketers-reactive-strategies-missing-revenue"
     },
@@ -67,7 +62,6 @@ export default function NewsPage() {
       date: "2025-08-10",
       author: "Brandon Lincoln Hendricks",
       category: "Case Study",
-      image: "/news/ecommerce-prediction.jpg",
       summary: "Hendricks.AI's predictive system identified early signals of a 68% surge in specific e-commerce categories, enabling clients to capture market share before competitors.",
       slug: "predictive-ai-forecasts-ecommerce-surge"
     },
@@ -76,7 +70,6 @@ export default function NewsPage() {
       date: "2025-08-08",
       author: "Brandon Lincoln Hendricks",
       category: "Analysis",
-      image: "/news/google-performance-max.jpg",
       summary: "Analysis of how predictive AI transforms Performance Max campaigns from reactive optimization to proactive market capture, with case studies showing 287% ROI improvement.",
       slug: "google-performance-max-predictive-ai"
     },
@@ -85,7 +78,6 @@ export default function NewsPage() {
       date: "2025-08-20",
       author: "Brandon Lincoln Hendricks",
       category: "AI Engineering",
-      image: "/news/ai-engineering-scale.jpg",
       summary: "Technical deep-dive into the engineering challenges of scaling AI from prototype to production, based on lessons learned building systems that process 2.8M signals daily.",
       slug: "building-production-ai-why-pocs-fail"
     },
@@ -94,7 +86,6 @@ export default function NewsPage() {
       date: "2025-08-19",
       author: "Brandon Lincoln Hendricks",
       category: "AI Research",
-      image: "/news/ai-hallucinations-cost.jpg",
       summary: "New research reveals how AI hallucinations in marketing automation tools are costing enterprises billions in wasted ad spend and missed opportunities.",
       slug: "ai-hallucinations-marketing-cost"
     },
@@ -103,7 +94,6 @@ export default function NewsPage() {
       date: "2025-08-17",
       author: "Brandon Lincoln Hendricks",
       category: "AI Engineering",
-      image: "/news/gpt-production-lessons.jpg",
       summary: "Exclusive insights from beta testing GPT-3, ChatGPT, and GPT-4, including architectural decisions that enabled 74% prediction accuracy.",
       slug: "gpt-to-production-engineering-lessons"
     }
@@ -139,7 +129,6 @@ export default function NewsPage() {
             "url": "https://hendricks.ai/hendricks_logo.png"
           }
         },
-        "image": `https://hendricks.ai${article.image}`,
         "description": article.summary,
         "articleSection": article.category,
         "url": `https://hendricks.ai/news/${article.slug}`

@@ -154,8 +154,6 @@ const resources = [
 
 export default function ResourcesPage() {
   const [selectedCategory, setSelectedCategory] = useState('All')
-  const [showDownloadForm, setShowDownloadForm] = useState(false)
-  const [selectedResource, setSelectedResource] = useState<any>(null)
 
   const categories = ['All', ...resources.map(section => section.category)]
   
@@ -163,15 +161,6 @@ export default function ResourcesPage() {
     ? resources 
     : resources.filter(section => section.category === selectedCategory)
 
-  const handleDownload = (resource: any) => {
-    if (resource.gated) {
-      setSelectedResource(resource)
-      setShowDownloadForm(true)
-    } else {
-      // Direct download for ungated resources
-      alert('Download started: ' + resource.title)
-    }
-  }
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -258,29 +247,13 @@ export default function ResourcesPage() {
                             <span className="mx-2">•</span>
                             <span>{resource.pages}</span>
                           </div>
-                          <button
-                            onClick={() => handleDownload(resource)}
-                            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
-                          >
-                            {resource.gated ? (
-                              <>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                  <path d="M7 11V7a5 5 0 0110 0v4"></path>
-                                </svg>
-                                Get Access
-                              </>
-                            ) : (
-                              <>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
-                                  <polyline points="7 10 12 15 17 10"></polyline>
-                                  <line x1="12" y1="15" x2="12" y2="3"></line>
-                                </svg>
-                                Download
-                              </>
-                            )}
-                          </button>
+                          <span className="inline-flex items-center gap-2 px-4 py-2 bg-gray-800 text-gray-400 text-sm font-medium rounded-lg border border-gray-700">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <circle cx="12" cy="12" r="10"></circle>
+                              <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            Coming Soon
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -337,58 +310,6 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* Download Form Modal */}
-      {showDownloadForm && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-gray-900 rounded-2xl p-8 max-w-md w-full border border-gray-800">
-            <h3 className="text-2xl font-bold mb-4">Get Instant Access</h3>
-            <p className="text-gray-300 mb-6">
-              Enter your details to download: <span className="font-semibold text-blue-400">{selectedResource?.title}</span>
-            </p>
-            <form onSubmit={(e) => {
-              e.preventDefault()
-              alert('Download link sent to your email!')
-              setShowDownloadForm(false)
-            }}>
-              <div className="space-y-4">
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  required
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                />
-                <input
-                  type="email"
-                  placeholder="Business Email"
-                  required
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                />
-                <input
-                  type="text"
-                  placeholder="Company"
-                  required
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                />
-              </div>
-              <div className="mt-6 flex gap-4">
-                <button
-                  type="submit"
-                  className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
-                >
-                  Get Download Link
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowDownloadForm(false)}
-                  className="px-6 py-3 bg-gray-800 text-gray-300 font-semibold rounded-lg hover:bg-gray-700 transition-all duration-200"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
 
       {/* Footer */}
       <footer className="bg-gray-900 py-12 border-t border-gray-800">
