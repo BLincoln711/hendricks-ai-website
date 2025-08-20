@@ -18,6 +18,15 @@ export async function generateMetadata() {
 export default function NewsPage() {
   const newsArticles = [
     {
+      headline: "Google's Modern Measurement Meets Predictive AI: The Future of Marketing Attribution",
+      date: "2025-01-21",
+      author: "Brandon Lincoln Hendricks", 
+      category: "Industry Analysis",
+      image: "/news/modern-measurement.jpg",
+      summary: "Fresh insights from Google's Brandformance 2025 conference reveal how predictive AI transforms modern measurement and incrementality testing into forward-looking strategies.",
+      slug: "modern-measurement-meets-predictive-ai"
+    },
+    {
       headline: "Hendricks.AI Achieves 74% Accuracy in Predicting Market Demand 2-4 Weeks Early",
       date: "2025-01-18",
       author: "Brandon Lincoln Hendricks",
@@ -136,6 +145,29 @@ export default function NewsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(newsListSchema)
+        }}
+      />
+      
+      {/* Google News CMS Sync */}
+      <Script
+        id="google-news-sync"
+        async
+        type="application/javascript"
+        src="https://news.google.com/swg/js/v1/swg-basic.js"
+      />
+      <Script
+        id="google-news-init"
+        dangerouslySetInnerHTML={{
+          __html: `
+            (self.SWG_BASIC = self.SWG_BASIC || []).push( basicSubscriptions => {
+              basicSubscriptions.init({
+                type: "NewsArticle",
+                isPartOfType: ["Product"],
+                isPartOfProductId: "CAowwoHdCw:openaccess",
+                clientOptions: { theme: "light", lang: "en" },
+              });
+            });
+          `
         }}
       />
       

@@ -14,10 +14,17 @@
     </div>
     
     <div style="margin: 20px 0;">
-        <h2>Rectangular Logo (400x80)</h2>
+        <h2>Rectangular Logo - Dark (400x80)</h2>
         <canvas id="rect" width="400" height="80" style="border: 1px solid #ddd;"></canvas>
         <br>
-        <button onclick="downloadRect()">Download Rectangular Logo</button>
+        <button onclick="downloadRect()">Download Dark Rectangular Logo</button>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <h2>Rectangular Logo - Light (400x80)</h2>
+        <canvas id="rectLight" width="400" height="80" style="border: 1px solid #ddd;"></canvas>
+        <br>
+        <button onclick="downloadRectLight()">Download Light Rectangular Logo</button>
     </div>
 
     <script>
@@ -70,6 +77,34 @@
         rc.font = 'bold 28px Arial';
         rc.fillText('.AI', 240, 40);
         
+        // Light theme rectangular logo
+        const rcLight = document.getElementById('rectLight').getContext('2d');
+        
+        // White background
+        rcLight.fillStyle = '#fff';
+        rcLight.fillRect(0, 0, 400, 80);
+        
+        // Logo text in black
+        rcLight.fillStyle = '#000';
+        rcLight.font = 'bold 32px Arial';
+        rcLight.textAlign = 'left';
+        rcLight.textBaseline = 'middle';
+        rcLight.fillText('HENDRICKS', 20, 40);
+        
+        // .AI with gradient
+        const grad3 = rcLight.createLinearGradient(200, 0, 280, 0);
+        grad3.addColorStop(0, '#3B82F6');
+        grad3.addColorStop(1, '#9333EA');
+        rcLight.fillStyle = grad3;
+        rcLight.font = 'bold 28px Arial';
+        rcLight.fillText('.AI', 240, 40);
+        
+        // Small tagline
+        rcLight.fillStyle = '#666';
+        rcLight.font = '10px Arial';
+        rcLight.textAlign = 'right';
+        rcLight.fillText('PREDICTIVE INTELLIGENCE', 380, 65);
+        
         // Download functions
         function downloadSquare() {
             const link = document.createElement('a');
@@ -80,8 +115,15 @@
         
         function downloadRect() {
             const link = document.createElement('a');
-            link.download = 'hendricks-logo-rect-400.png';
+            link.download = 'hendricks-logo-rect-dark-400.png';
             link.href = document.getElementById('rect').toDataURL();
+            link.click();
+        }
+        
+        function downloadRectLight() {
+            const link = document.createElement('a');
+            link.download = 'hendricks-logo-rect-light-400.png';
+            link.href = document.getElementById('rectLight').toDataURL();
             link.click();
         }
     </script>

@@ -5,6 +5,14 @@ export async function GET() {
   
   const articles = [
     {
+      title: "Google's Modern Measurement Meets Predictive AI: The Future of Marketing Attribution",
+      link: `${baseUrl}/news/modern-measurement-meets-predictive-ai`,
+      description: "Fresh insights from Google's Brandformance 2025 conference reveal how predictive AI transforms modern measurement and incrementality testing into forward-looking strategies.",
+      pubDate: new Date('2025-01-21').toUTCString(),
+      category: "Industry Analysis",
+      author: "Brandon Lincoln Hendricks"
+    },
+    {
       title: "Building Production AI: Why 99% of AI POCs Fail to Scale",
       link: `${baseUrl}/news/building-production-ai-why-pocs-fail`,
       description: "Technical deep-dive into the engineering challenges of scaling AI from prototype to production, based on lessons learned building systems that process 2.8M signals daily.",
