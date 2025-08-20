@@ -134,6 +134,16 @@ export default function B2BFunnelIsDeadPage() {
               </div>
             </header>
 
+            {/* Animated Visualization */}
+            <div className="mb-8">
+              <iframe 
+                src="/blog-images/b2b-funnel-chaos-visualization.html" 
+                className="w-full h-[630px] rounded-2xl border border-gray-800"
+                title="B2B Marketing Funnel is Dead Visualization"
+                scrolling="no"
+              ></iframe>
+            </div>
+
             {/* Quick Answer Box */}
             <div className="quick-answer-box bg-blue-900/20 border-l-4 border-blue-500 p-6 rounded-r-lg mb-8">
               <p><strong>Quick Answer:</strong> The traditional B2B marketing funnel is obsolete. Modern B2B buyers use 10+ channels, make decisions with 6-10 stakeholders, and spend 80% of their journey avoiding salespeople entirely. Instead of a linear funnel, buying happens in what Google calls the "messy middle" where buyers loop endlessly between exploration and evaluation across multiple parallel journeys.</p>

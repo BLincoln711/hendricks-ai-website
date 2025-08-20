@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2B Marketing Funnel is Dead - Buying Chaos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .container {
+            width: 1200px;
+            height: 630px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #000000 0%, #111827 100%);
+        }
+        
+        /* Tech grid background */
+        .grid-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.02;
+            background-image: 
+                linear-gradient(0deg, #EF4444 1px, transparent 1px),
+                linear-gradient(90deg, #EF4444 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridDistort 25s ease-in-out infinite;
+        }
+        
+        @keyframes gridDistort {
+            0%, 100% { transform: perspective(1000px) rotateX(0deg); }
+            50% { transform: perspective(1000px) rotateX(5deg); }
+        }
+        
+        /* Traditional funnel (left) - fading/breaking */
+        .traditional-funnel {
+            position: absolute;
+            left: 15%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            height: 300px;
+            opacity: 0.3;
+            animation: funnelFade 6s ease-in-out infinite;
+        }
+        
+        .funnel-stage {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            border-radius: 2px;
+        }
+        
+        .stage-1 {
+            width: 180px;
+            height: 60px;
+            top: 0;
+            background: linear-gradient(180deg, rgba(96, 165, 250, 0.1) 0%, transparent 100%);
+            animation: stageBreak 4s ease-in-out infinite 0s;
+        }
+        
+        .stage-2 {
+            width: 140px;
+            height: 60px;
+            top: 80px;
+            background: linear-gradient(180deg, rgba(96, 165, 250, 0.08) 0%, transparent 100%);
+            animation: stageBreak 4s ease-in-out infinite 0.3s;
+        }
+        
+        .stage-3 {
+            width: 100px;
+            height: 60px;
+            top: 160px;
+            background: linear-gradient(180deg, rgba(96, 165, 250, 0.06) 0%, transparent 100%);
+            animation: stageBreak 4s ease-in-out infinite 0.6s;
+        }
+        
+        .stage-4 {
+            width: 60px;
+            height: 60px;
+            top: 240px;
+            background: linear-gradient(180deg, rgba(96, 165, 250, 0.04) 0%, transparent 100%);
+            animation: stageBreak 4s ease-in-out infinite 0.9s;
+        }
+        
+        @keyframes funnelFade {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.1; }
+        }
+        
+        @keyframes stageBreak {
+            0%, 100% { 
+                transform: translateX(-50%) rotate(0deg);
+                opacity: 1;
+            }
+            50% { 
+                transform: translateX(-50%) rotate(3deg) translateX(10px);
+                opacity: 0.3;
+            }
+        }
+        
+        /* Chaos system (right) */
+        .chaos-system {
+            position: absolute;
+            right: 25%;
+            top: 50%;
+            transform: translate(50%, -50%);
+            width: 400px;
+            height: 400px;
+        }
+        
+        /* Chaos nodes - multiple touchpoints */
+        .chaos-node {
+            position: absolute;
+            border-radius: 50%;
+            animation: chaosFloat 8s ease-in-out infinite;
+        }
+        
+        .node-1 {
+            width: 50px;
+            height: 50px;
+            top: 20%;
+            left: 40%;
+            background: radial-gradient(circle, #10B981 0%, rgba(16, 185, 129, 0.2) 100%);
+            animation-delay: 0s;
+        }
+        
+        .node-2 {
+            width: 40px;
+            height: 40px;
+            top: 35%;
+            right: 20%;
+            background: radial-gradient(circle, #60A5FA 0%, rgba(96, 165, 250, 0.2) 100%);
+            animation-delay: 0.5s;
+        }
+        
+        .node-3 {
+            width: 45px;
+            height: 45px;
+            bottom: 30%;
+            left: 25%;
+            background: radial-gradient(circle, #F97316 0%, rgba(249, 115, 22, 0.2) 100%);
+            animation-delay: 1s;
+        }
+        
+        .node-4 {
+            width: 35px;
+            height: 35px;
+            top: 50%;
+            left: 50%;
+            background: radial-gradient(circle, #8B5CF6 0%, rgba(139, 92, 246, 0.2) 100%);
+            animation-delay: 1.5s;
+        }
+        
+        .node-5 {
+            width: 55px;
+            height: 55px;
+            bottom: 20%;
+            right: 30%;
+            background: radial-gradient(circle, #EF4444 0%, rgba(239, 68, 68, 0.2) 100%);
+            animation-delay: 2s;
+        }
+        
+        .node-6 {
+            width: 38px;
+            height: 38px;
+            top: 15%;
+            right: 35%;
+            background: radial-gradient(circle, #10B981 0%, rgba(16, 185, 129, 0.2) 100%);
+            animation-delay: 2.5s;
+        }
+        
+        .node-7 {
+            width: 42px;
+            height: 42px;
+            bottom: 40%;
+            right: 15%;
+            background: radial-gradient(circle, #60A5FA 0%, rgba(96, 165, 250, 0.2) 100%);
+            animation-delay: 3s;
+        }
+        
+        @keyframes chaosFloat {
+            0%, 100% { 
+                transform: translate(0, 0) scale(1);
+                opacity: 0.7;
+            }
+            25% { 
+                transform: translate(20px, -15px) scale(1.1);
+                opacity: 1;
+            }
+            50% { 
+                transform: translate(-15px, 20px) scale(0.9);
+                opacity: 0.8;
+            }
+            75% { 
+                transform: translate(-20px, -10px) scale(1.05);
+                opacity: 0.9;
+            }
+        }
+        
+        /* Chaotic connection paths */
+        .chaos-path {
+            position: absolute;
+            stroke-width: 1;
+            fill: none;
+            opacity: 0.3;
+            animation: pathChaos 5s ease-in-out infinite;
+        }
+        
+        .path-1 {
+            stroke: rgba(16, 185, 129, 0.5);
+            animation-delay: 0s;
+        }
+        
+        .path-2 {
+            stroke: rgba(96, 165, 250, 0.5);
+            animation-delay: 0.5s;
+        }
+        
+        .path-3 {
+            stroke: rgba(249, 115, 22, 0.5);
+            animation-delay: 1s;
+        }
+        
+        .path-4 {
+            stroke: rgba(139, 92, 246, 0.5);
+            animation-delay: 1.5s;
+        }
+        
+        @keyframes pathChaos {
+            0%, 100% { 
+                opacity: 0.2;
+                stroke-dasharray: 5, 10;
+            }
+            50% { 
+                opacity: 0.6;
+                stroke-dasharray: 10, 5;
+            }
+        }
+        
+        /* Percentage indicator */
+        .percentage-indicator {
+            position: absolute;
+            right: 25%;
+            bottom: 80px;
+            transform: translateX(50%);
+            width: 300px;
+            height: 100px;
+        }
+        
+        .percent-visual {
+            position: relative;
+            width: 100%;
+            height: 60px;
+        }
+        
+        .percent-bar {
+            position: absolute;
+            bottom: 0;
+            height: 8px;
+            border-radius: 4px;
+        }
+        
+        .bar-structured {
+            left: 0;
+            width: 20%;
+            background: linear-gradient(90deg, rgba(96, 165, 250, 0.3) 0%, rgba(96, 165, 250, 0.1) 100%);
+            animation: structuredPulse 3s ease-in-out infinite;
+        }
+        
+        .bar-chaos {
+            left: 20%;
+            width: 80%;
+            background: linear-gradient(90deg, 
+                #F97316 0%, 
+                #EF4444 25%, 
+                #8B5CF6 50%, 
+                #60A5FA 75%, 
+                #10B981 100%);
+            animation: chaosPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes structuredPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+        
+        @keyframes chaosPulse {
+            0%, 100% { 
+                opacity: 0.8;
+                filter: hue-rotate(0deg);
+            }
+            50% { 
+                opacity: 1;
+                filter: hue-rotate(30deg);
+            }
+        }
+        
+        /* Breaking point arrow */
+        .break-arrow {
+            position: absolute;
+            left: 35%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                rgba(239, 68, 68, 0.1) 0%,
+                rgba(239, 68, 68, 0.5) 50%,
+                rgba(239, 68, 68, 0.1) 100%);
+            animation: arrowFlow 3s ease-in-out infinite;
+        }
+        
+        .arrow-head {
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid rgba(239, 68, 68, 0.5);
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            animation: arrowPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes arrowFlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+        
+        @keyframes arrowPulse {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(5px); }
+        }
+        
+        /* Chaos particles */
+        .chaos-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            opacity: 0;
+        }
+        
+        .particle-1 {
+            background: #10B981;
+            animation: particleChaos 6s linear infinite 0s;
+        }
+        
+        .particle-2 {
+            background: #60A5FA;
+            animation: particleChaos 6s linear infinite 1s;
+        }
+        
+        .particle-3 {
+            background: #F97316;
+            animation: particleChaos 6s linear infinite 2s;
+        }
+        
+        .particle-4 {
+            background: #8B5CF6;
+            animation: particleChaos 6s linear infinite 3s;
+        }
+        
+        .particle-5 {
+            background: #EF4444;
+            animation: particleChaos 6s linear infinite 4s;
+        }
+        
+        @keyframes particleChaos {
+            0% {
+                right: 25%;
+                top: 50%;
+                opacity: 0;
+                transform: translate(50%, -50%) scale(0);
+            }
+            10% {
+                opacity: 1;
+                transform: translate(50%, -50%) scale(1);
+            }
+            30% {
+                transform: translate(100px, -80px) scale(1);
+            }
+            50% {
+                transform: translate(-50px, 60px) scale(1);
+            }
+            70% {
+                transform: translate(80px, 40px) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translate(-100px, -100px) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-120px, -120px) scale(0);
+            }
+        }
+        
+        /* Glitch effect overlay */
+        .glitch-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(239, 68, 68, 0.02) 50%,
+                transparent 100%);
+            animation: glitchScan 8s linear infinite;
+        }
+        
+        @keyframes glitchScan {
+            0%, 100% { transform: translateY(-100%); }
+            50% { transform: translateY(100%); }
+        }
+        
+        /* Brand mark */
+        .brand {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: rgba(96, 165, 250, 0.4);
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Background grid -->
+        <div class="grid-bg"></div>
+        
+        <!-- Traditional funnel (breaking apart) -->
+        <div class="traditional-funnel">
+            <div class="funnel-stage stage-1"></div>
+            <div class="funnel-stage stage-2"></div>
+            <div class="funnel-stage stage-3"></div>
+            <div class="funnel-stage stage-4"></div>
+        </div>
+        
+        <!-- Breaking arrow -->
+        <div class="break-arrow">
+            <div class="arrow-head"></div>
+        </div>
+        
+        <!-- Chaos system -->
+        <div class="chaos-system">
+            <!-- Chaos nodes -->
+            <div class="chaos-node node-1"></div>
+            <div class="chaos-node node-2"></div>
+            <div class="chaos-node node-3"></div>
+            <div class="chaos-node node-4"></div>
+            <div class="chaos-node node-5"></div>
+            <div class="chaos-node node-6"></div>
+            <div class="chaos-node node-7"></div>
+            
+            <!-- Chaotic paths -->
+            <svg style="position: absolute; width: 100%; height: 100%;">
+                <path class="chaos-path path-1" d="M 80 80 Q 200 150, 320 120 T 350 200" />
+                <path class="chaos-path path-2" d="M 320 100 Q 150 200, 80 250 T 200 320" />
+                <path class="chaos-path path-3" d="M 200 50 Q 100 180, 250 280 T 350 250" />
+                <path class="chaos-path path-4" d="M 50 200 Q 200 100, 350 180 T 300 300" />
+            </svg>
+        </div>
+        
+        <!-- Percentage indicator -->
+        <div class="percentage-indicator">
+            <div class="percent-visual">
+                <div class="percent-bar bar-structured"></div>
+                <div class="percent-bar bar-chaos"></div>
+            </div>
+        </div>
+        
+        <!-- Chaos particles -->
+        <div class="chaos-particle particle-1"></div>
+        <div class="chaos-particle particle-2"></div>
+        <div class="chaos-particle particle-3"></div>
+        <div class="chaos-particle particle-4"></div>
+        <div class="chaos-particle particle-5"></div>
+        
+        <!-- Glitch overlay -->
+        <div class="glitch-overlay"></div>
+        
+        <!-- Brand mark -->
+        <div class="brand">HENDRICKS.AI</div>
+    </div>
+</body>
+</html>
