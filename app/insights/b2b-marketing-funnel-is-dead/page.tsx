@@ -122,11 +122,9 @@ export default function B2BFunnelIsDeadPage() {
               </h1>
               
               <div className="flex items-center gap-4">
-                <img 
-                  src="/brandon-hendricks-headshot.jpg" 
-                  alt="Brandon Lincoln Hendricks"
-                  className="w-12 h-12 rounded-full"
-                />
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                  <span className="text-white font-bold text-xl">BH</span>
+                </div>
                 <div>
                   <p className="font-semibold">Brandon Lincoln Hendricks</p>
                   <p className="text-sm text-gray-400">Founder & CEO, Hendricks.AI</p>
