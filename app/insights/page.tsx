@@ -179,6 +179,19 @@ export default function InsightsPage() {
                 <article key={post.id} className="group">
                   <Link href={`/insights/${post.id}`} className="block">
                     <div className="relative h-64 bg-gradient-to-br from-blue-900/50 to-purple-900/50 rounded-2xl overflow-hidden mb-6">
+                      {post.image && post.image.endsWith('.html') ? (
+                        <iframe 
+                          src={post.image}
+                          className="w-full h-full"
+                          title={post.title}
+                        />
+                      ) : post.image ? (
+                        <img 
+                          src={post.image} 
+                          alt={post.title}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : null}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                       <div className="absolute bottom-4 left-4">
                         <span className="text-sm text-blue-400 font-medium">{post.category}</span>
