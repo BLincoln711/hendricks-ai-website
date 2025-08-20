@@ -47,7 +47,7 @@ const blogPosts = [
     readTime: '5 min read',
     category: 'Performance Marketing',
     featured: true,
-    image: '/blog/dual-platform.jpg'
+    image: '/blog-images/google-bing-performance-max-visualization.html'
   },
   {
     id: 'demand-intelligence-case-study',

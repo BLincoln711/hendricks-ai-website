@@ -920,7 +920,17 @@ Real-time Optimization</pre>
     date: '2025-08-12',
     readTime: '5 min read',
     category: 'Performance Marketing',
+    image: '/blog-images/google-bing-performance-max-visualization.html',
     content: `
+      <div class="mb-8">
+        <iframe 
+          src="/blog-images/google-bing-performance-max-visualization.html" 
+          class="w-full h-[630px] rounded-2xl border border-gray-800"
+          title="Google + Bing Performance Max - 10% Higher ROAS"
+          scrolling="no"
+        ></iframe>
+      </div>
+
       <p>Here's a statistic that might shock you: 67% of digital marketers completely ignore Bing Performance Max, focusing exclusively on Google. They're leaving significant money on the table.</p>
 
       <p>Our analysis of $12.4M in ad spend across both platforms reveals a compelling truth: Brands running dual Performance Max campaigns see an average ROAS lift of 10% compared to Google-only strategies.</p>

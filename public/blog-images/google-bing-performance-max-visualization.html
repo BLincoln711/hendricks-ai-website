@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google + Bing Performance Max - 10% Higher ROAS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: transparent;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 100%;
+            height: 100%;
+            min-height: 630px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #000000 0%, #111827 100%);
+        }
+        
+        /* Tech grid background */
+        .grid-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(0deg, #60A5FA 1px, transparent 1px),
+                linear-gradient(90deg, #60A5FA 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridSlide 30s linear infinite;
+        }
+        
+        @keyframes gridSlide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        /* Platform cores */
+        .platform-google {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            left: 30%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .platform-bing {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            right: 30%;
+            top: 50%;
+            transform: translate(50%, -50%);
+        }
+        
+        .google-core {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center,
+                #4285F4 0%,
+                #1A73E8 30%,
+                rgba(26, 115, 232, 0.3) 60%,
+                transparent 100%);
+            border-radius: 50%;
+            animation: googlePulse 3s ease-in-out infinite;
+            box-shadow: 0 0 80px rgba(66, 133, 244, 0.6);
+        }
+        
+        .bing-core {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center,
+                #00BCF2 0%,
+                #008DB8 30%,
+                rgba(0, 141, 184, 0.3) 60%,
+                transparent 100%);
+            border-radius: 50%;
+            animation: bingPulse 3s ease-in-out infinite 0.5s;
+            box-shadow: 0 0 80px rgba(0, 188, 242, 0.6);
+        }
+        
+        @keyframes googlePulse {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.9;
+            }
+            50% { 
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes bingPulse {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.9;
+            }
+            50% { 
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+        
+        /* Synergy connection */
+        .synergy-bridge {
+            position: absolute;
+            left: 30%;
+            right: 30%;
+            top: 50%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                #4285F4 0%, 
+                #10B981 25%,
+                #60A5FA 50%, 
+                #10B981 75%,
+                #00BCF2 100%);
+            transform: translateY(-50%);
+            animation: synergyFlow 2s linear infinite;
+        }
+        
+        @keyframes synergyFlow {
+            0% { 
+                opacity: 0.5;
+                filter: hue-rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                filter: hue-rotate(20deg);
+            }
+            100% { 
+                opacity: 0.5;
+                filter: hue-rotate(0deg);
+            }
+        }
+        
+        /* Performance metrics */
+        .roas-indicator {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+        }
+        
+        .roas-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .roas-fill {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid #10B981;
+            border-top-color: transparent;
+            border-right-color: transparent;
+            border-bottom-color: transparent;
+            transform: rotate(-90deg);
+            animation: roasFill 3s ease-in-out infinite;
+        }
+        
+        @keyframes roasFill {
+            0% { 
+                transform: rotate(-90deg);
+                border-left-color: #10B981;
+            }
+            50% {
+                transform: rotate(45deg);
+                border-left-color: #10B981;
+            }
+            100% { 
+                transform: rotate(-90deg);
+                border-left-color: #10B981;
+            }
+        }
+        
+        .roas-center {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle at center,
+                #10B981 0%,
+                rgba(16, 185, 129, 0.3) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: centerGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes centerGlow {
+            0%, 100% {
+                box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(16, 185, 129, 0.9);
+            }
+        }
+        
+        /* Data streams */
+        .data-stream {
+            position: absolute;
+            height: 2px;
+            opacity: 0;
+            animation: streamMove 2s linear infinite;
+        }
+        
+        .stream-google-1 {
+            width: 200px;
+            top: 30%;
+            left: 10%;
+            background: linear-gradient(90deg, transparent 0%, #4285F4 50%, transparent 100%);
+            animation-delay: 0s;
+        }
+        
+        .stream-google-2 {
+            width: 200px;
+            top: 50%;
+            left: 10%;
+            background: linear-gradient(90deg, transparent 0%, #4285F4 50%, transparent 100%);
+            animation-delay: 0.5s;
+        }
+        
+        .stream-google-3 {
+            width: 200px;
+            top: 70%;
+            left: 10%;
+            background: linear-gradient(90deg, transparent 0%, #4285F4 50%, transparent 100%);
+            animation-delay: 1s;
+        }
+        
+        .stream-bing-1 {
+            width: 200px;
+            top: 30%;
+            right: 10%;
+            background: linear-gradient(270deg, transparent 0%, #00BCF2 50%, transparent 100%);
+            animation-delay: 0.3s;
+        }
+        
+        .stream-bing-2 {
+            width: 200px;
+            top: 50%;
+            right: 10%;
+            background: linear-gradient(270deg, transparent 0%, #00BCF2 50%, transparent 100%);
+            animation-delay: 0.8s;
+        }
+        
+        .stream-bing-3 {
+            width: 200px;
+            top: 70%;
+            right: 10%;
+            background: linear-gradient(270deg, transparent 0%, #00BCF2 50%, transparent 100%);
+            animation-delay: 1.3s;
+        }
+        
+        @keyframes streamMove {
+            0% {
+                opacity: 0;
+                transform: translateX(0);
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(200px);
+            }
+        }
+        
+        /* Performance particles */
+        .perf-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            opacity: 0;
+        }
+        
+        .particle-1 {
+            background: #10B981;
+            left: 50%;
+            top: 50%;
+            animation: particleRise 3s ease-out infinite 0s;
+        }
+        
+        .particle-2 {
+            background: #60A5FA;
+            left: 48%;
+            top: 50%;
+            animation: particleRise 3s ease-out infinite 0.5s;
+        }
+        
+        .particle-3 {
+            background: #10B981;
+            left: 52%;
+            top: 50%;
+            animation: particleRise 3s ease-out infinite 1s;
+        }
+        
+        .particle-4 {
+            background: #F97316;
+            left: 49%;
+            top: 50%;
+            animation: particleRise 3s ease-out infinite 1.5s;
+        }
+        
+        .particle-5 {
+            background: #8B5CF6;
+            left: 51%;
+            top: 50%;
+            animation: particleRise 3s ease-out infinite 2s;
+        }
+        
+        @keyframes particleRise {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) translateY(0) scale(0);
+            }
+            20% {
+                opacity: 1;
+                transform: translate(-50%, -50%) translateY(-50px) scale(1);
+            }
+            40% {
+                opacity: 1;
+                transform: translate(-50%, -50%) translateY(-100px) scale(1);
+            }
+            60% {
+                opacity: 1;
+                transform: translate(-50%, -50%) translateY(-150px) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) translateY(-200px) scale(0);
+            }
+        }
+        
+        /* Optimization waves */
+        .opt-wave {
+            position: absolute;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 50%;
+            animation: waveExpand 3s ease-out infinite;
+        }
+        
+        .wave-1 {
+            width: 150px;
+            height: 150px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 0s;
+        }
+        
+        .wave-2 {
+            width: 150px;
+            height: 150px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 1s;
+        }
+        
+        .wave-3 {
+            width: 150px;
+            height: 150px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 2s;
+        }
+        
+        @keyframes waveExpand {
+            0% {
+                width: 150px;
+                height: 150px;
+                opacity: 0.8;
+                border-color: rgba(16, 185, 129, 0.6);
+            }
+            100% {
+                width: 400px;
+                height: 400px;
+                opacity: 0;
+                border-color: rgba(16, 185, 129, 0);
+            }
+        }
+        
+        /* Campaign nodes */
+        .campaign-node {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: nodeFloat 4s ease-in-out infinite;
+        }
+        
+        .node-g1 {
+            left: 25%;
+            top: 25%;
+            background: #4285F4;
+            animation-delay: 0s;
+        }
+        
+        .node-g2 {
+            left: 35%;
+            top: 30%;
+            background: #4285F4;
+            animation-delay: 0.5s;
+        }
+        
+        .node-g3 {
+            left: 25%;
+            bottom: 25%;
+            background: #4285F4;
+            animation-delay: 1s;
+        }
+        
+        .node-b1 {
+            right: 25%;
+            top: 25%;
+            background: #00BCF2;
+            animation-delay: 0.3s;
+        }
+        
+        .node-b2 {
+            right: 35%;
+            top: 30%;
+            background: #00BCF2;
+            animation-delay: 0.8s;
+        }
+        
+        .node-b3 {
+            right: 25%;
+            bottom: 25%;
+            background: #00BCF2;
+            animation-delay: 1.3s;
+        }
+        
+        @keyframes nodeFloat {
+            0%, 100% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+        
+        /* Performance bars */
+        .perf-bar {
+            position: absolute;
+            height: 4px;
+            border-radius: 2px;
+            opacity: 0.7;
+        }
+        
+        .bar-1 {
+            width: 80px;
+            bottom: 100px;
+            left: 150px;
+            background: linear-gradient(90deg, #4285F4 0%, #10B981 100%);
+            animation: barGrow 3s ease-in-out infinite 0s;
+        }
+        
+        .bar-2 {
+            width: 100px;
+            bottom: 110px;
+            left: 150px;
+            background: linear-gradient(90deg, #4285F4 0%, #10B981 100%);
+            animation: barGrow 3s ease-in-out infinite 0.5s;
+        }
+        
+        .bar-3 {
+            width: 90px;
+            bottom: 120px;
+            left: 150px;
+            background: linear-gradient(90deg, #4285F4 0%, #10B981 100%);
+            animation: barGrow 3s ease-in-out infinite 1s;
+        }
+        
+        .bar-4 {
+            width: 85px;
+            bottom: 100px;
+            right: 150px;
+            background: linear-gradient(90deg, #00BCF2 0%, #10B981 100%);
+            animation: barGrow 3s ease-in-out infinite 0.3s;
+        }
+        
+        .bar-5 {
+            width: 95px;
+            bottom: 110px;
+            right: 150px;
+            background: linear-gradient(90deg, #00BCF2 0%, #10B981 100%);
+            animation: barGrow 3s ease-in-out infinite 0.8s;
+        }
+        
+        .bar-6 {
+            width: 88px;
+            bottom: 120px;
+            right: 150px;
+            background: linear-gradient(90deg, #00BCF2 0%, #10B981 100%);
+            animation: barGrow 3s ease-in-out infinite 1.3s;
+        }
+        
+        @keyframes barGrow {
+            0%, 100% {
+                transform: scaleX(0.5);
+                opacity: 0.4;
+            }
+            50% {
+                transform: scaleX(1);
+                opacity: 0.9;
+            }
+        }
+        
+        /* Glowing overlay */
+        .glow-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%,
+                rgba(16, 185, 129, 0.1) 0%,
+                transparent 50%);
+            animation: overlayPulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes overlayPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+        
+        /* Brand mark */
+        .brand {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: rgba(96, 165, 250, 0.4);
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Background grid -->
+        <div class="grid-bg"></div>
+        
+        <!-- Platform cores -->
+        <div class="platform-google">
+            <div class="google-core"></div>
+        </div>
+        
+        <div class="platform-bing">
+            <div class="bing-core"></div>
+        </div>
+        
+        <!-- Synergy bridge -->
+        <div class="synergy-bridge"></div>
+        
+        <!-- ROAS indicator -->
+        <div class="roas-indicator">
+            <div class="roas-ring"></div>
+            <div class="roas-fill"></div>
+            <div class="roas-center"></div>
+        </div>
+        
+        <!-- Data streams -->
+        <div class="data-stream stream-google-1"></div>
+        <div class="data-stream stream-google-2"></div>
+        <div class="data-stream stream-google-3"></div>
+        <div class="data-stream stream-bing-1"></div>
+        <div class="data-stream stream-bing-2"></div>
+        <div class="data-stream stream-bing-3"></div>
+        
+        <!-- Optimization waves -->
+        <div class="opt-wave wave-1"></div>
+        <div class="opt-wave wave-2"></div>
+        <div class="opt-wave wave-3"></div>
+        
+        <!-- Campaign nodes -->
+        <div class="campaign-node node-g1"></div>
+        <div class="campaign-node node-g2"></div>
+        <div class="campaign-node node-g3"></div>
+        <div class="campaign-node node-b1"></div>
+        <div class="campaign-node node-b2"></div>
+        <div class="campaign-node node-b3"></div>
+        
+        <!-- Performance particles -->
+        <div class="perf-particle particle-1"></div>
+        <div class="perf-particle particle-2"></div>
+        <div class="perf-particle particle-3"></div>
+        <div class="perf-particle particle-4"></div>
+        <div class="perf-particle particle-5"></div>
+        
+        <!-- Performance bars -->
+        <div class="perf-bar bar-1"></div>
+        <div class="perf-bar bar-2"></div>
+        <div class="perf-bar bar-3"></div>
+        <div class="perf-bar bar-4"></div>
+        <div class="perf-bar bar-5"></div>
+        <div class="perf-bar bar-6"></div>
+        
+        <!-- Glow overlay -->
+        <div class="glow-overlay"></div>
+        
+        <!-- Brand mark -->
+        <div class="brand">HENDRICKS.AI</div>
+    </div>
+</body>
+</html>
