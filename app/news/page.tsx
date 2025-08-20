@@ -18,17 +18,17 @@ export async function generateMetadata() {
 export default function NewsPage() {
   const newsArticles = [
     {
-      headline: "Google's Modern Measurement Meets Predictive AI: The Future of Marketing Attribution",
-      date: "2025-01-21",
+      headline: "Google Meridian MMM Meets Predictive AI: The Future of Marketing Attribution",
+      date: "2025-08-19",
       author: "Brandon Lincoln Hendricks", 
       category: "Industry Analysis",
       image: "/news/modern-measurement.jpg",
-      summary: "Fresh insights from Google's Brandformance 2025 conference reveal how predictive AI transforms modern measurement and incrementality testing into forward-looking strategies.",
+      summary: "Breaking analysis from Brandformance 2025: How Hendricks.AI's predictive capabilities enhance Google's new Meridian MMM framework to forecast incrementality before spending.",
       slug: "modern-measurement-meets-predictive-ai"
     },
     {
       headline: "Hendricks.AI Achieves 74% Accuracy in Predicting Market Demand 2-4 Weeks Early",
-      date: "2025-01-18",
+      date: "2025-08-18",
       author: "Brandon Lincoln Hendricks",
       category: "Company News",
       image: "/news/predictive-ai-breakthrough.jpg",
@@ -37,7 +37,7 @@ export default function NewsPage() {
     },
     {
       headline: "Former SolarWinds Global Search Lead Launches First Predictive AI Marketing Agency",
-      date: "2025-01-15",
+      date: "2025-08-15",
       author: "Brandon Lincoln Hendricks",
       category: "Industry News",
       image: "/news/hendricks-ai-launch.jpg",
@@ -46,7 +46,7 @@ export default function NewsPage() {
     },
     {
       headline: "Study: 87% of Marketers Still Using Reactive Strategies, Missing Revenue Opportunities",
-      date: "2025-01-12",
+      date: "2025-08-12",
       author: "Brandon Lincoln Hendricks",
       category: "Research",
       image: "/news/marketing-study.jpg",
@@ -55,7 +55,7 @@ export default function NewsPage() {
     },
     {
       headline: "Predictive AI Correctly Forecasts Post-Holiday E-commerce Surge 3 Weeks in Advance",
-      date: "2025-01-10",
+      date: "2025-08-10",
       author: "Brandon Lincoln Hendricks",
       category: "Case Study",
       image: "/news/ecommerce-prediction.jpg",
@@ -64,7 +64,7 @@ export default function NewsPage() {
     },
     {
       headline: "Google Performance Max Gets Predictive: How AI Changes the PMax Game",
-      date: "2025-01-08",
+      date: "2025-08-08",
       author: "Brandon Lincoln Hendricks",
       category: "Analysis",
       image: "/news/google-performance-max.jpg",
@@ -73,7 +73,7 @@ export default function NewsPage() {
     },
     {
       headline: "Building Production AI: Why 99% of AI POCs Fail to Scale",
-      date: "2025-01-20",
+      date: "2025-08-20",
       author: "Brandon Lincoln Hendricks",
       category: "AI Engineering",
       image: "/news/ai-engineering-scale.jpg",
@@ -82,7 +82,7 @@ export default function NewsPage() {
     },
     {
       headline: "The Hidden Cost of AI Hallucinations in Marketing: A $4.2B Problem",
-      date: "2025-01-19",
+      date: "2025-08-19",
       author: "Brandon Lincoln Hendricks",
       category: "AI Research",
       image: "/news/ai-hallucinations-cost.jpg",
@@ -91,7 +91,7 @@ export default function NewsPage() {
     },
     {
       headline: "From GPT to Production: Engineering Lessons from Early OpenAI Beta Access",
-      date: "2025-01-17",
+      date: "2025-08-17",
       author: "Brandon Lincoln Hendricks",
       category: "AI Engineering",
       image: "/news/gpt-production-lessons.jpg",

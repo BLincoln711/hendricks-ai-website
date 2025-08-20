@@ -5,10 +5,10 @@ export async function GET() {
   
   const articles = [
     {
-      title: "Google's Modern Measurement Meets Predictive AI: The Future of Marketing Attribution",
+      title: "Google Meridian MMM Meets Predictive AI: The Future of Marketing Attribution",
       link: `${baseUrl}/news/modern-measurement-meets-predictive-ai`,
-      description: "Fresh insights from Google's Brandformance 2025 conference reveal how predictive AI transforms modern measurement and incrementality testing into forward-looking strategies.",
-      pubDate: new Date('2025-01-21').toUTCString(),
+      description: "Breaking analysis from Brandformance 2025: How Hendricks.AI's predictive capabilities enhance Google's new Meridian MMM framework to forecast incrementality before spending.",
+      pubDate: new Date('2025-08-19').toUTCString(),
       category: "Industry Analysis",
       author: "Brandon Lincoln Hendricks"
     },
@@ -16,7 +16,7 @@ export async function GET() {
       title: "Building Production AI: Why 99% of AI POCs Fail to Scale",
       link: `${baseUrl}/news/building-production-ai-why-pocs-fail`,
       description: "Technical deep-dive into the engineering challenges of scaling AI from prototype to production, based on lessons learned building systems that process 2.8M signals daily.",
-      pubDate: new Date('2025-01-20').toUTCString(),
+      pubDate: new Date('2025-08-20').toUTCString(),
       category: "AI Engineering",
       author: "Brandon Lincoln Hendricks"
     },
@@ -24,7 +24,7 @@ export async function GET() {
       title: "The Hidden Cost of AI Hallucinations in Marketing: A $4.2B Problem",
       link: `${baseUrl}/news/ai-hallucinations-marketing-cost`,
       description: "New research reveals how AI hallucinations in marketing automation tools are costing enterprises billions in wasted ad spend and missed opportunities.",
-      pubDate: new Date('2025-01-19').toUTCString(),
+      pubDate: new Date('2025-08-19').toUTCString(),
       category: "AI Research",
       author: "Brandon Lincoln Hendricks"
     },
@@ -32,7 +32,7 @@ export async function GET() {
       title: "Hendricks.AI Achieves 74% Accuracy in Predicting Market Demand 2-4 Weeks Early",
       link: `${baseUrl}/news/hendricks-ai-achieves-74-percent-prediction-accuracy`,
       description: "New predictive AI system analyzes 2.8 million daily signals to forecast market demand with unprecedented accuracy, delivering average ROI of 312% for enterprise clients.",
-      pubDate: new Date('2025-01-18').toUTCString(),
+      pubDate: new Date('2025-08-18').toUTCString(),
       category: "Company News",
       author: "Brandon Lincoln Hendricks"
     },
@@ -40,7 +40,7 @@ export async function GET() {
       title: "From GPT to Production: Engineering Lessons from Early OpenAI Beta Access",
       link: `${baseUrl}/news/gpt-to-production-engineering-lessons`,
       description: "Exclusive insights from beta testing GPT-3, ChatGPT, and GPT-4, including architectural decisions that enabled 74% prediction accuracy.",
-      pubDate: new Date('2025-01-17').toUTCString(),
+      pubDate: new Date('2025-08-17').toUTCString(),
       category: "AI Engineering",
       author: "Brandon Lincoln Hendricks"
     },
@@ -48,7 +48,7 @@ export async function GET() {
       title: "Former SolarWinds Global Search Lead Launches First Predictive AI Marketing Agency",
       link: `${baseUrl}/news/former-solarwinds-exec-launches-predictive-ai-agency`,
       description: "Brandon Lincoln Hendricks, former Global Lead of Total Search at SolarWinds, announces the launch of Hendricks.AI, the first marketing agency that predicts demand before it happens.",
-      pubDate: new Date('2025-01-15').toUTCString(),
+      pubDate: new Date('2025-08-15').toUTCString(),
       category: "Industry News",
       author: "Brandon Lincoln Hendricks"
     }

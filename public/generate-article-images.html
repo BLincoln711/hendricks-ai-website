@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Article Images for Hendricks.AI</title>
+</head>
+<body style="background: #f0f0f0; padding: 40px; font-family: Arial, sans-serif;">
+    <h1>Article Image Generator</h1>
+    <p>Click each button to download the article image</p>
+    
+    <!-- Canvas for each article -->
+    <div style="margin: 20px 0;">
+        <h3>1. Modern Measurement & Predictive AI</h3>
+        <canvas id="modern-measurement" width="1200" height="630"></canvas>
+        <br>
+        <button onclick="download('modern-measurement')">Download</button>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <h3>2. 74% Prediction Accuracy</h3>
+        <canvas id="prediction-accuracy" width="1200" height="630"></canvas>
+        <br>
+        <button onclick="download('prediction-accuracy')">Download</button>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <h3>3. AI Engineering - POCs Fail</h3>
+        <canvas id="ai-engineering" width="1200" height="630"></canvas>
+        <br>
+        <button onclick="download('ai-engineering')">Download</button>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <h3>4. AI Hallucinations Cost</h3>
+        <canvas id="ai-hallucinations" width="1200" height="630"></canvas>
+        <br>
+        <button onclick="download('ai-hallucinations')">Download</button>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <h3>5. Former SolarWinds Launch</h3>
+        <canvas id="solarwinds-launch" width="1200" height="630"></canvas>
+        <br>
+        <button onclick="download('solarwinds-launch')">Download</button>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <h3>6. GPT to Production</h3>
+        <canvas id="gpt-production" width="1200" height="630"></canvas>
+        <br>
+        <button onclick="download('gpt-production')">Download</button>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <h3>7. Marketing Study</h3>
+        <canvas id="marketing-study" width="1200" height="630"></canvas>
+        <br>
+        <button onclick="download('marketing-study')">Download</button>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <h3>8. E-commerce Surge</h3>
+        <canvas id="ecommerce-surge" width="1200" height="630"></canvas>
+        <br>
+        <button onclick="download('ecommerce-surge')">Download</button>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <h3>9. Performance Max</h3>
+        <canvas id="performance-max" width="1200" height="630"></canvas>
+        <br>
+        <button onclick="download('performance-max')">Download</button>
+    </div>
+
+    <script>
+        // Function to create gradient background
+        function createGradientBg(ctx, color1, color2) {
+            const gradient = ctx.createLinearGradient(0, 0, 1200, 630);
+            gradient.addColorStop(0, color1);
+            gradient.addColorStop(1, color2);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 1200, 630);
+        }
+        
+        // Function to add text with wrapping
+        function addText(ctx, text, x, y, maxWidth, lineHeight, fontSize, color) {
+            ctx.font = `bold ${fontSize}px Arial`;
+            ctx.fillStyle = color;
+            const words = text.split(' ');
+            let line = '';
+            let yPos = y;
+            
+            for(let n = 0; n < words.length; n++) {
+                const testLine = line + words[n] + ' ';
+                const metrics = ctx.measureText(testLine);
+                const testWidth = metrics.width;
+                if (testWidth > maxWidth && n > 0) {
+                    ctx.fillText(line, x, yPos);
+                    line = words[n] + ' ';
+                    yPos += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            ctx.fillText(line, x, yPos);
+        }
+        
+        // 1. Modern Measurement
+        const mm = document.getElementById('modern-measurement').getContext('2d');
+        createGradientBg(mm, '#1e3a8a', '#7c3aed');
+        addText(mm, 'MODERN MEASUREMENT', 100, 200, 1000, 80, 72, '#fff');
+        addText(mm, 'MEETS PREDICTIVE AI', 100, 280, 1000, 80, 72, '#fff');
+        mm.font = '36px Arial';
+        mm.fillStyle = '#a5b4fc';
+        mm.fillText('The Future of Marketing Attribution', 100, 380);
+        mm.fillStyle = '#60a5fa';
+        mm.fillText('HENDRICKS.AI', 100, 500);
+        
+        // 2. 74% Accuracy
+        const pa = document.getElementById('prediction-accuracy').getContext('2d');
+        createGradientBg(pa, '#0f172a', '#1e293b');
+        pa.font = 'bold 200px Arial';
+        pa.fillStyle = '#22c55e';
+        pa.fillText('74%', 400, 300);
+        pa.font = 'bold 48px Arial';
+        pa.fillStyle = '#fff';
+        pa.fillText('PREDICTION ACCURACY', 250, 400);
+        pa.font = '32px Arial';
+        pa.fillStyle = '#94a3b8';
+        pa.fillText('2-4 Weeks Before Market Demand', 250, 470);
+        
+        // 3. AI Engineering
+        const ae = document.getElementById('ai-engineering').getContext('2d');
+        createGradientBg(ae, '#7c2d12', '#991b1b');
+        addText(ae, 'WHY 99% OF AI POCS', 100, 200, 1000, 80, 72, '#fff');
+        addText(ae, 'FAIL TO SCALE', 100, 280, 1000, 80, 72, '#fff');
+        ae.font = '36px Arial';
+        ae.fillStyle = '#fca5a5';
+        ae.fillText('Building Production AI That Works', 100, 380);
+        
+        // 4. AI Hallucinations
+        const ah = document.getElementById('ai-hallucinations').getContext('2d');
+        createGradientBg(ah, '#581c87', '#831843');
+        ah.font = 'bold 120px Arial';
+        ah.fillStyle = '#f43f5e';
+        ah.fillText('$4.2B', 400, 250);
+        ah.font = 'bold 48px Arial';
+        ah.fillStyle = '#fff';
+        ah.fillText('THE HIDDEN COST OF', 300, 350);
+        ah.fillText('AI HALLUCINATIONS', 320, 420);
+        
+        // 5. SolarWinds Launch
+        const sl = document.getElementById('solarwinds-launch').getContext('2d');
+        createGradientBg(sl, '#064e3b', '#065f46');
+        addText(sl, 'FIRST PREDICTIVE AI', 100, 200, 1000, 80, 72, '#fff');
+        addText(sl, 'MARKETING AGENCY', 100, 280, 1000, 80, 72, '#fff');
+        sl.font = '36px Arial';
+        sl.fillStyle = '#6ee7b7';
+        sl.fillText('Former SolarWinds Global Search Lead', 100, 380);
+        sl.fillText('Launches Hendricks.AI', 100, 440);
+        
+        // 6. GPT to Production
+        const gp = document.getElementById('gpt-production').getContext('2d');
+        createGradientBg(gp, '#1f2937', '#111827');
+        addText(gp, 'FROM GPT TO', 100, 180, 1000, 80, 72, '#10b981');
+        addText(gp, 'PRODUCTION', 100, 260, 1000, 80, 72, '#10b981');
+        gp.font = '36px Arial';
+        gp.fillStyle = '#d1d5db';
+        gp.fillText('Engineering Lessons from', 100, 360);
+        gp.fillText('Early OpenAI Beta Access', 100, 420);
+        
+        // 7. Marketing Study
+        const ms = document.getElementById('marketing-study').getContext('2d');
+        createGradientBg(ms, '#7f1d1d', '#991b1b');
+        ms.font = 'bold 180px Arial';
+        ms.fillStyle = '#fca5a5';
+        ms.fillText('87%', 400, 280);
+        ms.font = 'bold 42px Arial';
+        ms.fillStyle = '#fff';
+        ms.fillText('STILL USING REACTIVE STRATEGIES', 200, 380);
+        ms.font = '32px Arial';
+        ms.fillStyle = '#fca5a5';
+        ms.fillText('Missing $47B in Annual Revenue', 280, 450);
+        
+        // 8. E-commerce Surge
+        const es = document.getElementById('ecommerce-surge').getContext('2d');
+        createGradientBg(es, '#0c4a6e', '#075985');
+        es.font = 'bold 72px Arial';
+        es.fillStyle = '#fff';
+        es.fillText('68% SURGE', 350, 250);
+        es.fillText('PREDICTED', 380, 350);
+        es.font = '36px Arial';
+        es.fillStyle = '#7dd3fc';
+        es.fillText('3 Weeks Before Competition', 300, 450);
+        
+        // 9. Performance Max
+        const pm = document.getElementById('performance-max').getContext('2d');
+        createGradientBg(pm, '#4c1d95', '#5b21b6');
+        addText(pm, 'PERFORMANCE MAX', 100, 200, 1000, 80, 72, '#fff');
+        pm.font = 'bold 120px Arial';
+        pm.fillStyle = '#a78bfa';
+        pm.fillText('+ AI', 450, 320);
+        pm.font = '42px Arial';
+        pm.fillStyle = '#e9d5ff';
+        pm.fillText('= 287% ROI IMPROVEMENT', 250, 420);
+        
+        // Download function
+        function download(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = canvasId + '.jpg';
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+        }
+    </script>
+</body>
+</html>

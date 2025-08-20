@@ -9,7 +9,7 @@ const articles = {
   'modern-measurement-meets-predictive-ai': modernMeasurementArticle,
   'hendricks-ai-achieves-74-percent-prediction-accuracy': {
     headline: "Hendricks.AI Achieves 74% Accuracy in Predicting Market Demand 2-4 Weeks Early",
-    date: "2025-01-18",
+    date: "2025-08-18",
     author: "Brandon Lincoln Hendricks",
     category: "Company News",
     readTime: "5 min read",
@@ -70,7 +70,7 @@ const articles = {
   },
   'former-solarwinds-exec-launches-predictive-ai-agency': {
     headline: "Former SolarWinds Global Search Lead Launches First Predictive AI Marketing Agency",
-    date: "2025-01-15",
+    date: "2025-08-15",
     author: "Brandon Lincoln Hendricks",
     category: "Industry News",
     readTime: "4 min read",
@@ -117,7 +117,7 @@ const articles = {
   },
   'building-production-ai-why-pocs-fail': {
     headline: "Building Production AI: Why 99% of AI POCs Fail to Scale",
-    date: "2025-01-20",
+    date: "2025-08-20",
     author: "Brandon Lincoln Hendricks",
     category: "AI Engineering",
     readTime: "7 min read",
