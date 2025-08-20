@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictive AI Marketing Blog Image</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .container {
+            width: 1200px;
+            height: 630px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #000000 0%, #111827 100%);
+        }
+        
+        /* Tech grid pattern */
+        .grid-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(0deg, #60A5FA 1px, transparent 1px),
+                linear-gradient(90deg, #60A5FA 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        /* Central predictive orb */
+        .central-orb {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle at 30% 30%, 
+                rgba(96, 165, 250, 0.3) 0%, 
+                rgba(139, 92, 246, 0.2) 40%, 
+                transparent 70%);
+            border-radius: 50%;
+            animation: orbitPulse 4s ease-in-out infinite;
+        }
+        
+        .orb-core {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle at center,
+                #60A5FA 0%,
+                #8B5CF6 50%,
+                rgba(139, 92, 246, 0.4) 100%);
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: corePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes orbitPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+        
+        @keyframes corePulse {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                filter: blur(2px) brightness(1);
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.2);
+                filter: blur(3px) brightness(1.3);
+            }
+        }
+        
+        /* Predictive data streams */
+        .data-stream {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                #10B981 20%, 
+                #60A5FA 50%, 
+                #8B5CF6 80%, 
+                transparent 100%);
+            opacity: 0;
+            animation: streamFlow 3s ease-in-out infinite;
+        }
+        
+        .stream-1 {
+            width: 400px;
+            top: 30%;
+            left: -400px;
+            animation-delay: 0s;
+        }
+        
+        .stream-2 {
+            width: 350px;
+            top: 50%;
+            left: -350px;
+            animation-delay: 0.5s;
+        }
+        
+        .stream-3 {
+            width: 450px;
+            top: 70%;
+            left: -450px;
+            animation-delay: 1s;
+        }
+        
+        .stream-4 {
+            width: 380px;
+            top: 40%;
+            right: -380px;
+            animation-delay: 1.5s;
+            background: linear-gradient(270deg, 
+                transparent 0%, 
+                #10B981 20%, 
+                #60A5FA 50%, 
+                #8B5CF6 80%, 
+                transparent 100%);
+        }
+        
+        .stream-5 {
+            width: 420px;
+            top: 60%;
+            right: -420px;
+            animation-delay: 2s;
+            background: linear-gradient(270deg, 
+                transparent 0%, 
+                #F97316 20%, 
+                #EF4444 50%, 
+                #8B5CF6 80%, 
+                transparent 100%);
+        }
+        
+        @keyframes streamFlow {
+            0% { 
+                opacity: 0;
+                transform: translateX(0);
+            }
+            20% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(600px);
+            }
+            80% {
+                opacity: 1;
+            }
+            100% { 
+                opacity: 0;
+                transform: translateX(1200px);
+            }
+        }
+        
+        /* Prediction nodes */
+        .node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: nodeGlow 2s ease-in-out infinite;
+        }
+        
+        .node-1 {
+            top: 25%;
+            left: 20%;
+            background: #10B981;
+            animation-delay: 0s;
+        }
+        
+        .node-2 {
+            top: 35%;
+            right: 25%;
+            background: #60A5FA;
+            animation-delay: 0.3s;
+        }
+        
+        .node-3 {
+            bottom: 30%;
+            left: 30%;
+            background: #8B5CF6;
+            animation-delay: 0.6s;
+        }
+        
+        .node-4 {
+            bottom: 25%;
+            right: 20%;
+            background: #F97316;
+            animation-delay: 0.9s;
+        }
+        
+        .node-5 {
+            top: 45%;
+            left: 15%;
+            background: #10B981;
+            animation-delay: 1.2s;
+        }
+        
+        @keyframes nodeGlow {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 20px currentColor;
+                opacity: 0.6;
+            }
+            50% { 
+                transform: scale(1.5);
+                box-shadow: 0 0 40px currentColor;
+                opacity: 1;
+            }
+        }
+        
+        /* Connecting lines */
+        .connection {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(96, 165, 250, 0.3) 50%, 
+                transparent 100%);
+            transform-origin: left center;
+        }
+        
+        .conn-1 {
+            width: 200px;
+            top: 25%;
+            left: 20%;
+            transform: rotate(25deg);
+            animation: connPulse 3s ease-in-out infinite;
+        }
+        
+        .conn-2 {
+            width: 250px;
+            top: 35%;
+            right: 25%;
+            transform: rotate(-35deg);
+            animation: connPulse 3s ease-in-out infinite 0.5s;
+        }
+        
+        .conn-3 {
+            width: 180px;
+            bottom: 30%;
+            left: 30%;
+            transform: rotate(45deg);
+            animation: connPulse 3s ease-in-out infinite 1s;
+        }
+        
+        @keyframes connPulse {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.6; }
+        }
+        
+        /* Future timeline visualization */
+        .timeline {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                rgba(96, 165, 250, 0.2) 0%,
+                rgba(96, 165, 250, 0.5) 50%,
+                rgba(16, 185, 129, 0.8) 100%);
+        }
+        
+        .timeline-point {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #10B981;
+            box-shadow: 0 0 20px #10B981;
+            animation: timelinePulse 2s ease-in-out infinite;
+        }
+        
+        .tp-1 { left: 20%; animation-delay: 0s; }
+        .tp-2 { left: 40%; animation-delay: 0.3s; }
+        .tp-3 { left: 60%; animation-delay: 0.6s; }
+        .tp-4 { left: 80%; animation-delay: 0.9s; }
+        .tp-5 { 
+            left: 100%; 
+            animation-delay: 1.2s;
+            background: #60A5FA;
+            box-shadow: 0 0 30px #60A5FA;
+        }
+        
+        @keyframes timelinePulse {
+            0%, 100% { 
+                transform: translateY(-50%) scale(1);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: translateY(-50%) scale(1.3);
+                opacity: 1;
+            }
+        }
+        
+        /* Particle effects */
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            opacity: 0;
+        }
+        
+        .particle-1 {
+            background: #10B981;
+            animation: particleFloat 8s linear infinite;
+        }
+        
+        .particle-2 {
+            background: #60A5FA;
+            animation: particleFloat 8s linear infinite 1s;
+        }
+        
+        .particle-3 {
+            background: #8B5CF6;
+            animation: particleFloat 8s linear infinite 2s;
+        }
+        
+        .particle-4 {
+            background: #F97316;
+            animation: particleFloat 8s linear infinite 3s;
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                opacity: 0;
+                transform: translate(300px, 400px) scale(0);
+            }
+            10% {
+                opacity: 1;
+                transform: translate(320px, 350px) scale(1);
+            }
+            30% {
+                opacity: 1;
+                transform: translate(400px, 250px) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(500px, 200px) scale(1);
+            }
+            70% {
+                opacity: 1;
+                transform: translate(600px, 150px) scale(1);
+            }
+            90% {
+                opacity: 1;
+                transform: translate(700px, 100px) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(750px, 50px) scale(0);
+            }
+        }
+        
+        /* Brand mark */
+        .brand {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: rgba(96, 165, 250, 0.4);
+            text-transform: uppercase;
+        }
+        
+        /* Glow effects */
+        .glow-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%,
+                rgba(139, 92, 246, 0.1) 0%,
+                transparent 50%);
+            animation: glowShift 6s ease-in-out infinite;
+        }
+        
+        @keyframes glowShift {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Background grid -->
+        <div class="grid-pattern"></div>
+        
+        <!-- Central predictive orb -->
+        <div class="central-orb">
+            <div class="orb-core"></div>
+        </div>
+        
+        <!-- Data streams -->
+        <div class="data-stream stream-1"></div>
+        <div class="data-stream stream-2"></div>
+        <div class="data-stream stream-3"></div>
+        <div class="data-stream stream-4"></div>
+        <div class="data-stream stream-5"></div>
+        
+        <!-- Prediction nodes -->
+        <div class="node node-1"></div>
+        <div class="node node-2"></div>
+        <div class="node node-3"></div>
+        <div class="node node-4"></div>
+        <div class="node node-5"></div>
+        
+        <!-- Connecting lines -->
+        <div class="connection conn-1"></div>
+        <div class="connection conn-2"></div>
+        <div class="connection conn-3"></div>
+        
+        <!-- Timeline visualization -->
+        <div class="timeline">
+            <div class="timeline-point tp-1"></div>
+            <div class="timeline-point tp-2"></div>
+            <div class="timeline-point tp-3"></div>
+            <div class="timeline-point tp-4"></div>
+            <div class="timeline-point tp-5"></div>
+        </div>
+        
+        <!-- Particle effects -->
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
+        <div class="particle particle-4"></div>
+        
+        <!-- Glow overlay -->
+        <div class="glow-overlay"></div>
+        
+        <!-- Brand mark -->
+        <div class="brand">HENDRICKS.AI</div>
+    </div>
+</body>
+</html>

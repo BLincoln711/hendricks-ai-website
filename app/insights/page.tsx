@@ -36,7 +36,7 @@ const blogPosts = [
     readTime: '12 min read',
     category: 'AI Marketing',
     featured: true,
-    image: '/blog/predictive-ai-hero.jpg'
+    image: '/blog-images/predictive-ai-future-marketing.html'
   },
   {
     id: 'google-performance-max-bing',

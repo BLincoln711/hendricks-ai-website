@@ -19,10 +19,19 @@ const blogPosts: { [key: string]: any } = {
   'predictive-ai-marketing-2025': {
     title: 'The Future of Marketing: How Predictive AI Changes Everything in 2025',
     author: 'Brandon Lincoln Hendricks',
-    date: '2025-01-14',
+    date: '2025-08-14',
     readTime: '12 min read',
     category: 'AI Marketing',
+    image: '/blog-images/predictive-ai-future-marketing.html',
     content: `
+      <div class="mb-8">
+        <iframe 
+          src="/blog-images/predictive-ai-future-marketing.html" 
+          class="w-full h-[630px] rounded-2xl border border-gray-800"
+          title="Predictive AI Marketing Visualization"
+        ></iframe>
+      </div>
+
       <div class="quick-answer-box">
         <p><strong>Predictive AI marketing uses machine learning algorithms to analyze millions of data points including search patterns, social signals, and market indicators to forecast demand 2 to 4 weeks before it materializes, achieving 74% average accuracy and 312% ROI for forward-thinking businesses.</strong></p>
       </div>
@@ -907,7 +916,7 @@ Real-time Optimization</pre>
   'google-performance-max-bing': {
     title: 'Why Running Both Google and Bing Performance Max Delivers 10% Higher ROAS',
     author: 'Brandon Lincoln Hendricks',
-    date: '2025-01-12',
+    date: '2025-08-12',
     readTime: '5 min read',
     category: 'Performance Marketing',
     content: `
