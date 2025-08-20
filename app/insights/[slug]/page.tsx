@@ -3,8 +3,19 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+// Import the Google Meridian article
+import { modernMeasurementArticle } from '@/app/news/[slug]/modern-measurement-meets-predictive-ai'
+
 // Blog post data - in production this would come from a CMS
 const blogPosts: { [key: string]: any } = {
+  'google-meridian-mmm-predictive-ai': {
+    title: modernMeasurementArticle.headline,
+    author: modernMeasurementArticle.author,
+    date: modernMeasurementArticle.date,
+    readTime: modernMeasurementArticle.readTime,
+    category: modernMeasurementArticle.category,
+    content: modernMeasurementArticle.content
+  },
   'predictive-ai-marketing-2025': {
     title: 'The Future of Marketing: How Predictive AI Changes Everything in 2025',
     author: 'Brandon Lincoln Hendricks',
