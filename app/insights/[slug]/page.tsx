@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation'
 // Import the Google Meridian article
 import { modernMeasurementArticle } from '../../news/[slug]/modern-measurement-meets-predictive-ai'
 
-// Blog post data - in production this would come from a CMS
+// Blog post data: in production this would come from a CMS
 const blogPosts: { [key: string]: any } = {
   'google-meridian-mmm-predictive-ai': {
     title: modernMeasurementArticle.headline,
@@ -311,7 +311,7 @@ Output: Actionable intelligence with timing windows
 
       <h2 id="roi-analysis">ROI Analysis: Why 312% Returns Are Becoming Standard</h2>
 
-      <p>The 312% average ROI from predictive AI marketing isn't an anomaly—it's the mathematical result of compound advantages across the marketing funnel. Understanding this ROI breakdown helps justify investment in predictive intelligence:</p>
+      <p>The 312% average ROI from predictive AI marketing isn't an anomaly, it's the mathematical result of compound advantages across the marketing funnel. Understanding this ROI breakdown helps justify investment in predictive intelligence:</p>
 
       <h3>The 312% ROI Components</h3>
 
@@ -417,7 +417,7 @@ Output: Actionable intelligence with timing windows
 
       <h2>Conclusion: The Predictive Imperative</h2>
 
-      <p>The gap between reactive and predictive marketing widens daily. While traditional marketers analyze yesterday's data, predictive AI practitioners are already positioned for next month's opportunities. The question isn't whether to adopt predictive intelligence—it's whether you can afford to compete without it.</p>
+      <p>The gap between reactive and predictive marketing widens daily. While traditional marketers analyze yesterday's data, predictive AI practitioners are already positioned for next month's opportunities. The question isn't whether to adopt predictive intelligence, it's whether you can afford to compete without it.</p>
 
       <p>The evidence is overwhelming: 74% prediction accuracy, 312% average ROI, and consistent 2 to 4 week advantage windows. These aren't theoretical benefits but proven results across millions in managed spend and diverse industry verticals.</p>
 
@@ -471,7 +471,7 @@ Output: Actionable intelligence with timing windows
 
       <p>It was 2 AM when the alert came through.</p>
 
-      <p>TechCorp's CPA had spiked 340% overnight on their highest-converting keywords. Their Smart Bidding algorithm—the same one they'd trusted for two years—had completely missed an emerging competitor bidding war.</p>
+      <p>TechCorp's CPA had spiked 340% overnight on their highest-converting keywords. Their Smart Bidding algorithm, the same one they'd trusted for two years, had completely missed an emerging competitor bidding war.</p>
 
       <p>By morning, they'd burned through $47,000 in wasted ad spend.</p>
 
@@ -507,7 +507,7 @@ Output: Actionable intelligence with timing windows
         </ul>
       </div>
 
-      <p><em>"We thought Smart Bidding was AI. Then we saw what real AI could do."</em> - Sarah Chen, CMO at FinanceFlow</p>
+      <p><em>"We thought Smart Bidding was AI. Then we saw what real AI could do."</em> Sarah Chen, CMO at FinanceFlow</p>
 
       <h2 id="definition">What Are Custom AI Bidding Models? Complete 2025 Definition</h2>
 
@@ -669,7 +669,7 @@ Smart Bidding Adjustments
 Real-time Optimization</pre>
       </div>
 
-      <p>The custom model doesn't replace Smart Bidding—it makes it exponentially smarter by:</p>
+      <p>The custom model doesn't replace Smart Bidding, it makes it exponentially smarter by:</p>
       <ul>
         <li>Feeding forward-looking signals</li>
         <li>Adjusting bid strategies preemptively</li>
@@ -824,7 +824,7 @@ Real-time Optimization</pre>
 
       <div class="warning-box">
         <h4>The Window Is Closing</h4>
-        <p>Companies implementing custom AI models now will have 12-18 months of competitive advantage. By 2026, this will be table stakes. The question isn't if you'll need this—it's whether you'll be ahead of or behind your competitors.</p>
+        <p>Companies implementing custom AI models now will have 12-18 months of competitive advantage. By 2026, this will be table stakes. The question isn't if you'll need this, it's whether you'll be ahead of or behind your competitors.</p>
       </div>
 
       <h2>Implementation Options</h2>
@@ -856,7 +856,7 @@ Real-time Optimization</pre>
       <h2>Key Takeaways</h2>
 
       <ol>
-        <li><strong>Smart Bidding has plateaued</strong>—15-20% improvement is its ceiling</li>
+        <li><strong>Smart Bidding has plateaued</strong>: 15-20% improvement is its ceiling</li>
         <li><strong>Custom AI models achieve 32%+ CPA reduction</strong> by predicting future bid landscapes</li>
         <li><strong>Implementation takes 30 days</strong>, not months</li>
         <li><strong>ROI averages 400%+</strong> within 6 months</li>
@@ -926,7 +926,7 @@ Real-time Optimization</pre>
         <iframe 
           src="/blog-images/google-bing-performance-max-visualization.html" 
           class="w-full h-[630px] rounded-2xl border border-gray-800"
-          title="Google + Bing Performance Max - 10% Higher ROAS"
+          title="Google + Bing Performance Max: 10% Higher ROAS"
           scrolling="no"
         ></iframe>
       </div>
@@ -951,7 +951,7 @@ Real-time Optimization</pre>
       <p>Bing Performance Max doesn't just serve ads on Bing search. It taps into the entire Microsoft ecosystem:</p>
 
       <h3>1. LinkedIn Integration</h3>
-      <p>Unlike Google, Bing Performance Max can leverage LinkedIn's professional targeting data. For B2B marketers, this is game-changing. You can reach decision-makers based on job titles, company size, and industry — directly within search campaigns.</p>
+      <p>Unlike Google, Bing Performance Max can leverage LinkedIn's professional targeting data. For B2B marketers, this is game-changing. You can reach decision-makers based on job titles, company size, and industry directly within search campaigns.</p>
 
       <h3>2. Microsoft Edge Users</h3>
       <p>Edge now commands significant market share in enterprise environments. These users often have higher purchasing power and longer session durations.</p>
@@ -1065,7 +1065,7 @@ Bing Performance Max → Leverage professional targeting and ecosystem data</cod
 
       <h2>The Bottom Line</h2>
 
-      <p>In an increasingly competitive digital landscape, the brands that win aren't those with the biggest budgets — they're those who find and exploit inefficiencies. Bing Performance Max represents one of the largest inefficiencies in digital marketing today.</p>
+      <p>In an increasingly competitive digital landscape, the brands that win aren't those with the biggest budgets, they're those who find and exploit inefficiencies. Bing Performance Max represents one of the largest inefficiencies in digital marketing today.</p>
 
       <p>While your competitors fight over expensive Google inventory, you can quietly capture high-value customers on Bing at a fraction of the cost. Combined with predictive intelligence to identify emerging opportunities, dual-platform Performance Max campaigns deliver results that single-platform strategies simply can't match.</p>
 
@@ -1231,7 +1231,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       <footer className="bg-gray-900 py-12 border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 mb-4 md:mb-0">© 2025 Hendricks.AI - Demand Intelligence to Demand Capture. All rights reserved.</p>
+            <p className="text-gray-400 mb-4 md:mb-0">© 2025 Hendricks.AI. Demand Intelligence to Demand Capture. All rights reserved.</p>
             <div className="flex space-x-6 text-sm">
               <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</Link>

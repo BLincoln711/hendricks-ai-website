@@ -232,7 +232,7 @@ export default function ResultsPage() {
                 className="bg-gradient-to-br from-gray-900 to-black rounded-2xl border border-gray-800 overflow-hidden hover:border-blue-500/50 transition-all duration-300"
               >
                 <div className="grid lg:grid-cols-2 gap-8 p-8">
-                  {/* Left Column - Company Info & Challenge */}
+                  {/* Left Column: Company Info & Challenge */}
                   <div className="space-y-6">
                     <div className="flex items-start justify-between">
                       <div>
@@ -267,7 +267,7 @@ export default function ResultsPage() {
                     </div>
                   </div>
 
-                  {/* Right Column - Results */}
+                  {/* Right Column: Results */}
                   <div className="space-y-6">
                     <div className="text-center lg:text-left">
                       <h3 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
@@ -287,7 +287,7 @@ export default function ResultsPage() {
 
                     <blockquote className="border-l-4 border-blue-500 pl-4 italic">
                       <p className="text-gray-300 mb-2">"{study.results.quote}"</p>
-                      <cite className="text-sm text-gray-400 not-italic">— {study.results.author}</cite>
+                      <cite className="text-sm text-gray-400 not-italic">{study.results.author}</cite>
                     </blockquote>
                   </div>
                 </div>

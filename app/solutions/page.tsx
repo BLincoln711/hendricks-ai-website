@@ -247,7 +247,7 @@ export default function SolutionsPage() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
-            {/* Left Column - Details */}
+            {/* Left Column: Details */}
             <div className="space-y-8">
               <div>
                 <div className="flex items-center gap-4 mb-4">
@@ -286,7 +286,7 @@ export default function SolutionsPage() {
               </div>
             </div>
 
-            {/* Right Column - Case Study & CTA */}
+            {/* Right Column: Case Study & CTA */}
             <div className="space-y-8">
               <div className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl border border-gray-800">
                 <h3 className="text-xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
@@ -300,7 +300,7 @@ export default function SolutionsPage() {
                     "{services[activeService].caseStudy.story}"
                   </p>
                   <p className="text-sm text-gray-400">
-                    — {services[activeService].caseStudy.client}
+                    {services[activeService].caseStudy.client}
                   </p>
                 </div>
               </div>

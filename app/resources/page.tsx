@@ -394,7 +394,7 @@ export default function ResourcesPage() {
       <footer className="bg-gray-900 py-12 border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 mb-4 md:mb-0">© 2025 Hendricks.AI - Demand Intelligence to Demand Capture. All rights reserved.</p>
+            <p className="text-gray-400 mb-4 md:mb-0">© 2025 Hendricks.AI. Demand Intelligence to Demand Capture. All rights reserved.</p>
             <div className="flex space-x-6 text-sm">
               <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</Link>

@@ -3,8 +3,19 @@
 import Link from 'next/link'
 import { useState } from 'react'
 
-// Sample blog posts data - in production, this would come from a CMS or database
+// Sample blog posts data: in production, this would come from a CMS or database
 const blogPosts = [
+  {
+    id: 'b2b-marketing-funnel-is-dead',
+    title: 'The B2B Marketing Funnel is Dead: Why 80% of Buying Happens in Chaos',
+    excerpt: 'The traditional B2B marketing funnel is obsolete. Modern buyers use 10+ channels with 6-10 stakeholders, spending 80% of their journey avoiding salespeople. Learn why the funnel failed and how predictive AI navigates the chaos.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-08-20',
+    readTime: '12 min read',
+    category: 'B2B Marketing',
+    featured: true,
+    image: '/blog-images/b2b-funnel-chaos-visualization.html'
+  },
   {
     id: 'google-meridian-mmm-predictive-ai',
     title: 'Google Meridian MMM Meets Predictive AI: The Future of Marketing Attribution',
@@ -282,7 +293,7 @@ export default function InsightsPage() {
       <footer className="bg-gray-900 py-12 border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 mb-4 md:mb-0">© 2025 Hendricks.AI - Demand Intelligence to Demand Capture. All rights reserved.</p>
+            <p className="text-gray-400 mb-4 md:mb-0">© 2025 Hendricks.AI. Demand Intelligence to Demand Capture. All rights reserved.</p>
             <div className="flex space-x-6 text-sm">
               <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</Link>

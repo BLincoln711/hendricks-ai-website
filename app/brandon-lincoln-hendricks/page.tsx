@@ -83,7 +83,7 @@ export default function BrandonLincolnHendricksPage() {
     "award": [
       "GPT-3 Beta Tester",
       "ChatGPT Prototype Program Participant",
-      "Continuous Beta Access - OpenAI, Anthropic, Google AI"
+      "Continuous Beta Access: OpenAI, Anthropic, Google AI"
     ],
     "sameAs": [
       "https://linkedin.com/in/brandonlincolnhendricks",
@@ -379,7 +379,7 @@ export default function BrandonLincolnHendricksPage() {
               </p>
               
               <p>
-                My unique position in the AI revolution—from participating in Google Brain workshops in 2013 
+                My unique position in the AI revolution, from participating in Google Brain workshops in 2013 
                 to beta testing GPT-3, ChatGPT, and other breakthrough AI systems—showed me what was possible. 
                 I realized we could build systems that don't just analyze what happened, but predict what's coming.
               </p>

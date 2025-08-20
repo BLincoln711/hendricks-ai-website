@@ -13,14 +13,14 @@ export default function AISmartBiddingPage() {
         <iframe 
           src="/blog-images/ai-smart-bidding-visualization.html" 
           class="w-full h-[630px] rounded-2xl border border-gray-800"
-          title="Custom AI Models - 32% CPA Reduction"
+          title="Custom AI Models: 32% CPA Reduction"
           scrolling="no"
         ></iframe>
       </div>
 
       <p>Google's Smart Bidding revolutionized digital advertising by automating bid management. But after years of refinement, it's plateaued at 15-20% improvement for most advertisers. What if you could achieve 32% CPA reduction instead?</p>
 
-      <p>The secret lies in custom AI models that enhance—not replace—Smart Bidding with predictive intelligence. While Google optimizes based on historical data, custom models predict future bid landscapes, positioning you ahead of market movements.</p>
+      <p>The secret lies in custom AI models that enhance, not replace, Smart Bidding with predictive intelligence. While Google optimizes based on historical data, custom models predict future bid landscapes, positioning you ahead of market movements.</p>
 
       <h2>The Smart Bidding Plateau</h2>
       <p>Smart Bidding works brilliantly within its constraints. It analyzes conversion patterns, adjusts for device and location, and optimizes toward your goals. But it has fundamental limitations:</p>
@@ -35,7 +35,7 @@ export default function AISmartBiddingPage() {
       <p>These constraints create a performance ceiling. Once you've implemented Smart Bidding correctly, further gains require thinking beyond Google's black box.</p>
 
       <h2>Enter Custom AI Models</h2>
-      <p>Custom AI models don't compete with Smart Bidding—they enhance it. By analyzing patterns Google can't see, they provide forward-looking signals that inform smarter bid strategies:</p>
+      <p>Custom AI models don't compete with Smart Bidding, they enhance it. By analyzing patterns Google can't see, they provide forward-looking signals that inform smarter bid strategies:</p>
 
       <div class="bg-gray-900 p-6 rounded-lg my-8">
         <h3 class="text-xl font-bold mb-4">What Custom Models Predict</h3>
@@ -98,7 +98,7 @@ export default function AISmartBiddingPage() {
       <p>The models integrate seamlessly with existing Google Ads accounts, providing recommendations through automated scripts or API connections.</p>
 
       <h2>The Competitive Reality</h2>
-      <p>Early adopters of custom AI models gain 12-18 months of competitive advantage. By 2026, these enhancements will be table stakes. The question isn't whether to implement custom AI—it's whether you'll lead or follow.</p>
+      <p>Early adopters of custom AI models gain 12-18 months of competitive advantage. By 2026, these enhancements will be table stakes. The question isn't whether to implement custom AI, it's whether you'll lead or follow.</p>
 
       <p>Smart Bidding took your campaigns from manual to automated. Custom AI takes them from automated to intelligent. In a world where every advertiser uses the same Smart Bidding algorithms, proprietary intelligence becomes your only sustainable advantage.</p>
 
@@ -236,7 +236,7 @@ export default function AISmartBiddingPage() {
       <footer className="bg-gray-900 py-12 border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 mb-4 md:mb-0">© 2025 Hendricks.AI - Demand Intelligence to Demand Capture. All rights reserved.</p>
+            <p className="text-gray-400 mb-4 md:mb-0">© 2025 Hendricks.AI. Demand Intelligence to Demand Capture. All rights reserved.</p>
             <div className="flex space-x-6 text-sm">
               <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</Link>

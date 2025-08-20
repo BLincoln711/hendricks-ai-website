@@ -3,9 +3,11 @@ import Link from 'next/link'
 import { ArrowLeft, Calendar, User, Share2, Clock } from 'lucide-react'
 import Script from 'next/script'
 import { modernMeasurementArticle } from './modern-measurement-meets-predictive-ai'
+import { b2bFunnelArticle } from './b2b-funnel-is-dead'
 
 // This would typically come from a database or CMS
 const articles = {
+  'b2b-funnel-is-dead': b2bFunnelArticle,
   'modern-measurement-meets-predictive-ai': modernMeasurementArticle,
   'hendricks-ai-achieves-74-percent-prediction-accuracy': {
     headline: "Hendricks.AI Achieves 74% Accuracy in Predicting Market Demand 2-4 Weeks Early",
@@ -63,7 +65,7 @@ const articles = {
       <h2>Looking Ahead</h2>
       <p>Hendricks.AI continues to refine its predictive models, with current research focused on extending the prediction window and improving accuracy for niche markets. The company plans to release industry-specific models in Q2 2025, further enhancing prediction accuracy for specialized sectors.</p>
 
-      <p>"We're not just predicting the future of marketing—we're helping our clients create it," Hendricks concludes. "When you know what's coming, you can shape the conversation instead of just participating in it."</p>
+      <p>"We're not just predicting the future of marketing, we're helping our clients create it," Hendricks concludes. "When you know what's coming, you can shape the conversation instead of just participating in it."</p>
 
       <p><em>For more information about Hendricks.AI's predictive marketing platform, visit <a href="https://hendricks.ai">hendricks.ai</a> or contact the team at predict@hendricks.ai.</em></p>
     `
@@ -80,7 +82,7 @@ const articles = {
       <h2>From Enterprise Leadership to AI Innovation</h2>
       <p>During his tenure at SolarWinds, Hendricks managed a $20M+ annual marketing budget and led the company's global search strategy. His experience managing large-scale marketing operations revealed a fundamental problem: even the most sophisticated marketing teams are essentially reactive, responding to demand after it appears.</p>
 
-      <p>"At SolarWinds, we had access to incredible amounts of data and sophisticated tools," Hendricks explains. "But we were still fundamentally playing catch-up with the market. I realized that the real opportunity wasn't in analyzing what happened—it was in predicting what would happen next."</p>
+      <p>"At SolarWinds, we had access to incredible amounts of data and sophisticated tools," Hendricks explains. "But we were still fundamentally playing catch-up with the market. I realized that the real opportunity wasn't in analyzing what happened, it was in predicting what would happen next."</p>
 
       <h2>Early Access to AI Revolution</h2>
       <p>As one of the early beta testers for OpenAI's GPT-3, ChatGPT, and GPT-4, Hendricks gained unique insights into the potential of AI for predictive analytics. This early access allowed him to experiment with AI applications that weren't yet available to the broader market.</p>
@@ -122,7 +124,7 @@ const articles = {
     category: "AI Engineering",
     readTime: "7 min read",
     content: `
-      <p>After building AI systems that process 2.8 million signals daily with 99.95% uptime, I've learned that the gap between a working AI proof-of-concept and a production-ready system is vast. Here's why most AI projects fail to make that leap—and how to build AI that actually scales.</p>
+      <p>After building AI systems that process 2.8 million signals daily with 99.95% uptime, I've learned that the gap between a working AI proof-of-concept and a production-ready system is vast. Here's why most AI projects fail to make that leap, and how to build AI that actually scales.</p>
 
       <h2>The POC Trap</h2>
       <p>The typical AI project lifecycle looks like this:</p>
@@ -134,7 +136,7 @@ const articles = {
         <li>Project abandoned after 6-12 months</li>
       </ol>
 
-      <p>Sound familiar? You're not alone. Gartner reports that 85% of AI projects fail to deliver on their promises. The problem isn't the AI—it's the engineering.</p>
+      <p>Sound familiar? You're not alone. Gartner reports that 85% of AI projects fail to deliver on their promises. The problem isn't the AI, it's the engineering.</p>
 
       <h2>The Real Challenges of Production AI</h2>
       
@@ -240,9 +242,9 @@ const articles = {
       </ul>
 
       <h2>The Path Forward</h2>
-      <p>Building production AI isn't just about scaling up a POC—it's about engineering a system that's reliable, maintainable, and delivers consistent business value. The 1% of AI projects that succeed understand this distinction.</p>
+      <p>Building production AI isn't just about scaling up a POC, it's about engineering a system that's reliable, maintainable, and delivers consistent business value. The 1% of AI projects that succeed understand this distinction.</p>
 
-      <p>At Hendricks.AI, we've learned these lessons the hard way. Our 74% prediction accuracy isn't just about smart algorithms—it's about the unglamorous engineering work that keeps those algorithms running 24/7/365.</p>
+      <p>At Hendricks.AI, we've learned these lessons the hard way. Our 74% prediction accuracy isn't just about smart algorithms, it's about the unglamorous engineering work that keeps those algorithms running 24/7/365.</p>
 
       <p>The future belongs to teams that can bridge the gap between AI research and production engineering. The question is: will you be part of the 99% that fails, or the 1% that scales?</p>
 

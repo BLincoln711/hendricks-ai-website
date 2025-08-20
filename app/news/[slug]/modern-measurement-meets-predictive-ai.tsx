@@ -15,7 +15,7 @@ export const modernMeasurementArticle = {
       ></iframe>
     </div>
 
-    <p>Fresh from Google's Brandformance 2025 conference, I'm more convinced than ever that the future of marketing lies at the intersection of predictive AI and modern measurement. Google's emphasis on incrementality and advanced attribution isn't just an evolution—it's validation of what we've been building at Hendricks.AI.</p>
+    <p>Fresh from Google's Brandformance 2025 conference, I'm more convinced than ever that the future of marketing lies at the intersection of predictive AI and modern measurement. Google's emphasis on incrementality and advanced attribution isn't just an evolution, it's validation of what we've been building at Hendricks.AI.</p>
 
     <h2>The Attribution Revolution Google Announced</h2>
     <p>At Brandformance 2025, Google laid out a vision for "Modern Measurement" that moves beyond last-click attribution to understand true incrementality. Central to this vision is Google Meridian, their open-source Marketing Mix Model (MMM) that just became available to everyone in early 2025.</p>
@@ -69,7 +69,7 @@ export const modernMeasurementArticle = {
     </div>
 
     <h2>Real-World Application: A Case Study</h2>
-    <p>Last month, our predictive system identified an emerging demand pattern for sustainable home products. But here's where it gets interesting—we didn't just predict the demand, we predicted which channels would capture it most effectively:</p>
+    <p>Last month, our predictive system identified an emerging demand pattern for sustainable home products. But here's where it gets interesting: we didn't just predict the demand, we predicted which channels would capture it most effectively:</p>
 
     <ul>
       <li><strong>Google Shopping:</strong> Predicted 43% incremental lift (Actual: 41%)</li>
@@ -133,7 +133,7 @@ export const modernMeasurementArticle = {
     <h2>The Future Google Hinted At</h2>
     <p>While Google focused on better measurement of what happened, the subtext was clear: the future belongs to those who can act on insights faster. They're building the measurement infrastructure. We're building the prediction layer that makes that infrastructure exponentially more valuable.</p>
 
-    <p>The convergence of modern measurement and predictive AI isn't just an incremental improvement—it's a fundamental shift in how marketing works. Instead of optimizing based on what worked yesterday, we're optimizing based on what will work tomorrow.</p>
+    <p>The convergence of modern measurement and predictive AI isn't just an incremental improvement, it's a fundamental shift in how marketing works. Instead of optimizing based on what worked yesterday, we're optimizing based on what will work tomorrow.</p>
 
     <h2>What This Means for Marketers</h2>
     <p>The implications are profound:</p>
@@ -154,10 +154,10 @@ export const modernMeasurementArticle = {
       <li>Regular model retraining and calibration</li>
     </ul>
 
-    <p>This is where Hendricks.AI becomes invaluable. While your team implements Meridian for historical analysis, we provide the predictive layer that requires no technical implementation—just strategic insight.</p>
+    <p>This is where Hendricks.AI becomes invaluable. While your team implements Meridian for historical analysis, we provide the predictive layer that requires no technical implementation, just strategic insight.</p>
 
     <p>Google's Brandformance 2025 conference made one thing clear: measurement is evolving. But measurement without prediction is like driving with a rearview mirror. The future belongs to those who can see around corners.</p>
 
-    <p class="mt-8 p-6 bg-blue-900/20 rounded-lg"><strong>Ready to add predictive power to your modern measurement strategy?</strong> Let's discuss how Hendricks.AI can help you not just measure incrementality, but predict it. Because in 2025, the question isn't just "what worked?"—it's "what will work?"</p>
+    <p class="mt-8 p-6 bg-blue-900/20 rounded-lg"><strong>Ready to add predictive power to your modern measurement strategy?</strong> Let's discuss how Hendricks.AI can help you not just measure incrementality, but predict it. Because in 2025, the question isn't just "what worked?", it's "what will work?"</p>
   `
 }

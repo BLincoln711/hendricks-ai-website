@@ -18,6 +18,15 @@ export async function generateMetadata() {
 export default function NewsPage() {
   const newsArticles = [
     {
+      headline: "The B2B Marketing Funnel is Dead: Why 80% of Buying Happens in Chaos",
+      date: "2025-08-20",
+      author: "Brandon Lincoln Hendricks",
+      category: "B2B Marketing",
+      image: "/news/b2b-funnel-chaos.jpg",
+      summary: "The traditional B2B marketing funnel is obsolete. Modern buyers use 10+ channels with 6-10 stakeholders, spending 80% of their journey avoiding salespeople. Learn why the funnel failed and how predictive AI navigates the chaos.",
+      slug: "b2b-funnel-is-dead"
+    },
+    {
       headline: "Google Meridian MMM Meets Predictive AI: The Future of Marketing Attribution",
       date: "2025-08-19",
       author: "Brandon Lincoln Hendricks", 

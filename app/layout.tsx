@@ -69,7 +69,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google Site Verification - Alternative HTML method */}
+        {/* Google Site Verification: Alternative HTML method */}
         <meta name="google-site-verification" content="E7JSaK23DaXqx3yMqAiM1WHNx6zrcWrg9zJ5yvfZN4I" />
       </head>
       <body className={inter.className}>

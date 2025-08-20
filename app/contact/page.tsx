@@ -163,7 +163,7 @@ export default function ContactPage() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-12">
-            {/* Contact Form - 2 columns */}
+            {/* Contact Form: 2 columns */}
             <div className="lg:col-span-2">
               <div className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl border border-gray-800">
                 <h2 className="text-3xl font-bold mb-8">Get Your Free Intelligence Report</h2>
@@ -328,7 +328,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Contact Info - 1 column */}
+            {/* Contact Info: 1 column */}
             <div className="space-y-8">
               {/* Quick Contact */}
               <div className="bg-gray-900/50 p-8 rounded-2xl border border-gray-800">

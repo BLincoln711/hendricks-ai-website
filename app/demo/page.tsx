@@ -113,7 +113,7 @@ export default function LiveDemoPage() {
               <h3 className="text-xl font-semibold mb-3">3. Actionable Predictions</h3>
               <p className="text-gray-400">
                 Get specific recommendations on keywords to target, bid adjustments to make, 
-                and content to create—all before your competitors see the opportunity.
+                and content to create, all before your competitors see the opportunity.
               </p>
             </div>
           </div>

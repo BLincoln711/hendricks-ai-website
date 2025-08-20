@@ -52,7 +52,7 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
             <p>
-              Hendricks.AI is the Predictive AI Marketing Agency that gives brands an unfair advantage by forecasting market demand 2–4 weeks before it materializes — with 74% accuracy — and converting that foresight into measurable ROI.
+              Hendricks.AI is the Predictive AI Marketing Agency that gives brands an unfair advantage by forecasting market demand 2-4 weeks before it materializes with 74% accuracy and converting that foresight into measurable ROI.
             </p>
             <p>
               We&apos;re the only agency that orchestrates demand capture across every channel, format, and placement within Google and Microsoft&apos;s ecosystems, transforming how enterprise brands capture demand from pre-intent discovery through high-intent conversion.
@@ -82,7 +82,7 @@ export default function AboutPage() {
           </h2>
           <div className="space-y-4 text-gray-300">
             <p>
-              Before becoming Hendricks.AI, we operated as Hendricks PPC — building a reputation for precision targeting and optimization that delivered consistent growth for enterprise clients across e-commerce, B2B/SaaS, retail, and professional services.
+              Before becoming Hendricks.AI, we operated as Hendricks PPC, building a reputation for precision targeting and optimization that delivered consistent growth for enterprise clients across e-commerce, B2B/SaaS, retail, and professional services.
             </p>
             <p>
               That foundation of performance excellence now powers something revolutionary: predictive systems that see market shifts before they happen.
@@ -120,7 +120,7 @@ export default function AboutPage() {
             <div className="lg:col-span-2 space-y-8">
               <div>
                 <p className="text-lg text-gray-300 leading-relaxed">
-                  Brandon is a certified Google Machine Learning Engineer who has spent over 15 years architecting the intersection of search technology and artificial intelligence — long before &quot;AI marketing&quot; became an industry standard.
+                  Brandon is a certified Google Machine Learning Engineer who has spent over 15 years architecting the intersection of search technology and artificial intelligence, long before &quot;AI marketing&quot; became an industry standard.
                 </p>
               </div>
 
@@ -132,7 +132,7 @@ export default function AboutPage() {
                     Most recently as Global Lead of Total Search at SolarWinds, Brandon developed predictive intent systems that unified search strategies across 150+ markets worldwide. His approach to demand forecasting and cross-platform optimization caught the attention of industry leaders, leading to strategic engagements with Foursquare, Workday, Evernote, and Warby Parker.
                   </p>
                   <p>
-                    Previously, as Global Director of Search at Merkle and Dentsu, Brandon pioneered unified SERP strategies that merged paid search and SEO — methodologies that major platforms would later adopt as best practices.
+                    Previously, as Global Director of Search at Merkle and Dentsu, Brandon pioneered unified SERP strategies that merged paid search and SEO, methodologies that major platforms would later adopt as best practices.
                   </p>
                 </div>
               </div>
@@ -149,7 +149,7 @@ export default function AboutPage() {
                   <div className="border-l-4 border-blue-500 pl-6">
                     <h4 className="font-bold text-blue-400">2013-2014</h4>
                     <p className="text-gray-300">
-                      Participated in Google&apos;s internal AI research groups and invite-only Google Brain workshops — laying groundwork for understanding machine learning applications in search
+                      Participated in Google&apos;s internal AI research groups and invite-only Google Brain workshops, laying groundwork for understanding machine learning applications in search
                     </p>
                   </div>
 
@@ -189,7 +189,7 @@ export default function AboutPage() {
 
               <div className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 p-8 rounded-2xl border border-blue-500/20">
                 <p className="text-lg text-gray-300 italic">
-                  &quot;This unique vantage point — seeing AI developments before they reach market while understanding enterprise search needs — enables Brandon to build predictive systems that don&apos;t just respond to demand, they anticipate it.&quot;
+                  &quot;This unique vantage point of seeing AI developments before they reach market while understanding enterprise search needs enables Brandon to build predictive systems that don&apos;t just respond to demand, they anticipate it.&quot;
                 </p>
               </div>
             </div>
@@ -382,11 +382,11 @@ export default function AboutPage() {
             {[
               {
                 title: 'We See What Others Can\'t',
-                description: 'Our predictive models analyze hundreds of demand signals, identifying market shifts 2-4 weeks before they materialize. This isn\'t guesswork — it\'s systematic pattern recognition powered by custom ML models.'
+                description: 'Our predictive models analyze hundreds of demand signals, identifying market shifts 2-4 weeks before they materialize. This isn\'t guesswork, it\'s systematic pattern recognition powered by custom ML models.'
               },
               {
                 title: 'We Master What Others Won\'t',
-                description: 'We orchestrate campaigns across every channel and platform, using predictive intelligence to position your brand exactly where demand will emerge — before competitors even know it exists.'
+                description: 'We orchestrate campaigns across every channel and platform, using predictive intelligence to position your brand exactly where demand will emerge before competitors even know it exists.'
               },
               {
                 title: 'We Deliver What Others Don\'t',
@@ -429,7 +429,7 @@ export default function AboutPage() {
           </h2>
           
           <blockquote className="text-2xl text-gray-300 italic mb-8">
-            &quot;The future of marketing isn&apos;t about having more data — it&apos;s about knowing what happens next.&quot;
+            &quot;The future of marketing isn&apos;t about having more data, it&apos;s about knowing what happens next.&quot;
           </blockquote>
           
           <p className="text-gray-300 mb-6">
@@ -460,7 +460,7 @@ export default function AboutPage() {
               The marketing landscape has shifted. Reactive strategies based on historical data no longer win. The future belongs to brands that can predict, position, and capture demand before it peaks.
             </p>
             <p>
-              Brandon&apos;s unique position — testing tomorrow&apos;s AI today while architecting enterprise search strategies — created the blueprint for Hendricks.AI&apos;s predictive methodology.
+              Brandon&apos;s unique position of testing tomorrow&apos;s AI today while architecting enterprise search strategies created the blueprint for Hendricks.AI&apos;s predictive methodology.
             </p>
             <p className="text-xl font-semibold text-blue-400">
               We don&apos;t just use AI tools. We architect intelligence systems that transform marketing from a cost center into a predictive profit engine.
