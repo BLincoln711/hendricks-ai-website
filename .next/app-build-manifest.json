@@ -66,6 +66,14 @@
       "static/chunks/main-app-deaa5b6aa58e2f0b.js",
       "static/chunks/app/faq/page-00b1b3c85bf8acbb.js"
     ],
+    "/insights/[slug]/page": [
+      "static/chunks/webpack-967d1063ad37eae5.js",
+      "static/chunks/fd9d1056-4a917af64af6b262.js",
+      "static/chunks/23-564dff0a59655339.js",
+      "static/chunks/main-app-deaa5b6aa58e2f0b.js",
+      "static/chunks/231-28d4b6baeee19f30.js",
+      "static/chunks/app/insights/[slug]/page-eac42cf3ad8d6969.js"
+    ],
     "/how-it-works/page": [
       "static/chunks/webpack-967d1063ad37eae5.js",
       "static/chunks/fd9d1056-4a917af64af6b262.js",
@@ -73,21 +81,21 @@
       "static/chunks/main-app-deaa5b6aa58e2f0b.js",
       "static/chunks/app/how-it-works/page-34776e8b8e62dece.js"
     ],
+    "/insights/google-meridian-mmm-predictive-ai/page": [
+      "static/chunks/webpack-967d1063ad37eae5.js",
+      "static/chunks/fd9d1056-4a917af64af6b262.js",
+      "static/chunks/23-564dff0a59655339.js",
+      "static/chunks/main-app-deaa5b6aa58e2f0b.js",
+      "static/chunks/231-28d4b6baeee19f30.js",
+      "static/chunks/app/insights/google-meridian-mmm-predictive-ai/page-e494f23c3c9b9d73.js"
+    ],
     "/insights/page": [
       "static/chunks/webpack-967d1063ad37eae5.js",
       "static/chunks/fd9d1056-4a917af64af6b262.js",
       "static/chunks/23-564dff0a59655339.js",
       "static/chunks/main-app-deaa5b6aa58e2f0b.js",
       "static/chunks/231-28d4b6baeee19f30.js",
-      "static/chunks/app/insights/page-23f458068d0bed3f.js"
-    ],
-    "/insights/[slug]/page": [
-      "static/chunks/webpack-967d1063ad37eae5.js",
-      "static/chunks/fd9d1056-4a917af64af6b262.js",
-      "static/chunks/23-564dff0a59655339.js",
-      "static/chunks/main-app-deaa5b6aa58e2f0b.js",
-      "static/chunks/231-28d4b6baeee19f30.js",
-      "static/chunks/app/insights/[slug]/page-0e12efef6ca39359.js"
+      "static/chunks/app/insights/page-84f67db446ed7955.js"
     ],
     "/news/page": [
       "static/chunks/webpack-967d1063ad37eae5.js",
@@ -98,14 +106,6 @@
       "static/chunks/223-05f30745a9907ab5.js",
       "static/chunks/app/news/page-71737cedadc2adfc.js"
     ],
-    "/predictions/page": [
-      "static/chunks/webpack-967d1063ad37eae5.js",
-      "static/chunks/fd9d1056-4a917af64af6b262.js",
-      "static/chunks/23-564dff0a59655339.js",
-      "static/chunks/main-app-deaa5b6aa58e2f0b.js",
-      "static/chunks/231-28d4b6baeee19f30.js",
-      "static/chunks/app/predictions/page-5f29fd90b4d3bd01.js"
-    ],
     "/page": [
       "static/chunks/webpack-967d1063ad37eae5.js",
       "static/chunks/fd9d1056-4a917af64af6b262.js",
@@ -114,6 +114,14 @@
       "static/chunks/231-28d4b6baeee19f30.js",
       "static/chunks/223-05f30745a9907ab5.js",
       "static/chunks/app/page-c5c3863d4d665577.js"
+    ],
+    "/predictions/page": [
+      "static/chunks/webpack-967d1063ad37eae5.js",
+      "static/chunks/fd9d1056-4a917af64af6b262.js",
+      "static/chunks/23-564dff0a59655339.js",
+      "static/chunks/main-app-deaa5b6aa58e2f0b.js",
+      "static/chunks/231-28d4b6baeee19f30.js",
+      "static/chunks/app/predictions/page-5f29fd90b4d3bd01.js"
     ],
     "/predictive-attribution/page": [
       "static/chunks/webpack-967d1063ad37eae5.js",
@@ -146,7 +154,7 @@
       "static/chunks/23-564dff0a59655339.js",
       "static/chunks/main-app-deaa5b6aa58e2f0b.js",
       "static/chunks/231-28d4b6baeee19f30.js",
-      "static/chunks/app/research/page-73736c0810f7e66a.js"
+      "static/chunks/app/research/page-c8dcbb9174c923de.js"
     ],
     "/resources/page": [
       "static/chunks/webpack-967d1063ad37eae5.js",

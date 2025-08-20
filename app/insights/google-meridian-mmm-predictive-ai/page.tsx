@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { ArrowLeft, Calendar, Clock, Share2 } from 'lucide-react'
-import { modernMeasurementArticle } from '@/app/news/[slug]/modern-measurement-meets-predictive-ai'
+import { modernMeasurementArticle } from '../../news/[slug]/modern-measurement-meets-predictive-ai'
 
 export default function GoogleMeridianInsightPage() {
   const article = modernMeasurementArticle

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 // Import the Google Meridian article
-import { modernMeasurementArticle } from '@/app/news/[slug]/modern-measurement-meets-predictive-ai'
+import { modernMeasurementArticle } from '../../news/[slug]/modern-measurement-meets-predictive-ai'
 
 // Blog post data - in production this would come from a CMS
 const blogPosts: { [key: string]: any } = {
