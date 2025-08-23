@@ -15,7 +15,7 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Hendricks.AI',
-  description: 'Predictive AI Marketing Agency that predicts market demand 2-4 weeks early with 74% accuracy',
+  description: 'The AI Search Intelligence Firm for B2B SaaS. We unify Google & Bing into one AI-driven system that predicts demand, proves ROI, and engineers execution.',
   url: 'https://hendricks.ai',
   logo: 'https://hendricks.ai/hendricks_logo.png',
   sameAs: [
@@ -31,16 +31,18 @@ const organizationSchema = {
     name: 'United States'
   },
   knowsAbout: [
-    'Predictive AI Marketing',
-    'Demand Intelligence',
-    'Google Performance Max',
-    'Bing Performance Max',
-    'Marketing Analytics',
-    'Demand Forecasting'
+    'Search Intelligence',
+    'B2B SaaS Marketing',
+    'Google Ads Management',
+    'Bing Ads Management',
+    'Multi-touch Attribution',
+    'Incrementality Testing',
+    'Demand Prediction',
+    'Pipeline Attribution'
   ],
   founder: {
     '@type': 'Person',
-    name: 'Brandon Hendricks'
+    name: 'Brandon Lincoln Hendricks'
   }
 }
 
@@ -50,7 +52,7 @@ const websiteSchema = {
   '@type': 'WebSite',
   url: 'https://hendricks.ai',
   name: 'Hendricks.AI',
-  description: 'Predictive AI Marketing Agency',
+  description: 'The AI Search Intelligence Firm for B2B SaaS',
   potentialAction: {
     '@type': 'SearchAction',
     target: {
