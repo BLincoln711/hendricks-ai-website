@@ -7,6 +7,8 @@ import Navigation from '../components/navigation'
 import Footer from '../components/footer'
 import { BreadcrumbSchema } from '../components/seo-improvements'
 
+// Updated with Search Intelligence positioning - January 2025
+
 export default function SolutionsPage() {
   const [activeModule, setActiveModule] = useState(0)
 
