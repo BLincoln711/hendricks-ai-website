@@ -34,22 +34,27 @@ export default function LiveDemoPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-16 bg-gradient-to-b from-blue-950/20 to-black">
+      <section className="pt-32 pb-16 bg-gradient-to-b from-blue-950/20 to-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-900/30 border border-blue-800/50 rounded-full text-blue-400 mb-6">
             <Sparkles className="w-4 h-4" />
-            <span className="text-sm font-medium">LIVE AI PREDICTIONS</span>
+            <span className="text-sm font-medium">AI SEARCH INTELLIGENCE DEMO</span>
           </div>
           
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+            <span className="text-white">See </span>
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              See Tomorrow's Demand Today
+              B2B Search Demand
             </span>
+            <span className="text-white"> Before It Happens</span>
           </h1>
           
           <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-            Our AI analyzes 2.8M+ data points daily to predict market demand 2-4 weeks before it materializes. 
-            Watch it identify opportunities your competitors will miss.
+            Watch our Search Intelligence System predict B2B demand 2-4 weeks early by unifying 
+            Google & Bing data with AI. Your competitors are still running them in silos.
+          </p>
+          <p className="text-2xl font-bold text-purple-400">
+            Prediction. Proof. Performance.
           </p>
 
           <div className="flex flex-wrap justify-center gap-6 text-center">
@@ -65,9 +70,16 @@ export default function LiveDemoPage() {
               <div className="text-3xl font-bold text-purple-400">312%</div>
               <p className="text-sm text-gray-400">Average ROI</p>
             </div>
+            <div>
+              <div className="text-3xl font-bold text-cyan-400">67%</div>
+              <p className="text-sm text-gray-400">Efficiency Gain</p>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* LLM SEO Block */}
+      <LLMSEOBlock {...llmSeoData} />
 
       {/* Market Demand Predictor */}
       <section className="py-12">
@@ -168,6 +180,81 @@ export default function LiveDemoPage() {
           </div>
         </div>
       </section>
+
+      {/* Google + Bing Unification Visual */}
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            <span className="text-white">Stop Running </span>
+            <span className="text-blue-400">Google</span>
+            <span className="text-white"> and </span>
+            <span className="text-cyan-400">Bing</span>
+            <span className="text-white"> in Silos</span>
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="bg-red-950/20 p-6 rounded-xl border border-red-900/50">
+              <h3 className="text-xl font-bold text-red-400 mb-4">Traditional Approach</h3>
+              <ul className="space-y-2 text-gray-300">
+                <li className="flex items-start gap-2">
+                  <span className="text-red-400 mt-1">✗</span>
+                  <span>Separate Google & Bing campaigns</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-400 mt-1">✗</span>
+                  <span>Competing for same keywords</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-400 mt-1">✗</span>
+                  <span>Duplicate reporting & overhead</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-red-400 mt-1">✗</span>
+                  <span>No unified attribution</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="bg-green-950/20 p-6 rounded-xl border border-green-900/50">
+              <h3 className="text-xl font-bold text-green-400 mb-4">Search Intelligence</h3>
+              <ul className="space-y-2 text-gray-300">
+                <li className="flex items-start gap-2">
+                  <span className="text-green-400 mt-1">✓</span>
+                  <span>One unified search strategy</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-400 mt-1">✓</span>
+                  <span>AI optimizes budget allocation</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-400 mt-1">✓</span>
+                  <span>Single source of truth</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-green-400 mt-1">✓</span>
+                  <span>True pipeline attribution</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <p className="text-xl text-gray-300 mb-8">
+              B2B buyers don't see Google and Bing as different. They see search.
+            </p>
+            <Link 
+              href="/contact"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 px-8 py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105"
+            >
+              Book Your Strategy Session
+              <Sparkles className="w-5 h-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </main>
+    </>
   )
 }
