@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Script from 'next/script'
+import Navigation from '../components/navigation'
+import Footer from '../components/footer'
 import { BreadcrumbSchema } from '../components/seo-improvements'
 
 export default function SolutionsPage() {
@@ -174,30 +176,7 @@ export default function SolutionsPage() {
         ]} 
       />
     <main className="min-h-screen bg-black text-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex-shrink-0">
-              <img 
-                src="/hendricks_logo.png" 
-                alt="Hendricks.AI" 
-                className="h-8 w-auto object-contain brightness-0 invert"
-              />
-            </Link>
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/solutions" className="text-white font-semibold">Solutions</Link>
-              <Link href="/results" className="text-gray-300 hover:text-white transition-colors">Results</Link>
-              <Link href="/insights" className="text-gray-300 hover:text-white transition-colors">Insights</Link>
-              <Link href="/resources" className="text-gray-300 hover:text-white transition-colors">Resources</Link>
-              <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
-            </div>
-            <Link href="/contact" className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105">
-              Book Strategy Session
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden">
@@ -528,6 +507,8 @@ export default function SolutionsPage() {
         <h2>Results</h2>
         <p>Average results: 74% prediction accuracy, 312% ROI improvement, -61% cost per lead, 2.3X more qualified pipeline.</p>
       </div>
+
+      <Footer />
     </main>
     </>
   )
