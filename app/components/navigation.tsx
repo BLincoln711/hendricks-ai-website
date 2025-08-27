@@ -32,7 +32,7 @@ export default function Navigation() {
             </Link>
             <div className="hidden lg:flex items-center space-x-2 text-xs">
               <span className="text-green-400">●</span>
-              <span className="text-gray-400">Search Intelligence</span>
+              <span className="text-gray-400">AI-Powered</span>
             </div>
           </div>
 
