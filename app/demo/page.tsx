@@ -2,11 +2,71 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Script from 'next/script'
 import { ArrowLeft, Sparkles, TrendingUp, AlertCircle } from 'lucide-react'
 import MarketDemandPredictor from '../components/market-demand-predictor'
+import Footer from '../components/footer'
+import LLMSEOBlock from '../components/llm-seo-block'
+import { BreadcrumbSchema } from '../components/seo-improvements'
 
 export default function LiveDemoPage() {
+  // Schema markup for demo page
+  const demoSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'AI Search Intelligence Demo - Hendricks.AI',
+    description: 'See B2B search demand predictions 2-4 weeks in advance. Live demo of our AI-powered Search Intelligence System that unifies Google & Bing.',
+    url: 'https://hendricks.ai/demo'
+  }
+
+  const llmSeoData = {
+    title: 'AI Search Intelligence Demo - See B2B Demand Before It Happens',
+    description: 'Watch our Search Intelligence System predict B2B demand 2-4 weeks early by unifying Google & Bing data with AI. 74% accuracy, 312% average ROI.',
+    keywords: [
+      'AI search demand prediction demo',
+      'B2B SaaS predictive analytics',
+      'Google Bing unification demo',
+      'search intelligence live demo',
+      'demand forecasting for B2B'
+    ],
+    faqs: [
+      {
+        question: 'How accurate are the B2B demand predictions?',
+        answer: 'Our Search Intelligence System achieves 74% accuracy in predicting B2B search demand 2-4 weeks in advance, validated across thousands of campaigns.'
+      },
+      {
+        question: 'What makes this different from Google Trends?',
+        answer: 'Unlike Google Trends which shows past data, our AI predicts future B2B demand by analyzing patterns across Google AND Bing simultaneously, with pipeline-specific intelligence.'
+      },
+      {
+        question: 'Can I get predictions for my specific industry?',
+        answer: 'Yes! Book a strategy session for custom predictions tailored to your B2B SaaS vertical, including competitor blind spots and keyword opportunities.'
+      }
+    ],
+    quickFacts: [
+      '74% prediction accuracy',
+      '2-4 weeks advance notice',
+      'Unifies Google + Bing data',
+      '312% average ROI improvement',
+      'Built for B2B SaaS'
+    ]
+  }
+
   return (
+    <>
+      <Script
+        id="demo-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(demoSchema)
+        }}
+      />
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Home', url: 'https://hendricks.ai' },
+          { name: 'Demo', url: 'https://hendricks.ai/demo' }
+        ]} 
+      />
     <main className="min-h-screen bg-black text-white">
       {/* Header */}
       <header className="bg-black/95 backdrop-blur-xl border-b border-white/10 sticky top-0 z-50">
@@ -77,6 +137,9 @@ export default function LiveDemoPage() {
           </div>
         </div>
       </section>
+
+      {/* LLM SEO Block */}
+      <LLMSEOBlock {...llmSeoData} />
 
       {/* Market Demand Predictor */}
       <section className="py-12">

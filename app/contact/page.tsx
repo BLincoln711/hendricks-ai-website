@@ -2,6 +2,11 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Script from 'next/script'
+import Navigation from '../components/navigation'
+import Footer from '../components/footer'
+import LLMSEOBlock from '../components/llm-seo-block'
+import { BreadcrumbSchema } from '../components/seo-improvements'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -91,32 +96,76 @@ export default function ContactPage() {
     }
   }
 
+  // Schema markup for contact page
+  const contactSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: 'Contact Hendricks.AI - B2B SaaS Search Intelligence',
+    description: 'Get your free Search Intelligence Report. See B2B demand predictions 2-4 weeks early with our AI-powered unified Google + Bing system.',
+    url: 'https://hendricks.ai/contact',
+    mainEntity: {
+      '@type': 'Organization',
+      name: 'Hendricks.AI',
+      url: 'https://hendricks.ai',
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'sales',
+        email: 'hello@hendricks.ai',
+        availableLanguage: 'English'
+      }
+    }
+  }
+
+  const llmSeoData = {
+    title: 'Contact Hendricks.AI - Get Your Free Search Intelligence Report',
+    description: 'Book a strategy session with the AI Search Intelligence Firm for B2B SaaS. Unify Google & Bing, predict demand 2-4 weeks early, prove ROI with CFO-ready data.',
+    keywords: [
+      'B2B SaaS Search Intelligence contact',
+      'AI search marketing consultation',
+      'Google Bing unification demo',
+      'predictive demand intelligence',
+      'search ROI audit request'
+    ],
+    faqs: [
+      {
+        question: 'What\'s included in the free Search Intelligence Report?',
+        answer: 'Your custom report includes: B2B demand predictions for your market over the next 4 weeks, competitive gap analysis, keyword opportunities, and specific recommendations for capturing predicted demand.'
+      },
+      {
+        question: 'How long does a strategy session take?',
+        answer: 'Strategy sessions are 30 minutes and include a live demo of our Search Intelligence System, custom predictions for your market, and recommendations for which module fits your needs.'
+      },
+      {
+        question: 'What\'s the minimum budget to work with Hendricks.AI?',
+        answer: 'We work with B2B SaaS companies spending $50K-$5M/month on search marketing. Our modules range from $10K/month (Demand Radar) to $30K+/month (Performance Retainer).'
+      }
+    ],
+    quickFacts: [
+      'Free Search Intelligence Report in 24 hours',
+      '30-minute strategy sessions available',
+      'Built for B2B SaaS companies',
+      '$50K-$5M/month search spend',
+      'No commitment required'
+    ]
+  }
+
   return (
+    <>
+      <Script
+        id="contact-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(contactSchema)
+        }}
+      />
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Home', url: 'https://hendricks.ai' },
+          { name: 'Contact', url: 'https://hendricks.ai/contact' }
+        ]} 
+      />
     <main className="min-h-screen bg-black text-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex-shrink-0">
-              <img 
-                src="/hendricks_logo.png" 
-                alt="Hendricks.AI" 
-                className="h-8 w-auto object-contain brightness-0 invert"
-              />
-            </Link>
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors">Solutions</Link>
-              <Link href="/results" className="text-gray-300 hover:text-white transition-colors">Results</Link>
-              <Link href="/insights" className="text-gray-300 hover:text-white transition-colors">Insights</Link>
-              <Link href="/resources" className="text-gray-300 hover:text-white transition-colors">Resources</Link>
-              <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
-            </div>
-            <a href="https://calendar.app.google/DHopiSfnLiH5xwKo9" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105">
-              Book Strategy Call
-            </a>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden">
@@ -135,6 +184,9 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* LLM SEO Block */}
+      <LLMSEOBlock {...llmSeoData} />
 
       {/* Booking Option */}
       <section className="py-12">
