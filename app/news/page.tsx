@@ -1,13 +1,32 @@
 import Link from 'next/link'
-import { Calendar, User, ArrowRight, TrendingUp, Brain, BarChart3 } from 'lucide-react'
+import { Calendar, User, ArrowRight, TrendingUp, Brain, BarChart3, Clock } from 'lucide-react'
 import Script from 'next/script'
+import Navigation from '../components/navigation'
+import Footer from '../components/footer'
+import { BreadcrumbSchema } from '../components/seo-improvements'
 
 export async function generateMetadata() {
   return {
-    title: 'News | Hendricks.AI News',
-    description: 'Breaking news and insights on predictive AI marketing and AI engineering',
+    title: 'News & Insights | Hendricks.AI - B2B SaaS Search Intelligence',
+    description: 'Latest news, insights, and analysis on B2B SaaS search intelligence, AI-powered marketing, and unified Google & Bing strategies from Hendricks.AI.',
     alternates: {
       canonical: 'https://hendricks.ai/news',
+    },
+    openGraph: {
+      title: 'News & Insights | Hendricks.AI',
+      description: 'Latest B2B SaaS search intelligence news and insights',
+      type: 'website',
+      siteName: 'Hendricks.AI',
+      images: [{
+        url: 'https://hendricks.ai/og-news.png',
+        width: 1200,
+        height: 630,
+      }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'News & Insights | Hendricks.AI',
+      description: 'Latest B2B SaaS search intelligence news and insights',
     },
     other: {
       'google-site-verification': 'E7JSaK23DaXqx3yMqAiM1WHNx6zrcWrg9zJ5yvfZN4I',
@@ -21,6 +40,8 @@ export default function NewsPage() {
       headline: "The B2B Marketing Funnel is Dead: Why 80% of Buying Happens in Chaos",
       date: "2025-08-20",
       author: "Brandon Lincoln Hendricks",
+      authorTitle: "Founder & CEO, Hendricks.AI",
+      authorBio: "Google ML certified engineer with 15+ years in B2B SaaS marketing",
       category: "B2B Marketing",
       summary: "The traditional B2B marketing funnel is obsolete. Modern buyers use 10+ channels with 6-10 stakeholders, spending 80% of their journey avoiding salespeople. Learn why the funnel failed and how predictive AI navigates the chaos.",
       slug: "b2b-funnel-is-dead"
@@ -28,7 +49,9 @@ export default function NewsPage() {
     {
       headline: "Google Meridian MMM Meets Predictive AI: The Future of Marketing Attribution",
       date: "2025-08-19",
-      author: "Brandon Lincoln Hendricks", 
+      author: "Brandon Lincoln Hendricks",
+      authorTitle: "Founder & CEO, Hendricks.AI",
+      authorBio: "Google ML certified engineer with 15+ years in B2B SaaS marketing", 
       category: "Industry Analysis",
       summary: "Breaking analysis from Brandformance 2025: How Hendricks.AI's predictive capabilities enhance Google's new Meridian MMM framework to forecast incrementality before spending.",
       slug: "modern-measurement-meets-predictive-ai"
@@ -37,6 +60,8 @@ export default function NewsPage() {
       headline: "Hendricks.AI Achieves 74% Accuracy in Predicting Market Demand 2-4 Weeks Early",
       date: "2025-08-18",
       author: "Brandon Lincoln Hendricks",
+      authorTitle: "Founder & CEO, Hendricks.AI",
+      authorBio: "Google ML certified engineer with 15+ years in B2B SaaS marketing",
       category: "Company News",
       summary: "New predictive AI system analyzes 2.8 million daily signals to forecast market demand with unprecedented accuracy, delivering average ROI of 312% for enterprise clients.",
       slug: "hendricks-ai-achieves-74-percent-prediction-accuracy"
@@ -45,6 +70,8 @@ export default function NewsPage() {
       headline: "Former SolarWinds Global Search Lead Launches First Predictive AI Marketing Agency",
       date: "2025-08-15",
       author: "Brandon Lincoln Hendricks",
+      authorTitle: "Founder & CEO, Hendricks.AI",
+      authorBio: "Google ML certified engineer with 15+ years in B2B SaaS marketing",
       category: "Industry News",
       summary: "Brandon Lincoln Hendricks, former Global Lead of Total Search at SolarWinds, announces the launch of Hendricks.AI, the first marketing agency that predicts demand before it happens.",
       slug: "former-solarwinds-exec-launches-predictive-ai-agency"
@@ -53,6 +80,8 @@ export default function NewsPage() {
       headline: "Study: 87% of Marketers Still Using Reactive Strategies, Missing Revenue Opportunities",
       date: "2025-08-12",
       author: "Brandon Lincoln Hendricks",
+      authorTitle: "Founder & CEO, Hendricks.AI",
+      authorBio: "Google ML certified engineer with 15+ years in B2B SaaS marketing",
       category: "Research",
       summary: "New research reveals the majority of marketing teams are analyzing yesterday's data while tomorrow's opportunities pass by, resulting in an estimated $47 billion in missed revenue annually.",
       slug: "study-marketers-reactive-strategies-missing-revenue"
@@ -61,6 +90,8 @@ export default function NewsPage() {
       headline: "Predictive AI Correctly Forecasts Post-Holiday E-commerce Surge 3 Weeks in Advance",
       date: "2025-08-10",
       author: "Brandon Lincoln Hendricks",
+      authorTitle: "Founder & CEO, Hendricks.AI",
+      authorBio: "Google ML certified engineer with 15+ years in B2B SaaS marketing",
       category: "Case Study",
       summary: "Hendricks.AI's predictive system identified early signals of a 68% surge in specific e-commerce categories, enabling clients to capture market share before competitors.",
       slug: "predictive-ai-forecasts-ecommerce-surge"
@@ -69,6 +100,8 @@ export default function NewsPage() {
       headline: "Google Performance Max Gets Predictive: How AI Changes the PMax Game",
       date: "2025-08-08",
       author: "Brandon Lincoln Hendricks",
+      authorTitle: "Founder & CEO, Hendricks.AI",
+      authorBio: "Google ML certified engineer with 15+ years in B2B SaaS marketing",
       category: "Analysis",
       summary: "Analysis of how predictive AI transforms Performance Max campaigns from reactive optimization to proactive market capture, with case studies showing 287% ROI improvement.",
       slug: "google-performance-max-predictive-ai"
@@ -77,6 +110,8 @@ export default function NewsPage() {
       headline: "Building Production AI: Why 99% of AI POCs Fail to Scale",
       date: "2025-08-20",
       author: "Brandon Lincoln Hendricks",
+      authorTitle: "Founder & CEO, Hendricks.AI",
+      authorBio: "Google ML certified engineer with 15+ years in B2B SaaS marketing",
       category: "AI Engineering",
       summary: "Technical deep-dive into the engineering challenges of scaling AI from prototype to production, based on lessons learned building systems that process 2.8M signals daily.",
       slug: "building-production-ai-why-pocs-fail"
@@ -85,6 +120,8 @@ export default function NewsPage() {
       headline: "The Hidden Cost of AI Hallucinations in Marketing: A $4.2B Problem",
       date: "2025-08-19",
       author: "Brandon Lincoln Hendricks",
+      authorTitle: "Founder & CEO, Hendricks.AI",
+      authorBio: "Google ML certified engineer with 15+ years in B2B SaaS marketing",
       category: "AI Research",
       summary: "New research reveals how AI hallucinations in marketing automation tools are costing enterprises billions in wasted ad spend and missed opportunities.",
       slug: "ai-hallucinations-marketing-cost"
@@ -93,6 +130,8 @@ export default function NewsPage() {
       headline: "From GPT to Production: Engineering Lessons from Early OpenAI Beta Access",
       date: "2025-08-17",
       author: "Brandon Lincoln Hendricks",
+      authorTitle: "Founder & CEO, Hendricks.AI",
+      authorBio: "Google ML certified engineer with 15+ years in B2B SaaS marketing",
       category: "AI Engineering",
       summary: "Exclusive insights from beta testing GPT-3, ChatGPT, and GPT-4, including architectural decisions that enabled 74% prediction accuracy.",
       slug: "gpt-to-production-engineering-lessons"
