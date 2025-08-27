@@ -175,7 +175,7 @@ export default function AboutPage() {
                 <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-blue-500 to-purple-500 p-1">
                   <div className="bg-black rounded-xl overflow-hidden">
                     <img 
-                      src="/brandon-hendricks.jpg" 
+                      src="/brandon-lincoln-hendricks.jpg" 
                       alt="Brandon Lincoln Hendricks - Founder & CEO of Hendricks.AI"
                       className="w-full h-full object-cover"
                     />
