@@ -173,12 +173,12 @@ export default function AboutPage() {
             <div className="lg:col-span-1">
               <div className="sticky top-32">
                 <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-blue-500 to-purple-500 p-1">
-                  <div className="bg-black rounded-xl p-8 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
-                        <span className="text-4xl font-bold text-white">BLH</span>
-                      </div>
-                    </div>
+                  <div className="bg-black rounded-xl overflow-hidden">
+                    <img 
+                      src="/brandon-headshot.jpg" 
+                      alt="Brandon Lincoln Hendricks - Founder & CEO of Hendricks.AI"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                 </div>
                 <div className="mt-6 text-center">
