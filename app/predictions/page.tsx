@@ -223,7 +223,7 @@ export default function PredictionsPage() {
             href="/contact"
             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-2xl hover:shadow-purple-500/25 transition-all transform hover:scale-105"
           >
-            Get Your Predictive Intelligence Report
+            Get Your Search Intelligence Report
           </Link>
         </div>
       </section>

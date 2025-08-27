@@ -30,27 +30,27 @@ export default function SolutionSlide() {
           <div className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 backdrop-blur-sm rounded-xl p-8 border border-blue-800/50 transform hover:scale-105 transition-all">
             <TrendingUp className="w-12 h-12 text-blue-400 mb-4" />
             <h3 className="text-2xl font-semibold mb-3">Predictive Intelligence</h3>
+            <p className="text-sm text-gray-400 mb-2">Demand Radar Pilot</p>
             <p className="text-gray-300">
-              Analyzes 2.8M+ data points daily across 100+ sources to identify demand 
-              patterns before they materialize
+              See pipeline demand 2-4 weeks ahead with AI forecasting and predictive scoring
             </p>
           </div>
 
           <div className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 backdrop-blur-sm rounded-xl p-8 border border-purple-800/50 transform hover:scale-105 transition-all">
             <Target className="w-12 h-12 text-purple-400 mb-4" />
-            <h3 className="text-2xl font-semibold mb-3">Precision Targeting</h3>
+            <h3 className="text-2xl font-semibold mb-3">Cross-Channel Measurement</h3>
+            <p className="text-sm text-gray-400 mb-2">Search ROI Audit</p>
             <p className="text-gray-300">
-              Automatically optimizes Google & Bing Performance Max campaigns to capture 
-              predicted demand at the perfect moment
+              Multi-touch attribution and incrementality testing to prove true search ROI
             </p>
           </div>
 
           <div className="bg-gradient-to-br from-green-900/30 to-blue-900/30 backdrop-blur-sm rounded-xl p-8 border border-green-800/50 transform hover:scale-105 transition-all">
             <Zap className="w-12 h-12 text-green-400 mb-4" />
-            <h3 className="text-2xl font-semibold mb-3">Instant Activation</h3>
+            <h3 className="text-2xl font-semibold mb-3">Unified Search Execution</h3>
+            <p className="text-sm text-gray-400 mb-2">Performance Retainer</p>
             <p className="text-gray-300">
-              Deploy campaigns in minutes, not weeks. Our AI handles everything from 
-              creative to bidding strategies
+              AI orchestrates Google & Bing as one unified system for maximum pipeline impact
             </p>
           </div>
         </div>

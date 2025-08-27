@@ -54,7 +54,7 @@ export default function BrandonLincolnHendricksPage() {
       "Search Engine Marketing",
       "Demand Forecasting",
       "Marketing Analytics",
-      "Cross-Channel Orchestration",
+      "Cross-Channel Measurement",
       "Google Performance Max",
       "Microsoft Advertising",
       "AI Model Development",
@@ -576,7 +576,7 @@ export default function BrandonLincolnHendricksPage() {
                 href="/contact"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl"
               >
-                Get Your Predictive Intelligence Report
+                Get Your Search Intelligence Report
                 <ArrowRight className="w-5 h-5" />
               </Link>
               

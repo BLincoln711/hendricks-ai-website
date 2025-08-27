@@ -149,7 +149,7 @@ export default function InsightsPage() {
           <div className="text-center">
             <h1 className="text-5xl sm:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Predictive Intelligence Insights
+                Search Intelligence Insights
               </span>
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">

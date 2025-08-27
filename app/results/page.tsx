@@ -35,7 +35,7 @@ export default function ResultsPage() {
         author: 'Sarah Chen, CMO'
       },
       timeline: '6 months',
-      services: ['Demand Intelligence', 'Google Performance Max', 'Conversion Capture']
+      services: ['Predictive Intelligence', 'Unified Search Execution', 'Cross-Channel Measurement']
     },
     {
       id: 2,
@@ -57,7 +57,7 @@ export default function ResultsPage() {
         author: 'Michael Rodriguez, VP Sales'
       },
       timeline: '4 months',
-      services: ['Bing Performance Max', 'Intelligence Command', 'Demand Intelligence']
+      services: ['Unified Search Execution', 'Cross-Channel Measurement', 'Predictive Intelligence']
     },
     {
       id: 3,
@@ -79,7 +79,7 @@ export default function ResultsPage() {
         author: 'Jennifer Park, Regional Manager'
       },
       timeline: '3 months',
-      services: ['Demand Intelligence', 'Amplification Engine', 'Google Performance Max']
+      services: ['Predictive Intelligence', 'Cross-Channel Measurement', 'Unified Search Execution']
     },
     {
       id: 4,
@@ -101,7 +101,7 @@ export default function ResultsPage() {
         author: 'David Thompson, Managing Partner'
       },
       timeline: '5 months',
-      services: ['Demand Intelligence', 'Conversion Capture', 'Intelligence Command']
+      services: ['Predictive Intelligence', 'Unified Search Execution', 'Cross-Channel Measurement']
     },
     {
       id: 5,
@@ -123,7 +123,7 @@ export default function ResultsPage() {
         author: 'Amanda Foster, CEO'
       },
       timeline: '8 months',
-      services: ['Demand Intelligence', 'Conversion Capture', 'Amplification Engine']
+      services: ['Predictive Intelligence', 'Unified Search Execution', 'Cross-Channel Measurement']
     }
   ]
 

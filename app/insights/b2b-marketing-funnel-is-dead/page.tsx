@@ -97,7 +97,7 @@ export default function B2BFunnelIsDeadPage() {
               <div className="flex items-center space-x-6">
                 <Link href="/insights" className="text-gray-300 hover:text-white">← Back to Insights</Link>
                 <Link href="/contact" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
-                  Get Predictive Intelligence
+                  Get Search Intelligence Report
                 </Link>
               </div>
             </div>
@@ -508,7 +508,7 @@ export default function B2BFunnelIsDeadPage() {
 
             {/* CTA Box */}
             <div className="cta-box bg-gradient-to-r from-blue-900/20 to-purple-900/20 border border-blue-500/20 rounded-lg p-8 my-12 text-center">
-              <h3 className="text-2xl font-bold mb-4">Ready to Navigate B2B Chaos with Predictive Intelligence?</h3>
+              <h3 className="text-2xl font-bold mb-4">Ready to Navigate B2B Chaos with Search Intelligence?</h3>
               <p className="text-lg mb-6">Stop forcing buyers into funnels they'll never follow. Start predicting where they'll actually go.</p>
               <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all">
                 Get Your Chaos Navigation Strategy

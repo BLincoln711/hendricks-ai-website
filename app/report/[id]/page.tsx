@@ -66,7 +66,7 @@ export default function IntelligenceReport({ params }: { params: { id: string } 
             <img src="/hendricks_logo.png" alt="Hendricks.AI" className="h-12 mx-auto mb-6 brightness-0 invert" />
             <h1 className="text-5xl sm:text-6xl font-bold mb-4">
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Predictive Intelligence Report
+                Search Intelligence Report
               </span>
             </h1>
             <p className="text-2xl text-gray-300 mb-2">Prepared for: {reportData.company}</p>

@@ -207,7 +207,7 @@ export default function AIChat() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-white">AI Marketing Consultant</h3>
-                    <p className="text-sm text-gray-400">Powered by Predictive Intelligence</p>
+                    <p className="text-sm text-gray-400">Powered by Search Intelligence</p>
                   </div>
                 </div>
                 <button
