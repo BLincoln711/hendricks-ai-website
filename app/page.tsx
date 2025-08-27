@@ -516,8 +516,8 @@ export default function Home() {
             {[
               {
                 phase: 'MODULE 1',
-                title: 'Demand Radar Pilot',
-                subtitle: 'Predictive Intelligence',
+                title: 'Predictive Intelligence',
+                subtitle: 'Demand Radar Pilot',
                 features: [
                   'See pipeline demand 2-4 weeks ahead',
                   'AI forecasts + predictive scoring',
@@ -530,8 +530,8 @@ export default function Home() {
               },
               {
                 phase: 'MODULE 2',
-                title: 'Search ROI Audit',
-                subtitle: 'Cross-Channel Measurement',
+                title: 'Cross-Channel Measurement',
+                subtitle: 'Search ROI Audit',
                 features: [
                   'Multi-touch attribution setup',
                   'MMM + incrementality testing',
@@ -544,8 +544,8 @@ export default function Home() {
               },
               {
                 phase: 'MODULE 3',
-                title: 'Performance Retainer',
-                subtitle: 'Unified Search Execution',
+                title: 'Unified Search Execution',
+                subtitle: 'Performance Retainer',
                 features: [
                   'Google Ads full suite management',
                   'Bing Ads full suite management',

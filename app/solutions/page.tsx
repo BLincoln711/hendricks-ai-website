@@ -59,8 +59,8 @@ export default function SolutionsPage() {
   const modules = [
     {
       id: 0,
-      title: 'Demand Radar Pilot',
-      subtitle: 'Predictive Intelligence',
+      title: 'Predictive Intelligence',
+      subtitle: 'Demand Radar Pilot',
       tagline: 'See B2B Demand 2-4 Weeks Early',
       icon: '🔮',
       gradient: 'from-blue-600 to-cyan-600',
@@ -91,8 +91,8 @@ export default function SolutionsPage() {
     },
     {
       id: 1,
-      title: 'Search ROI Audit',
-      subtitle: 'Cross-Channel Measurement',
+      title: 'Cross-Channel Measurement',
+      subtitle: 'Search ROI Audit',
       tagline: 'Prove Your True Search ROI',
       icon: '📊',
       gradient: 'from-purple-600 to-pink-600',
@@ -123,8 +123,8 @@ export default function SolutionsPage() {
     },
     {
       id: 2,
-      title: 'Performance Retainer',
-      subtitle: 'Unified Search Execution',
+      title: 'Unified Search Execution',
+      subtitle: 'Performance Retainer',
       tagline: 'One Market. Two Engines. Unified.',
       icon: '🚀',
       gradient: 'from-cyan-600 to-blue-600',
