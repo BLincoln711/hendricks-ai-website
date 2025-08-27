@@ -175,7 +175,7 @@ export default function AboutPage() {
                 <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-blue-500 to-purple-500 p-1">
                   <div className="bg-black rounded-xl overflow-hidden">
                     <img 
-                      src="/brandon-headshot.jpg" 
+                      src="/brandon-hendricks.jpg" 
                       alt="Brandon Lincoln Hendricks - Founder & CEO of Hendricks.AI"
                       className="w-full h-full object-cover"
                     />
@@ -198,13 +198,15 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              {/* SolarWinds Experience */}
+              {/* Building Tomorrow's Marketing */}
               <div className="bg-gray-900/50 p-8 rounded-2xl border border-gray-800">
-                <h3 className="text-2xl font-bold mb-4 text-blue-400">The SolarWinds Breakthrough</h3>
+                <h3 className="text-2xl font-bold mb-4 text-blue-400">Building Tomorrow's Marketing Infrastructure</h3>
                 <div className="space-y-4 text-gray-300">
                   <p>
-                    As Global Lead of Total Search at SolarWinds, Brandon made a discovery that would reshape search marketing: 
-                    B2B buyers don't see Google and Bing as different. They see search.
+                    Most recently as Global Lead of Total Search at SolarWinds, Brandon developed predictive intent systems that unified search strategies across 150+ markets worldwide. His approach to demand forecasting and cross-platform optimization caught the attention of industry leaders, leading to strategic engagements with Foursquare, Workday, Evernote, and Warby Parker.
+                  </p>
+                  <p>
+                    Previously, as Global Director of Search at Merkle and Dentsu, Brandon pioneered unified SERP strategies that merged paid search and SEO — methodologies that major platforms would later adopt as best practices.
                   </p>
                   <p>
                     By unifying SolarWinds' search strategy across both platforms, he achieved something unprecedented:
@@ -213,6 +215,7 @@ export default function AboutPage() {
                     <li>67% reduction in cost-per-lead by eliminating channel competition</li>
                     <li>156% increase in qualified pipeline from unified attribution</li>
                     <li>First unified search dashboard connecting both platforms to Salesforce</li>
+                    <li>Managed $100M+ in search spend across Fortune 500 accounts</li>
                   </ul>
                   <p className="font-semibold text-cyan-400">
                     This wasn't optimization. It was transformation.
@@ -260,15 +263,62 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              {/* The Vision */}
-              <div className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 p-8 rounded-2xl border border-blue-500/20">
-                <p className="text-lg text-gray-300 italic">
-                  "Everyone talks about AI in marketing. But they're using it wrong. They use AI to do the same things faster. 
-                  We use AI to do things that were impossible before - like treating Google and Bing as one unified market 
-                  and predicting B2B demand before it materializes."
-                </p>
-                <p className="text-right text-gray-400 mt-4">- Brandon Lincoln Hendricks</p>
+              {/* Shaping AI Revolution */}
+              <div>
+                <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                  Shaping the AI Marketing Revolution
+                </h3>
+                <p className="text-gray-300 mb-6">Brandon's involvement in AI extends beyond traditional marketing applications:</p>
+                
+                <div className="space-y-6">
+                  {/* 2013-2014 */}
+                  <div className="border-l-4 border-blue-500 pl-6">
+                    <h4 className="font-bold text-blue-400">2013-2014</h4>
+                    <p className="text-gray-300">
+                      Participated in Google's internal AI research groups and invite-only Google Brain workshops — laying groundwork for understanding machine learning applications in search
+                    </p>
+                  </div>
+
+                  {/* 2019-2021 */}
+                  <div className="border-l-4 border-purple-500 pl-6">
+                    <h4 className="font-bold text-purple-400">2019-2021: Selected for foundational AI programs</h4>
+                    <ul className="list-disc list-inside text-gray-300 space-y-1 mt-2">
+                      <li>GPT-3 API beta testing before public launch</li>
+                      <li>ChatGPT prototype testing through OpenAI's trusted tester program</li>
+                      <li>Claude's first iterations via Anthropic's private program</li>
+                      <li>Google LaMDA early access demos</li>
+                    </ul>
+                  </div>
+
+                  {/* 2022-2023 */}
+                  <div className="border-l-4 border-pink-500 pl-6">
+                    <h4 className="font-bold text-pink-400">2022-2023: Continuous beta access across emerging platforms</h4>
+                    <ul className="list-disc list-inside text-gray-300 space-y-1 mt-2">
+                      <li>Google Bard and Gemini pre-release testing</li>
+                      <li>Perplexity AI early access through founder connections</li>
+                      <li>Claude 2 partner program participation</li>
+                    </ul>
+                  </div>
+
+                  {/* 2024-Present */}
+                  <div className="border-l-4 border-green-500 pl-6">
+                    <h4 className="font-bold text-green-400">2024-Present</h4>
+                    <ul className="list-disc list-inside text-gray-300 space-y-1 mt-2">
+                      <li>Ahrefs Customer Advisory Board Member, bridging AI capabilities with search intelligence</li>
+                      <li>Maintains beta access across OpenAI, Anthropic, Google, Meta, and Perplexity</li>
+                      <li>Regular participant in product development sessions that shape AI platform features</li>
+                      <li>Previews major AI capabilities 2-3 months before market release</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
+
+              <div className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 p-8 rounded-2xl border border-blue-500/20 mt-8">
+                <p className="text-lg text-gray-300 italic">
+                  "This unique vantage point — seeing AI developments before they reach market while understanding enterprise search needs — enables Brandon to build predictive systems that don't just respond to demand, they anticipate it."
+                </p>
+              </div>
+
             </div>
           </div>
         </div>
