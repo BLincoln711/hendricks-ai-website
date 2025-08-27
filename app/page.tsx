@@ -5,18 +5,11 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { Sparkles } from 'lucide-react'
 import MarketDemandPredictor from './components/market-demand-predictor'
+import Navigation from './components/navigation'
+import Footer from './components/footer'
 import { BreadcrumbSchema } from './components/seo-improvements'
 
 export default function Home() {
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
   // Schema markup for homepage
   const homepageSchema = {
@@ -227,52 +220,7 @@ export default function Home() {
         ]} 
       />
     <main className="min-h-screen bg-black text-white">
-      {/* Premium Navigation Bar */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-black/95 backdrop-blur-xl border-b border-white/10' : 'bg-transparent'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo with Trust Badge */}
-            <div className="flex items-center space-x-3">
-              <Link href="/" className="flex-shrink-0">
-                <img 
-                  src="/hendricks_logo.png" 
-                  alt="Hendricks.AI" 
-                  className="h-8 w-auto object-contain brightness-0 invert"
-                />
-              </Link>
-              <div className="hidden lg:flex items-center space-x-2 text-xs">
-                <span className="text-green-400">●</span>
-                <span className="text-gray-400">AI-Powered</span>
-              </div>
-            </div>
-
-            {/* Simplified Navigation */}
-            <nav className="hidden md:flex items-center space-x-6">
-              <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Solutions</Link>
-              <Link href="/demo" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium flex items-center gap-1">
-                Live AI Predictions
-                <span className="text-xs text-green-400">●</span>
-              </Link>
-              <Link href="/results" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Results</Link>
-              <Link href="/insights" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">Insights</Link>
-              <Link href="/about" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">About</Link>
-            </nav>
-
-            {/* Enhanced CTA */}
-            <div className="flex items-center space-x-4">
-              <Link 
-                href="/contact" 
-                className="group relative px-6 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 overflow-hidden"
-              >
-                <span className="relative z-10">Book Strategy Call</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Hero Section: Search Intelligence for the AI Era */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
@@ -1072,72 +1020,7 @@ export default function Home() {
       </section>
 
 
-      {/* Footer */}
-      <footer id="contact" className="bg-black border-t border-gray-800 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="col-span-2">
-              <div className="mb-4">
-                <img 
-                  src="/hendricks_logo.png" 
-                  alt="Hendricks.AI" 
-                  className="h-6 w-auto object-contain brightness-0 invert"
-                />
-              </div>
-              <p className="text-gray-400 mb-4 max-w-md">
-                The AI Search Intelligence Firm for B2B SaaS. We unify Google & Bing into one AI-driven system that predicts demand, proves ROI, and engineers execution. Prediction. Proof. Performance.
-              </p>
-              <div className="flex space-x-4">
-                {['twitter', 'linkedin', 'facebook'].map((social) => (
-                  <a key={social} href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors duration-200">
-                    <span className="text-gray-400 text-sm">{social[0].toUpperCase()}</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Solutions</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/solutions#demand-radar" className="hover:text-white transition-colors">Demand Radar Pilot</Link></li>
-                <li><Link href="/solutions#roi-audit" className="hover:text-white transition-colors">Search ROI Audit</Link></li>
-                <li><Link href="/solutions#performance" className="hover:text-white transition-colors">Performance Retainer</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
-                <li><Link href="/results" className="hover:text-white transition-colors">Case Studies</Link></li>
-                <li><Link href="/insights" className="hover:text-white transition-colors">Insights</Link></li>
-                <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/resources" className="hover:text-white transition-colors">Downloads</Link></li>
-                <li><Link href="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
-                <li><Link href="/insights" className="hover:text-white transition-colors">Blog</Link></li>
-                <li><a href="#" className="hover:text-white transition-colors">Webinars</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-800 mt-12 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <p className="text-gray-400 mb-4 md:mb-0">&copy; 2025 Hendricks.AI. Prediction. Proof. Performance. All rights reserved.</p>
-              <div className="flex space-x-6 text-sm">
-                <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link>
-                <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</Link>
-                <Link href="/cookies" className="text-gray-400 hover:text-white transition-colors">Cookie Policy</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
     </>
   )
