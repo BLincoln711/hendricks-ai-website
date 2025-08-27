@@ -2,9 +2,12 @@ export const modernMeasurementArticle = {
   headline: "Google Meridian MMM Meets Predictive AI: The Future of Marketing Attribution",
   date: "2025-08-19",
   author: "Brandon Lincoln Hendricks",
+  authorTitle: "Founder & CEO, Hendricks.AI",
   category: "Industry Analysis",
   readTime: "6 min read",
-  image: "/blog-images/google-meridian-mmm-visualization.html",
+  featuredImage: "/news-images/meridian-ai-hero.jpg",
+  featuredImageAlt: "Google Meridian MMM platform integrated with predictive AI dashboard",
+  excerpt: "Discover how combining Google's open-source Marketing Mix Modeling with predictive AI creates a new paradigm for attribution that forecasts demand before it happens.",
   content: `
     <div class="mb-8">
       <iframe 

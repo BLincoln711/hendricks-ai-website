@@ -2,9 +2,13 @@ export const b2bFunnelArticle = {
   headline: 'The B2B Marketing Funnel is Dead: Why 80% of Buying Happens in Chaos',
   subheadline: 'New research reveals the traditional marketing funnel is obsolete as B2B buyers navigate 10+ channels with 6-10 stakeholders',
   author: 'Brandon Lincoln Hendricks',
-  date: 'August 20, 2025',
+  authorTitle: 'Founder & CEO, Hendricks.AI',
+  date: '2025-08-20',
   readTime: '12 min read',
   category: 'B2B Marketing',
+  featuredImage: '/news-images/b2b-funnel-chaos-hero.jpg',
+  featuredImageAlt: 'Visualization of the chaotic B2B buying journey replacing the traditional funnel',
+  excerpt: 'The traditional B2B marketing funnel is obsolete. Modern buyers use 10+ channels with 6-10 stakeholders, spending 80% of their journey avoiding salespeople. Learn why the funnel failed and how predictive AI navigates the chaos.',
   content: `
     <div class="quick-answer-box">
       <p><strong>Quick Answer:</strong> The traditional B2B marketing funnel is obsolete. Modern B2B buyers use 10+ channels, make decisions with 6-10 stakeholders, and spend 80% of their journey avoiding salespeople entirely. Instead of a linear funnel, buying happens in what Google calls the "messy middle" where buyers loop endlessly between exploration and evaluation.</p>

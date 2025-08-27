@@ -1,7 +1,11 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowLeft, Calendar, User, Share2, Clock } from 'lucide-react'
 import Script from 'next/script'
+import Navigation from '../../components/navigation'
+import Footer from '../../components/footer'
+import { BreadcrumbSchema } from '../../components/seo-improvements'
 import { modernMeasurementArticle } from './modern-measurement-meets-predictive-ai'
 import { b2bFunnelArticle } from './b2b-funnel-is-dead'
 
@@ -13,8 +17,12 @@ const articles = {
     headline: "Hendricks.AI Achieves 74% Accuracy in Predicting Market Demand 2-4 Weeks Early",
     date: "2025-08-18",
     author: "Brandon Lincoln Hendricks",
+    authorTitle: "Founder & CEO, Hendricks.AI",
     category: "Company News",
     readTime: "5 min read",
+    featuredImage: "/news-images/74-percent-accuracy-hero.jpg",
+    featuredImageAlt: "AI dashboard showing 74% prediction accuracy metrics",
+    excerpt: "New predictive AI system analyzes 2.8 million daily signals to forecast market demand with unprecedented accuracy, delivering average ROI of 312% for enterprise clients.",
     content: `
       <p>In a breakthrough for predictive marketing technology, Hendricks.AI has demonstrated a 74% accuracy rate in forecasting market demand 2-4 weeks before traditional indicators, analyzing over 2.8 million signals daily to deliver an average ROI of 312% for enterprise clients.</p>
 
@@ -74,8 +82,12 @@ const articles = {
     headline: "Former SolarWinds Global Search Lead Launches First Predictive AI Marketing Agency",
     date: "2025-08-15",
     author: "Brandon Lincoln Hendricks",
+    authorTitle: "Founder & CEO, Hendricks.AI",
     category: "Industry News",
     readTime: "4 min read",
+    featuredImage: "/news-images/hendricks-ai-launch.jpg",
+    featuredImageAlt: "Brandon Lincoln Hendricks announcing Hendricks.AI launch",
+    excerpt: "Brandon Lincoln Hendricks, former Global Lead of Total Search at SolarWinds, announces the launch of Hendricks.AI, the first marketing agency that predicts demand before it happens.",
     content: `
       <p>Brandon Lincoln Hendricks, former Global Lead of Total Search at SolarWinds, today announced the launch of Hendricks.AI, pioneering a new category of marketing agency that uses predictive AI to forecast market demand before it materializes.</p>
 
@@ -121,8 +133,12 @@ const articles = {
     headline: "Building Production AI: Why 99% of AI POCs Fail to Scale",
     date: "2025-08-20",
     author: "Brandon Lincoln Hendricks",
+    authorTitle: "Founder & CEO, Hendricks.AI",
     category: "AI Engineering",
     readTime: "7 min read",
+    featuredImage: "/news-images/production-ai-architecture.jpg",
+    featuredImageAlt: "Complex AI production architecture diagram showing data pipelines and ML infrastructure",
+    excerpt: "After building AI systems that process 2.8 million signals daily with 99.95% uptime, I've learned the gap between a working POC and production-ready AI is vast. Here's why most fail.",
     content: `
       <p>After building AI systems that process 2.8 million signals daily with 99.95% uptime, I've learned that the gap between a working AI proof-of-concept and a production-ready system is vast. Here's why most AI projects fail to make that leap, and how to build AI that actually scales.</p>
 
@@ -257,9 +273,13 @@ interface Article {
   headline: string
   date: string
   author: string
+  authorTitle?: string
   category: string
   readTime: string
   content: string
+  featuredImage?: string
+  featuredImageAlt?: string
+  excerpt?: string
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
@@ -273,13 +293,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   return {
     title: `${article.headline} | Hendricks.AI News`,
-    description: article.content.substring(0, 160).replace(/<[^>]*>/g, ''),
+    description: article.excerpt || article.content.substring(0, 160).replace(/<[^>]*>/g, ''),
     openGraph: {
       title: article.headline,
-      description: article.content.substring(0, 160).replace(/<[^>]*>/g, ''),
+      description: article.excerpt || article.content.substring(0, 160).replace(/<[^>]*>/g, ''),
       type: 'article',
       publishedTime: article.date,
       authors: [article.author],
+      images: article.featuredImage ? [{
+        url: `https://hendricks.ai${article.featuredImage}`,
+        width: 1200,
+        height: 630,
+        alt: article.featuredImageAlt || article.headline
+      }] : [],
     },
   }
 }
@@ -301,20 +327,30 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
     "author": {
       "@type": "Person",
       "name": article.author,
-      "url": "https://hendricks.ai/brandon-lincoln-hendricks"
+      "url": "https://hendricks.ai/authors/brandon-lincoln-hendricks",
+      "jobTitle": article.authorTitle || "Founder & CEO, Hendricks.AI"
     },
     "publisher": {
       "@type": "Organization",
       "name": "Hendricks.AI",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://hendricks.ai/hendricks_logo.png"
+        "url": "https://hendricks.ai/hendricks_logo.png",
+        "width": 600,
+        "height": 60
       }
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": `https://hendricks.ai/news/${params.slug}`
     },
+    "image": article.featuredImage ? {
+      "@type": "ImageObject",
+      "url": `https://hendricks.ai${article.featuredImage}`,
+      "width": 1200,
+      "height": 630
+    } : undefined,
+    "description": article.excerpt || article.content.substring(0, 160).replace(/<[^>]*>/g, ''),
     "articleBody": article.content.replace(/<[^>]*>/g, ''),
     "articleSection": article.category
   }
@@ -352,27 +388,15 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
         }}
       />
       
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Home', url: 'https://hendricks.ai' },
+          { name: 'News', url: 'https://hendricks.ai/news' },
+          { name: article.headline, url: `https://hendricks.ai/news/${params.slug}` }
+        ]} 
+      />
       <main className="min-h-screen bg-black text-white">
-        {/* Navigation */}
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-20">
-              <Link href="/" className="flex-shrink-0">
-                <img 
-                  src="/hendricks_logo.png" 
-                  alt="Hendricks.AI" 
-                  className="h-8 w-auto object-contain brightness-0 invert"
-                />
-              </Link>
-              <div className="hidden md:flex items-center space-x-8">
-                <Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
-                <Link href="/news" className="text-white font-semibold">News</Link>
-                <Link href="/predictions" className="text-gray-300 hover:text-white transition-colors">Predictions</Link>
-                <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
-              </div>
-            </div>
-          </div>
-        </nav>
+        <Navigation />
 
         {/* Article Content */}
         <article className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
@@ -402,12 +426,19 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                 {article.headline}
               </h1>
               
-              <div className="flex items-center justify-between text-sm text-gray-400">
+              <div className="flex flex-wrap items-center justify-between text-sm text-gray-400 gap-4">
                 <div className="flex items-center gap-4">
-                  <span className="flex items-center gap-1">
-                    <User className="w-4 h-4" />
-                    {article.author}
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <img 
+                      src="/brandon-headshot.jpg" 
+                      alt={article.author}
+                      className="w-10 h-10 rounded-full"
+                    />
+                    <div>
+                      <p className="text-white font-medium">{article.author}</p>
+                      <p className="text-xs text-gray-500">{article.authorTitle || 'Founder & CEO, Hendricks.AI'}</p>
+                    </div>
+                  </div>
                   <span className="flex items-center gap-1">
                     <Calendar className="w-4 h-4" />
                     {new Date(article.date).toLocaleDateString('en-US', { 
@@ -424,6 +455,23 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                 </button>
               </div>
             </header>
+
+            {/* Featured Image */}
+            {article.featuredImage && (
+              <div className="mb-12 rounded-xl overflow-hidden">
+                <img
+                  src={article.featuredImage}
+                  alt={article.featuredImageAlt || article.headline}
+                  className="w-full h-auto"
+                  style={{ maxHeight: '500px', objectFit: 'cover' }}
+                />
+                {article.featuredImageAlt && (
+                  <p className="text-sm text-gray-500 mt-2 text-center italic">
+                    {article.featuredImageAlt}
+                  </p>
+                )}
+              </div>
+            )}
 
             {/* Article Body */}
             <div 
@@ -456,16 +504,33 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           </div>
         </article>
 
-        {/* Footer */}
-        <footer className="bg-gray-900 text-gray-300 py-12 border-t border-gray-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <p className="text-sm">
-                © {new Date().getFullYear()} Hendricks.AI. All rights reserved.
-              </p>
+        {/* Related Articles CTA */}
+        <section className="py-20 bg-gradient-to-b from-gray-900/20 to-black">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl font-bold mb-4">Stay Ahead with Search Intelligence</h2>
+            <p className="text-gray-300 mb-8">
+              Get the latest insights on B2B SaaS search intelligence, AI-powered marketing, 
+              and unified Google & Bing strategies.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link 
+                href="/news"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-semibold hover:shadow-lg transition-all"
+              >
+                View All Articles
+                <ArrowLeft className="w-4 h-4 rotate-180" />
+              </Link>
+              <Link 
+                href="/contact"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg font-semibold hover:bg-white/20 transition-all"
+              >
+                Get Search Intelligence Report
+              </Link>
             </div>
           </div>
-        </footer>
+        </section>
+
+        <Footer />
       </main>
     </>
   )

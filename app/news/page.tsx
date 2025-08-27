@@ -44,7 +44,9 @@ export default function NewsPage() {
       authorBio: "Google ML certified engineer with 15+ years in B2B SaaS marketing",
       category: "B2B Marketing",
       summary: "The traditional B2B marketing funnel is obsolete. Modern buyers use 10+ channels with 6-10 stakeholders, spending 80% of their journey avoiding salespeople. Learn why the funnel failed and how predictive AI navigates the chaos.",
-      slug: "b2b-funnel-is-dead"
+      slug: "b2b-funnel-is-dead",
+      featuredImage: "/news-images/b2b-funnel-chaos-hero.jpg",
+      featuredImageAlt: "Visualization of the chaotic B2B buying journey replacing the traditional funnel"
     },
     {
       headline: "Google Meridian MMM Meets Predictive AI: The Future of Marketing Attribution",
@@ -54,7 +56,9 @@ export default function NewsPage() {
       authorBio: "Google ML certified engineer with 15+ years in B2B SaaS marketing", 
       category: "Industry Analysis",
       summary: "Breaking analysis from Brandformance 2025: How Hendricks.AI's predictive capabilities enhance Google's new Meridian MMM framework to forecast incrementality before spending.",
-      slug: "modern-measurement-meets-predictive-ai"
+      slug: "modern-measurement-meets-predictive-ai",
+      featuredImage: "/news-images/meridian-ai-hero.jpg",
+      featuredImageAlt: "Google Meridian MMM platform integrated with predictive AI dashboard"
     },
     {
       headline: "Hendricks.AI Achieves 74% Accuracy in Predicting Market Demand 2-4 Weeks Early",
@@ -64,7 +68,9 @@ export default function NewsPage() {
       authorBio: "Google ML certified engineer with 15+ years in B2B SaaS marketing",
       category: "Company News",
       summary: "New predictive AI system analyzes 2.8 million daily signals to forecast market demand with unprecedented accuracy, delivering average ROI of 312% for enterprise clients.",
-      slug: "hendricks-ai-achieves-74-percent-prediction-accuracy"
+      slug: "hendricks-ai-achieves-74-percent-prediction-accuracy",
+      featuredImage: "/news-images/74-percent-accuracy-hero.jpg",
+      featuredImageAlt: "AI dashboard showing 74% prediction accuracy metrics"
     },
     {
       headline: "Former SolarWinds Global Search Lead Launches First Predictive AI Marketing Agency",
@@ -74,7 +80,9 @@ export default function NewsPage() {
       authorBio: "Google ML certified engineer with 15+ years in B2B SaaS marketing",
       category: "Industry News",
       summary: "Brandon Lincoln Hendricks, former Global Lead of Total Search at SolarWinds, announces the launch of Hendricks.AI, the first marketing agency that predicts demand before it happens.",
-      slug: "former-solarwinds-exec-launches-predictive-ai-agency"
+      slug: "former-solarwinds-exec-launches-predictive-ai-agency",
+      featuredImage: "/news-images/hendricks-ai-launch.jpg",
+      featuredImageAlt: "Brandon Lincoln Hendricks announcing Hendricks.AI launch"
     },
     {
       headline: "Study: 87% of Marketers Still Using Reactive Strategies, Missing Revenue Opportunities",
@@ -114,7 +122,9 @@ export default function NewsPage() {
       authorBio: "Google ML certified engineer with 15+ years in B2B SaaS marketing",
       category: "AI Engineering",
       summary: "Technical deep-dive into the engineering challenges of scaling AI from prototype to production, based on lessons learned building systems that process 2.8M signals daily.",
-      slug: "building-production-ai-why-pocs-fail"
+      slug: "building-production-ai-why-pocs-fail",
+      featuredImage: "/news-images/production-ai-architecture.jpg",
+      featuredImageAlt: "Complex AI production architecture diagram showing data pipelines and ML infrastructure"
     },
     {
       headline: "The Hidden Cost of AI Hallucinations in Marketing: A $4.2B Problem",
@@ -209,26 +219,7 @@ export default function NewsPage() {
       />
       
       <main className="min-h-screen bg-black text-white">
-        {/* Navigation */}
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-20">
-              <Link href="/" className="flex-shrink-0">
-                <img 
-                  src="/hendricks_logo.png" 
-                  alt="Hendricks.AI" 
-                  className="h-8 w-auto object-contain brightness-0 invert"
-                />
-              </Link>
-              <div className="hidden md:flex items-center space-x-8">
-                <Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
-                <Link href="/news" className="text-white font-semibold">News</Link>
-                <Link href="/predictions" className="text-gray-300 hover:text-white transition-colors">Predictions</Link>
-                <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
-              </div>
-            </div>
-          </div>
-        </nav>
+        <Navigation />
 
         {/* Hero Section */}
         <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
@@ -259,10 +250,18 @@ export default function NewsPage() {
                 >
                   <Link href={`/news/${article.slug}`}>
                     <div className="md:flex">
-                      <div className="md:w-1/3 h-48 md:h-auto bg-gradient-to-br from-blue-600 to-purple-600 relative overflow-hidden">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <Brain className="w-20 h-20 text-white/20" />
-                        </div>
+                      <div className="md:w-1/3 h-48 md:h-auto relative overflow-hidden bg-gradient-to-br from-blue-600/20 to-purple-600/20">
+                        {article.featuredImage ? (
+                          <img
+                            src={article.featuredImage}
+                            alt={article.featuredImageAlt || article.headline}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-600 to-purple-600">
+                            <Brain className="w-20 h-20 text-white/20" />
+                          </div>
+                        )}
                       </div>
                       
                       <div className="p-8 md:w-2/3">
@@ -324,19 +323,7 @@ export default function NewsPage() {
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className="bg-gray-900 text-gray-300 py-12 border-t border-gray-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <p className="text-sm">
-                © {new Date().getFullYear()} Hendricks.AI. All rights reserved.
-              </p>
-              <p className="text-xs text-gray-500 mt-2">
-                For press inquiries: press@hendricks.ai
-              </p>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </main>
     </>
   )
