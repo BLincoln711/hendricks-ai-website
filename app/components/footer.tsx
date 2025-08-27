@@ -41,9 +41,9 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Solutions</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><Link href="/solutions#demand-radar" className="hover:text-white transition-colors">Demand Radar Pilot</Link></li>
-              <li><Link href="/solutions#roi-audit" className="hover:text-white transition-colors">Search ROI Audit</Link></li>
-              <li><Link href="/solutions#performance" className="hover:text-white transition-colors">Performance Retainer</Link></li>
+              <li><Link href="/solutions#demand-radar" className="hover:text-white transition-colors">Predictive Intelligence</Link></li>
+              <li><Link href="/solutions#roi-audit" className="hover:text-white transition-colors">Cross-Channel Measurement</Link></li>
+              <li><Link href="/solutions#performance" className="hover:text-white transition-colors">Unified Search Execution</Link></li>
             </ul>
           </div>
           
