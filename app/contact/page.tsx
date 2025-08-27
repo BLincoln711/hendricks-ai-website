@@ -27,11 +27,11 @@ export default function ContactPage() {
   ]
 
   const interestOptions = [
-    'Predictive Intelligence',
-    'Cross-Channel Orchestration',
-    'Intelligence Command',
-    'Custom AI Solutions',
-    'All Three Solutions'
+    'Demand Radar Pilot (Prediction)',
+    'Search ROI Audit (Proof)',
+    'Performance Retainer (Unified Execution)',
+    'All Three Modules',
+    'Not sure - need guidance'
   ]
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
