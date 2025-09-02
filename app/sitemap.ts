@@ -78,37 +78,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const newsArticles = [
     {
       url: `${baseUrl}/news/b2b-funnel-is-dead`,
-      lastModified: '2025-08-20',
+      lastModified: '2024-08-20',
       changeFrequency: 'yearly' as const,
       priority: 0.7,
     },
     {
       url: `${baseUrl}/news/modern-measurement-meets-predictive-ai`,
-      lastModified: '2025-08-19',
+      lastModified: '2024-08-19',
       changeFrequency: 'yearly' as const,
       priority: 0.7,
     },
     {
       url: `${baseUrl}/news/hendricks-ai-achieves-74-percent-prediction-accuracy`,
-      lastModified: '2025-08-18',
+      lastModified: '2024-08-18',
       changeFrequency: 'yearly' as const,
       priority: 0.7,
     },
     {
       url: `${baseUrl}/news/former-solarwinds-exec-launches-predictive-ai-agency`,
-      lastModified: '2025-08-15',
+      lastModified: '2024-08-15',
       changeFrequency: 'yearly' as const,
       priority: 0.7,
     },
     {
       url: `${baseUrl}/news/predictive-ai-forecasts-ecommerce-surge`,
-      lastModified: '2025-08-10',
+      lastModified: '2024-08-10',
       changeFrequency: 'yearly' as const,
       priority: 0.7,
     },
     {
       url: `${baseUrl}/news/google-performance-max-predictive-ai`,
-      lastModified: '2025-08-08',
+      lastModified: '2024-08-08',
       changeFrequency: 'yearly' as const,
       priority: 0.7,
     },
@@ -118,19 +118,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const insightsArticles = [
     {
       url: `${baseUrl}/insights/b2b-marketing-funnel-is-dead`,
-      lastModified: '2025-08-20',
+      lastModified: '2024-08-20',
       changeFrequency: 'yearly' as const,
       priority: 0.7,
     },
     {
       url: `${baseUrl}/insights/google-meridian-mmm-predictive-ai`,
-      lastModified: '2025-08-19',
+      lastModified: '2024-08-19',
       changeFrequency: 'yearly' as const,
       priority: 0.7,
     },
     {
       url: `${baseUrl}/insights/ai-marketing-beyond-smart-bidding`,
-      lastModified: '2025-08-16',
+      lastModified: '2024-08-16',
       changeFrequency: 'yearly' as const,
       priority: 0.7,
     },
