@@ -6,6 +6,17 @@ import { useState } from 'react'
 // Sample blog posts data: in production, this would come from a CMS or database
 const blogPosts = [
   {
+    id: 'death-of-keywords-ai-max-search',
+    title: 'The Death of Keywords: How AI Max for Search is Revolutionizing B2B SaaS Campaigns',
+    excerpt: 'While competitors bid on outdated keywords, sophisticated marketers are capturing 27% more conversions with AI Max. Learn how this revolutionary approach makes traditional keyword strategies obsolete.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-09-17',
+    readTime: '15 min read',
+    category: 'AI Search',
+    featured: true,
+    image: '/blog-images/ai-max-search-visualization.html'
+  },
+  {
     id: 'b2b-marketing-funnel-is-dead',
     title: 'The B2B Marketing Funnel is Dead: Why 80% of Buying Happens in Chaos',
     excerpt: 'The traditional B2B marketing funnel is obsolete. Modern buyers use 10+ channels with 6-10 stakeholders, spending 80% of their journey avoiding salespeople. Learn why the funnel failed and how predictive AI navigates the chaos.',
