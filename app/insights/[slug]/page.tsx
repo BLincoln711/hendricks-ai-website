@@ -1713,3 +1713,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     </main>
   )
 }
+
+export async function generateStaticParams() {
+  return Object.keys(blogPosts).map((slug) => ({
+    slug: slug,
+  }))
+}
