@@ -67,8 +67,8 @@ export default function GoogleAIRevolutionPage() {
       <h2>Real Results: Early Adopters Winning Big</h2>
 
       <div class="bg-blue-50 p-6 rounded-lg my-8">
-        <p class="text-lg font-semibold mb-2">Our platform's predictive algorithms have already identified early adopters of AI Max seeing:</p>
-        <ul class="space-y-2 text-lg">
+        <p class="text-lg font-semibold mb-2 text-gray-900">Our platform's predictive algorithms have already identified early adopters of AI Max seeing:</p>
+        <ul class="space-y-2 text-lg text-gray-900">
           <li>• <strong>35% improvements</strong> in conversion rates</li>
           <li>• <strong>28% reduction</strong> in cost-per-SQL</li>
         </ul>
