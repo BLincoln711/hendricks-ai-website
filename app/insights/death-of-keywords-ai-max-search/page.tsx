@@ -322,32 +322,32 @@ New Intent Categories Found:
 
       <h2>Common Pitfalls and How to Avoid Them</h2>
 
-      <div class="bg-red-50 p-6 rounded-lg my-8 border border-red-200">
-        <h3 class="text-red-900 mb-4">Pitfall 1: Keeping Too Much Control</h3>
-        <p class="mb-2"><strong>Symptom:</strong> Adding negative keywords aggressively</p>
-        <p class="mb-2"><strong>Problem:</strong> You're preventing AI learning</p>
-        <p><strong>Solution:</strong> Only negative clearly irrelevant terms (B2C, careers, support)</p>
+      <div class="bg-red-900 p-6 rounded-lg my-8 border border-red-700">
+        <h3 class="text-white mb-4">Pitfall 1: Keeping Too Much Control</h3>
+        <p class="mb-2 text-gray-300"><strong class="text-white">Symptom:</strong> Adding negative keywords aggressively</p>
+        <p class="mb-2 text-gray-300"><strong class="text-white">Problem:</strong> You're preventing AI learning</p>
+        <p class="text-gray-300"><strong class="text-white">Solution:</strong> Only negative clearly irrelevant terms (B2C, careers, support)</p>
       </div>
 
-      <div class="bg-red-50 p-6 rounded-lg my-8 border border-red-200">
-        <h3 class="text-red-900 mb-4">Pitfall 2: Impatience During Learning</h3>
-        <p class="mb-2"><strong>Symptom:</strong> Making changes daily in first 2 weeks</p>
-        <p class="mb-2"><strong>Problem:</strong> Disrupting the learning phase</p>
-        <p><strong>Solution:</strong> Wait 14 days before major changes</p>
+      <div class="bg-red-900 p-6 rounded-lg my-8 border border-red-700">
+        <h3 class="text-white mb-4">Pitfall 2: Impatience During Learning</h3>
+        <p class="mb-2 text-gray-300"><strong class="text-white">Symptom:</strong> Making changes daily in first 2 weeks</p>
+        <p class="mb-2 text-gray-300"><strong class="text-white">Problem:</strong> Disrupting the learning phase</p>
+        <p class="text-gray-300"><strong class="text-white">Solution:</strong> Wait 14 days before major changes</p>
       </div>
 
-      <div class="bg-red-50 p-6 rounded-lg my-8 border border-red-200">
-        <h3 class="text-red-900 mb-4">Pitfall 3: Narrow Conversion Definition</h3>
-        <p class="mb-2"><strong>Symptom:</strong> Only tracking form fills</p>
-        <p class="mb-2"><strong>Problem:</strong> AI optimizes for quantity, not quality</p>
-        <p><strong>Solution:</strong> Import CRM stages and value data</p>
+      <div class="bg-red-900 p-6 rounded-lg my-8 border border-red-700">
+        <h3 class="text-white mb-4">Pitfall 3: Narrow Conversion Definition</h3>
+        <p class="mb-2 text-gray-300"><strong class="text-white">Symptom:</strong> Only tracking form fills</p>
+        <p class="mb-2 text-gray-300"><strong class="text-white">Problem:</strong> AI optimizes for quantity, not quality</p>
+        <p class="text-gray-300"><strong class="text-white">Solution:</strong> Import CRM stages and value data</p>
       </div>
 
-      <div class="bg-red-50 p-6 rounded-lg my-8 border border-red-200">
-        <h3 class="text-red-900 mb-4">Pitfall 4: Siloed Implementation</h3>
-        <p class="mb-2"><strong>Symptom:</strong> PPC team implements alone</p>
-        <p class="mb-2"><strong>Problem:</strong> Missing cross-functional insights</p>
-        <p><strong>Solution:</strong> Include sales, product, and customer success</p>
+      <div class="bg-red-900 p-6 rounded-lg my-8 border border-red-700">
+        <h3 class="text-white mb-4">Pitfall 4: Siloed Implementation</h3>
+        <p class="mb-2 text-gray-300"><strong class="text-white">Symptom:</strong> PPC team implements alone</p>
+        <p class="mb-2 text-gray-300"><strong class="text-white">Problem:</strong> Missing cross-functional insights</p>
+        <p class="text-gray-300"><strong class="text-white">Solution:</strong> Include sales, product, and customer success</p>
       </div>
 
       <h2>The Future: What's Next for AI-Powered Search</h2>
