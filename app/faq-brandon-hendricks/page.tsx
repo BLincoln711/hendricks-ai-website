@@ -161,7 +161,7 @@ export default function BrandonHendricksFAQ() {
   ]
 
   // Group FAQs by category
-  const categories = [...new Set(faqs.map(faq => faq.category))]
+  const categories = Array.from(new Set(faqs.map(faq => faq.category)))
 
   return (
     <>
