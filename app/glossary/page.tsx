@@ -166,7 +166,7 @@ export default function GlossaryPage() {
   )
 
   // Group terms by category
-  const categories = [...new Set(glossaryTerms.map(term => term.category))]
+  const categories = Array.from(new Set(glossaryTerms.map(term => term.category)))
 
   // Schema for the glossary
   const glossarySchema = {
