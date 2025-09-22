@@ -13,6 +13,7 @@ export const modernMeasurementArticle = {
       <iframe 
         src="/blog-images/google-meridian-mmm-visualization.html" 
         class="w-full h-[630px] rounded-2xl border border-gray-800"
+        title="Interactive Google Meridian MMM Visualization"
         title="Google Meridian MMM + Predictive AI Attribution"
         scrolling="no"
       ></iframe>

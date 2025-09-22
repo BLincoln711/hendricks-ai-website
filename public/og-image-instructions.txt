@@ -1,0 +1,23 @@
+OG IMAGE GENERATION INSTRUCTIONS
+================================
+
+To create the og-image.jpg for social sharing:
+
+1. Open the OG image generator HTML file:
+   /Users/brandonlhendricks/claudecode/hendricks-ai-og-image-generator.html
+
+2. View it in your browser - it shows a 1200x630px social sharing image
+
+3. Take a screenshot of just the image (the dark gradient area with your logo)
+
+4. Save it as: og-image.jpg
+
+5. Place it in this public folder
+
+The image will then be used when your website is shared on:
+- LinkedIn
+- Twitter/X
+- Facebook
+- Other social platforms
+
+Current metadata expects the file at: /public/og-image.jpg

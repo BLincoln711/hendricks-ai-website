@@ -91,8 +91,8 @@ export const defaultMetadata: Metadata = {
     },
   },
   verification: {
-    google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
-    yahoo: 'your-yahoo-verification-code',
+    google: 'E7JSaK23DaXqx3yMqAiM1WHNx6zrcWrg9zJ5yvfZN4I',
+    yandex: '', // Add when you register with Yandex Webmaster
+    yahoo: '', // Add when you register with Yahoo Site Explorer
   },
 }

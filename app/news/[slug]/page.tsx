@@ -6,6 +6,7 @@ import Script from 'next/script'
 import Navigation from '../../components/navigation'
 import Footer from '../../components/footer'
 import { BreadcrumbSchema } from '../../components/seo-improvements'
+import ArticleSchema from '../../../components/ArticleSchema'
 import { modernMeasurementArticle } from './modern-measurement-meets-predictive-ai'
 import { b2bFunnelArticle } from './b2b-funnel-is-dead'
 
@@ -397,6 +398,22 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
       />
       <main className="min-h-screen bg-black text-white">
         <Navigation />
+        
+        {/* Article Schema for SEO */}
+        <ArticleSchema
+          headline={article.headline}
+          description={article.excerpt}
+          datePublished={article.date}
+          dateModified={article.date}
+          author={{
+            name: article.author,
+            title: article.authorTitle
+          }}
+          image={article.featuredImage}
+          articleType="NewsArticle"
+          keywords={['AI Search Intelligence', 'B2B SaaS', article.category, 'Search Marketing', 'Hendricks.AI News']}
+          readingTime={parseInt(article.readTime)}
+        />
 
         {/* Article Content */}
         <article className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
