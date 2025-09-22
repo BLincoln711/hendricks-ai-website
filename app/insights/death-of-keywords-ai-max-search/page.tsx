@@ -102,9 +102,9 @@ export default function DeathOfKeywordsPage() {
 
       <h3>The AI Max Implementation:</h3>
 
-      <div class="border-l-4 border-blue-600 pl-6 my-6">
-        <h4 class="font-bold mb-2">Week 1-2: Foundation</h4>
-        <ul class="space-y-1">
+      <div class="bg-gray-900 border-l-4 border-blue-600 pl-6 my-6 pr-6 py-4 rounded-r-lg">
+        <h4 class="font-bold mb-2 text-white">Week 1-2: Foundation</h4>
+        <ul class="space-y-1 text-gray-300">
           <li>• Consolidated 50 ad groups into 5 intent-based clusters</li>
           <li>• Replaced 15,000 keywords with 500 broad match seeds</li>
           <li>• Implemented enhanced conversion tracking</li>
@@ -112,27 +112,27 @@ export default function DeathOfKeywordsPage() {
         </ul>
       </div>
 
-      <div class="border-l-4 border-blue-600 pl-6 my-6">
-        <h4 class="font-bold mb-2">Week 3-4: Learning Phase</h4>
-        <ul class="space-y-1">
+      <div class="bg-gray-900 border-l-4 border-blue-600 pl-6 my-6 pr-6 py-4 rounded-r-lg">
+        <h4 class="font-bold mb-2 text-white">Week 3-4: Learning Phase</h4>
+        <ul class="space-y-1 text-gray-300">
           <li>• AI Max discovered 3,400 new search queries</li>
           <li>• Identified non-obvious patterns (e.g., searches about "spreadsheet limitations" converting to ERP trials)</li>
           <li>• Began optimizing for pipeline value, not just form fills</li>
         </ul>
       </div>
 
-      <div class="border-l-4 border-blue-600 pl-6 my-6">
-        <h4 class="font-bold mb-2">Week 5-8: Acceleration</h4>
-        <ul class="space-y-1">
+      <div class="bg-gray-900 border-l-4 border-blue-600 pl-6 my-6 pr-6 py-4 rounded-r-lg">
+        <h4 class="font-bold mb-2 text-white">Week 5-8: Acceleration</h4>
+        <ul class="space-y-1 text-gray-300">
           <li>• Conversion rate jumped to 2.9% (+26%)</li>
           <li>• Cost per SQL decreased 31%</li>
           <li>• Discovered entirely new use cases they hadn't marketed before</li>
         </ul>
       </div>
 
-      <div class="bg-green-50 p-6 rounded-lg my-8 border border-green-200">
-        <h3 class="text-xl font-bold mb-4 text-green-900">The Results After 90 Days:</h3>
-        <ul class="space-y-2 text-green-800">
+      <div class="bg-green-900 p-6 rounded-lg my-8 border border-green-700">
+        <h3 class="text-xl font-bold mb-4 text-white">The Results After 90 Days:</h3>
+        <ul class="space-y-2 text-green-100">
           <li>• <strong>27% increase in conversions</strong></li>
           <li>• <strong>42% decrease in cost per opportunity</strong></li>
           <li>• <strong>$3.2M in pipeline from previously unknown search queries</strong></li>
@@ -144,7 +144,7 @@ export default function DeathOfKeywordsPage() {
 
       <h3>Phase 1: Preparation (Week 1)</h3>
 
-      <h4>1. Audit Your Current Structure</h4>
+      <h4 class="text-xl font-semibold mb-3 text-white">1. Audit Your Current Structure</h4>
       <p>Document your existing campaigns, but prepare to let go. The campaigns you've optimized for years are likely holding you back. Look for:</p>
       <ul>
         <li>Campaigns with 20+ ad groups (overcomplicated)</li>
@@ -152,7 +152,7 @@ export default function DeathOfKeywordsPage() {
         <li>Quality Scores below 7 (poor relevance signals)</li>
       </ul>
 
-      <h4>2. Enhance Your Conversion Tracking</h4>
+      <h4 class="text-xl font-semibold mb-3 text-white">2. Enhance Your Conversion Tracking</h4>
       <p>AI Max is only as smart as your data. Implement:</p>
       <ul>
         <li>Enhanced conversions with hashed email matching</li>
@@ -161,7 +161,7 @@ export default function DeathOfKeywordsPage() {
         <li>Micro-conversions throughout the funnel</li>
       </ul>
 
-      <h4>3. Build Intent Clusters</h4>
+      <h4 class="text-xl font-semibold mb-3 text-white">3. Build Intent Clusters</h4>
       <p>Instead of product-based campaigns, organize around buyer intent:</p>
       <ul>
         <li>Problem-aware searches</li>
@@ -173,7 +173,7 @@ export default function DeathOfKeywordsPage() {
 
       <h3>Phase 2: Migration (Week 2-3)</h3>
 
-      <h4>4. Start with Your Highest-Value Segment</h4>
+      <h4 class="text-xl font-semibold mb-3 text-white">4. Start with Your Highest-Value Segment</h4>
       <p>Don't migrate everything at once. Choose campaigns that:</p>
       <ul>
         <li>Target enterprise buyers</li>
@@ -182,7 +182,7 @@ export default function DeathOfKeywordsPage() {
         <li>Have clear value tracking</li>
       </ul>
 
-      <h4>5. Create Broad Match Seed Keywords</h4>
+      <h4 class="text-xl font-semibold mb-3 text-white">5. Create Broad Match Seed Keywords</h4>
       <p>Transform your exact match keywords into intent seeds:</p>
       <ul>
         <li>❌ OLD: [enterprise project management software]</li>
@@ -191,7 +191,7 @@ export default function DeathOfKeywordsPage() {
         <li>✅ NEW: accounting software business</li>
       </ul>
 
-      <h4>6. Set Conservative Initial Budgets</h4>
+      <h4 class="text-xl font-semibold mb-3 text-white">6. Set Conservative Initial Budgets</h4>
       <p>Start with 50% of your traditional campaign budget. AI Max needs room to explore, but not unlimited freedom. Set:</p>
       <ul>
         <li>Daily budgets 2x your average CPA</li>
@@ -201,7 +201,7 @@ export default function DeathOfKeywordsPage() {
 
       <h3>Phase 3: Optimization (Week 4+)</h3>
 
-      <h4>7. Analyze Search Term Insights</h4>
+      <h4 class="text-xl font-semibold mb-3 text-white">7. Analyze Search Term Insights</h4>
       <p>The magic happens in the search terms report. Look for:</p>
       <ul>
         <li>Completely new query patterns</li>
@@ -210,7 +210,7 @@ export default function DeathOfKeywordsPage() {
         <li>Competitor-alternative searches</li>
       </ul>
 
-      <h4>8. Feed Intelligence Back to Other Channels</h4>
+      <h4 class="text-xl font-semibold mb-3 text-white">8. Feed Intelligence Back to Other Channels</h4>
       <p>AI Max discoveries should inform:</p>
       <ul>
         <li>Content marketing topics</li>
@@ -219,7 +219,7 @@ export default function DeathOfKeywordsPage() {
         <li>SEO strategies</li>
       </ul>
 
-      <h4>9. Iterate on Creative</h4>
+      <h4 class="text-xl font-semibold mb-3 text-white">9. Iterate on Creative</h4>
       <p>With broader targeting comes diverse audiences. Create:</p>
       <ul>
         <li>Problem-focused ad copy (not feature lists)</li>
@@ -285,13 +285,13 @@ New Intent Categories Found:
       <p>Create separate AI Max campaigns for each major vertical, allowing the system to learn industry-specific language:</p>
 
       <div class="bg-gray-800 p-4 rounded-lg my-4 border border-gray-700">
-        <h4 class="font-bold mb-2">Healthcare Tech Campaign:</h4>
+        <h4 class="font-bold mb-2 text-white">Healthcare Tech Campaign:</h4>
         <p><strong>Seed keywords:</strong> healthcare software, HIPAA compliance, patient data</p>
         <p><strong>Discovers:</strong> "meaningful use attestation," "HL7 integration problems," "nursing staff burnout metrics"</p>
       </div>
 
       <div class="bg-gray-800 p-4 rounded-lg my-4 border border-gray-700">
-        <h4 class="font-bold mb-2">Financial Services Campaign:</h4>
+        <h4 class="font-bold mb-2 text-white">Financial Services Campaign:</h4>
         <p><strong>Seed keywords:</strong> financial software, banking platform, fintech solution</p>
         <p><strong>Discovers:</strong> "Basel III reporting," "SWIFT message errors," "reconciliation breaking at month-end"</p>
       </div>
