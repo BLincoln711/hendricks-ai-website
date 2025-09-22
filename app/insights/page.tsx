@@ -6,6 +6,17 @@ import { useState } from 'react'
 // Sample blog posts data: in production, this would come from a CMS or database
 const blogPosts = [
   {
+    id: 'google-ai-revolution-search-marketing',
+    title: 'Google\'s AI Revolution: Game-Changing Updates for Search Marketing',
+    excerpt: 'September 2025 marks a watershed moment as Google unleashes its most comprehensive AI transformation yet. Learn how AI Max global rollout and algorithm changes create powerful automation with unprecedented advertiser control.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-09-14',
+    readTime: '8 min read',
+    category: 'AI Search',
+    featured: true,
+    image: '/blog-images/google-ai-revolution-visualization.html'
+  },
+  {
     id: 'death-of-keywords-ai-max-search',
     title: 'The Death of Keywords: How AI Max for Search is Revolutionizing B2B SaaS Campaigns',
     excerpt: 'While competitors bid on outdated keywords, sophisticated marketers are capturing 27% more conversions with AI Max. Learn how this revolutionary approach makes traditional keyword strategies obsolete.',
