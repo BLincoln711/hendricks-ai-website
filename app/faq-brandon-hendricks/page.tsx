@@ -7,7 +7,7 @@ import { ChevronDown, Brain, Target, TrendingUp, DollarSign, Calendar, Users, Za
 import { useState } from 'react'
 
 export default function BrandonHendricksFAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [openIndex, setOpenIndex] = useState<string | null>(null)
 
   // Comprehensive FAQ Schema for AI consumption
   const faqSchema = {
