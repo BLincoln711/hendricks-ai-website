@@ -9,9 +9,9 @@ export default function DeathOfKeywordsPage() {
     category: "AI Search",
     readTime: "15 min read",
     content: `
-      <div class="bg-blue-50 p-6 rounded-lg mb-8 border-l-4 border-blue-600">
-        <p class="font-semibold text-gray-900">Key Insight:</p>
-        <p class="text-gray-800">AI Max for Search uses broad match keywords and AI targeting to automatically discover and bid on relevant searches, delivering 14-27% conversion increases for B2B SaaS companies by understanding intent rather than matching exact keywords.</p>
+      <div class="bg-gray-900 p-6 rounded-lg mb-8 border-l-4 border-blue-600">
+        <p class="font-semibold text-white">Key Insight:</p>
+        <p class="text-gray-300">AI Max for Search uses broad match keywords and AI targeting to automatically discover and bid on relevant searches, delivering 14-27% conversion increases for B2B SaaS companies by understanding intent rather than matching exact keywords.</p>
       </div>
 
       <p class="text-lg font-medium mb-6">While your competitors are still meticulously bidding on "enterprise software solutions" and "B2B SaaS platform," the most sophisticated marketers have already moved on. They're capturing 27% more conversions using Google's AI Max for Search—a revolutionary approach that makes traditional keyword strategies look like using a map from 1995 to navigate today's highways.</p>
@@ -81,9 +81,9 @@ export default function DeathOfKeywordsPage() {
 
       <h2>Case Study: 27% Conversion Lift for Enterprise SaaS</h2>
 
-      <div class="bg-gray-100 p-6 rounded-lg my-8">
-        <h3 class="text-xl font-bold mb-4">Client Profile:</h3>
-        <ul class="space-y-2">
+      <div class="bg-gray-800 p-6 rounded-lg my-8 border border-gray-700">
+        <h3 class="text-xl font-bold mb-4 text-white">Client Profile:</h3>
+        <ul class="space-y-2 text-gray-300">
           <li>• Enterprise resource planning (ERP) SaaS platform</li>
           <li>• $50M ARR, targeting mid-market to enterprise</li>
           <li>• Average deal size: $125,000 annually</li>
@@ -284,13 +284,13 @@ New Intent Categories Found:
 
       <p>Create separate AI Max campaigns for each major vertical, allowing the system to learn industry-specific language:</p>
 
-      <div class="bg-gray-100 p-4 rounded-lg my-4">
+      <div class="bg-gray-800 p-4 rounded-lg my-4 border border-gray-700">
         <h4 class="font-bold mb-2">Healthcare Tech Campaign:</h4>
         <p><strong>Seed keywords:</strong> healthcare software, HIPAA compliance, patient data</p>
         <p><strong>Discovers:</strong> "meaningful use attestation," "HL7 integration problems," "nursing staff burnout metrics"</p>
       </div>
 
-      <div class="bg-gray-100 p-4 rounded-lg my-4">
+      <div class="bg-gray-800 p-4 rounded-lg my-4 border border-gray-700">
         <h4 class="font-bold mb-2">Financial Services Campaign:</h4>
         <p><strong>Seed keywords:</strong> financial software, banking platform, fintech solution</p>
         <p><strong>Discovers:</strong> "Basel III reporting," "SWIFT message errors," "reconciliation breaking at month-end"</p>
@@ -371,9 +371,9 @@ New Intent Categories Found:
 
       <h2>Your 30-Day Action Plan</h2>
 
-      <div class="bg-blue-50 p-6 rounded-lg my-8">
-        <h3 class="text-xl font-bold mb-4">Days 1-7: Foundation</h3>
-        <ul class="space-y-2">
+      <div class="bg-gray-900 border border-gray-800 p-6 rounded-lg my-8">
+        <h3 class="text-xl font-bold mb-4 text-white">Days 1-7: Foundation</h3>
+        <ul class="space-y-2 text-gray-300">
           <li>☐ Audit current keyword performance</li>
           <li>☐ Implement enhanced conversion tracking</li>
           <li>☐ Choose pilot campaign for AI Max</li>
@@ -381,9 +381,9 @@ New Intent Categories Found:
         </ul>
       </div>
 
-      <div class="bg-blue-50 p-6 rounded-lg my-8">
-        <h3 class="text-xl font-bold mb-4">Days 8-14: Migration</h3>
-        <ul class="space-y-2">
+      <div class="bg-gray-900 border border-gray-800 p-6 rounded-lg my-8">
+        <h3 class="text-xl font-bold mb-4 text-white">Days 8-14: Migration</h3>
+        <ul class="space-y-2 text-gray-300">
           <li>☐ Create intent-based campaign structure</li>
           <li>☐ Build broad match seed keyword list</li>
           <li>☐ Launch AI Max with conservative budgets</li>
@@ -391,9 +391,9 @@ New Intent Categories Found:
         </ul>
       </div>
 
-      <div class="bg-blue-50 p-6 rounded-lg my-8">
-        <h3 class="text-xl font-bold mb-4">Days 15-21: Learning</h3>
-        <ul class="space-y-2">
+      <div class="bg-gray-900 border border-gray-800 p-6 rounded-lg my-8">
+        <h3 class="text-xl font-bold mb-4 text-white">Days 15-21: Learning</h3>
+        <ul class="space-y-2 text-gray-300">
           <li>☐ Monitor without making changes</li>
           <li>☐ Document discovered queries</li>
           <li>☐ Share insights with product/sales teams</li>
@@ -401,9 +401,9 @@ New Intent Categories Found:
         </ul>
       </div>
 
-      <div class="bg-blue-50 p-6 rounded-lg my-8">
-        <h3 class="text-xl font-bold mb-4">Days 22-30: Optimization</h3>
-        <ul class="space-y-2">
+      <div class="bg-gray-900 border border-gray-800 p-6 rounded-lg my-8">
+        <h3 class="text-xl font-bold mb-4 text-white">Days 22-30: Optimization</h3>
+        <ul class="space-y-2 text-gray-300">
           <li>☐ Analyze performance patterns</li>
           <li>☐ Expand successful intent clusters</li>
           <li>☐ Increase budgets on winning segments</li>
