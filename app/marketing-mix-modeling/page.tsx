@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Script from 'next/script'
 import Navigation from '../components/navigation'
 import Footer from '../components/footer'
-import { BarChart3, Brain, Calculator, LineChart, PieChart, TrendingUp, Zap, DollarSign } from 'lucide-react'
+import { BarChart3, Brain, Calculator, LineChart, PieChart, TrendingUp, Zap, DollarSign, Users } from 'lucide-react'
 
 export default function MarketingMixModelingPage() {
   // Schema for Marketing Mix Modeling
