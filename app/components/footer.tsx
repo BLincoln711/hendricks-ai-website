@@ -14,7 +14,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-gray-400 mb-4 max-w-md">
-              The AI Search Intelligence Firm for B2B SaaS. We unify Google & Bing into one AI-driven system that predicts demand, proves ROI, and engineers execution. Prediction. Proof. Performance.
+              The AI Search Visibility & Measurement Firm for B2B Growth. We unify marketing, data, and AI to measure visibility, prove ROI, and amplify performance across the new AI Search ecosystem.
             </p>
             <div className="flex space-x-4">
               <a 
@@ -41,9 +41,9 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Solutions</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><Link href="/solutions#demand-radar" className="hover:text-white transition-colors">Predictive Intelligence</Link></li>
-              <li><Link href="/solutions#roi-audit" className="hover:text-white transition-colors">Cross-Channel Measurement</Link></li>
-              <li><Link href="/solutions#performance" className="hover:text-white transition-colors">Unified Search Execution</Link></li>
+              <li><Link href="/solutions#visibility-audit" className="hover:text-white transition-colors">Visibility Audit</Link></li>
+              <li><Link href="/solutions#attribution-engine" className="hover:text-white transition-colors">Attribution Engine</Link></li>
+              <li><Link href="/solutions#ai-visibility-execution" className="hover:text-white transition-colors">AI Visibility Execution</Link></li>
             </ul>
           </div>
           
@@ -70,7 +70,7 @@ export default function Footer() {
         
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 mb-4 md:mb-0">&copy; 2025 Hendricks.AI. Prediction. Proof. Performance. All rights reserved.</p>
+            <p className="text-gray-400 mb-4 md:mb-0">&copy; 2025 Hendricks.AI. Measure. Attribute. Amplify. All rights reserved.</p>
             <div className="flex space-x-6 text-sm">
               <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</Link>
