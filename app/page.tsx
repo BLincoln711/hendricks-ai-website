@@ -224,8 +224,11 @@ export default function Home() {
 
       {/* Hero Section: Cinematic AI Search Era */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-[#020617]">
-        {/* Enhanced AI Grid Background with Radial Gradient */}
+        {/* Enhanced AI Grid Background with Dynamic Gradient */}
         <div className="absolute inset-0">
+          {/* Dynamic AI gradient overlay - drifting colors */}
+          <div className="absolute inset-0 bg-ai-gradient opacity-20"></div>
+
           {/* Base gradient */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/10"></div>
 
@@ -292,8 +295,8 @@ export default function Home() {
                 <span className="text-xs text-gray-400">for B2B Growth</span>
               </div>
 
-              {/* Main Headline with Cinematic Animation */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 leading-[1.15] tracking-tight max-w-4xl">
+              {/* Main Headline with Refined Typography */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 leading-[1.1] tracking-tight max-w-4xl">
                 <span className="block text-white animate-fade-in-1">
                   Measure Visibility.
                 </span>
@@ -306,8 +309,8 @@ export default function Home() {
               </h1>
 
               {/* Tagline with slide-up animation */}
-              <div className="mb-6 animate-fade-in-4">
-                <p className="text-xl text-gray-300 leading-relaxed">
+              <div className="mb-8 animate-fade-in-4">
+                <p className="text-base md:text-lg text-gray-300 leading-relaxed">
                   We help B2B companies measure, attribute, and amplify visibility across the new AI-powered search ecosystem — from Google and Bing to Gemini, ChatGPT, and Perplexity.
                 </p>
               </div>
@@ -354,20 +357,27 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* CTAs with Premium Styling */}
+              {/* Intent Text */}
+              <div className="mb-4 animate-fade-in-4">
+                <p className="text-sm text-gray-400 tracking-wide">
+                  See how leading B2B teams measure visibility in the AI Search Era.
+                </p>
+              </div>
+
+              {/* CTAs with Premium Styling & Sheen Effect */}
               <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-scale-in">
                 <Link
                   href="/contact"
-                  className="group relative px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-[1.03] hover:opacity-90 hover:shadow-2xl hover:shadow-cyan-500/40 inline-flex items-center justify-center gap-3 overflow-hidden"
+                  className="btn-sheen group relative px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-[1.03] hover:opacity-90 hover:shadow-2xl hover:shadow-cyan-500/40 inline-flex items-center justify-center gap-3"
                 >
-                  <span className="relative z-10">Book a Strategy Session</span>
+                  <span className="relative z-10 tracking-[0.04em]">BOOK STRATEGY SESSION</span>
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </Link>
                 <Link
                   href="/playbook"
-                  className="px-8 py-4 bg-transparent backdrop-blur-sm border border-cyan-400/30 hover:border-cyan-400/60 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-[1.03] hover:bg-cyan-400/5 inline-flex items-center justify-center gap-2"
+                  className="px-8 py-4 bg-transparent backdrop-blur-sm border border-cyan-400/30 hover:border-cyan-400/60 rounded-lg font-semibold text-base transition-all duration-300 transform hover:scale-[1.03] hover:bg-cyan-400/5 inline-flex items-center justify-center gap-2"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -386,9 +396,9 @@ export default function Home() {
                 <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-br from-blue-600/30 to-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
                 <div className="absolute bottom-0 right-0 w-64 h-64 bg-gradient-to-br from-purple-600/30 to-violet-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
 
-                {/* Central AI Intelligence Node */}
+                {/* Central AI Intelligence Node with Soft Drift */}
                 <div
-                  className="relative rounded-2xl p-8 backdrop-blur-2xl border transition-all duration-700 hover:scale-[1.03] animate-float-slow animate-glow"
+                  className="relative rounded-2xl p-8 backdrop-blur-2xl border transition-all duration-700 hover:scale-[1.03] animate-float-slow animate-glow animate-soft-drift"
                   style={{
                     background: 'radial-gradient(circle at 50% 0%, rgba(80,80,255,0.25), rgba(0,0,40,0.9))',
                     borderColor: 'rgba(140,140,255,0.2)',
@@ -841,12 +851,13 @@ export default function Home() {
                   'Competitive visibility tracking'
                 ],
                 color: 'from-blue-500 to-cyan-500',
-                cta: 'Start for $10K',
+                cta: 'Start with Visibility →',
+                pricing: 'Typical engagements range from five to six figures depending on data scope and AI integration.',
                 href: '/solutions#visibility-audit'
               },
               {
                 title: 'Attribution Engine',
-                subtitle: 'Start with Attribution',
+                subtitle: 'Project-Based Attribution',
                 description: 'Connect every marketing dollar to pipeline and ARR through unified cross-channel measurement',
                 icon: '🎯',
                 benefits: [
@@ -856,12 +867,13 @@ export default function Home() {
                   'CFO-ready attribution models'
                 ],
                 color: 'from-purple-500 to-pink-500',
-                cta: 'Project $15-25K',
+                cta: 'Project-Based Attribution →',
+                pricing: 'Typical engagements range from five to six figures depending on data scope and AI integration.',
                 href: '/solutions#attribution-engine'
               },
               {
                 title: 'AI Visibility Execution',
-                subtitle: 'Start with Execution',
+                subtitle: 'Enterprise-Scale Execution',
                 description: 'Full-funnel optimization and AI campaign orchestration built for measurable visibility growth',
                 icon: '⚡',
                 benefits: [
@@ -871,12 +883,13 @@ export default function Home() {
                   'Dedicated team + tech'
                 ],
                 color: 'from-cyan-500 to-blue-500',
-                cta: 'Scale from $30K+/month',
+                cta: 'Enterprise-Scale Execution →',
+                pricing: 'Typical engagements range from five to six figures depending on data scope and AI integration.',
                 href: '/solutions#ai-visibility-execution'
               }
             ].map((solution, index) => (
               <div key={index} className="relative group">
-                <div className="bg-gradient-to-b from-gray-900 to-black p-8 rounded-2xl border border-gray-800 hover:border-blue-500/50 transition-all duration-300 transform hover:-translate-y-2 h-full flex flex-col">
+                <div className="bg-gradient-to-b from-gray-900 to-black p-8 rounded-2xl border border-gray-800 hover:border-blue-500/50 transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col group-hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]">
                   <div className="text-5xl mb-4 flex justify-center">{solution.icon}</div>
                   <h3 className="text-2xl font-bold mb-2 text-center">{solution.title}</h3>
                   <p className="text-sm text-blue-400 mb-4 text-center font-medium">{solution.subtitle}</p>
@@ -891,12 +904,17 @@ export default function Home() {
                     ))}
                   </div>
                   
-                  <Link 
-                    href={solution.href}
-                    className={`block text-center py-2 px-4 rounded-lg bg-gradient-to-r ${solution.color} bg-opacity-10 text-white font-medium hover:bg-opacity-20 transition-all duration-300`}
-                  >
-                    {solution.cta} →
-                  </Link>
+                  <div className="mt-auto">
+                    <Link
+                      href={solution.href}
+                      className={`block text-center py-3 px-4 rounded-lg bg-gradient-to-r ${solution.color} bg-opacity-10 text-white font-medium hover:bg-opacity-20 transition-all duration-300 mb-3`}
+                    >
+                      {solution.cta}
+                    </Link>
+                    <p className="text-xs text-gray-500 text-center leading-relaxed px-2">
+                      {solution.pricing}
+                    </p>
+                  </div>
                   
                   {/* Connecting Line */}
                   {index < 2 && (

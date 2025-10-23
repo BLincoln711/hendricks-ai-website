@@ -648,3 +648,69 @@ article .prose p:last-child {
   animation: scalePopIn 0.6s ease-out 0.4s forwards;
   opacity: 0;
 }
+
+/* Dynamic AI gradient drift */
+@keyframes drift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.bg-ai-gradient {
+  background: linear-gradient(120deg, #1E3A8A, #22D3EE, #9333EA);
+  background-size: 200% 200%;
+  animation: drift 15s ease-in-out infinite;
+}
+
+/* Soft vertical drift for floating elements */
+@keyframes softDrift {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-soft-drift {
+  animation: softDrift 12s ease-in-out infinite;
+}
+
+/* Hover glow pulse for cards */
+@keyframes hoverGlowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2),
+                0 0 40px rgba(59, 130, 246, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.4),
+                0 0 60px rgba(59, 130, 246, 0.2);
+  }
+}
+
+/* Light sheen sweep animation */
+@keyframes sheen {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-sheen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: transform 0.6s;
+}
+
+.btn-sheen:hover::before {
+  animation: sheen 0.6s ease-in-out;
+}
