@@ -527,3 +527,124 @@ article .prose p:last-child {
 .prose > *:last-child {
   margin-bottom: 0 !important;
 }
+
+/* ================================
+   CINEMATIC HERO ANIMATIONS
+   ================================ */
+
+/* Gradient shift animation for hero text */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+}
+
+/* Floating animation for AI Intelligence Node */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float-slow {
+  animation: floatSlow 8s ease-in-out infinite;
+}
+
+/* Pulse glow animation for AI card */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 16px rgba(120,120,255,0.2),
+                0 0 32px rgba(120,120,255,0.1);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(120,120,255,0.4),
+                0 0 64px rgba(120,120,255,0.2);
+  }
+}
+
+.animate-glow {
+  animation: pulseGlow 6s ease-in-out infinite;
+}
+
+/* Fade in with stagger for headline */
+@keyframes fadeInStagger {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-1 {
+  animation: fadeInStagger 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-2 {
+  animation: fadeInStagger 0.8s ease-out 0.1s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-3 {
+  animation: fadeInStagger 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-4 {
+  animation: fadeInStagger 0.8s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+/* Grid pulse animation */
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.2; }
+}
+
+.animate-grid-pulse {
+  animation: gridPulse 4s ease-in-out infinite;
+}
+
+/* AI particle movement */
+@keyframes particleFloat {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(var(--tx, 20px), var(--ty, -20px));
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.3;
+  }
+}
+
+.animate-particle {
+  animation: particleFloat var(--duration, 8s) ease-in-out infinite;
+}
+
+/* Scale pop-in for CTAs */
+@keyframes scalePopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scalePopIn 0.6s ease-out 0.4s forwards;
+  opacity: 0;
+}

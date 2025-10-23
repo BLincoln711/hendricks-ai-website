@@ -222,32 +222,57 @@ export default function Home() {
     <main className="min-h-screen bg-black text-white">
       <Navigation />
 
-      {/* Hero Section: Search Intelligence for the AI Era */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Advanced AI Grid Background */}
+      {/* Hero Section: Cinematic AI Search Era */}
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-[#020617]">
+        {/* Enhanced AI Grid Background with Radial Gradient */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-black"></div>
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-950/20 via-transparent to-purple-950/20"></div>
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)',
-            backgroundSize: '50px 50px',
-            animation: 'gridMove 20s linear infinite'
+          {/* Base gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/10"></div>
+
+          {/* Angled spotlight effect */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/30 via-transparent to-purple-500/10 opacity-50"></div>
+
+          {/* Radial grid with glow */}
+          <div className="absolute inset-0 opacity-30" style={{
+            backgroundImage: `
+              radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15) 1px, transparent 1px),
+              radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px, 120px 120px',
+            backgroundPosition: '0 0, 30px 30px'
+          }}></div>
+
+          {/* Animated grid movement */}
+          <div className="absolute inset-0 animate-grid-pulse" style={{
+            backgroundImage: 'linear-gradient(rgba(96, 165, 250, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(96, 165, 250, 0.15) 1px, transparent 1px)',
+            backgroundSize: '80px 80px',
+            animation: 'gridMove 30s linear infinite'
           }}></div>
         </div>
-        
-        {/* AI Neural Network Animation */}
-        <div className="absolute inset-0 overflow-hidden opacity-20">
+
+        {/* AI Particle Network with enhanced glow */}
+        <div className="absolute inset-0 overflow-hidden opacity-40">
           <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000">
-            <g className="animate-pulse">
-              {[...Array(20)].map((_, i) => (
+            {/* Pulsating nodes with glow */}
+            <defs>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            <g filter="url(#glow)">
+              {[...Array(25)].map((_, i) => (
                 <circle
                   key={i}
                   cx={Math.random() * 1000}
                   cy={Math.random() * 1000}
-                  r="2"
-                  fill="rgba(59, 130, 246, 0.8)"
-                  className="animate-ping"
-                  style={{ animationDelay: `${i * 0.1}s` }}
+                  r="3"
+                  fill={i % 2 === 0 ? "rgba(96, 165, 250, 0.8)" : "rgba(139, 92, 246, 0.6)"}
+                  className="animate-pulse"
+                  style={{ animationDelay: `${i * 0.15}s`, animationDuration: '3s' }}
                 />
               ))}
             </g>
@@ -267,21 +292,21 @@ export default function Home() {
                 <span className="text-xs text-gray-400">for B2B Growth</span>
               </div>
 
-              {/* Main Headline */}
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                <span className="block text-white">
+              {/* Main Headline with Cinematic Animation */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 leading-[1.15] tracking-tight max-w-4xl">
+                <span className="block text-white animate-fade-in-1">
                   Measure Visibility.
                 </span>
-                <span className="block text-white">
+                <span className="block text-white animate-fade-in-2">
                   Master Attribution.
                 </span>
-                <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent animate-gradient animate-fade-in-3">
                   Lead in the AI Search Era.
                 </span>
               </h1>
 
-              {/* Tagline */}
-              <div className="mb-6">
+              {/* Tagline with slide-up animation */}
+              <div className="mb-6 animate-fade-in-4">
                 <p className="text-xl text-gray-300 leading-relaxed">
                   We help B2B companies measure, attribute, and amplify visibility across the new AI-powered search ecosystem — from Google and Bing to Gemini, ChatGPT, and Perplexity.
                 </p>
@@ -329,21 +354,20 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <Link 
-                  href="/contact" 
-                  className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/25 inline-flex items-center justify-center gap-3 overflow-hidden"
+              {/* CTAs with Premium Styling */}
+              <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-scale-in">
+                <Link
+                  href="/contact"
+                  className="group relative px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-[1.03] hover:opacity-90 hover:shadow-2xl hover:shadow-cyan-500/40 inline-flex items-center justify-center gap-3 overflow-hidden"
                 >
                   <span className="relative z-10">Book a Strategy Session</span>
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </Link>
                 <Link
                   href="/playbook"
-                  className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-lg font-semibold text-lg hover:bg-white/10 transition-all duration-300 inline-flex items-center justify-center gap-2"
+                  className="px-8 py-4 bg-transparent backdrop-blur-sm border border-cyan-400/30 hover:border-cyan-400/60 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-[1.03] hover:bg-cyan-400/5 inline-flex items-center justify-center gap-2"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -354,72 +378,74 @@ export default function Home() {
 
             </div>
 
-            {/* Right Column: Google + Bing Unification Visual */}
+            {/* Right Column: AI Intelligence Node */}
             <div className="relative lg:block hidden">
-              {/* Live B2B SaaS Predictions */}
-              <div className="absolute top-0 right-0 bg-black/80 backdrop-blur-xl border border-cyan-800/50 rounded-lg p-4 max-w-xs">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs font-medium text-gray-300">LIVE B2B SEARCH PREDICTIONS</span>
-                </div>
-                <div className="space-y-2">
-                  {[
-                    { trend: 'AI Sales Tools', surge: '+127%', time: '18 days', platform: 'G+B' },
-                    { trend: 'SOC2 Compliance SaaS', surge: '+89%', time: '23 days', platform: 'G+B' },
-                    { trend: 'Revenue Intelligence', surge: '+156%', time: '14 days', platform: 'G+B' }
-                  ].map((prediction, i) => (
-                    <div key={i} className="bg-white/5 rounded p-2 text-xs">
-                      <div className="flex justify-between items-start">
-                        <span className="text-gray-300">{prediction.trend}</span>
-                        <span className="text-green-400 font-semibold">{prediction.surge}</span>
+              {/* Floating AI Intelligence Node - Glassmorphic Design */}
+              <div className="relative w-full h-96 flex items-center justify-center">
+                {/* Ambient glow orbs */}
+                <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-br from-blue-600/30 to-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute bottom-0 right-0 w-64 h-64 bg-gradient-to-br from-purple-600/30 to-violet-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+
+                {/* Central AI Intelligence Node */}
+                <div
+                  className="relative rounded-2xl p-8 backdrop-blur-2xl border transition-all duration-700 hover:scale-[1.03] animate-float-slow animate-glow"
+                  style={{
+                    background: 'radial-gradient(circle at 50% 0%, rgba(80,80,255,0.25), rgba(0,0,40,0.9))',
+                    borderColor: 'rgba(140,140,255,0.2)',
+                    boxShadow: '0 0 16px rgba(120,120,255,0.2), 0 0 32px rgba(120,120,255,0.1)'
+                  }}
+                >
+                  <div className="text-center max-w-sm">
+                    {/* Pulsing status indicator */}
+                    <div className="flex items-center justify-center gap-2 mb-4">
+                      <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                      <span className="text-xs font-medium text-cyan-300 tracking-wider">UNIFIED SEARCH INTELLIGENCE</span>
+                    </div>
+
+                    <h3 className="text-white font-bold text-2xl mb-2">One Market.</h3>
+                    <p className="text-gray-300 text-base mb-4">Infinite Engines. Unified by AI.</p>
+
+                    {/* Platform badges with gradient */}
+                    <div className="space-y-3">
+                      <div className="bg-gradient-to-r from-sky-400/20 to-indigo-400/20 rounded-lg px-4 py-2 border border-sky-400/30">
+                        <p className="text-sm font-semibold bg-gradient-to-r from-sky-400 to-indigo-400 bg-clip-text text-transparent">
+                          Google • Bing
+                        </p>
                       </div>
-                      <div className="flex justify-between items-center mt-1">
-                        <span className="text-gray-500">in {prediction.time}</span>
-                        <span className="text-blue-400 text-xs">{prediction.platform}</span>
+                      <div className="bg-gradient-to-r from-violet-400/20 to-purple-400/20 rounded-lg px-4 py-2 border border-violet-400/30">
+                        <p className="text-sm font-semibold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent">
+                          ChatGPT • Gemini • Perplexity
+                        </p>
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
 
-              {/* Google + Bing Unification Visual */}
-              <div className="relative w-96 h-96 mx-auto">
-                {/* Google Circle */}
-                <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-br from-blue-600/20 to-blue-400/20 rounded-full blur-2xl animate-pulse"></div>
-                {/* Bing Circle */}
-                <div className="absolute bottom-0 right-0 w-64 h-64 bg-gradient-to-br from-cyan-600/20 to-cyan-400/20 rounded-full blur-2xl animate-pulse"></div>
-                
-                {/* Center: Unified System */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="bg-black border-2 border-purple-500/50 rounded-2xl p-8 backdrop-blur-xl">
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-white mb-2">One Market.</div>
-                      <div className="text-sm text-gray-400 mb-4">Two Engines. Unified by AI.</div>
-                      <div className="flex items-center justify-center gap-4">
-                        <div className="text-blue-400 font-semibold">Google</div>
-                        <div className="text-purple-400">+</div>
-                        <div className="text-cyan-400 font-semibold">Bing</div>
+                    {/* Metrics */}
+                    <div className="mt-6 pt-6 border-t border-white/10 grid grid-cols-2 gap-4">
+                      <div>
+                        <div className="text-2xl font-bold text-cyan-400">+62%</div>
+                        <div className="text-xs text-gray-400">Visibility Lift</div>
                       </div>
-                      <div className="mt-4 text-xs text-gray-500">
-                        <div>74% Accuracy</div>
-                        <div>312% ROI</div>
+                      <div>
+                        <div className="text-2xl font-bold text-purple-400">+310%</div>
+                        <div className="text-xs text-gray-400">ROI Growth</div>
                       </div>
                     </div>
                   </div>
                 </div>
-                
-                {/* Data Flow Animation */}
-                {[...Array(8)].map((_, i) => (
+
+                {/* Floating particle network */}
+                {[...Array(12)].map((_, i) => (
                   <div
                     key={i}
-                    className="absolute w-2 h-2 bg-purple-400 rounded-full opacity-60"
+                    className="absolute w-1.5 h-1.5 bg-cyan-400/60 rounded-full animate-particle"
                     style={{
-                      top: '50%',
-                      left: '50%',
-                      transform: `rotate(${i * 45}deg) translateX(120px)`,
-                      animation: `orbit 15s linear infinite`,
-                      animationDelay: `${i * 0.3}s`
-                    }}
+                      top: `${Math.random() * 100}%`,
+                      left: `${Math.random() * 100}%`,
+                      '--tx': `${(Math.random() - 0.5) * 40}px`,
+                      '--ty': `${(Math.random() - 0.5) * 40}px`,
+                      '--duration': `${8 + Math.random() * 4}s`,
+                      animationDelay: `${Math.random() * 2}s`
+                    } as React.CSSProperties}
                   ></div>
                 ))}
               </div>
