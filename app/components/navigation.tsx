@@ -42,9 +42,6 @@ export default function Navigation() {
             <Link href="/solutions" className="text-gray-300 hover:text-cyan-400 transition-colors duration-200">
               Solutions
             </Link>
-            <Link href="/results" className="text-gray-300 hover:text-cyan-400 transition-colors duration-200">
-              Results
-            </Link>
             <Link href="/insights" className="text-gray-300 hover:text-cyan-400 transition-colors duration-200">
               Insights
             </Link>
@@ -95,13 +92,6 @@ export default function Navigation() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Solutions
-              </Link>
-              <Link
-                href="/results"
-                className="block text-gray-300 hover:text-cyan-400 transition-colors duration-200 text-base font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Results
               </Link>
               <Link
                 href="/insights"
