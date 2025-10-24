@@ -2,197 +2,232 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import Navigation from '../components/navigation'
+import Footer from '../components/footer'
+import StickyMobileCTA from '../components/sticky-mobile-cta'
 
-// Sample blog posts data: in production, this would come from a CMS or database
-const blogPosts = [
+// Featured Intelligence - Top Editorial Content
+const featuredIntelligence = [
+  {
+    id: 'measurable-era-visibility-currency',
+    title: 'The Measurable Era: Why Visibility is the New Marketing Currency',
+    subtitle: 'How AI search and attribution precision are changing CMO metrics forever.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-10-20',
+    readTime: '12 min read',
+    category: 'Visibility',
+    gradient: 'from-blue-600 to-cyan-600'
+  },
+  {
+    id: 'unified-search-breaking-silos',
+    title: 'Unified Search: Breaking Down Silos Between Google, Bing & AI Search',
+    subtitle: 'Why B2B visibility now demands orchestration, not optimization.',
+    author: 'Hendricks.AI Strategy Team',
+    date: '2025-10-18',
+    readTime: '10 min read',
+    category: 'Attribution',
+    gradient: 'from-purple-600 to-pink-600'
+  },
+  {
+    id: 'visibility-audit-framework',
+    title: 'The Visibility Audit Framework',
+    subtitle: 'Our firm\'s proprietary methodology for quantifying visibility across AI-powered platforms.',
+    author: 'Hendricks.AI Data Group',
+    date: '2025-10-15',
+    readTime: '15 min read',
+    category: 'Measurement',
+    gradient: 'from-cyan-600 to-blue-600'
+  }
+]
+
+// Research & Measurement Highlights
+const researchHighlights = [
+  {
+    title: 'The 2025 Visibility Benchmark Report',
+    takeaway: 'Visibility correlates to a 2.3x lift in qualified pipeline',
+    stat: '2.3X',
+    color: 'blue'
+  },
+  {
+    title: 'Cross-Engine Attribution Study (Google vs Bing)',
+    takeaway: 'Unified attribution improves ROI accuracy by 67%',
+    stat: '+67%',
+    color: 'purple'
+  },
+  {
+    title: 'AI Search Ecosystem Index 2025',
+    takeaway: 'Only 18% of B2B brands measure AI search exposure effectively',
+    stat: '18%',
+    color: 'cyan'
+  },
+  {
+    title: 'CFO-Ready Attribution Framework',
+    takeaway: '98% data match confidence in CRM-linked attribution',
+    stat: '98%',
+    color: 'green'
+  }
+]
+
+// All insights data
+const allInsights = [
   {
     id: 'google-ai-revolution-search-marketing',
     title: 'Google\'s AI Revolution: Game-Changing Updates for Search Marketing',
-    excerpt: 'September 2025 marks a watershed moment as Google unleashes its most comprehensive AI transformation yet. Learn how AI Max global rollout and algorithm changes create powerful automation with unprecedented advertiser control.',
+    excerpt: 'September 2025 marks a watershed moment as Google unleashes its most comprehensive AI transformation yet.',
     author: 'Brandon Lincoln Hendricks',
     date: '2025-09-14',
     readTime: '8 min read',
-    category: 'AI Search',
-    featured: true,
-    image: '/blog-images/google-ai-revolution-visualization.html'
+    category: 'AI & Analytics'
   },
   {
     id: 'death-of-keywords-ai-max-search',
     title: 'The Death of Keywords: How AI Max for Search is Revolutionizing B2B SaaS Campaigns',
-    excerpt: 'While competitors bid on outdated keywords, sophisticated marketers are capturing 27% more conversions with AI Max. Learn how this revolutionary approach makes traditional keyword strategies obsolete.',
+    excerpt: 'While competitors bid on outdated keywords, sophisticated marketers are capturing 27% more conversions with AI Max.',
     author: 'Brandon Lincoln Hendricks',
     date: '2025-09-17',
     readTime: '15 min read',
-    category: 'AI Search',
-    featured: true,
-    image: '/blog-images/ai-max-search-visualization.html'
+    category: 'AI & Analytics'
   },
   {
     id: 'b2b-marketing-funnel-is-dead',
     title: 'The B2B Marketing Funnel is Dead: Why 80% of Buying Happens in Chaos',
-    excerpt: 'The traditional B2B marketing funnel is obsolete. Modern buyers use 10+ channels with 6-10 stakeholders, spending 80% of their journey avoiding salespeople. Learn why the funnel failed and how predictive AI navigates the chaos.',
+    excerpt: 'The traditional B2B marketing funnel is obsolete. Modern buyers use 10+ channels with 6-10 stakeholders.',
     author: 'Brandon Lincoln Hendricks',
     date: '2025-08-20',
     readTime: '12 min read',
-    category: 'B2B Marketing',
-    featured: true,
-    image: '/blog-images/b2b-funnel-chaos-visualization.html'
+    category: 'Measurement'
   },
   {
-    id: 'google-meridian-mmm-predictive-ai',
-    title: 'Google Meridian MMM Meets Predictive AI: The Future of Marketing Attribution',
-    excerpt: 'Breaking analysis: How Hendricks.AI\'s predictive capabilities enhance Google\'s new Meridian MMM framework to forecast incrementality before spending. Learn how to combine historical MMM with forward-looking AI.',
+    id: 'google-meridian-mmm-attribution',
+    title: 'Google Meridian MMM Meets AI Attribution: The Future of Marketing Measurement',
+    excerpt: 'How Hendricks.AI\'s measurement capabilities enhance Google\'s new Meridian MMM framework.',
     author: 'Brandon Lincoln Hendricks',
     date: '2025-08-19',
     readTime: '6 min read',
-    category: 'AI Marketing',
-    featured: true,
-    image: '/blog-images/google-meridian-mmm-visualization.html'
+    category: 'Attribution'
   },
   {
     id: 'ai-marketing-beyond-smart-bidding',
     title: 'AI Marketing Beyond Smart Bidding: How Custom AI Models Reduce CPA by 32%',
-    excerpt: 'Google\'s Smart Bidding is just the beginning. Learn how proprietary AI models can predict bid adjustments with 74% accuracy, reducing CPA by 32% while your competitors plateau at 15%.',
+    excerpt: 'Google\'s Smart Bidding is just the beginning. Learn how proprietary AI models can achieve 32% CPA reductions.',
     author: 'Brandon Lincoln Hendricks',
     date: '2025-08-16',
     readTime: '12 min read',
-    category: 'AI Marketing',
-    featured: true,
-    image: '/blog-images/ai-smart-bidding-visualization.html'
+    category: 'AI & Analytics'
   },
   {
-    id: 'predictive-ai-marketing-2025',
-    title: 'The Future of Marketing: How Predictive AI Changes Everything in 2025',
-    excerpt: 'Traditional marketing reacts to yesterday\'s data. Predictive AI sees tomorrow\'s opportunities. Learn how forward-thinking brands are using AI to anticipate demand 2-4 weeks before competitors.',
+    id: 'unified-visibility-measurement-2025',
+    title: 'The Future of Measurement: Unified Visibility Across AI Search',
+    excerpt: 'Traditional measurement reacts to yesterday\'s data. Unified visibility shows the complete picture.',
     author: 'Brandon Lincoln Hendricks',
     date: '2025-08-14',
     readTime: '12 min read',
-    category: 'AI Marketing',
-    featured: true,
-    image: '/blog-images/predictive-ai-future-marketing.html'
+    category: 'Visibility'
   },
   {
     id: 'google-performance-max-bing',
     title: 'Why Running Both Google and Bing Performance Max Delivers 10% Higher ROAS',
-    excerpt: 'Most agencies ignore Bing Performance Max, leaving money on the table. Our data shows dual-platform strategies capture 28% more conversions at lower CPAs.',
+    excerpt: 'Most agencies ignore Bing Performance Max. Our data shows dual-platform strategies capture 28% more conversions.',
     author: 'Brandon Lincoln Hendricks',
     date: '2025-08-12',
     readTime: '5 min read',
-    category: 'Performance Marketing',
-    featured: true,
-    image: '/blog-images/google-bing-performance-max-visualization.html'
+    category: 'Measurement'
   },
   {
-    id: 'demand-intelligence-case-study',
-    title: 'Case Study: How We Predicted a 127% Surge in "AI Automation" Searches',
-    excerpt: 'Three weeks before the trend exploded, our models identified early signals. Here\'s exactly how we positioned our client to capture $2.3M in additional revenue.',
+    id: 'visibility-measurement-case-study',
+    title: 'Case Study: How We Measured a 127% Visibility Surge in "AI Automation"',
+    excerpt: 'Real-time visibility measurement identified early signals. Here\'s how we positioned our client for $2.3M in additional revenue.',
     author: 'Brandon Lincoln Hendricks',
     date: '2025-08-10',
     readTime: '10 min read',
-    category: 'Case Studies',
-    featured: false,
-    image: '/blog/case-study.jpg'
+    category: 'Case Studies'
   },
   {
-    id: 'b2b-demand-gen-strategies',
-    title: 'B2B Demand Gen: Reaching Decision Makers Before They Start Searching',
-    excerpt: 'The average B2B buyer is 57% through their journey before contacting sales. Here\'s how to influence them in the pre-intent phase.',
+    id: 'b2b-visibility-strategies',
+    title: 'B2B Visibility: Measuring Decision Maker Exposure Across All Platforms',
+    excerpt: 'The average B2B buyer is 57% through their journey before contacting sales. How to measure their visibility.',
     author: 'Brandon Lincoln Hendricks',
     date: '2025-08-08',
     readTime: '6 min read',
-    category: 'B2B Marketing',
-    featured: false,
-    image: '/blog/b2b-demand.jpg'
+    category: 'Visibility'
   },
   {
-    id: 'ai-bidding-strategies',
-    title: 'Beyond Smart Bidding: How Custom AI Models Reduce CPA by 32%',
-    excerpt: 'Google\'s Smart Bidding is just the beginning. Learn how proprietary AI models can predict bid adjustments with 74% accuracy.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-08-05',
-    readTime: '8 min read',
-    category: 'AI Marketing',
-    featured: false,
-    image: '/blog/ai-bidding.jpg'
-  },
-  {
-    id: 'marketing-attribution-solved',
-    title: 'Finally: Multi-Touch Attribution That Actually Works',
-    excerpt: 'Stop arguing about last-click vs first-touch. Our AI-powered attribution model shows the true impact of every touchpoint with 89% confidence.',
+    id: 'attribution-architecture-framework',
+    title: 'Attribution Architecture: How CFO-Ready Models Connect Spend to ARR',
+    excerpt: 'Stop arguing about last-click vs first-touch. Our AI-driven attribution shows true impact with 98% data confidence.',
     author: 'Brandon Lincoln Hendricks',
     date: '2025-08-03',
     readTime: '9 min read',
-    category: 'Analytics',
-    featured: false,
-    image: '/blog/attribution.jpg'
+    category: 'Attribution'
   }
 ]
 
-const categories = ['All', 'AI Marketing', 'Performance Marketing', 'Case Studies', 'B2B Marketing', 'Analytics']
+const categories = ['All', 'Visibility', 'Attribution', 'Measurement', 'Case Studies', 'AI & Analytics']
 
 export default function InsightsPage() {
   const [selectedCategory, setSelectedCategory] = useState('All')
-  
-  const filteredPosts = selectedCategory === 'All' 
-    ? blogPosts 
-    : blogPosts.filter(post => post.category === selectedCategory)
+
+  const filteredInsights = selectedCategory === 'All'
+    ? allInsights
+    : allInsights.filter(post => post.category === selectedCategory)
 
   return (
     <main className="min-h-screen bg-black text-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-lg border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <Link href="/" className="flex-shrink-0">
-              <img 
-                src="/hendricks_logo.png" 
-                alt="Hendricks.AI" 
-                className="h-8 w-auto object-contain brightness-0 invert"
-              />
-            </Link>
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors">Solutions</Link>
-              <Link href="/results" className="text-gray-300 hover:text-white transition-colors">Results</Link>
-              <Link href="/insights" className="text-white font-semibold">Insights</Link>
-              <Link href="/resources" className="text-gray-300 hover:text-white transition-colors">Resources</Link>
-              <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
-            </div>
-            <a href="https://calendar.app.google/DHopiSfnLiH5xwKo9" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105">
-              Book Strategy Call
-            </a>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-black"></div>
+      {/* 1️⃣ HERO SECTION - Intelligence Hub */}
+      <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#010414] via-[#0b1f32] to-[#1b0034]">
+        {/* Animated Grid Overlay */}
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: 'linear-gradient(rgba(96,165,250,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(96,165,250,0.4) 1px, transparent 1px)',
+          backgroundSize: '50px 50px',
+        }}></div>
+
+        {/* Particle Layer */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        </div>
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-5xl sm:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Search Intelligence Insights
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 leading-tight">
+              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                Search Visibility. Attribution. Intelligence.
               </span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Cutting-edge strategies, case studies, and thought leadership from the team predicting tomorrow's marketing trends today.
+            <p className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto mb-10">
+              The Hendricks.AI Intelligence Hub — where B2B growth leaders explore the systems, data, and frameworks defining the new era of measurable marketing.
             </p>
+
+            {/* Dual CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white rounded-full font-semibold hover:scale-[1.03] transition-transform inline-flex items-center justify-center gap-2">
+                Explore Insights →
+              </button>
+              <Link
+                href="#subscribe"
+                className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-black transition inline-flex items-center justify-center gap-2"
+              >
+                Subscribe to The Intelligence Brief →
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Category Filter */}
-      <section className="py-8 border-b border-gray-800">
+      {/* 2️⃣ CATEGORY FILTERS */}
+      <section className="py-8 border-b border-[rgba(255,255,255,0.05)] bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-wrap justify-center gap-3">
             {categories.map(category => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full font-medium transition-all duration-200 ${
+                className={`px-4 py-2 rounded-full transition-all duration-200 ${
                   selectedCategory === category
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
-                    : 'bg-gray-900 text-gray-300 hover:bg-gray-800'
+                    ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white'
+                    : 'bg-[rgba(255,255,255,0.05)] text-gray-300 hover:text-white hover:bg-[rgba(255,255,255,0.08)]'
                 }`}
               >
                 {category}
@@ -202,128 +237,228 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      {/* Featured Posts */}
-      {filteredPosts.some(post => post.featured) && (
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold mb-8">Featured Insights</h2>
-            <div className="grid lg:grid-cols-2 gap-8">
-              {filteredPosts.filter(post => post.featured).map(post => (
-                <article key={post.id} className="group">
-                  <Link href={`/insights/${post.id}`} className="block">
-                    <div className="relative h-64 bg-gradient-to-br from-blue-900/50 to-purple-900/50 rounded-2xl overflow-hidden mb-6">
-                      {post.image && post.image.endsWith('.html') ? (
-                        <iframe 
-                          src={post.image}
-                          className="w-full h-full border-0"
-                          title={post.title}
-                          scrolling="no"
-                        />
-                      ) : post.image ? (
-                        <img 
-                          src={post.image} 
-                          alt={post.title}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : null}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                      <div className="absolute bottom-4 left-4">
-                        <span className="text-sm text-blue-400 font-medium">{post.category}</span>
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-3 group-hover:text-blue-400 transition-colors">
-                      {post.title}
-                    </h3>
-                    <p className="text-gray-300 mb-4 line-clamp-2">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex items-center text-sm text-gray-400">
-                      <span>{post.author}</span>
-                      <span className="mx-2">•</span>
-                      <span>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                      <span className="mx-2">•</span>
-                      <span>{post.readTime}</span>
-                    </div>
-                  </Link>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* All Posts Grid */}
-      <section className="py-16 bg-gray-900/30">
+      {/* 3️⃣ FEATURED INTELLIGENCE */}
+      <section className="py-20 bg-gradient-to-b from-black to-gray-900/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-8">
-            {selectedCategory === 'All' ? 'All Insights' : selectedCategory}
+          <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">
+            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Featured Intelligence
+            </span>
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredPosts.filter(post => !post.featured).map(post => (
-              <article key={post.id} className="group">
-                <Link href={`/insights/${post.id}`}>
-                  <div className="bg-gray-900/50 rounded-2xl p-6 border border-gray-800 hover:border-blue-500/50 transition-all duration-200">
-                    <div className="mb-4">
-                      <span className="text-sm text-blue-400 font-medium">{post.category}</span>
-                    </div>
-                    <h3 className="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">
-                      {post.title}
-                    </h3>
-                    <p className="text-gray-300 mb-4 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex items-center text-sm text-gray-400">
-                      <span>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                      <span className="mx-2">•</span>
-                      <span>{post.readTime}</span>
-                    </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {featuredIntelligence.map((article, index) => (
+              <Link
+                key={article.id}
+                href={`/insights/${article.id}`}
+                className="group"
+              >
+                <div className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl border border-[rgba(255,255,255,0.05)] hover:border-cyan-400/50 transition-all duration-300 hover:scale-[1.02] h-full">
+                  {/* Abstract Tech Imagery Placeholder */}
+                  <div className={`w-full h-48 rounded-xl bg-gradient-to-br ${article.gradient} opacity-20 mb-6 relative overflow-hidden`}>
+                    <div className="absolute inset-0" style={{
+                      backgroundImage: 'linear-gradient(45deg, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(-45deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                      backgroundSize: '20px 20px',
+                    }}></div>
                   </div>
-                </Link>
-              </article>
+
+                  <div className="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-3">
+                    {article.category}
+                  </div>
+
+                  <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-cyan-400 transition-colors">
+                    {article.title}
+                  </h3>
+
+                  <p className="text-gray-400 mb-6 leading-relaxed">
+                    {article.subtitle}
+                  </p>
+
+                  <div className="flex items-center text-sm text-gray-500">
+                    <span className="text-gray-400">{article.author}</span>
+                    <span className="mx-2">•</span>
+                    <span>{article.readTime}</span>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Newsletter CTA */}
-      <section className="py-20 relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/50 via-purple-900/50 to-blue-900/50"></div>
-        <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-4">
-            Get Tomorrow's Marketing Trends Today
-          </h2>
-          <p className="text-xl text-gray-300 mb-8">
-            Join 5,000+ marketers receiving weekly predictions and strategies.
-          </p>
-          <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-6 py-3 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-            />
-            <button
-              type="submit"
-              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 py-12 border-t border-gray-800">
+      {/* 4️⃣ COLLECTIONS GRID - Explore Our Frameworks */}
+      <section className="py-20 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 mb-4 md:mb-0">© 2025 Hendricks.AI. Demand Intelligence to Demand Capture. All rights reserved.</p>
-            <div className="flex space-x-6 text-sm">
-              <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</Link>
-              <Link href="/cookies" className="text-gray-400 hover:text-white transition-colors">Cookie Policy</Link>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">
+            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Explore Our Frameworks
+            </span>
+          </h2>
+          <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12">
+            Curated knowledge areas defining measurable visibility in the AI search era
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-6 rounded-2xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] hover:border-cyan-400 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 flex items-center justify-center mb-4">
+                <span className="text-2xl">📈</span>
+              </div>
+              <h3 className="text-white text-xl font-semibold mb-2">Visibility Systems</h3>
+              <p className="text-gray-400 text-sm mb-4">
+                Frameworks and strategies for measuring and optimizing AI-powered visibility across Google, Bing, ChatGPT, Gemini, and Perplexity.
+              </p>
+              <Link href="/insights?category=Visibility" className="text-cyan-400 font-medium text-sm hover:underline">
+                View Insights →
+              </Link>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] hover:border-cyan-400 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-400 flex items-center justify-center mb-4">
+                <span className="text-2xl">🎯</span>
+              </div>
+              <h3 className="text-white text-xl font-semibold mb-2">Attribution Architecture</h3>
+              <p className="text-gray-400 text-sm mb-4">
+                Multi-touch and AI-powered attribution frameworks designed for B2B pipelines with CFO-ready measurement and 98% data confidence.
+              </p>
+              <Link href="/insights?category=Attribution" className="text-cyan-400 font-medium text-sm hover:underline">
+                View Insights →
+              </Link>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] hover:border-cyan-400 transition-all duration-300">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-400 flex items-center justify-center mb-4">
+                <span className="text-2xl">⚡</span>
+              </div>
+              <h3 className="text-white text-xl font-semibold mb-2">Performance Intelligence</h3>
+              <p className="text-gray-400 text-sm mb-4">
+                AI-driven systems that unify campaign performance with CRM and ARR visibility for measurable business outcomes.
+              </p>
+              <Link href="/insights?category=Measurement" className="text-cyan-400 font-medium text-sm hover:underline">
+                View Insights →
+              </Link>
             </div>
           </div>
         </div>
-      </footer>
+      </section>
+
+      {/* 5️⃣ RESEARCH SPOTLIGHT */}
+      <section className="py-20 bg-gradient-to-b from-gray-900/20 to-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">
+            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Research & Measurement Highlights
+            </span>
+          </h2>
+          <p className="text-gray-400 text-center max-w-3xl mx-auto mb-12">
+            Original research and frameworks developed by Hendricks.AI to define and measure visibility across the AI-powered search ecosystem.
+          </p>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {researchHighlights.map((research, index) => (
+              <div
+                key={index}
+                className="bg-gradient-to-br from-gray-900 to-black p-6 rounded-2xl border border-[rgba(255,255,255,0.05)] hover:border-cyan-400/50 transition-all duration-300"
+              >
+                <div className={`text-4xl font-bold mb-3 bg-gradient-to-r from-${research.color}-400 to-${research.color}-300 bg-clip-text text-transparent`}>
+                  {research.stat}
+                </div>
+                <h4 className="text-white font-bold text-sm mb-2 leading-tight">
+                  {research.title}
+                </h4>
+                <p className="text-gray-400 text-xs leading-relaxed">
+                  {research.takeaway}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ALL INSIGHTS GRID */}
+      <section className="py-20 bg-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold mb-8">
+            {selectedCategory === 'All' ? 'All Insights' : selectedCategory}
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredInsights.map(post => (
+              <Link
+                key={post.id}
+                href={`/insights/${post.id}`}
+                className="group"
+              >
+                <div className="bg-gray-900/50 rounded-2xl p-6 border border-gray-800 hover:border-cyan-400/50 transition-all duration-200 h-full">
+                  <div className="mb-3">
+                    <span className="text-xs font-bold text-cyan-400 uppercase tracking-wider">{post.category}</span>
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-white group-hover:text-cyan-400 transition-colors leading-tight">
+                    {post.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm mb-4 line-clamp-2 leading-relaxed">
+                    {post.excerpt}
+                  </p>
+                  <div className="flex items-center text-xs text-gray-500">
+                    <span>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                    <span className="mx-2">•</span>
+                    <span>{post.readTime}</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6️⃣ SUBSCRIBE CTA - Join the Intelligence Brief */}
+      <section id="subscribe" className="py-32 relative overflow-hidden bg-gradient-to-br from-blue-950 via-purple-950 to-blue-950">
+        {/* Grid Overlay */}
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
+          backgroundSize: '50px 50px',
+        }}></div>
+
+        {/* Floating Particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        </div>
+
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-white leading-tight">
+            Join the <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Intelligence Brief</span>
+          </h2>
+
+          <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+            Get exclusive insights, frameworks, and visibility benchmarks from the Hendricks.AI Intelligence team — directly in your inbox.
+          </p>
+
+          {/* Email Form */}
+          <form className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto mb-8">
+            <input
+              type="email"
+              placeholder="Your work email"
+              className="flex-1 px-6 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition"
+            />
+            <button
+              type="submit"
+              className="px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white font-bold rounded-full hover:scale-[1.03] transition-transform"
+            >
+              Subscribe →
+            </button>
+          </form>
+
+          {/* Secondary CTA */}
+          <p className="text-gray-400">
+            Prefer a conversation?{' '}
+            <Link href="/contact" className="text-cyan-400 font-semibold hover:underline">
+              Book a Strategy Session →
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      <Footer />
+      <StickyMobileCTA />
     </main>
   )
 }
