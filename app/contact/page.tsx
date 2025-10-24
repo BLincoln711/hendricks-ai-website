@@ -5,38 +5,36 @@ import Link from 'next/link'
 import Script from 'next/script'
 import Navigation from '../components/navigation'
 import Footer from '../components/footer'
-import LLMSEOBlock from '../components/llm-seo-block'
+import StickyMobileCTA from '../components/sticky-mobile-cta'
 import { BreadcrumbSchema } from '../components/seo-improvements'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
+    fullName: '',
     company: '',
-    phone: '',
-    budget: '',
-    message: '',
-    interests: [] as string[]
+    email: '',
+    monthlySpend: '',
+    primaryGoal: '',
+    message: ''
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
 
-  const budgetOptions = [
+  const monthlySpendOptions = [
+    '$5K - $15K/month',
+    '$15K - $50K/month',
     '$50K - $100K/month',
     '$100K - $250K/month',
-    '$250K - $500K/month',
-    '$500K - $1M/month',
-    '$1M+/month'
+    '$250K+/month'
   ]
 
-  const interestOptions = [
-    'Demand Radar Pilot (Prediction)',
-    'Search ROI Audit (Proof)',
-    'Performance Retainer (Unified Execution)',
-    'All Three Modules',
-    'Not sure - need guidance'
+  const primaryGoalOptions = [
+    'Measure visibility across AI search engines',
+    'Attribute pipeline back to search',
+    'Unify Google + Bing under one system',
+    'See coverage across ChatGPT, Gemini, Perplexity',
+    'Need guidance — not sure where to start'
   ]
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -44,19 +42,10 @@ export default function ContactPage() {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleInterestToggle = (interest: string) => {
-    setFormData(prev => ({
-      ...prev,
-      interests: prev.interests.includes(interest)
-        ? prev.interests.filter(i => i !== interest)
-        : [...prev.interests, interest]
-    }))
-  }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -65,23 +54,21 @@ export default function ContactPage() {
         },
         body: JSON.stringify(formData),
       })
-      
+
       const result = await response.json()
-      
+
       if (result.success) {
         setSubmitStatus('success')
-        
+
         // Reset form after success
         setTimeout(() => {
           setFormData({
-            firstName: '',
-            lastName: '',
-            email: '',
+            fullName: '',
             company: '',
-            phone: '',
-            budget: '',
-            message: '',
-            interests: []
+            email: '',
+            monthlySpend: '',
+            primaryGoal: '',
+            message: ''
           })
           setSubmitStatus('idle')
         }, 5000)
@@ -100,8 +87,8 @@ export default function ContactPage() {
   const contactSchema = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    name: 'Contact Hendricks.AI - B2B SaaS Search Intelligence',
-    description: 'Get your free Search Intelligence Report. See B2B demand predictions 2-4 weeks early with our AI-powered unified Google + Bing system.',
+    name: 'Contact Hendricks.AI - Book Your Strategy Session',
+    description: 'Book a strategy session with the AI Search Visibility & Measurement Firm for B2B Growth. Measure visibility, attribute pipeline, and amplify performance.',
     url: 'https://hendricks.ai/contact',
     mainEntity: {
       '@type': 'Organization',
@@ -116,39 +103,6 @@ export default function ContactPage() {
     }
   }
 
-  const llmSeoData = {
-    title: 'Contact Hendricks.AI - Get Your Free Search Intelligence Report',
-    description: 'Book a strategy session with the AI Search Intelligence Firm for B2B SaaS. Unify Google & Bing, predict demand 2-4 weeks early, prove ROI with CFO-ready data.',
-    keywords: [
-      'B2B SaaS Search Intelligence contact',
-      'AI search marketing consultation',
-      'Google Bing unification demo',
-      'predictive demand intelligence',
-      'search ROI audit request'
-    ],
-    faqs: [
-      {
-        question: 'What\'s included in the free Search Intelligence Report?',
-        answer: 'Your custom report includes: B2B demand predictions for your market over the next 4 weeks, competitive gap analysis, keyword opportunities, and specific recommendations for capturing predicted demand.'
-      },
-      {
-        question: 'How long does a strategy session take?',
-        answer: 'Strategy sessions are 30 minutes and include a live demo of our Search Intelligence System, custom predictions for your market, and recommendations for which module fits your needs.'
-      },
-      {
-        question: 'What\'s the minimum budget to work with Hendricks.AI?',
-        answer: 'We work with B2B SaaS companies spending $50K-$5M/month on search marketing. Our modules range from $10K/month (Demand Radar) to $30K+/month (Performance Retainer).'
-      }
-    ],
-    quickFacts: [
-      'Free Search Intelligence Report in 24 hours',
-      '30-minute strategy sessions available',
-      'Built for B2B SaaS companies',
-      '$50K-$5M/month search spend',
-      'No commitment required'
-    ]
-  }
-
   return (
     <>
       <Script
@@ -158,200 +112,149 @@ export default function ContactPage() {
           __html: JSON.stringify(contactSchema)
         }}
       />
-      <BreadcrumbSchema 
+      <BreadcrumbSchema
         items={[
           { name: 'Home', url: 'https://hendricks.ai' },
           { name: 'Contact', url: 'https://hendricks.ai/contact' }
-        ]} 
+        ]}
       />
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-gradient-to-br from-[#010414] via-[#0b1f32] to-[#1b0034] text-white">
       <Navigation />
+      <StickyMobileCTA />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-black animate-gradient-xy"></div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Let's Talk Growth
-              </span>
-            </h1>
-            <p className="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto">
-              Ready to see tomorrow today? Get your free Intelligence Report and discover 
-              demand opportunities your competitors won't see for weeks.
-            </p>
-          </div>
+      <section className="relative pt-32 pb-16 overflow-hidden">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(59,130,246,0.1),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(147,51,234,0.1),transparent_50%)]"></div>
+        </div>
+
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 leading-[1.1] tracking-tight">
+            <span className="block text-white mb-2 animate-fade-in-1">
+              Let's Measure What Matters.
+            </span>
+          </h1>
+          <p className="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto mb-8 animate-fade-in-2">
+            Book a Strategy Session with the AI Search Visibility & Measurement Firm for B2B Growth.
+          </p>
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto animate-fade-in-3">
+            We unify marketing, data, and AI to measure visibility, prove ROI, and amplify performance across Google, Bing, ChatGPT, Gemini, and Perplexity.
+          </p>
         </div>
       </section>
 
-      {/* LLM SEO Block */}
-      <LLMSEOBlock {...llmSeoData} />
-
-      {/* Booking Option */}
-      <section className="py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 p-8 rounded-2xl border border-blue-500/30 text-center">
-            <h2 className="text-2xl font-bold mb-4">Prefer to Talk Directly?</h2>
-            <p className="text-gray-300 mb-6">
-              Book a 30-minute strategy call to discuss your specific needs and see a live demo of our predictive intelligence platform.
-            </p>
-            <a 
-              href="https://calendar.app.google/DHopiSfnLiH5xwKo9" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="inline-block px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-2xl"
-            >
-              📅 Book Your Strategy Call
-            </a>
-            <p className="text-sm text-gray-400 mt-4">
-              Available times update in real-time • No commitment required
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form & Info */}
-      <section className="py-20">
+      {/* Main Form + What You'll Receive */}
+      <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-12">
-            {/* Contact Form: 2 columns */}
+
+            {/* Strategy Session Form: 2 columns */}
             <div className="lg:col-span-2">
-              <div className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl border border-gray-800">
-                <h2 className="text-3xl font-bold mb-8">Get Your Free Intelligence Report</h2>
-                
+              <div className="bg-[rgba(255,255,255,0.03)] backdrop-blur-sm p-8 sm:p-10 rounded-2xl border border-[rgba(255,255,255,0.05)]">
+                <h2 className="text-3xl font-bold mb-2">Book Your Strategy Session</h2>
+                <p className="text-gray-400 mb-8">
+                  Tell us about your business and we'll prepare a custom session tailored to your goals.
+                </p>
+
                 {submitStatus === 'success' ? (
-                  <div className="bg-green-900/20 border border-green-500 p-6 rounded-xl">
+                  <div className="bg-green-900/20 border border-green-500/50 p-6 rounded-xl">
                     <h3 className="text-2xl font-bold text-green-400 mb-2">Thank You!</h3>
                     <p className="text-gray-300">
-                      We've received your request and will send your Intelligence Report within 24 hours. 
-                      Check your email for next steps.
+                      We've received your request. Our team will reach out within 24 hours to confirm your strategy session.
                     </p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <label htmlFor="firstName" className="block text-sm font-medium text-gray-300 mb-2">
-                          First Name *
-                        </label>
-                        <input
-                          type="text"
-                          id="firstName"
-                          name="firstName"
-                          value={formData.firstName}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="lastName" className="block text-sm font-medium text-gray-300 mb-2">
-                          Last Name *
-                        </label>
-                        <input
-                          type="text"
-                          id="lastName"
-                          name="lastName"
-                          value={formData.lastName}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-                          Business Email *
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-2">
-                          Company *
-                        </label>
-                        <input
-                          type="text"
-                          id="company"
-                          name="company"
-                          value={formData.company}
-                          onChange={handleInputChange}
-                          required
-                          className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
-                          Phone Number
-                        </label>
-                        <input
-                          type="tel"
-                          id="phone"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="budget" className="block text-sm font-medium text-gray-300 mb-2">
-                          Monthly Marketing Budget
-                        </label>
-                        <select
-                          id="budget"
-                          name="budget"
-                          value={formData.budget}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
-                        >
-                          <option value="">Select budget range</option>
-                          {budgetOptions.map(option => (
-                            <option key={option} value={option}>{option}</option>
-                          ))}
-                        </select>
-                      </div>
+                    <div>
+                      <label htmlFor="fullName" className="block text-sm font-medium text-gray-300 mb-2">
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="John Smith"
+                        className="w-full px-4 py-3 bg-[rgba(0,0,0,0.3)] border border-[rgba(255,255,255,0.1)] rounded-lg focus:outline-none focus:border-cyan-400 transition-colors text-white placeholder-gray-500"
+                      />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-3">
-                        I'm interested in (select all that apply)
+                      <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-2">
+                        Company *
                       </label>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {interestOptions.map(interest => (
-                          <label
-                            key={interest}
-                            className="flex items-center space-x-3 cursor-pointer group"
-                          >
-                            <input
-                              type="checkbox"
-                              checked={formData.interests.includes(interest)}
-                              onChange={() => handleInterestToggle(interest)}
-                              className="w-5 h-5 bg-gray-800 border-gray-700 rounded focus:ring-blue-500 focus:ring-2"
-                            />
-                            <span className="text-gray-300 group-hover:text-white transition-colors">
-                              {interest}
-                            </span>
-                          </label>
+                      <input
+                        type="text"
+                        id="company"
+                        name="company"
+                        value={formData.company}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="ABC Company"
+                        className="w-full px-4 py-3 bg-[rgba(0,0,0,0.3)] border border-[rgba(255,255,255,0.1)] rounded-lg focus:outline-none focus:border-cyan-400 transition-colors text-white placeholder-gray-500"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                        Work Email *
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="john@company.com"
+                        className="w-full px-4 py-3 bg-[rgba(0,0,0,0.3)] border border-[rgba(255,255,255,0.1)] rounded-lg focus:outline-none focus:border-cyan-400 transition-colors text-white placeholder-gray-500"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="monthlySpend" className="block text-sm font-medium text-gray-300 mb-2">
+                        Monthly Search Spend *
+                      </label>
+                      <select
+                        id="monthlySpend"
+                        name="monthlySpend"
+                        value={formData.monthlySpend}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 bg-[rgba(0,0,0,0.3)] border border-[rgba(255,255,255,0.1)] rounded-lg focus:outline-none focus:border-cyan-400 transition-colors text-white"
+                      >
+                        <option value="">Select monthly spend range</option>
+                        {monthlySpendOptions.map(option => (
+                          <option key={option} value={option}>{option}</option>
                         ))}
-                      </div>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label htmlFor="primaryGoal" className="block text-sm font-medium text-gray-300 mb-2">
+                        Primary Goal *
+                      </label>
+                      <select
+                        id="primaryGoal"
+                        name="primaryGoal"
+                        value={formData.primaryGoal}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 bg-[rgba(0,0,0,0.3)] border border-[rgba(255,255,255,0.1)] rounded-lg focus:outline-none focus:border-cyan-400 transition-colors text-white"
+                      >
+                        <option value="">What are you trying to achieve?</option>
+                        {primaryGoalOptions.map(option => (
+                          <option key={option} value={option}>{option}</option>
+                        ))}
+                      </select>
                     </div>
 
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                        Tell us about your goals
+                        Additional Details (Optional)
                       </label>
                       <textarea
                         id="message"
@@ -359,155 +262,196 @@ export default function ContactPage() {
                         value={formData.message}
                         onChange={handleInputChange}
                         rows={4}
-                        className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 transition-colors resize-none"
-                        placeholder="What marketing challenges are you facing? What would success look like for you?"
+                        className="w-full px-4 py-3 bg-[rgba(0,0,0,0.3)] border border-[rgba(255,255,255,0.1)] rounded-lg focus:outline-none focus:border-cyan-400 transition-colors resize-none text-white placeholder-gray-500"
+                        placeholder="Tell us more about your current search marketing challenges or questions you'd like us to address in the session..."
                       />
                     </div>
 
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className={`w-full py-4 px-6 rounded-lg font-semibold transition-all duration-300 ${
+                      className={`w-full py-4 px-6 rounded-full font-semibold text-lg transition-all duration-300 ${
                         isSubmitting
                           ? 'bg-gray-700 cursor-not-allowed'
-                          : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transform hover:scale-[1.02]'
+                          : 'bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 hover:scale-[1.02] transform animate-glow'
                       }`}
                     >
-                      {isSubmitting ? 'Sending...' : 'Get My Free Intelligence Report'}
+                      {isSubmitting ? 'Submitting...' : 'Book My Strategy Session →'}
                     </button>
+
+                    <p className="text-sm text-gray-400 text-center mt-4">
+                      We'll confirm your session within 24 hours • No commitment required
+                    </p>
                   </form>
                 )}
               </div>
             </div>
 
-            {/* Contact Info: 1 column */}
-            <div className="space-y-8">
-              {/* Quick Contact */}
-              <div className="bg-gray-900/50 p-8 rounded-2xl border border-gray-800">
-                <h3 className="text-2xl font-bold mb-6">Quick Contact</h3>
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <span className="text-blue-400 text-xl">📧</span>
-                    <div>
-                      <p className="text-sm text-gray-400">Email</p>
-                      <a href="mailto:hello@hendricks.ai" className="text-lg hover:text-blue-400 transition-colors">
-                        hello@hendricks.ai
-                      </a>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <span className="text-blue-400 text-xl">📱</span>
-                    <div>
-                      <p className="text-sm text-gray-400">Phone</p>
-                      <a href="tel:+1-555-123-4567" className="text-lg hover:text-blue-400 transition-colors">
-                        +1 (555) 123-4567
-                      </a>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <span className="text-blue-400 text-xl">📍</span>
-                    <div>
-                      <p className="text-sm text-gray-400">Headquarters</p>
-                      <p className="text-lg">Houston, Texas</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Schedule a Call */}
-              <div className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 p-8 rounded-2xl border border-blue-500/20">
-                <h3 className="text-2xl font-bold mb-4">Prefer to Talk?</h3>
-                <p className="text-gray-300 mb-6">
-                  Schedule a 30-minute strategy call with our demand intelligence experts.
-                </p>
-                <button className="w-full px-6 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
-                  Schedule Strategy Call
-                </button>
-              </div>
-
-              {/* Response Time */}
-              <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-800">
-                <h4 className="font-semibold mb-3">What Happens Next?</h4>
-                <ul className="space-y-2 text-sm text-gray-300">
+            {/* What You'll Receive: 1 column */}
+            <div className="space-y-6">
+              <div className="bg-[rgba(255,255,255,0.03)] backdrop-blur-sm p-8 rounded-2xl border border-[rgba(255,255,255,0.05)]">
+                <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                  What You'll Receive
+                </h3>
+                <ul className="space-y-4">
                   <li className="flex items-start">
-                    <span className="text-green-400 mr-2">✓</span>
-                    <span>Intelligence Report delivered within 24 hours</span>
+                    <span className="text-cyan-400 text-xl mr-3 mt-1">✓</span>
+                    <div>
+                      <p className="font-semibold text-white mb-1">Visibility Audit Preview</p>
+                      <p className="text-sm text-gray-400">See where your brand appears across Google, Bing, ChatGPT, Gemini, and Perplexity</p>
+                    </div>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-400 mr-2">✓</span>
-                    <span>Custom demand predictions for your market</span>
+                    <span className="text-cyan-400 text-xl mr-3 mt-1">✓</span>
+                    <div>
+                      <p className="font-semibold text-white mb-1">Attribution Framework Review</p>
+                      <p className="text-sm text-gray-400">Learn how to connect marketing dollars to pipeline, ARR, and revenue</p>
+                    </div>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-400 mr-2">✓</span>
-                    <span>No-obligation strategy recommendations</span>
+                    <span className="text-cyan-400 text-xl mr-3 mt-1">✓</span>
+                    <div>
+                      <p className="font-semibold text-white mb-1">Benchmark Insights</p>
+                      <p className="text-sm text-gray-400">Compare your visibility and attribution performance against industry leaders</p>
+                    </div>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-400 mr-2">✓</span>
-                    <span>30-minute consultation included</span>
+                    <span className="text-cyan-400 text-xl mr-3 mt-1">✓</span>
+                    <div>
+                      <p className="font-semibold text-white mb-1">AI Search Recommendations</p>
+                      <p className="text-sm text-gray-400">Custom roadmap for improving coverage across the AI search ecosystem</p>
+                    </div>
                   </li>
                 </ul>
+              </div>
+
+              {/* Quick Contact Info */}
+              <div className="bg-[rgba(255,255,255,0.03)] backdrop-blur-sm p-6 rounded-2xl border border-[rgba(255,255,255,0.05)]">
+                <h4 className="font-semibold mb-4 text-white">Prefer Email?</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-3">
+                    <span className="text-cyan-400 text-lg">📧</span>
+                    <a href="mailto:hello@hendricks.ai" className="text-gray-300 hover:text-cyan-400 transition-colors">
+                      hello@hendricks.ai
+                    </a>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-cyan-400 text-lg">📍</span>
+                    <span className="text-gray-300">Houston, Texas</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Frequently Asked Questions
-            </span>
-          </h2>
-          
-          <div className="space-y-6">
-            {[
-              {
-                question: "What's included in the free Intelligence Report?",
-                answer: "Your custom Intelligence Report includes: demand predictions for your market over the next 4 weeks, competitor analysis, opportunity identification, and specific recommendations for capturing predicted demand."
-              },
-              {
-                question: "How accurate are your predictions?",
-                answer: "Our AI models achieve 74% accuracy in predicting demand 2-4 weeks in advance. This is 3x more accurate than traditional forecasting methods."
-              },
-              {
-                question: "What's the minimum budget to work with Hendricks.AI?",
-                answer: "We work with businesses investing $5,000+ per month in marketing. Our solutions scale from startups to enterprise."
-              },
-              {
-                question: "How quickly can we see results?",
-                answer: "Most clients see initial results within 30 days. Our predictive models start delivering actionable insights immediately after onboarding."
-              },
-              {
-                question: "Do you work with agencies?",
-                answer: "Yes! We partner with agencies to provide white-label demand intelligence services. Contact us for our agency partner program."
-              }
-            ].map((faq, index) => (
-              <div key={index} className="bg-gray-900/50 p-6 rounded-xl border border-gray-800">
-                <h3 className="text-lg font-semibold mb-2">{faq.question}</h3>
-                <p className="text-gray-300">{faq.answer}</p>
+      {/* Trust & Credibility Section */}
+      <section className="py-20 bg-black/30 backdrop-blur-sm border-t border-[rgba(255,255,255,0.05)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Trusted by B2B Growth Leaders
+            </h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              We've helped SaaS, FinTech, and Enterprise companies measure and amplify their visibility across the AI search ecosystem.
+            </p>
+          </div>
+
+          {/* Partner Logos Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12 items-center justify-items-center">
+            {['SolarWinds', 'Workday', 'Foursquare', 'Evernote', 'Warby Parker'].map((company) => (
+              <div key={company} className="flex items-center justify-center p-4 bg-[rgba(255,255,255,0.03)] rounded-lg border border-[rgba(255,255,255,0.05)] w-full h-20">
+                <span className="text-gray-400 font-semibold text-sm">{company}</span>
               </div>
             ))}
+          </div>
+
+          {/* Tech & Credentials */}
+          <div className="flex flex-wrap justify-center items-center gap-4 text-sm text-gray-400 mb-8">
+            <span className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
+              Built on Google Cloud
+            </span>
+            <span className="text-gray-600">•</span>
+            <span className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+              Powered by Vertex AI
+            </span>
+            <span className="text-gray-600">•</span>
+            <span className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-cyan-400 rounded-full"></span>
+              Member of the Ahrefs Customer Advisory Board
+            </span>
+          </div>
+
+          {/* Founder Credential */}
+          <div className="text-center">
+            <p className="text-gray-400 text-sm">
+              Led by <span className="text-white font-semibold">Brandon Lincoln Hendricks</span>, Certified Google Cloud Machine Learning Engineer
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="py-16 bg-gradient-to-r from-blue-900 via-purple-900 to-blue-900">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-4">
-            Stop Reacting. Start Predicting.
+      {/* Global Presence Section */}
+      <section className="py-16 bg-gradient-to-br from-[rgba(59,130,246,0.05)] to-[rgba(147,51,234,0.05)] border-t border-[rgba(255,255,255,0.05)]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold mb-6">
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              Global Reach, Rooted in Houston
+            </span>
           </h2>
-          <p className="text-xl text-gray-300 mb-8">
-            Join 500+ companies seeing tomorrow today with Hendricks.AI
+          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+            Headquartered in Houston, Texas, we serve B2B growth leaders worldwide — from SaaS startups to Fortune 500 enterprises.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-gray-400">
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🌍</span>
+              <span>Serving Clients Globally</span>
+            </div>
+            <span className="hidden sm:block text-gray-600">•</span>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🏢</span>
+              <span>Houston, Texas HQ</span>
+            </div>
+            <span className="hidden sm:block text-gray-600">•</span>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🤝</span>
+              <span>Remote-First Team</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-[#010414] via-[#0b1f32] to-[#1b0034] border-t border-[rgba(255,255,255,0.05)]">
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight">
+            <span className="text-white">Ready to </span>
+            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              Quantify Your Visibility?
+            </span>
+          </h2>
+          <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+            Join the B2B leaders who measure what matters, attribute with confidence, and amplify performance across the AI search ecosystem.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#contact-form" className="px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
-              Get Search Intelligence Report
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault()
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+              className="px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white font-bold rounded-full hover:scale-[1.03] transition-transform shadow-lg animate-glow"
+            >
+              Book Strategy Session →
             </a>
-            <Link href="/results" className="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-lg hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105">
-              See B2B SaaS Results
+            <Link
+              href="/solutions"
+              className="px-8 py-4 bg-transparent border-2 border-[rgba(255,255,255,0.2)] text-white font-semibold rounded-full hover:border-cyan-400 hover:bg-[rgba(255,255,255,0.05)] transition-all duration-300"
+            >
+              Explore Our System
             </Link>
           </div>
         </div>
