@@ -16,54 +16,50 @@ export default function Navigation() {
   }, [])
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-black/95 backdrop-blur-xl border-b border-white/10' : 'bg-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo with Category Badge */}
-          <div className="flex items-center space-x-3">
+    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-[rgba(0,5,20,0.6)] border-b border-[rgba(255,255,255,0.05)]">
+      <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+          {/* Logo with AI-Powered Badge */}
+          <div className="flex items-center space-x-2">
             <Link href="/" className="flex-shrink-0">
-              <img 
-                src="/hendricks_logo.png" 
-                alt="Hendricks.AI" 
-                className="h-8 w-auto object-contain brightness-0 invert"
+              <img
+                src="/hendricks_logo.png"
+                alt="Hendricks.AI"
+                className="h-6 w-auto object-contain brightness-0 invert"
               />
             </Link>
-            <div className="hidden lg:flex items-center space-x-2 text-xs">
-              <span className="text-green-400">●</span>
-              <span className="text-gray-400">AI-Powered</span>
-            </div>
+            <span className="text-gray-400 text-sm ml-1 flex items-center gap-1">
+              <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+              AI-Powered
+            </span>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">
+          <nav className="hidden md:flex items-center space-x-8 text-[15px]">
+            <Link href="/" className="text-gray-300 hover:text-cyan-400 transition-colors duration-200">
+              Home
+            </Link>
+            <Link href="/solutions" className="text-gray-300 hover:text-cyan-400 transition-colors duration-200">
               Solutions
             </Link>
-            <Link href="/demo" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium flex items-center gap-1">
-              Demo
-              <span className="text-xs text-green-400">●</span>
-            </Link>
-            <Link href="/results" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">
+            <Link href="/results" className="text-gray-300 hover:text-cyan-400 transition-colors duration-200">
               Results
             </Link>
-            <Link href="/insights" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">
+            <Link href="/insights" className="text-gray-300 hover:text-cyan-400 transition-colors duration-200">
               Insights
             </Link>
-            <Link href="/about" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">
+            <Link href="/about" className="text-gray-300 hover:text-cyan-400 transition-colors duration-200">
               About
             </Link>
           </nav>
 
           {/* CTA Button */}
           <div className="flex items-center space-x-4">
-            <Link 
-              href="/contact" 
-              className="hidden sm:inline-flex group relative px-6 py-2.5 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg text-sm font-semibold transition-all duration-200 transform hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25 overflow-hidden"
+            <Link
+              href="/contact"
+              className="hidden sm:inline-flex bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 rounded-full px-5 py-2 text-white font-semibold tracking-wide hover:scale-[1.03] transition-transform animate-glow"
             >
-              <span className="relative z-10">Book Strategy Session</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              Book Strategy Session →
             </Link>
 
             {/* Mobile Menu Button */}
@@ -84,49 +80,49 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-white/10">
+          <div className="md:hidden absolute top-full left-0 right-0 bg-[rgba(0,5,20,0.95)] backdrop-blur-xl border-b border-[rgba(255,255,255,0.05)]">
             <div className="px-4 py-6 space-y-4">
-              <Link 
-                href="/solutions" 
-                className="block text-gray-300 hover:text-white transition-colors duration-200 text-base font-medium"
+              <Link
+                href="/"
+                className="block text-gray-300 hover:text-cyan-400 transition-colors duration-200 text-base font-medium"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link
+                href="/solutions"
+                className="block text-gray-300 hover:text-cyan-400 transition-colors duration-200 text-base font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Solutions
               </Link>
-              <Link 
-                href="/demo" 
-                className="block text-gray-300 hover:text-white transition-colors duration-200 text-base font-medium"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Demo
-              </Link>
-              <Link 
-                href="/results" 
-                className="block text-gray-300 hover:text-white transition-colors duration-200 text-base font-medium"
+              <Link
+                href="/results"
+                className="block text-gray-300 hover:text-cyan-400 transition-colors duration-200 text-base font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Results
               </Link>
-              <Link 
-                href="/insights" 
-                className="block text-gray-300 hover:text-white transition-colors duration-200 text-base font-medium"
+              <Link
+                href="/insights"
+                className="block text-gray-300 hover:text-cyan-400 transition-colors duration-200 text-base font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Insights
               </Link>
-              <Link 
-                href="/about" 
-                className="block text-gray-300 hover:text-white transition-colors duration-200 text-base font-medium"
+              <Link
+                href="/about"
+                className="block text-gray-300 hover:text-cyan-400 transition-colors duration-200 text-base font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 About
               </Link>
-              <Link 
-                href="/contact" 
-                className="block w-full text-center px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg text-base font-semibold mt-4"
+              <Link
+                href="/contact"
+                className="block w-full text-center px-6 py-3 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white rounded-full text-base font-semibold mt-4"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Book Strategy Session
+                Book Strategy Session →
               </Link>
             </div>
           </div>
