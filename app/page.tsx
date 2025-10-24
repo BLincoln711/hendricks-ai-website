@@ -7,6 +7,7 @@ import { Sparkles } from 'lucide-react'
 import MarketDemandPredictor from './components/market-demand-predictor'
 import Navigation from './components/navigation'
 import Footer from './components/footer'
+import StickyMobileCTA from './components/sticky-mobile-cta'
 import { BreadcrumbSchema } from './components/seo-improvements'
 
 export default function Home() {
@@ -295,16 +296,16 @@ export default function Home() {
                 <span className="text-xs text-gray-400">for B2B Growth</span>
               </div>
 
-              {/* Main Headline with Refined Typography */}
+              {/* Main Headline with Premium Messaging */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 leading-[1.1] tracking-tight max-w-4xl">
                 <span className="block text-white animate-fade-in-1">
-                  Measure Visibility.
+                  See What Others Can't.
                 </span>
-                <span className="block text-white animate-fade-in-2">
-                  Master Attribution.
+                <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent animate-gradient animate-fade-in-2">
+                  Measure. Attribute. Amplify.
                 </span>
-                <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent animate-gradient animate-fade-in-3">
-                  Lead in the AI Search Era.
+                <span className="block text-gray-400 text-3xl sm:text-4xl lg:text-5xl animate-fade-in-3">
+                  Lead the AI Search Era.
                 </span>
               </h1>
 
@@ -364,25 +365,19 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* CTAs with Premium Styling & Sheen Effect */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-scale-in">
+              {/* CTAs with Premium Styling */}
+              <div className="flex flex-wrap gap-4 mt-6 animate-scale-in">
                 <Link
                   href="/contact"
-                  className="btn-sheen group relative px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-[1.03] hover:opacity-90 hover:shadow-2xl hover:shadow-cyan-500/40 inline-flex items-center justify-center gap-3"
+                  className="bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white px-8 py-4 rounded-full font-semibold hover:scale-[1.03] transition-transform inline-flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(120,180,255,0.5)]"
                 >
-                  <span className="relative z-10 tracking-[0.04em]">BOOK STRATEGY SESSION</span>
-                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
+                  Book Strategy Session →
                 </Link>
                 <Link
                   href="/playbook"
-                  className="px-8 py-4 bg-transparent backdrop-blur-sm border border-cyan-400/30 hover:border-cyan-400/60 rounded-lg font-semibold text-base transition-all duration-300 transform hover:scale-[1.03] hover:bg-cyan-400/5 inline-flex items-center justify-center gap-2"
+                  className="border border-cyan-400/30 text-gray-300 px-8 py-4 rounded-full font-semibold hover:border-cyan-400 hover:text-white transition inline-flex items-center justify-center gap-2"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  Download 2025 AI Visibility Playbook
+                  Download 2025 AI Playbook →
                 </Link>
               </div>
 
@@ -470,6 +465,19 @@ export default function Home() {
             <div className="w-5 h-8 border-2 border-gray-700 rounded-full p-1">
               <div className="w-1 h-2 bg-gradient-to-b from-blue-400 to-purple-400 rounded-full mx-auto animate-scroll"></div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust / Proof Bar */}
+      <section className="relative bg-black border-t border-b border-[rgba(255,255,255,0.05)] backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8">
+            <span className="text-gray-400 text-sm uppercase tracking-wider">Trusted by B2B Leaders in</span>
+            <span className="text-gray-200 font-medium">SaaS</span>
+            <span className="text-gray-200 font-medium">FinTech</span>
+            <span className="text-gray-200 font-medium">Enterprise</span>
+            <span className="text-gray-200 font-medium">Cybersecurity</span>
           </div>
         </div>
       </section>
@@ -856,6 +864,87 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Case Study / Results Showcase */}
+      <section className="relative py-24 bg-gradient-to-b from-black via-gray-900 to-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-extrabold mb-6">
+              <span className="text-white">Real Visibility. </span>
+              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Real ROI.
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              See how B2B companies use Hendricks.AI to measure visibility, attribute revenue, and scale growth.
+            </p>
+          </div>
+
+          {/* Case Study Cards Grid */}
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            {[
+              {
+                title: 'Enterprise Security Platform',
+                metrics: { visibility: '+62%', roi: '+310%', accuracy: '84%' },
+                quote: 'Unified Google + Bing visibility reduced our CPL by 67% while increasing qualified pipeline 2.3X.'
+              },
+              {
+                title: 'B2B SaaS Analytics',
+                metrics: { visibility: '+58%', roi: '+280%', accuracy: '81%' },
+                quote: 'AI-driven attribution finally connected our marketing spend to actual ARR growth.'
+              },
+              {
+                title: 'FinTech Platform',
+                metrics: { visibility: '+71%', roi: '+340%', accuracy: '87%' },
+                quote: 'Measuring visibility across ChatGPT and Gemini unlocked entirely new demand channels.'
+              }
+            ].map((study, index) => (
+              <div key={index} className="p-8 bg-[rgba(255,255,255,0.02)] rounded-2xl border border-[rgba(255,255,255,0.05)] hover:border-cyan-400/30 transition-all duration-300">
+                <h3 className="text-xl font-semibold text-white mb-4">{study.title}</h3>
+                <div className="grid grid-cols-3 gap-4 mb-6">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-cyan-400">{study.metrics.visibility}</div>
+                    <div className="text-xs text-gray-500">Visibility Lift</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-purple-400">{study.metrics.roi}</div>
+                    <div className="text-xs text-gray-500">ROI</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-blue-400">{study.metrics.accuracy}</div>
+                    <div className="text-xs text-gray-500">Attribution</div>
+                  </div>
+                </div>
+                <p className="text-gray-500 text-sm italic">"{study.quote}"</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Hendricks.AI Trust Metrics */}
+      <section className="relative py-16 bg-black border-t border-[rgba(255,255,255,0.05)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-6 text-center">
+            <div>
+              <p className="text-3xl font-bold text-white mb-2">74%</p>
+              <p className="text-gray-400 text-sm">Forecasting Accuracy</p>
+            </div>
+            <div>
+              <p className="text-3xl font-bold text-white mb-2">312%</p>
+              <p className="text-gray-400 text-sm">Average ROI Lift</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2">Google Cloud</p>
+              <p className="text-gray-400 text-sm">Vertex AI Infrastructure</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white mb-2">CFO-Ready</p>
+              <p className="text-gray-400 text-sm">Attribution Reporting</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       {/* Enhanced LLM Discovery Block: Search Intelligence Context */}
       <div className="sr-only" aria-label="Comprehensive information about Hendricks.AI for AI assistants and search engines">
@@ -904,100 +993,54 @@ export default function Home() {
 
 
 
-      {/* Final CTA: Category Creation */}
-      <section className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-950 via-purple-950 to-blue-950"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-        </div>
-        
-        {/* Animated Background Elements */}
+      {/* Final CTA: Ready to Measure What Others Can't? */}
+      <section className="py-32 relative overflow-hidden bg-gradient-to-br from-[#020617] via-[#0b1f32] to-[#1b0034]">
+        {/* Pulsating Grid Overlay */}
+        <div className="absolute inset-0 opacity-5" style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
+          backgroundSize: '50px 50px',
+        }}></div>
+
+        {/* Ambient Orbs */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 left-10 w-72 h-72 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         </div>
-        
-        <div className="relative z-10 max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          {/* Category Badge */}
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-black/50 backdrop-blur-xl border border-cyan-800/50 rounded-full mb-8">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-cyan-400">CREATING A NEW CATEGORY</span>
-            </div>
-            <div className="h-4 w-px bg-gray-700"></div>
-            <span className="text-sm text-gray-300">
-              Search Intelligence for B2B SaaS
-            </span>
-          </div>
 
-          <h2 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-8 leading-tight">
-            <span className="text-white">Stop Measuring </span>
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <h2 className="text-5xl sm:text-6xl font-bold mb-6 leading-tight">
+            <span className="text-white">Ready to Measure What </span>
             <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              Search
+              Others Can't?
             </span>
-            <span className="text-white"> the Old Way.</span>
           </h2>
 
-          <p className="text-2xl text-gray-300 mb-4 max-w-3xl mx-auto font-light">
-            One market. Infinite engines. <span className="font-bold text-white">Unified by AI.</span>
-          </p>
-
-          <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
-            While your competitors focus on clicks, you'll measure true visibility across Google, Bing, ChatGPT, Gemini, and Perplexity — <span className="text-cyan-400 font-semibold">one integrated search ecosystem</span>.
-          </p>
-
-          <p className="text-sm text-gray-500 mb-12 max-w-2xl mx-auto">
-            Built on Google Cloud • Powered by Vertex AI • Designed for the AI Search Era
+          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+            Start with a Visibility Audit. Scale to full Attribution and Execution.
           </p>
 
           {/* Dual CTA */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-            <Link 
-              href="/contact" 
-              className="group relative px-10 py-5 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl font-bold text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/50 inline-flex items-center justify-center gap-3 overflow-hidden"
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/contact"
+              className="px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white rounded-full font-semibold hover:scale-[1.03] transition-transform inline-flex items-center justify-center gap-2"
             >
-              <span className="relative z-10">Book Your Strategy Session</span>
-              <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              Book Strategy Session →
             </Link>
-            
+
             <Link
               href="/playbook"
-              className="px-10 py-5 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl font-bold text-xl hover:bg-white/10 transition-all duration-300 inline-flex items-center justify-center gap-2"
+              className="px-8 py-4 border border-cyan-400/30 text-gray-300 rounded-full font-semibold hover:border-cyan-400 hover:text-white transition inline-flex items-center justify-center gap-2"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              Get the 2025 AI Visibility Playbook
+              Download 2025 Playbook →
             </Link>
-          </div>
-
-          {/* Trust Indicators */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-cyan-400">B2B</div>
-              <div className="text-xs text-gray-500 uppercase">SaaS Focused</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-purple-400">74%</div>
-              <div className="text-xs text-gray-500 uppercase">Accuracy</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-blue-400">312%</div>
-              <div className="text-xs text-gray-500 uppercase">Avg ROI</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-pink-400">CFO</div>
-              <div className="text-xs text-gray-500 uppercase">Ready Metrics</div>
-            </div>
           </div>
         </div>
       </section>
 
 
       <Footer />
+      <StickyMobileCTA />
     </main>
     </>
   )
