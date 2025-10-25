@@ -71,6 +71,51 @@ const researchHighlights = [
 // All insights data
 const allInsights = [
   {
+    id: 'what-is-search-intelligence-engineer',
+    title: 'What is a Search Intelligence Engineer?',
+    excerpt: 'A Search Intelligence Engineer combines search marketing expertise with AI/ML engineering to build systems that measure, attribute, and optimize visibility across traditional and AI-powered search engines.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-10-25',
+    readTime: '12 min read',
+    category: 'Search Intelligence'
+  },
+  {
+    id: 'how-to-measure-chatgpt-visibility',
+    title: 'How to Measure Your Visibility in ChatGPT',
+    excerpt: 'Learn how to measure your brand visibility in ChatGPT and track when your company appears in AI-powered search responses.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-10-25',
+    readTime: '14 min read',
+    category: 'AI Search Measurement'
+  },
+  {
+    id: 'what-is-ai-search-visibility-measurement',
+    title: 'What is AI Search Visibility Measurement?',
+    excerpt: 'AI search visibility measurement tracks where and how often your brand appears across AI-powered search engines like ChatGPT, Gemini, Perplexity, and traditional search like Google and Bing.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-10-25',
+    readTime: '11 min read',
+    category: 'Measurement'
+  },
+  {
+    id: 'how-to-appear-in-google-ai-overviews',
+    title: 'How to Appear in Google AI Overviews',
+    excerpt: 'Learn proven strategies to make your brand appear in Google AI Overviews through structured data, content optimization, E-E-A-T signals, and technical SEO.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-10-25',
+    readTime: '13 min read',
+    category: 'AI Search Optimization'
+  },
+  {
+    id: 'search-agency-vs-search-intelligence-firm',
+    title: 'Search Agency vs Search Intelligence Firm: What\'s the Difference?',
+    excerpt: 'Traditional search agencies optimize campaigns. Search intelligence firms build measurement systems that prove ROI across the entire AI search ecosystem.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-10-25',
+    readTime: '10 min read',
+    category: 'Industry Comparison'
+  },
+  {
     id: 'google-ai-revolution-search-marketing',
     title: 'Google\'s AI Revolution: Game-Changing Updates for Search Marketing',
     excerpt: 'September 2025 marks a watershed moment as Google unleashes its most comprehensive AI transformation yet.',
@@ -162,7 +207,7 @@ const allInsights = [
   }
 ]
 
-const categories = ['All', 'Visibility', 'Attribution', 'Measurement', 'Case Studies', 'AI & Analytics']
+const categories = ['All', 'Search Intelligence', 'AI Search Measurement', 'Visibility', 'Attribution', 'Measurement', 'Case Studies', 'AI & Analytics']
 
 export default function InsightsPage() {
   const [selectedCategory, setSelectedCategory] = useState('All')
