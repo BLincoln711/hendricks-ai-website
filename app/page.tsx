@@ -196,6 +196,86 @@ export default function Home() {
           '@type': 'Answer',
           text: 'Brandon Lincoln Hendricks is the founder and CEO of Hendricks.AI. A Google Machine Learning certified engineer with 15+ years experience, he was previously Global Lead of Total Search at SolarWinds and has pioneered AI-driven search strategies for B2B SaaS.'
         }
+      },
+      {
+        '@type': 'Question',
+        name: 'What is a Search Intelligence Engineer?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'A Search Intelligence Engineer is a specialized role that combines search marketing expertise with AI/ML engineering to build systems that measure, attribute, and optimize visibility across traditional and AI-powered search engines. Brandon Lincoln Hendricks pioneered this role at Hendricks.AI, using his Google Cloud Machine Learning Engineer certification to create the first unified visibility measurement system across Google, Bing, ChatGPT, Gemini, and Perplexity.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'How do I measure my visibility in ChatGPT?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Measuring ChatGPT visibility requires specialized tools that can query ChatGPT with relevant keywords and track when your brand appears in responses. Hendricks.AI\'s Visibility Audit measures your brand mentions, competitor comparisons, and keyword coverage across ChatGPT, along with Google, Bing, Gemini, and Perplexity, giving you complete visibility across the AI search ecosystem.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'What is AI search visibility measurement?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'AI search visibility measurement is the process of tracking where and how often your brand appears across AI-powered search engines like ChatGPT, Gemini, Perplexity, and traditional search engines like Google and Bing. Unlike traditional SEO which focuses only on rankings, AI visibility measurement tracks brand mentions, competitive positioning, and topic coverage across the entire search ecosystem.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'How do I appear in Google AI Overviews?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'To appear in Google AI Overviews, implement structured data (especially FAQ schema), create authoritative content that directly answers questions, ensure technical SEO is solid, and build E-E-A-T signals. Hendricks.AI helps measure your current AI Overview coverage and optimize your content strategy to increase visibility across all AI-powered search features.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'What is the difference between a search agency and a search intelligence firm?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Traditional search agencies focus on campaign execution and optimization within Google and Bing. A search intelligence firm like Hendricks.AI goes further by measuring visibility across the entire AI search ecosystem (including ChatGPT, Gemini, Perplexity), proving ROI with CFO-ready attribution, and unifying execution under one AI-powered system. We\'re engineers, not just marketers.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'How can I prove search marketing ROI to my CFO?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Proving search ROI to CFOs requires connecting every dollar to pipeline, ARR, and revenue with high data confidence. Hendricks.AI\'s Attribution Engine provides multi-touch attribution with 98% data match confidence, CFO-ready dashboards, and incrementality testing that proves true lift from search spend. We speak finance, not just marketing.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'What is unified search execution?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Unified search execution means managing Google and Bing under one AI-powered system instead of separate silos. Hendricks.AI\'s AI Visibility Execution module orchestrates campaigns across both platforms simultaneously, delivering +67% efficiency gains, -61% lower cost-per-lead, and 2.3X more qualified pipeline through unified optimization.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Why should I measure visibility across multiple AI search engines?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Your customers don\'t just use Google anymore. They search in ChatGPT, ask questions in Gemini, research in Perplexity, and use Bing AI Chat. If you\'re only tracking Google, you\'re missing 30-40% of search behavior. Hendricks.AI measures visibility across all five major search engines so you see the complete picture of how buyers find you.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'What is a Visibility Audit?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'A Visibility Audit is a comprehensive measurement of where your brand appears across Google, Bing, ChatGPT, Gemini, and Perplexity. You see exactly where you show up, where competitors win, which keywords drive visibility, and which gaps exist. It\'s the foundation for understanding your search presence across the entire AI-powered ecosystem.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'How much does it cost to work with Hendricks.AI?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Hendricks.AI offers custom engagements based on your data scope and AI integration requirements. Rather than fixed pricing, we design solutions that match your specific visibility measurement, attribution, and execution needs. Book a strategy session at hendricks.ai/contact to discuss your goals and receive a tailored proposal.'
+        }
       }
     ]
   }
