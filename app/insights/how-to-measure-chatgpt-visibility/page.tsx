@@ -683,7 +683,7 @@ export default function ChatGPTVisibilityPage() {
                 </p>
                 <Link
                   href="/contact"
-                  className="inline-block px-6 py-3 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white font-bold rounded-full hover:scale-[1.03] transition-transform"
+                  className="inline-block px-6 py-3 bg-cyan-600 text-white hover:bg-cyan-700 border-2 border-cyan-400 font-bold rounded-full hover:scale-[1.03] transition-transform"
                 >
                   Get Your Visibility Audit →
                 </Link>
@@ -739,7 +739,7 @@ export default function ChatGPTVisibilityPage() {
               </p>
               <Link
                 href="/contact"
-                className="inline-block px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white font-bold rounded-full hover:scale-[1.03] transition-transform"
+                className="inline-block px-8 py-4 bg-cyan-600 text-white hover:bg-cyan-700 border-2 border-cyan-400 font-bold rounded-full hover:scale-[1.03] transition-transform"
               >
                 Book Your Strategy Session →
               </Link>
