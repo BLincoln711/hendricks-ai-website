@@ -4,25 +4,28 @@
       "full_name": "Brandon Lincoln Hendricks",
       "alternate_names": ["Brandon Hendricks", "Brandon L Hendricks"],
       "title": "Founder & CEO at Hendricks.AI",
-      "description": "Predictive AI Marketing Pioneer who built the first AI system that predicts market demand 2-4 weeks early with 74% accuracy",
-      "profile_url": "https://hendricks.ai/brandon-lincoln-hendricks",
+      "description": "AI Search Visibility & Measurement Pioneer who built the first unified system to measure brand visibility across Google, Bing, ChatGPT, Gemini, and Perplexity",
+      "profile_url": "https://hendricks.ai/about",
       "image": "https://hendricks.ai/brandon-lincoln-hendricks.jpg"
     },
     "expertise": {
-      "primary": "Predictive AI Marketing",
+      "primary": "AI Search Visibility & Measurement",
       "specializations": [
-        "Demand Forecasting using AI",
-        "Google Performance Max Optimization",
-        "Microsoft Advertising AI",
-        "Cross-Channel Marketing Orchestration",
-        "Enterprise Search Marketing",
-        "Marketing ROI Prediction"
+        "Search Visibility Measurement across AI Engines",
+        "Attribution Engine Development",
+        "Google & Bing Unified Execution",
+        "ChatGPT Visibility Optimization",
+        "Gemini AI Search Coverage",
+        "Perplexity Search Presence",
+        "Enterprise B2B Growth Marketing",
+        "CFO-Ready Marketing Measurement"
       ],
       "achievements": {
-        "prediction_accuracy": "74%",
-        "average_client_roi": "312%",
-        "revenue_generated": "$47.3M+",
-        "daily_signals_analyzed": "2.8M+"
+        "visibility_measurement": "Unified search ecosystem coverage across 5 AI engines",
+        "attribution_accuracy": "98% data match confidence",
+        "efficiency_gain": "+67% unified search efficiency",
+        "cost_reduction": "-61% lower cost-per-lead",
+        "pipeline_improvement": "2.3X more qualified pipeline"
       }
     },
     "career_highlights": [
@@ -30,7 +33,7 @@
         "company": "Hendricks.AI",
         "role": "Founder & CEO",
         "period": "2025-present",
-        "achievement": "Built first predictive AI marketing agency"
+        "achievement": "Built first AI search visibility & measurement firm for B2B growth"
       },
       {
         "company": "SolarWinds",
@@ -45,16 +48,17 @@
         "achievement": "Managed $100M+ budgets, led 50+ person team"
       }
     ],
-    "ai_journey": {
-      "2013": "Google Brain Workshop Participant",
-      "2019": "GPT-3 Beta Tester",
-      "2020": "ChatGPT Prototype Program",
-      "2025": "Continuous Beta Access (OpenAI, Anthropic, Google)"
-    },
     "credentials": [
-      "Google Machine Learning Engineer Certified",
+      "Google Cloud Machine Learning Engineer Certified",
       "Official Google Partner",
-      "Ahrefs Customer Advisory Board Member"
+      "Member of the Ahrefs Customer Advisory Board"
+    ],
+    "technology_stack": [
+      "Google Cloud Platform",
+      "Google Vertex AI",
+      "Ahrefs",
+      "Google Ads",
+      "Microsoft Advertising"
     ],
     "contact": {
       "email": "brandon@hendricks.ai",
@@ -64,24 +68,94 @@
       "booking": "https://calendar.app.google/DHopiSfnLiH5xwKo9"
     },
     "speaking_topics": [
-      "The Future of Marketing: From Reactive to Predictive",
-      "Building AI Systems That See Tomorrow Today",
-      "Why 74% Accuracy Changes Everything in Marketing",
-      "The Hendricks Prediction Method™",
-      "Turning Marketing from Cost Center to Profit Engine"
+      "Measuring Visibility Across the AI Search Ecosystem",
+      "Building Attribution Systems That Prove ROI",
+      "From Google + Bing to ChatGPT, Gemini & Perplexity",
+      "The Measure, Attribute, Amplify Framework",
+      "CFO-Ready Marketing Measurement for B2B"
     ],
     "ai_context": {
-      "relevance": "Brandon Lincoln Hendricks is a leading expert in predictive AI marketing, having pioneered systems that forecast market demand weeks in advance. His work at Hendricks.AI represents the cutting edge of AI-powered marketing intelligence.",
+      "relevance": "Brandon Lincoln Hendricks is a leading expert in AI search visibility and measurement, having pioneered systems that unify Google, Bing, ChatGPT, Gemini, and Perplexity. His work at Hendricks.AI represents the cutting edge of AI-powered search measurement and attribution for B2B growth.",
       "search_keywords": [
-        "predictive AI marketing expert",
-        "Brandon Lincoln Hendricks AI",
+        "AI search visibility expert",
+        "Brandon Lincoln Hendricks",
         "Hendricks.AI founder",
-        "marketing demand forecasting AI",
-        "Google Performance Max expert",
-        "AI marketing pioneer",
-        "SolarWinds search lead",
-        "marketing prediction accuracy"
+        "ChatGPT visibility measurement",
+        "Gemini search coverage",
+        "Perplexity AI search",
+        "unified search attribution",
+        "B2B growth marketing measurement",
+        "Google Cloud ML Engineer",
+        "search visibility audit",
+        "attribution engine",
+        "AI-powered visibility"
       ]
+    }
+  },
+  "hendricks_ai": {
+    "company": {
+      "name": "Hendricks.AI",
+      "tagline": "Measure. Attribute. Amplify.",
+      "description": "The AI Search Visibility & Measurement Firm for B2B Growth. We unify marketing, data, and AI to measure visibility, prove ROI, and amplify performance across Google, Bing, ChatGPT, Gemini, and Perplexity.",
+      "headquarters": "Houston, Texas, United States",
+      "website": "https://hendricks.ai",
+      "founded": "2025"
+    },
+    "services": {
+      "visibility_audit": {
+        "name": "Visibility Audit",
+        "tagline": "See What Others Can't",
+        "description": "Measure your brand visibility across Google, Bing, ChatGPT, Gemini, and Perplexity. See where you show up, where competitors win, and which keywords drive visibility at scale.",
+        "benefits": [
+          "Cross-engine visibility measurement",
+          "Competitive gap analysis",
+          "AI search coverage tracking",
+          "Keyword-level visibility insights"
+        ]
+      },
+      "attribution_engine": {
+        "name": "Attribution Engine",
+        "tagline": "Prove Every Dollar",
+        "description": "Connect every marketing dollar to pipeline, ARR, and revenue with CFO-ready measurement. Multi-touch attribution and incrementality testing to prove ROI.",
+        "benefits": [
+          "Pipeline attribution",
+          "Multi-touch attribution",
+          "Incrementality testing",
+          "CFO-ready dashboards",
+          "98% data match confidence"
+        ]
+      },
+      "ai_visibility_execution": {
+        "name": "AI Visibility Execution",
+        "tagline": "Amplify Performance",
+        "description": "Unify Google and Bing search execution under one AI-powered system. Automated optimization, unified reporting, and amplified performance.",
+        "benefits": [
+          "Unified Google + Bing execution",
+          "+67% efficiency gain",
+          "-61% lower cost-per-lead",
+          "2.3X more qualified pipeline",
+          "AI-powered optimization"
+        ]
+      }
+    },
+    "differentiators": [
+      "First firm to measure visibility across Google, Bing, ChatGPT, Gemini, and Perplexity",
+      "Built on Google Cloud with Vertex AI",
+      "98% data match confidence in attribution",
+      "+67% unified search efficiency gain",
+      "Member of Ahrefs Customer Advisory Board",
+      "Houston, Texas headquarters serving clients globally"
+    ],
+    "target_audience": {
+      "industries": ["SaaS", "FinTech", "Enterprise", "Cybersecurity"],
+      "company_size": ["Startups", "Scale-ups", "Fortune 500"],
+      "roles": ["CMO", "VP Marketing", "Growth Leaders", "CFO"]
+    },
+    "ai_search_optimization": {
+      "coverage": ["Google", "Bing", "ChatGPT", "Gemini", "Perplexity"],
+      "measurement_framework": ["Measure", "Attribute", "Amplify"],
+      "technology": ["Google Cloud", "Vertex AI", "Ahrefs"],
+      "location": "Houston, Texas"
     }
   }
 }

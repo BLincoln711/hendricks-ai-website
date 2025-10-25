@@ -111,55 +111,63 @@ export default function Home() {
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'What is Search Intelligence?',
+        name: 'What is Hendricks.AI?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Search Intelligence is Hendricks.AI\'s approach to unifying Google and Bing into one AI-driven system that predicts demand, proves cross-channel ROI, and engineers profitable execution. Unlike traditional agencies that treat channels separately, we architect visibility across the entire search ecosystem.'
+          text: 'Hendricks.AI is the AI Search Visibility & Measurement Firm for B2B Growth. We unify marketing, data, and AI to measure visibility, prove ROI, and amplify performance across Google, Bing, ChatGPT, Gemini, and Perplexity.'
         }
       },
       {
         '@type': 'Question',
-        name: 'How does Hendricks.AI unify Google and Bing?',
+        name: 'What AI search engines does Hendricks.AI measure visibility across?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'We treat Google and Bing as one unified market, not two silos. Our AI system orchestrates campaigns across both platforms simultaneously, predicting demand patterns 2-4 weeks in advance and optimizing spend allocation in real-time for maximum pipeline impact.'
+          text: 'Hendricks.AI measures your brand visibility across the entire AI search ecosystem: Google, Bing, ChatGPT, Gemini (formerly Bard), and Perplexity. This gives you complete coverage of where your customers are searching.'
         }
       },
       {
         '@type': 'Question',
-        name: 'Can you prove incrementality for B2B SaaS?',
+        name: 'How does the Visibility Audit work?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes. Our Cross-Channel Measurement module includes multi-touch attribution, MMM, and incrementality testing specifically designed for B2B SaaS. We connect spend to Salesforce/HubSpot pipeline to ARR with CFO-ready dashboards that prove true incremental lift.'
+          text: 'The Visibility Audit measures where your brand appears across Google, Bing, ChatGPT, Gemini, and Perplexity. You see exactly where you show up, where competitors win, and which keywords drive visibility at scale. This helps you understand your complete search presence across traditional and AI-powered search engines.'
         }
       },
       {
         '@type': 'Question',
-        name: 'Do you replace our existing agency?',
+        name: 'What is the Attribution Engine?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'We\'re not an agency - we\'re an AI Search Intelligence Firm. Many clients use us alongside their agency for predictive intelligence and measurement while keeping execution in-house. Others transition fully to our unified system approach.'
+          text: 'The Attribution Engine connects every marketing dollar to pipeline, ARR, and revenue with CFO-ready measurement. It includes multi-touch attribution and incrementality testing to prove ROI with 98% data match confidence.'
         }
       },
       {
         '@type': 'Question',
-        name: 'What\'s included in the Demand Radar Pilot?',
+        name: 'Does Hendricks.AI unify Google and Bing?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'The Demand Radar Pilot ($10K/month) includes AI demand forecasting 2-4 weeks ahead, predictive scoring for keywords and audiences, competitive intelligence monitoring, and weekly prediction reports. It\'s the perfect way to experience our predictive capabilities.'
+          text: 'Yes. Our AI Visibility Execution module unifies Google and Bing search execution under one AI-powered system. This delivers a +67% efficiency gain, -61% lower cost-per-lead, and 2.3X more qualified pipeline through unified optimization.'
         }
       },
       {
         '@type': 'Question',
-        name: 'How long does the Search ROI Audit take?',
+        name: 'Where is Hendricks.AI located?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'The Search ROI Audit ($15-25K) typically takes 4-6 weeks. We analyze your Google and Bing performance, implement proper attribution, run incrementality tests, and deliver a comprehensive report with specific optimization opportunities.'
+          text: 'Hendricks.AI is headquartered in Houston, Texas, and serves B2B growth leaders worldwide. We work with SaaS, FinTech, Enterprise, and Cybersecurity companies from startups to Fortune 500.'
         }
       },
       {
         '@type': 'Question',
-        name: 'What B2B SaaS companies do you work with?',
+        name: 'Who founded Hendricks.AI?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Hendricks.AI was founded by Brandon Lincoln Hendricks, a Certified Google Cloud Machine Learning Engineer and former Global Lead of Total Search at SolarWinds. Brandon is also a member of the Ahrefs Customer Advisory Board.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'What companies does Hendricks.AI work with?',
         acceptedAnswer: {
           '@type': 'Answer',
           text: 'We specialize in B2B SaaS companies spending $50K-$5M/month on search. Our clients include enterprise software, cybersecurity, martech, fintech, and vertical SaaS companies looking to prove and improve their search ROI.'

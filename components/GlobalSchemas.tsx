@@ -5,7 +5,7 @@ export default function GlobalSchemas() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Hendricks.AI',
-    description: 'The AI Search Intelligence Firm for B2B SaaS. We unify Google & Bing into one AI-driven system that predicts demand, proves ROI, and engineers execution.',
+    description: 'The AI Search Visibility & Measurement Firm for B2B Growth. We unify marketing, data, and AI to measure visibility, prove ROI, and amplify performance across Google, Bing, ChatGPT, Gemini, and Perplexity.',
     url: 'https://hendricks.ai',
     logo: 'https://hendricks.ai/hendricks_logo.png',
     sameAs: [
@@ -14,6 +14,8 @@ export default function GlobalSchemas() {
     ],
     address: {
       '@type': 'PostalAddress',
+      addressLocality: 'Houston',
+      addressRegion: 'TX',
       addressCountry: 'US'
     },
     areaServed: {
@@ -21,20 +23,28 @@ export default function GlobalSchemas() {
       name: 'United States'
     },
     knowsAbout: [
-      'Search Intelligence',
-      'B2B SaaS Marketing',
-      'Google Ads Management',
-      'Bing Ads Management',
+      'AI Search Visibility',
+      'Search Visibility Measurement',
+      'B2B Growth Marketing',
+      'Google Search Marketing',
+      'Bing Search Marketing',
+      'ChatGPT Visibility',
+      'Gemini AI Search',
+      'Perplexity Search Coverage',
       'Multi-touch Attribution',
-      'Incrementality Testing',
-      'Demand Prediction',
-      'Pipeline Attribution'
+      'Pipeline Attribution',
+      'Search ROI Measurement',
+      'Unified Search Execution',
+      'AI-Powered Visibility',
+      'Google Cloud Vertex AI',
+      'CFO-Ready Dashboards'
     ],
     founder: {
       '@type': 'Person',
       name: 'Brandon Lincoln Hendricks',
-      jobTitle: 'Founder & Search Intelligence Engineer',
-      url: 'https://hendricks.ai/about/brandon-lincoln-hendricks',
+      jobTitle: 'Founder & CEO',
+      description: 'Certified Google Cloud Machine Learning Engineer',
+      url: 'https://hendricks.ai/about',
       sameAs: [
         'https://www.linkedin.com/in/brandonlincolnhendricks/',
         'https://twitter.com/hendricksai'
@@ -50,44 +60,48 @@ export default function GlobalSchemas() {
           name: 'Dentsu/Merkle',
           description: 'Former Global Search Director'
         }
+      ],
+      hasCredential: [
+        {
+          '@type': 'EducationalOccupationalCredential',
+          credentialCategory: 'Professional Certification',
+          name: 'Google Cloud Machine Learning Engineer'
+        }
       ]
     },
-    offers: [
-      {
-        '@type': 'Offer',
-        name: 'Demand Radar Pilot',
-        description: 'AI-powered demand forecasting 2-4 weeks in advance',
-        price: '10000',
-        priceCurrency: 'USD',
-        priceSpecification: {
-          '@type': 'UnitPriceSpecification',
-          price: '10000',
-          priceCurrency: 'USD',
-          unitText: 'MONTH'
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'AI Search Visibility & Measurement Services',
+      itemListElement: [
+        {
+          '@type': 'Service',
+          name: 'Visibility Audit',
+          description: 'Measure your brand visibility across Google, Bing, ChatGPT, Gemini, and Perplexity. See where you show up, where competitors win, and which keywords drive visibility at scale.',
+          provider: {
+            '@type': 'Organization',
+            name: 'Hendricks.AI'
+          }
+        },
+        {
+          '@type': 'Service',
+          name: 'Attribution Engine',
+          description: 'Connect every marketing dollar to pipeline, ARR, and revenue with CFO-ready measurement. Multi-touch attribution and incrementality testing to prove ROI.',
+          provider: {
+            '@type': 'Organization',
+            name: 'Hendricks.AI'
+          }
+        },
+        {
+          '@type': 'Service',
+          name: 'AI Visibility Execution',
+          description: 'Unify Google and Bing search execution under one AI-powered system. Automated optimization, unified reporting, and amplified performance.',
+          provider: {
+            '@type': 'Organization',
+            name: 'Hendricks.AI'
+          }
         }
-      },
-      {
-        '@type': 'Offer',
-        name: 'Search ROI Audit',
-        description: 'Multi-touch attribution and incrementality testing',
-        priceRange: '15000-25000',
-        priceCurrency: 'USD'
-      },
-      {
-        '@type': 'Offer',
-        name: 'Performance Retainer',
-        description: 'Unified Google & Bing search execution',
-        price: '30000',
-        priceCurrency: 'USD',
-        priceSpecification: {
-          '@type': 'UnitPriceSpecification',
-          price: '30000',
-          priceCurrency: 'USD',
-          unitText: 'MONTH',
-          minPrice: '30000'
-        }
-      }
-    ]
+      ]
+    }
   }
 
   const websiteSchema = {
@@ -95,7 +109,7 @@ export default function GlobalSchemas() {
     '@type': 'WebSite',
     url: 'https://hendricks.ai',
     name: 'Hendricks.AI',
-    description: 'The AI Search Intelligence Firm for B2B SaaS',
+    description: 'The AI Search Visibility & Measurement Firm for B2B Growth',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
