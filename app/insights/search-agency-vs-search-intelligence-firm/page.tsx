@@ -512,7 +512,7 @@ export default function SearchAgencyVsIntelligencePage() {
               </p>
               <Link
                 href="/contact"
-                className="inline-block px-8 py-4 bg-cyan-600 text-white hover:bg-cyan-700 border-2 border-cyan-400 font-bold rounded-full hover:scale-[1.03] transition-transform"
+                className="inline-block px-8 py-4 bg-white text-gray-900 hover:bg-gray-100 shadow-lg shadow-cyan-500/50 font-bold rounded-full hover:scale-[1.03] transition-transform"
               >
                 Book Your Strategy Session →
               </Link>
