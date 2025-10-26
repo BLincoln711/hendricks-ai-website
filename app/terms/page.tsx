@@ -10,16 +10,15 @@ export default function TermsOfService() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex-shrink-0">
-              <img 
-                src="/hendricks_logo.png" 
-                alt="Hendricks.AI" 
+              <img
+                src="/hendricks_logo.png"
+                alt="Hendricks.AI"
                 className="h-8 w-auto object-contain brightness-0 invert"
               />
             </Link>
             <div className="hidden md:flex items-center space-x-8">
               <Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
               <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors">Solutions</Link>
-              <Link href="/how-it-works" className="text-gray-300 hover:text-white transition-colors">How It Works</Link>
               <Link href="/results" className="text-gray-300 hover:text-white transition-colors">Results</Link>
               <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
               <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
@@ -37,10 +36,10 @@ export default function TermsOfService() {
           <h1 className="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
             Terms of Service
           </h1>
-          
+
           <div className="prose prose-invert max-w-none space-y-6 text-gray-300">
             <p className="text-sm text-gray-400">Effective Date: January 14, 2025</p>
-            
+
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">1. Agreement to Terms</h2>
               <p>

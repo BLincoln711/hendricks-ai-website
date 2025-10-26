@@ -10,16 +10,15 @@ export default function PrivacyPolicy() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex-shrink-0">
-              <img 
-                src="/hendricks_logo.png" 
-                alt="Hendricks.AI" 
+              <img
+                src="/hendricks_logo.png"
+                alt="Hendricks.AI"
                 className="h-8 w-auto object-contain brightness-0 invert"
               />
             </Link>
             <div className="hidden md:flex items-center space-x-8">
               <Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
               <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors">Solutions</Link>
-              <Link href="/how-it-works" className="text-gray-300 hover:text-white transition-colors">How It Works</Link>
               <Link href="/results" className="text-gray-300 hover:text-white transition-colors">Results</Link>
               <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
               <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
@@ -37,10 +36,10 @@ export default function PrivacyPolicy() {
           <h1 className="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
             Privacy Policy
           </h1>
-          
+
           <div className="prose prose-invert max-w-none space-y-6 text-gray-300">
             <p className="text-sm text-gray-400">Last Updated: January 14, 2025</p>
-            
+
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">1. Introduction</h2>
               <p>
@@ -50,7 +49,7 @@ export default function PrivacyPolicy() {
 
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">2. Information We Collect</h2>
-              
+
               <h3 className="text-xl font-semibold text-white mb-2">Personal Information</h3>
               <p>We may collect the following types of personal information:</p>
               <ul className="list-disc list-inside space-y-1 ml-4">
@@ -100,7 +99,7 @@ export default function PrivacyPolicy() {
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">4. Information Sharing</h2>
               <p>We do not sell your personal information. We may share your information with:</p>
-              
+
               <h3 className="text-xl font-semibold text-white mb-2">Service Providers</h3>
               <ul className="list-disc list-inside space-y-1 ml-4">
                 <li>Analytics platforms (Google Analytics, HubSpot)</li>

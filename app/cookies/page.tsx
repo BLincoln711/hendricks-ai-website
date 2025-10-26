@@ -10,16 +10,15 @@ export default function CookiePolicy() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex-shrink-0">
-              <img 
-                src="/hendricks_logo.png" 
-                alt="Hendricks.AI" 
+              <img
+                src="/hendricks_logo.png"
+                alt="Hendricks.AI"
                 className="h-8 w-auto object-contain brightness-0 invert"
               />
             </Link>
             <div className="hidden md:flex items-center space-x-8">
               <Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
               <Link href="/solutions" className="text-gray-300 hover:text-white transition-colors">Solutions</Link>
-              <Link href="/how-it-works" className="text-gray-300 hover:text-white transition-colors">How It Works</Link>
               <Link href="/results" className="text-gray-300 hover:text-white transition-colors">Results</Link>
               <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
               <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
@@ -37,10 +36,10 @@ export default function CookiePolicy() {
           <h1 className="text-4xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
             Cookie Policy
           </h1>
-          
+
           <div className="prose prose-invert max-w-none space-y-6 text-gray-300">
             <p className="text-sm text-gray-400">Last Updated: January 14, 2025</p>
-            
+
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">1. What Are Cookies?</h2>
               <p>
@@ -51,7 +50,7 @@ export default function CookiePolicy() {
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">2. How We Use Cookies</h2>
               <p>Hendricks.AI uses cookies and similar tracking technologies for the following purposes:</p>
-              
+
               <h3 className="text-xl font-semibold text-white mb-2 mt-4">Essential Cookies</h3>
               <p>Required for the website to function properly:</p>
               <ul className="list-disc list-inside space-y-1 ml-4">
@@ -87,7 +86,7 @@ export default function CookiePolicy() {
 
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">3. Types of Cookies We Use</h2>
-              
+
               <div className="overflow-x-auto">
                 <table className="min-w-full border border-gray-700">
                   <thead className="bg-gray-900">
@@ -131,7 +130,7 @@ export default function CookiePolicy() {
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">4. Your Cookie Choices</h2>
               <p>You have several options for managing cookies:</p>
-              
+
               <h3 className="text-xl font-semibold text-white mb-2 mt-4">Browser Settings</h3>
               <p>
                 Most browsers allow you to control cookies through their settings. You can:

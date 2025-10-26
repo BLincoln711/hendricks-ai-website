@@ -12,9 +12,9 @@ export default function PredictiveAttributionPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             <Link href="/" className="flex-shrink-0">
-              <img 
-                src="/hendricks_logo.png" 
-                alt="Hendricks.AI" 
+              <img
+                src="/hendricks_logo.png"
+                alt="Hendricks.AI"
                 className="h-8 w-auto object-contain brightness-0 invert"
               />
             </Link>
@@ -31,8 +31,8 @@ export default function PredictiveAttributionPage() {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20" />
-        
-        <motion.div 
+
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -43,7 +43,7 @@ export default function PredictiveAttributionPage() {
               <BarChart3 className="w-4 h-4" />
               <span>Predictive Attribution & Modern Measurement</span>
             </div>
-            
+
             <h1 className="text-5xl sm:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                 See Attribution Future,
@@ -51,21 +51,21 @@ export default function PredictiveAttributionPage() {
               <br />
               <span>Not Attribution History</span>
             </h1>
-            
+
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-              While others measure what happened, we predict what will happen. 
-              Combine Google's modern measurement principles with AI that forecasts 
+              While others measure what happened, we predict what will happen.
+              Combine Google's modern measurement principles with AI that forecasts
               channel performance and incrementality 2-4 weeks in advance.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4">
-              <Link 
+              <Link
                 href="/contact"
                 className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-2xl hover:shadow-purple-500/25 transition-all transform hover:scale-105"
               >
                 Get Predictive Attribution Audit
               </Link>
-              <Link 
+              <Link
                 href="/news/modern-measurement-meets-predictive-ai"
                 className="px-8 py-4 bg-gray-800 text-white rounded-lg font-semibold hover:bg-gray-700 transition-all"
               >
@@ -88,7 +88,7 @@ export default function PredictiveAttributionPage() {
             <h2 className="text-4xl font-bold text-center mb-16">
               Traditional Attribution's Fatal Flaw
             </h2>
-            
+
             <div className="grid md:grid-cols-2 gap-12">
               <div className="bg-black/50 p-8 rounded-xl border border-red-900/50">
                 <h3 className="text-2xl font-bold mb-4 text-red-400">
@@ -113,7 +113,7 @@ export default function PredictiveAttributionPage() {
                   </li>
                 </ul>
               </div>
-              
+
               <div className="bg-black/50 p-8 rounded-xl border border-green-900/50">
                 <h3 className="text-2xl font-bold mb-4 text-green-400">
                   Predictive Attribution
@@ -154,7 +154,7 @@ export default function PredictiveAttributionPage() {
             <h2 className="text-4xl font-bold text-center mb-16">
               The Predictive Attribution Advantage
             </h2>
-            
+
             <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-gradient-to-br from-blue-900/20 to-purple-900/20 p-8 rounded-xl border border-blue-500/20">
                 <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mb-6">
@@ -162,29 +162,29 @@ export default function PredictiveAttributionPage() {
                 </div>
                 <h3 className="text-xl font-bold mb-4">Demand Prediction</h3>
                 <p className="text-gray-300">
-                  AI analyzes 2.8M daily signals to identify emerging demand patterns 
+                  AI analyzes 2.8M daily signals to identify emerging demand patterns
                   2-4 weeks before they materialize in search and social data.
                 </p>
               </div>
-              
+
               <div className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 p-8 rounded-xl border border-purple-500/20">
                 <div className="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mb-6">
                   <Target className="w-8 h-8 text-purple-400" />
                 </div>
                 <h3 className="text-xl font-bold mb-4">Channel Forecast</h3>
                 <p className="text-gray-300">
-                  Predicts which channels will be most effective at capturing 
+                  Predicts which channels will be most effective at capturing
                   specific demand patterns based on historical incrementality data.
                 </p>
               </div>
-              
+
               <div className="bg-gradient-to-br from-green-900/20 to-blue-900/20 p-8 rounded-xl border border-green-500/20">
                 <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-6">
                   <Zap className="w-8 h-8 text-green-400" />
                 </div>
                 <h3 className="text-xl font-bold mb-4">Incremental Impact</h3>
                 <p className="text-gray-300">
-                  Forecasts the incremental lift each channel will deliver, 
+                  Forecasts the incremental lift each channel will deliver,
                   allowing optimal budget allocation before spending.
                 </p>
               </div>
@@ -205,7 +205,7 @@ export default function PredictiveAttributionPage() {
             <h2 className="text-4xl font-bold text-center mb-16">
               Real Results: Predictive Attribution in Action
             </h2>
-            
+
             <div className="bg-black/50 p-8 rounded-xl border border-gray-800">
               <div className="grid md:grid-cols-2 gap-12">
                 <div>
@@ -213,11 +213,11 @@ export default function PredictiveAttributionPage() {
                     E-commerce Client Case Study
                   </h3>
                   <p className="text-gray-300 mb-6">
-                    Our AI predicted a surge in sustainable home products demand 
-                    3 weeks before it appeared in search data. More importantly, 
+                    Our AI predicted a surge in sustainable home products demand
+                    3 weeks before it appeared in search data. More importantly,
                     we predicted which channels would capture it most effectively.
                   </p>
-                  
+
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
                       <span className="text-gray-400">Google Shopping</span>
@@ -237,7 +237,7 @@ export default function PredictiveAttributionPage() {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center justify-center">
                   <div className="text-center">
                     <div className="text-6xl font-bold text-green-400 mb-4">287%</div>
@@ -263,7 +263,7 @@ export default function PredictiveAttributionPage() {
             <h2 className="text-4xl font-bold text-center mb-16">
               Works With Your Existing Stack
             </h2>
-            
+
             <div className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 p-12 rounded-2xl border border-blue-500/20">
               <div className="grid md:grid-cols-2 gap-12">
                 <div>
@@ -287,7 +287,7 @@ export default function PredictiveAttributionPage() {
                     </li>
                   </ul>
                 </div>
-                
+
                 <div>
                   <h3 className="text-2xl font-bold mb-6">What We Add</h3>
                   <ul className="space-y-3 text-gray-300">
@@ -327,29 +327,22 @@ export default function PredictiveAttributionPage() {
             <h2 className="text-4xl font-bold mb-6">
               Ready to Predict Your Attribution Future?
             </h2>
-            
+
             <p className="text-xl text-gray-300 mb-8">
               Stop reacting to yesterday's data. Start preparing for tomorrow's opportunities.
               Get your free Predictive Attribution Audit and see what you're missing.
             </p>
-            
+
             <div className="flex flex-wrap justify-center gap-4">
-              <Link 
+              <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-2xl hover:shadow-purple-500/25 transition-all transform hover:scale-105"
               >
                 Get Free Attribution Audit
                 <ArrowRight className="w-5 h-5" />
               </Link>
-              <Link 
-                href="/demo"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gray-800 text-white rounded-lg font-semibold hover:bg-gray-700 transition-all"
-              >
-                See Live Demo
-                <TrendingUp className="w-5 h-5" />
-              </Link>
             </div>
-            
+
             <p className="mt-8 text-sm text-gray-500">
               Average client sees 312% ROI improvement in 90 days
             </p>
