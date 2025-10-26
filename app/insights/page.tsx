@@ -9,31 +9,31 @@ import StickyMobileCTA from '../components/sticky-mobile-cta'
 // Featured Intelligence - Top Editorial Content
 const featuredIntelligence = [
   {
-    id: 'measurable-era-visibility-currency',
-    title: 'The Measurable Era: Why Visibility is the New Marketing Currency',
-    subtitle: 'How AI search and attribution precision are changing CMO metrics forever.',
+    id: 'what-is-search-intelligence-engineer',
+    title: 'What is a Search Intelligence Engineer?',
+    subtitle: 'The pioneering role combining search marketing, data science, and AI engineering.',
     author: 'Brandon Lincoln Hendricks',
-    date: '2025-10-20',
+    date: '2025-10-25',
     readTime: '12 min read',
-    category: 'Visibility',
+    category: 'Search Intelligence',
     gradient: 'from-blue-600 to-cyan-600'
   },
   {
-    id: 'unified-search-breaking-silos',
-    title: 'Unified Search: Breaking Down Silos Between Google, Bing & AI Search',
-    subtitle: 'Why B2B visibility now demands orchestration, not optimization.',
-    author: 'Hendricks.AI Strategy Team',
-    date: '2025-10-18',
+    id: 'what-is-unified-search-execution',
+    title: 'What is Unified Search Execution?',
+    subtitle: 'Orchestrating Google, Bing, and AI search in one integrated strategy.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-10-26',
     readTime: '10 min read',
     category: 'Attribution',
     gradient: 'from-purple-600 to-pink-600'
   },
   {
-    id: 'visibility-audit-framework',
-    title: 'The Visibility Audit Framework',
-    subtitle: 'Our firm\'s proprietary methodology for quantifying visibility across AI-powered platforms.',
-    author: 'Hendricks.AI Data Group',
-    date: '2025-10-15',
+    id: 'what-is-visibility-audit',
+    title: 'What is a Visibility Audit?',
+    subtitle: 'Comprehensive visibility measurement across Google, Bing, ChatGPT, Gemini, and Perplexity.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-10-26',
     readTime: '15 min read',
     category: 'Measurement',
     gradient: 'from-cyan-600 to-blue-600'
