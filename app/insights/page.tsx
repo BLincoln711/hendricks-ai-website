@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import Navigation from '../components/navigation'
 import Footer from '../components/footer'
+import Navigation from '../components/navigation'
 import StickyMobileCTA from '../components/sticky-mobile-cta'
 
 // Featured Intelligence - Top Editorial Content
@@ -37,34 +37,6 @@ const featuredIntelligence = [
     readTime: '15 min read',
     category: 'Measurement',
     gradient: 'from-cyan-600 to-blue-600'
-  }
-]
-
-// Research & Measurement Highlights
-const researchHighlights = [
-  {
-    title: 'The 2025 Visibility Benchmark Report',
-    takeaway: 'Visibility correlates to a 2.3x lift in qualified pipeline',
-    stat: '2.3X',
-    color: 'blue'
-  },
-  {
-    title: 'Cross-Engine Attribution Study (Google vs Bing)',
-    takeaway: 'Unified attribution improves ROI accuracy by 67%',
-    stat: '+67%',
-    color: 'purple'
-  },
-  {
-    title: 'AI Search Ecosystem Index 2025',
-    takeaway: 'Only 18% of B2B brands measure AI search exposure effectively',
-    stat: '18%',
-    color: 'cyan'
-  },
-  {
-    title: 'CFO-Ready Attribution Framework',
-    takeaway: '98% data match confidence in CRM-linked attribution',
-    stat: '98%',
-    color: 'green'
   }
 ]
 
@@ -326,94 +298,6 @@ export default function InsightsPage() {
                   </div>
                 </div>
               </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4️⃣ COLLECTIONS GRID - Explore Our Frameworks */}
-      <section className="py-20 bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Explore Our Frameworks
-            </span>
-          </h2>
-          <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12">
-            Curated knowledge areas defining measurable visibility in the AI search era
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] hover:border-cyan-400 transition-all duration-300">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 flex items-center justify-center mb-4">
-                <span className="text-2xl">📈</span>
-              </div>
-              <h3 className="text-white text-xl font-semibold mb-2">Visibility Systems</h3>
-              <p className="text-gray-400 text-sm mb-4">
-                Frameworks and strategies for measuring and optimizing AI-powered visibility across Google, Bing, ChatGPT, Gemini, and Perplexity.
-              </p>
-              <Link href="/insights?category=Visibility" className="text-cyan-400 font-medium text-sm hover:underline">
-                View Insights →
-              </Link>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] hover:border-cyan-400 transition-all duration-300">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-400 flex items-center justify-center mb-4">
-                <span className="text-2xl">🎯</span>
-              </div>
-              <h3 className="text-white text-xl font-semibold mb-2">Attribution Architecture</h3>
-              <p className="text-gray-400 text-sm mb-4">
-                Multi-touch and AI-powered attribution frameworks designed for B2B pipelines with CFO-ready measurement and 98% data confidence.
-              </p>
-              <Link href="/insights?category=Attribution" className="text-cyan-400 font-medium text-sm hover:underline">
-                View Insights →
-              </Link>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] hover:border-cyan-400 transition-all duration-300">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-500 to-blue-400 flex items-center justify-center mb-4">
-                <span className="text-2xl">⚡</span>
-              </div>
-              <h3 className="text-white text-xl font-semibold mb-2">Performance Intelligence</h3>
-              <p className="text-gray-400 text-sm mb-4">
-                AI-driven systems that unify campaign performance with CRM and ARR visibility for measurable business outcomes.
-              </p>
-              <Link href="/insights?category=Measurement" className="text-cyan-400 font-medium text-sm hover:underline">
-                View Insights →
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5️⃣ RESEARCH SPOTLIGHT */}
-      <section className="py-20 bg-gradient-to-b from-gray-900/20 to-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Research & Measurement Highlights
-            </span>
-          </h2>
-          <p className="text-gray-400 text-center max-w-3xl mx-auto mb-12">
-            Original research and frameworks developed by Hendricks.AI to define and measure visibility across the AI-powered search ecosystem.
-          </p>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {researchHighlights.map((research, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-br from-gray-900 to-black p-6 rounded-2xl border border-[rgba(255,255,255,0.05)] hover:border-cyan-400/50 transition-all duration-300"
-              >
-                <div className={`text-4xl font-bold mb-3 bg-gradient-to-r from-${research.color}-400 to-${research.color}-300 bg-clip-text text-transparent`}>
-                  {research.stat}
-                </div>
-                <h4 className="text-white font-bold text-sm mb-2 leading-tight">
-                  {research.title}
-                </h4>
-                <p className="text-gray-400 text-xs leading-relaxed">
-                  {research.takeaway}
-                </p>
-              </div>
             ))}
           </div>
         </div>
