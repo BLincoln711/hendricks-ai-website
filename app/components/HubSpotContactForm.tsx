@@ -1,14 +1,18 @@
 'use client'
 
 import { useEffect } from 'react'
+import { trackFormStart, trackFormSubmit, trackFormError } from '@/lib/analytics'
 
 interface HubSpotContactFormProps {
   formId: string
   portalId: string
+  formName?: string
 }
 
-export default function HubSpotContactForm({ formId, portalId }: HubSpotContactFormProps) {
+export default function HubSpotContactForm({ formId, portalId, formName = 'Contact Form' }: HubSpotContactFormProps) {
   useEffect(() => {
+    let formStartTracked = false
+
     // Create the form container div
     const script = document.createElement('script')
     script.src = '//js.hsforms.net/forms/v2.js'
@@ -34,23 +38,39 @@ export default function HubSpotContactForm({ formId, portalId }: HubSpotContactF
               const inputs = form.querySelectorAll('input, textarea, select')
               inputs.forEach((input) => {
                 input.classList.add('w-full', 'px-4', 'py-3', 'bg-gray-900', 'border', 'border-gray-700', 'rounded-lg', 'text-white', 'focus:border-blue-500', 'focus:outline-none')
+
+                // Track form start on first input focus
+                input.addEventListener('focus', () => {
+                  if (!formStartTracked) {
+                    trackFormStart(formName)
+                    formStartTracked = true
+                  }
+                })
               })
-              
+
               const labels = form.querySelectorAll('label')
               labels.forEach((label) => {
                 label.classList.add('block', 'text-sm', 'font-medium', 'text-gray-300', 'mb-2')
               })
-              
+
               const submitButton = form.querySelector('input[type="submit"]')
               if (submitButton) {
                 submitButton.classList.add('w-full', 'bg-gradient-to-r', 'from-blue-600', 'to-blue-700', 'hover:from-blue-700', 'hover:to-blue-800', 'text-white', 'font-semibold', 'py-4', 'px-6', 'rounded-lg', 'transition-all', 'duration-200', 'transform', 'hover:scale-105', 'cursor-pointer')
               }
-              
+
               const fieldGroups = form.querySelectorAll('.hs-form-field')
               fieldGroups.forEach((group) => {
                 group.classList.add('mb-6')
               })
             }
+          },
+          onFormSubmit: function() {
+            // Track successful form submission
+            trackFormSubmit(formName)
+          },
+          onFormSubmitted: function() {
+            // Track when HubSpot confirms submission
+            console.log('Form submitted successfully')
           }
         })
       }
