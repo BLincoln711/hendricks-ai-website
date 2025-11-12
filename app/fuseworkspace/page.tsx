@@ -512,8 +512,8 @@ export default function FuseWorkspaceDashboard() {
         {/* Summary Metrics */}
         <div className="metrics-grid">
           <div className="metric-card highlight">
-            <div className="metric-label highlight">Total Conversions 🎯</div>
-            <div className="metric-value highlight">{totals.conversions.toFixed(0)}</div>
+            <div className="metric-label highlight">Book Appointments 🎯</div>
+            <div className="metric-value highlight">{totals.bookAppointments.toFixed(0)}</div>
             <div className="metric-change neutral">
               <span>→</span>
               <span>0.0% MoM</span>
@@ -521,8 +521,26 @@ export default function FuseWorkspaceDashboard() {
           </div>
 
           <div className="metric-card highlight">
-            <div className="metric-label highlight">Cost Per Conversion 🎯</div>
-            <div className="metric-value highlight">${(totals.conversions > 0 ? totals.cost / totals.conversions : 0).toFixed(2)}</div>
+            <div className="metric-label highlight">Cost Per Appointment 🎯</div>
+            <div className="metric-value highlight">${(totals.bookAppointments > 0 ? totals.cost / totals.bookAppointments : 0).toFixed(2)}</div>
+            <div className="metric-change neutral">
+              <span>→</span>
+              <span>0.0% MoM</span>
+            </div>
+          </div>
+
+          <div className="metric-card">
+            <div className="metric-label">Total Conversions</div>
+            <div className="metric-value">{totals.conversions.toFixed(0)}</div>
+            <div className="metric-change neutral">
+              <span>→</span>
+              <span>0.0% MoM</span>
+            </div>
+          </div>
+
+          <div className="metric-card">
+            <div className="metric-label">Cost Per Conversion</div>
+            <div className="metric-value">${(totals.conversions > 0 ? totals.cost / totals.conversions : 0).toFixed(2)}</div>
             <div className="metric-change neutral">
               <span>→</span>
               <span>0.0% MoM</span>
@@ -646,7 +664,8 @@ export default function FuseWorkspaceDashboard() {
                 <th>Cost</th>
                 <th>CPC</th>
                 <th>Clicks</th>
-                <th style={{background: '#e6fffa', color: '#234e52'}}>Conversions</th>
+                <th style={{background: '#e6fffa', color: '#234e52'}}>Book Appts</th>
+                <th>Total Conv.</th>
                 <th>Cost/Conv</th>
               </tr>
             </thead>
@@ -679,6 +698,9 @@ export default function FuseWorkspaceDashboard() {
                       </span>
                     </td>
                     <td style={{background: '#f0fdfa', fontWeight: 700, color: '#234e52'}}>
+                      {campaign.bookAppointments.toFixed(0)}
+                    </td>
+                    <td>
                       {campaign.conversions.toFixed(0)}
                     </td>
                     <td>
