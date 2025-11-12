@@ -703,10 +703,10 @@ export default function FuseWorkspaceDashboard() {
                     <td style={{background: '#f0fdfa', fontWeight: 700, color: '#234e52'}}>
                       {campaign.bookAppointments.toFixed(0)}
                     </td>
-                    <td>
+                    <td style={{color: '#1a202c', fontWeight: 600}}>
                       {totalConv.toFixed(0)}
                     </td>
-                    <td>
+                    <td style={{color: '#1a202c', fontWeight: 600}}>
                       {costPerConv > 0 ? `$${costPerConv.toFixed(2)}` : '—'}
                     </td>
                   </tr>
