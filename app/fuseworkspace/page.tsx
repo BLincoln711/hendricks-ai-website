@@ -512,8 +512,8 @@ export default function FuseWorkspaceDashboard() {
         {/* Summary Metrics */}
         <div className="metrics-grid">
           <div className="metric-card highlight">
-            <div className="metric-label highlight">Total Book Appointments 🎯</div>
-            <div className="metric-value highlight">{totals.bookAppointments.toFixed(0)}</div>
+            <div className="metric-label highlight">Total Conversions 🎯</div>
+            <div className="metric-value highlight">{totals.conversions.toFixed(0)}</div>
             <div className="metric-change neutral">
               <span>→</span>
               <span>0.0% MoM</span>
@@ -521,8 +521,8 @@ export default function FuseWorkspaceDashboard() {
           </div>
 
           <div className="metric-card highlight">
-            <div className="metric-label highlight">Cost Per Appointment 🎯</div>
-            <div className="metric-value highlight">${costPerAppt.toFixed(2)}</div>
+            <div className="metric-label highlight">Cost Per Conversion 🎯</div>
+            <div className="metric-value highlight">${(totals.conversions > 0 ? totals.cost / totals.conversions : 0).toFixed(2)}</div>
             <div className="metric-change neutral">
               <span>→</span>
               <span>0.0% MoM</span>
@@ -539,26 +539,8 @@ export default function FuseWorkspaceDashboard() {
           </div>
 
           <div className="metric-card">
-            <div className="metric-label">Phone Leads</div>
-            <div className="metric-value">{totals.phoneLeads.toFixed(0)}</div>
-            <div className="metric-change neutral">
-              <span>→</span>
-              <span>0.0% MoM</span>
-            </div>
-          </div>
-
-          <div className="metric-card">
-            <div className="metric-label">Submit Form Leads</div>
-            <div className="metric-value">{totals.submitLeads.toFixed(0)}</div>
-            <div className="metric-change neutral">
-              <span>→</span>
-              <span>0.0% MoM</span>
-            </div>
-          </div>
-
-          <div className="metric-card">
-            <div className="metric-label">Appointment Rate</div>
-            <div className="metric-value">{apptRate.toFixed(2)}%</div>
+            <div className="metric-label">Conversion Rate</div>
+            <div className="metric-value">{(totals.clicks > 0 ? (totals.conversions / totals.clicks) * 100 : 0).toFixed(2)}%</div>
             <div className="metric-change neutral">
               <span>→</span>
               <span>0.0% MoM</span>
@@ -664,11 +646,8 @@ export default function FuseWorkspaceDashboard() {
                 <th>Cost</th>
                 <th>CPC</th>
                 <th>Clicks</th>
-                <th style={{background: '#e6fffa', color: '#234e52'}}>Book Appts</th>
-                <th>Phone Leads</th>
-                <th>Submit Leads</th>
-                <th>Total Conv.</th>
-                <th>Cost/Appt</th>
+                <th style={{background: '#e6fffa', color: '#234e52'}}>Conversions</th>
+                <th>Cost/Conv</th>
               </tr>
             </thead>
             <tbody>
@@ -677,7 +656,6 @@ export default function FuseWorkspaceDashboard() {
                 const costTrend = getTrendIcon(campaign.costChange, true);
                 const cpcTrend = getTrendIcon(campaign.cpcChange, true);
                 const clicksTrend = getTrendIcon(campaign.clicksChange, false);
-                const convTrend = getTrendIcon(campaign.conversionsChange, false);
 
                 return (
                   <tr key={index}>
@@ -701,22 +679,10 @@ export default function FuseWorkspaceDashboard() {
                       </span>
                     </td>
                     <td style={{background: '#f0fdfa', fontWeight: 700, color: '#234e52'}}>
-                      {campaign.bookAppointments.toFixed(1)}
-                    </td>
-                    <td>
-                      {campaign.phoneLeads.toFixed(1)}
-                    </td>
-                    <td>
-                      {campaign.submitLeads.toFixed(1)}
-                    </td>
-                    <td>
                       {campaign.conversions.toFixed(0)}
-                      <span className="trend-indicator" style={{color: convTrend.color}}>
-                        {convTrend.symbol} {convTrend.value}%
-                      </span>
                     </td>
                     <td>
-                      ${costPerAppt > 0 ? costPerAppt.toFixed(2) : '—'}
+                      ${campaign.conversions > 0 ? (campaign.cost / campaign.conversions).toFixed(2) : '—'}
                     </td>
                   </tr>
                 );
