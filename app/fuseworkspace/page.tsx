@@ -667,8 +667,6 @@ export default function FuseWorkspaceDashboard() {
                 <th>CPC</th>
                 <th>Clicks</th>
                 <th style={{background: '#e6fffa', color: '#234e52'}}>Book Appts</th>
-                <th>Total Conv.</th>
-                <th>Cost/Conv</th>
               </tr>
             </thead>
             <tbody>
@@ -677,9 +675,6 @@ export default function FuseWorkspaceDashboard() {
                 const costTrend = getTrendIcon(campaign.costChange, true);
                 const cpcTrend = getTrendIcon(campaign.cpcChange, true);
                 const clicksTrend = getTrendIcon(campaign.clicksChange, false);
-
-                const totalConv = campaign.conversions;
-                const costPerConv = campaign.conversions > 0 ? (campaign.cost / campaign.conversions) : 0;
 
                 return (
                   <tr key={index}>
@@ -704,12 +699,6 @@ export default function FuseWorkspaceDashboard() {
                     </td>
                     <td style={{background: '#f0fdfa', fontWeight: 700, color: '#234e52'}}>
                       {campaign.bookAppointments.toFixed(0)}
-                    </td>
-                    <td style={{color: '#1a202c', fontWeight: 600}}>
-                      {totalConv.toFixed(0)}
-                    </td>
-                    <td style={{color: '#1a202c', fontWeight: 600}}>
-                      {costPerConv > 0 ? `$${costPerConv.toFixed(2)}` : '—'}
                     </td>
                   </tr>
                 );
