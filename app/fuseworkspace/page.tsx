@@ -21,8 +21,7 @@ interface Campaign {
   costPerConvChange: number;
 }
 
-export default function FuseWorkspaceDashboard() {
-  const [campaignData] = useState<Campaign[]>([
+const defaultData: Campaign[] = [
     {
       campaign: "HOU | CityCentre | Search | Max Clicks",
       cost: 751.79,
@@ -185,7 +184,79 @@ export default function FuseWorkspaceDashboard() {
       costPerConv: 201.40,
       costPerConvChange: 0
     }
-  ]);
+];
+
+export default function FuseWorkspaceDashboard() {
+  const [campaignData, setCampaignData] = useState<Campaign[]>(defaultData);
+  const [isUploading, setIsUploading] = useState(false);
+  const [showUpload, setShowUpload] = useState(false);
+
+  const parseCSV = (csvText: string) => {
+    const lines = csvText.trim().split('\n');
+    if (lines.length < 2) return;
+
+    const newCampaigns: Campaign[] = [];
+
+    for (let i = 1; i < lines.length; i++) {
+      const line = lines[i];
+      const matches = line.match(/(?:\"([^\"]*)\"|([^,]+)),/g);
+      if (!matches || matches.length < 9) continue;
+
+      const parseValue = (str: string) => {
+        const cleaned = str.replace(/[,$%()\"]/g, '').trim();
+        return parseFloat(cleaned) || 0;
+      };
+
+      const campaign = matches[0].replace(/[,\"]/g, '').trim();
+      const cost = parseValue(matches[3]);
+      const cpc = parseValue(matches[4]);
+      const clicks = parseValue(matches[5]);
+      const conversions = parseValue(matches[6]);
+      const convRate = parseValue(matches[8]);
+      const costPerConv = parseValue(matches[7]);
+
+      // Estimate book appointments as 50% of conversions for demo
+      const bookAppointments = Math.round(conversions * 0.5);
+
+      newCampaigns.push({
+        campaign,
+        cost,
+        costChange: 0,
+        cpc,
+        cpcChange: 0,
+        clicks,
+        clicksChange: 0,
+        conversions,
+        conversionsChange: 0,
+        bookAppointments,
+        phoneLeads: 0,
+        submitLeads: conversions - bookAppointments,
+        convRate,
+        convRateChange: 0,
+        costPerConv,
+        costPerConvChange: 0
+      });
+    }
+
+    if (newCampaigns.length > 0) {
+      setCampaignData(newCampaigns);
+      setShowUpload(false);
+    }
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const csvText = event.target?.result as string;
+      parseCSV(csvText);
+      setIsUploading(false);
+    };
+    reader.readAsText(file);
+  };
 
   const totals = campaignData.reduce((acc, row) => ({
     cost: acc.cost + row.cost,
@@ -487,6 +558,91 @@ export default function FuseWorkspaceDashboard() {
           line-height: 1.5;
         }
 
+        .upload-button {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          border: none;
+          padding: 12px 24px;
+          border-radius: 8px;
+          font-weight: 600;
+          cursor: pointer;
+          font-size: 14px;
+          transition: transform 0.2s;
+          margin-top: 15px;
+        }
+
+        .upload-button:hover {
+          transform: scale(1.05);
+        }
+
+        .upload-modal {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0,0,0,0.7);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        }
+
+        .upload-content {
+          background: white;
+          padding: 40px;
+          border-radius: 12px;
+          max-width: 500px;
+          width: 90%;
+        }
+
+        .upload-content h2 {
+          margin-bottom: 20px;
+          color: #1a202c;
+        }
+
+        .upload-content p {
+          margin-bottom: 20px;
+          color: #4a5568;
+        }
+
+        .file-input {
+          display: block;
+          width: 100%;
+          padding: 15px;
+          border: 2px dashed #cbd5e0;
+          border-radius: 8px;
+          margin-bottom: 20px;
+          cursor: pointer;
+        }
+
+        .button-group {
+          display: flex;
+          gap: 10px;
+        }
+
+        .cancel-button {
+          background: #e2e8f0;
+          color: #1a202c;
+          border: none;
+          padding: 12px 24px;
+          border-radius: 8px;
+          font-weight: 600;
+          cursor: pointer;
+          flex: 1;
+        }
+
+        .submit-button {
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          border: none;
+          padding: 12px 24px;
+          border-radius: 8px;
+          font-weight: 600;
+          cursor: pointer;
+          flex: 1;
+        }
+
         @media (max-width: 768px) {
           .metrics-grid {
             grid-template-columns: 1fr;
@@ -507,7 +663,31 @@ export default function FuseWorkspaceDashboard() {
           <h1>Fuse Workspace - Google Ads Performance</h1>
           <p>Month-over-Month Analytics Dashboard</p>
           <div className="date-range">Data as of: October 2025</div>
+          <button className="upload-button" onClick={() => setShowUpload(true)}>
+            📊 Upload New Data
+          </button>
         </div>
+
+        {showUpload && (
+          <div className="upload-modal" onClick={() => setShowUpload(false)}>
+            <div className="upload-content" onClick={(e) => e.stopPropagation()}>
+              <h2>Upload Google Ads Data</h2>
+              <p>Export your Google Ads campaign data as CSV and upload it here to update the dashboard.</p>
+              <input
+                type="file"
+                accept=".csv"
+                onChange={handleFileUpload}
+                className="file-input"
+              />
+              {isUploading && <p>Processing...</p>}
+              <div className="button-group">
+                <button className="cancel-button" onClick={() => setShowUpload(false)}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Summary Metrics */}
         <div className="metrics-grid">
