@@ -676,6 +676,9 @@ export default function FuseWorkspaceDashboard() {
                 const cpcTrend = getTrendIcon(campaign.cpcChange, true);
                 const clicksTrend = getTrendIcon(campaign.clicksChange, false);
 
+                const totalConv = campaign.conversions;
+                const costPerConv = campaign.conversions > 0 ? (campaign.cost / campaign.conversions) : 0;
+
                 return (
                   <tr key={index}>
                     <td className="campaign-name">{campaign.campaign}</td>
@@ -701,10 +704,10 @@ export default function FuseWorkspaceDashboard() {
                       {campaign.bookAppointments.toFixed(0)}
                     </td>
                     <td>
-                      {campaign.conversions.toFixed(0)}
+                      {totalConv.toFixed(0)}
                     </td>
                     <td>
-                      ${campaign.conversions > 0 ? (campaign.cost / campaign.conversions).toFixed(2) : '—'}
+                      {costPerConv > 0 ? `$${costPerConv.toFixed(2)}` : '—'}
                     </td>
                   </tr>
                 );
