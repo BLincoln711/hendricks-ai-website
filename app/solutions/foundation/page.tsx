@@ -2,6 +2,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 
@@ -12,9 +13,57 @@ export const metadata: Metadata = {
 };
 
 export default function FoundationPage() {
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://hendricks.ai/#foundation-service",
+    "name": "Foundation: AI Visibility and Measurement",
+    "url": "https://hendricks.ai/solutions/foundation",
+    "description": "The Foundation tier from Hendricks.AI provides ongoing AI Search Visibility monitoring and measurement health for B2B companies. It delivers continuous insight into how AI search engines see your brand, with monthly scorecards and recommendations.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Hendricks.AI",
+      "url": "https://hendricks.ai"
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "Global"
+    },
+    "serviceType": "AI Search Visibility and Measurement",
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "B2B SaaS and Enterprise Marketing & Growth Teams"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://hendricks.ai/solutions/foundation",
+      "price": "5000",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": "5000",
+        "priceCurrency": "USD",
+        "billingIncrement": 1,
+        "unitCode": "MON"
+      },
+      "availability": "https://schema.org/InStock",
+      "category": "Subscription",
+      "description": "Subscription starting at 5,000 USD per month with a three-month minimum commitment."
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
-      <Header />
+    <>
+      <Script
+        id="foundation-service-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(serviceSchema)
+        }}
+      />
+
+      <div className="min-h-screen bg-slate-950 text-slate-50">
+        <Header />
       <section className="max-w-4xl mx-auto px-4 py-16">
         <p className="text-xs font-semibold tracking-[0.18em] uppercase text-emerald-400">
           Solution Tier One
@@ -124,6 +173,7 @@ export default function FoundationPage() {
         </div>
       </section>
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }
