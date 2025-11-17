@@ -3,7 +3,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
@@ -25,17 +24,20 @@ export function Header() {
     <header className="border-b border-slate-900 bg-slate-950/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
 
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <Image
-            src="/logo/hendricks-logo.png"
-            alt="Hendricks.AI Logo"
-            width={140}
-            height={40}
-            className="object-contain"
-            priority
-          />
-        </Link>
+        {/* Logo with AI-Powered Badge */}
+        <div className="flex items-center space-x-2">
+          <Link href="/" className="flex-shrink-0">
+            <img
+              src="/hendricks_logo.png"
+              alt="Hendricks.AI"
+              className="h-6 w-auto object-contain brightness-0 invert"
+            />
+          </Link>
+          <span className="text-gray-400 text-sm ml-1 flex items-center gap-1">
+            <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            AI-Powered
+          </span>
+        </div>
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-8 md:flex">
