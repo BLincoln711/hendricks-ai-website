@@ -16,13 +16,13 @@ export function Footer() {
               <Image
                 src="/logo/hendricks-logo.png"
                 alt="Hendricks.AI Logo"
-                width={140}
+                width={150}
                 height={40}
-                className="object-contain"
+                className="object-contain brightness-125 contrast-125"
               />
             </Link>
 
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-300">
               Search Intelligence Engineering Firm specializing in AI Search Visibility
               and Measurement for B2B companies.
             </p>

@@ -387,46 +387,46 @@ export default function Home() {
               {/* Main Headline with Premium Messaging */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 leading-[1.1] tracking-tight max-w-4xl">
                 <span className="block text-white animate-fade-in-1">
-                  See What Others Can't.
+                  See What AI Sees.
                 </span>
                 <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent animate-gradient animate-fade-in-2">
-                  Measure. Attribute. Amplify.
+                  Engineer. Measure. Compound Visibility.
                 </span>
                 <span className="block text-gray-400 text-3xl sm:text-4xl lg:text-5xl animate-fade-in-3">
-                  Lead the AI Search Era.
+                  Lead in AI Search, not just SEO.
                 </span>
               </h1>
 
               {/* Tagline with slide-up animation */}
               <div className="mb-8 animate-fade-in-4">
                 <p className="text-base md:text-lg text-gray-300 leading-relaxed">
-                  We help B2B companies measure, attribute, and amplify visibility across the new AI-powered search ecosystem — from Google and Bing to Gemini, ChatGPT, and Perplexity.
+                  We help B2B companies engineer AI Search Visibility and Measurement across Google AI Overviews, Gemini, ChatGPT, Perplexity, and Bing Copilot — and connect that visibility to pipeline and revenue.
                 </p>
               </div>
 
               {/* Quick Answer Box for AI Search Engines */}
               <div className="bg-blue-950/30 border-l-4 border-blue-500 p-4 mb-6 rounded-r-lg">
                 <p className="text-gray-300">
-                  <strong className="text-white">Quick Answer:</strong> Hendricks.AI is the AI Search Visibility & Measurement Firm for B2B Growth. We unify marketing, data, and AI to quantify visibility, prove ROI, and build systems of measurable growth. Built on Google Cloud. Powered by Vertex AI.
+                  <strong className="text-white">Quick answer.</strong> Hendricks.AI is a Search Intelligence Engineering Firm specializing in AI Search Visibility and Measurement for B2B. We build the systems that keep your brand visible across AI powered search engines and make that visibility measurable, explainable, and tied to revenue.
                 </p>
               </div>
 
               {/* Three Pillars Visual */}
               <div className="grid grid-cols-3 gap-4 mb-8">
                 <div className="text-center p-4 rounded-lg border border-blue-800/30" style={{ background: 'linear-gradient(135deg, #0A1E60 0%, #0033FF 100%)' }}>
-                  <div className="text-2xl mb-2">📈</div>
-                  <div className="text-sm font-semibold text-white">MEASURE</div>
-                  <div className="text-xs text-gray-200 mt-1">Visibility & Signal Intelligence</div>
+                  <div className="text-2xl mb-2">📊</div>
+                  <div className="text-sm font-semibold text-white">FOUNDATION</div>
+                  <div className="text-xs text-gray-200 mt-1">AI Visibility and Measurement</div>
                 </div>
                 <div className="text-center p-4 rounded-lg border border-purple-800/30" style={{ background: 'linear-gradient(135deg, #240046 0%, #7B2CBF 100%)' }}>
-                  <div className="text-2xl mb-2">🎯</div>
-                  <div className="text-sm font-semibold text-white">ATTRIBUTE</div>
-                  <div className="text-xs text-gray-200 mt-1">Spend → Pipeline → ARR</div>
+                  <div className="text-2xl mb-2">🔧</div>
+                  <div className="text-sm font-semibold text-white">SYSTEM</div>
+                  <div className="text-xs text-gray-200 mt-1">AI Search Intelligence System</div>
                 </div>
                 <div className="text-center p-4 rounded-lg border border-cyan-800/30" style={{ background: 'linear-gradient(135deg, #002B2B 0%, #00FFC6 100%)' }}>
-                  <div className="text-2xl mb-2">⚡</div>
-                  <div className="text-sm font-semibold text-white">AMPLIFY</div>
-                  <div className="text-xs text-gray-200 mt-1">AI Visibility Optimization</div>
+                  <div className="text-2xl mb-2">🤝</div>
+                  <div className="text-sm font-semibold text-white">PARTNERSHIP</div>
+                  <div className="text-xs text-gray-200 mt-1">Search Intelligence Engineering</div>
                 </div>
               </div>
 
@@ -434,15 +434,15 @@ export default function Home() {
               <div className="mb-8 space-y-2">
                 <div className="flex items-center gap-2 text-sm text-gray-300">
                   <span className="text-green-400">✓</span>
-                  <span>Measure visibility across Google, Bing, ChatGPT, Gemini & Perplexity</span>
+                  <span>Visibility tracking across Google AI Overviews, Gemini, ChatGPT, Perplexity, Bing Copilot</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-300">
                   <span className="text-green-400">✓</span>
-                  <span>CFO-ready attribution connecting spend → pipeline → ARR</span>
+                  <span>Structured data and entity engineering for AI search systems</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-300">
                   <span className="text-green-400">✓</span>
-                  <span>Built on Google Cloud • Powered by Vertex AI</span>
+                  <span>GA4 plus BigQuery based measurement built for AI influenced journeys</span>
                 </div>
               </div>
 
@@ -577,16 +577,16 @@ export default function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-950/50 backdrop-blur-sm border border-cyan-800/50 rounded-full text-sm text-cyan-400 mb-6">
-              <span>UNIFIED SEARCH INTELLIGENCE</span>
+              <span>SEARCH INTELLIGENCE ENGINEERING</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
               <span className="text-white">One Market. </span>
               <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                Infinite Engines. Unified by AI.
+                Infinite Engines. Powered by Search Intelligence Engineering.
               </span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              While your competitors focus on clicks, you'll measure true visibility across Google, Bing, ChatGPT, Gemini, and Perplexity — one integrated search ecosystem.
+              While competitors chase rank and clicks, you engineer AI Search Visibility. Measure and improve how your brand appears across Google AI Overviews, Gemini, ChatGPT, Perplexity, and Bing Copilot — as one integrated Search Intelligence system.
             </p>
             <p className="text-sm text-gray-400 max-w-3xl mx-auto mt-4">
               Built on Google Cloud • Powered by Vertex AI • Designed for the AI Search Era
@@ -854,63 +854,66 @@ export default function Home() {
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Start Anywhere. Scale Everywhere.
+                Start with Foundation. Scale into System. Partner for full Search Intelligence.
               </span>
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Three solutions. One visibility engine. Start where you are — scale visibility, attribution, and growth with AI-driven precision.
+              Three subscription tiers. One Search Intelligence system. Start where you are — build a continuous AI Search Visibility and Measurement function over time.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                title: 'Visibility Audit',
-                subtitle: 'Start with Visibility',
-                description: 'See where your brand appears across AI search ecosystems — from Google and Bing to ChatGPT and Gemini',
-                icon: '📈',
+                title: 'Foundation',
+                subtitle: 'AI Visibility and Measurement',
+                description: 'Ongoing AI visibility monitoring and measurement health. Continuous insight into how AI search engines see your brand, with clear actions for your team every month.',
+                icon: '📊',
                 benefits: [
-                  'Visibility across AI search ecosystems',
-                  'AI visibility indexing',
-                  'Real-time visibility metrics',
-                  'Competitive visibility tracking'
+                  'AI visibility monitoring across Google AI Overviews, Gemini, ChatGPT, Perplexity, Bing Copilot',
+                  'Monthly visibility and measurement health scorecard',
+                  'Schema and entity snapshot for core assets',
+                  'CMO-ready insight summaries'
                 ],
                 color: 'from-blue-500 to-cyan-500',
-                cta: 'Start with Visibility →',
-                pricing: 'Typical engagements range from five to six figures depending on data scope and AI integration.',
-                href: '/solutions#visibility-audit'
+                cta: 'Start with Foundation →',
+                pricing: 'From 5,000 dollars per month • 3 month minimum.',
+                href: '/solutions#foundation'
               },
               {
-                title: 'Attribution Engine',
-                subtitle: 'Project-Based Attribution',
-                description: 'Connect every marketing dollar to pipeline and ARR through unified cross-channel measurement',
-                icon: '🎯',
+                title: 'System',
+                subtitle: 'AI Search Intelligence System',
+                description: 'Full Search Intelligence layer across AI visibility, schema, entities, and GA4 plus BigQuery measurement. The operating system for AI search visibility.',
+                icon: '🔧',
                 benefits: [
-                  'Multi-touch attribution',
-                  'Unified cross-channel measurement',
-                  'Spend → pipeline → ARR tracking',
-                  'CFO-ready attribution models'
+                  'All Foundation capabilities',
+                  'Schema and entity optimization',
+                  'GA4 event and attribution maintenance',
+                  'BigQuery export and integrity checks',
+                  'AI visibility dashboards with pipeline views'
                 ],
                 color: 'from-purple-500 to-pink-500',
-                cta: 'Project-Based Attribution →',
-                pricing: 'Typical engagements range from five to six figures depending on data scope and AI integration.',
-                href: '/solutions#attribution-engine'
+                cta: 'Scale into System →',
+                pricing: 'From 10,000 dollars per month • 3–6 month minimum.',
+                href: '/solutions#system'
               },
               {
-                title: 'AI Visibility Execution',
-                subtitle: 'Enterprise-Scale Execution',
-                description: 'Full-funnel optimization and AI campaign orchestration built for measurable visibility growth',
-                icon: '⚡',
+                title: 'Partnership',
+                subtitle: 'Search Intelligence Engineering Partnership',
+                description: 'Embedded Search Intelligence Engineering function. We own your AI search visibility program, signal integrity, and Search Intelligence roadmap alongside your leadership team.',
+                icon: '🤝',
                 benefits: [
-                  'Full-funnel optimization',
-                  'AI campaign orchestration',
-                  'Measurable visibility growth',
-                  'Dedicated team + tech'
+                  'All System capabilities',
+                  'Full AI visibility program ownership',
+                  'Deep signal engineering across web, docs, and key surfaces',
+                  'Competitive visibility intelligence',
+                  'Experiments and roadmap management',
+                  'Executive reporting'
                 ],
                 color: 'from-cyan-500 to-blue-500',
-                cta: 'Enterprise-Scale Execution →',
-                pricing: 'Typical engagements range from five to six figures depending on data scope and AI integration.',
-                href: '/solutions#ai-visibility-execution'
+                cta: 'Partner for Full Intelligence →',
+                pricing: 'From 20,000 dollars per month • 6–12 month minimum.',
+                href: '/solutions#partnership'
               }
             ].map((solution, index) => (
               <div key={index} className="relative group">
@@ -1097,30 +1100,30 @@ export default function Home() {
 
         <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-5xl sm:text-6xl font-bold mb-6 leading-tight">
-            <span className="text-white">Ready to Measure What </span>
+            <span className="text-white">Ready to Engineer AI Search Visibility </span>
             <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              Others Can't?
+              That Others Can't See?
             </span>
           </h2>
 
           <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
-            Start with a Visibility Audit. Scale to full Attribution and Execution.
+            Start with the Foundation tier or move straight into the full System and Partnership for Search Intelligence Engineering.
           </p>
 
           {/* Dual CTA */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact"
+              href="/solutions"
               className="px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white rounded-full font-semibold hover:scale-[1.03] transition-transform inline-flex items-center justify-center gap-2"
             >
-              Book Strategy Session →
+              Start Your AI Visibility System →
             </Link>
 
             <Link
-              href="/playbook"
+              href="/contact"
               className="px-8 py-4 border border-cyan-400/30 text-gray-300 rounded-full font-semibold hover:border-cyan-400 hover:text-white transition inline-flex items-center justify-center gap-2"
             >
-              Download 2025 Playbook →
+              Book Visibility Consultation →
             </Link>
           </div>
         </div>
