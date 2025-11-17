@@ -1,679 +1,312 @@
-'use client'
+// app/solutions/page.tsx
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import Script from 'next/script'
-import Navigation from '../components/navigation'
-import Footer from '../components/footer'
-import StickyMobileCTA from '../components/sticky-mobile-cta'
-import { BreadcrumbSchema } from '../components/seo-improvements'
+import type { Metadata } from "next";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+
+export const metadata: Metadata = {
+  title: "Solutions | Hendricks.AI Search Intelligence Engineering",
+  description:
+    "Explore the Hendricks.AI subscription tiers for AI Search Visibility, Measurement, and Search Intelligence Engineering for B2B companies.",
+};
 
 export default function SolutionsPage() {
-  const [scrollY, setScrollY] = useState(0)
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  // Schema markup for solutions
-  const solutionsSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'ServiceOfferCatalog',
-    name: 'Hendricks.AI Solutions - AI Search Visibility & Measurement System',
-    description: 'The Hendricks.AI System: Measure, Attribute, and Amplify visibility across AI-powered search ecosystems including Google, Bing, ChatGPT, Gemini, and Perplexity',
-    provider: {
-      '@type': 'Organization',
-      name: 'Hendricks.AI',
-      url: 'https://hendricks.ai'
-    }
-  }
-
   return (
-    <>
-      <Script
-        id="solutions-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(solutionsSchema)
-        }}
-      />
-      <BreadcrumbSchema
-        items={[
-          { name: 'Home', url: 'https://hendricks.ai' },
-          { name: 'Solutions', url: 'https://hendricks.ai/solutions' }
-        ]}
-      />
-    <main className="min-h-screen bg-black text-white">
-      <Navigation />
-
-      {/* 1️⃣ HERO SECTION */}
-      <section className="relative min-h-[80vh] flex items-center overflow-hidden bg-gradient-to-br from-[#010414] to-[#0B1023]">
-        {/* Animated Grid Background */}
-        <div className="absolute inset-0 opacity-20" style={{
-          backgroundImage: 'linear-gradient(rgba(96,165,250,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(96,165,250,0.3) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-          transform: `translateY(${scrollY * 0.2}px)`
-        }}></div>
-
-        {/* Ambient Glow Orbs */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        </div>
-
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-900/30 backdrop-blur-sm border border-blue-800/50 rounded-full text-sm text-blue-400 mb-6 animate-fade-in-1">
-            <span>THE HENDRICKS.AI SYSTEM</span>
-          </div>
-
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight animate-fade-in-2">
-            <span className="block text-white mb-2">One System.</span>
-            <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent mb-2">
-              Three Modules.
-            </span>
-            <span className="block text-gray-400 text-4xl sm:text-5xl">
-              Infinite Visibility.
-            </span>
+    <div className="min-h-screen bg-slate-950 text-slate-50">
+      <Header />
+      <section className="max-w-5xl mx-auto px-4 py-16">
+        <div className="mb-10">
+          <p className="text-xs font-semibold tracking-widest text-emerald-400 uppercase">
+            Solutions
+          </p>
+          <h1 className="mt-3 text-3xl md:text-4xl font-semibold text-slate-50">
+            The Hendricks.AI System
           </h1>
-
-          <p className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto mb-8 animate-fade-in-3">
-            Hendricks.AI unifies Visibility, Attribution, and Performance into a single AI-driven framework for measurable B2B growth.
+          <p className="mt-4 text-slate-300 max-w-2xl">
+            Search Intelligence Engineering for the AI search era. Three subscription tiers,
+            one integrated intelligence system, and AI visibility that compounds over time.
           </p>
-
-          <p className="text-sm text-gray-500 mb-10 animate-fade-in-4">
-            Built on Google Cloud • Powered by Vertex AI
+          <p className="mt-4 text-slate-400 max-w-xl text-sm">
+            Hendricks.AI is a Search Intelligence Engineering Firm specializing in AI Search
+            Visibility and Measurement for B2B companies. We combine visibility engineering,
+            technical search signals, and measurement integrity into one system that keeps
+            your brand seen, understood, and selected across AI powered search engines.
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-4">
-            <Link
+          <div className="mt-8 flex flex-wrap gap-4">
+            <a
               href="/contact"
-              className="px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white rounded-full font-semibold hover:scale-[1.03] transition-transform inline-flex items-center justify-center gap-2"
+              className="inline-flex items-center rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-slate-950 hover:bg-emerald-400 transition"
             >
-              Book Strategy Session →
-            </Link>
-            <Link
-              href="/playbook"
-              className="px-8 py-4 border border-cyan-400/30 text-gray-300 rounded-full font-semibold hover:border-cyan-400 hover:text-white transition inline-flex items-center justify-center gap-2"
+              Start Your AI Visibility System
+            </a>
+            <a
+              href="/insights/ai-search-visibility-b2b-companies-2025"
+              className="inline-flex items-center rounded-md border border-slate-700 px-5 py-2.5 text-sm font-semibold text-slate-200 hover:border-emerald-400 transition"
             >
-              Download AI Visibility Playbook →
-            </Link>
+              Download the 2025 AI Search Visibility Guide
+            </a>
           </div>
+        </div>
+
+        {/* Tiers overview intro */}
+        <div className="mt-12 border border-slate-800 rounded-xl p-6 bg-slate-900/40">
+          <h2 className="text-xl font-semibold text-slate-50">
+            The Hendricks.AI Subscription Tiers
+          </h2>
+          <p className="mt-3 text-sm text-slate-300">
+            Each subscription tier operates independently, and together they create a complete
+            Search Intelligence system across AI visibility, technical search signals, and
+            measurement integrity for B2B companies.
+          </p>
         </div>
       </section>
 
-      {/* 2️⃣ THE HENDRICKS SYSTEM OVERVIEW */}
-      <section className="relative py-24 bg-black border-t border-[rgba(255,255,255,0.05)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Copy */}
-            <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-900/30 border border-purple-800/50 rounded-full text-sm text-purple-400 mb-6">
-                <span>MODULAR FRAMEWORK</span>
-              </div>
-              <h2 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight">
-                <span className="text-white">The Hendricks System is a </span>
-                <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  modular framework
-                </span>
-                <span className="text-white"> built for B2B visibility in the AI Search Era.</span>
-              </h2>
-              <p className="text-xl text-gray-300 mb-6 leading-relaxed">
-                Each module — <span className="text-blue-400 font-semibold">Measure</span>, <span className="text-purple-400 font-semibold">Attribute</span>, and <span className="text-cyan-400 font-semibold">Amplify</span> — can operate independently or as one unified intelligence layer.
-              </p>
-              <p className="text-gray-400">
-                Most clients start with one module and expand to full integration within 90 days.
-              </p>
-            </div>
+      {/* Tier cards */}
+      <section className="max-w-5xl mx-auto px-4 pb-16 space-y-10">
+        {/* Foundation Tier */}
+        <div className="border border-slate-800 rounded-2xl bg-slate-900/60 p-6 md:p-8">
+          <p className="text-xs font-semibold tracking-widest text-emerald-400 uppercase">
+            Tier 1
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold text-slate-50">
+            Foundation: AI Visibility and Measurement
+          </h2>
+          <p className="mt-2 text-sm text-slate-300">
+            Starting at 5,000 dollars per month. Minimum three months.
+          </p>
+          <p className="mt-4 text-sm text-slate-200 max-w-3xl">
+            The Foundation tier gives B2B teams ongoing clarity into AI search visibility and
+            measurement health without requiring a full Search Intelligence operation.
+          </p>
 
-            {/* Right: Visual - 3-Node System Diagram */}
-            <div className="relative h-96 flex items-center justify-center">
-              {/* Central Hub */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 border-2 border-cyan-400/50 backdrop-blur-md flex items-center justify-center">
-                  <span className="text-sm font-bold text-white text-center">AI Engine</span>
-                </div>
-              </div>
+          <h3 className="mt-6 text-sm font-semibold text-slate-100">
+            Monthly deliverables
+          </h3>
+          <ul className="mt-3 space-y-1 text-sm text-slate-300">
+            <li>
+              AI visibility monitoring across Google AI Overviews, Gemini, ChatGPT,
+              Perplexity, and Bing Copilot for a defined set of priority topics.
+            </li>
+            <li>
+              Visibility and signal integrity scorecard that tracks presence and shifts
+              across AI search surfaces.
+            </li>
+            <li>
+              Monthly measurement health audit for GA4 and key conversions.
+            </li>
+            <li>
+              Schema and entity integrity snapshot for core pages and properties.
+            </li>
+            <li>
+              Monthly insights report for CMOs and growth leaders with clear actions.
+            </li>
+            <li>
+              Priority recommendations for engineering, content, and search teams.
+            </li>
+          </ul>
 
-              {/* Node 1: Measure (Top) */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-28 rounded-full bg-gradient-to-br from-blue-600/30 to-blue-400/20 border-2 border-blue-400/50 backdrop-blur-sm flex items-center justify-center animate-float-slow">
-                <div className="text-center">
-                  <div className="text-2xl mb-1">📈</div>
-                  <div className="text-xs font-bold text-blue-400">MEASURE</div>
-                </div>
-              </div>
+          <h3 className="mt-6 text-sm font-semibold text-slate-100">
+            Ideal for
+          </h3>
+          <ul className="mt-3 space-y-1 text-sm text-slate-300">
+            <li>
+              Teams who want AI visibility clarity without a full Search Intelligence
+              Engineering function.
+            </li>
+            <li>
+              CMOs who need ongoing search intelligence to guide decisions.
+            </li>
+            <li>
+              Companies evaluating whether to move into the System tier.
+            </li>
+          </ul>
+        </div>
 
-              {/* Node 2: Attribute (Bottom Left) */}
-              <div className="absolute bottom-0 left-8 w-28 h-28 rounded-full bg-gradient-to-br from-purple-600/30 to-purple-400/20 border-2 border-purple-400/50 backdrop-blur-sm flex items-center justify-center animate-float-slow" style={{ animationDelay: '0.5s' }}>
-                <div className="text-center">
-                  <div className="text-2xl mb-1">🎯</div>
-                  <div className="text-xs font-bold text-purple-400">ATTRIBUTE</div>
-                </div>
-              </div>
+        {/* System Tier */}
+        <div className="border border-emerald-500/70 rounded-2xl bg-slate-900 p-6 md:p-8 shadow-[0_0_40px_rgba(16,185,129,0.28)]">
+          <p className="text-xs font-semibold tracking-widest text-emerald-400 uppercase">
+            Tier 2
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold text-slate-50">
+            System: AI Search Intelligence System
+          </h2>
+          <p className="mt-2 text-sm text-slate-300">
+            Starting at 10,000 dollars per month. Minimum three to six months.
+          </p>
+          <p className="mt-4 text-sm text-slate-200 max-w-3xl">
+            The System tier is the core Hendricks.AI subscription. It provides a full Search
+            Intelligence layer across AI visibility, technical search signals, and measurement
+            for B2B companies.
+          </p>
 
-              {/* Node 3: Amplify (Bottom Right) */}
-              <div className="absolute bottom-0 right-8 w-28 h-28 rounded-full bg-gradient-to-br from-cyan-600/30 to-cyan-400/20 border-2 border-cyan-400/50 backdrop-blur-sm flex items-center justify-center animate-float-slow" style={{ animationDelay: '1s' }}>
-                <div className="text-center">
-                  <div className="text-2xl mb-1">⚡</div>
-                  <div className="text-xs font-bold text-cyan-400">AMPLIFY</div>
-                </div>
-              </div>
+          <h3 className="mt-6 text-sm font-semibold text-slate-100">
+            Monthly deliverables
+          </h3>
+          <ul className="mt-3 space-y-1 text-sm text-slate-300">
+            <li>Everything included in the Foundation tier.</li>
+            <li>
+              AI visibility engineering for priority topics and key pages, including
+              surfacing recommendations.
+            </li>
+            <li>
+              Schema and entity optimization across a defined content and asset set.
+            </li>
+            <li>
+              Monthly surfacing opportunity analysis and prioritization for AI answers.
+            </li>
+            <li>
+              GA4 attribution and event model maintenance as campaigns and channels evolve.
+            </li>
+            <li>
+              BigQuery export refinement and data integrity checks for search and AI data.
+            </li>
+            <li>
+              Maintenance of AI visibility dashboards and pipeline correlation views.
+            </li>
+            <li>
+              One monthly executive working session to align decisions and next steps with
+              marketing and revenue leaders.
+            </li>
+          </ul>
 
-              {/* Connecting Lines */}
-              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 400">
-                <defs>
-                  <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="rgba(96,165,250,0.5)" />
-                    <stop offset="100%" stopColor="rgba(147,51,234,0.5)" />
-                  </linearGradient>
-                </defs>
-                <line x1="200" y1="200" x2="200" y2="50" stroke="url(#line-gradient)" strokeWidth="2" strokeDasharray="5,5" className="animate-pulse" />
-                <line x1="200" y1="200" x2="80" y2="350" stroke="url(#line-gradient)" strokeWidth="2" strokeDasharray="5,5" className="animate-pulse" style={{ animationDelay: '0.5s' }} />
-                <line x1="200" y1="200" x2="320" y2="350" stroke="url(#line-gradient)" strokeWidth="2" strokeDasharray="5,5" className="animate-pulse" style={{ animationDelay: '1s' }} />
-              </svg>
-            </div>
-          </div>
+          <h3 className="mt-6 text-sm font-semibold text-slate-100">
+            Ideal for
+          </h3>
+          <ul className="mt-3 space-y-1 text-sm text-slate-300">
+            <li>
+              Growth stage SaaS and enterprise teams that want a serious visibility and
+              measurement system for AI search.
+            </li>
+            <li>
+              Leaders who want AI search visibility tied directly to pipeline and revenue.
+            </li>
+          </ul>
+        </div>
+
+        {/* Partnership Tier */}
+        <div className="border border-slate-800 rounded-2xl bg-slate-900/70 p-6 md:p-8">
+          <p className="text-xs font-semibold tracking-widest text-emerald-400 uppercase">
+            Tier 3
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold text-slate-50">
+            Partnership: Search Intelligence Engineering Partnership
+          </h2>
+          <p className="mt-2 text-sm text-slate-300">
+            Starting at 20,000 dollars per month. Minimum six to twelve months.
+          </p>
+          <p className="mt-4 text-sm text-slate-200 max-w-3xl">
+            The Partnership tier operates like an embedded Search Intelligence Engineering
+            function. Hendricks.AI owns the AI search visibility program, signal integrity,
+            and Search Intelligence roadmap alongside your leadership team.
+          </p>
+
+          <h3 className="mt-6 text-sm font-semibold text-slate-100">
+            Monthly deliverables
+          </h3>
+          <ul className="mt-3 space-y-1 text-sm text-slate-300">
+            <li>Everything included in the System tier.</li>
+            <li>
+              Full AI visibility program ownership across Google AI Overviews, Gemini,
+              ChatGPT, Perplexity, and Bing Copilot.
+            </li>
+            <li>
+              Deep signal engineering for schema, entities, structured data, and brand graph
+              alignment across your web, docs, and key surfaces.
+            </li>
+            <li>
+              Content intelligence direction including outlines, structures, and FAQ and
+              schema specifications for AI extraction.
+            </li>
+            <li>
+              Competitive visibility intelligence across your category and core buyer
+              questions.
+            </li>
+            <li>
+              Experimentation and learning cycles for schema variants, answer patterns,
+              entity structures, and search journeys.
+            </li>
+            <li>
+              Monthly leadership reporting tied directly to pipeline, revenue, and strategic
+              decisions.
+            </li>
+            <li>
+              Direct collaboration with product marketing, SEO, paid media, analytics, and
+              engineering teams on Search Intelligence priorities.
+            </li>
+          </ul>
+
+          <h3 className="mt-6 text-sm font-semibold text-slate-100">
+            Ideal for
+          </h3>
+          <ul className="mt-3 space-y-1 text-sm text-slate-300">
+            <li>
+              Mid market and enterprise companies where AI search visibility is a top tier
+              strategic lever.
+            </li>
+            <li>
+              CMOs who want a dedicated Search Intelligence Engineering function without
+              building the full team internally.
+            </li>
+          </ul>
         </div>
       </section>
 
-      {/* 3️⃣ MODULE 1 - VISIBILITY AUDIT (MEASURE) */}
-      <section id="visibility-audit" className="relative py-24 bg-gradient-to-b from-black via-gray-900 to-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="text-6xl">📈</div>
-                <div>
-                  <div className="text-xs font-bold text-blue-400 uppercase tracking-wider mb-1">MODULE 1</div>
-                  <h2 className="text-4xl font-bold text-white">Visibility Audit</h2>
-                  <p className="text-lg text-gray-400">Start with Visibility</p>
-                </div>
-              </div>
-
-              <h3 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                See What Others Can't.
-              </h3>
-
-              <p className="text-xl text-gray-300 leading-relaxed">
-                Measure your brand's visibility across Google, Bing, ChatGPT, Gemini, and Perplexity — before your competitors even know where you're showing up.
-              </p>
-
-              <div className="bg-blue-950/30 border border-blue-800/30 rounded-xl p-6">
-                <h4 className="font-bold text-white mb-4">Deliverables</h4>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <span className="text-blue-400 mt-1">✓</span>
-                    <span className="text-gray-300">AI visibility indexing & signal mapping across 5 platforms</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-blue-400 mt-1">✓</span>
-                    <span className="text-gray-300">Competitive visibility benchmarking</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-blue-400 mt-1">✓</span>
-                    <span className="text-gray-300">Keyword, topic, and audience trend forecasting</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-blue-400 mt-1">✓</span>
-                    <span className="text-gray-300">AI search result positioning dashboard</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-gradient-to-r from-blue-900/20 to-cyan-900/20 rounded-xl p-6 border border-blue-500/20">
-                <h4 className="font-bold text-white mb-3">Outcome</h4>
-                <p className="text-lg text-gray-300 mb-2">Visibility insights delivered in <span className="text-blue-400 font-semibold">48 hours</span>.</p>
-                <p className="text-2xl font-bold text-cyan-400">Average +62% lift in early-stage awareness</p>
-              </div>
-
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-full font-semibold hover:scale-[1.03] transition-transform"
-              >
-                Start with Visibility Audit →
-              </Link>
-            </div>
-
-            <div className="space-y-6">
-              {/* Visual: Animated Visibility Graph */}
-              <div className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl border border-blue-500/20">
-                <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-6">Visibility Growth Example</h4>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-gray-400">Google Search</span>
-                      <span className="text-blue-400 font-bold">+67%</span>
-                    </div>
-                    <div className="w-full bg-gray-800 rounded-full h-3">
-                      <div className="bg-gradient-to-r from-blue-500 to-blue-400 h-3 rounded-full" style={{ width: '67%' }}></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-gray-400">Bing Search</span>
-                      <span className="text-cyan-400 font-bold">+58%</span>
-                    </div>
-                    <div className="w-full bg-gray-800 rounded-full h-3">
-                      <div className="bg-gradient-to-r from-cyan-500 to-cyan-400 h-3 rounded-full" style={{ width: '58%' }}></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-gray-400">ChatGPT Citations</span>
-                      <span className="text-purple-400 font-bold">+84%</span>
-                    </div>
-                    <div className="w-full bg-gray-800 rounded-full h-3">
-                      <div className="bg-gradient-to-r from-purple-500 to-purple-400 h-3 rounded-full" style={{ width: '84%' }}></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-gray-400">Gemini References</span>
-                      <span className="text-pink-400 font-bold">+72%</span>
-                    </div>
-                    <div className="w-full bg-gray-800 rounded-full h-3">
-                      <div className="bg-gradient-to-r from-pink-500 to-pink-400 h-3 rounded-full" style={{ width: '72%' }}></div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-gray-400">Perplexity Mentions</span>
-                      <span className="text-green-400 font-bold">+91%</span>
-                    </div>
-                    <div className="w-full bg-gray-800 rounded-full h-3">
-                      <div className="bg-gradient-to-r from-green-500 to-green-400 h-3 rounded-full" style={{ width: '91%' }}></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-800">
-                <h4 className="font-bold text-white mb-3">Engagement Scope</h4>
-                <p className="text-gray-400">
-                  Custom engagement based on data scope and AI integration requirements. Typical engagements range from five to six figures depending on platform coverage and competitive analysis depth.
-                </p>
-              </div>
-            </div>
-          </div>
+      {/* Why Monthly section */}
+      <section className="max-w-5xl mx-auto px-4 pb-20">
+        <div className="border border-slate-800 rounded-2xl bg-slate-900/40 p-6 md:p-8">
+          <h2 className="text-xl font-semibold text-slate-50">
+            Why Hendricks.AI works as a monthly system, not a one time project
+          </h2>
+          <p className="mt-4 text-sm text-slate-300">
+            AI powered search engines change weekly. Your brand&apos;s visibility, signals,
+            schema, and measurement cannot remain static. They require continuous engineering.
+          </p>
+          <p className="mt-3 text-sm text-slate-300">
+            One time audits do not keep you visible. One time schema refreshes do not maintain
+            entity integrity. One time attribution work breaks as soon as new channels and
+            campaigns are launched. One time content adjustments lose impact when AI models
+            update.
+          </p>
+          <p className="mt-3 text-sm text-slate-300">
+            The brands that win in AI search are the brands that maintain strong signals,
+            consistent entity knowledge, ongoing schema alignment, updated measurement, and
+            continuous visibility monitoring with proactive adjustments.
+          </p>
+          <p className="mt-3 text-sm text-slate-300">
+            Search Intelligence Engineering is not a deliverable. It is an operating function.
+            That is why Hendricks.AI works on a subscription model. Visibility, signals, and
+            measurement must evolve with the search environment if you want to stay ahead.
+          </p>
         </div>
-      </section>
 
-      {/* 4️⃣ MODULE 2 - ATTRIBUTION ENGINE (ATTRIBUTE) */}
-      <section id="attribution-engine" className="relative py-24 bg-gradient-to-b from-black via-purple-950/10 to-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <div className="lg:order-2 space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="text-6xl">🎯</div>
-                <div>
-                  <div className="text-xs font-bold text-purple-400 uppercase tracking-wider mb-1">MODULE 2</div>
-                  <h2 className="text-4xl font-bold text-white">Attribution Engine</h2>
-                  <p className="text-lg text-gray-400">Project-Based Attribution</p>
-                </div>
-              </div>
-
-              <h3 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Prove What Works.
-              </h3>
-
-              <p className="text-xl text-gray-300 leading-relaxed">
-                Connect every marketing dollar to pipeline, ARR, and revenue through AI-driven multi-touch attribution and incrementality testing.
-              </p>
-
-              <div className="bg-purple-950/30 border border-purple-800/30 rounded-xl p-6">
-                <h4 className="font-bold text-white mb-4">Deliverables</h4>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <span className="text-purple-400 mt-1">✓</span>
-                    <span className="text-gray-300">Multi-touch attribution setup (Google + Bing + CRM)</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-purple-400 mt-1">✓</span>
-                    <span className="text-gray-300">Incrementality testing & MMM integration</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-purple-400 mt-1">✓</span>
-                    <span className="text-gray-300">Cross-channel reporting dashboards</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-purple-400 mt-1">✓</span>
-                    <span className="text-gray-300">CFO-ready revenue attribution visuals</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-gradient-to-r from-purple-900/20 to-pink-900/20 rounded-xl p-6 border border-purple-500/20">
-                <h4 className="font-bold text-white mb-3">Outcome</h4>
-                <p className="text-lg text-gray-300 mb-2"><span className="text-purple-400 font-semibold">74% accuracy</span> on ROI attribution</p>
-                <p className="text-2xl font-bold text-pink-400">Average 312% ROI lift per client</p>
-              </div>
-
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-semibold hover:scale-[1.03] transition-transform"
-              >
-                Explore Attribution Engine →
-              </Link>
-            </div>
-
-            <div className="lg:order-1 space-y-6">
-              {/* Visual: Spend → Pipeline → ARR Flow */}
-              <div className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl border border-purple-500/20">
-                <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-6">Attribution Flow</h4>
-                <div className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="flex-1 bg-purple-900/30 border border-purple-500/30 rounded-lg p-4">
-                      <div className="text-xs text-gray-400 mb-1">Marketing Spend</div>
-                      <div className="text-2xl font-bold text-white">$250K</div>
-                    </div>
-                    <svg className="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                    <div className="flex-1 bg-purple-800/30 border border-purple-400/30 rounded-lg p-4">
-                      <div className="text-xs text-gray-400 mb-1">Attributed Pipeline</div>
-                      <div className="text-2xl font-bold text-purple-400">$2.1M</div>
-                    </div>
-                  </div>
-                  <div className="flex justify-center">
-                    <svg className="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                    </svg>
-                  </div>
-                  <div className="bg-gradient-to-r from-purple-600/30 to-pink-600/30 border border-purple-400/50 rounded-lg p-6 text-center">
-                    <div className="text-xs text-gray-300 mb-2">Closed-Won ARR</div>
-                    <div className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">$780K</div>
-                    <div className="text-sm text-gray-400 mt-2">312% ROI</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-800">
-                <h4 className="font-bold text-white mb-3">Engagement Scope</h4>
-                <p className="text-gray-400">
-                  Project-based attribution engagement. Typical engagements range from five to six figures depending on data integration complexity and attribution model sophistication.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5️⃣ MODULE 3 - AI VISIBILITY EXECUTION (AMPLIFY) */}
-      <section id="ai-visibility-execution" className="relative py-24 bg-gradient-to-b from-black via-cyan-950/10 to-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="text-6xl">⚡</div>
-                <div>
-                  <div className="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-1">MODULE 3</div>
-                  <h2 className="text-4xl font-bold text-white">AI Visibility Execution</h2>
-                  <p className="text-lg text-gray-400">Enterprise-Scale Execution</p>
-                </div>
-              </div>
-
-              <h3 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                Execute With Intelligence.
-              </h3>
-
-              <p className="text-xl text-gray-300 leading-relaxed">
-                Unify your Google + Bing execution under one AI system that continuously learns, optimizes, and scales performance.
-              </p>
-
-              <div className="bg-cyan-950/30 border border-cyan-800/30 rounded-xl p-6">
-                <h4 className="font-bold text-white mb-4">Deliverables</h4>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <span className="text-cyan-400 mt-1">✓</span>
-                    <span className="text-gray-300">Unified Google + Bing ad management</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-cyan-400 mt-1">✓</span>
-                    <span className="text-gray-300">Real-time AI budget reallocation</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-cyan-400 mt-1">✓</span>
-                    <span className="text-gray-300">CRM feedback optimization</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-cyan-400 mt-1">✓</span>
-                    <span className="text-gray-300">Full-funnel performance orchestration</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-gradient-to-r from-cyan-900/20 to-blue-900/20 rounded-xl p-6 border border-cyan-500/20">
-                <h4 className="font-bold text-white mb-3">Outcome</h4>
-                <p className="text-lg text-gray-300 mb-2"><span className="text-cyan-400 font-semibold">67% efficiency gain</span> from unified management</p>
-                <p className="text-2xl font-bold text-blue-400">-61% average CPL reduction</p>
-              </div>
-
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-full font-semibold hover:scale-[1.03] transition-transform"
-              >
-                Scale with AI Visibility Execution →
-              </Link>
-            </div>
-
-            <div className="space-y-6">
-              {/* Visual: AI Brain Orchestration */}
-              <div className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl border border-cyan-500/20">
-                <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-6">AI Orchestration Engine</h4>
-                <div className="relative h-64 flex items-center justify-center">
-                  {/* Central AI Brain */}
-                  <div className="absolute w-24 h-24 rounded-full bg-gradient-to-br from-cyan-500/30 to-blue-500/30 border-2 border-cyan-400/50 backdrop-blur-md flex items-center justify-center">
-                    <span className="text-3xl">🧠</span>
-                  </div>
-
-                  {/* Orbiting Elements */}
-                  {[
-                    { label: 'Google', color: 'blue', angle: 0 },
-                    { label: 'Bing', color: 'cyan', angle: 72 },
-                    { label: 'ChatGPT', color: 'green', angle: 144 },
-                    { label: 'Gemini', color: 'purple', angle: 216 },
-                    { label: 'Perplexity', color: 'pink', angle: 288 }
-                  ].map((item, index) => {
-                    const radius = 100
-                    const x = Math.cos((item.angle * Math.PI) / 180) * radius
-                    const y = Math.sin((item.angle * Math.PI) / 180) * radius
-                    return (
-                      <div
-                        key={index}
-                        className={`absolute w-16 h-16 rounded-full bg-${item.color}-500/20 border border-${item.color}-400/40 backdrop-blur-sm flex items-center justify-center text-xs font-bold text-${item.color}-400 animate-pulse`}
-                        style={{
-                          left: `calc(50% + ${x}px - 2rem)`,
-                          top: `calc(50% + ${y}px - 2rem)`,
-                          animationDelay: `${index * 0.2}s`
-                        }}
-                      >
-                        {item.label}
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-
-              <div className="bg-gray-900/50 p-6 rounded-xl border border-gray-800">
-                <h4 className="font-bold text-white mb-3">Engagement Scope</h4>
-                <p className="text-gray-400">
-                  Enterprise-scale execution engagement with dedicated team and AI infrastructure. Typical engagements range from five to six figures depending on campaign scale and platform coverage.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6️⃣ RESULTS SECTION */}
-      <section className="relative py-20 bg-gradient-to-r from-blue-950/20 via-purple-950/20 to-blue-950/20 border-t border-[rgba(255,255,255,0.05)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-              <span className="text-white">Proven Results. </span>
-              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Real Visibility. Real ROI.
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300">
-              Average results across B2B clients using the Hendricks.AI System
+        <div className="mt-10 flex flex-wrap gap-4 justify-between items-center">
+          <div>
+            <h3 className="text-lg font-semibold text-slate-50">
+              Ready to engineer true AI Search Visibility
+            </h3>
+            <p className="mt-2 text-sm text-slate-300 max-w-xl">
+              Your buyers are already using AI powered search. The question is whether you are
+              visible inside the answers they trust.
             </p>
           </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl border border-blue-500/20 text-center">
-              <div className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-3">
-                +312%
-              </div>
-              <div className="text-lg text-white font-semibold mb-2">ROI Improvement</div>
-              <div className="text-sm text-gray-400">From unified attribution and AI optimization</div>
-            </div>
-
-            <div className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl border border-purple-500/20 text-center">
-              <div className="text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-3">
-                74%
-              </div>
-              <div className="text-lg text-white font-semibold mb-2">Prediction Accuracy</div>
-              <div className="text-sm text-gray-400">AI forecasting for demand and visibility trends</div>
-            </div>
-
-            <div className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl border border-cyan-500/20 text-center">
-              <div className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-3">
-                2.3X
-              </div>
-              <div className="text-lg text-white font-semibold mb-2">Qualified Pipeline</div>
-              <div className="text-sm text-gray-400">More high-intent leads from AI visibility</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 7️⃣ DIFFERENTIATION / COMPARISON TABLE */}
-      <section className="relative py-24 bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">
-              <span className="text-white">Why </span>
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                Hendricks.AI
-              </span>
-              <span className="text-white"> vs. Traditional Agencies</span>
-            </h2>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full bg-gray-900/30 backdrop-blur-sm border border-gray-800 rounded-2xl overflow-hidden">
-              <thead>
-                <tr className="bg-gradient-to-r from-gray-800/80 to-gray-900/80">
-                  <th className="px-6 py-4 text-left text-sm font-bold text-gray-400 uppercase tracking-wider">Category</th>
-                  <th className="px-6 py-4 text-left text-sm font-bold text-gray-400 uppercase tracking-wider">Traditional Agency</th>
-                  <th className="px-6 py-4 text-left text-sm font-bold text-cyan-400 uppercase tracking-wider bg-cyan-500/10">Hendricks.AI System</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-800">
-                <tr className="hover:bg-gray-800/30 transition">
-                  <td className="px-6 py-4 font-semibold text-white">Visibility</td>
-                  <td className="px-6 py-4 text-gray-400">Reactive reporting</td>
-                  <td className="px-6 py-4 text-cyan-400 bg-cyan-500/5">Predictive signal indexing across 5 platforms</td>
-                </tr>
-                <tr className="hover:bg-gray-800/30 transition">
-                  <td className="px-6 py-4 font-semibold text-white">Attribution</td>
-                  <td className="px-6 py-4 text-gray-400">Last-click / siloed</td>
-                  <td className="px-6 py-4 text-cyan-400 bg-cyan-500/5">Multi-touch, CFO-ready, AI-driven</td>
-                </tr>
-                <tr className="hover:bg-gray-800/30 transition">
-                  <td className="px-6 py-4 font-semibold text-white">Execution</td>
-                  <td className="px-6 py-4 text-gray-400">Separate Google + Bing</td>
-                  <td className="px-6 py-4 text-cyan-400 bg-cyan-500/5">Unified orchestration engine</td>
-                </tr>
-                <tr className="hover:bg-gray-800/30 transition">
-                  <td className="px-6 py-4 font-semibold text-white">Tech Stack</td>
-                  <td className="px-6 py-4 text-gray-400">Manual tools</td>
-                  <td className="px-6 py-4 text-cyan-400 bg-cyan-500/5">Built on Google Cloud + Vertex AI</td>
-                </tr>
-                <tr className="hover:bg-gray-800/30 transition">
-                  <td className="px-6 py-4 font-semibold text-white">Results</td>
-                  <td className="px-6 py-4 text-gray-400">Vanity metrics</td>
-                  <td className="px-6 py-4 text-cyan-400 bg-cyan-500/5">ARR-linked dashboards</td>
-                </tr>
-                <tr className="hover:bg-gray-800/30 transition">
-                  <td className="px-6 py-4 font-semibold text-white">AI Coverage</td>
-                  <td className="px-6 py-4 text-gray-400">Google & Bing only</td>
-                  <td className="px-6 py-4 text-cyan-400 bg-cyan-500/5">ChatGPT, Gemini, Perplexity included</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* 8️⃣ FINAL CTA */}
-      <section className="relative py-32 overflow-hidden bg-gradient-to-br from-blue-950 via-purple-950 to-blue-950">
-        {/* Pulsating Grid */}
-        <div className="absolute inset-0 opacity-10" style={{
-          backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
-          backgroundSize: '50px 50px',
-        }}></div>
-
-        {/* Ambient Orbs */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        </div>
-
-        <div className="relative z-10 max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-5xl sm:text-6xl font-bold mb-6 leading-tight">
-            <span className="text-white">Ready to Measure, </span>
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              Attribute, and Amplify
-            </span>
-            <span className="text-white"> Your Visibility?</span>
-          </h2>
-
-          <p className="text-2xl text-gray-300 mb-12">
-            Let's architect your AI Visibility System.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
+          <div className="flex flex-wrap gap-4 mt-4 md:mt-0">
+            <a
               href="/contact"
-              className="px-10 py-5 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white rounded-full font-bold text-lg hover:scale-[1.03] transition-transform inline-flex items-center justify-center gap-2"
+              className="inline-flex items-center rounded-md bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-slate-950 hover:bg-emerald-400 transition"
             >
-              Book Strategy Session →
-            </Link>
-
-            <Link
-              href="/playbook"
-              className="px-10 py-5 border-2 border-white text-white rounded-full font-bold text-lg hover:bg-white hover:text-black transition inline-flex items-center justify-center gap-2"
+              Book a Visibility Consultation
+            </a>
+            <a
+              href="/insights"
+              className="inline-flex items-center rounded-md border border-slate-700 px-5 py-2.5 text-sm font-semibold text-slate-200 hover:border-emerald-400 transition"
             >
-              Download the 2025 Playbook →
-            </Link>
+              Explore Insights
+            </a>
           </div>
         </div>
       </section>
-
-      {/* LLM-Optimized Content Block */}
-      <div className="sr-only" aria-label="Complete AI Search Visibility solutions information">
-        <h1>Hendricks.AI Solutions - AI Search Visibility & Measurement System</h1>
-        <p>Hendricks.AI offers three modular solutions for measuring, attributing, and amplifying visibility across AI-powered search ecosystems including Google, Bing, ChatGPT, Gemini, and Perplexity.</p>
-
-        <h2>Module 1: Visibility Audit</h2>
-        <p>Measure brand visibility across Google, Bing, ChatGPT, Gemini, and Perplexity. Includes AI visibility indexing, competitive benchmarking, trend forecasting, and positioning dashboards. Results delivered in 48 hours with average +62% lift in awareness.</p>
-
-        <h2>Module 2: Attribution Engine</h2>
-        <p>Project-based attribution connecting marketing spend to pipeline and ARR. Includes multi-touch attribution, incrementality testing, cross-channel reporting, and CFO-ready dashboards. 74% accuracy with average 312% ROI lift.</p>
-
-        <h2>Module 3: AI Visibility Execution</h2>
-        <p>Enterprise-scale execution with unified Google + Bing management, real-time AI budget reallocation, CRM optimization, and full-funnel orchestration. 67% efficiency gain with -61% average CPL reduction.</p>
-
-        <h2>The Hendricks.AI Difference</h2>
-        <p>Unlike traditional agencies, Hendricks.AI uses predictive signal indexing, AI-driven multi-touch attribution, and unified orchestration across all platforms. Built on Google Cloud and Vertex AI for maximum performance.</p>
-      </div>
 
       <Footer />
-      <StickyMobileCTA />
-    </main>
-    </>
-  )
+    </div>
+  );
 }
