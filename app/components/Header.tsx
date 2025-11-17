@@ -21,7 +21,7 @@ export function Header() {
     pathname === href || pathname?.startsWith(href + "/");
 
   return (
-    <header className="border-b border-slate-900 bg-slate-950/80 backdrop-blur">
+    <header className="relative z-50 border-b border-slate-900 bg-slate-950/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
 
         {/* Logo with AI-Powered Badge */}
