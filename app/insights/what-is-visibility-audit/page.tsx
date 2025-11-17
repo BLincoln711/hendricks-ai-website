@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { ArrowLeft, Calendar, Clock, Share2 } from 'lucide-react'
 import { Metadata } from 'next'
 import Navigation from '../../components/navigation'
-import Footer from '../../components/Footer'
+import { Footer } from '../../components/Footer'
 import StickyMobileCTA from '../../components/sticky-mobile-cta'
 
 export const metadata: Metadata = {

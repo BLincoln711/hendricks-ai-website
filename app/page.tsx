@@ -6,7 +6,7 @@ import Script from 'next/script'
 import { Sparkles } from 'lucide-react'
 import MarketDemandPredictor from './components/market-demand-predictor'
 import Navigation from './components/navigation'
-import Footer from './components/Footer'
+import { Footer } from './components/Footer'
 import StickyMobileCTA from './components/sticky-mobile-cta'
 import { BreadcrumbSchema } from './components/seo-improvements'
 

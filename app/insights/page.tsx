@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import Footer from '../components/Footer'
+import { Footer } from '../components/Footer'
 import Navigation from '../components/navigation'
 import StickyMobileCTA from '../components/sticky-mobile-cta'
 

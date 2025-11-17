@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Script from 'next/script'
 import Navigation from '../components/navigation'
-import Footer from '../components/Footer'
+import { Footer } from '../components/Footer'
 import { Brain, BarChart3, Rocket, Target, TrendingUp, Shield, Clock, Users, DollarSign, Zap } from 'lucide-react'
 
 export default function SearchIntelligenceSolutionsPage() {

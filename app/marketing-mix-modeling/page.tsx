@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Script from 'next/script'
 import Navigation from '../components/navigation'
-import Footer from '../components/Footer'
+import { Footer } from '../components/Footer'
 import { BarChart3, Brain, Calculator, LineChart, PieChart, TrendingUp, Zap, DollarSign, Users } from 'lucide-react'
 
 export default function MarketingMixModelingPage() {

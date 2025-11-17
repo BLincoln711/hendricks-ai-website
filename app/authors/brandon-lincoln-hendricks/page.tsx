@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { ArrowRight, Linkedin, Twitter, Mail } from 'lucide-react'
 import Navigation from '../../components/navigation'
-import Footer from '../../components/Footer'
+import { Footer } from '../../components/Footer'
 import { BreadcrumbSchema } from '../../components/seo-improvements'
 
 export async function generateMetadata() {

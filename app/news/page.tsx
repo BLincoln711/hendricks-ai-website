@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Calendar, User, ArrowRight, TrendingUp, Brain, BarChart3, Clock } from 'lucide-react'
 import Script from 'next/script'
 import Navigation from '../components/navigation'
-import Footer from '../components/Footer'
+import { Footer } from '../components/Footer'
 import { BreadcrumbSchema } from '../components/seo-improvements'
 
 export async function generateMetadata() {
