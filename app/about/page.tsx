@@ -3,6 +3,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 
@@ -13,9 +14,61 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://hendricks.ai/#brandon-hendricks",
+    "name": "Brandon Lincoln Hendricks",
+    "givenName": "Brandon Lincoln",
+    "familyName": "Hendricks",
+    "jobTitle": "Founder, Search Intelligence Engineer",
+    "description": "Brandon Lincoln Hendricks is the founder of Hendricks.AI, a Search Intelligence Engineering Firm specializing in AI Search Visibility and Measurement for B2B companies. He is a Google Machine Learning certified engineer and former Director of Search at SolarWinds and former Global Search Director at Merkle & Dentsu.",
+    "url": "https://hendricks.ai/about",
+    "image": "https://hendricks.ai/brandon-lincoln-hendricks.jpg",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Hendricks.AI",
+      "url": "https://hendricks.ai"
+    },
+    "alumniOf": {
+      "@type": "Organization",
+      "name": "SolarWinds"
+    },
+    "hasOccupation": [
+      {
+        "@type": "Occupation",
+        "name": "Director of Search",
+        "description": "Former Director of Search at SolarWinds, leading global search strategy and measurement."
+      },
+      {
+        "@type": "Occupation",
+        "name": "Global Search Director",
+        "description": "Former Global Search Director at Merkle & Dentsu, developing unified SERP and search strategies for enterprise brands."
+      },
+      {
+        "@type": "Occupation",
+        "name": "Search Intelligence Engineer",
+        "description": "Founder of Hendricks.AI and creator of Search Intelligence Engineering, an approach to AI Search Visibility and Measurement."
+      }
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/brandonhendricks",
+      "https://hendricks.ai"
+    ]
+  };
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
-      <Header />
+    <>
+      <Script
+        id="person-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(personSchema)
+        }}
+      />
+
+      <div className="min-h-screen bg-slate-950 text-slate-50">
+        <Header />
       {/* background glow */}
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.16),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(139,92,246,0.20),_transparent_60%)] opacity-80" />
 
@@ -332,6 +385,7 @@ export default function AboutPage() {
       </section>
 
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }
