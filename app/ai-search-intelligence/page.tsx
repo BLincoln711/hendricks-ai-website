@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Script from 'next/script'
 import Navigation from '../components/navigation'
-import Footer from '../components/footer'
+import Footer from '../components/Footer'
 import { BarChart3, Brain, Target, TrendingUp, Zap, Search, LineChart, Users } from 'lucide-react'
 
 export default function AISearchIntelligencePage() {

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Script from 'next/script'
 import Navigation from '../components/navigation'
-import Footer from '../components/footer'
+import Footer from '../components/Footer'
 import StickyMobileCTA from '../components/sticky-mobile-cta'
 import { BreadcrumbSchema } from '../components/seo-improvements'
 

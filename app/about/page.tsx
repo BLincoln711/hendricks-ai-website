@@ -2,7 +2,7 @@
 
 import Script from 'next/script'
 import Navigation from '../components/navigation'
-import Footer from '../components/footer'
+import Footer from '../components/Footer'
 import StickyMobileCTA from '../components/sticky-mobile-cta'
 import LLMSEOBlock from '../components/llm-seo-block'
 import { BreadcrumbSchema } from '../components/seo-improvements'
