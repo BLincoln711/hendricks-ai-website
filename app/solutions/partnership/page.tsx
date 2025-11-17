@@ -2,6 +2,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 
@@ -12,9 +13,57 @@ export const metadata: Metadata = {
 };
 
 export default function PartnershipPage() {
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://hendricks.ai/#partnership-service",
+    "name": "Search Intelligence Engineering Partnership",
+    "url": "https://hendricks.ai/solutions/partnership",
+    "description": "The Partnership tier from Hendricks.AI embeds a Search Intelligence Engineering function inside B2B organizations, owning AI Search Visibility, signal integrity, measurement, and the Search Intelligence roadmap.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Hendricks.AI",
+      "url": "https://hendricks.ai"
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "Global"
+    },
+    "serviceType": "Search Intelligence Engineering Partnership",
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "Mid-Market and Enterprise B2B Organizations"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://hendricks.ai/solutions/partnership",
+      "price": "20000",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": "20000",
+        "priceCurrency": "USD",
+        "billingIncrement": 1,
+        "unitCode": "MON"
+      },
+      "availability": "https://schema.org/InStock",
+      "category": "Subscription",
+      "description": "Subscription starting at 20,000 USD per month with a six to twelve month minimum commitment."
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
-      <Header />
+    <>
+      <Script
+        id="partnership-service-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(serviceSchema)
+        }}
+      />
+
+      <div className="min-h-screen bg-slate-950 text-slate-50">
+        <Header />
       <section className="max-w-4xl mx-auto px-4 py-16">
         <p className="text-xs font-semibold tracking-[0.18em] uppercase text-emerald-400">
           Solution Tier Three
@@ -143,6 +192,7 @@ export default function PartnershipPage() {
         </div>
       </section>
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }
