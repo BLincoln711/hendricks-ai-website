@@ -64,7 +64,7 @@ export default function SolutionsPage() {
       {/* Tier cards */}
       <section className="max-w-5xl mx-auto px-4 pb-16 space-y-10">
         {/* Foundation Tier */}
-        <div className="border border-slate-800 rounded-2xl bg-slate-900/60 p-6 md:p-8">
+        <div id="foundation" className="border border-slate-800 rounded-2xl bg-slate-900/60 p-6 md:p-8">
           <p className="text-xs font-semibold tracking-widest text-emerald-400 uppercase">
             Tier 1
           </p>
@@ -123,7 +123,7 @@ export default function SolutionsPage() {
         </div>
 
         {/* System Tier */}
-        <div className="border border-emerald-500/70 rounded-2xl bg-slate-900 p-6 md:p-8 shadow-[0_0_40px_rgba(16,185,129,0.28)]">
+        <div id="system" className="border border-emerald-500/70 rounded-2xl bg-slate-900 p-6 md:p-8 shadow-[0_0_40px_rgba(16,185,129,0.28)]">
           <p className="text-xs font-semibold tracking-widest text-emerald-400 uppercase">
             Tier 2
           </p>
@@ -184,7 +184,7 @@ export default function SolutionsPage() {
         </div>
 
         {/* Partnership Tier */}
-        <div className="border border-slate-800 rounded-2xl bg-slate-900/70 p-6 md:p-8">
+        <div id="partnership" className="border border-slate-800 rounded-2xl bg-slate-900/70 p-6 md:p-8">
           <p className="text-xs font-semibold tracking-widest text-emerald-400 uppercase">
             Tier 3
           </p>
