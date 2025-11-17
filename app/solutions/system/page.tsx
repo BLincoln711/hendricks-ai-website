@@ -2,6 +2,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 
@@ -12,9 +13,57 @@ export const metadata: Metadata = {
 };
 
 export default function SystemPage() {
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://hendricks.ai/#system-service",
+    "name": "System: AI Search Intelligence System",
+    "url": "https://hendricks.ai/solutions/system",
+    "description": "The System tier from Hendricks.AI provides a full Search Intelligence layer across AI Search Visibility, schema and entity optimization, and measurement for B2B companies.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Hendricks.AI",
+      "url": "https://hendricks.ai"
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "Global"
+    },
+    "serviceType": "AI Search Intelligence System",
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "B2B SaaS and Enterprise Marketing & Revenue Teams"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://hendricks.ai/solutions/system",
+      "price": "10000",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "price": "10000",
+        "priceCurrency": "USD",
+        "billingIncrement": 1,
+        "unitCode": "MON"
+      },
+      "availability": "https://schema.org/InStock",
+      "category": "Subscription",
+      "description": "Subscription starting at 10,000 USD per month with a three to six month minimum commitment."
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50">
-      <Header />
+    <>
+      <Script
+        id="system-service-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(serviceSchema)
+        }}
+      />
+
+      <div className="min-h-screen bg-slate-950 text-slate-50">
+        <Header />
       <section className="max-w-4xl mx-auto px-4 py-16">
         <p className="text-xs font-semibold tracking-[0.18em] uppercase text-emerald-400">
           Solution Tier Two
@@ -129,6 +178,7 @@ export default function SystemPage() {
         </div>
       </section>
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }
