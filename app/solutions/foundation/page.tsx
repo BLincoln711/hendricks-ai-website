@@ -65,7 +65,7 @@ export default function FoundationPage() {
       <div className="min-h-screen bg-slate-950 text-slate-50">
         <Header />
       <section className="max-w-4xl mx-auto px-4 py-16">
-        <p className="text-xs font-semibold tracking-[0.18em] uppercase text-emerald-400">
+        <p className="text-sm font-semibold tracking-[0.18em] uppercase text-emerald-400">
           Solution Tier One
         </p>
         <h1 className="mt-3 text-3xl md:text-4xl font-semibold">
@@ -74,21 +74,21 @@ export default function FoundationPage() {
         <p className="mt-2 text-lg text-slate-200">
           AI Visibility and Measurement
         </p>
-        <p className="mt-4 text-sm text-slate-300 max-w-2xl">
+        <p className="mt-4 text-base text-slate-300 max-w-2xl">
           The Foundation tier gives B2B teams ongoing clarity into AI search visibility and
           measurement health without requiring a full Search Intelligence operation.
         </p>
 
         <div className="mt-6 rounded-xl border border-slate-800 bg-slate-900/60 p-5">
-          <p className="text-sm font-semibold text-slate-100">
+          <p className="text-base font-semibold text-slate-100">
             Pricing
           </p>
-          <p className="mt-1 text-sm text-slate-200">
+          <p className="mt-1 text-base text-slate-200">
             Starting at 5,000 dollars per month. Minimum three month commitment.
           </p>
         </div>
 
-        <section className="mt-10 space-y-6 text-sm text-slate-300">
+        <section className="mt-10 space-y-6 text-base text-slate-300">
           <div>
             <h2 className="text-base font-semibold text-slate-50">
               Who Foundation is for

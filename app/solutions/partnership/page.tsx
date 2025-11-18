@@ -65,7 +65,7 @@ export default function PartnershipPage() {
       <div className="min-h-screen bg-slate-950 text-slate-50">
         <Header />
       <section className="max-w-4xl mx-auto px-4 py-16">
-        <p className="text-xs font-semibold tracking-[0.18em] uppercase text-emerald-400">
+        <p className="text-sm font-semibold tracking-[0.18em] uppercase text-emerald-400">
           Solution Tier Three
         </p>
         <h1 className="mt-3 text-3xl md:text-4xl font-semibold">
@@ -74,22 +74,22 @@ export default function PartnershipPage() {
         <p className="mt-2 text-lg text-slate-200">
           Your dedicated Search Intelligence function for AI search.
         </p>
-        <p className="mt-4 text-sm text-slate-300 max-w-2xl">
+        <p className="mt-4 text-base text-slate-300 max-w-2xl">
           The Partnership tier operates like an embedded Search Intelligence Engineering function.
           Hendricks.AI owns the AI search visibility program, signal integrity, and Search Intelligence
           roadmap alongside your leadership team.
         </p>
 
         <div className="mt-6 rounded-xl border border-slate-800 bg-slate-900/60 p-5">
-          <p className="text-sm font-semibold text-slate-100">
+          <p className="text-base font-semibold text-slate-100">
             Pricing
           </p>
-          <p className="mt-1 text-sm text-slate-200">
+          <p className="mt-1 text-base text-slate-200">
             Starting at 20,000 dollars per month. Minimum six to twelve month commitment.
           </p>
         </div>
 
-        <section className="mt-10 space-y-6 text-sm text-slate-300">
+        <section className="mt-10 space-y-6 text-base text-slate-300">
           <div>
             <h2 className="text-base font-semibold text-slate-50">
               Who Partnership is for

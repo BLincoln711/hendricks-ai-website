@@ -65,7 +65,7 @@ export default function SystemPage() {
       <div className="min-h-screen bg-slate-950 text-slate-50">
         <Header />
       <section className="max-w-4xl mx-auto px-4 py-16">
-        <p className="text-xs font-semibold tracking-[0.18em] uppercase text-emerald-400">
+        <p className="text-sm font-semibold tracking-[0.18em] uppercase text-emerald-400">
           Solution Tier Two
         </p>
         <h1 className="mt-3 text-3xl md:text-4xl font-semibold">
@@ -74,21 +74,21 @@ export default function SystemPage() {
         <p className="mt-2 text-lg text-slate-200">
           AI Search Intelligence System
         </p>
-        <p className="mt-4 text-sm text-slate-300 max-w-2xl">
+        <p className="mt-4 text-base text-slate-300 max-w-2xl">
           The System tier is the core Hendricks.AI subscription. It provides a full Search Intelligence
           layer across AI visibility, technical search signals, and measurement for B2B companies.
         </p>
 
         <div className="mt-6 rounded-xl border border-emerald-500/70 bg-slate-900 p-5 shadow-[0_0_40px_rgba(16,185,129,0.28)]">
-          <p className="text-sm font-semibold text-slate-100">
+          <p className="text-base font-semibold text-slate-100">
             Pricing
           </p>
-          <p className="mt-1 text-sm text-slate-200">
+          <p className="mt-1 text-base text-slate-200">
             Starting at 10,000 dollars per month. Minimum three to six month commitment.
           </p>
         </div>
 
-        <section className="mt-10 space-y-6 text-sm text-slate-300">
+        <section className="mt-10 space-y-6 text-base text-slate-300">
           <div>
             <h2 className="text-base font-semibold text-slate-50">
               Who System is for

@@ -74,7 +74,7 @@ export default function AboutPage() {
 
       {/* HERO */}
       <section className="relative max-w-6xl mx-auto px-4 pt-20 pb-14">
-        <p className="inline-flex items-center rounded-full border border-sky-500/40 bg-slate-900/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-sky-300">
+        <p className="inline-flex items-center rounded-full border border-sky-500/40 bg-slate-900/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-sky-300">
           Search Intelligence Engineering Firm
         </p>
 
@@ -85,17 +85,17 @@ export default function AboutPage() {
           </span>
         </h1>
 
-        <p className="mt-4 max-w-3xl text-xs md:text-sm text-slate-200">
+        <p className="mt-4 max-w-3xl text-sm md:text-base text-slate-200">
           Hendricks.AI builds the systems that unify AI Search Visibility, technical signals,
           and measurement across every AI powered search environment.
         </p>
 
-        <p className="mt-3 text-[11px] text-slate-400">
+        <p className="mt-3 text-xs text-slate-400">
           Built on Google Cloud • Powered by Vertex AI
         </p>
 
         {/* quick answer */}
-        <div className="mt-8 max-w-3xl rounded-2xl border border-slate-800 bg-slate-900/80 p-5 text-xs md:text-sm text-slate-200">
+        <div className="mt-8 max-w-3xl rounded-2xl border border-slate-800 bg-slate-900/80 p-5 text-sm md:text-base text-slate-200">
           <p className="font-semibold text-slate-50 mb-2">Quick answer.</p>
           <p>
             Hendricks.AI is a Search Intelligence Engineering Firm for B2B growth, founded by
@@ -109,7 +109,7 @@ export default function AboutPage() {
 
       {/* FROM AGENCY TO INTELLIGENCE FIRM */}
       <section className="relative max-w-6xl mx-auto px-4 pb-12">
-        <div className="max-w-3xl space-y-4 text-xs md:text-sm text-slate-300">
+        <div className="max-w-3xl space-y-4 text-sm md:text-base text-slate-300">
           <h2 className="text-xl md:text-2xl font-semibold text-slate-50">
             From Agency to Intelligence Firm
           </h2>
@@ -154,17 +154,17 @@ export default function AboutPage() {
               />
             </div>
             <div className="mt-4 text-center md:text-left">
-              <p className="text-sm font-semibold text-slate-50">
+              <p className="text-base font-semibold text-slate-50">
                 Brandon Lincoln Hendricks
               </p>
-              <p className="text-xs text-slate-400">
+              <p className="text-sm text-slate-400">
                 Founder, Hendricks.AI • Search Intelligence Engineer
               </p>
             </div>
           </div>
 
           {/* Bio content */}
-          <div className="space-y-6 text-xs md:text-sm text-slate-300">
+          <div className="space-y-6 text-sm md:text-base text-slate-300">
             <h2 className="text-lg md:text-xl font-semibold text-slate-50">
               Building Search Intelligence Systems for Modern B2B
             </h2>
@@ -218,19 +218,19 @@ export default function AboutPage() {
           <h2 className="text-lg md:text-xl font-semibold text-slate-50">
             What is Search Intelligence Engineering
           </h2>
-          <p className="mt-3 text-xs md:text-sm text-slate-300">
+          <p className="mt-3 text-sm md:text-base text-slate-300">
             Search Intelligence Engineering is the discipline of designing and maintaining
             the visibility, signal, and measurement systems that govern how brands appear and
             are evaluated across AI powered and traditional search engines.
           </p>
-          <p className="mt-3 text-xs md:text-sm text-slate-300">
+          <p className="mt-3 text-sm md:text-base text-slate-300">
             Instead of focusing on single keywords or isolated campaigns, Search Intelligence
             Engineering focuses on three layers.
           </p>
 
-          <div className="mt-6 grid gap-6 md:grid-cols-3 text-xs md:text-sm text-slate-200">
+          <div className="mt-6 grid gap-6 md:grid-cols-3 text-sm md:text-base text-slate-200">
             <div>
-              <p className="text-sm font-semibold text-sky-300">
+              <p className="text-base font-semibold text-sky-300">
                 AI Search Visibility
               </p>
               <p className="mt-2 text-slate-300">
@@ -239,7 +239,7 @@ export default function AboutPage() {
               </p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-sky-300">
+              <p className="text-base font-semibold text-sky-300">
                 Signals and Structure
               </p>
               <p className="mt-2 text-slate-300">
@@ -248,7 +248,7 @@ export default function AboutPage() {
               </p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-sky-300">
+              <p className="text-base font-semibold text-sky-300">
                 Measurement and Attribution
               </p>
               <p className="mt-2 text-slate-300">
@@ -258,7 +258,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <p className="mt-6 text-[11px] md:text-xs text-slate-400">
+          <p className="mt-6 text-xs md:text-sm text-slate-400">
             Traditional SEO and paid search optimization are inputs into this system.
             Search Intelligence Engineering is the architecture that keeps all of it
             coherent, measurable, and aligned to business outcomes.
@@ -268,7 +268,7 @@ export default function AboutPage() {
 
       {/* WHY B2B GROWTH */}
       <section className="relative max-w-6xl mx-auto px-4 pb-16">
-        <div className="max-w-3xl space-y-4 text-xs md:text-sm text-slate-300">
+        <div className="max-w-3xl space-y-4 text-sm md:text-base text-slate-300">
           <h2 className="text-lg md:text-xl font-semibold text-slate-50">
             Why We Focus on B2B Growth
           </h2>
@@ -295,9 +295,9 @@ export default function AboutPage() {
             Why Hendricks.AI
           </h2>
 
-          <div className="grid gap-5 md:grid-cols-3 text-xs md:text-sm">
+          <div className="grid gap-5 md:grid-cols-3 text-sm md:text-base">
             <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
-              <p className="text-sm font-semibold text-slate-50">
+              <p className="text-base font-semibold text-slate-50">
                 We are not an agency
               </p>
               <p className="mt-3 text-slate-300">
@@ -308,7 +308,7 @@ export default function AboutPage() {
             </div>
 
             <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
-              <p className="text-sm font-semibold text-slate-50">
+              <p className="text-base font-semibold text-slate-50">
                 We measure what others ignore
               </p>
               <p className="mt-3 text-slate-300">
@@ -319,7 +319,7 @@ export default function AboutPage() {
             </div>
 
             <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
-              <p className="text-sm font-semibold text-slate-50">
+              <p className="text-base font-semibold text-slate-50">
                 We connect visibility to revenue
               </p>
               <p className="mt-3 text-slate-300">
@@ -334,7 +334,7 @@ export default function AboutPage() {
 
       {/* CREATING A NEW CATEGORY */}
       <section className="relative max-w-6xl mx-auto px-4 pb-20">
-        <div className="max-w-4xl space-y-4 text-xs md:text-sm text-slate-300">
+        <div className="max-w-4xl space-y-4 text-sm md:text-base text-slate-300">
           <h2 className="text-lg md:text-xl font-semibold text-slate-50">
             Creating a New Category
           </h2>
@@ -362,7 +362,7 @@ export default function AboutPage() {
           <h2 className="text-xl md:text-2xl font-semibold text-slate-50">
             Ready to build your Search Intelligence foundation
           </h2>
-          <p className="mt-3 max-w-3xl text-xs md:text-sm text-slate-300">
+          <p className="mt-3 max-w-3xl text-sm md:text-base text-slate-300">
             Start with the Foundation tier for AI visibility and measurement clarity or move
             directly into the System or Partnership programs to build a continuous Search
             Intelligence function for your organization.
@@ -370,13 +370,13 @@ export default function AboutPage() {
           <div className="mt-6 flex flex-wrap gap-4">
             <Link
               href="/solutions"
-              className="inline-flex items-center rounded-full bg-gradient-to-r from-sky-500 via-blue-500 to-violet-500 px-6 py-2.5 text-xs font-semibold text-slate-950 shadow-lg shadow-sky-500/30 hover:from-sky-400 hover:via-blue-400 hover:to-violet-400 transition"
+              className="inline-flex items-center rounded-full bg-gradient-to-r from-sky-500 via-blue-500 to-violet-500 px-6 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-sky-500/30 hover:from-sky-400 hover:via-blue-400 hover:to-violet-400 transition"
             >
               View Subscription Tiers
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center rounded-full border border-slate-700 bg-slate-900/70 px-6 py-2.5 text-xs font-semibold text-slate-200 hover:border-sky-400 hover:text-sky-300 transition"
+              className="inline-flex items-center rounded-full border border-slate-700 bg-slate-900/70 px-6 py-2.5 text-sm font-semibold text-slate-200 hover:border-sky-400 hover:text-sky-300 transition"
             >
               Book Visibility Consultation
             </Link>
