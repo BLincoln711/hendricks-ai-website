@@ -34,9 +34,40 @@ const articleSchema = {
   "url": "https://hendricks.ai/insights/ai-search-visibility-guide",
 };
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://hendricks.ai/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Insights",
+      item: "https://hendricks.ai/insights",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "2025 AI Search Visibility Guide",
+      item: "https://hendricks.ai/insights/ai-search-visibility-guide",
+    },
+  ],
+};
+
 export default function AISearchVisibilityGuidePage() {
   return (
     <>
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       <Script
         id="article-schema"
         type="application/ld+json"
