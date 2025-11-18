@@ -346,9 +346,11 @@ export default function HomePage() {
         {/* FOUNDER STRIP */}
         <section className="py-16 bg-black/80 border-t border-slate-900/60">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center gap-4 md:gap-6">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-sm font-semibold">
-              BL
-            </div>
+            <img
+              src="/brandon-lincoln-hendricks.jpg"
+              alt="Brandon Lincoln Hendricks"
+              className="w-16 h-16 rounded-full object-cover"
+            />
             <div className="text-xs md:text-sm text-gray-300">
               <p className="font-semibold text-white">
                 Brandon Lincoln Hendricks
