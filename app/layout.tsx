@@ -8,6 +8,7 @@ import GoogleTagManager from './components/GoogleTagManager'
 import GTMNoScript from './components/GTMNoScript'
 import AIChat from './components/ai-chat'
 import GlobalSchemas from '../components/GlobalSchemas'
+import PageSchemas from './components/PageSchemas'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -34,6 +35,7 @@ export default function RootLayout({
         {/* Existing Tracking */}
         <HubSpotTracking />
         <GlobalSchemas />
+        <PageSchemas />
 
         {children}
         <AIChat />
