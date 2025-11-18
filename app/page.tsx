@@ -39,7 +39,7 @@ export default function HomePage() {
               <div>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-950/60 border border-blue-700/60 mb-6">
                   <span className="w-2 h-2 rounded-full bg-blue-400" />
-                  <span className="text-xs font-medium tracking-[0.18em] text-blue-300 uppercase">
+                  <span className="text-sm font-medium tracking-[0.18em] text-blue-300 uppercase">
                     Search Intelligence Engineering
                   </span>
                 </div>
@@ -53,13 +53,13 @@ export default function HomePage() {
                   </span>
                 </h1>
 
-                <p className="text-sm md:text-base text-gray-300 max-w-xl mb-6">
+                <p className="text-base md:text-lg text-gray-300 max-w-xl mb-6">
                   AI Search Visibility and Measurement for B2B companies across Google AI
                   Overviews, Gemini, ChatGPT, Perplexity, and Bing Copilot.
                 </p>
 
                 <div className="bg-blue-950/40 border border-blue-800/70 rounded-xl p-4 mb-6">
-                  <p className="text-xs md:text-sm text-gray-200">
+                  <p className="text-sm md:text-base text-gray-200">
                     <span className="font-semibold text-white">Quick answer.</span> Hendricks.AI is a Search Intelligence Engineering Firm specializing in AI Search Visibility and Measurement for B2B. We engineer the signals, schema, entities, and measurement systems that determine how your brand appears in AI search and how that visibility turns into pipeline.
                   </p>
                 </div>
@@ -67,19 +67,19 @@ export default function HomePage() {
                 <div className="flex flex-wrap gap-4 mb-3">
                   <Link
                     href="/solutions"
-                    className="inline-flex items-center justify-center px-7 py-3 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-xs md:text-sm font-semibold text-white hover:scale-[1.02] transition-transform hover:shadow-[0_0_24px_rgba(96,165,250,0.6)]"
+                    className="inline-flex items-center justify-center px-7 py-3 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-sm md:text-base font-semibold text-white hover:scale-[1.02] transition-transform hover:shadow-[0_0_24px_rgba(96,165,250,0.6)]"
                   >
                     Start Your AI Visibility System →
                   </Link>
                   <Link
                     href="/contact"
-                    className="inline-flex items-center justify-center px-7 py-3 rounded-full border border-cyan-400/40 text-xs md:text-sm font-semibold text-gray-200 hover:border-cyan-400 hover:text-white transition"
+                    className="inline-flex items-center justify-center px-7 py-3 rounded-full border border-cyan-400/40 text-sm md:text-base font-semibold text-gray-200 hover:border-cyan-400 hover:text-white transition"
                   >
                     Book Visibility Consultation →
                   </Link>
                 </div>
 
-                <p className="text-[11px] text-gray-400">
+                <p className="text-xs text-gray-400">
                   Or{" "}
                   <Link
                     href="/insights/ai-search-visibility-guide"
@@ -94,45 +94,45 @@ export default function HomePage() {
               {/* Right column: simple, premium system card */}
               <div className="hidden lg:flex justify-end">
                 <div className="w-full max-w-md rounded-2xl bg-black/70 border border-slate-800/80 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.8)]">
-                  <p className="text-[11px] font-medium tracking-[0.18em] text-slate-400 uppercase mb-3">
+                  <p className="text-xs font-medium tracking-[0.18em] text-slate-400 uppercase mb-3">
                     Unified AI Search Visibility
                   </p>
                   <h3 className="text-xl font-semibold mb-2">
                     One Search Intelligence System.
                   </h3>
-                  <p className="text-xs text-gray-300 mb-4">
+                  <p className="text-sm text-gray-300 mb-4">
                     See how your brand appears across AI Overviews, Gemini, ChatGPT, Perplexity, and Bing Copilot in one coherent view.
                   </p>
-                  <div className="grid grid-cols-2 gap-4 text-[11px]">
+                  <div className="grid grid-cols-2 gap-4">
                     <div className="rounded-lg border border-slate-700/80 bg-slate-900/80 p-3">
-                      <p className="text-xs font-semibold text-sky-300 mb-1">
+                      <p className="text-sm font-semibold text-sky-300 mb-1">
                         AI Engines
                       </p>
-                      <p className="text-[11px] text-gray-300">
+                      <p className="text-xs text-gray-300">
                         Google AI Overviews, Gemini, ChatGPT, Perplexity, Bing Copilot.
                       </p>
                     </div>
                     <div className="rounded-lg border border-slate-700/80 bg-slate-900/80 p-3">
-                      <p className="text-xs font-semibold text-purple-300 mb-1">
+                      <p className="text-sm font-semibold text-purple-300 mb-1">
                         Signals
                       </p>
-                      <p className="text-[11px] text-gray-300">
+                      <p className="text-xs text-gray-300">
                         Schema, entities, technical health, and AI surfacing behavior.
                       </p>
                     </div>
                     <div className="rounded-lg border border-slate-700/80 bg-slate-900/80 p-3">
-                      <p className="text-xs font-semibold text-emerald-300 mb-1">
+                      <p className="text-sm font-semibold text-emerald-300 mb-1">
                         Measurement
                       </p>
-                      <p className="text-[11px] text-gray-300">
+                      <p className="text-xs text-gray-300">
                         GA4, BigQuery, and dashboards that connect visibility to pipeline.
                       </p>
                     </div>
                     <div className="rounded-lg border border-slate-700/80 bg-slate-900/80 p-3">
-                      <p className="text-xs font-semibold text-gray-200 mb-1">
+                      <p className="text-sm font-semibold text-gray-200 mb-1">
                         Outcome
                       </p>
-                      <p className="text-[11px] text-gray-300">
+                      <p className="text-xs text-gray-300">
                         A Search Intelligence layer your CMO and CFO can trust.
                       </p>
                     </div>
@@ -147,7 +147,7 @@ export default function HomePage() {
         <section className="relative py-20 bg-black/70 border-t border-slate-900/60">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900/80 border border-slate-700/80 rounded-full text-[11px] text-slate-300 mb-5 tracking-[0.18em] uppercase">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900/80 border border-slate-700/80 rounded-full text-xs text-slate-300 mb-5 tracking-[0.18em] uppercase">
                 <span>The Hendricks.AI System</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-semibold mb-3">
@@ -155,7 +155,7 @@ export default function HomePage() {
                   Three tiers. One Search Intelligence system.
                 </span>
               </h2>
-              <p className="text-sm md:text-base text-gray-300 max-w-2xl mx-auto">
+              <p className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto">
                 Start where you are. Build a continuous AI visibility and measurement function
                 that keeps your brand visible, understood, and selected across AI powered search
                 engines.
@@ -165,29 +165,29 @@ export default function HomePage() {
             <div className="grid md:grid-cols-3 gap-8">
               {/* Foundation */}
               <div className="rounded-2xl bg-slate-950/80 border border-slate-800/80 p-6 flex flex-col">
-                <p className="text-[11px] font-medium text-blue-300 tracking-[0.18em] uppercase mb-2">
+                <p className="text-xs font-medium text-blue-300 tracking-[0.18em] uppercase mb-2">
                   Tier One
                 </p>
                 <h3 className="text-xl font-semibold mb-1">Foundation</h3>
-                <p className="text-xs text-blue-200 mb-3">
+                <p className="text-sm text-blue-200 mb-3">
                   AI Visibility and Measurement
                 </p>
-                <p className="text-xs text-gray-300 mb-4">
+                <p className="text-sm text-gray-300 mb-4">
                   Ongoing AI visibility monitoring and measurement health. Continuous insight
                   into how AI search engines see your brand, with clear actions for your team
                   every month.
                 </p>
                 <div className="mt-auto mb-4">
-                  <p className="text-xs text-gray-200 font-semibold">
+                  <p className="text-sm text-gray-200 font-semibold">
                     From $5,000/month
                   </p>
-                  <p className="text-[11px] text-gray-500">
+                  <p className="text-xs text-gray-500">
                     Minimum 3 months
                   </p>
                 </div>
                 <Link
                   href="/solutions/foundation"
-                  className="inline-flex items-center justify-center rounded-lg border border-blue-400/50 text-xs font-semibold text-blue-100 px-4 py-2 hover:bg-blue-500/10 transition"
+                  className="inline-flex items-center justify-center rounded-lg border border-blue-400/50 text-sm font-semibold text-blue-100 px-4 py-2 hover:bg-blue-500/10 transition"
                 >
                   Learn more →
                 </Link>
@@ -196,33 +196,33 @@ export default function HomePage() {
               {/* System */}
               <div className="rounded-2xl bg-slate-950 border border-purple-500/60 p-6 flex flex-col shadow-[0_0_32px_rgba(168,85,247,0.4)]">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-[11px] font-medium text-purple-300 tracking-[0.18em] uppercase">
+                  <p className="text-xs font-medium text-purple-300 tracking-[0.18em] uppercase">
                     Tier Two
                   </p>
-                  <span className="text-[10px] px-2 py-1 rounded-full bg-purple-500 text-white font-semibold">
+                  <span className="text-xs px-2 py-1 rounded-full bg-purple-500 text-white font-semibold">
                     Popular
                   </span>
                 </div>
                 <h3 className="text-xl font-semibold mb-1">System</h3>
-                <p className="text-xs text-purple-200 mb-3">
+                <p className="text-sm text-purple-200 mb-3">
                   AI Search Intelligence System
                 </p>
-                <p className="text-xs text-gray-300 mb-4">
+                <p className="text-sm text-gray-300 mb-4">
                   A full Search Intelligence layer across AI visibility, schema, entities, and
                   measurement. The operating system for AI search visibility in your marketing
                   and revenue engine.
                 </p>
                 <div className="mt-auto mb-4">
-                  <p className="text-xs text-gray-200 font-semibold">
+                  <p className="text-sm text-gray-200 font-semibold">
                     From $10,000/month
                   </p>
-                  <p className="text-[11px] text-gray-500">
+                  <p className="text-xs text-gray-500">
                     Minimum 3–6 months
                   </p>
                 </div>
                 <Link
                   href="/solutions/system"
-                  className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-xs font-semibold text-white px-4 py-2 hover:shadow-lg hover:shadow-purple-500/40 transition"
+                  className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-sm font-semibold text-white px-4 py-2 hover:shadow-lg hover:shadow-purple-500/40 transition"
                 >
                   Learn more →
                 </Link>
@@ -230,29 +230,29 @@ export default function HomePage() {
 
               {/* Partnership */}
               <div className="rounded-2xl bg-slate-950/80 border border-slate-800/80 p-6 flex flex-col">
-                <p className="text-[11px] font-medium text-cyan-300 tracking-[0.18em] uppercase mb-2">
+                <p className="text-xs font-medium text-cyan-300 tracking-[0.18em] uppercase mb-2">
                   Tier Three
                 </p>
                 <h3 className="text-xl font-semibold mb-1">Partnership</h3>
-                <p className="text-xs text-cyan-200 mb-3">
+                <p className="text-sm text-cyan-200 mb-3">
                   Search Intelligence Engineering Partnership
                 </p>
-                <p className="text-xs text-gray-300 mb-4">
+                <p className="text-sm text-gray-300 mb-4">
                   Your dedicated Search Intelligence Engineering function. Hendricks.AI owns
                   your AI search visibility program, signal integrity, and Search Intelligence
                   roadmap alongside your leadership team.
                 </p>
                 <div className="mt-auto mb-4">
-                  <p className="text-xs text-gray-200 font-semibold">
+                  <p className="text-sm text-gray-200 font-semibold">
                     From $20,000/month
                   </p>
-                  <p className="text-[11px] text-gray-500">
+                  <p className="text-xs text-gray-500">
                     Minimum 6–12 months
                   </p>
                 </div>
                 <Link
                   href="/solutions/partnership"
-                  className="inline-flex items-center justify-center rounded-lg border border-cyan-400/50 text-xs font-semibold text-cyan-100 px-4 py-2 hover:bg-cyan-500/10 transition"
+                  className="inline-flex items-center justify-center rounded-lg border border-cyan-400/50 text-sm font-semibold text-cyan-100 px-4 py-2 hover:bg-cyan-500/10 transition"
                 >
                   Learn more →
                 </Link>
@@ -271,7 +271,7 @@ export default function HomePage() {
               </span>
               ?
             </h2>
-            <p className="text-sm md:text-base text-gray-300 max-w-3xl mx-auto">
+            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto">
               Search Intelligence Engineering is the discipline of designing and maintaining
               the visibility, signal, and measurement systems that govern how your brand
               appears and is evaluated across AI powered and traditional search engines.
@@ -285,7 +285,7 @@ export default function HomePage() {
         <section className="relative py-20 bg-gradient-to-b from-black via-slate-950 to-black">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-slate-950/80 rounded-2xl p-8 border border-slate-800">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 border border-slate-700 rounded-full text-[11px] text-slate-300 mb-6 tracking-[0.18em] uppercase">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 border border-slate-700 rounded-full text-xs text-slate-300 mb-6 tracking-[0.18em] uppercase">
                 <span>Search Intelligence Engineering</span>
               </div>
 
@@ -299,44 +299,44 @@ export default function HomePage() {
                 </span>
               </h2>
 
-              <p className="text-sm md:text-base text-gray-300 max-w-3xl mb-10">
+              <p className="text-base md:text-lg text-gray-300 max-w-3xl mb-10">
                 While competitors chase rankings and content volume, you engineer AI Search
                 Visibility. Measure and improve how your brand appears across Google AI
                 Overviews, Gemini, ChatGPT, Perplexity, and Bing Copilot as one continuous
                 Search Intelligence system.
               </p>
 
-              <div className="grid md:grid-cols-3 gap-6 text-xs md:text-sm">
+              <div className="grid md:grid-cols-3 gap-6">
                 <div className="bg-black/70 rounded-xl p-5 border border-rose-500/30">
-                  <p className="text-sm font-semibold text-rose-300 mb-2">
+                  <p className="text-base font-semibold text-rose-300 mb-2">
                     Fragmented signals
                   </p>
-                  <p className="text-gray-300">
+                  <p className="text-sm text-gray-300">
                     Visibility loss when schema, entities, and AI search signals are not
                     engineered together.
                   </p>
                 </div>
                 <div className="bg-black/70 rounded-xl p-5 border border-amber-500/30">
-                  <p className="text-sm font-semibold text-amber-300 mb-2">
+                  <p className="text-base font-semibold text-amber-300 mb-2">
                     Disconnected analytics
                   </p>
-                  <p className="text-gray-300">
+                  <p className="text-sm text-gray-300">
                     Redundant and conflicting reporting when search and AI are measured in
                     separate systems.
                   </p>
                 </div>
                 <div className="bg-black/70 rounded-xl p-5 border border-emerald-500/30">
-                  <p className="text-sm font-semibold text-emerald-300 mb-2">
+                  <p className="text-base font-semibold text-emerald-300 mb-2">
                     Search Intelligence gains
                   </p>
-                  <p className="text-gray-300">
+                  <p className="text-sm text-gray-300">
                     Clearer, more trusted ROI when AI visibility, technical signals, and
                     attribution live in one Search Intelligence layer.
                   </p>
                 </div>
               </div>
 
-              <p className="mt-8 text-[11px] text-gray-500">
+              <p className="mt-8 text-xs text-gray-500">
                 Built on Google Cloud • Powered by Vertex AI • Designed for the AI Search Era
               </p>
             </div>
@@ -351,7 +351,7 @@ export default function HomePage() {
               alt="Brandon Lincoln Hendricks"
               className="w-16 h-16 rounded-full object-cover"
             />
-            <div className="text-xs md:text-sm text-gray-300">
+            <div className="text-sm md:text-base text-gray-300">
               <p className="font-semibold text-white">
                 Brandon Lincoln Hendricks
               </p>
@@ -383,7 +383,7 @@ export default function HomePage() {
                 for Your Team?
               </span>
             </h2>
-            <p className="text-sm md:text-base text-gray-300 mb-10 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-gray-300 mb-10 max-w-2xl mx-auto">
               Start with the Foundation tier for visibility and measurement clarity or move
               directly into the System or Partnership tiers to build a continuous Search
               Intelligence function for your organization.
@@ -391,13 +391,13 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/solutions"
-                className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-xs md:text-sm font-semibold text-white hover:scale-[1.02] transition-transform hover:shadow-[0_0_26px_rgba(96,165,250,0.6)]"
+                className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-sm md:text-base font-semibold text-white hover:scale-[1.02] transition-transform hover:shadow-[0_0_26px_rgba(96,165,250,0.6)]"
               >
                 View Subscription Tiers →
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-8 py-3 rounded-full border border-cyan-400/40 text-xs md:text-sm font-semibold text-gray-200 hover:border-cyan-400 hover:text-white transition"
+                className="inline-flex items-center justify-center px-8 py-3 rounded-full border border-cyan-400/40 text-sm md:text-base font-semibold text-gray-200 hover:border-cyan-400 hover:text-white transition"
               >
                 Book Visibility Consultation →
               </Link>
