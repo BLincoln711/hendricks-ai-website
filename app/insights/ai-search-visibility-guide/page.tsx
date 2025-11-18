@@ -8,6 +8,41 @@ export const metadata: Metadata = {
   title: "2025 AI Search Visibility Guide | Hendricks.AI",
   description:
     "A practical playbook for B2B leaders on how to understand, measure, and engineer AI Search Visibility across Google AI Overviews, Gemini, ChatGPT, Perplexity, and Bing Copilot.",
+  keywords: [
+    "AI search visibility guide",
+    "AI search optimization",
+    "B2B AI search strategy",
+    "ChatGPT visibility",
+    "Perplexity search visibility",
+    "Gemini AI search",
+    "Bing Copilot visibility",
+    "Google AI Overviews schema",
+    "search intelligence engineering",
+  ],
+  openGraph: {
+    title: "2025 AI Search Visibility Guide | Hendricks.AI",
+    description:
+      "A practical playbook for understanding, measuring, and engineering AI Search Visibility across Google AI Overviews, Gemini, ChatGPT, Perplexity, and Bing Copilot.",
+    type: "article",
+    url: "https://hendricks.ai/insights/ai-search-visibility-guide",
+    publishedTime: "2025-01-01T00:00:00.000Z",
+    authors: ["Brandon Lincoln Hendricks"],
+    images: [
+      {
+        url: "https://hendricks.ai/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AI Search Visibility Guide",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "2025 AI Search Visibility Guide | Hendricks.AI",
+    description:
+      "Learn how to make your brand discoverable, trustworthy, and selectable across AI search engines and assistants.",
+    images: ["https://hendricks.ai/og-image.png"],
+  },
 };
 
 const articleSchema = {
@@ -27,11 +62,83 @@ const articleSchema = {
     "@id": "https://hendricks.ai/#organization",
     "name": "Hendricks.AI",
     "url": "https://hendricks.ai",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hendricks.ai/logo.png",
+    },
   },
   "datePublished": "2025-01-01",
   "dateModified": "2025-01-01",
-  "mainEntityOfPage": "https://hendricks.ai/insights/ai-search-visibility-guide",
+  "image": "https://hendricks.ai/og-image.png",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://hendricks.ai/insights/ai-search-visibility-guide",
+  },
+  "articleSection": "AI Search Visibility",
+  "keywords": [
+    "AI search visibility",
+    "B2B search intelligence",
+    "LLM visibility",
+    "structured data",
+    "AI Overviews",
+    "Perplexity",
+    "Gemini",
+    "Bing Copilot",
+  ],
   "url": "https://hendricks.ai/insights/ai-search-visibility-guide",
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Insights",
+      "item": "https://hendricks.ai/insights",
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "AI Search Visibility Guide",
+      "item": "https://hendricks.ai/insights/ai-search-visibility-guide",
+    },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I make my brand visible inside AI search engines?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text":
+          "Use consistent entity schema across your site, publish structured answers to priority buyer questions, and align content with trusted third-party mentions so AI engines can confidently cite your brand.",
+      },
+    },
+    {
+      "@type": "Question",
+      "name": "What schema should I add for AI Search Visibility?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text":
+          "Implement article, breadcrumb, and FAQ schema on key guides so LLM-powered search engines can parse your expertise, understand site hierarchy, and extract concise answers for synthesized results.",
+      },
+    },
+    {
+      "@type": "Question",
+      "name": "Why does structured data matter for LLMs like ChatGPT and Gemini?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text":
+          "Structured data clarifies who you are, what you offer, and how content pieces connect. This reduces ambiguity for LLMs, improves citation likelihood, and strengthens alignment between your brand narrative and AI-generated responses.",
+      },
+    },
+  ],
 };
 
 export default function AISearchVisibilityGuidePage() {
@@ -41,6 +148,16 @@ export default function AISearchVisibilityGuidePage() {
         id="article-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
       <div className="min-h-screen bg-slate-950 text-slate-50">
