@@ -179,7 +179,15 @@ const allInsights = [
   }
 ]
 
-const categories = ['All', 'Search Intelligence', 'AI Search Measurement', 'Visibility', 'Attribution', 'Measurement', 'Case Studies', 'AI & Analytics']
+const categories = [
+  'All',
+  'Search Intelligence Engineering',
+  'AI Search Visibility',
+  'Measurement & Attribution',
+  'Schema & Entities',
+  'AI Platforms',
+  'Strategy'
+]
 
 export default function InsightsPage() {
   const [selectedCategory, setSelectedCategory] = useState('All')
@@ -208,25 +216,37 @@ export default function InsightsPage() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
+            {/* Badge Pill */}
+            <div className="inline-flex items-center px-4 py-2 bg-blue-950/50 backdrop-blur-xl border border-blue-800/50 rounded-full mb-8">
+              <span className="text-sm font-medium text-blue-400">Search Intelligence Library</span>
+            </div>
+
             <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 leading-tight">
               <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                Search Visibility. Attribution. Intelligence.
+                Search Intelligence
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                for the AI Search Era.
               </span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto mb-10">
-              The Hendricks.AI Intelligence Hub — where B2B growth leaders explore the systems, data, and frameworks defining the new era of measurable marketing.
+              The Hendricks.AI Insights hub is where B2B leaders learn how AI powered search engines see their brand, how to engineer schema and entity signals for AI surfaces, and how to measure AI Search Visibility with clarity using a Search Intelligence Engineering approach.
             </p>
 
             {/* Dual CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white rounded-full font-semibold hover:scale-[1.03] transition-transform inline-flex items-center justify-center gap-2">
+              <a
+                href="#all-insights"
+                className="px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white rounded-full font-semibold hover:scale-[1.03] transition-transform inline-flex items-center justify-center gap-2"
+              >
                 Explore Insights →
-              </button>
+              </a>
               <Link
                 href="#subscribe"
                 className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-black transition inline-flex items-center justify-center gap-2"
               >
-                Subscribe to The Intelligence Brief →
+                Subscribe to the Intelligence Brief →
               </Link>
             </div>
           </div>
@@ -304,7 +324,7 @@ export default function InsightsPage() {
       </section>
 
       {/* ALL INSIGHTS GRID */}
-      <section className="py-20 bg-black">
+      <section id="all-insights" className="py-20 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold mb-8">
             {selectedCategory === 'All' ? 'All Insights' : selectedCategory}
