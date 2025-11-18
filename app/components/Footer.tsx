@@ -1,7 +1,6 @@
 // components/Footer.tsx
 
 import Link from "next/link";
-import Image from "next/image";
 
 export function Footer() {
   return (
@@ -12,15 +11,19 @@ export function Footer() {
 
           {/* Logo + Brand */}
           <div className="space-y-3">
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/logo/hendricks-logo.png"
-                alt="Hendricks.AI Logo"
-                width={150}
-                height={40}
-                className="object-contain brightness-125 contrast-125"
-              />
-            </Link>
+            <div className="flex items-center space-x-2">
+              <Link href="/" className="flex-shrink-0">
+                <img
+                  src="/hendricks_logo.png"
+                  alt="Hendricks.AI"
+                  className="h-6 w-auto object-contain brightness-0 invert"
+                />
+              </Link>
+              <span className="text-gray-400 text-sm ml-1 flex items-center gap-1">
+                <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                AI-Powered
+              </span>
+            </div>
 
             <p className="text-xs text-slate-300">
               Search Intelligence Engineering Firm specializing in AI Search Visibility
