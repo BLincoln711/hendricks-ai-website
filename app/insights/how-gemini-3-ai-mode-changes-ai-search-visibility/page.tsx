@@ -3,7 +3,29 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "How Gemini 3 AI Mode Changes AI Search Visibility | Hendricks.AI",
   description:
-    "A strategic breakdown of how Google’s Gemini 3 AI Mode changes AI Search Visibility and what B2B leaders must do to remain visible and trusted across AI-powered search.",
+    "A strategic breakdown of how Google's Gemini 3 AI Mode changes AI Search Visibility and what B2B leaders must do to remain visible and trusted across AI-powered search.",
+  openGraph: {
+    title: "How Gemini 3 AI Mode Changes AI Search Visibility",
+    description: "A strategic breakdown of how Google's Gemini 3 AI Mode changes AI Search Visibility and what B2B leaders must do to remain visible and trusted across AI-powered search.",
+    url: "https://hendricks.ai/insights/how-gemini-3-ai-mode-changes-ai-search-visibility",
+    siteName: "Hendricks.AI",
+    images: [
+      {
+        url: "https://hendricks.ai/gemini-3-ai-mode-og.png",
+        width: 1200,
+        height: 1200,
+        alt: "How Gemini 3 AI Mode Changes AI Search Visibility",
+      },
+    ],
+    locale: "en_US",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "How Gemini 3 AI Mode Changes AI Search Visibility",
+    description: "A strategic breakdown of how Google's Gemini 3 AI Mode changes AI Search Visibility and what B2B leaders must do to remain visible and trusted across AI-powered search.",
+    images: ["https://hendricks.ai/gemini-3-ai-mode-og.png"],
+  },
 };
 
 const articleSchema = {
