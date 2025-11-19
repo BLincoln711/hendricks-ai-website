@@ -17,6 +17,13 @@ const articleSchema = {
     "@type": "Person",
     "@id": "https://hendricks.ai/#brandon-hendricks",
     name: "Brandon Lincoln Hendricks",
+    url: "https://hendricks.ai/about",
+    jobTitle: "Founder, Search Intelligence Engineer",
+    worksFor: {
+      "@type": "Organization",
+      name: "Hendricks.AI",
+      url: "https://hendricks.ai"
+    }
   },
   publisher: {
     "@type": "Organization",
@@ -87,9 +94,22 @@ export default function Gemini3VisibilityPage() {
             experience yet — and how it changes the way AI Search Visibility must be
             engineered.
           </p>
-          <p className="mt-3 text-xs text-slate-400">
-            November 17, 2025
-          </p>
+          <div className="mt-3 flex items-center gap-2 text-xs text-slate-400">
+            <span>By <a href="/about" className="text-sky-400 hover:text-sky-300">Brandon Lincoln Hendricks</a></span>
+            <span>•</span>
+            <span>November 17, 2025</span>
+          </div>
+
+          {/* Breadcrumbs */}
+          <nav className="mt-4 text-xs text-slate-400" aria-label="Breadcrumb">
+            <ol className="flex items-center gap-1">
+              <li><a href="/" className="hover:text-sky-300">Home</a></li>
+              <li><span className="mx-1">/</span></li>
+              <li><a href="/insights" className="hover:text-sky-300">Insights</a></li>
+              <li><span className="mx-1">/</span></li>
+              <li className="text-slate-300">How Gemini 3 AI Mode Changes AI Search Visibility</li>
+            </ol>
+          </nav>
         </section>
 
         <article className="space-y-8 text-xs md:text-sm text-slate-200">
