@@ -27,6 +27,8 @@ const articleSchema = {
   mainEntityOfPage:
     "https://hendricks.ai/insights/how-gemini-3-ai-mode-changes-ai-search-visibility",
   url: "https://hendricks.ai/insights/how-gemini-3-ai-mode-changes-ai-search-visibility",
+  datePublished: "2025-11-17",
+  dateModified: "2025-11-17",
 };
 
 const breadcrumbSchema = {
@@ -81,9 +83,12 @@ export default function Gemini3VisibilityPage() {
             How Gemini 3 AI Mode Changes AI Search Visibility
           </h1>
           <p className="mt-3 text-xs md:text-sm text-slate-300 max-w-xl">
-            What B2B leaders need to understand about Google’s most intelligent search
+            What B2B leaders need to understand about Google's most intelligent search
             experience yet — and how it changes the way AI Search Visibility must be
             engineered.
+          </p>
+          <p className="mt-3 text-xs text-slate-400">
+            November 17, 2025
           </p>
         </section>
 
