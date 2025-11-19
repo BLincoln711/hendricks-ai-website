@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     siteName: "Hendricks.AI",
     images: [
       {
-        url: "https://hendricks.ai/gemini-3-ai-mode-og.png",
+        url: "https://hendricks.ai/gemini3-blog-og.png",
         width: 1200,
         height: 1200,
         alt: TITLE,
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: ["https://hendricks.ai/gemini-3-ai-mode-og.png"],
+    images: ["https://hendricks.ai/gemini3-blog-og.png"],
   },
 };
 
