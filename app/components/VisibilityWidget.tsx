@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Search, CheckCircle, AlertTriangle, Loader2, ArrowRight } from 'lucide-react';
 
 interface AnalysisResult {
@@ -145,9 +146,12 @@ const VisibilityWidget = () => {
             </div>
           </div>
 
-          <button className="w-full mt-6 bg-zinc-800 hover:bg-zinc-700 text-white py-3 rounded-full font-medium transition-colors">
+          <Link
+            href="/contact"
+            className="w-full mt-6 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white py-3 rounded-full font-medium transition-all hover:scale-[1.02] text-center block shadow-lg"
+          >
             Get Full Report
-          </button>
+          </Link>
         </div>
       )}
     </div>
