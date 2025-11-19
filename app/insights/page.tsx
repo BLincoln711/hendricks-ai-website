@@ -57,7 +57,7 @@ const allInsights = [
     excerpt:
       'Gemini 3 AI Mode turns search into an interactive reasoning and generative UI system. Learn how to structure content, schema, and measurement to stay visible and trusted.',
     author: 'Brandon Lincoln Hendricks',
-    date: '2025-10-27',
+    date: '2025-11-17',
     readTime: '14 min read',
     category: 'AI Search Visibility'
   },
