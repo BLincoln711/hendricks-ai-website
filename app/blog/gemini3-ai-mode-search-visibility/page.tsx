@@ -36,19 +36,27 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
+const articleSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
+  "@id": "https://hendricks.ai/blog/gemini3-ai-mode-search-visibility#article",
   headline: TITLE,
   description: DESCRIPTION,
   author: {
     "@type": "Person",
+    "@id": "https://hendricks.ai/#brandon-hendricks",
     name: "Brandon Lincoln Hendricks",
     url: "https://hendricks.ai/about",
     jobTitle: "Founder, Search Intelligence Engineer",
+    worksFor: {
+      "@type": "Organization",
+      name: "Hendricks.AI",
+      url: "https://hendricks.ai"
+    }
   },
   publisher: {
     "@type": "Organization",
+    "@id": "https://hendricks.ai/#organization",
     name: "Hendricks.AI",
     url: "https://hendricks.ai",
   },
@@ -61,13 +69,71 @@ const jsonLd = {
   articleSection: "AI Search Visibility",
 };
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": "https://hendricks.ai/blog/gemini3-ai-mode-search-visibility#breadcrumb",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://hendricks.ai/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Insights",
+      item: "https://hendricks.ai/insights",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Gemini 3 AI Mode Changes AI Search Visibility",
+      item: "https://hendricks.ai/blog/gemini3-ai-mode-search-visibility",
+    },
+  ],
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://hendricks.ai/blog/gemini3-ai-mode-search-visibility#faq",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What changed with Gemini 3 in AI Mode?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Gemini 3 now powers the reasoning layer behind AI answers in Google Search. AI Mode behaves like a full experience with its own ranking logic, featuring richer interactive answers, fewer cited sources chosen based on entity clarity and structure, and heavier reliance on automation suites like AI Max and Performance Max."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "How does Gemini 3 AI Mode affect AI search visibility?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Visibility is no longer only about ranking at position one. It is about becoming the reference context that AI Mode trusts enough to quote, summarize, and reuse. AI Mode rewards entity clarity, structured content, and alignment between paid and organic messaging."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "What should brands do to prepare for Gemini 3 AI Mode?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Brands should upgrade pages with entity-first content and schema markup, add FAQ and structured data blocks, align campaign themes with landing page entities, and adjust GA4 reporting windows to match actual buying cycles."
+      }
+    }
+  ]
+};
+
 export default function Page() {
   return (
     <>
       <Script
         id="gemini3-ai-mode-schema"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([articleSchema, breadcrumbSchema, faqSchema]) }}
       />
 
       <div className="min-h-screen bg-slate-950 text-slate-50">
