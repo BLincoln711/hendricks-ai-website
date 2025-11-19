@@ -52,6 +52,16 @@ const allInsights = [
     category: 'Search Intelligence'
   },
   {
+    id: 'how-gemini-3-ai-mode-changes-ai-search-visibility',
+    title: 'How Gemini 3 AI Mode Changes AI Search Visibility',
+    excerpt:
+      'Gemini 3 AI Mode turns search into an interactive reasoning and generative UI system. Learn how to structure content, schema, and measurement to stay visible and trusted.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-10-27',
+    readTime: '14 min read',
+    category: 'AI Search Visibility'
+  },
+  {
     id: 'how-to-measure-chatgpt-visibility',
     title: 'How to Measure Your Visibility in ChatGPT',
     excerpt: 'Learn how to measure your brand visibility in ChatGPT and track when your company appears in AI-powered search responses.',
