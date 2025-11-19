@@ -66,10 +66,10 @@ export default function HomePage() {
 
                 <div className="flex flex-wrap gap-4 mb-3">
                   <Link
-                    href="/solutions"
+                    href="/insights/ai-search-visibility-guide"
                     className="inline-flex items-center justify-center px-7 py-3 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-sm md:text-base font-semibold text-white hover:scale-[1.02] transition-transform hover:shadow-[0_0_24px_rgba(96,165,250,0.6)]"
                   >
-                    Start Your AI Visibility System →
+                    Download the 2025 AI Search Visibility Guide →
                   </Link>
                   <Link
                     href="/contact"
@@ -82,10 +82,10 @@ export default function HomePage() {
                 <p className="text-xs text-gray-400">
                   Or{" "}
                   <Link
-                    href="/insights/ai-search-visibility-guide"
+                    href="/solutions"
                     className="text-cyan-300 hover:text-cyan-200 underline underline-offset-2"
                   >
-                    download the 2025 AI Search Visibility Guide
+                    view our subscription tiers
                   </Link>
                   .
                 </p>
