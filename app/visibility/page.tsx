@@ -26,9 +26,9 @@ export default function VisibilityPage() {
             </div>
 
             <h1 className="text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight">
-              Make Your Brand <br />
+              Can AI Search <br />
               <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
-                Visible to AI
+                Find Your Brand?
               </span>
             </h1>
 
