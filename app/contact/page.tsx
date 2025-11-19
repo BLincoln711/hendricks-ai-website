@@ -87,12 +87,14 @@ export default function ContactPage() {
   const contactSchema = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
+    '@id': 'https://hendricks.ai/contact#page',
     name: 'Contact Hendricks.AI - Book Your Strategy Session',
     description:
       'Book a strategy session with Hendricks.AI, the Search Intelligence Engineering firm for B2B visibility and measurement across Google, Bing, ChatGPT, Gemini, and Perplexity.',
     url: 'https://hendricks.ai/contact',
     mainEntity: {
       '@type': 'Organization',
+      '@id': 'https://hendricks.ai/#organization',
       name: 'Hendricks.AI',
       url: 'https://hendricks.ai',
       contactPoint: {
@@ -104,13 +106,156 @@ export default function ContactPage() {
     }
   }
 
+  // FAQ Schema for AI search engines
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': 'https://hendricks.ai/contact#faq',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What happens in a Hendricks.AI strategy session?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'In a strategy session, you receive an AI Search Visibility snapshot showing where your brand appears across Google, Bing, ChatGPT, Gemini, and Perplexity. You also get an attribution and measurement check, benchmarks comparing your performance to B2B leaders, and a roadmap with specific recommendations for improving AI search coverage.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Which AI search platforms does Hendricks.AI measure?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Hendricks.AI measures visibility across five major platforms: Google (including AI Overviews and AI Mode), Microsoft Bing, ChatGPT, Google Gemini, and Perplexity. We track how your brand appears in AI-generated answers and citations across all these engines.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'How much does a Hendricks.AI visibility audit cost?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Hendricks.AI offers three service tiers: Foundation (visibility audit across all AI search engines) at around $10K, System (attribution engine connecting spend to pipeline and ARR) at $15-25K, and Partnership (full-funnel optimization and campaign orchestration) at $30K+ per month.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'What is Search Intelligence Engineering?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Search Intelligence Engineering is a discipline that combines search marketing expertise with data engineering and AI to measure, attribute, and optimize visibility across both traditional and AI-powered search platforms. It focuses on connecting marketing spend to pipeline and revenue with quantifiable precision.'
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'Who is Brandon Lincoln Hendricks?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Brandon Lincoln Hendricks is the founder of Hendricks.AI and a Search Intelligence Engineer. He is a Certified Google Cloud Machine Learning Engineer, former Director of Search at SolarWinds, and former Global Search Director at Merkle and Dentsu. He specializes in B2B visibility measurement and AI search optimization.'
+        }
+      }
+    ]
+  }
+
+  // Service Schema for strategy session
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': 'https://hendricks.ai/contact#service',
+    name: 'AI Search Visibility Strategy Session',
+    description: 'A comprehensive strategy session that includes an AI Search Visibility snapshot, attribution and measurement check, benchmarks against B2B leaders, and a roadmap for improving coverage in AI Overviews and AI mode.',
+    provider: {
+      '@type': 'Organization',
+      '@id': 'https://hendricks.ai/#organization',
+      name: 'Hendricks.AI'
+    },
+    serviceType: 'B2B Marketing Consulting',
+    areaServed: 'Worldwide',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Hendricks.AI Services',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Foundation - Visibility Audit',
+            description: 'Measurement across Google, Bing, ChatGPT, Gemini, and Perplexity'
+          }
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'System - Attribution Engine',
+            description: 'CFO-ready attribution connecting marketing spend to pipeline and ARR'
+          }
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Partnership - AI Visibility Execution',
+            description: 'Full-funnel optimization and campaign orchestration'
+          }
+        }
+      ]
+    }
+  }
+
+  // Person Schema for Brandon
+  const personSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': 'https://hendricks.ai/#brandon-hendricks',
+    name: 'Brandon Lincoln Hendricks',
+    jobTitle: 'Founder, Search Intelligence Engineer',
+    url: 'https://hendricks.ai/about',
+    worksFor: {
+      '@type': 'Organization',
+      '@id': 'https://hendricks.ai/#organization',
+      name: 'Hendricks.AI'
+    },
+    knowsAbout: [
+      'AI Search Visibility',
+      'Search Intelligence Engineering',
+      'B2B Marketing Attribution',
+      'Google Cloud Machine Learning',
+      'Performance Marketing',
+      'ChatGPT Optimization',
+      'Google AI Overviews'
+    ],
+    hasCredential: [
+      {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'certification',
+        name: 'Google Cloud Certified Machine Learning Engineer'
+      }
+    ],
+    alumniOf: [
+      {
+        '@type': 'Organization',
+        name: 'SolarWinds',
+        description: 'Former Director of Search'
+      },
+      {
+        '@type': 'Organization',
+        name: 'Merkle',
+        description: 'Former Global Search Director'
+      },
+      {
+        '@type': 'Organization',
+        name: 'Dentsu',
+        description: 'Former Global Search Director'
+      }
+    ]
+  }
+
   return (
     <>
       <Script
         id="contact-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(contactSchema)
+          __html: JSON.stringify([contactSchema, faqSchema, serviceSchema, personSchema])
         }}
       />
       <BreadcrumbSchema
