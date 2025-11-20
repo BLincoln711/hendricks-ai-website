@@ -15,70 +15,139 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  const personSchema = {
+  const schema = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "@id": "https://hendricks.ai/#brandon-hendricks",
-    "name": "Brandon Lincoln Hendricks",
-    "givenName": "Brandon Lincoln",
-    "familyName": "Hendricks",
-    "jobTitle": "Founder, Search Intelligence Engineer",
-    "description":
-      "Brandon Lincoln Hendricks is the founder of Hendricks.AI and the creator of Search Intelligence Engineering. He is a Google Machine Learning certified engineer and former Director of Search at SolarWinds and former Global Search Director at Merkle & Dentsu.",
-    "url": "https://hendricks.ai/about",
-    "image": "https://hendricks.ai/brandon-lincoln-hendricks.jpg",
-    "knowsAbout": [
+    "@graph": [
       {
-        "@type": "Thing",
-        "name": "Search Intelligence Engineering",
-        "sameAs": "https://hendricks.ai/search-intelligence-engineering",
+        "@type": "BreadcrumbList",
+        "@id": "https://hendricks.ai/about#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://hendricks.ai"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "About",
+            "item": "https://hendricks.ai/about"
+          }
+        ]
       },
-      "AI Search Visibility",
-      "B2B Marketing",
-      "Search Engine Optimization",
-    ],
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Hendricks.AI",
-      "url": "https://hendricks.ai",
-    },
-    "alumniOf": {
-      "@type": "Organization",
-      "name": "SolarWinds",
-    },
-    "hasOccupation": [
       {
-        "@type": "Occupation",
-        "name": "Director of Search",
+        "@type": "AboutPage",
+        "@id": "https://hendricks.ai/about#webpage",
+        "url": "https://hendricks.ai/about",
+        "name": "About Hendricks.AI",
+        "description": "Learn about Hendricks.AI, a Search Intelligence Engineering Firm founded by Brandon Lincoln Hendricks, specializing in AI Search Visibility and Measurement for B2B companies.",
+        "isPartOf": {
+          "@id": "https://hendricks.ai/#website"
+        },
+        "breadcrumb": {
+          "@id": "https://hendricks.ai/about#breadcrumb"
+        },
+        "mainEntity": {
+          "@id": "https://hendricks.ai/#brandon-hendricks"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://hendricks.ai/#brandon-hendricks",
+        "name": "Brandon Lincoln Hendricks",
+        "givenName": "Brandon Lincoln",
+        "familyName": "Hendricks",
+        "jobTitle": "Founder, Search Intelligence Engineer",
         "description":
-          "Former Director of Search at SolarWinds, leading global search strategy and measurement.",
+          "Brandon Lincoln Hendricks is the founder of Hendricks.AI and the creator of Search Intelligence Engineering. He is a Google Machine Learning certified engineer and former Director of Search at SolarWinds and former Global Search Director at Merkle & Dentsu.",
+        "url": "https://hendricks.ai/about",
+        "image": "https://hendricks.ai/brandon-lincoln-hendricks.jpg",
+        "knowsAbout": [
+          {
+            "@type": "Thing",
+            "name": "Search Intelligence Engineering",
+            "sameAs": "https://hendricks.ai/search-intelligence-engineering"
+          },
+          "AI Search Visibility",
+          "B2B Marketing",
+          "Search Engine Optimization"
+        ],
+        "worksFor": {
+          "@type": "Organization",
+          "@id": "https://hendricks.ai/#organization",
+          "name": "Hendricks.AI",
+          "url": "https://hendricks.ai"
+        },
+        "alumniOf": [
+          {
+            "@type": "Organization",
+            "name": "SolarWinds"
+          },
+          {
+            "@type": "Organization",
+            "name": "Merkle"
+          },
+          {
+            "@type": "Organization",
+            "name": "Dentsu"
+          }
+        ],
+        "hasOccupation": [
+          {
+            "@type": "Occupation",
+            "name": "Director of Search",
+            "description":
+              "Former Director of Search at SolarWinds, leading global search strategy and measurement."
+          },
+          {
+            "@type": "Occupation",
+            "name": "Global Search Director",
+            "description":
+              "Former Global Search Director at Merkle & Dentsu, developing unified SERP and search strategies for enterprise brands."
+          },
+          {
+            "@type": "Occupation",
+            "name": "Search Intelligence Engineer",
+            "description":
+              "Founder of Hendricks.AI and creator of Search Intelligence Engineering, an approach to AI Search Visibility and Measurement."
+          }
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/in/brandonhendricks",
+          "https://hendricks.ai"
+        ]
       },
       {
-        "@type": "Occupation",
-        "name": "Global Search Director",
-        "description":
-          "Former Global Search Director at Merkle & Dentsu, developing unified SERP and search strategies for enterprise brands.",
-      },
-      {
-        "@type": "Occupation",
-        "name": "Search Intelligence Engineer",
-        "description":
-          "Founder of Hendricks.AI and creator of Search Intelligence Engineering, an approach to AI Search Visibility and Measurement.",
-      },
-    ],
-    "sameAs": [
-      "https://www.linkedin.com/in/brandonhendricks",
-      "https://hendricks.ai",
-    ],
+        "@type": "Organization",
+        "@id": "https://hendricks.ai/#organization",
+        "name": "Hendricks.AI",
+        "url": "https://hendricks.ai",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://hendricks.ai/logo/hendricks-logo.png"
+        },
+        "founder": {
+          "@id": "https://hendricks.ai/#brandon-hendricks"
+        },
+        "description": "Hendricks.AI is a Search Intelligence Engineering Firm specializing in AI Search Visibility and Measurement for B2B companies.",
+        "knowsAbout": [
+          "Search Intelligence Engineering",
+          "AI Search Visibility",
+          "B2B Marketing Measurement",
+          "Schema and Entity Engineering"
+        ]
+      }
+    ]
   };
 
   return (
     <>
       <Script
-        id="person-schema"
+        id="about-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(personSchema),
+          __html: JSON.stringify(schema),
         }}
       />
 
