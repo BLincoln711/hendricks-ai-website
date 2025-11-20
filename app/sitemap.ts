@@ -167,6 +167,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Insights articles
   const insightsArticles = [
     {
+      url: `${baseUrl}/insights/what-third-party-platforms-gemini-cites`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/insights/b2b-marketing-funnel-is-dead`,
       lastModified: '2024-08-20',
       changeFrequency: 'yearly' as const,
