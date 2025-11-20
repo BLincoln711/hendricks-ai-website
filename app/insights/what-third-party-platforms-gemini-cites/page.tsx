@@ -1,6 +1,8 @@
 // app/insights/what-third-party-platforms-gemini-cites/page.tsx
 
 import type { Metadata } from "next";
+import { Header } from "../../components/Header";
+import { Footer } from "../../components/Footer";
 
 export const metadata: Metadata = {
   title: "What Third-Party Platforms Are Most Often Cited in Gemini? | Hendricks.AI",
@@ -63,6 +65,8 @@ const breadcrumbSchema = {
 export default function GeminiCitationsPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
+      <Header />
+
       {/* Background */}
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.2),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(129,140,248,0.25),_transparent_60%)] opacity-70" />
 
@@ -386,6 +390,8 @@ export default function GeminiCitationsPage() {
           </section>
         </article>
       </main>
+
+      <Footer />
     </div>
   );
 }
