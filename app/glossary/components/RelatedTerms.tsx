@@ -22,8 +22,8 @@ export function RelatedTerms({ currentSlug, category }: RelatedTermsProps) {
   if (!items.length) return null
 
   return (
-    <aside className="mt-10 border-t border-neutral-100 pt-6">
-      <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-500 mb-3">
+    <aside className="mt-10 border-t border-slate-800 pt-6">
+      <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400 mb-3">
         Related terms
       </h2>
       <ul className="space-y-2 text-sm">
@@ -31,7 +31,7 @@ export function RelatedTerms({ currentSlug, category }: RelatedTermsProps) {
           <li key={term.slug}>
             <Link
               href={`/glossary/${term.slug}`}
-              className="text-neutral-800 hover:text-neutral-900 hover:underline"
+              className="text-gray-300 hover:text-cyan-300 hover:underline transition-colors"
             >
               {term.name}
             </Link>

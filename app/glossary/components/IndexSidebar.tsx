@@ -22,10 +22,10 @@ export function IndexSidebar() {
   return (
     <div className="p-4 space-y-6 text-sm">
       <div>
-        <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide">
+        <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">
           AI Search Visibility Glossary
         </p>
-        <p className="text-xs text-neutral-500 mt-1">
+        <p className="text-xs text-gray-500 mt-1">
           Explore key terms that define AI era search visibility and attribution.
         </p>
       </div>
@@ -35,7 +35,7 @@ export function IndexSidebar() {
           .sort()
           .map((category) => (
             <div key={category} className="space-y-2">
-              <p className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
                 {category}
               </p>
               <ul className="space-y-1">
@@ -50,10 +50,10 @@ export function IndexSidebar() {
                         <Link
                           href={href}
                           className={[
-                            "block rounded-md px-2 py-1 transition-colors",
+                            "block rounded-md px-2 py-1 transition-colors text-xs",
                             isActive
-                              ? "bg-neutral-900 text-white"
-                              : "text-neutral-700 hover:bg-neutral-100"
+                              ? "bg-blue-950/60 text-cyan-300 border border-blue-700/40"
+                              : "text-gray-400 hover:bg-slate-900 hover:text-gray-200"
                           ].join(" ")}
                         >
                           {term.name}

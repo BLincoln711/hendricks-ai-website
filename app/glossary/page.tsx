@@ -16,20 +16,20 @@ export default function GlossaryIndexPage() {
   return (
     <div className="space-y-10">
       <header className="space-y-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-500">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
           Hendricks.AI Reference
         </p>
-        <h1 className="text-3xl md:text-4xl font-semibold text-neutral-900">
+        <h1 className="text-3xl md:text-4xl font-semibold text-white">
           AI Search Visibility Glossary
         </h1>
-        <p className="text-sm md:text-base text-neutral-600 max-w-2xl">
+        <p className="text-sm md:text-base text-gray-300 max-w-2xl">
           This glossary defines the language of AI era search visibility. Each term is crafted for both
           humans and large language models, so engines like Gemini, ChatGPT, Perplexity and Copilot can
           correctly learn, retrieve and cite your brand.
         </p>
-        <p className="text-xs text-neutral-500">
+        <p className="text-xs text-gray-400">
           Terms currently defined:{" "}
-          <span className="font-semibold text-neutral-900">{glossaryTerms.length}</span>
+          <span className="font-semibold text-cyan-300">{glossaryTerms.length}</span>
         </p>
       </header>
 
@@ -46,16 +46,16 @@ export default function GlossaryIndexPage() {
 
           return (
             <div key={category} className="space-y-3">
-              <h2 className="text-sm font-semibold text-neutral-900">{category}</h2>
+              <h2 className="text-sm font-semibold text-white">{category}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {termsInCategory.map((term) => (
                   <Link
                     key={term.slug}
                     href={`/glossary/${term.slug}`}
-                    className="border border-neutral-100 rounded-lg p-3 hover:border-neutral-200 hover:bg-neutral-50 transition-colors"
+                    className="border border-slate-800 rounded-lg p-3 hover:border-slate-700 hover:bg-slate-900/50 transition-colors"
                   >
-                    <p className="text-sm font-medium text-neutral-900">{term.name}</p>
-                    <p className="text-xs text-neutral-500 mt-1 line-clamp-2">
+                    <p className="text-sm font-medium text-white">{term.name}</p>
+                    <p className="text-xs text-gray-400 mt-1 line-clamp-2">
                       {term.shortDefinition}
                     </p>
                   </Link>

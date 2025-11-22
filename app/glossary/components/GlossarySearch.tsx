@@ -23,7 +23,7 @@ export function GlossarySearch() {
   return (
     <section className="space-y-4">
       <div className="space-y-2">
-        <label htmlFor="glossary-search" className="text-sm font-medium text-neutral-800">
+        <label htmlFor="glossary-search" className="text-sm font-medium text-white">
           Search the glossary
         </label>
         <input
@@ -32,13 +32,13 @@ export function GlossarySearch() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search terms like Citation Share, AI Search Visibility, Entity Recognition..."
-          className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm outline-none focus:border-neutral-900 focus:ring-2 focus:ring-neutral-900/5"
+          className="w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-white placeholder:text-gray-500 outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20"
         />
       </div>
 
       <div className="space-y-3">
         {results.length === 0 && (
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-gray-400">
             No terms found. Try a different phrase related to AI search, visibility, or attribution.
           </p>
         )}
@@ -49,11 +49,11 @@ export function GlossarySearch() {
               .slice()
               .sort((a, b) => a.name.localeCompare(b.name))
               .map((term) => (
-                <li key={term.slug} className="border border-neutral-100 rounded-lg p-3 hover:border-neutral-200 transition-colors">
+                <li key={term.slug} className="border border-slate-800 rounded-lg p-3 hover:border-slate-700 hover:bg-slate-900/50 transition-colors">
                   <Link href={`/glossary/${term.slug}`} className="block">
-                    <p className="text-sm font-semibold text-neutral-900">{term.name}</p>
-                    <p className="text-xs text-neutral-500 mt-1 line-clamp-2">{term.shortDefinition}</p>
-                    <p className="text-[11px] text-neutral-400 mt-1 uppercase tracking-wide">
+                    <p className="text-sm font-semibold text-white">{term.name}</p>
+                    <p className="text-xs text-gray-400 mt-1 line-clamp-2">{term.shortDefinition}</p>
+                    <p className="text-[11px] text-slate-500 mt-1 uppercase tracking-wide">
                       {term.category}
                     </p>
                   </Link>

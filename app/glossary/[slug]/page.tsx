@@ -148,21 +148,21 @@ export default function GlossaryTermPage({ params }: Props) {
 
       <div className="space-y-8">
         {/* Breadcrumb navigation */}
-        <nav className="text-xs text-neutral-500" aria-label="Breadcrumb">
+        <nav className="text-xs text-gray-400" aria-label="Breadcrumb">
           <ol className="flex items-center gap-2">
             <li>
-              <Link href="/" className="hover:text-neutral-700 transition-colors">
+              <Link href="/" className="hover:text-gray-200 transition-colors">
                 Home
               </Link>
             </li>
             <li>/</li>
             <li>
-              <Link href="/glossary" className="hover:text-neutral-700 transition-colors">
+              <Link href="/glossary" className="hover:text-gray-200 transition-colors">
                 Glossary
               </Link>
             </li>
             <li>/</li>
-            <li className="text-neutral-900 font-medium">{term.name}</li>
+            <li className="text-white font-medium">{term.name}</li>
           </ol>
         </nav>
 
@@ -180,10 +180,10 @@ export default function GlossaryTermPage({ params }: Props) {
         <RelatedTerms currentSlug={term.slug} category={term.category} />
 
         {/* Back to glossary */}
-        <div className="border-t border-neutral-100 pt-6">
+        <div className="border-t border-slate-800 pt-6">
           <Link
             href="/glossary"
-            className="inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-900 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-cyan-300 transition-colors"
           >
             ← Back to Glossary Index
           </Link>
