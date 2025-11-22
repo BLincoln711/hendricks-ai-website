@@ -207,7 +207,7 @@ export default function AboutPage() {
         <section className="relative max-w-6xl mx-auto px-4 py-20 border-t border-slate-900">
           <div className="grid md:grid-cols-[1fr_2fr] gap-12">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-slate-50 sticky top-32">
+              <h2 className="text-2xl md:text-3xl font-bold text-slate-50 md:sticky md:top-32">
                 From Agency to <br />
                 Intelligence Firm
               </h2>
@@ -246,7 +246,7 @@ export default function AboutPage() {
         <section className="relative max-w-6xl mx-auto px-4 py-20 border-t border-slate-900">
           <div className="grid gap-12 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] items-start">
             {/* Portrait */}
-            <div className="flex flex-col items-center md:items-start sticky top-32">
+            <div className="flex flex-col items-center md:items-start md:sticky md:top-32">
               <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 shadow-2xl shadow-black/50">
                 <Image
                   src="/brandon-lincoln-hendricks.jpg"
