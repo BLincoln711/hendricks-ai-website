@@ -136,13 +136,46 @@ export default function GlossaryTermPage({ params }: Props) {
     articleSection: term.category,
   }
 
+  // FAQ schema for better AI engine visibility and Google enhancements
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `https://hendricks.ai/glossary/${term.slug}#faq`,
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: `What is ${term.name}?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: term.shortDefinition
+        }
+      },
+      {
+        "@type": "Question",
+        name: `Why does ${term.name} matter?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: term.whyItMatters
+        }
+      },
+      {
+        "@type": "Question",
+        name: `How is ${term.name} measured or used?`,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: term.examples[0] || term.longDefinition
+        }
+      }
+    ]
+  }
+
   return (
     <>
       <Script
         id={`glossary-${term.slug}-schema`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([termSchema, breadcrumbSchema, articleSchema])
+          __html: JSON.stringify([termSchema, breadcrumbSchema, articleSchema, faqSchema])
         }}
       />
 
