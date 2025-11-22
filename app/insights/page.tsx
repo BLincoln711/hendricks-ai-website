@@ -333,6 +333,30 @@ export default function InsightsPage() {
         </div>
       </section>
 
+      {/* GLOSSARY FEATURE */}
+      <section className="py-16 bg-gradient-to-r from-blue-950/40 to-purple-950/40 border-y border-blue-500/30">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/60 border border-blue-700/60 mb-4">
+            <span className="w-2 h-2 rounded-full bg-blue-400" />
+            <span className="text-xs font-medium tracking-[0.18em] text-blue-300 uppercase">
+              Learning Resource
+            </span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">
+            New to AI Search Visibility?
+          </h2>
+          <p className="text-base text-gray-300 mb-6 max-w-2xl mx-auto">
+            Explore our comprehensive <strong className="text-white">AI Search Visibility Glossary</strong> with 126+ terms defining everything from Citation Share to Entity Recognition Accuracy.
+          </p>
+          <Link
+            href="/glossary"
+            className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white font-semibold hover:scale-[1.03] transition-transform shadow-lg shadow-cyan-500/50"
+          >
+            Browse the Glossary →
+          </Link>
+        </div>
+      </section>
+
       {/* ALL INSIGHTS GRID */}
       <section id="all-insights" className="py-20 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

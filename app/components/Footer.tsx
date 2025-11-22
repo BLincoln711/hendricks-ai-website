@@ -55,6 +55,7 @@ export function Footer() {
             </h3>
             <ul className="text-sm text-slate-300 space-y-2">
               <li><Link href="/insights" className="hover:text-emerald-300">All Insights</Link></li>
+              <li><Link href="/glossary" className="hover:text-emerald-300">Glossary</Link></li>
               <li><Link href="/insights/ai-search-visibility-b2b-companies-2025" className="hover:text-emerald-300">AI Search Visibility Guide</Link></li>
             </ul>
           </div>

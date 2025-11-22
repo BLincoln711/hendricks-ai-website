@@ -512,6 +512,20 @@ export default function ContactPage() {
                     </div>
                   </div>
                 </div>
+
+                {/* Glossary Resource */}
+                <div className="bg-gradient-to-r from-blue-950/40 to-purple-950/40 backdrop-blur-sm p-6 rounded-2xl border border-blue-500/30">
+                  <h4 className="font-semibold mb-2 text-white">New to AI Search Visibility?</h4>
+                  <p className="text-sm text-gray-300 mb-4">
+                    Browse our comprehensive glossary of 126+ terms covering everything from Citation Share to Entity Recognition.
+                  </p>
+                  <Link
+                    href="/glossary"
+                    className="inline-flex items-center justify-center w-full px-4 py-2 rounded-lg bg-cyan-500/20 border border-cyan-400/50 text-cyan-300 font-semibold hover:bg-cyan-500/30 transition-colors text-sm"
+                  >
+                    Explore Glossary →
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
