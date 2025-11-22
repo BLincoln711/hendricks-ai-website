@@ -200,7 +200,7 @@ export default function AISearchVisibilityMeasurementPage() {
             <div className="bg-gradient-to-r from-blue-900/40 to-purple-900/40 p-6 rounded-xl mb-8 border border-blue-500/30">
               <p className="font-semibold text-cyan-400 mb-2">Key Insight:</p>
               <p className="text-gray-200 leading-relaxed">
-                AI search visibility measurement tracks your brand's presence across the entire AI-powered search ecosystem—not just Google rankings. It answers the critical question: "When prospects search for solutions in ChatGPT, Gemini, Perplexity, Google AI Overviews, and Bing Copilot, does your brand appear?"
+                <Link href="/glossary/ai-search-visibility" className="text-cyan-400 hover:text-cyan-300 underline">AI search visibility</Link> measurement tracks your brand's presence across the entire AI-powered search ecosystem—not just Google rankings. It answers the critical question: "When prospects search for solutions in ChatGPT, Gemini, Perplexity, Google AI Overviews, and Bing Copilot, does your brand appear?"
               </p>
             </div>
 
@@ -528,7 +528,7 @@ export default function AISearchVisibilityMeasurementPage() {
               </div>
 
               <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-white mb-2">Share of Voice</h3>
+                <h3 className="text-xl font-bold text-white mb-2"><Link href="/glossary/visibility-share-of-voice" className="text-cyan-400 hover:text-cyan-300">Share of Voice</Link></h3>
                 <p className="text-gray-300 mb-2">Your mention frequency vs top competitors</p>
                 <p className="text-gray-400 text-sm">Target: 25%+ competitive share</p>
               </div>

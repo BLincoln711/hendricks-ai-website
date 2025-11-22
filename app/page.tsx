@@ -62,6 +62,16 @@ export default function HomePage() {
                   <p className="text-sm md:text-base text-gray-200">
                     <span className="font-semibold text-white">Quick answer.</span> Hendricks.AI is a Search Intelligence Engineering Firm specializing in AI Search Visibility and Measurement for B2B. We engineer the signals, schema, entities, and measurement systems that determine how your brand appears in AI search and how that visibility turns into pipeline.
                   </p>
+                  <p className="text-xs text-gray-400 mt-3">
+                    New to these concepts? See our{" "}
+                    <Link
+                      href="/glossary"
+                      className="text-cyan-300 hover:text-cyan-200 underline underline-offset-2 font-medium"
+                    >
+                      AI Search Visibility Glossary
+                    </Link>{" "}
+                    for comprehensive definitions of 126+ terms.
+                  </p>
                 </div>
 
                 <div className="flex flex-wrap gap-4 mb-3">
