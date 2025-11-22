@@ -878,5 +878,478 @@ export const glossaryTerms: GlossaryTerm[] = [
       "A visibility layer audit reveals 60% of SEO content could be upgraded to AI-citeable with minimal incremental effort, identifying quick wins"
     ],
     relatedTerms: ["multi-engine-optimization", "entity-first-architecture", "ai-answer-engineering"]
+  },
+
+  // Additional Core Visibility Metrics
+  {
+    name: "Context Window Fit",
+    slug: "context-window-fit",
+    category: "Core Visibility Metrics",
+    shortDefinition:
+      "Whether your content can be processed within an AI model's context window for a given query.",
+    longDefinition:
+      "Context Window Fit measures if your content's relevant information fits within the token limits an AI model can process at once. Models have finite context windows (e.g., 8K, 32K, 128K tokens) that constrain how much text they can consider when generating answers. Content that fits entirely within the window has full context available; content exceeding it gets truncated or excluded. Fit depends on query complexity, competing sources, and how content is chunked during retrieval. Poor fit means critical information gets cut off mid-explanation, entities lose context, or supporting evidence disappears.",
+    whyItMatters:
+      "Even high-authority content becomes invisible if it can't fit in the context window alongside query processing and competing sources. Context Window Fit determines whether AI engines can 'see' your full argument or only fragments. For complex B2B content like technical documentation, case studies, or methodology explanations, poor fit causes accuracy problems where AI engines misrepresent your offering because they only processed part of the explanation. Optimizing for fit—through concise summaries, hierarchical structure, and strategic chunking—ensures your complete message reaches the model.",
+    examples: [
+      "A 12,000-word white paper gets truncated, causing AI to cite only the introduction and miss the key methodology in section 4",
+      "Restructuring content with concise summaries at top ensures core value propositions fit even when full context doesn't",
+      "Content chunked into 500-token segments maintains context fit across 95% of queries versus 3,000-token chunks fitting only 40%"
+    ],
+    relatedTerms: ["retrieval-confidence-score", "evidence-density-score", "model-aware-content-design"]
+  },
+
+  {
+    name: "Answer Slot Positioning",
+    slug: "answer-slot-positioning",
+    category: "Core Visibility Metrics",
+    shortDefinition:
+      "Where your brand appears within the structure of an AI-generated answer (lead, body, or conclusion).",
+    longDefinition:
+      "Answer Slot Positioning tracks the structural location where your brand is mentioned in AI answers. Answers typically have slots: lead position (first mention, often the primary recommendation), body positions (supporting examples or alternatives), and conclusion (summary/reinforcement). Lead positions carry highest visibility and implied endorsement. Body mentions provide credibility but less prominence. Positioning isn't random—it reflects authority signals, content quality, citation patterns, and entity strength. Consistent lead positioning indicates category leadership; body-only positioning suggests supporting-player status.",
+    whyItMatters:
+      "Position within AI answers directly impacts perception and click-through behavior. Being mentioned first signals authority and primacy; being mentioned last or in passing signals afterthought status. For B2B buyers forming mental vendor shortlists, lead positioning means making the consideration set while body positioning risks being overlooked. Answer Slot Positioning reveals whether AI engines see you as the category answer or a secondary option, informing strategy on how to strengthen authority signals and move toward lead positions.",
+    examples: [
+      "Brand consistently appearing in lead position across 78% of category queries signals AI engines view them as primary solution",
+      "Competitor analysis shows market leader captures lead position 92% of time while your brand appears only in body slot",
+      "After publishing comprehensive methodology content, brand shifts from body-only mentions to lead position in 43% of answers"
+    ],
+    relatedTerms: ["citation-share", "lead-slot-citation", "ai-brand-authority"]
+  },
+
+  {
+    name: "Competitor Citation Delta",
+    slug: "competitor-citation-delta",
+    category: "Core Visibility Metrics",
+    shortDefinition:
+      "The gap between your citation rate and your competitors' across the same query set.",
+    longDefinition:
+      "Competitor Citation Delta quantifies the visibility gap between your brand and competitors by measuring citation rate differences across identical queries. If you're cited in 15% of category queries while your main competitor is cited in 47%, your delta is -32 percentage points. This metric reveals competitive positioning in AI visibility, identifies leaders and laggards, and tracks whether gaps are widening or closing. Deltas can be measured overall, by engine (e.g., stronger on ChatGPT, weaker on Gemini), by topic (strong in features, weak in use cases), or by query type (strong in how-to, weak in comparison).",
+    whyItMatters:
+      "Citation gaps translate directly to competitive disadvantages in brand awareness and consideration. A negative delta means your competitors are capturing AI-driven mindshare you're missing. Large deltas indicate entrenched authority advantages that compound over time through reinforcement loops. Tracking deltas over time reveals whether your visibility efforts are working: closing gaps indicates effective strategy, widening gaps indicates falling behind. For competitive markets, Citation Delta is a leading indicator of market share shifts as AI search grows.",
+    examples: [
+      "Market leader maintains +38 point citation delta over nearest competitor, reinforcing dominant positioning",
+      "A focused AI visibility campaign closes citation delta from -41 points to -12 points over 6 months",
+      "Delta analysis reveals strength in technical queries (+15) but weakness in business value queries (-28), informing content priorities"
+    ],
+    relatedTerms: ["citation-share", "ai-search-equity", "competitive-visibility-gap"]
+  },
+
+  {
+    name: "Multi Engine Visibility Index",
+    slug: "multi-engine-visibility-index",
+    category: "Core Visibility Metrics",
+    shortDefinition:
+      "A composite score measuring consistent visibility across multiple AI search platforms.",
+    longDefinition:
+      "Multi Engine Visibility Index (MEVI) aggregates visibility performance across ChatGPT, Gemini, Perplexity, Copilot, and Google AI Overviews into a single score. Rather than tracking each engine separately, MEVI reveals consistency: brands with high MEVI appear broadly across platforms, while low MEVI despite high performance on one engine indicates platform-specific strengths that don't generalize. MEVI calculation typically weights engines by user volume and combines citation rates, mention frequency, and positioning. The index identifies whether visibility stems from universal authority or platform-specific optimization.",
+    whyItMatters:
+      "As users fragment across multiple AI search platforms, visibility on just one engine leaves you invisible to large audience segments. MEVI reveals whether your visibility strategy is platform-agnostic or over-optimized for specific engines. High MEVI indicates robust authority signals that work across different AI architectures and training data. Low MEVI despite strong single-engine performance suggests vulnerability: if user behavior shifts toward engines where you're weak, visibility collapses. For enterprise brands, MEVI provides the executive summary metric that communicates overall AI search health.",
+    examples: [
+      "Brand achieves 87 MEVI score indicating strong, consistent visibility across all major platforms",
+      "Competitor has 92 score on ChatGPT but 31 MEVI overall, revealing dangerous platform dependence",
+      "MEVI tracking shows gradual improvement from 34 to 68 over 12 months as authority signals strengthen across engines"
+    ],
+    relatedTerms: ["engine-coverage", "ai-search-visibility", "citation-share"]
+  },
+
+  {
+    name: "Source Diversity Score",
+    slug: "source-diversity-score",
+    category: "Core Visibility Metrics",
+    shortDefinition:
+      "How many distinct content types and formats AI engines cite from your domain.",
+    longDefinition:
+      "Source Diversity Score measures the variety of content types AI engines successfully retrieve and cite from your domain: articles, guides, case studies, documentation, research, tools, calculators, datasets, etc. High diversity indicates robust, multi-format authority; low diversity despite high content volume suggests only certain formats are AI-accessible. The score reveals whether AI engines see you as a one-dimensional source (e.g., 'only good for blog posts') or comprehensive authority. Diversity also provides resilience—if algorithm changes devalue one content type, others maintain visibility.",
+    whyItMatters:
+      "AI engines favor sources that provide evidence in multiple formats because diverse sourcing increases answer quality and reduces hallucination risk. A brand cited only from blog posts appears less authoritative than one cited from research papers, tools, case studies, and technical docs. Source Diversity Score also reveals content gaps: if you publish case studies but AI never cites them, there's a format-specific optimization problem. For B2B brands, diversity ensures you can support different query intents—research queries pull white papers, how-to queries pull guides, comparison queries pull case studies.",
+    examples: [
+      "Brand cited from 8 distinct content types scores high diversity and appears in 3.2x more answers than competitors with single-format citations",
+      "Analysis reveals strong blog citation but zero technical documentation citations, identifying optimization gap",
+      "Increasing diversity from 3 to 7 content types correlates with 54% increase in overall citation rate"
+    ],
+    relatedTerms: ["citation-share", "content-type-coverage", "multi-format-answer-block"]
+  },
+
+  {
+    name: "Evidence Density Score",
+    slug: "evidence-density-score",
+    category: "Core Visibility Metrics",
+    shortDefinition:
+      "The concentration of data points, statistics, and verifiable facts per content unit that AI can extract.",
+    longDefinition:
+      "Evidence Density Score quantifies how much citeable, factual information exists per paragraph or section of content. High-density content packs statistics, research citations, data points, specific examples, and verifiable claims into concentrated blocks. Low-density content has opinions, generalizations, and fluff that AI engines skip over when looking for supporting evidence. The score helps predict citation likelihood: dense content provides more extraction opportunities. Measurement looks at facts per 100 words, citations per section, and specific vs. vague claim ratios.",
+    whyItMatters:
+      "AI engines prioritize fact-dense sources because they need evidence to support generated answers and reduce hallucination risk. Content with high Evidence Density appears more authoritative and gets cited more frequently because it provides the specific, verifiable details AI systems are trained to extract. For B2B content marketing, evidence density separates thought leadership that gets cited from opinion pieces that get ignored. When AI engines decide between two sources covering the same topic, higher density usually wins the citation.",
+    examples: [
+      "Content with 12 data points per 100 words sees 4.1x higher citation rate than content with 2 data points per 100 words",
+      "Rewriting fluffy blog post to include specific statistics and research citations increases AI extraction rate from 8% to 67%",
+      "A/B test shows adding concrete examples with numbers improves answer inclusion rate from 23% to 71%"
+    ],
+    relatedTerms: ["data-backed-content", "structured-evidence-object", "citation-magnet"]
+  },
+
+  {
+    name: "Retrieval Confidence Score",
+    slug: "retrieval-confidence-score",
+    category: "Core Visibility Metrics",
+    shortDefinition:
+      "How consistently AI retrieval systems surface your content for relevant queries, regardless of citation.",
+    longDefinition:
+      "Retrieval Confidence Score measures the probability that your content enters an AI system's consideration set when processing relevant queries, even if it doesn't always get cited in final answers. High retrieval confidence means your content consistently gets pulled into the AI's context; low confidence means it's frequently overlooked during initial retrieval. This differs from citation rate because content can be retrieved but not cited (cited sources beat you in the ranking step), or not retrieved at all (invisible to the system). Retrieval confidence indicates findability and relevance matching strength.",
+    whyItMatters:
+      "You can't be cited if you're never retrieved. Retrieval Confidence reveals whether visibility problems stem from retrieval failure (content isn't being found) or ranking failure (content is found but not selected for citation). Low retrieval confidence suggests technical problems: poor entity recognition, weak topic signals, inadequate structured data, or authority gaps. High retrieval with low citation suggests content quality issues: not authoritative enough, not well-formatted, or outcompeted by better sources. Diagnosing retrieval vs. citation issues focuses optimization efforts correctly.",
+    examples: [
+      "Brand has 89% retrieval confidence but only 31% citation rate, indicating strong findability but weak competitive positioning once retrieved",
+      "Improving schema markup increases retrieval confidence from 42% to 78%, though citation rate remains constant",
+      "Competitor with lower domain authority but higher retrieval confidence (91% vs 76%) outperforms due to better entity recognition"
+    ],
+    relatedTerms: ["citation-share", "entity-recognition-accuracy", "semantic-retrieval-optimization"]
+  },
+
+  {
+    name: "Topic Authority Weight",
+    slug: "topic-authority-weight",
+    category: "Core Visibility Metrics",
+    shortDefinition:
+      "The relative strength of your brand's authority signals across different topic clusters.",
+    longDefinition:
+      "Topic Authority Weight measures how AI engines perceive your expertise across different subject areas, revealing authority distribution across your content landscape. A brand might have 92% authority weight in 'marketing automation' but only 23% weight in 'sales enablement' despite publishing on both topics. Weights are inferred from citation patterns, content depth, entity associations, and source trust signals. High weights in core topics mean AI confidently cites you; low weights mean you're treated as a weak or unreliable source. Weights can be competitive (your weight vs. competitors) or absolute (how much AI trusts you).",
+    whyItMatters:
+      "AI engines don't treat all your content equally—they trust you more in some topics than others based on historical authority signals. Understanding Topic Authority Weight helps prioritize where you can win citations (high-weight topics) versus where you're fighting uphill (low-weight topics). For content strategy, weights reveal where to double down versus where building authority requires long-term investment. Mismatched authority (publishing heavily on low-weight topics) wastes resources. For B2B positioning, weights show whether AI engines recognize your claimed expertise or see you differently than you see yourself.",
+    examples: [
+      "SaaS company has 88% authority weight in 'product analytics' but only 19% in 'data warehousing' despite similar content volume",
+      "Authority weight analysis reveals unexpected strength in adjacent topic cluster, informing expansion strategy",
+      "Focusing content production on high-weight topics (75%+) drives 3.8x more citations than spreading effort across low-weight topics"
+    ],
+    relatedTerms: ["ai-brand-authority", "topical-entity-authority", "domain-authority-memory"]
+  },
+
+  {
+    name: "Entity Saturation Score",
+    slug: "entity-saturation-score",
+    category: "Core Visibility Metrics",
+    shortDefinition:
+      "The completeness of entity information about your brand across AI knowledge systems.",
+    longDefinition:
+      "Entity Saturation Score measures how thoroughly AI knowledge graphs and vector databases understand your brand across all entity dimensions: what you are (category), what you do (products/services), who you serve (customers/markets), how you're related to other entities (partners, competitors, technologies), and key attributes (founded, location, size, differentiators). High saturation means comprehensive entity representation; low saturation means sparse, incomplete understanding. Saturation affects retrieval (incomplete entities get overlooked), accuracy (missing attributes cause misrepresentation), and authority (rich entities signal importance).",
+    whyItMatters:
+      "AI engines can't accurately represent what they don't understand. Low Entity Saturation causes persistent accuracy problems: your category gets misstated, your differentiators don't appear, your use cases are misrepresented, or you're confused with competitors. High saturation ensures AI has the information needed to correctly position you when generating answers. For new brands or products, saturation predicts how quickly AI visibility can ramp: high saturation enables immediate visibility, low saturation creates a knowledge gap that requires months to fill through content and structured data.",
+    examples: [
+      "Established brand has 94% entity saturation enabling accurate representation across all AI platforms",
+      "Startup with 31% saturation sees consistent misrepresentation of product category and target market",
+      "Saturating missing entity attributes (competitors, use cases, technologies) through schema markup increases mention accuracy from 54% to 91%"
+    ],
+    relatedTerms: ["entity-recognition-accuracy", "knowledge-graph-alignment", "ai-entity-sculpting"]
+  },
+
+  {
+    name: "Model Derived Visibility",
+    slug: "model-derived-visibility",
+    category: "Core Visibility Metrics",
+    shortDefinition:
+      "Visibility that comes from the AI model's training data rather than real-time retrieval.",
+    longDefinition:
+      "Model Derived Visibility represents knowledge about your brand embedded directly in an AI model's weights from training data, as opposed to information retrieved from current sources. When AI engines were trained on internet text (e.g., GPT models trained through 2023), they absorbed entity knowledge that persists even without retrieval. Model Derived Visibility means the AI 'knows' facts about you from training, not lookup. This creates baseline visibility even for poorly optimized current content. Strength depends on how prominently you appeared in pre-training data. Newer brands have zero model-derived visibility; established brands have varying amounts.",
+    whyItMatters:
+      "Model Derived Visibility provides a baseline advantage or disadvantage that's difficult to overcome quickly. Brands well-represented in training data get accurate default knowledge even if their current SEO is weak; brands absent from training data start from zero and must build visibility entirely through retrieval optimization. Understanding your model-derived baseline helps set realistic expectations: high baseline means quick wins possible, zero baseline means long-term authority building required. For established brands, model-derived visibility is an asset to maintain; for new brands, it's a competitive gap requiring aggressive content and citation strategies.",
+    examples: [
+      "Enterprise software company founded in 2005 has strong model-derived visibility in GPT-4, appearing in answers even when their current content isn't retrieved",
+      "Startup founded in 2024 has zero model-derived visibility, requiring 100% retrieval-based visibility strategy",
+      "Testing reveals brand gets 67% accuracy in answers without any retrieval (pure model knowledge) but only 23% with retrieval disabled for competitor"
+    ],
+    relatedTerms: ["ai-search-visibility", "entity-recognition-accuracy", "knowledge-graph-alignment"]
+  },
+
+  // Additional AI Engine Behaviors
+  {
+    name: "Model Temperature Effects",
+    slug: "model-temperature-effects",
+    category: "AI Engine Behaviors",
+    shortDefinition:
+      "How the randomness setting in AI generation influences citation patterns and brand mentions.",
+    longDefinition:
+      "Model Temperature Effects describe how the temperature parameter (controlling output randomness) influences which brands get mentioned and cited. Low temperature (0-0.3) makes models deterministic, consistently citing the same high-authority sources. High temperature (0.7-1.0) introduces variety, occasionally citing less prominent sources. Commercial AI search engines typically use moderate temperature (0.4-0.6) balancing consistency and diversity. Temperature affects whether you need to be the #1 authority (low temp) or top-5 (higher temp allows rotation). Understanding temperature helps calibrate authority targets and explains citation variance.",
+    whyItMatters:
+      "Temperature determines how dominant your authority needs to be for consistent citations. If an engine uses low temperature, second-place authority means few citations because the model always picks first place. Higher temperature means #2-5 ranked sources still get meaningful citation share. Temperature also explains why citation rates vary between identical queries: the randomness isn't arbitrary, it's temperature-driven sampling. For visibility strategy, understanding likely temperature settings helps prioritize whether to aim for absolute dominance or competitive parity.",
+    examples: [
+      "Engine running at 0.2 temperature cites market leader 94% of time; competitor at 0.7 temperature distributes citations more evenly (leader 61%, others 39%)",
+      "A/B testing reveals brand captures 8% citations at low temperature but 31% at higher temperature, indicating #3-4 authority positioning",
+      "Temperature increase from 0.3 to 0.5 expands total brands cited per answer from 1.2 to 2.8 average"
+    ],
+    relatedTerms: ["citation-prioritization", "generation-bias", "ai-brand-authority"]
+  },
+
+  {
+    name: "Token Bias",
+    slug: "token-bias",
+    category: "AI Engine Behaviors",
+    shortDefinition:
+      "The tendency of language models to favor certain phrases, names, or formats due to training frequency.",
+    longDefinition:
+      "Token Bias occurs when AI models disproportionately generate certain tokens (words, phrases, names) because they appeared frequently in training data or exhibit strong statistical associations. Common tokens get over-represented; rare tokens get under-represented. For brands, this means companies with common names or industry-standard phrasing get mentioned more easily than brands with unusual names. Bias also affects how concepts are described: models favor conventional phrasing over brand-specific terminology unless the brand term has strong training presence. Token bias isn't intentional preference—it's statistical artifact of training distribution.",
+    whyItMatters:
+      "Token Bias creates invisible advantages for brands with 'model-friendly' names and disadvantages for brands with unusual naming. If your brand name or terminology is statistically unlikely in the model's training, you'll be underrepresented even with strong content and authority. Understanding token bias helps explain why some competitors with weaker SEO get better AI visibility: their names and positioning align with model training distribution. For brand strategy, token bias suggests value in industry-standard terminology and risks in overly clever naming that models struggle to generate.",
+    examples: [
+      "Brand named 'DataStream' gets mentioned 2.3x more often than competitor 'Xyloflow' despite similar authority because 'data' and 'stream' are common tokens",
+      "Product description using industry-standard terms appears 67% more often than competitor using proprietary terminology",
+      "Rebranding from creative name to category-descriptive name increases unprompted mentions 4.1x"
+    ],
+    relatedTerms: ["generation-bias", "entity-recognition-accuracy", "model-derived-visibility"]
+  },
+
+  {
+    name: "Recency Weighting",
+    slug: "recency-weighting",
+    category: "AI Engine Behaviors",
+    shortDefinition:
+      "How strongly AI engines favor newer content over older authoritative sources when generating answers.",
+    longDefinition:
+      "Recency Weighting describes the algorithmic preference AI engines apply to recently published content versus older, potentially more authoritative sources. High recency weighting means fresh content gets prioritized even if less comprehensive; low weighting means authoritative older content maintains dominance. Different engines use different recency curves: some strongly favor content from past 30 days, others weight past year equally, some ignore publish dates entirely. Recency weighting varies by query type: news queries weight heavily toward recent, evergreen topics weight toward authority regardless of age.",
+    whyItMatters:
+      "Recency Weighting determines whether your content has a shelf life or compounds value over time. High recency weighting means you need continuous publishing to maintain visibility; older content loses citation potential. Low weighting means high-quality content maintains value for years, but breaking into citations requires displacing entrenched sources. For content strategy, understanding recency curves helps balance production velocity (feed high-recency engines) versus quality investment (win low-recency engines). Misunderstanding weighting causes strategy failures: treating all engines like high-recency search means wasted effort on low-recency platforms.",
+    examples: [
+      "Perplexity strongly weights content from past 60 days; 85% of citations are to recent sources versus only 34% for ChatGPT",
+      "Evergreen guide from 2019 maintains citations on low-recency engines but dropped to zero on high-recency platforms",
+      "Weekly publishing cadence increases visibility 4.2x on high-recency engines but only 1.3x on low-recency platforms"
+    ],
+    relatedTerms: ["retrieval-bias", "content-freshness-signals", "temporal-entity-associations"]
+  },
+
+  {
+    name: "Source Preference Patterns",
+    slug: "source-preference-patterns",
+    category: "AI Engine Behaviors",
+    shortDefinition:
+      "The systematic tendencies AI engines show in favoring certain domain types, formats, or authority signals.",
+    longDefinition:
+      "Source Preference Patterns are the observable biases AI engines exhibit toward specific source characteristics: preference for .edu and .gov domains, favoritism toward academic publications, tendency to cite major media outlets, preference for certain CMSs or site structures, or favoring primary sources over aggregators. These patterns aren't explicitly programmed but emerge from training data distributions and retrieval algorithm design. Different engines show different patterns: one might favor Reddit discussions, another avoids them; one prioritizes peer-reviewed research, another treats blogs equally. Patterns reveal what each engine's algorithm implicitly trusts.",
+    whyItMatters:
+      "Source Preference Patterns create unequal playing fields where certain content types have inherent advantages regardless of quality. Understanding patterns helps predict which content will succeed on which platform. A .com blog post might struggle on engines that strongly prefer .edu sources but excel on engines with balanced preferences. For B2B companies, patterns reveal whether you need academic partnerships, media coverage, or community presence to maximize specific engine visibility. Fighting against strong preference patterns wastes effort; aligning content strategy with patterns multiplies efficiency.",
+    examples: [
+      "Engine shows 4.7x citation preference for .edu domains despite commercial sources having similar content quality",
+      "Platform systematically favors long-form (2000+ word) content; analyzing preference reveals 78% of citations go to articles exceeding threshold",
+      "Source pattern analysis reveals engine cites primary research 6.2x more than secondary commentary, informing content strategy toward original data"
+    ],
+    relatedTerms: ["retrieval-bias", "domain-authority-memory", "citation-prioritization"]
+  },
+
+  {
+    name: "Hallucination Triggers",
+    slug: "hallucination-triggers",
+    category: "AI Engine Behaviors",
+    shortDefinition:
+      "Patterns or content characteristics that reliably cause AI engines to generate false information about your brand.",
+    longDefinition:
+      "Hallucination Triggers are identifiable content patterns, entity ambiguities, or query structures that consistently cause AI engines to fabricate incorrect information about your brand. Common triggers include: similar company names causing entity confusion, incomplete entity saturation leaving gaps AI fills with guesses, ambiguous product positioning that AI resolves incorrectly, or query phrasing that retrieves wrong context. Triggers aren't random—they're predictable failure modes stemming from entity resolution problems, insufficient training data, or retrieval mismatches. Identifying your brand's specific triggers enables targeted correction.",
+    whyItMatters:
+      "Hallucinations actively damage brand reputation by spreading false information at scale. A trigger that causes AI to state incorrect pricing, misrepresent your product category, or falsely claim capabilities you don't have directly harms prospects' understanding. Hallucination Triggers compound: once AI generates false information, that false information may enter training data for future models, perpetuating errors. Identifying and fixing triggers—through entity disambiguation, content clarification, structured data, or query-specific content—prevents ongoing reputation damage and ensures prospects receive accurate information about your offerings.",
+    examples: [
+      "Brand name similarity to unrelated company triggers 67% hallucination rate where AI confuses the two entities and attributes wrong capabilities",
+      "Incomplete product description triggers AI to 'fill gaps' by incorrectly claiming features from competitor products",
+      "Fixing entity disambiguation through schema markup reduces hallucination rate from 43% to 4% for commonly confused brand"
+    ],
+    relatedTerms: ["entity-recognition-accuracy", "entity-saturation-score", "knowledge-graph-alignment"]
+  },
+
+  {
+    name: "Context Collapse",
+    slug: "context-collapse",
+    category: "AI Engine Behaviors",
+    shortDefinition:
+      "When AI engines lose important distinctions or nuance by compressing complex information into simplified summaries.",
+    longDefinition:
+      "Context Collapse happens when AI engines compress nuanced, multi-faceted information into oversimplified summaries that lose critical distinctions. Complex positioning ('we serve mid-market SaaS companies in vertical X with specific use case Y') collapses to generic description ('marketing software'). Detailed differentiation collapses to commodity comparison. Conditional claims ('works best when...') collapse to absolute statements. Context Collapse occurs because summarization algorithms prioritize brevity and simplicity, trimming qualifiers, conditions, and distinctions that make your positioning unique. The result: accurate facts presented in ways that misrepresent your actual positioning.",
+    whyItMatters:
+      "Context Collapse erodes differentiation and competitive positioning by reducing your unique value proposition to generic category membership. Even when AI 'gets the facts right,' collapsed context can misrepresent your strategic positioning, target market, or value proposition. For B2B companies with sophisticated positioning, collapse is especially damaging: the nuance that separates you from competitors disappears, making you appear commodity. Preventing collapse requires explicit repetition of key distinctions, summary-friendly positioning statements, and content structure that makes critical context unavoidable even in compressed representations.",
+    examples: [
+      "Specialized 'analytics for healthcare compliance teams' collapses to 'analytics platform,' losing the differentiation that drives enterprise deals",
+      "Conditional positioning 'best for companies with X' collapses to unqualified 'best' claim, attracting wrong-fit prospects",
+      "Adding explicit positioning restatement in every section reduces context collapse from 78% to 23% of AI-generated descriptions"
+    ],
+    relatedTerms: ["model-aware-content-design", "entity-saturation-score", "summarization-robustness"]
+  },
+
+  {
+    name: "Attention Decay",
+    slug: "attention-decay",
+    category: "AI Engine Behaviors",
+    shortDefinition:
+      "The weakening of AI attention to content elements based on position, typically favoring beginnings over endings.",
+    longDefinition:
+      "Attention Decay describes how AI models' attention mechanisms prioritize information based on position, with attention strength typically decaying from beginning to end of documents. First paragraphs receive strongest attention; middle sections receive moderate attention; endings receive weak attention unless summary signals trigger reinforcement. Decay isn't linear—it varies by model architecture, document length, and content structure. Attention Decay means critical information buried in middle or end sections has lower extraction probability than identical information placed early. Decay also occurs across retrieved sources: first sources retrieved receive more attention than later sources.",
+    whyItMatters:
+      "Attention Decay determines whether your most important information gets extracted or overlooked. Critical brand differentiators, key product benefits, or essential context buried deep in content may never reach the AI's generated answer even if factually present. For content optimization, Attention Decay demands 'most important first' structuring: lead with core claims, entity identification, and key facts. Burying crucial information in later sections—common in academic or narrative writing—virtually guarantees AI will miss it. Understanding decay patterns helps structure content for maximum extraction probability.",
+    examples: [
+      "A/B test shows entity mentioned in first paragraph gets extracted 87% of time versus 31% when first mentioned in paragraph 8",
+      "Key differentiator positioned in concluding section gets cited only 12% of time versus 74% when repositioned to introduction",
+      "Content restructured to 'front-load' critical facts increases citation rate 3.4x without changing total information"
+    ],
+    relatedTerms: ["model-aware-content-design", "context-window-fit", "information-hierarchy-optimization"]
+  },
+
+  // Additional Content Structures
+  {
+    name: "Methodology Schema",
+    slug: "methodology-schema",
+    category: "Content Structures",
+    shortDefinition:
+      "Structured markup that explicitly describes your process, framework, or methodology in AI-parseable format.",
+    longDefinition:
+      "Methodology Schema provides structured data representation of your company's processes, frameworks, or proprietary methodologies in formats AI systems can parse and understand. Unlike narrative methodology descriptions, schema uses explicit step definitions, input/output declarations, prerequisite relationships, and outcome specifications. Schema can use standard vocabulary (Schema.org HowTo) or custom structured formats (JSON-LD, tables, or hierarchical lists with consistent formatting). The structure makes methodologies extractable, comparable, and citeable by AI engines that prioritize well-defined processes over vague approaches.",
+    whyItMatters:
+      "AI engines favor structured, explicit methodologies over implied or narrative processes because structure enables accurate extraction and representation. Methodology Schema transforms your proprietary approach from abstract concept to citeable framework that AI can reference when answering 'how-to' queries. For consulting firms, agencies, and service providers, methodology is often core IP and primary differentiator—schema ensures AI accurately represents your approach rather than collapsing it into generic descriptions. Schema also enables AI to compare methodologies, potentially positioning yours as the definitive framework if structure and clarity exceed competitors.",
+    examples: [
+      "Consulting firm's 5-step methodology captured in HowTo schema gets cited in 68% of process-related queries versus 9% before structured markup",
+      "Competitor with more complex methodology but no schema gets collapsed to generic description while your structured approach appears detailed and authoritative",
+      "Methodology schema enables AI to accurately explain your framework's steps, increasing prospect understanding and inbound quality"
+    ],
+    relatedTerms: ["structured-evidence-object", "canonical-definition-page", "process-documentation-framework"]
+  },
+
+  {
+    name: "Terminology Canon Page",
+    slug: "terminology-canon-page",
+    category: "Content Structures",
+    shortDefinition:
+      "A definitive page that establishes your organization's authoritative definitions for industry terms or concepts.",
+    longDefinition:
+      "A Terminology Canon Page serves as the authoritative reference for how specific terms, concepts, or categories should be defined within your industry or domain. Unlike general glossaries, canon pages establish definitive meanings for contested, emerging, or proprietary terms where your organization claims authority to define. Canon pages use clear definition structure, examples, context, etymology, and differentiation from related terms. They signal to AI engines 'this is the authoritative definition' through schema markup, comprehensive coverage, and explicit authority claims. Successful canon pages become the source AI engines cite when explaining the term.",
+    whyItMatters:
+      "Controlling definitions means controlling understanding. If AI engines cite your Terminology Canon when explaining key industry concepts, you shape how prospects understand the category, problem space, and solution approaches. For category creators, terminology canons establish your framework as the standard reference. For established categories, canons let you redefine or refine terms in ways that favor your positioning. Canon pages also capture mindshare: being 'the source' for a term's definition builds authority that transfers to related queries. When prospects research your space, seeing your definitions repeatedly cited establishes you as the thought leader.",
+    examples: [
+      "Category-creating startup's canon page for their new term gets cited as the definition in 83% of AI answers about the concept",
+      "Established firm's terminology canon redefining 'marketing attribution' in their preferred framework shifts how AI explains the concept",
+      "Canon page for proprietary methodology becomes go-to citation, driving consistent brand mentions when prospects research the approach"
+    ],
+    relatedTerms: ["canonical-definition-page", "category-definition-ownership", "semantic-territory-claiming"]
+  },
+
+  {
+    name: "Competitor Differentiation Blocks",
+    slug: "competitor-differentiation-blocks",
+    category: "Content Structures",
+    shortDefinition:
+      "Content sections explicitly comparing your offering to competitors on specific dimensions AI can extract.",
+    longDefinition:
+      "Competitor Differentiation Blocks are structured content sections that explicitly compare your solution to named competitors across specific, measurable dimensions. Unlike vague 'why choose us' content, differentiation blocks use direct comparison tables, feature matrices, or structured paragraphs with parallel construction ('Competitor X does Y, we do Z'). Blocks make comparisons AI-extractable by using consistent formatting, explicit competitor naming, and clear dimension labels (pricing, features, use cases, deployment, support). The structure enables AI to accurately represent how you differ rather than generating generic or hallucinated comparisons.",
+    whyItMatters:
+      "When prospects ask AI 'how does Brand X compare to Brand Y,' AI will generate an answer with or without your input. Competitor Differentiation Blocks ensure the answer reflects your accurate positioning rather than AI's hallucinated or misunderstood comparison. Blocks also let you frame the comparison dimensions: by structuring comparisons around your strengths, you influence how AI represents competitive positioning. For competitive markets, differentiation blocks prevent AI from presenting all solutions as undifferentiated alternatives, ensuring your unique value reaches prospects during AI-mediated research.",
+    examples: [
+      "Structured comparison block gets AI to accurately cite key differentiators in 74% of competitive queries versus 12% with only narrative differentiation",
+      "Comparison table positioning your solution on preferred dimensions shapes how AI frames competitive analysis across 89% of engines",
+      "Competitor named in differentiation block triggers AI to cite you in answers about that competitor, driving consideration even when not directly asked about"
+    ],
+    relatedTerms: ["competitive-positioning-framework", "feature-parity-signaling", "structured-comparison-content"]
+  },
+
+  {
+    name: "Evidence Supported Claims",
+    slug: "evidence-supported-claims",
+    category: "Content Structures",
+    shortDefinition:
+      "Claims or statements immediately followed by data, citations, or verifiable evidence in a consistent format.",
+    longDefinition:
+      "Evidence Supported Claims structure content so every significant claim is immediately backed by data, research citations, customer examples, or verifiable evidence using consistent formatting. The pattern: claim statement → evidence marker → supporting data. This differs from typical content where claims and evidence may be separated by paragraphs or implied rather than explicit. Consistent evidence formatting (e.g., 'according to [source]', 'data shows [statistic]', 'customer [name] achieved [result]') makes AI extraction reliable. The structure teaches AI that your claims are factually grounded, increasing citation trustworthiness.",
+    whyItMatters:
+      "AI engines prioritize sources that provide verifiable evidence over opinion or unsupported claims. Evidence Supported Claims transform content from 'marketing fluff' to 'citeable authority' by consistently backing assertions with proof. For AI engines trained to reduce hallucination risk, heavily evidenced sources appear more trustworthy and get cited preferentially. The structure also enables AI to extract not just your claim but the supporting evidence, creating richer, more credible answers. For B2B content competing with competitors' marketing claims, evidence support separates fact-based thought leadership from baseless assertions.",
+    examples: [
+      "Restructuring blog content to evidence-supported format increases citation rate from 19% to 67% as AI gains confidence in factual grounding",
+      "A/B test shows claims with immediate evidence support get extracted 4.9x more often than identical claims without proximate evidence",
+      "Content with consistent evidence formatting triggers AI to include supporting data in generated answers, enhancing credibility"
+    ],
+    relatedTerms: ["data-backed-content", "evidence-density-score", "citation-worthy-content-design"]
+  },
+
+  {
+    name: "Conversational Summaries",
+    slug: "conversational-summaries",
+    category: "Content Structures",
+    shortDefinition:
+      "Brief, natural-language content summaries written in question-answer or dialogue format for AI extraction.",
+    longDefinition:
+      "Conversational Summaries present key content information in natural dialogue or question-answer format that mirrors how users query AI engines. Rather than formal abstracts or executive summaries, conversational summaries use formats like 'What is X? X is...' or 'How does Y work? Y works by...' or 'Who should use Z? Z is best for...'. The format aligns with how AI engines generate answers, making extraction and reuse seamless. Summaries can appear at content top (for skimming), within FAQ sections, or as standalone pages. The conversational structure reduces the AI's generation load—it can extract and minimally modify rather than reformulate from scratch.",
+    whyItMatters:
+      "AI engines favor content that's already in answer-shaped format because it reduces generation complexity and error risk. Conversational Summaries provide pre-formatted answers AI can extract with minimal transformation, increasing citation likelihood. For complex technical content, summaries ensure AI accurately represents your core message even when it can't process full detail. The format also improves accuracy: when AI extracts a well-formed summary rather than attempting to reformulate dense prose, representation quality improves. For content strategy, conversational summaries are the lowest-friction path to AI citability.",
+    examples: [
+      "Adding conversational FAQ summary to technical documentation increases AI extraction rate from 31% to 84%",
+      "Blog posts with 'What you'll learn' conversational summary get cited 3.1x more often than posts with traditional abstract",
+      "Conversational format reduces AI misrepresentation rate from 47% to 11% by providing pre-formulated accurate answers"
+    ],
+    relatedTerms: ["query-naturalized-content", "structured-faq-stack", "answer-shaped-content"]
+  },
+
+  // Additional AI Citation Patterns
+  {
+    name: "Co-Citation Networks",
+    slug: "co-citation-networks",
+    category: "AI Citation Patterns",
+    shortDefinition:
+      "Patterns of which sources are cited together with yours, revealing AI-perceived relationships and authority clusters.",
+    longDefinition:
+      "Co-Citation Networks map which sources AI engines cite alongside yours across many queries, revealing how AI systems understand your positioning and authority relative to other entities. If you're consistently co-cited with industry leaders, AI perceives you in that authority tier; if co-cited with newer startups, you're grouped differently. Networks also reveal topic associations: co-citation with specific sources indicates AI sees you as relevant to those topics. Network analysis identifies citation influence opportunities (getting co-cited with higher-authority sources boosts your perceived authority) and positioning gaps (co-citation with wrong peer group suggests positioning problems).",
+    whyItMatters:
+      "Your co-citation network shapes how AI engines categorize and position your brand. Being co-cited with authoritative sources elevates your perceived authority; being co-cited with low-quality sources damages it. Networks also determine what other recommendations AI makes: if users ask about you, AI often suggests co-cited sources as alternatives or complementary solutions. For competitive positioning, co-citation analysis reveals whether AI groups you with desired competitors (validating positioning) or undesired ones (indicating positioning failure). Strategic content and entity work can shift co-citation networks toward preferred associations.",
+    examples: [
+      "Brand consistently co-cited with market leaders in 78% of citations, signaling AI perceives them in top authority tier",
+      "Co-citation network analysis reveals unexpected grouping with overseas competitors rather than domestic market, indicating geographic entity confusion",
+      "Targeted content strategy shifts co-citations from low-tier competitors to industry leaders over 6 months"
+    ],
+    relatedTerms: ["citation-cascade", "entity-relationship-graph", "authority-network-positioning"]
+  },
+
+  {
+    name: "Citation Clustering",
+    slug: "citation-clustering",
+    category: "AI Citation Patterns",
+    shortDefinition:
+      "The tendency for AI engines to cite multiple sources from the same domain, publisher, or authority cluster in a single answer.",
+    longDefinition:
+      "Citation Clustering occurs when AI engines cite multiple pages or resources from the same domain within a single generated answer, rather than diversifying across domains. Clustering indicates strong topical authority: the AI views your domain as comprehensive enough to support multiple citation points. Clustering can be intra-domain (multiple pages from yoursite.com) or network-based (multiple properties you control or are associated with). Strong clustering provides visibility resilience—if one page doesn't get cited, others from your domain might. Weak clustering despite extensive content suggests AI doesn't perceive you as a comprehensive authority.",
+    whyItMatters:
+      "Citation Clustering multiplies the value of domain authority by enabling multiple citations per answer instead of single mentions. Brands with strong clustering capture more mindshare within each answer and appear more authoritative than brands with single isolated citations. Clustering also provides strategic visibility control: you can influence which specific pages get cited by optimizing the most relevant ones, knowing your domain authority gives you multiple citation opportunities. For content strategy, clustering rewards depth over breadth—comprehensive coverage of fewer topics beats shallow coverage of many topics.",
+    examples: [
+      "Authority domain averages 2.7 citations per answer from their properties versus 0.9 for competitors, indicating strong clustering",
+      "Topic-depth analysis reveals 100 pages on focused topic drives clustering while 100 pages across scattered topics yields single citations",
+      "Clustering strength increases 4.2x after consolidating scattered content into comprehensive topical hubs"
+    ],
+    relatedTerms: ["topic-authority-weight", "domain-authority-memory", "citation-cascade"]
+  },
+
+  // Additional Search and LLM Interaction
+  {
+    name: "Query Reformulation Patterns",
+    slug: "query-reformulation-patterns",
+    category: "Search and LLM Interaction",
+    shortDefinition:
+      "How AI engines internally rephrase user queries to improve retrieval before generating answers.",
+    longDefinition:
+      "Query Reformulation Patterns describe how AI engines transform user queries before retrieval—expanding vague queries, adding context, disambiguating ambiguous terms, or translating colloquial language into formal equivalents. A user query 'best CRM' might be reformulated to 'best customer relationship management software for [inferred context]'. Understanding reformulation helps predict which content gets retrieved: your content must match not just surface query but the reformulated version AI actually searches. Reformulation varies by engine and query type. Patterns reveal the gap between what users type and what AI actually searches for.",
+    whyItMatters:
+      "If you optimize content for surface queries but AI reformulates before retrieval, your content won't be found even if theoretically relevant. Query Reformulation Patterns help align content to actual retrieval queries rather than user inputs. For keyword strategy, understanding reformulation reveals which query expansions, synonyms, or context additions to embed in content. Reformulation also explains unexpected citation patterns: seemingly irrelevant content gets cited because it matches the reformulated query users never see. Anticipating reformulation enables proactive content optimization.",
+    examples: [
+      "User queries 'marketing tools' but AI reformulates to 'digital marketing automation software,' missing content optimized for surface query",
+      "Embedding reformulation patterns (common expansions and synonyms) increases retrieval rate 3.8x",
+      "Reverse-engineering reformulation reveals AI adds 'for enterprise' to 40% of queries in your category, informing content optimization"
+    ],
+    relatedTerms: ["query-expansion-behavior", "semantic-search-matching", "intent-inference-mechanisms"]
+  },
+
+  {
+    name: "Follow-Up Intent Chains",
+    slug: "follow-up-intent-chains",
+    category: "Search and LLM Interaction",
+    shortDefinition:
+      "Sequences of related queries users typically ask in multi-turn conversations, revealing information-seeking patterns.",
+    longDefinition:
+      "Follow-Up Intent Chains map the typical sequences of questions users ask in conversational AI interactions about a topic. First query might be 'what is X,' followed by 'how does X work,' then 'X vs Y comparison,' then 'X pricing,' then 'X implementation.' These chains reveal information journey stages and decision process flows. Understanding chains helps predict what information users need next and ensures content addresses full intent sequences. Chain analysis shows which content gaps cause users to abandon or seek competitors (broken chains) versus which content successfully guides users through complete research (strong chains).",
+    whyItMatters:
+      "AI conversations are rarely single questions—they're multi-turn explorations. Follow-Up Intent Chains reveal whether your content supports complete user journeys or forces users to seek other sources mid-conversation. If your content answers initial queries but not follow-ups, users switch to competitors who address later-stage questions. For content strategy, chain analysis identifies which intent sequences to support end-to-end, ensuring you maintain visibility throughout research journeys. Chains also inform content structure: addressing likely follow-ups within the same content keeps users engaged and increases comprehensive citation opportunities.",
+    examples: [
+      "Intent chain analysis reveals 89% of users asking 'what is X' follow with 'X pricing' within 3 queries, informing content bundling strategy",
+      "Brand excels at answering awareness queries but lacks implementation content, causing citation drop-off at consideration stage",
+      "Optimizing content for complete intent chains increases conversation-level citation (cited in same conversation multiple times) 4.7x"
+    ],
+    relatedTerms: ["conversation-continuity-optimization", "intent-progression-modeling", "multi-turn-visibility-strategy"]
   }
 ]
