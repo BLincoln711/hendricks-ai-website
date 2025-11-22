@@ -1804,5 +1804,333 @@ export const glossaryTerms: GlossaryTerm[] = [
       "Parent-child authority inheritance in schema hierarchy boosts child entity citation rate 2.8x by association with authoritative parent"
     ],
     relatedTerms: ["entity-relationship-mapping", "knowledge-graph-alignment", "structured-data-architecture"]
+  },
+
+  // Additional Measurement Components
+  {
+    name: "AI Search Equity",
+    slug: "ai-search-equity",
+    category: "Measurement Components",
+    shortDefinition:
+      "Your fair share of AI-generated visibility based on actual market position and content quality.",
+    longDefinition:
+      "AI Search Equity measures whether your AI visibility matches your legitimate market position and content authority. Equity exists when a brand with 30% market share captures roughly 30% of AI citations in their category. Inequity occurs when AI visibility significantly under-represents (or over-represents) actual market strength. Measurement compares AI citation share to market indicators: revenue share, customer base, content volume, domain authority, brand awareness, or analyst recognition. Large equity gaps indicate AI visibility problems independent of market position—strong brands getting undercited, weak brands getting overcited due to AI-specific optimization advantages.",
+    whyItMatters:
+      "Understanding equity separates visibility problems from competitive position problems. Low visibility with high equity means weak market position; low visibility with low equity means AI optimization failure despite market strength. For market leaders, equity gaps represent lost visibility they've earned through market success. For challengers, positive equity gaps reveal AI-specific advantages to exploit. Equity analysis also prevents misguided strategy: throwing resources at AI visibility when the real issue is weak market position wastes investment. Tracking equity over time reveals whether AI is democratizing visibility (reducing leader advantages) or concentrating it (winner-take-all dynamics).",
+    examples: [
+      "Market leader with 45% revenue share but only 12% citation share reveals -33 point equity gap indicating severe AI underperformance",
+      "Startup with 3% market share but 18% citation share shows +15 equity gap, revealing AI-specific advantages competitors lack",
+      "Equity gap analysis across category shows AI visibility closely tracks market share (±5 points), indicating efficient market where optimization advantages are minimal"
+    ],
+    relatedTerms: ["citation-share", "competitor-citation-delta", "market-position-alignment"]
+  },
+
+  {
+    name: "Competitive Visibility Gap",
+    slug: "competitive-visibility-gap",
+    category: "Measurement Components",
+    shortDefinition:
+      "The measurable difference between your AI visibility performance and key competitors across critical queries.",
+    longDefinition:
+      "Competitive Visibility Gap quantifies how far ahead or behind competitors you are in AI search presence. Unlike simple citation delta (single metric), visibility gap is comprehensive: citation rate differences, positioning gaps (lead vs. body slot), engine coverage disparities, topic authority variations, and consistency differences. Gaps can be overall (across all queries) or segmented (by topic, engine, query type, or customer journey stage). Gap analysis identifies where you're winning (defend these positions), where you're competitive (small improvements could win), and where you're losing badly (decide: invest heavily or concede). Tracking gap trends reveals whether you're catching up, falling behind, or maintaining position.",
+    whyItMatters:
+      "Visibility gaps translate directly to competitive advantage or disadvantage in AI-mediated buyer journeys. Large gaps mean competitors capture mindshare, consideration, and traffic you're missing. Gap analysis focuses strategy: small gaps are winnable with tactical optimization, large gaps require fundamental authority building or strategic repositioning. For category leaders, maintaining gaps justifies defensive investment. For challengers, closing gaps demonstrates momentum and validates strategy. Gaps also reveal competitive vulnerabilities: leaders weak in specific topics or engines create opportunities for focused attacks. Understanding gap drivers (authority, content, optimization) determines whether you're fighting uphill or have realistic catch-up paths.",
+    examples: [
+      "Visibility gap analysis shows -34 points overall but +12 in technical topics, informing strategy to double down on technical content strength while accepting leadership disadvantage in business topics",
+      "Competitor has +28 point gap on ChatGPT but your gap is only -3 on Perplexity, revealing platform-specific competitive dynamics guiding resource allocation",
+      "Gap narrowing from -41 to -12 over 8 months validates visibility strategy; tracking confirms continued progress toward parity"
+    ],
+    relatedTerms: ["competitor-citation-delta", "ai-search-equity", "competitive-positioning-analysis"]
+  },
+
+  {
+    name: "Visibility Velocity",
+    slug: "visibility-velocity",
+    category: "Measurement Components",
+    shortDefinition:
+      "The rate at which your AI search visibility is improving or declining over time.",
+    longDefinition:
+      "Visibility Velocity measures the pace of change in your AI visibility metrics: citation rate acceleration, engine coverage expansion rate, topic authority growth speed, or competitive gap closure velocity. Positive velocity means improving visibility (citations increasing, gaps closing); negative velocity means declining visibility (losing ground to competitors). Velocity can be measured weekly, monthly, or quarterly depending on content velocity and competitive dynamics. High velocity indicates successful optimization or momentum; low velocity suggests plateau or ineffective efforts; negative velocity signals problems requiring intervention. Velocity analysis helps set realistic goals: if current velocity is +2 points per month, reaching +30 point target requires 15 months.",
+    whyItMatters:
+      "Velocity determines how quickly visibility strategy delivers results and whether goals are achievable on desired timelines. High velocity enables aggressive targets; low velocity demands patience or intensified effort. Velocity also reveals strategy effectiveness: improving velocity validates approach, declining velocity indicates problems. For competitive planning, velocity comparison matters: if your velocity is +2 points/month but competitor's is +5, you're actually falling further behind despite absolute improvement. Velocity analysis prevents false confidence from incremental gains while competitors gain faster. Understanding velocity drivers (content volume, authority accumulation, optimization effectiveness) helps accelerate progress. Forecasting based on velocity creates realistic expectations: executive promise of 'AI visibility parity in 6 months' can be validated against actual velocity trends.",
+    examples: [
+      "Citation rate growing +3.2 points per month indicates high velocity; at this pace, competitive parity achievable in 7 months",
+      "Velocity analysis shows acceleration: +1.1 points/month in Q1 to +4.3 points/month in Q2, validating strategy refinements",
+      "Negative velocity (-1.8 points/month) despite content investments reveals competitor acceleration or algorithm changes requiring strategic pivot"
+    ],
+    relatedTerms: ["citation-momentum-tracking", "visibility-growth-rate", "competitive-acceleration-analysis"]
+  },
+
+  {
+    name: "Topic Coverage Breadth",
+    slug: "topic-coverage-breadth",
+    category: "Measurement Components",
+    shortDefinition:
+      "How many distinct topics or query categories within your domain where you have measurable AI visibility.",
+    longDefinition:
+      "Topic Coverage Breadth measures the range of subject areas where your brand appears in AI responses. Broad coverage means visibility across many topics (features, use cases, industries, comparisons, how-tos, best practices); narrow coverage means visibility concentrated in few topics despite relevant content existing for more. Breadth measurement maps topic taxonomy (all relevant topics in your domain) then determines presence percentage. High breadth provides visibility resilience (not dependent on single topic) and captures diverse buyer intents. Low breadth creates vulnerability (shifts in popular topics devastate visibility) and misses buyer segments researching different angles. Breadth optimization identifies gaps: topics with content but no visibility reveal optimization opportunities.",
+    whyItMatters:
+      "Coverage breadth determines whether you capture AI visibility across the full buyer journey or only narrow slices. Brands visible only for product features miss buyers researching use cases, implementation, or ROI justification. Narrow coverage also indicates missed opportunities: content exists but isn't AI-discoverable, wasting content investment. For competitive positioning, breadth comparison reveals strategic gaps: competitors dominating topics you're missing. Breadth also affects visibility sustainability: algorithm changes that devalue one topic type devastate narrow coverage but barely impact broad coverage. Strategic breadth expansion prioritizes high-value topics where visibility drives business outcomes. Breadth analysis prevents over-optimization for specific queries while missing broader opportunity.",
+    examples: [
+      "Topic mapping identifies 45 relevant topics but visibility exists in only 12 (27% breadth), revealing massive expansion opportunity",
+      "Competitor has 78% topic breadth versus your 34%, explaining their overall visibility dominance despite similar content volume",
+      "Breadth expansion from 23% to 67% over 6 months diversifies visibility, reducing dependence on any single topic area"
+    ],
+    relatedTerms: ["topic-authority-weight", "semantic-territory-claiming", "content-coverage-analysis"]
+  },
+
+  {
+    name: "Citation Consistency Score",
+    slug: "citation-consistency-score",
+    category: "Measurement Components",
+    shortDefinition:
+      "How reliably your brand gets cited for the same queries over time and across repeated tests.",
+    longDefinition:
+      "Citation Consistency Score measures stability of AI visibility: whether the same queries yield citations predictably or randomly. High consistency means querying 'best X for Y' cites you 85% of the time; low consistency means citation rate varies wildly (40% one week, 5% the next, 70% the week after). Consistency depends on authority strength (high authority = consistent citations), retrieval reliability (stable retrieval ranking), and generation determinism (how much randomness engine uses). Measurement requires repeated sampling: query same prompts multiple times, across days, measuring citation variance. Low consistency indicates marginal authority (sometimes cited, sometimes beaten by competitors) or high engine randomness. High consistency indicates strong positioning that reliably beats competitors.",
+    whyItMatters:
+      "Consistency determines whether visibility is reliable business asset or random occurrence. Low consistency means visibility exists but can't be counted on—problematic for forecasting or claiming victory. High consistency enables confident strategic planning: if citations are consistent, you can reliably assume visibility in business plans. Consistency also diagnoses optimization: improving consistency often matters more than improving average citation rate. A brand cited 60% of time consistently beats one cited 70% randomly because reliability enables strategic leverage. For competitive analysis, consistency comparison reveals authority differences: market leader's consistent citations signal entrenched position, challenger's inconsistent citations show fragile gains. Tracking consistency over time shows authority solidification: improving consistency means you're securing position, declining consistency warns of eroding authority.",
+    examples: [
+      "Citation consistency analysis shows 92% consistency for core product queries, validating reliable visibility for primary business driver",
+      "Low consistency (34% variance) despite good average citation rate reveals marginal positioning; authority building needed for reliability",
+      "Consistency improvement from 45% to 87% over 9 months indicates authority solidification, transforming random visibility to dependable asset"
+    ],
+    relatedTerms: ["citation-reliability-measurement", "visibility-stability-analysis", "authority-entrenchment-indicators"]
+  },
+
+  // Additional Visibility Gaps and Risks
+  {
+    name: "Knowledge Decay",
+    slug: "knowledge-decay",
+    category: "Visibility Gaps and Risks",
+    shortDefinition:
+      "When AI systems' understanding of your brand becomes outdated as training data ages and you evolve.",
+    longDefinition:
+      "Knowledge Decay occurs when AI models' embedded knowledge about your brand (from training) becomes increasingly inaccurate as you evolve but models aren't retrained. A company that rebranded in 2023 faces decay as AI trained on pre-2023 data continues using old name, old positioning, or old product lineup. Decay affects model-derived knowledge more than retrieval-based knowledge: models 'remember' outdated facts even when current content contradicts them. Decay severity depends on: how much you've changed, how long since model training, and whether engine relies on model knowledge vs. real-time retrieval. Decay manifests as persistent inaccuracies: wrong company name, outdated product descriptions, old pricing, former market positioning, or previous leadership.",
+    whyItMatters:
+      "Knowledge Decay causes AI to misrepresent your current reality, confusing prospects with outdated information. For rapidly evolving companies (startups, rebrand situations, major pivots), decay creates systematic accuracy problems that current content can't overcome because models resist contradicting training data. Decay is particularly damaging during transitions: new brand names struggle for recognition while AI clings to old names; repositioned companies get described using old categories despite new messaging; acquired companies get misrepresented using pre-acquisition information. Combating decay requires aggressive current content, explicit correction statements, knowledge graph updates, and waiting for model retraining cycles. Understanding decay timeline helps set expectations: model trained 2022 won't reflect 2024 changes until next training.",
+    examples: [
+      "Company rebranded 2023 but GPT-4 (trained through 2023) persistently uses old brand name in 67% of mentions despite new content everywhere",
+      "Product pivot from marketing to sales platform sees AI continue describing as 'marketing tool' for 18 months post-pivot due to training data lag",
+      "Decay manifests as systematic errors: AI states old pricing ($99/month) versus current pricing ($149/month) because pricing in training data dominates current website info"
+    ],
+    relatedTerms: ["model-derived-visibility", "information-staleness-risk", "training-data-lag"]
+  },
+
+  {
+    name: "Citation Fragility",
+    slug: "citation-fragility",
+    category: "Visibility Gaps and Risks",
+    shortDefinition:
+      "How vulnerable your AI visibility is to minor algorithm changes, competitive actions, or content updates.",
+    longDefinition:
+      "Citation Fragility measures stability of your visibility against disruptions: algorithm updates, competitive optimization, content changes, or knowledge graph edits. Fragile visibility collapses easily (small competitor improvements eliminate your citations); robust visibility withstands shocks (algorithm changes barely impact you). Fragility stems from: marginal authority (barely beating competitors), single-source dependence (one strong page drives all citations), narrow topic coverage (concentrated in few queries), or technical dependencies (schema markup removal kills visibility). Measurement involves stress testing: how much would competitor content need to improve to displace you? What happens if your top-cited page disappears? How sensitive are citations to algorithm parameter changes?",
+    whyItMatters:
+      "Fragile visibility provides false confidence—present today, gone tomorrow. Brands with fragile citations face constant risk: competitor optimization, algorithm updates, or accidental content changes can eliminate visibility overnight. Fragility also indicates weak strategic position: marginal advantages won't sustain long-term visibility. For business planning, fragility determines whether visibility is reliable asset (low fragility) or temporary situation (high fragility). Reducing fragility requires authority deepening (increase competitive margins), diversification (multiple strong pages, broad topic coverage), and structural strengthening (entity recognition, knowledge graphs). Fragility assessment prevents over-reliance on unstable visibility: better to know citations are fragile than discover it when they vanish.",
+    examples: [
+      "Fragility analysis reveals 78% of citations depend on single page; if that page drops in retrieval ranking, overall visibility collapses",
+      "Competitor authority increase of just 15% would eliminate your citations in 67% of queries, indicating extremely fragile positioning",
+      "Reducing fragility through diversification (citations across 12 pages instead of 1) creates resilient visibility surviving single-source failures"
+    ],
+    relatedTerms: ["visibility-resilience-testing", "citation-dependency-analysis", "competitive-displacement-risk"]
+  },
+
+  {
+    name: "Visibility Blind Spots",
+    slug: "visibility-blind-spots",
+    category: "Visibility Gaps and Risks",
+    shortDefinition:
+      "Topics, query types, or customer journey stages where your AI visibility is systematically weak despite relevance.",
+    longDefinition:
+      "Visibility Blind Spots are specific domains where your brand should appear in AI responses but doesn't: certain buyer journey stages (strong in awareness, invisible in consideration), query types (present in 'what is' queries, missing from 'how to choose'), use cases (visible for primary use case, absent for secondary ones), or customer segments (visible for enterprise, invisible for SMB). Blind spots indicate optimization gaps, content gaps, or authority gaps in specific areas. Discovery requires comprehensive query mapping: testing all relevant query variations to find systematic absence patterns. Blind spots are particularly dangerous when they coincide with high-value queries: missing visibility in comparison or ROI queries loses purchase-intent prospects.",
+    whyItMatters:
+      "Blind spots create invisible competitors: brands strong in areas where you're blind capture prospects you never reach. For buyer journeys, blind spots cause drop-off: prospects research initial questions (where you're visible) then move to later stages (where you're blind) and discover competitors. Blind spots also waste partial visibility: showing up in awareness queries but missing consideration queries converts research into competitor evaluation, not yours. Strategic blind spot elimination prioritizes high-value gaps over comprehensive coverage: better to own critical consideration queries than achieve breadth in low-value awareness queries. Blind spot analysis often reveals content-visibility mismatches: content exists but isn't AI-discoverable, indicating optimization problems not content gaps.",
+    examples: [
+      "Blind spot analysis reveals strong visibility in 'what is X' queries (78% citation) but complete absence in 'X pricing' queries (4% citation) despite pricing pages existing",
+      "Brand visible for primary use case (marketing analytics) but blind spot in adjacent use case (sales analytics) allows competitor to own that segment",
+      "Journey stage blind spots: 89% visibility in awareness stage, 34% in consideration, 12% in decision—losing prospects as they progress"
+    ],
+    relatedTerms: ["coverage-gap-analysis", "topic-coverage-breadth", "query-type-performance"]
+  },
+
+  {
+    name: "Entity Confusion Risk",
+    slug: "entity-confusion-risk",
+    category: "Visibility Gaps and Risks",
+    shortDefinition:
+      "The probability that AI systems will mix up your brand with other entities due to naming or positioning similarities.",
+    longDefinition:
+      "Entity Confusion Risk quantifies how likely AI is to conflate your brand with others: companies with similar names, products in same category, entities sharing terminology, or brands with overlapping positioning. High risk means frequent misattribution (AI attributes competitor's features to you or vice versa); low risk means clear entity separation. Risk factors include: generic brand names (Canvas, Compass, Element), common industry terms as names (Marketing Cloud, Sales Platform), similar company names in different industries (Oracle software vs. Oracle team), or incomplete entity disambiguation. Measurement examines accuracy: does AI correctly identify which entity when context is ambiguous? Does it maintain entity separation in comparative discussions?",
+    whyItMatters:
+      "Entity confusion causes AI to spread misinformation at scale: crediting competitors with your innovations, attributing your features to wrong companies, mixing pricing information, or creating hybrid descriptions that combine multiple entities incorrectly. For brands with confusion risk, AI becomes reputation liability rather than asset: every hallucinated mix-up damages understanding and trust. Confusion is especially problematic in competitive contexts: when prospects research 'Company X vs Y,' confusion causes AI to generate nonsensical comparisons or attribute capabilities to wrong vendors. Mitigating confusion requires disambiguation strategy: explicit entity declarations, contextual qualifiers, unique terminology, schema markup, and repetitive entity-context pairing. For new brands, avoiding confusion-prone names prevents future problems.",
+    examples: [
+      "Software company 'Canvas' suffers 45% entity confusion with Instructure Canvas, frequently receiving misattributed features and pricing",
+      "Generic product name 'Insights Platform' creates confusion with 12 other 'Insights' products; AI frequently combines features from multiple entities",
+      "Entity disambiguation campaign reducing confusion from 56% to 8% requires 8 months of consistent markup, content updates, and knowledge graph corrections"
+    ],
+    relatedTerms: ["entity-disambiguation-strategy", "hallucination-triggers", "brand-identity-clarity"]
+  },
+
+  // Additional Optimization Frameworks
+  {
+    name: "Multi-Engine Optimization",
+    slug: "multi-engine-optimization",
+    category: "Optimization Frameworks",
+    shortDefinition:
+      "Strategy balancing platform-specific tactics with cross-platform authority building for broad AI visibility.",
+    longDefinition:
+      "Multi-Engine Optimization orchestrates visibility strategy across ChatGPT, Gemini, Perplexity, Copilot, and emerging platforms simultaneously. Approach combines platform-agnostic foundation (strong entity recognition, knowledge graphs, authoritative content) with platform-specific tactics (Perplexity recency focus, Gemini Wikipedia presence, ChatGPT content depth). Optimization allocates resources based on user distribution, competitive positioning per platform, optimization difficulty, and business value. Framework prevents over-optimization for single platform while ensuring baseline presence everywhere. Includes regular cross-platform testing, identifying platform-specific gaps, and adapting tactics as platforms evolve. Balances breadth (present on all platforms) with depth (strong positioning on priority platforms).",
+    whyItMatters:
+      "Single-platform optimization creates vulnerability: user migration, competitive dynamics, or platform changes can eliminate concentrated visibility. Multi-engine approach provides resilience through diversification while maximizing total visibility reach. Understanding platform differences also prevents wasted effort: tactics effective on ChatGPT may fail on Perplexity, so blind application wastes resources. For strategic planning, multi-engine optimization acknowledges market uncertainty: rather than betting on one platform's dominance, maintain strong positioning everywhere. Resource allocation based on platform priorities focuses effort on highest-return channels while preventing complete neglect of secondary platforms. Multi-engine measurement reveals competitive positioning variations: strong on some platforms, weak on others, informing tactical emphasis.",
+    examples: [
+      "Multi-engine strategy allocates 40% resources to platform-agnostic authority, 25% to ChatGPT depth, 20% to Perplexity recency, 15% to Gemini entity work",
+      "Platform-specific testing reveals ChatGPT strong (87% visibility) but Perplexity weak (23%), focusing optimization on Perplexity recency gaps",
+      "Multi-engine approach delivers 68% average visibility across 5 platforms versus single-platform focus yielding 91% on one platform but <10% on others"
+    ],
+    relatedTerms: ["platform-specific-optimization", "engine-coverage", "visibility-diversification-strategy"]
+  },
+
+  {
+    name: "Content-First Visibility",
+    slug: "content-first-visibility",
+    category: "Optimization Frameworks",
+    shortDefinition:
+      "Visibility strategy emphasizing comprehensive, authoritative content creation over technical optimization shortcuts.",
+    longDefinition:
+      "Content-First Visibility prioritizes creating genuinely valuable, comprehensive content that deserves AI citations over gaming retrieval with technical tricks. Philosophy: if content is authoritative enough, AI will find and cite it; optimization amplifies good content but can't rescue poor content. Approach involves deep topic coverage, original research, unique insights, comprehensive how-to guides, data-backed claims, and subject matter expertise. Technical optimization (schema, entity markup, formatting) serves content discoverability but content quality drives citability. Content-first thinking rejects keyword stuffing, thin content, or optimization-only pages. Measurement focuses on citation quality and accuracy (are citations using our content well?) not just quantity.",
+    whyItMatters:
+      "AI systems increasingly detect and penalize optimization-without-substance: thin content with perfect technical markup gets skipped for substantial content with basic optimization. Content-first approach builds sustainable visibility through genuine authority that compounds over time. For thought leadership positioning, content depth separates signal from noise: comprehensive guides get cited persistently while tactical optimization provides temporary bumps. Content-first also future-proofs strategy: as AI systems get better at quality detection, content advantages strengthen while technical tricks become obsolete. For resource allocation, content-first justifies investment in expertise and depth over short-term optimization tactics. Long-term, authoritative content creates visibility assets that appreciate while tactical optimization requires constant maintenance.",
+    examples: [
+      "2,500-word comprehensive guide with original research outperforms 12 optimized 500-word tactical posts despite lower total content volume",
+      "Content-first strategy emphasizing depth over breadth: 15 authoritative pieces yield 4.2x more citations than 150 thin optimized posts",
+      "Original research content gets cited 7.8x more than curated/aggregated content even with identical technical optimization"
+    ],
+    relatedTerms: ["authority-through-depth", "quality-over-quantity-optimization", "thought-leadership-content-strategy"]
+  },
+
+  {
+    name: "Iterative Visibility Optimization",
+    slug: "iterative-visibility-optimization",
+    category: "Optimization Frameworks",
+    shortDefinition:
+      "Continuous test-measure-refine cycle for incrementally improving AI visibility through data-driven experimentation.",
+    longDefinition:
+      "Iterative Visibility Optimization applies systematic experimentation to AI visibility: establish baseline measurement, form hypothesis about improvement tactics, implement changes, measure impact, refine approach. Iteration cycle might be weekly (testing content variations) or monthly (testing strategic changes). Process includes: query performance tracking, A/B testing content formats, schema markup experiments, entity mention pattern testing, and competitive benchmarking. Iterations compound: small improvements accumulate into significant visibility gains. Framework prevents 'big bang' approaches (massive changes with unclear attribution) in favor of controlled experiments with clear causation. Iterations also enable rapid learning: what works gets amplified, what fails gets abandoned quickly rather than discovered months later.",
+    whyItMatters:
+      "AI visibility optimization is uncertain: tactics that work in theory often fail in practice, while unexpected approaches sometimes yield breakthrough results. Iterative experimentation discovers what actually works for your specific brand, category, and competitive context rather than assuming generic best practices apply. Systematic iteration also prevents wasted effort on ineffective tactics: poor-performing experiments get killed quickly while promising approaches get scaled. For proving value, iteration provides clear before/after metrics demonstrating optimization impact. Iterative approach also adapts to platform changes: when algorithms shift, quick iteration cycles detect impact and adjust tactics faster than annual strategy reviews. Culturally, iteration builds organizational learning: team develops intuition for what drives visibility through accumulated experimental results.",
+    examples: [
+      "Weekly iteration cycle testing content formats: prose vs. lists vs. tables for 'how-to' queries, identifying lists drive 3.4x higher extraction",
+      "Monthly iteration on entity mention patterns: testing frequency and placement variations, discovering first-paragraph mentions critical for extraction",
+      "Iteration framework enables 47 experiments in 12 months versus waterfall approach attempting 4 large initiatives, accelerating learning and adaptation"
+    ],
+    relatedTerms: ["experiment-driven-optimization", "test-and-learn-methodology", "continuous-improvement-framework"]
+  },
+
+  {
+    name: "Authority Compounding Strategy",
+    slug: "authority-compounding-strategy",
+    category: "Optimization Frameworks",
+    shortDefinition:
+      "Long-term approach where visibility success creates authority that generates more visibility in reinforcing cycles.",
+    longDefinition:
+      "Authority Compounding Strategy leverages the self-reinforcing nature of AI visibility: getting cited builds authority → increased authority leads to more citations → more citations further strengthen authority. Strategy focuses on creating compounding loops rather than one-time wins. Tactics include citation cascade triggering (first citations enable subsequent ones), knowledge graph presence (persists across model updates), thought leadership positioning (cited as category expert), and authoritative content libraries (referenced repeatedly). Compounding thinking emphasizes sustainable authority building over quick visibility hacks. Investment prioritizes actions with compounding returns (Wikipedia articles, industry recognition, original research) over tactics requiring constant maintenance (trending topic chasing, tactical optimization).",
+    whyItMatters:
+      "Non-compounding tactics require perpetual effort for temporary gains; compounding tactics invest once and yield increasing returns over time. For long-term visibility leadership, compounding creates competitive moats: early citation advantages compound into dominance that's difficult for competitors to overcome. Compounding also improves ROI over time: initial authority-building may have slow payoff, but accumulated authority makes subsequent visibility gains progressively easier and cheaper. For resource planning, compounding justifies patient investment in authority foundations rather than demanding immediate visibility. Understanding compounding also reveals competitive dynamics: leaders with compounding advantages are harder to displace than their current metrics suggest because compound growth accelerates their position.",
+    examples: [
+      "Authority compounding shows citation rate growth acceleration: +1.2 points month 3, +2.8 month 6, +5.4 month 12 as authority compounds",
+      "Wikipedia article creation (one-time investment) drives compounding returns: immediate citation lift plus sustained presence as source of model training data",
+      "Compounding analysis reveals 15% of content (authoritative cornerstone pieces) drives 78% of citations and compounds visibility advantages over time"
+    ],
+    relatedTerms: ["citation-cascade", "authority-flywheel-effect", "sustainable-visibility-building"]
+  },
+
+  // Additional Emerging Concepts
+  {
+    name: "Generative Visibility Engineering",
+    slug: "generative-visibility-engineering",
+    category: "Emerging Concepts",
+    shortDefinition:
+      "The emerging practice of engineering content and infrastructure specifically for AI generation systems.",
+    longDefinition:
+      "Generative Visibility Engineering adapts visibility strategy for AI systems that generate answers rather than ranking links. Unlike traditional SEO (optimized for ranking algorithms), generative engineering optimizes for extraction (will AI extract your content?), representation (will AI represent it accurately?), and attribution (will AI cite you?). Engineering considers generation mechanics: token efficiency, attention patterns, context windows, prompt alignment, and extraction clarity. Techniques include generation-friendly formatting, model-aware content structure, prompt engineering, and extraction optimization. Generative engineering also addresses unique challenges: hallucination prevention, context collapse mitigation, and accuracy verification. Emerging discipline combines linguistics (how models interpret language), information architecture (how models traverse structures), and entity theory (how models understand relationships).",
+    whyItMatters:
+      "Traditional SEO assumptions break in generative paradigm: ranking #1 doesn't matter if AI doesn't extract or cite you. Generative engineering provides framework for visibility in this new paradigm. For practitioners, generative thinking requires mental model shift from 'get traffic via ranking' to 'get extracted and cited in AI answers.' Engineering discipline also prevents misapplication of SEO tactics that worked for ranking but fail for generation. As AI-generated answers replace traditional search for more queries, generative engineering becomes central visibility competency. For competitive advantage, early generative engineering expertise creates positioning gaps competitors struggle to close while still applying ranking-era tactics to generation-era problems.",
+    examples: [
+      "Generative engineering approach restructures content for token efficiency and extraction clarity, increasing citation rate 4.7x versus traditional SEO-optimized content",
+      "Model-aware formatting (attention mechanism exploitation) ensures key facts land in extraction hot zones, improving accuracy 3.2x",
+      "Generation-focused engineering emphasizes hallucination prevention and context preservation, not keyword density or link building"
+    ],
+    relatedTerms: ["ai-answer-engineering", "extraction-optimization", "generation-aware-content-design"]
+  },
+
+  {
+    name: "AI Answer Engineering",
+    slug: "ai-answer-engineering",
+    category: "Emerging Concepts",
+    shortDefinition:
+      "Deliberately structuring content to shape the answers AI systems generate about your brand or domain.",
+    longDefinition:
+      "AI Answer Engineering involves crafting content that influences not just whether AI cites you, but how AI formulates answers about your topic. Engineering shapes answer framing (how AI introduces your brand), comparison structure (dimensions AI uses to compare you to competitors), explanation depth (how comprehensively AI describes your offering), and accuracy (correctness of generated statements). Techniques include answer templates (providing AI with pre-structured answer patterns), framing statements (how you want to be introduced), contextual guardrails (information that prevents misrepresentation), and comparative positioning (how you should be compared). Answer engineering recognizes AI doesn't just extract and quote—it generates novel language, requiring strategy beyond simple citation.",
+    whyItMatters:
+      "Being cited isn't enough if AI generates incorrect, incomplete, or unfavorable answers about you. Answer engineering ensures favorable representation: correct category positioning, accurate feature descriptions, fair competitive comparisons, and appropriate context. For brand control, engineering creates boundaries that guide AI toward accurate representation and away from hallucinations or misframes. Answer engineering also enables strategic positioning: you can influence whether AI frames you as 'enterprise solution' or 'SMB tool,' 'marketing platform' or 'sales enablement,' 'established leader' or 'innovative disruptor.' Engineering is particularly critical during pivots or repositioning: without active answer shaping, AI continues generating answers based on outdated positioning long after you've changed.",
+    examples: [
+      "Answer engineering through strategic framing statements shifts AI descriptions from generic 'analytics platform' to specific 'revenue intelligence for B2B SaaS' in 73% of answers",
+      "Comparison engineering via structured competitive content influences AI to compare on favorable dimensions (implementation speed, ease of use) versus unfavorable ones (feature parity)",
+      "Answer accuracy engineering through hallucination prevention reduces incorrect capability claims from 34% to 6% of generated answers"
+    ],
+    relatedTerms: ["generative-visibility-engineering", "answer-level-optimization", "response-shaping-strategy"]
+  },
+
+  {
+    name: "Semantic Search Intelligence",
+    slug: "semantic-search-intelligence",
+    category: "Emerging Concepts",
+    shortDefinition:
+      "Understanding and optimizing for how AI systems interpret meaning and concepts rather than matching keywords.",
+    longDefinition:
+      "Semantic Search Intelligence involves optimizing for semantic understanding (meaning, concepts, relationships) rather than keyword matching (surface terms). Semantic optimization recognizes AI systems understand queries conceptually: 'affordable CRM for small teams' activates semantically similar content about 'budget-friendly relationship management for startups' even without keyword matches. Intelligence includes understanding embedding spaces (where concepts exist in vector space), semantic distances (how close your content is to query meanings), concept networks (how related concepts connect), and contextual interpretation (how AI resolves ambiguous terms). Optimization creates semantically dense content, establishes clear concept relationships, and occupies valuable semantic territory. Requires thinking beyond keywords to conceptual relevance and meaning alignment.",
+    whyItMatters:
+      "Keyword-based thinking increasingly obsolete as AI systems use semantic similarity for retrieval. Content perfectly keyword-optimized but semantically weak misses modern AI search. Semantic intelligence reveals why content fails: not keyword gaps but semantic distance from target concepts. For optimization, semantic approach fundamentally differs from keyword approach: instead of 'include this term,' thinking becomes 'cover this concept comprehensively,' 'establish these relationships,' 'occupy this semantic space.' Semantic optimization also explains unexpected visibility: content ranking poorly in keyword search but strongly in semantic search, or vice versa. For competitive positioning, semantic territory becomes strategic asset: owning concept clusters competitors miss creates uncontested visibility space.",
+    examples: [
+      "Semantic optimization focusing on concept coverage (not keyword density) increases retrieval for semantically related queries by 4.9x despite lower keyword matching",
+      "Embedding space analysis reveals content semantically distant from target queries despite keyword presence; repositioning content to concepts increases visibility 3.4x",
+      "Semantic territory mapping identifies valuable concept clusters competitors haven't claimed, enabling uncontested positioning and visibility capture"
+    ],
+    relatedTerms: ["vector-search-optimization", "embedding-space-positioning", "conceptual-relevance-optimization"]
+  },
+
+  {
+    name: "AI Brand Authority",
+    slug: "ai-brand-authority",
+    category: "Emerging Concepts",
+    shortDefinition:
+      "How strongly AI engines regard your brand as a trusted voice within a given category.",
+    longDefinition:
+      "AI Brand Authority represents the weight and credibility AI systems assign to your brand when forming answers in your category. High authority means AI preferentially cites you, trusts your information, and positions you prominently even when competing sources exist. Low authority means AI treats you skeptically, requires stronger evidence to cite you, and positions you as secondary source. Authority builds from: citation frequency (how often AI has cited you historically), knowledge graph presence (Wikipedia, recognized databases), source trust signals (domain authority, media mentions, awards), entity completeness (how well AI understands you), and content quality (accuracy of information you provide). Authority compounds: being cited builds authority that leads to more citations. Unlike domain authority (Google's metric), AI Brand Authority specifically measures AI system trust.",
+    whyItMatters:
+      "Authority determines whether AI cites you when multiple sources cover same topic: high authority wins tie-breaks, low authority loses even with good content. For visibility strategy, authority building becomes foundational rather than tactical: weak authority means optimization hits ceiling where better-authority competitors block citations. Authority also affects accuracy: high-authority brands get quoted correctly more often, low-authority brands get misrepresented or hallucinated about. For competitive dynamics, authority advantages compound and entrench: early authority leaders become difficult to displace as their citations further strengthen authority. Understanding authority gaps helps diagnose visibility problems: weak content or weak authority? Different problems require different solutions.",
+    examples: [
+      "Brand with 94 authority score gets cited even with medium-quality content; competitor with 23 score needs exceptional content to get citations",
+      "Authority measurement reveals systematic citation advantage: when content quality equals competitors, high-authority brand cited 4.7x more often",
+      "Authority building through Wikipedia, media coverage, and knowledge graph presence increases citation rate 3.8x over 18 months independent of content changes"
+    ],
+    relatedTerms: ["entity-authority-signals", "domain-authority-memory", "trust-signal-optimization"]
+  },
+
+  {
+    name: "Answer Reinforcement Loop",
+    slug: "answer-reinforcement-loop",
+    category: "Emerging Concepts",
+    shortDefinition:
+      "The cycle where frequent citations increase brand authority, which then leads to even more future citations.",
+    longDefinition:
+      "Answer Reinforcement Loop describes the self-perpetuating cycle in AI visibility: being cited frequently teaches AI you're authoritative → increased authority makes AI more likely to cite you → more citations further strengthen authority perception → stronger authority leads to even more preferential treatment. Loop creates compound growth in visibility: early citation advantages snowball into dominance. Loop strength varies by engine and topic: some engines heavily weight historical citation patterns (strong loops), others treat sources more equally (weak loops). Loops can be virtuous (more citations → more authority) or vicious (no citations → no authority → no citations). Understanding loops reveals why visibility gaps persist: competitors in strong reinforcement loops become progressively harder to displace while brands outside loops struggle despite quality content.",
+    whyItMatters:
+      "Reinforcement loops explain accelerating visibility divergence: small early advantages compound into large persistent gaps. For strategy, loops justify aggressive early investment to enter virtuous cycle before competitors. Loops also explain why unseating leaders is difficult: you're not just competing with their current content but with accumulated authority from historical citation loops. For competitive positioning, breaking into strong competitor loops requires exceptional differentiation or authority building. Loop dynamics also affect timing: entering category early enables loop capture before competition; entering late means fighting entrenched loops. Understanding your loop position (virtuous, vicious, or neutral) helps set realistic expectations and prioritize authority-building investments that strengthen loop dynamics.",
+    examples: [
+      "Market leader in strong reinforcement loop sees citation rate accelerate: +2 points month 3, +5 month 6, +9 month 12 as loop compounds",
+      "Analysis reveals competitor's 67% citation share largely driven by reinforcement loop (historical citations → authority → more citations) not current content quality",
+      "Breaking into competitor's reinforcement loop requires 18 months of authority building before loop dynamics shift in your favor"
+    ],
+    relatedTerms: ["authority-compounding-strategy", "citation-cascade", "visibility-momentum-dynamics"]
   }
 ]
