@@ -6,7 +6,6 @@ import Script from 'next/script'
 import HubSpotTracking from './components/HubSpotTracking'
 import GoogleTagManager from './components/GoogleTagManager'
 import GTMNoScript from './components/GTMNoScript'
-import AIChat from './components/ai-chat'
 import GlobalSchemas from '../components/GlobalSchemas'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -36,7 +35,6 @@ export default function RootLayout({
         <GlobalSchemas />
 
         {children}
-        <AIChat />
       </body>
     </html>
   )
