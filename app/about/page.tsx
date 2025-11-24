@@ -12,6 +12,31 @@ export const metadata: Metadata = {
   title: "About | Hendricks.AI Search Intelligence Engineering",
   description:
     "Learn about Hendricks.AI, a Search Intelligence Engineering Firm founded by Brandon Lincoln Hendricks, specializing in AI Search Visibility and Measurement for B2B companies.",
+  openGraph: {
+    title: "About | Hendricks.AI Search Intelligence Engineering",
+    description:
+      "Learn about Hendricks.AI, a Search Intelligence Engineering Firm founded by Brandon Lincoln Hendricks, specializing in AI Search Visibility and Measurement for B2B companies.",
+    url: "https://hendricks.ai/about",
+    siteName: "Hendricks.AI",
+    images: [
+      {
+        url: "https://hendricks.ai/brandon-lincoln-hendricks.jpg",
+        width: 1200,
+        height: 1200,
+        alt: "Brandon Lincoln Hendricks - Founder, Search Intelligence Engineer at Hendricks.AI",
+      },
+    ],
+    locale: "en_US",
+    type: "profile",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About | Hendricks.AI Search Intelligence Engineering",
+    description:
+      "Learn about Hendricks.AI, a Search Intelligence Engineering Firm founded by Brandon Lincoln Hendricks, specializing in AI Search Visibility and Measurement for B2B companies.",
+    images: ["https://hendricks.ai/brandon-lincoln-hendricks.jpg"],
+    creator: "@hendricksai",
+  },
 };
 
 export default function AboutPage() {
