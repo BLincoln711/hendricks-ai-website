@@ -4,7 +4,7 @@ export const siteConfig = {
   name: 'Hendricks.AI',
   description: 'The AI Search Visibility & Measurement Firm for B2B Growth. We unify marketing, data, and AI to measure visibility, prove ROI, and amplify performance across Google, Bing, ChatGPT, Gemini, and Perplexity.',
   url: 'https://hendricks.ai',
-  ogImage: 'https://hendricks.ai/og-image.jpg',
+  ogImage: 'https://hendricks.ai/hendricks-ai-social-share.png',
   links: {
     twitter: 'https://twitter.com/hendricksai',
     linkedin: 'https://linkedin.com/company/hendricks-ai',
@@ -65,9 +65,9 @@ export const defaultMetadata: Metadata = {
     images: [
       {
         url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: 'Hendricks.AI - Measure Visibility, Attribute Pipeline, Amplify Performance',
+        width: 1600,
+        height: 900,
+        alt: 'Hendricks.AI - See What AI Sees. Engineer Visibility the Competition Can\'t.',
       },
     ],
     locale: 'en_US',
