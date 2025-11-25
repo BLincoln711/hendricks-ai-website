@@ -43,6 +43,15 @@ const featuredIntelligence = [
 // All insights data
 const allInsights = [
   {
+    id: 'ai-search-visibility-revenue-impact',
+    title: 'How Do I Connect AI Search Visibility With Measurable Pipeline and Revenue Impact?',
+    excerpt: 'A complete guide on how to connect AI search visibility with measurable pipeline and revenue impact using Search Intelligence Engineering, AI visibility measurement, and unified analytics in GA4 and BigQuery.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-11-25',
+    readTime: '15 min read',
+    category: 'AI Search Visibility'
+  },
+  {
     id: 'press-coverage-ai-visibility',
     title: 'Can Press Coverage Improve Brand Mentions in Perplexity or Gemini?',
     excerpt: 'Learn how press coverage influences AI visibility in Perplexity and Gemini. Understand how third party signals, entity clarity, and authoritative citations improve inclusion in AI generated answers.',
