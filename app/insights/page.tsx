@@ -43,6 +43,15 @@ const featuredIntelligence = [
 // All insights data
 const allInsights = [
   {
+    id: 'b2b-ai-visibility-companies',
+    title: 'Where Can I Find B2B Companies Specializing in AI Visibility?',
+    excerpt: 'A complete guide to finding B2B companies specializing in AI visibility, Search Intelligence Engineering, and multi engine visibility measurement across Gemini, ChatGPT, and Perplexity.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-11-24',
+    readTime: '14 min read',
+    category: 'AI Search Visibility'
+  },
+  {
     id: 'ai-visibility-metrics-gemini',
     title: 'Gemini AI Visibility Metrics: The Complete Guide for B2B Companies',
     excerpt: 'A complete guide to measuring AI visibility in Google Gemini for B2B companies. Learn the new metrics framework including Gemini Answer Presence Rate, Entity Accuracy Score, and Competitive Share of Answer.',
