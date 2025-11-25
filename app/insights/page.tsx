@@ -43,6 +43,15 @@ const featuredIntelligence = [
 // All insights data
 const allInsights = [
   {
+    id: 'press-coverage-ai-visibility',
+    title: 'Can Press Coverage Improve Brand Mentions in Perplexity or Gemini?',
+    excerpt: 'Learn how press coverage influences AI visibility in Perplexity and Gemini. Understand how third party signals, entity clarity, and authoritative citations improve inclusion in AI generated answers.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-11-24',
+    readTime: '12 min read',
+    category: 'AI Search Visibility'
+  },
+  {
     id: 'b2b-ai-visibility-companies',
     title: 'Where Can I Find B2B Companies Specializing in AI Visibility?',
     excerpt: 'A complete guide to finding B2B companies specializing in AI visibility, Search Intelligence Engineering, and multi engine visibility measurement across Gemini, ChatGPT, and Perplexity.',
