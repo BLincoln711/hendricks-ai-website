@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Navigation from "../../components/navigation";
+import { Footer } from "../../components/Footer";
+import StickyMobileCTA from "../../components/sticky-mobile-cta";
 
 export const metadata: Metadata = {
   title: "Gemini AI Visibility Metrics: The Complete Guide for B2B Companies | Hendricks.AI",
@@ -275,6 +278,8 @@ const howToSchema = {
 export default function GeminiAIVisibilityMetricsPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
+      <Navigation />
+
       {/* Background gradient */}
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.16),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(129,140,248,0.20),_transparent_60%)] opacity-80" />
 
@@ -816,6 +821,9 @@ export default function GeminiAIVisibilityMetricsPage() {
           </section>
         </article>
       </main>
+
+      <Footer />
+      <StickyMobileCTA />
     </div>
   );
 }
