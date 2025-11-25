@@ -43,6 +43,15 @@ const featuredIntelligence = [
 // All insights data
 const allInsights = [
   {
+    id: 'ai-visibility-metrics-gemini',
+    title: 'Gemini AI Visibility Metrics: The Complete Guide for B2B Companies',
+    excerpt: 'A complete guide to measuring AI visibility in Google Gemini for B2B companies. Learn the new metrics framework including Gemini Answer Presence Rate, Entity Accuracy Score, and Competitive Share of Answer.',
+    author: 'Brandon Lincoln Hendricks',
+    date: '2025-11-24',
+    readTime: '12 min read',
+    category: 'AI Search Visibility'
+  },
+  {
     id: 'what-is-search-intelligence-engineer',
     title: 'What is a Search Intelligence Engineer?',
     excerpt: 'A Search Intelligence Engineer combines search marketing expertise with AI/ML engineering to build systems that measure, attribute, and optimize visibility across traditional and AI-powered search engines.',
