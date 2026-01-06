@@ -1,3 +1,17 @@
 {
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "rewrites": [
+    {
+      "source": "/reports/fuse-workspace",
+      "destination": "https://storage.googleapis.com/fuse-workspace-reports/latest/index.html"
+    },
+    {
+      "source": "/reports/fuse-workspace/",
+      "destination": "https://storage.googleapis.com/fuse-workspace-reports/latest/index.html"
+    },
+    {
+      "source": "/reports/fuse-workspace/:path*",
+      "destination": "https://storage.googleapis.com/fuse-workspace-reports/:path*"
+    }
+  ]
 }
