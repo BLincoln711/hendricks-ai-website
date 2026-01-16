@@ -68,6 +68,7 @@ export function Footer() {
             <ul className="text-sm text-slate-300 space-y-2">
               <li><Link href="/about" className="hover:text-emerald-300">About</Link></li>
               <li><Link href="/contact" className="hover:text-emerald-300">Contact</Link></li>
+              <li><Link href="/clients" className="hover:text-emerald-300">Client Portal</Link></li>
               <li><Link href="/privacy" className="hover:text-emerald-300">Privacy</Link></li>
               <li><Link href="/terms" className="hover:text-emerald-300">Terms</Link></li>
             </ul>
