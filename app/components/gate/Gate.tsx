@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import type { ProbeResult } from "@/lib/probe/types";
+import { FieldAtmosphere } from "../field/FieldAtmosphere";
 import { ProbeResults } from "./ProbeResults";
 
 export function Gate() {
@@ -68,31 +69,22 @@ export function Gate() {
   );
 
   return (
-    <div className={`gate ${result ? "gate-open" : ""}`}>
-      {result ? (
-        <div className="gate-result-top">
-          <button type="button" className="wordmark" onClick={enter}>
-            Hendricks
-          </button>
-          <form className="gate-form gate-form-inline" onSubmit={onSubmit}>
-            {field}
-          </form>
-        </div>
-      ) : (
-        <>
-          <button type="button" className="wordmark gate-mark" onClick={enter}>
-            Hendricks
-          </button>
-          <form className="gate-form" onSubmit={onSubmit}>
-            <p className="gate-line">Type your website.</p>
-            <div className="gate-field">{field}</div>
-            {error ? <p className="gate-error">{error}</p> : null}
-            {pending ? <p className="gate-quiet">Reading this URL.</p> : null}
-          </form>
-        </>
-      )}
-
-      {result ? <ProbeResults result={result} onEnter={enter} /> : null}
+    <div
+      className={`gate${pending ? " is-reading" : ""}${result ? " is-open" : ""}`}
+    >
+      <FieldAtmosphere />
+      <button type="button" className="wordmark gate-mark" onClick={enter}>
+        Hendricks
+      </button>
+      <div className="gate-stage">
+        <form className="gate-form" onSubmit={onSubmit}>
+          <p className="gate-line">Type your website.</p>
+          <div className="gate-field">{field}</div>
+          {error ? <p className="gate-error">{error}</p> : null}
+          {pending ? <p className="gate-quiet">Reading this URL.</p> : null}
+        </form>
+        {result ? <ProbeResults result={result} onEnter={enter} /> : null}
+      </div>
     </div>
   );
 }

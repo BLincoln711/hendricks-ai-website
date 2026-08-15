@@ -13,7 +13,7 @@ export function HomePage() {
   return (
     <SiteChrome>
       <article className="product">
-        <header className="product-hero">
+        <header className="product-hero masthead">
           <p className="mono-label">Hendricks · Search intelligence engineering</p>
           <h1 className="spec">{POSITIONING}</h1>
           <p className="deck">
