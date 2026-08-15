@@ -14,17 +14,15 @@ export function HomePage() {
     <SiteChrome>
       <article className="product">
         <header className="product-hero">
-          <p className="mono-label">Search intelligence engineering</p>
-          <h1>Hendricks · Search intelligence engineering</h1>
+          <p className="mono-label">Hendricks · Search intelligence engineering</p>
+          <h1 className="spec">{POSITIONING}</h1>
           <p className="deck">
             One system. We install it. We operate it. Built for the CMO, the managing
             partner, and the head of growth.
           </p>
-          <p className="lede">{POSITIONING}</p>
         </header>
 
         <section className="product-section">
-          <p className="mono-label">Proof</p>
           <p>
             He has been on both sides of the retrieval problem: Search and Innovation
             Lead at SolarWinds, and Global Paid Search Director at Merkle. Dentsu is the
@@ -33,25 +31,21 @@ export function HomePage() {
         </section>
 
         <section className="product-section">
-          <p className="mono-label">Method</p>
           <div className="method-rail">
-            {METHOD_STEPS.map((step, index) => (
+            {METHOD_STEPS.map((step) => (
               <div key={step} className="panel method-step">
-                <div className="module-index">0{index + 1}</div>
                 <strong>{step}</strong>
               </div>
             ))}
           </div>
-          <p style={{ marginTop: "1rem" }}>Object = {METHOD_OBJECT}.</p>
+          <p>Object = {METHOD_OBJECT}.</p>
         </section>
 
         <section className="product-section">
-          <p className="mono-label">Practice</p>
           <div className="module-grid">
-            {PRACTICE_MODULES.map((module, index) => (
+            {PRACTICE_MODULES.map((module) => (
               <div key={module.name} className="panel module-card">
-                <div className="module-index">0{index + 1}</div>
-                <h2>{module.name}</h2>
+                <h2 className="mono-label">{module.name}</h2>
                 <p>{module.body}</p>
               </div>
             ))}
@@ -59,14 +53,14 @@ export function HomePage() {
         </section>
 
         <section className="product-section">
-          <p className="mono-label">Refusal</p>
           <p>{REFUSAL}</p>
         </section>
 
         <section className="product-section panel">
           <p className="mono-label">{DIAGNOSTIC.name}</p>
           <p className="price-figure">
-            {DIAGNOSTIC.price} <span style={{ color: "var(--muted)", fontSize: "0.45em" }}>/ {DIAGNOSTIC.duration}</span>
+            {DIAGNOSTIC.price}{" "}
+            <span className="price-term">/ {DIAGNOSTIC.duration}</span>
           </p>
           <p>{DIAGNOSTIC.lede}</p>
         </section>

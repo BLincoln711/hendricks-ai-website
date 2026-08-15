@@ -42,11 +42,9 @@ export function ProbeResults({
           </table>
         </div>
 
-        <div className="probe-copy probe-copy-tight">
-          <p>What we could see from this host, on these probes, today.</p>
-          <p>This is a public probe of one URL. It is not the retrieval graph.</p>
-        </div>
-
+        <p className="probe-wall">
+          This is a public probe of one URL. It is not the retrieval graph.
+        </p>
         <p className="probe-pull">The site is on the other side of this reading.</p>
 
         <div className="probe-cta-stack">
@@ -62,6 +60,8 @@ export function ProbeResults({
       </div>
 
       <div className="probe-after">
+        <p>What we could see from this host, on these probes, today.</p>
+
         {result.asks.length > 0 ? (
           <div className="probe-block">
             <h2>From your page, not from demand</h2>

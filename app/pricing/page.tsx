@@ -13,12 +13,12 @@ export default function PricingPage() {
   return (
     <SiteChrome>
       <article className="product">
-        <PageIntro eyebrow="Pricing" title="Pricing" />
+        <PageIntro title="Pricing" />
         <section className="product-section panel">
           <p className="mono-label">{DIAGNOSTIC.name}</p>
           <p className="price-figure">
             {DIAGNOSTIC.price}{" "}
-            <span style={{ color: "var(--muted)", fontSize: "0.45em" }}>/ {DIAGNOSTIC.duration}</span>
+            <span className="price-term">/ {DIAGNOSTIC.duration}</span>
           </p>
           <p>{DIAGNOSTIC.lede}</p>
         </section>

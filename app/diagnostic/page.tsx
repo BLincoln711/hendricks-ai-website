@@ -13,30 +13,23 @@ export default function DiagnosticPage() {
   return (
     <SiteChrome>
       <article className="product">
-        <PageIntro
-          eyebrow="Diagnostic"
-          title={DIAGNOSTIC.name}
-          deck={`${DIAGNOSTIC.price} / ${DIAGNOSTIC.duration}.`}
-        />
+        <PageIntro title={DIAGNOSTIC.name} />
         <section className="product-section panel">
-          <p className="price-figure">{DIAGNOSTIC.price}</p>
-          <p className="lede">{DIAGNOSTIC.lede}</p>
+          <p className="price-figure">
+            {DIAGNOSTIC.price}{" "}
+            <span className="price-term">/ {DIAGNOSTIC.duration}</span>
+          </p>
+          <p>{DIAGNOSTIC.lede}</p>
         </section>
         <section className="product-section">
-          <p className="mono-label">Weeks</p>
           <div className="week-grid">
-            {DIAGNOSTIC.weeks.map((week, index) => (
+            {DIAGNOSTIC.weeks.map((week) => (
               <div key={week} className="panel week-cell">
-                <div className="module-index">0{index + 1}</div>
-                <h3>{week}</h3>
+                <h2 className="mono-label">{week}</h2>
               </div>
             ))}
           </div>
         </section>
-        <p>
-          The diagnostic is available on its own. After it, you decide whether we
-          install the system.
-        </p>
         <p className="page-ctas">
           <Link href="/briefing">Book a briefing</Link>
           <Link href="/pricing">Pricing</Link>

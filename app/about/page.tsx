@@ -2,19 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro } from "../components/site/PageIntro";
 import { SiteChrome } from "../components/site/SiteChrome";
-import { POSITIONING, REFUSAL } from "@/lib/site";
+import { REFUSAL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
-  description: POSITIONING,
 };
 
 export default function AboutPage() {
   return (
     <SiteChrome>
       <article className="product">
-        <PageIntro eyebrow="About" title="About" deck={POSITIONING} />
-        <section className="product-section panel">
+        <PageIntro title="About" />
+        <section className="product-section">
           <p>
             Hendricks is the practice of Brandon Lincoln Hendricks. He named the category
             on Medium on 6 December 2025, in “What is a Search Intelligence Engineer?”

@@ -42,15 +42,13 @@ export default function InsightsPage() {
   return (
     <SiteChrome>
       <article className="product">
-        <PageIntro eyebrow="Insights" title="Insights" />
+        <PageIntro title="Insights" />
         <section className="product-section panel">
-          <p className="mono-label">Start here</p>
           <h2>
             <Link href={`/insights/${FEATURED.slug}`}>{FEATURED.title}</Link>
           </h2>
         </section>
         <section className="product-section">
-          <p className="mono-label">Archive</p>
           <ul className="archive-list">
             {ARCHIVE.map((item) => (
               <li key={item.slug}>
