@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { PageActions } from "../components/site/PageActions";
 import { PageIntro } from "../components/site/PageIntro";
 import { SiteChrome } from "../components/site/SiteChrome";
 import { REFUSAL } from "@/lib/site";
@@ -11,26 +11,37 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <SiteChrome>
-      <article className="product">
-        <PageIntro title="About" />
-        <section className="product-section">
-          <p>
-            Hendricks is the practice of Brandon Lincoln Hendricks. He named the category
-            on Medium on 6 December 2025, in “What is a Search Intelligence Engineer?”
-          </p>
-          <p>
-            He has been on both sides of the retrieval problem: Search and Innovation Lead
-            at SolarWinds, and Global Paid Search Director at Merkle. Dentsu is the holding
-            company, not a second job.
-          </p>
-          <p>{REFUSAL}</p>
-        </section>
-        <p className="page-ctas">
-          <Link href="/insights/what-is-search-intelligence-engineer">
-            What is a Search Intelligence Engineer?
-          </Link>
-          <Link href="/briefing">Book a briefing</Link>
+      <article className="product interior">
+        <PageIntro
+          kicker="About"
+          title="Hendricks is the practice of Brandon Lincoln Hendricks."
+          spec
+        />
+        <p className="cite-line">
+          He named the category on Medium on 6 December 2025, in “What is a Search
+          Intelligence Engineer?”
         </p>
+        <div className="proof-rail">
+          <div className="panel proof-plate">
+            <p className="mono-label">SolarWinds</p>
+            <p>Search and Innovation Lead</p>
+          </div>
+          <div className="panel proof-plate">
+            <p className="mono-label">Merkle</p>
+            <p>Global Paid Search Director</p>
+          </div>
+        </div>
+        <p className="proof-line">
+          Dentsu is the holding company, not a second job.
+        </p>
+        <p className="refusal-line">{REFUSAL}</p>
+        <PageActions
+          primary={{ href: "/briefing", label: "Book a briefing" }}
+          secondary={{
+            href: "/insights/what-is-search-intelligence-engineer",
+            label: "What is a Search Intelligence Engineer?",
+          }}
+        />
       </article>
     </SiteChrome>
   );

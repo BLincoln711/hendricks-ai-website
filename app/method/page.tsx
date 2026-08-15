@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { PageActions } from "../components/site/PageActions";
 import { PageIntro } from "../components/site/PageIntro";
 import { SiteChrome } from "../components/site/SiteChrome";
 import { METHOD_OBJECT, METHOD_STEPS } from "@/lib/site";
@@ -12,22 +12,25 @@ export const metadata: Metadata = {
 export default function MethodPage() {
   return (
     <SiteChrome>
-      <article className="product">
+      <article className="product interior">
         <PageIntro
-          title="Method"
-          deck={`${METHOD_STEPS.join(" → ")}. Object = ${METHOD_OBJECT}.`}
+          kicker="Method"
+          title="Diagnose → Architect → Install → Operate"
+          spec
+          wide
+          deck={`Object = ${METHOD_OBJECT}.`}
         />
-        <div className="method-rail product-section">
+        <div className="method-track method-track-page">
           {METHOD_STEPS.map((step) => (
-            <div key={step} className="panel method-step">
+            <div key={step} className="method-node">
               <strong>{step}</strong>
             </div>
           ))}
         </div>
-        <p className="page-ctas">
-          <Link href="/practice">Practice</Link>
-          <Link href="/diagnostic">Retrieval Graph Diagnostic</Link>
-        </p>
+        <PageActions
+          primary={{ href: "/briefing", label: "Book a briefing" }}
+          secondary={{ href: "/practice", label: "Practice" }}
+        />
       </article>
     </SiteChrome>
   );

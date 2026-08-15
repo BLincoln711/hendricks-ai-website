@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageActions } from "../components/site/PageActions";
 import { PageIntro } from "../components/site/PageIntro";
 import { SiteChrome } from "../components/site/SiteChrome";
 import { BOOKING_URL } from "@/lib/site";
@@ -10,17 +11,16 @@ export const metadata: Metadata = {
 export default function BriefingPage() {
   return (
     <SiteChrome>
-      <article className="product">
-        <PageIntro title="Briefing" />
-        <p>
+      <article className="product interior">
+        <PageIntro kicker="Briefing" title="Briefing" compact />
+        <p className="proof-line">
           A briefing is how install and operate are scoped. The Retrieval Graph
           Diagnostic can be commissioned on its own.
         </p>
-        <p className="page-ctas">
-          <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
-            Book a briefing
-          </a>
-        </p>
+        <PageActions
+          primary={{ href: BOOKING_URL, label: "Book a briefing", external: true }}
+          secondary={{ href: "/diagnostic", label: "Retrieval Graph Diagnostic" }}
+        />
       </article>
     </SiteChrome>
   );

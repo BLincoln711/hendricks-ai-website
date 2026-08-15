@@ -854,6 +854,9 @@ article .prose p:last-child {
 }
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   border-bottom: 1px solid var(--edge);
   background: var(--panel);
   backdrop-filter: blur(24px);
@@ -874,10 +877,12 @@ article .prose p:last-child {
 .site-nav a,
 .site-nav-mobile a,
 .site-footer a {
+  position: relative;
   color: var(--ink-dim);
   text-decoration: none;
-  font-size: 0.86rem;
-  letter-spacing: 0.01em;
+  font-family: var(--font-geist-sans), Geist, system-ui, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.02em;
 }
 
 .site-nav a:hover,
@@ -885,6 +890,16 @@ article .prose p:last-child {
 .site-footer a:hover,
 .site-nav a.is-active {
   color: var(--ink);
+}
+
+.site-nav a.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1.45rem;
+  height: 1px;
+  background: var(--ink);
 }
 
 .site-menu-button {
@@ -904,7 +919,7 @@ article .prose p:last-child {
 }
 
 .site-main {
-  padding: 4.5rem 0 6rem;
+  padding: 0 0 8rem;
 }
 
 .site-footer {
@@ -935,11 +950,36 @@ article .prose p:last-child {
 }
 
 .product-hero.masthead {
-  min-height: 42vh;
+  min-height: 56vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 2.5rem 0 2.75rem;
+  max-width: 48rem;
+  margin: 0 0 0;
+  padding: 5rem 0 3.25rem;
+  border-bottom: 1px solid var(--edge);
+  animation: rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.product-hero.masthead.is-compact {
+  min-height: 26vh;
+  padding: 3.25rem 0 1.75rem;
+}
+
+.product-hero.masthead.is-legend {
+  min-height: 22vh;
+  padding: 3rem 0 1.25rem;
+}
+
+.product-hero.masthead.is-legend h1.mono-label {
+  margin: 0;
+  font-family: var(--font-geist-mono), "Geist Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--ink-dim);
 }
 
 .product-hero h1,
@@ -957,6 +997,10 @@ article .prose p:last-child {
   line-height: 1.22;
   letter-spacing: -0.03em;
   max-width: 22ch;
+}
+
+.product-hero h1.spec.is-wide {
+  max-width: 28ch;
 }
 
 .product h2,
@@ -1086,6 +1130,183 @@ article .prose p:last-child {
 
 .page-ctas a:hover {
   color: var(--ink);
+}
+
+.page-ctas .page-enter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.88rem 1.3rem;
+  background: var(--flare);
+  color: var(--cta-text);
+  border-radius: 12px;
+  font-family: var(--font-geist-sans), Geist, system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.page-ctas .page-enter:hover {
+  background: var(--flare-deep);
+  color: var(--cta-text);
+}
+
+.interior .console-band {
+  padding: 2.75rem 0 0;
+  animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+.method-track {
+  display: grid;
+  grid-template-columns: 1fr;
+  background: var(--panel);
+  backdrop-filter: blur(24px);
+  border: 1px solid var(--edge);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.method-track-page {
+  margin: 2.5rem 0 3rem;
+  animation: rise 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+.method-node {
+  padding: 1.35rem 1.45rem;
+  border-bottom: 1px solid var(--edge);
+}
+
+.method-node:last-child {
+  border-bottom: 0;
+}
+
+.method-node strong {
+  display: block;
+  font-family: var(--font-geist-mono), "Geist Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.product p.object-caption,
+.object-caption {
+  font-family: var(--font-geist-mono), "Geist Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-dim);
+  margin: 0.9rem 0 3.25rem;
+}
+
+.instrument-stack {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 2.5rem;
+}
+
+.instrument-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
+  padding: 2.15rem 0;
+  border-bottom: 1px solid var(--edge);
+  transition: border-color 0.35s ease;
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(0.12s + var(--i, 0) * 80ms);
+}
+
+.instrument-row:hover {
+  border-bottom-color: rgba(255, 255, 255, 0.16);
+}
+
+.instrument-row h2 {
+  font-family: var(--font-geist-mono), "Geist Mono", monospace;
+  font-size: clamp(0.92rem, 1.6vw, 1.05rem);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.35;
+  margin: 0;
+  color: var(--ink);
+}
+
+.instrument-row p {
+  margin: 0;
+  max-width: 38rem;
+  color: var(--ink-dim);
+}
+
+.product p.proof-line,
+.product p.refusal-line,
+.proof-line,
+.refusal-line {
+  max-width: 40rem;
+  color: var(--ink-dim);
+  margin: 0 0 1.15rem;
+}
+
+.refusal-line {
+  margin-bottom: 2.75rem;
+}
+
+.product p.cite-line,
+.cite-line {
+  font-family: var(--font-geist-mono), "Geist Mono", monospace;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--ink-dim);
+  max-width: 40rem;
+  margin: 1.75rem 0 2rem;
+}
+
+.proof-rail {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0 0 1.5rem;
+}
+
+.proof-plate p:last-child {
+  font-family: var(--font-serif), Newsreader, Georgia, serif;
+  color: var(--ink);
+  margin: 0;
+}
+
+.offer-plate {
+  padding: 1.8rem 1.7rem 1.9rem;
+  margin: 0 0 2.25rem;
+}
+
+.offer-plate-hero {
+  margin-top: 2.25rem;
+  animation: rise 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+.week-legend {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin: 0 0 2.75rem;
+  padding: 0;
+  border: 1px solid var(--edge);
+  background: var(--panel);
+  backdrop-filter: blur(24px);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.week-legend li {
+  padding: 1.2rem 1.4rem;
+  border-bottom: 1px solid var(--edge);
+}
+
+.week-legend li:last-child {
+  border-bottom: 0;
+}
+
+.week-legend .mono-label {
+  margin: 0;
 }
 
 .page-article a,
@@ -1484,7 +1705,12 @@ article .prose p:last-child {
   .surface-cell.is-live,
   .probe-cta-stack,
   .probe-cta-stack.is-arrived,
-  .probe-cta-stack.is-arrived .probe-enter {
+  .probe-cta-stack.is-arrived .probe-enter,
+  .product-hero.masthead,
+  .interior .console-band,
+  .method-track-page,
+  .instrument-row,
+  .offer-plate-hero {
     animation: none !important;
     opacity: 1;
     transform: none;
@@ -1562,6 +1788,43 @@ article .prose p:last-child {
 
   .week-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .method-track {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .method-node {
+    border-bottom: 0;
+    border-right: 1px solid var(--edge);
+  }
+
+  .method-node:last-child {
+    border-right: 0;
+  }
+
+  .instrument-row {
+    grid-template-columns: minmax(16rem, 0.4fr) 1fr;
+    align-items: baseline;
+    gap: 3.25rem;
+    padding: 2.6rem 0;
+  }
+
+  .proof-rail {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .week-legend {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .week-legend li {
+    border-bottom: 0;
+    border-right: 1px solid var(--edge);
+  }
+
+  .week-legend li:last-child {
+    border-right: 0;
   }
 }
 

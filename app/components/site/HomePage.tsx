@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   DIAGNOSTIC,
   METHOD_OBJECT,
@@ -7,12 +6,13 @@ import {
   PRACTICE_MODULES,
   REFUSAL,
 } from "@/lib/site";
+import { PageActions } from "./PageActions";
 import { SiteChrome } from "./SiteChrome";
 
 export function HomePage() {
   return (
     <SiteChrome>
-      <article className="product">
+      <article className="product interior">
         <header className="product-hero masthead">
           <p className="mono-label">Hendricks · Search intelligence engineering</p>
           <h1 className="spec">{POSITIONING}</h1>
@@ -22,41 +22,38 @@ export function HomePage() {
           </p>
         </header>
 
-        <section className="product-section">
-          <p>
-            He has been on both sides of the retrieval problem: Search and Innovation
-            Lead at SolarWinds, and Global Paid Search Director at Merkle. Dentsu is the
-            holding company, not a second job.
-          </p>
-        </section>
-
-        <section className="product-section">
-          <div className="method-rail">
+        <section className="console-band" aria-label="Method">
+          <div className="method-track">
             {METHOD_STEPS.map((step) => (
-              <div key={step} className="panel method-step">
+              <div key={step} className="method-node">
                 <strong>{step}</strong>
               </div>
             ))}
           </div>
-          <p>Object = {METHOD_OBJECT}.</p>
+          <p className="object-caption">Object = {METHOD_OBJECT}.</p>
         </section>
 
-        <section className="product-section">
-          <div className="module-grid">
-            {PRACTICE_MODULES.map((module) => (
-              <div key={module.name} className="panel module-card">
-                <h2 className="mono-label">{module.name}</h2>
-                <p>{module.body}</p>
-              </div>
-            ))}
-          </div>
+        <section className="instrument-stack" aria-label="Practice">
+          {PRACTICE_MODULES.map((module, index) => (
+            <article
+              key={module.name}
+              className="instrument-row"
+              style={{ ["--i" as string]: index }}
+            >
+              <h2>{module.name}</h2>
+              <p>{module.body}</p>
+            </article>
+          ))}
         </section>
 
-        <section className="product-section">
-          <p>{REFUSAL}</p>
-        </section>
+        <p className="proof-line">
+          He has been on both sides of the retrieval problem: Search and Innovation
+          Lead at SolarWinds, and Global Paid Search Director at Merkle. Dentsu is the
+          holding company, not a second job.
+        </p>
+        <p className="refusal-line">{REFUSAL}</p>
 
-        <section className="product-section panel">
+        <section className="offer-plate panel">
           <p className="mono-label">{DIAGNOSTIC.name}</p>
           <p className="price-figure">
             {DIAGNOSTIC.price}{" "}
@@ -65,10 +62,10 @@ export function HomePage() {
           <p>{DIAGNOSTIC.lede}</p>
         </section>
 
-        <p className="page-ctas">
-          <Link href="/briefing">Book a briefing</Link>
-          <Link href="/diagnostic">Retrieval Graph Diagnostic</Link>
-        </p>
+        <PageActions
+          primary={{ href: "/briefing", label: "Book a briefing" }}
+          secondary={{ href: "/diagnostic", label: "Retrieval Graph Diagnostic" }}
+        />
       </article>
     </SiteChrome>
   );

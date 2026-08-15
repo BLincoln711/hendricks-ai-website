@@ -42,7 +42,7 @@ export default function InsightsPage() {
   return (
     <SiteChrome>
       <article className="product">
-        <PageIntro title="Insights" />
+        <PageIntro title="Insights" compact legend />
         <section className="product-section panel">
           <h2>
             <Link href={`/insights/${FEATURED.slug}`}>{FEATURED.title}</Link>

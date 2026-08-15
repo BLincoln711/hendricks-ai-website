@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { PageActions } from "../components/site/PageActions";
 import { PageIntro } from "../components/site/PageIntro";
 import { SiteChrome } from "../components/site/SiteChrome";
 import { DIAGNOSTIC } from "@/lib/site";
@@ -12,21 +12,22 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <SiteChrome>
-      <article className="product">
-        <PageIntro title="Pricing" />
-        <section className="product-section panel">
-          <p className="mono-label">{DIAGNOSTIC.name}</p>
+      <article className="product interior">
+        <PageIntro kicker="Pricing" title={DIAGNOSTIC.name} compact />
+        <section className="offer-plate panel offer-plate-hero">
           <p className="price-figure">
             {DIAGNOSTIC.price}{" "}
             <span className="price-term">/ {DIAGNOSTIC.duration}</span>
           </p>
           <p>{DIAGNOSTIC.lede}</p>
         </section>
-        <p>Install and operate are scoped on the briefing.</p>
-        <p className="page-ctas">
-          <Link href="/briefing">Book a briefing</Link>
-          <Link href="/diagnostic">Retrieval Graph Diagnostic</Link>
+        <p className="object-caption">
+          Install and operate are scoped on the briefing.
         </p>
+        <PageActions
+          primary={{ href: "/briefing", label: "Book a briefing" }}
+          secondary={{ href: "/diagnostic", label: "Retrieval Graph Diagnostic" }}
+        />
       </article>
     </SiteChrome>
   );

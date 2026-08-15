@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { PageActions } from "../components/site/PageActions";
 import { PageIntro } from "../components/site/PageIntro";
 import { SiteChrome } from "../components/site/SiteChrome";
 import { PRACTICE_MODULES, REFUSAL } from "@/lib/site";
@@ -11,23 +11,25 @@ export const metadata: Metadata = {
 export default function PracticePage() {
   return (
     <SiteChrome>
-      <article className="product">
-        <PageIntro title="Practice" />
-        <div className="module-grid product-section">
-          {PRACTICE_MODULES.map((module) => (
-            <div key={module.name} className="panel module-card">
-              <h2 className="mono-label">{module.name}</h2>
+      <article className="product interior">
+        <PageIntro title="Practice" compact legend />
+        <section className="instrument-stack" aria-label="Practice modules">
+          {PRACTICE_MODULES.map((module, index) => (
+            <article
+              key={module.name}
+              className="instrument-row"
+              style={{ ["--i" as string]: index }}
+            >
+              <h2>{module.name}</h2>
               <p>{module.body}</p>
-            </div>
+            </article>
           ))}
-        </div>
-        <section className="product-section">
-          <p>{REFUSAL}</p>
         </section>
-        <p className="page-ctas">
-          <Link href="/method">Method</Link>
-          <Link href="/diagnostic">Retrieval Graph Diagnostic</Link>
-        </p>
+        <p className="refusal-line">{REFUSAL}</p>
+        <PageActions
+          primary={{ href: "/briefing", label: "Book a briefing" }}
+          secondary={{ href: "/diagnostic", label: "Retrieval Graph Diagnostic" }}
+        />
       </article>
     </SiteChrome>
   );
