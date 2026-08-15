@@ -63,8 +63,13 @@ export function Gate() {
             aria-label="Website"
             disabled={pending}
           />
-          <button type="submit" className="gate-submit" disabled={pending || !value.trim()}>
-            {pending ? "Reading" : "Read"}
+          <button
+            type="submit"
+            className="gate-submit"
+            disabled={pending || !value.trim()}
+            aria-label={pending ? "Reading" : "Submit"}
+          >
+            →
           </button>
         </div>
         {error ? <p className="gate-error">{error}</p> : null}

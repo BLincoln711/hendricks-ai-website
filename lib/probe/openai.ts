@@ -64,7 +64,7 @@ function hadSearchCall(payload: unknown): boolean {
 }
 
 export function parseChatGptResponse(payload: unknown): Omit<ChatGptProbe, "probed"> {
-  const urls = [...new Set(urlsFromUnknown(payload))];
+  const urls = Array.from(new Set(urlsFromUnknown(payload)));
   const sourceListPresent = hasExplicitSourceList(payload) || urls.length > 0;
 
   // A search-enabled call that still produced no source list is unmeasured.

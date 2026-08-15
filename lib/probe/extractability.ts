@@ -34,17 +34,17 @@ function firstMatch(html: string, pattern: RegExp): string | null {
 }
 
 function allMatches(html: string, pattern: RegExp): string[] {
-  return [...html.matchAll(pattern)]
+  return Array.from(html.matchAll(pattern))
     .map((match) => (match[1] ? stripTags(match[1]) : ""))
     .filter(Boolean);
 }
 
 function parseJsonLd(html: string): unknown[] {
-  const blocks = [
-    ...html.matchAll(
+  const blocks = Array.from(
+    html.matchAll(
       /<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi
-    ),
-  ];
+    )
+  );
   const docs: unknown[] = [];
   for (const block of blocks) {
     const raw = block[1]?.trim();
@@ -133,7 +133,7 @@ const ENTITY_TYPES = new Set([
 ]);
 
 const MEANINGFUL_SCHEMA = new Set([
-  ...ENTITY_TYPES,
+  ...Array.from(ENTITY_TYPES),
   "Article",
   "NewsArticle",
   "BlogPosting",
@@ -164,7 +164,7 @@ function classifyEntity(
 function classifySchema(nodes: Record<string, unknown>[], hasMicrodata: boolean): ExtractStatus {
   const types = new Set(nodes.flatMap((node) => typeList(node["@type"])));
   if (types.size === 0 && !hasMicrodata) return "missing";
-  const meaningful = [...types].filter((type) => MEANINGFUL_SCHEMA.has(type));
+  const meaningful = Array.from(types).filter((type) => MEANINGFUL_SCHEMA.has(type));
   if (meaningful.some((type) => type !== "WebSite" && type !== "WebPage")) return "pass";
   if (hasMicrodata || meaningful.length > 0) return "weak";
   return "missing";
@@ -236,7 +236,7 @@ export function readPageSignals(html: string): PageSignals {
     headings: allMatches(html, /<h[1-3]\b[^>]*>([\s\S]*?)<\/h[1-3]>/gi),
     siteName: metaContent(html, ["og:site_name", "application-name"]),
     description: metaContent(html, ["description", "og:description"]),
-    faqQuestions: [...new Set(faqQuestions)],
+    faqQuestions: Array.from(new Set(faqQuestions)),
   };
 }
 

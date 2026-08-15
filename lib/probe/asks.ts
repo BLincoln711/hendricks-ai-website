@@ -31,7 +31,9 @@ export function deriveAsks(signals: PageSignals): string[] {
   const fromTitle = asQuestion(signals.title ?? "");
   const fromH1 = signals.h1s.map(asQuestion).filter((value): value is string => Boolean(value));
 
-  const questions = unique([...fromFaq, ...fromHeadings, ...fromTitle, ...fromH1].filter(Boolean) as string[]);
+  const questions = unique(
+    [...fromFaq, ...fromHeadings, ...fromH1, ...(fromTitle ? [fromTitle] : [])]
+  );
   if (questions.length >= 2) return questions.slice(0, 3);
 
   const subject = (signals.h1s[0] || signals.title || "").replace(/\s+/g, " ").trim();
