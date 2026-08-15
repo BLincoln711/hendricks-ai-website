@@ -1,13 +1,5 @@
-import {
-  METHOD_STEPS,
-  POSITIONING,
-  PRACTICE_MODULES,
-  REFUSAL,
-  SURFACES,
-  TWO_BUYS,
-} from "@/lib/site";
-import { FlowDiagram } from "./FlowDiagram";
-import { LeadParallax } from "./LeadParallax";
+import { METHOD_STEPS, PRACTICE_MODULES, REFUSAL, TWO_BUYS } from "@/lib/site";
+import { HomeInstrument } from "../instrument/HomeInstrument";
 import { PageActions } from "./PageActions";
 import { SiteChrome } from "./SiteChrome";
 
@@ -16,14 +8,9 @@ export function HomePage() {
     <SiteChrome>
       <article className="product interior">
         <header className="home-masthead">
-          <div className="home-masthead-copy">
-            <p className="mono-label">Search intelligence engineering</p>
-            <h1 className="lead-spec">
-              <LeadParallax>{POSITIONING}</LeadParallax>
-            </h1>
-            <p className="mono-fact">{TWO_BUYS}</p>
-          </div>
-          <FlowDiagram variant="home" />
+          <p className="mono-label">Search intelligence engineering</p>
+          <HomeInstrument />
+          <p className="mono-fact">{TWO_BUYS}</p>
         </header>
 
         <section className="band" aria-label="Proof">
@@ -46,14 +33,6 @@ export function HomePage() {
           <ul className="system-labels">
             {PRACTICE_MODULES.map((module) => (
               <li key={module.name}>{module.name}</li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="band" aria-label="Surfaces">
-          <ul className="surface-chips">
-            {SURFACES.map((surface) => (
-              <li key={surface}>{surface}</li>
             ))}
           </ul>
         </section>
