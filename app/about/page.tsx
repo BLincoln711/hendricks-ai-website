@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { PageActions } from "../components/site/PageActions";
 import { PageIntro } from "../components/site/PageIntro";
 import { SiteChrome } from "../components/site/SiteChrome";
-import { REFUSAL } from "@/lib/site";
-
 export const metadata: Metadata = {
   title: "About",
 };
@@ -34,7 +32,6 @@ export default function AboutPage() {
         <p className="proof-line">
           Dentsu is the holding company, not a second job.
         </p>
-        <p className="refusal-line">{REFUSAL}</p>
         <PageActions
           primary={{ href: "/briefing", label: "Book a briefing" }}
           secondary={{

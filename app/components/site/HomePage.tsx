@@ -4,7 +4,6 @@ import {
   METHOD_STEPS,
   POSITIONING,
   PRACTICE_MODULES,
-  REFUSAL,
 } from "@/lib/site";
 import { PageActions } from "./PageActions";
 import { SiteChrome } from "./SiteChrome";
@@ -16,10 +15,7 @@ export function HomePage() {
         <header className="product-hero masthead">
           <p className="mono-label">Hendricks · Search intelligence engineering</p>
           <h1 className="spec">{POSITIONING}</h1>
-          <p className="deck">
-            One system. We install it. We operate it. Built for the CMO, the managing
-            partner, and the head of growth.
-          </p>
+          <p className="deck">One system. We install it. We operate it.</p>
         </header>
 
         <section className="console-band" aria-label="Method">
@@ -51,7 +47,6 @@ export function HomePage() {
           Lead at SolarWinds, and Global Paid Search Director at Merkle. Dentsu is the
           holding company, not a second job.
         </p>
-        <p className="refusal-line">{REFUSAL}</p>
 
         <section className="offer-plate panel">
           <p className="mono-label">{DIAGNOSTIC.name}</p>

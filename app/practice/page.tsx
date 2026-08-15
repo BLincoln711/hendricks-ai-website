@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageActions } from "../components/site/PageActions";
 import { PageIntro } from "../components/site/PageIntro";
 import { SiteChrome } from "../components/site/SiteChrome";
-import { PRACTICE_MODULES, REFUSAL } from "@/lib/site";
+import { PRACTICE_MODULES } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Practice",
@@ -25,7 +25,6 @@ export default function PracticePage() {
             </article>
           ))}
         </section>
-        <p className="refusal-line">{REFUSAL}</p>
         <PageActions
           primary={{ href: "/briefing", label: "Book a briefing" }}
           secondary={{ href: "/diagnostic", label: "Retrieval Graph Diagnostic" }}
