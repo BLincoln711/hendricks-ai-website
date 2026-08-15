@@ -137,6 +137,7 @@ export function HomeInstrument() {
         <p className="chooser-query" aria-label={CHOOSER_QUERY}>
           {CHOOSER_QUERY.slice(0, written)}
         </p>
+        <p className="chooser-problem">They already chose.</p>
         <div className="chooser-row">
           {CHOOSERS.map((name, index) => {
             const beamed =

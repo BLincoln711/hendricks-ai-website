@@ -1260,6 +1260,14 @@ article .prose p:last-child {
 
 .chooser-query {
   min-height: 1.2em;
+  margin: 0 0 0.35rem;
+  font-family: var(--font-geist-mono), "Geist Mono", monospace;
+  font-size: 0.84rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-dim);
+}
+
+.chooser-problem {
   margin: 0 0 1.1rem;
   font-family: var(--font-geist-mono), "Geist Mono", monospace;
   font-size: 0.84rem;
