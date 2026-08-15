@@ -1330,7 +1330,7 @@ article .prose p:last-child {
 }
 
 .probe-cta-stack.is-arrived .probe-enter {
-  animation: flarePulse 1.4s ease-in-out 0.55s infinite;
+  animation: flarePulse 2.8s ease-in-out 0.55s infinite;
 }
 
 .probe-enter:hover,
@@ -1470,12 +1470,10 @@ article .prose p:last-child {
 @keyframes flarePulse {
   0%,
   100% {
-    opacity: 1;
     filter: brightness(1);
   }
   50% {
-    opacity: 0.78;
-    filter: brightness(1.12);
+    filter: brightness(0.82);
   }
 }
 
