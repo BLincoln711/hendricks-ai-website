@@ -733,6 +733,7 @@ article .prose p:last-child {
 :root {
   --field-cool: #07080b;
   --field-warm: #0c0b09;
+  --field: #08090b;
   --field: color-mix(in srgb, #07080b 80%, #0c0b09 20%);
   --panel: rgba(14, 16, 22, 0.72);
   --edge: rgba(255, 255, 255, 0.08);
@@ -1328,8 +1329,13 @@ article .prose p:last-child {
   cursor: pointer;
 }
 
+.probe-cta-stack.is-arrived .probe-enter {
+  animation: flarePulse 1.4s ease-in-out 0.55s infinite;
+}
+
 .probe-enter:hover,
 .probe-enter:focus-visible {
+  animation-play-state: paused;
   background: var(--flare-deep);
   outline: 2px solid var(--ink);
   outline-offset: 3px;
@@ -1461,13 +1467,26 @@ article .prose p:last-child {
   }
 }
 
+@keyframes flarePulse {
+  0%,
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.78;
+    filter: brightness(1.12);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .field-beam,
   .gate-bar,
   .instrument,
   .surface-cell.is-live,
   .probe-cta-stack,
-  .probe-cta-stack.is-arrived {
+  .probe-cta-stack.is-arrived,
+  .probe-cta-stack.is-arrived .probe-enter {
     animation: none !important;
     opacity: 1;
     transform: none;
