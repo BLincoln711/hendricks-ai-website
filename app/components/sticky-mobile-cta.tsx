@@ -20,10 +20,10 @@ export default function StickyMobileCTA() {
       {/* Only show on mobile viewports (<768px) */}
       <div className={`md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
         <Link
-          href="/contact"
+          href="/briefing"
           className="px-6 py-3 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white rounded-full font-semibold shadow-lg hover:scale-[1.03] transition-transform inline-flex items-center justify-center gap-2 animate-glow"
         >
-          Book Strategy Session →
+          Book a briefing
         </Link>
       </div>
     </>

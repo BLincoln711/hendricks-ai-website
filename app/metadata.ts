@@ -1,64 +1,42 @@
-import { Metadata } from 'next'
+import { Metadata } from "next";
+import { POSITIONING, SITE_URL } from "@/lib/site";
 
 export const siteConfig = {
-  name: 'Hendricks.AI',
-  description: 'The AI Search Visibility & Measurement Firm for B2B Growth. We unify marketing, data, and AI to measure visibility, prove ROI, and amplify performance across Google, Bing, ChatGPT, Gemini, and Perplexity.',
-  url: 'https://hendricks.ai',
-  ogImage: 'https://hendricks.ai/hendricks-ai-social-share.png',
+  name: "Hendricks",
+  description: POSITIONING,
+  url: SITE_URL,
+  ogImage: "https://hendricks.ai/hendricks-ai-social-share.png",
   links: {
-    twitter: 'https://twitter.com/hendricksai',
-    linkedin: 'https://linkedin.com/company/hendricks-ai',
+    twitter: "https://twitter.com/hendricksai",
+    linkedin: "https://linkedin.com/company/hendricks-ai",
   },
-}
+};
 
 export const defaultMetadata: Metadata = {
   title: {
-    default: 'Hendricks.AI | AI Search Visibility & Measurement Firm for B2B Growth',
-    template: '%s | Hendricks.AI'
+    default: "Hendricks · Search intelligence engineering",
+    template: "%s · Hendricks",
   },
   description: siteConfig.description,
   keywords: [
-    'AI search visibility',
-    'search visibility measurement',
-    'B2B search attribution',
-    'AI search marketing firm',
-    'measure search visibility',
-    'ChatGPT visibility',
-    'Gemini AI search',
-    'Perplexity search coverage',
-    'Google Bing unified',
-    'Brandon Lincoln Hendricks',
-    'Hendricks.AI',
-    'AI search ecosystem',
-    'search visibility audit',
-    'attribution engine',
-    'pipeline attribution',
-    'CFO-ready measurement',
-    'search ROI attribution',
-    'unified search execution',
-    'AI visibility execution',
-    'Google Cloud Vertex AI',
-    'B2B growth marketing',
-    'SaaS marketing attribution',
-    'multi-touch attribution',
-    'AI-powered visibility',
-    'search coverage measurement',
-    'AI search optimization'
+    "search intelligence engineering",
+    "search intelligence engineer",
+    "retrieved cited chosen",
+    "AI Overviews",
+    "ChatGPT citations",
+    "retrieval graph",
+    "Brandon Lincoln Hendricks",
+    "Hendricks",
   ],
-  authors: [{ name: 'Hendricks.AI' }],
-  creator: 'Hendricks.AI',
-  publisher: 'Hendricks.AI',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
+  authors: [{ name: "Hendricks" }],
+  creator: "Hendricks",
+  publisher: "Hendricks",
   metadataBase: new URL(siteConfig.url),
   alternates: {
-    canonical: '/',
+    canonical: "/",
   },
   openGraph: {
-    title: 'Hendricks.AI | AI Search Visibility & Measurement Firm for B2B Growth',
+    title: "Hendricks · Search intelligence engineering",
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,
@@ -67,33 +45,24 @@ export const defaultMetadata: Metadata = {
         url: siteConfig.ogImage,
         width: 1600,
         height: 900,
-        alt: 'Hendricks.AI - See What AI Sees. Engineer Visibility the Competition Can\'t.',
+        alt: "Hendricks",
       },
     ],
-    locale: 'en_US',
-    type: 'website',
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Hendricks.AI | AI Search Visibility & Measurement Firm for B2B Growth',
+    card: "summary_large_image",
+    title: "Hendricks · Search intelligence engineering",
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: '@hendricksai',
+    creator: "@hendricksai",
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
   verification: {
-    google: 'E7JSaK23DaXqx3yMqAiM1WHNx6zrcWrg9zJ5yvfZN4I',
-    yandex: '', // Add when you register with Yandex Webmaster
-    yahoo: '', // Add when you register with Yahoo Site Explorer
+    google: "E7JSaK23DaXqx3yMqAiM1WHNx6zrcWrg9zJ5yvfZN4I",
   },
-}
+};

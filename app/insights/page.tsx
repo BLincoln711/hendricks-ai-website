@@ -1,483 +1,65 @@
-'use client'
+import type { Metadata } from "next";
+import Link from "next/link";
+import { PageIntro } from "../components/site/PageIntro";
+import { SiteChrome } from "../components/site/SiteChrome";
 
-import Link from 'next/link'
-import { useState } from 'react'
-import { Footer } from '../components/Footer'
-import Navigation from '../components/navigation'
-import StickyMobileCTA from '../components/sticky-mobile-cta'
+export const metadata: Metadata = {
+  title: "Insights",
+  description: "Notes on search intelligence engineering, retrieval, and citation.",
+};
 
-// Featured Intelligence - Top Editorial Content
-const featuredIntelligence = [
-  {
-    id: 'what-is-search-intelligence-engineer',
-    title: 'What is a Search Intelligence Engineer?',
-    subtitle: 'The pioneering role combining search marketing, data science, and AI engineering.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-10-25',
-    readTime: '12 min read',
-    category: 'Search Intelligence',
-    gradient: 'from-blue-600 to-cyan-600'
-  },
-  {
-    id: 'what-is-unified-search-execution',
-    title: 'What is Unified Search Execution?',
-    subtitle: 'Orchestrating Google, Bing, and AI search in one integrated strategy.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-10-26',
-    readTime: '10 min read',
-    category: 'Attribution',
-    gradient: 'from-purple-600 to-pink-600'
-  },
-  {
-    id: 'what-is-visibility-audit',
-    title: 'What is a Visibility Audit?',
-    subtitle: 'Comprehensive visibility measurement across Google, Bing, ChatGPT, Gemini, and Perplexity.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-10-26',
-    readTime: '15 min read',
-    category: 'Measurement',
-    gradient: 'from-cyan-600 to-blue-600'
-  }
-]
+const FEATURED = {
+  slug: "what-is-search-intelligence-engineer",
+  title: "What is a Search Intelligence Engineer?",
+};
 
-// All insights data
-const allInsights = [
-  {
-    id: 'ai-search-visibility-revenue-impact',
-    title: 'How Do I Connect AI Search Visibility With Measurable Pipeline and Revenue Impact?',
-    excerpt: 'A complete guide on how to connect AI search visibility with measurable pipeline and revenue impact using Search Intelligence Engineering, AI visibility measurement, and unified analytics in GA4 and BigQuery.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-11-25',
-    readTime: '15 min read',
-    category: 'AI Search Visibility'
-  },
-  {
-    id: 'press-coverage-ai-visibility',
-    title: 'Can Press Coverage Improve Brand Mentions in Perplexity or Gemini?',
-    excerpt: 'Learn how press coverage influences AI visibility in Perplexity and Gemini. Understand how third party signals, entity clarity, and authoritative citations improve inclusion in AI generated answers.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-11-24',
-    readTime: '12 min read',
-    category: 'AI Search Visibility'
-  },
-  {
-    id: 'b2b-ai-visibility-companies',
-    title: 'Where Can I Find B2B Companies Specializing in AI Visibility?',
-    excerpt: 'A complete guide to finding B2B companies specializing in AI visibility, Search Intelligence Engineering, and multi engine visibility measurement across Gemini, ChatGPT, and Perplexity.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-11-24',
-    readTime: '14 min read',
-    category: 'AI Search Visibility'
-  },
-  {
-    id: 'ai-visibility-metrics-gemini',
-    title: 'Gemini AI Visibility Metrics: The Complete Guide for B2B Companies',
-    excerpt: 'A complete guide to measuring AI visibility in Google Gemini for B2B companies. Learn the new metrics framework including Gemini Answer Presence Rate, Entity Accuracy Score, and Competitive Share of Answer.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-11-24',
-    readTime: '12 min read',
-    category: 'AI Search Visibility'
-  },
-  {
-    id: 'what-is-search-intelligence-engineer',
-    title: 'What is a Search Intelligence Engineer?',
-    excerpt: 'A Search Intelligence Engineer combines search marketing expertise with AI/ML engineering to build systems that measure, attribute, and optimize visibility across traditional and AI-powered search engines.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-10-25',
-    readTime: '12 min read',
-    category: 'Search Intelligence'
-  },
-  {
-    id: 'how-gemini-3-ai-mode-changes-ai-search-visibility',
-    title: 'How Gemini 3 AI Mode Changes AI Search Visibility',
-    excerpt:
-      'Gemini 3 AI Mode turns search into an interactive reasoning and generative UI system. Learn how to structure content, schema, and measurement to stay visible and trusted.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-11-17',
-    readTime: '14 min read',
-    category: 'AI Search Visibility'
-  },
-  {
-    id: 'how-to-measure-chatgpt-visibility',
-    title: 'How to Measure Your Visibility in ChatGPT',
-    excerpt: 'Learn how to measure your brand visibility in ChatGPT and track when your company appears in AI-powered search responses.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-10-25',
-    readTime: '14 min read',
-    category: 'AI Search Measurement'
-  },
-  {
-    id: 'what-is-ai-search-visibility-measurement',
-    title: 'What is AI Search Visibility Measurement?',
-    excerpt: 'AI search visibility measurement tracks where and how often your brand appears across AI-powered search engines like ChatGPT, Gemini, Perplexity, and traditional search like Google and Bing.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-10-25',
-    readTime: '11 min read',
-    category: 'Measurement'
-  },
-  {
-    id: 'how-to-appear-in-google-ai-overviews',
-    title: 'How to Appear in Google AI Overviews',
-    excerpt: 'Learn proven strategies to make your brand appear in Google AI Overviews through structured data, content optimization, E-E-A-T signals, and technical SEO.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-10-25',
-    readTime: '13 min read',
-    category: 'AI Search Optimization'
-  },
-  {
-    id: 'search-agency-vs-search-intelligence-firm',
-    title: 'Search Agency vs Search Intelligence Firm: What\'s the Difference?',
-    excerpt: 'Traditional search agencies optimize campaigns. Search intelligence firms build measurement systems that prove ROI across the entire AI search ecosystem.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-10-25',
-    readTime: '10 min read',
-    category: 'Industry Comparison'
-  },
-  {
-    id: 'google-ai-revolution-search-marketing',
-    title: 'Google\'s AI Revolution: Game-Changing Updates for Search Marketing',
-    excerpt: 'September 2025 marks a watershed moment as Google unleashes its most comprehensive AI transformation yet.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-09-14',
-    readTime: '8 min read',
-    category: 'AI & Analytics'
-  },
-  {
-    id: 'death-of-keywords-ai-max-search',
-    title: 'The Death of Keywords: How AI Max for Search is Revolutionizing B2B SaaS Campaigns',
-    excerpt: 'While competitors bid on outdated keywords, sophisticated marketers are capturing 27% more conversions with AI Max.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-09-17',
-    readTime: '15 min read',
-    category: 'AI & Analytics'
-  },
-  {
-    id: 'b2b-marketing-funnel-is-dead',
-    title: 'The B2B Marketing Funnel is Dead: Why 80% of Buying Happens in Chaos',
-    excerpt: 'The traditional B2B marketing funnel is obsolete. Modern buyers use 10+ channels with 6-10 stakeholders.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-08-20',
-    readTime: '12 min read',
-    category: 'Measurement'
-  },
-  {
-    id: 'google-meridian-mmm-attribution',
-    title: 'Google Meridian MMM Meets AI Attribution: The Future of Marketing Measurement',
-    excerpt: 'How Hendricks.AI\'s measurement capabilities enhance Google\'s new Meridian MMM framework.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-08-19',
-    readTime: '6 min read',
-    category: 'Attribution'
-  },
-  {
-    id: 'ai-marketing-beyond-smart-bidding',
-    title: 'AI Marketing Beyond Smart Bidding: How Custom AI Models Reduce CPA by 32%',
-    excerpt: 'Google\'s Smart Bidding is just the beginning. Learn how proprietary AI models can achieve 32% CPA reductions.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-08-16',
-    readTime: '12 min read',
-    category: 'AI & Analytics'
-  },
-  {
-    id: 'unified-visibility-measurement-2025',
-    title: 'The Future of Measurement: Unified Visibility Across AI Search',
-    excerpt: 'Traditional measurement reacts to yesterday\'s data. Unified visibility shows the complete picture.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-08-14',
-    readTime: '12 min read',
-    category: 'Visibility'
-  },
-  {
-    id: 'google-performance-max-bing',
-    title: 'Why Running Both Google and Bing Performance Max Delivers 10% Higher ROAS',
-    excerpt: 'Most agencies ignore Bing Performance Max. Our data shows dual-platform strategies capture 28% more conversions.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-08-12',
-    readTime: '5 min read',
-    category: 'Measurement'
-  },
-  {
-    id: 'visibility-measurement-case-study',
-    title: 'Case Study: How We Measured a 127% Visibility Surge in "AI Automation"',
-    excerpt: 'Real-time visibility measurement identified early signals. Here\'s how we positioned our client for $2.3M in additional revenue.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-08-10',
-    readTime: '10 min read',
-    category: 'Case Studies'
-  },
-  {
-    id: 'b2b-visibility-strategies',
-    title: 'B2B Visibility: Measuring Decision Maker Exposure Across All Platforms',
-    excerpt: 'The average B2B buyer is 57% through their journey before contacting sales. How to measure their visibility.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-08-08',
-    readTime: '6 min read',
-    category: 'Visibility'
-  },
-  {
-    id: 'attribution-architecture-framework',
-    title: 'Attribution Architecture: How CFO-Ready Models Connect Spend to ARR',
-    excerpt: 'Stop arguing about last-click vs first-touch. Our AI-driven attribution shows true impact with 98% data confidence.',
-    author: 'Brandon Lincoln Hendricks',
-    date: '2025-08-03',
-    readTime: '9 min read',
-    category: 'Attribution'
-  }
-]
-
-const categories = [
-  'All',
-  'Search Intelligence Engineering',
-  'AI Search Visibility',
-  'Measurement & Attribution',
-  'Schema & Entities',
-  'AI Platforms',
-  'Strategy'
-]
+const ARCHIVE = [
+  { slug: "what-is-search-intelligence-engineer", title: "What is a Search Intelligence Engineer?" },
+  { slug: "what-is-ai-search-visibility-measurement", title: "What is AI Search Visibility Measurement?" },
+  { slug: "how-to-measure-chatgpt-visibility", title: "How to Measure Your Visibility in ChatGPT" },
+  { slug: "how-to-appear-in-google-ai-overviews", title: "How to Appear in Google AI Overviews" },
+  { slug: "search-agency-vs-search-intelligence-firm", title: "Search Agency vs Search Intelligence Firm" },
+  { slug: "what-is-visibility-audit", title: "What is a Visibility Audit?" },
+  { slug: "why-measure-visibility-across-ai-search-engines", title: "Why Measure Visibility Across AI Search Engines" },
+  { slug: "chatgpt-vs-perplexity-vs-gemini", title: "ChatGPT vs Perplexity vs Gemini" },
+  { slug: "how-gemini-3-ai-mode-changes-ai-search-visibility", title: "How Gemini 3 AI Mode Changes AI Search Visibility" },
+  { slug: "what-third-party-platforms-gemini-cites", title: "What Third-Party Platforms Gemini Cites" },
+  { slug: "press-coverage-ai-visibility", title: "Press Coverage and AI Visibility" },
+  { slug: "ai-search-visibility-guide", title: "AI Search Visibility Guide" },
+  { slug: "ai-search-visibility-revenue-impact", title: "AI Search Visibility and Revenue Impact" },
+  { slug: "b2b-ai-visibility-companies", title: "B2B Companies and AI Visibility" },
+  { slug: "ai-visibility-metrics-gemini", title: "Gemini AI Visibility Metrics" },
+  { slug: "what-is-unified-search-execution", title: "What is Unified Search Execution?" },
+  { slug: "how-to-prove-search-roi-to-cfo", title: "How to Prove Search ROI to a CFO" },
+  { slug: "google-ai-revolution-search-marketing", title: "Google's AI Revolution and Search Marketing" },
+  { slug: "death-of-keywords-ai-max-search", title: "AI Max for Search" },
+  { slug: "b2b-marketing-funnel-is-dead", title: "The B2B Marketing Funnel is Dead" },
+  { slug: "google-meridian-mmm-predictive-ai", title: "Google Meridian MMM and Predictive AI" },
+  { slug: "ai-marketing-beyond-smart-bidding", title: "AI Marketing Beyond Smart Bidding" },
+];
 
 export default function InsightsPage() {
-  const [selectedCategory, setSelectedCategory] = useState('All')
-
-  const filteredInsights = selectedCategory === 'All'
-    ? allInsights
-    : allInsights.filter(post => post.category === selectedCategory)
-
   return (
-    <main className="min-h-screen bg-black text-white">
-      <Navigation />
-
-      {/* 1️⃣ HERO SECTION - Intelligence Hub */}
-      <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#010414] via-[#0b1f32] to-[#1b0034]">
-        {/* Animated Grid Overlay */}
-        <div className="absolute inset-0 opacity-10" style={{
-          backgroundImage: 'linear-gradient(rgba(96,165,250,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(96,165,250,0.4) 1px, transparent 1px)',
-          backgroundSize: '50px 50px',
-        }}></div>
-
-        {/* Particle Layer */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            {/* Badge Pill */}
-            <div className="inline-flex items-center px-4 py-2 bg-blue-950/50 backdrop-blur-xl border border-blue-800/50 rounded-full mb-8">
-              <span className="text-sm font-medium text-blue-400">Search Intelligence Library</span>
-            </div>
-
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-6 leading-tight">
-              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                Search Intelligence
-              </span>
-              <br />
-              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                for the AI Search Era.
-              </span>
-            </h1>
-            <p className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto mb-10">
-              The Hendricks.AI Insights hub is where B2B leaders learn how AI powered search engines see their brand, how to engineer schema and entity signals for AI surfaces, and how to measure AI Search Visibility with clarity using a Search Intelligence Engineering approach.
-            </p>
-
-            {/* Dual CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="#all-insights"
-                className="px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white rounded-full font-semibold hover:scale-[1.03] transition-transform inline-flex items-center justify-center gap-2"
-              >
-                Explore Insights →
-              </a>
-              <Link
-                href="#subscribe"
-                className="px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-black transition inline-flex items-center justify-center gap-2"
-              >
-                Subscribe to the Intelligence Brief →
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2️⃣ CATEGORY FILTERS */}
-      <section className="py-8 border-b border-[rgba(255,255,255,0.05)] bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center gap-3">
-            {categories.map(category => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full transition-all duration-200 ${
-                  selectedCategory === category
-                    ? 'bg-gradient-to-r from-blue-500 to-cyan-400 text-white'
-                    : 'bg-[rgba(255,255,255,0.05)] text-gray-300 hover:text-white hover:bg-[rgba(255,255,255,0.08)]'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3️⃣ FEATURED INTELLIGENCE */}
-      <section className="py-20 bg-gradient-to-b from-black to-gray-900/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-12 text-center">
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Featured Intelligence
-            </span>
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {featuredIntelligence.map((article, index) => (
-              <Link
-                key={article.id}
-                href={`/insights/${article.id}`}
-                className="group"
-              >
-                <div className="bg-gradient-to-br from-gray-900 to-black p-8 rounded-2xl border border-[rgba(255,255,255,0.05)] hover:border-cyan-400/50 transition-all duration-300 hover:scale-[1.02] h-full">
-                  {/* Abstract Tech Imagery Placeholder */}
-                  <div className={`w-full h-48 rounded-xl bg-gradient-to-br ${article.gradient} opacity-20 mb-6 relative overflow-hidden`}>
-                    <div className="absolute inset-0" style={{
-                      backgroundImage: 'linear-gradient(45deg, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(-45deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
-                      backgroundSize: '20px 20px',
-                    }}></div>
-                  </div>
-
-                  <div className="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-3">
-                    {article.category}
-                  </div>
-
-                  <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-cyan-400 transition-colors">
-                    {article.title}
-                  </h3>
-
-                  <p className="text-gray-400 mb-6 leading-relaxed">
-                    {article.subtitle}
-                  </p>
-
-                  <div className="flex items-center text-sm text-gray-500">
-                    <span className="text-gray-400">{article.author}</span>
-                    <span className="mx-2">•</span>
-                    <span>{article.readTime}</span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* GLOSSARY FEATURE */}
-      <section className="py-16 bg-gradient-to-r from-blue-950/40 to-purple-950/40 border-y border-blue-500/30">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-900/60 border border-blue-700/60 mb-4">
-            <span className="w-2 h-2 rounded-full bg-blue-400" />
-            <span className="text-xs font-medium tracking-[0.18em] text-blue-300 uppercase">
-              Learning Resource
-            </span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">
-            New to AI Search Visibility?
-          </h2>
-          <p className="text-base text-gray-300 mb-6 max-w-2xl mx-auto">
-            Explore our comprehensive <strong className="text-white">AI Search Visibility Glossary</strong> with 126+ terms defining everything from Citation Share to Entity Recognition Accuracy.
+    <SiteChrome>
+      <article className="page-article">
+        <PageIntro title="Insights" deck="The archive. Not a volume play." />
+        <section>
+          <h2>Start here</h2>
+          <p>
+            <Link href={`/insights/${FEATURED.slug}`}>{FEATURED.title}</Link>
           </p>
-          <Link
-            href="/glossary"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white font-semibold hover:scale-[1.03] transition-transform shadow-lg shadow-cyan-500/50"
-          >
-            Browse the Glossary →
-          </Link>
-        </div>
-      </section>
-
-      {/* ALL INSIGHTS GRID */}
-      <section id="all-insights" className="py-20 bg-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-8">
-            {selectedCategory === 'All' ? 'All Insights' : selectedCategory}
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredInsights.map(post => (
-              <Link
-                key={post.id}
-                href={`/insights/${post.id}`}
-                className="group"
-              >
-                <div className="bg-gray-900/50 rounded-2xl p-6 border border-gray-800 hover:border-cyan-400/50 transition-all duration-200 h-full">
-                  <div className="mb-3">
-                    <span className="text-xs font-bold text-cyan-400 uppercase tracking-wider">{post.category}</span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-3 text-white group-hover:text-cyan-400 transition-colors leading-tight">
-                    {post.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-2 leading-relaxed">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center text-xs text-gray-500">
-                    <span>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                    <span className="mx-2">•</span>
-                    <span>{post.readTime}</span>
-                  </div>
-                </div>
-              </Link>
+        </section>
+        <section>
+          <h2>Archive</h2>
+          <ul className="plain-list">
+            {ARCHIVE.map((item) => (
+              <li key={item.slug}>
+                <Link href={`/insights/${item.slug}`}>{item.title}</Link>
+              </li>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 6️⃣ SUBSCRIBE CTA - Join the Intelligence Brief */}
-      <section id="subscribe" className="py-32 relative overflow-hidden bg-gradient-to-br from-blue-950 via-purple-950 to-blue-950">
-        {/* Grid Overlay */}
-        <div className="absolute inset-0 opacity-10" style={{
-          backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)',
-          backgroundSize: '50px 50px',
-        }}></div>
-
-        {/* Floating Particles */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        </div>
-
-        <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-white leading-tight">
-            Join the <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Intelligence Brief</span>
-          </h2>
-
-          <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-            Get exclusive insights, frameworks, and visibility benchmarks from the Hendricks.AI Intelligence team — directly in your inbox.
-          </p>
-
-          {/* Email Form */}
-          <form className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto mb-8">
-            <input
-              type="email"
-              placeholder="Your work email"
-              className="flex-1 px-6 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition"
-            />
-            <button
-              type="submit"
-              className="px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white font-bold rounded-full hover:scale-[1.03] transition-transform"
-            >
-              Subscribe →
-            </button>
-          </form>
-
-          {/* Secondary CTA */}
-          <p className="text-gray-400">
-            Prefer a conversation?{' '}
-            <Link href="/contact" className="text-cyan-400 font-semibold hover:underline">
-              Book a Strategy Session →
-            </Link>
-          </p>
-        </div>
-      </section>
-
-      <Footer />
-      <StickyMobileCTA />
-    </main>
-  )
+          </ul>
+        </section>
+      </article>
+    </SiteChrome>
+  );
 }

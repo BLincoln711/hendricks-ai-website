@@ -1,196 +1,59 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://hendricks.ai'
-  const currentDate = new Date().toISOString()
+  const baseUrl = "https://hendricks.ai";
+  const now = new Date();
 
-  // Static pages
-  const staticPages = [
-    {
-      url: baseUrl,
-      lastModified: currentDate,
-      changeFrequency: 'daily' as const,
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/solutions`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/results`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/news`,
-      lastModified: currentDate,
-      changeFrequency: 'daily' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/insights`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/brandon-lincoln-hendricks`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/authors/brandon-lincoln-hendricks`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    // New AI-optimized pages
-    {
-      url: `${baseUrl}/ai-search-intelligence`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/glossary`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/google-bing-unified`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/faq-brandon-hendricks`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/marketing-mix-modeling`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/search-intelligence-solutions`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/search-intelligence-engineering`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.95,
-    },
-    // Solution tier pages
-    {
-      url: `${baseUrl}/solutions/foundation`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/solutions/system`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/solutions/partnership`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.85,
-    },
-  ]
+  const pages = [
+    "",
+    "/practice",
+    "/method",
+    "/about",
+    "/diagnostic",
+    "/pricing",
+    "/briefing",
+    "/insights",
+    "/terms",
+    "/privacy",
+  ];
 
-  // News articles
-  const newsArticles = [
-    {
-      url: `${baseUrl}/news/b2b-funnel-is-dead`,
-      lastModified: '2024-08-20',
-      changeFrequency: 'yearly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/news/modern-measurement-meets-predictive-ai`,
-      lastModified: '2024-08-19',
-      changeFrequency: 'yearly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/news/hendricks-ai-achieves-74-percent-prediction-accuracy`,
-      lastModified: '2024-08-18',
-      changeFrequency: 'yearly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/news/former-solarwinds-exec-launches-predictive-ai-agency`,
-      lastModified: '2024-08-15',
-      changeFrequency: 'yearly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/news/predictive-ai-forecasts-ecommerce-surge`,
-      lastModified: '2024-08-10',
-      changeFrequency: 'yearly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/news/google-performance-max-predictive-ai`,
-      lastModified: '2024-08-08',
-      changeFrequency: 'yearly' as const,
-      priority: 0.7,
-    },
-  ]
+  const insights = [
+    "what-is-search-intelligence-engineer",
+    "what-is-ai-search-visibility-measurement",
+    "how-to-measure-chatgpt-visibility",
+    "how-to-appear-in-google-ai-overviews",
+    "search-agency-vs-search-intelligence-firm",
+    "what-is-visibility-audit",
+    "why-measure-visibility-across-ai-search-engines",
+    "chatgpt-vs-perplexity-vs-gemini",
+    "how-gemini-3-ai-mode-changes-ai-search-visibility",
+    "what-third-party-platforms-gemini-cites",
+    "press-coverage-ai-visibility",
+    "ai-search-visibility-guide",
+    "ai-search-visibility-revenue-impact",
+    "b2b-ai-visibility-companies",
+    "ai-visibility-metrics-gemini",
+    "what-is-unified-search-execution",
+    "how-to-prove-search-roi-to-cfo",
+    "google-ai-revolution-search-marketing",
+    "death-of-keywords-ai-max-search",
+    "b2b-marketing-funnel-is-dead",
+    "google-meridian-mmm-predictive-ai",
+    "ai-marketing-beyond-smart-bidding",
+  ];
 
-  // Insights articles
-  const insightsArticles = [
-    {
-      url: `${baseUrl}/insights/what-third-party-platforms-gemini-cites`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/insights/b2b-marketing-funnel-is-dead`,
-      lastModified: '2024-08-20',
-      changeFrequency: 'yearly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/insights/google-meridian-mmm-predictive-ai`,
-      lastModified: '2024-08-19',
-      changeFrequency: 'yearly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/insights/ai-marketing-beyond-smart-bidding`,
-      lastModified: '2024-08-16',
-      changeFrequency: 'yearly' as const,
-      priority: 0.7,
-    },
-  ]
-
-  return [...staticPages, ...newsArticles, ...insightsArticles]
+  return [
+    ...pages.map((path) => ({
+      url: `${baseUrl}${path}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: path === "" ? 1 : 0.8,
+    })),
+    ...insights.map((slug) => ({
+      url: `${baseUrl}/insights/${slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+  ];
 }

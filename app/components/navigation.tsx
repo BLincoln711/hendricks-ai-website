@@ -36,11 +36,11 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8 text-[15px]">
-            <Link href="/" className="text-gray-300 hover:text-cyan-400 transition-colors duration-200">
-              Home
+            <Link href="/practice" className="text-gray-300 hover:text-cyan-400 transition-colors duration-200">
+              Practice
             </Link>
-            <Link href="/solutions" className="text-gray-300 hover:text-cyan-400 transition-colors duration-200">
-              Solutions
+            <Link href="/method" className="text-gray-300 hover:text-cyan-400 transition-colors duration-200">
+              Method
             </Link>
             <Link href="/insights" className="text-gray-300 hover:text-cyan-400 transition-colors duration-200">
               Insights
@@ -48,15 +48,18 @@ export default function Navigation() {
             <Link href="/about" className="text-gray-300 hover:text-cyan-400 transition-colors duration-200">
               About
             </Link>
+            <Link href="/briefing" className="text-gray-300 hover:text-cyan-400 transition-colors duration-200">
+              Briefing
+            </Link>
           </nav>
 
           {/* CTA Button */}
           <div className="flex items-center space-x-4">
             <Link
-              href="/contact"
+              href="/briefing"
               className="hidden sm:inline-flex bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 rounded-full px-5 py-2 text-white font-semibold tracking-wide hover:scale-[1.03] transition-transform animate-glow"
             >
-              Book Strategy Session →
+              Book a briefing
             </Link>
 
             {/* Mobile Menu Button */}
@@ -80,18 +83,18 @@ export default function Navigation() {
           <div className="md:hidden absolute top-full left-0 right-0 bg-[rgba(0,5,20,0.95)] backdrop-blur-xl border-b border-[rgba(255,255,255,0.05)]">
             <div className="px-4 py-6 space-y-4">
               <Link
-                href="/"
+                href="/practice"
                 className="block text-gray-300 hover:text-cyan-400 transition-colors duration-200 text-base font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Home
+                Practice
               </Link>
               <Link
-                href="/solutions"
+                href="/method"
                 className="block text-gray-300 hover:text-cyan-400 transition-colors duration-200 text-base font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Solutions
+                Method
               </Link>
               <Link
                 href="/insights"
@@ -108,11 +111,11 @@ export default function Navigation() {
                 About
               </Link>
               <Link
-                href="/contact"
+                href="/briefing"
                 className="block w-full text-center px-6 py-3 bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 text-white rounded-full text-base font-semibold mt-4"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Book Strategy Session →
+                Book a briefing
               </Link>
             </div>
           </div>

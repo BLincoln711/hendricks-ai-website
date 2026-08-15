@@ -1,110 +1,59 @@
-// components/Footer.tsx
-
 import Link from "next/link";
 
 export function Footer() {
   return (
     <footer className="border-t border-slate-900 bg-slate-950">
       <div className="mx-auto max-w-6xl px-4 py-10">
-
         <div className="grid gap-8 md:grid-cols-4">
-
-          {/* Logo + Brand */}
           <div className="space-y-3">
-            <div className="flex items-center space-x-2">
-              <Link href="/" className="flex-shrink-0">
-                <img
-                  src="/hendricks_logo.png"
-                  alt="Hendricks.AI"
-                  className="h-6 w-auto object-contain brightness-0 invert"
-                />
-              </Link>
-              <span className="text-gray-400 text-sm ml-1 flex items-center gap-1">
-                <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                AI-Powered
-              </span>
-            </div>
-
+            <Link href="/" className="text-slate-50">
+              Hendricks
+            </Link>
             <p className="text-xs text-slate-300">
-              Search Intelligence Engineering Firm specializing in AI Search Visibility
-              and Measurement for B2B companies.
-            </p>
-
-            <p className="text-[11px] text-slate-500">
-              Founded by Brandon Lincoln Hendricks, former Director of Search at SolarWinds
-              and former Global Search Director at Merkle Dentsu.
+              Hendricks designs, instruments, and operates the systems that decide
+              whether a company is retrieved, cited, and chosen when a person or a
+              model looks for an answer.
             </p>
           </div>
 
-          {/* Solutions */}
           <div className="space-y-3">
-            <h3 className="text-xs font-semibold uppercase text-slate-400">
-              Solutions
-            </h3>
+            <h3 className="text-xs font-semibold uppercase text-slate-400">Practice</h3>
             <ul className="text-sm text-slate-300 space-y-2">
-              <li><Link href="/solutions#foundation" className="hover:text-emerald-300">Foundation</Link></li>
-              <li><Link href="/solutions#system" className="hover:text-emerald-300">System</Link></li>
-              <li><Link href="/solutions#partnership" className="hover:text-emerald-300">Partnership</Link></li>
+              <li><Link href="/practice" className="hover:text-emerald-300">Practice</Link></li>
+              <li><Link href="/method" className="hover:text-emerald-300">Method</Link></li>
+              <li><Link href="/diagnostic" className="hover:text-emerald-300">Diagnostic</Link></li>
+              <li><Link href="/pricing" className="hover:text-emerald-300">Pricing</Link></li>
             </ul>
           </div>
 
-          {/* Insights */}
           <div className="space-y-3">
-            <h3 className="text-xs font-semibold uppercase text-slate-400">
-              Insights
-            </h3>
+            <h3 className="text-xs font-semibold uppercase text-slate-400">Insights</h3>
             <ul className="text-sm text-slate-300 space-y-2">
-              <li><Link href="/insights" className="hover:text-emerald-300">All Insights</Link></li>
-              <li><Link href="/glossary" className="hover:text-emerald-300">Glossary</Link></li>
-              <li><Link href="/insights/ai-search-visibility-b2b-companies-2025" className="hover:text-emerald-300">AI Search Visibility Guide</Link></li>
+              <li><Link href="/insights" className="hover:text-emerald-300">Archive</Link></li>
+              <li>
+                <Link
+                  href="/insights/what-is-search-intelligence-engineer"
+                  className="hover:text-emerald-300"
+                >
+                  Search Intelligence Engineer
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Company */}
           <div className="space-y-3">
-            <h3 className="text-xs font-semibold uppercase text-slate-400">
-              Company
-            </h3>
+            <h3 className="text-xs font-semibold uppercase text-slate-400">Company</h3>
             <ul className="text-sm text-slate-300 space-y-2">
               <li><Link href="/about" className="hover:text-emerald-300">About</Link></li>
-              <li><Link href="/contact" className="hover:text-emerald-300">Contact</Link></li>
-              <li><Link href="/clients" className="hover:text-emerald-300">Client Portal</Link></li>
+              <li><Link href="/briefing" className="hover:text-emerald-300">Briefing</Link></li>
               <li><Link href="/privacy" className="hover:text-emerald-300">Privacy</Link></li>
               <li><Link href="/terms" className="hover:text-emerald-300">Terms</Link></li>
             </ul>
           </div>
-
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-slate-900 mt-10 pt-6">
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-
-            <div>
-              <h4 className="text-sm font-semibold text-slate-50">
-                Ready to engineer true AI Search Visibility
-              </h4>
-              <p className="text-xs text-slate-400 mt-1 max-w-xl">
-                Your buyers are already using AI powered search. The question is whether
-                you are visible inside the answers they trust.
-              </p>
-            </div>
-
-            <div className="flex gap-3">
-              <Link href="/solutions" className="bg-emerald-500 text-slate-950 text-xs font-semibold px-4 py-2 rounded-md hover:bg-emerald-400 transition">
-                Start Your Subscription
-              </Link>
-              <Link href="/contact" className="border border-slate-700 text-slate-200 text-xs font-semibold px-4 py-2 rounded-md hover:border-emerald-400 transition">
-                Book Visibility Consultation
-              </Link>
-            </div>
-
-          </div>
-
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center text-[11px] text-slate-500 mt-6 gap-2">
-            <span>© {new Date().getFullYear()} Hendricks.AI. All rights reserved.</span>
-            <span>Search Intelligence Engineering for B2B AI visibility and measurement.</span>
-          </div>
+        <div className="border-t border-slate-900 mt-10 pt-6 text-[11px] text-slate-500">
+          © {new Date().getFullYear()} Hendricks.
         </div>
       </div>
     </footer>

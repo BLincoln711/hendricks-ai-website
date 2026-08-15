@@ -8,9 +8,11 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const navItems = [
-  { href: "/solutions", label: "Solutions" },
+  { href: "/practice", label: "Practice" },
+  { href: "/method", label: "Method" },
   { href: "/insights", label: "Insights" },
   { href: "/about", label: "About" },
+  { href: "/briefing", label: "Briefing" },
 ];
 
 export function Header() {
@@ -59,16 +61,16 @@ export function Header() {
         {/* Desktop CTAs */}
         <div className="hidden items-center gap-3 md:flex">
           <Link
-            href="/contact"
+            href="/briefing"
             className="text-xs font-semibold text-slate-200 hover:text-emerald-300 transition"
           >
-            Book Consultation
+            Book a briefing
           </Link>
           <Link
-            href="/solutions"
+            href="/diagnostic"
             className="inline-flex items-center rounded-md bg-emerald-500 px-4 py-2 text-xs font-semibold text-slate-950 hover:bg-emerald-400 transition"
           >
-            Start Your AI Visibility System
+            Retrieval Graph Diagnostic
           </Link>
         </div>
 
@@ -101,18 +103,18 @@ export function Header() {
             ))}
             <div className="mt-3 flex flex-col gap-2">
               <Link
-                href="/contact"
+                href="/briefing"
                 onClick={() => setOpen(false)}
                 className="text-xs font-semibold text-slate-200 hover:text-emerald-300 transition"
               >
-                Book Consultation
+                Book a briefing
               </Link>
               <Link
-                href="/solutions"
+                href="/diagnostic"
                 onClick={() => setOpen(false)}
                 className="inline-flex items-center justify-center rounded-md bg-emerald-500 px-4 py-2 text-xs font-semibold text-slate-950 hover:bg-emerald-400 transition"
               >
-                Start Your AI Visibility System
+                Retrieval Graph Diagnostic
               </Link>
             </div>
           </div>

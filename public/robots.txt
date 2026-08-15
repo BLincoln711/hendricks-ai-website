@@ -75,3 +75,6 @@ Disallow: /node_modules/
 # Sitemap locations
 Sitemap: https://hendricks.ai/sitemap.xml
 Sitemap: https://hendricks.ai/news-sitemap.xml
+
+# Machine-readable description
+# https://hendricks.ai/llms.txt
