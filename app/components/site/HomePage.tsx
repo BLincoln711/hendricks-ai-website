@@ -1,4 +1,4 @@
-import { METHOD_STEPS, PRACTICE_MODULES, REFUSAL, TWO_BUYS } from "@/lib/site";
+import { METHOD_STEPS, PRACTICE_MODULES, REFUSAL, SURFACES, TWO_BUYS } from "@/lib/site";
 import { HomeInstrument } from "../instrument/HomeInstrument";
 import { PageActions } from "./PageActions";
 import { SiteChrome } from "./SiteChrome";
@@ -12,6 +12,15 @@ export function HomePage() {
           <HomeInstrument />
           <p className="mono-fact">{TWO_BUYS}</p>
         </header>
+
+        <section className="band band-quiet" aria-label="Surfaces">
+          <ul className="surface-chips">
+            {SURFACES.map((surface) => (
+              <li key={surface}>{surface}</li>
+            ))}
+            <li>query lab</li>
+          </ul>
+        </section>
 
         <section className="band" aria-label="Proof">
           <p className="measure">

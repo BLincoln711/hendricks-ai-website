@@ -2,23 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 import { POSITIONING } from "@/lib/site";
-import {
-  DOGFOOD_QUERY,
-  STATES,
-  SURFACES,
-  type StateId,
-  type SurfaceId,
-  surfacesLiftedBy,
-} from "./model";
+import { type StateId } from "./model";
 import { clearScan, pointScan, prefersReducedMotion } from "./scan";
 
 const TOKEN = /(retrieved|cited|chosen)/g;
+const CHOOSER_QUERY = "what should we hire for mid-market tax?";
+const CHOOSERS = ["GOOGLE", "CHATGPT", "PERPLEXITY", "CLAUDE"] as const;
 
 function LeadTokens({
   active,
+  ready,
   onActive,
 }: {
   active: StateId | null;
+  ready: boolean;
   onActive: (state: StateId | null) => void;
 }) {
   const parts = POSITIONING.split(TOKEN);
@@ -31,7 +28,7 @@ function LeadTokens({
             <button
               key={`${part}-${index}`}
               type="button"
-              className={`lead-token${active === part ? " is-on" : ""}`}
+              className={`lead-token${active === part ? " is-on" : ""}${ready ? " is-ready" : ""}`}
               onPointerEnter={() => onActive(part)}
               onPointerLeave={() => onActive(null)}
               onFocus={() => onActive(part)}
@@ -50,55 +47,67 @@ function LeadTokens({
 export function HomeInstrument() {
   const rootRef = useRef<HTMLDivElement>(null);
   const [lead, setLead] = useState<StateId | null>(null);
-  const [surface, setSurface] = useState<SurfaceId | null>(null);
-  const [query, setQuery] = useState(DOGFOOD_QUERY);
-  const ticked = useRef(false);
-  const idle = useRef<number>(0);
+  const [written, setWritten] = useState(0);
+  const [fan, setFan] = useState(false);
+  const [slabs, setSlabs] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [active, setActive] = useState<number | null>(null);
+  const walked = useRef(false);
 
   useEffect(() => {
-    if (prefersReducedMotion() || ticked.current) return;
+    if (prefersReducedMotion()) {
+      setWritten(CHOOSER_QUERY.length);
+      setFan(true);
+      setSlabs(true);
+      setReady(true);
+      return;
+    }
 
-    const arm = () => {
-      window.clearTimeout(idle.current);
-      idle.current = window.setTimeout(() => {
-        if (ticked.current) return;
-        ticked.current = true;
-        setQuery("Hendricks");
-      }, 5000);
+    let raf = 0;
+    const startWrite = window.setTimeout(() => {
+      const began = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min(1, (now - began) / 800);
+        setWritten(Math.round(p * CHOOSER_QUERY.length));
+        if (p < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    }, 400);
+
+    const tFan = window.setTimeout(() => setFan(true), 1200);
+    const tSlabs = window.setTimeout(() => setSlabs(true), 1800);
+    const tReady = window.setTimeout(() => setReady(true), 2200);
+
+    return () => {
+      window.clearTimeout(startWrite);
+      window.clearTimeout(tFan);
+      window.clearTimeout(tSlabs);
+      window.clearTimeout(tReady);
+      cancelAnimationFrame(raf);
     };
-
-    arm();
-    return () => window.clearTimeout(idle.current);
   }, []);
 
   useEffect(() => () => clearScan(), []);
 
-  function bumpIdle() {
-    if (ticked.current || prefersReducedMotion()) return;
-    window.clearTimeout(idle.current);
-    idle.current = window.setTimeout(() => {
-      if (ticked.current) return;
-      ticked.current = true;
-      setQuery("Hendricks");
-    }, 5000);
-  }
-
-  function walk(next: number) {
-    const current = surface ? SURFACES.findIndex((row) => row.id === surface) : -1;
-    const index = (current + next + SURFACES.length) % SURFACES.length;
-    setSurface(SURFACES[index].id);
-    bumpIdle();
+  function walk(dir: number) {
+    if (!ready) return;
+    walked.current = true;
+    setActive((current) => {
+      const from = current ?? -1;
+      return (from + dir + CHOOSERS.length) % CHOOSERS.length;
+    });
   }
 
   function onPointerMove(event: React.PointerEvent<HTMLDivElement>) {
+    if (!ready) return;
     pointScan(event.clientX, event.clientY);
-    bumpIdle();
     const root = rootRef.current;
     if (!root) return;
     const box = root.getBoundingClientRect();
     const t = (event.clientX - box.left) / Math.max(box.width, 1);
-    const index = Math.min(SURFACES.length - 1, Math.max(0, Math.floor(t * SURFACES.length)));
-    setSurface(SURFACES[index].id);
+    const index = Math.min(CHOOSERS.length - 1, Math.max(0, Math.floor(t * CHOOSERS.length)));
+    walked.current = true;
+    setActive(index);
   }
 
   function onKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
@@ -112,58 +121,54 @@ export function HomeInstrument() {
     }
   }
 
-  const lifted = lead ? surfacesLiftedBy(lead) : [];
+  const liftSources = lead !== null;
 
   return (
     <div className="home-instrument">
-      <LeadTokens active={lead} onActive={setLead} />
+      <LeadTokens active={lead} ready={ready} onActive={setLead} />
       <div
         ref={rootRef}
-        className="io-board"
+        className="chooser-board"
         tabIndex={0}
         onPointerMove={onPointerMove}
-        onPointerLeave={() => {
-          setSurface(null);
-          clearScan();
-        }}
+        onPointerLeave={clearScan}
         onKeyDown={onKeyDown}
       >
-        <div className="query-node">{query}</div>
-        <div className="surface-row">
-          {SURFACES.map((row) => (
-            <div
-              key={row.id}
-              className={[
-                "io-cell",
-                "is-empty",
-                surface === row.id ? "is-beam" : "",
-                lifted.includes(row.id) ? "is-lift" : "",
-              ]
-                .filter(Boolean)
-                .join(" ")}
-            >
-              {row.label}
-            </div>
-          ))}
-        </div>
-        <div className="state-row">
-          {STATES.map((state) => (
-            <div
-              key={state}
-              className={[
-                "io-cell",
-                "is-empty",
-                "is-state",
-                lead === state ? "is-lift" : "",
-              ]
-                .filter(Boolean)
-                .join(" ")}
-              aria-label={`${state}, unmeasured`}
-            >
-              {state}
-            </div>
-          ))}
-          <div className="query-lab">query lab</div>
+        <p className="chooser-query" aria-label={CHOOSER_QUERY}>
+          {CHOOSER_QUERY.slice(0, written)}
+        </p>
+        <div className="chooser-row">
+          {CHOOSERS.map((name, index) => {
+            const beamed =
+              fan &&
+              (walked.current ? active === index : true);
+            return (
+              <div
+                key={name}
+                className={`chooser${beamed ? " is-beam" : ""}`}
+                style={
+                  fan && !walked.current
+                    ? { transitionDelay: `${index * 70}ms` }
+                    : undefined
+                }
+              >
+                <p className="chooser-name">{name}</p>
+                <div
+                  className={`chooser-slab${slabs ? " is-settled" : ""}`}
+                  aria-hidden="true"
+                >
+                  <span />
+                  <span />
+                  <span />
+                </div>
+                <p
+                  className={`chooser-source${liftSources ? " is-lift" : ""}`}
+                >
+                  source&nbsp;&nbsp;____
+                </p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
