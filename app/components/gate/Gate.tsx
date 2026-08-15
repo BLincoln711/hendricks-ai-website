@@ -44,37 +44,70 @@ export function Gate() {
 
   return (
     <div className={`gate ${result ? "gate-open" : ""}`}>
-      <button type="button" className="wordmark gate-mark" onClick={enter}>
-        Hendricks
-      </button>
-
-      <form className="gate-form" onSubmit={onSubmit}>
-        {!result && <p className="gate-line">Type your website.</p>}
-        <div className="gate-bar">
-          <input
-            type="text"
-            name="url"
-            value={value}
-            onChange={(event) => setValue(event.target.value)}
-            autoComplete="url"
-            autoCapitalize="none"
-            autoCorrect="off"
-            spellCheck={false}
-            aria-label="Website"
-            disabled={pending}
-          />
-          <button
-            type="submit"
-            className="gate-submit"
-            disabled={pending || !value.trim()}
-            aria-label={pending ? "Reading" : "Submit"}
-          >
-            →
+      {result ? (
+        <div className="gate-result-top">
+          <button type="button" className="wordmark" onClick={enter}>
+            Hendricks
           </button>
+          <form className="gate-form gate-form-inline" onSubmit={onSubmit}>
+            <div className="gate-bar">
+              <input
+                type="text"
+                name="url"
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                autoComplete="url"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
+                aria-label="Website"
+                disabled={pending}
+              />
+              <button
+                type="submit"
+                className="gate-submit"
+                disabled={pending || !value.trim()}
+                aria-label={pending ? "Reading" : "Submit"}
+              >
+                →
+              </button>
+            </div>
+          </form>
         </div>
-        {error ? <p className="gate-error">{error}</p> : null}
-        {pending && !result ? <p className="gate-quiet">Reading this URL.</p> : null}
-      </form>
+      ) : (
+        <>
+          <button type="button" className="wordmark gate-mark" onClick={enter}>
+            Hendricks
+          </button>
+          <form className="gate-form" onSubmit={onSubmit}>
+            <p className="gate-line">Type your website.</p>
+            <div className="gate-bar">
+              <input
+                type="text"
+                name="url"
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                autoComplete="url"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
+                aria-label="Website"
+                disabled={pending}
+              />
+              <button
+                type="submit"
+                className="gate-submit"
+                disabled={pending || !value.trim()}
+                aria-label={pending ? "Reading" : "Submit"}
+              >
+                →
+              </button>
+            </div>
+            {error ? <p className="gate-error">{error}</p> : null}
+            {pending ? <p className="gate-quiet">Reading this URL.</p> : null}
+          </form>
+        </>
+      )}
 
       {result ? <ProbeResults result={result} onEnter={enter} /> : null}
     </div>

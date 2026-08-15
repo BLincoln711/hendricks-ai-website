@@ -898,17 +898,14 @@ article .prose p:last-child {
   margin-top: 1.5rem;
 }
 
-.page-ctas,
-.probe-ctas {
+.page-ctas {
   display: flex;
   flex-wrap: wrap;
   gap: 0.85rem 1.35rem;
   margin-top: 2.5rem;
 }
 
-.page-ctas a,
-.probe-ctas a,
-.probe-ctas button {
+.page-ctas a {
   color: var(--copper);
   background: none;
   border: 0;
@@ -918,9 +915,7 @@ article .prose p:last-child {
   text-decoration: none;
 }
 
-.page-ctas a:hover,
-.probe-ctas a:hover,
-.probe-ctas button:hover {
+.page-ctas a:hover {
   text-decoration: underline;
 }
 
@@ -934,6 +929,8 @@ article .prose p:last-child {
 
 .gate-open {
   justify-content: flex-start;
+  align-items: stretch;
+  padding: 0.85rem 1.25rem 2.5rem;
 }
 
 .gate-mark {
@@ -942,8 +939,22 @@ article .prose p:last-child {
   left: 1.4rem;
 }
 
+.gate-result-top {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  width: min(48rem, 100%);
+  margin: 0 auto 0.75rem;
+}
+
 .gate-form {
   width: min(36rem, 100%);
+}
+
+.gate-form-inline {
+  flex: 1;
+  width: auto;
+  min-width: 0;
 }
 
 .gate-line {
@@ -991,12 +1002,37 @@ article .prose p:last-child {
 }
 
 .probe {
-  width: min(42rem, 100%);
-  margin: 3rem auto 0;
+  width: min(48rem, 100%);
+  margin: 0 auto;
+}
+
+.probe-stage {
+  display: flex;
+  flex-direction: column;
+}
+
+.probe-kicker {
+  margin: 0 0 0.35rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+}
+
+.probe-board-title {
+  font-family: var(--font-serif), Newsreader, Georgia, serif;
+  font-size: clamp(1.65rem, 3vw, 2.15rem);
+  font-weight: 450;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin: 0 0 0.65rem;
+}
+
+.probe-board-block {
+  margin-bottom: 0.85rem;
 }
 
 .probe-block {
-  margin-bottom: 2.25rem;
+  margin-bottom: 1.75rem;
 }
 
 .probe h2 {
@@ -1006,19 +1042,20 @@ article .prose p:last-child {
   margin: 0 0 0.85rem;
 }
 
-.extract-list {
+.extract-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.15rem;
   margin: 0;
 }
 
-.extract-row {
-  display: grid;
-  grid-template-columns: 8rem 1fr;
-  gap: 1rem;
-  padding: 0.45rem 0;
-  border-bottom: 1px solid var(--line);
+.extract-chip {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0;
 }
 
-.extract-row dt {
+.extract-chip dt {
   color: var(--muted);
 }
 
@@ -1031,30 +1068,173 @@ article .prose p:last-child {
   border-collapse: collapse;
 }
 
+.surface-board tr {
+  opacity: 0;
+  animation: boardDraw 0.5s ease forwards;
+}
+
 .surface-board th,
 .surface-board td {
   text-align: left;
   font-weight: 400;
-  padding: 0.55rem 0;
+  padding: 0.48rem 0;
   border-bottom: 1px solid var(--line);
+  font-size: 1.12rem;
 }
 
 .surface-board th {
-  width: 12rem;
-  color: var(--muted);
+  width: 13rem;
+  color: var(--ink);
+  font-family: var(--font-serif), Newsreader, Georgia, serif;
+  font-size: 1.2rem;
 }
 
 .surface-cell {
   display: inline-block;
-  min-height: 1.2em;
+  min-height: 1.15em;
 }
 
 .surface-cell.is-empty {
-  width: 4rem;
+  width: 6.5rem;
+  height: 1.05rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
 }
 
 .probe-copy p {
   margin: 0 0 1rem;
+}
+
+.probe-copy-tight {
+  margin: 0 0 0.55rem;
+}
+
+.probe-copy-tight p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+
+.probe-pull {
+  font-family: var(--font-serif), Newsreader, Georgia, serif;
+  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin: 0.35rem 0 0.75rem;
+}
+
+.probe-cta-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.7rem;
+}
+
+.probe-enter {
+  display: block;
+  width: 100%;
+  padding: 0.95rem 1.25rem;
+  background: var(--copper);
+  color: var(--paper);
+  border: 0;
+  font-family: var(--font-serif), Newsreader, Georgia, serif;
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  letter-spacing: -0.02em;
+  cursor: pointer;
+}
+
+.probe-enter:hover,
+.probe-enter:focus-visible {
+  filter: brightness(1.06);
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.probe-secondary {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.probe-secondary a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.probe-secondary a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+.probe-after {
+  margin-top: 2.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.probe-passage {
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+@keyframes boardDraw {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .surface-board tr {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@media (max-height: 800px) {
+  .gate-open {
+    padding-top: 0.55rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .gate-result-top {
+    margin-bottom: 0.45rem;
+  }
+
+  .probe-board-title {
+    font-size: 1.55rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .surface-board th,
+  .surface-board td {
+    padding: 0.36rem 0;
+    font-size: 1.05rem;
+  }
+
+  .surface-board th {
+    font-size: 1.1rem;
+  }
+
+  .probe-copy-tight p {
+    font-size: 0.9rem;
+  }
+
+  .probe-pull {
+    font-size: 1.3rem;
+    margin: 0.2rem 0 0.55rem;
+  }
+
+  .probe-enter {
+    padding: 0.85rem 1.1rem;
+    font-size: 1.3rem;
+  }
 }
 
 @media (min-width: 720px) {
