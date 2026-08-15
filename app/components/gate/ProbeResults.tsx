@@ -27,13 +27,7 @@ export function ProbeResults({
   return (
     <section className="probe" aria-live="polite">
       <div className="probe-stage">
-        <p className="probe-kicker">
-          {result.host ? `${result.host} · ` : ""}
-          six surfaces. Blank is unmeasured — not invisible.
-        </p>
-
         <div className="probe-board-block">
-          <h2 className="probe-board-title">Where this URL was tested</h2>
           <table className="surface-board">
             <tbody>
               {result.surfaces.map((row, index) => (
@@ -54,7 +48,7 @@ export function ProbeResults({
           <p>This is a public probe of one URL. It is not the retrieval graph.</p>
         </div>
 
-        <p className="probe-pull">The blank cells are the rest of the graph.</p>
+        <p className="probe-pull">The site is on the other side of this reading.</p>
 
         <div className="probe-cta-stack">
           <button type="button" className="probe-enter" onClick={onEnter}>
