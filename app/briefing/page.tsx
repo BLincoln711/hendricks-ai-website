@@ -12,15 +12,18 @@ export default function BriefingPage() {
   return (
     <SiteChrome>
       <article className="product interior">
-        <PageIntro kicker="Briefing" title="Briefing" compact />
-        <p className="proof-line">
-          A briefing is how install and operate are scoped. The Retrieval Graph
-          Diagnostic can be commissioned on its own.
-        </p>
-        <PageActions
-          primary={{ href: BOOKING_URL, label: "Book a briefing", external: true }}
-          secondary={{ href: "/diagnostic", label: "Retrieval Graph Diagnostic" }}
-        />
+        <PageIntro title="Briefing" compact legend />
+        <section className="band">
+          <p className="measure">
+            A briefing is how install and operate are scoped. The Retrieval Graph
+            Diagnostic can be commissioned on its own.
+          </p>
+        </section>
+        <section className="band band-close">
+          <PageActions
+            primary={{ href: BOOKING_URL, label: "Book a briefing", external: true }}
+          />
+        </section>
       </article>
     </SiteChrome>
   );

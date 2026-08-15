@@ -1,10 +1,13 @@
 import {
-  DIAGNOSTIC,
-  METHOD_OBJECT,
   METHOD_STEPS,
   POSITIONING,
   PRACTICE_MODULES,
+  REFUSAL,
+  SURFACES,
+  TWO_BUYS,
 } from "@/lib/site";
+import { FlowDiagram } from "./FlowDiagram";
+import { LeadParallax } from "./LeadParallax";
 import { PageActions } from "./PageActions";
 import { SiteChrome } from "./SiteChrome";
 
@@ -12,55 +15,56 @@ export function HomePage() {
   return (
     <SiteChrome>
       <article className="product interior">
-        <header className="product-hero masthead">
-          <p className="mono-label">Hendricks · Search intelligence engineering</p>
-          <h1 className="spec">{POSITIONING}</h1>
-          <p className="deck">One system. We install it. We operate it.</p>
+        <header className="home-masthead">
+          <div className="home-masthead-copy">
+            <p className="mono-label">Search intelligence engineering</p>
+            <h1 className="lead-spec">
+              <LeadParallax>{POSITIONING}</LeadParallax>
+            </h1>
+            <p className="mono-fact">{TWO_BUYS}</p>
+          </div>
+          <FlowDiagram variant="home" />
         </header>
 
-        <section className="console-band" aria-label="Method">
-          <div className="method-track">
+        <section className="band" aria-label="Proof">
+          <p className="measure">
+            He has been on both sides of the retrieval problem: Search and Innovation
+            Lead at SolarWinds, and Global Paid Search Director at Merkle. Dentsu is the
+            holding company, not a second job.
+          </p>
+        </section>
+
+        <section className="band" aria-label="Method">
+          <div className="verb-rail">
             {METHOD_STEPS.map((step) => (
-              <div key={step} className="method-node">
-                <strong>{step}</strong>
-              </div>
+              <strong key={step}>{step}</strong>
             ))}
           </div>
-          <p className="object-caption">Object = {METHOD_OBJECT}.</p>
         </section>
 
-        <section className="instrument-stack" aria-label="Practice">
-          {PRACTICE_MODULES.map((module, index) => (
-            <article
-              key={module.name}
-              className="instrument-row"
-              style={{ ["--i" as string]: index }}
-            >
-              <h2>{module.name}</h2>
-              <p>{module.body}</p>
-            </article>
-          ))}
+        <section className="band" aria-label="System">
+          <ul className="system-labels">
+            {PRACTICE_MODULES.map((module) => (
+              <li key={module.name}>{module.name}</li>
+            ))}
+          </ul>
         </section>
 
-        <p className="proof-line">
-          He has been on both sides of the retrieval problem: Search and Innovation
-          Lead at SolarWinds, and Global Paid Search Director at Merkle. Dentsu is the
-          holding company, not a second job.
-        </p>
-
-        <section className="offer-plate panel">
-          <p className="mono-label">{DIAGNOSTIC.name}</p>
-          <p className="price-figure">
-            {DIAGNOSTIC.price}{" "}
-            <span className="price-term">/ {DIAGNOSTIC.duration}</span>
-          </p>
-          <p>{DIAGNOSTIC.lede}</p>
+        <section className="band" aria-label="Surfaces">
+          <ul className="surface-chips">
+            {SURFACES.map((surface) => (
+              <li key={surface}>{surface}</li>
+            ))}
+          </ul>
         </section>
 
-        <PageActions
-          primary={{ href: "/briefing", label: "Book a briefing" }}
-          secondary={{ href: "/diagnostic", label: "Retrieval Graph Diagnostic" }}
-        />
+        <section className="band" aria-label="Refusal">
+          <p className="measure refusal-line">{REFUSAL}</p>
+        </section>
+
+        <section className="band band-close">
+          <PageActions primary={{ href: "/briefing", label: "Book a briefing" }} />
+        </section>
       </article>
     </SiteChrome>
   );

@@ -13,21 +13,21 @@ export default function PricingPage() {
   return (
     <SiteChrome>
       <article className="product interior">
-        <PageIntro kicker="Pricing" title={DIAGNOSTIC.name} compact />
-        <section className="offer-plate panel offer-plate-hero">
-          <p className="price-figure">
-            {DIAGNOSTIC.price}{" "}
-            <span className="price-term">/ {DIAGNOSTIC.duration}</span>
+        <PageIntro title="Pricing" compact legend />
+        <section className="band spec-stack">
+          <p className="mono-label">{DIAGNOSTIC.name}</p>
+          <p className="price-figure price-figure-type">{DIAGNOSTIC.price}</p>
+          <p className="measure">
+            {DIAGNOSTIC.duration}. {DIAGNOSTIC.lede}
           </p>
-          <p>{DIAGNOSTIC.lede}</p>
         </section>
-        <p className="object-caption">
-          Install and operate are scoped on the briefing.
-        </p>
-        <PageActions
-          primary={{ href: "/briefing", label: "Book a briefing" }}
-          secondary={{ href: "/diagnostic", label: "Retrieval Graph Diagnostic" }}
-        />
+        <section className="band spec-stack">
+          <p className="mono-label">Install and operate</p>
+          <p className="measure">Install and operate are scoped on the briefing.</p>
+        </section>
+        <section className="band band-close">
+          <PageActions primary={{ href: "/briefing", label: "Book a briefing" }} />
+        </section>
       </article>
     </SiteChrome>
   );

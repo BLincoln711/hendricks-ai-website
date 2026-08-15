@@ -60,3 +60,18 @@ export const METHOD_STEPS = [
 ] as const;
 
 export const METHOD_OBJECT = "one search intelligence system";
+
+export const TWO_BUYS =
+  "Two buys. A Retrieval Graph Diagnostic, or one system we install and operate.";
+
+export const SURFACES = [
+  "Classic Google",
+  "AI Overviews",
+  "AI Mode",
+  "ChatGPT",
+  "Perplexity",
+  "Gemini",
+] as const;
+
+export const CONTACT_EMAIL = "hello@hendricks.ai";
+export const CONTACT_PLACE = "Houston, TX";

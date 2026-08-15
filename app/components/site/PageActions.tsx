@@ -2,10 +2,8 @@ import Link from "next/link";
 
 export function PageActions({
   primary,
-  secondary,
 }: {
   primary: { href: string; label: string; external?: boolean };
-  secondary?: { href: string; label: string };
 }) {
   return (
     <p className="page-ctas">
@@ -23,7 +21,6 @@ export function PageActions({
           {primary.label}
         </Link>
       )}
-      {secondary ? <Link href={secondary.href}>{secondary.label}</Link> : null}
     </p>
   );
 }

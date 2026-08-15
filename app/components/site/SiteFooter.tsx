@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { NAV_ITEMS } from "@/lib/site";
+import { CONTACT_EMAIL, CONTACT_PLACE, NAV_ITEMS } from "@/lib/site";
 
 export function SiteFooter() {
   return (
@@ -19,6 +19,11 @@ export function SiteFooter() {
           <Link href="/terms">Terms</Link>
           <Link href="/privacy">Privacy</Link>
         </nav>
+        <p className="site-footer-meta">
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+          <span aria-hidden="true"> · </span>
+          {CONTACT_PLACE}
+        </p>
       </div>
     </footer>
   );

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { FlowDiagram } from "../components/site/FlowDiagram";
 import { PageActions } from "../components/site/PageActions";
 import { PageIntro } from "../components/site/PageIntro";
 import { SiteChrome } from "../components/site/SiteChrome";
@@ -13,22 +14,19 @@ export default function PracticePage() {
     <SiteChrome>
       <article className="product interior">
         <PageIntro title="Practice" compact legend />
-        <section className="instrument-stack" aria-label="Practice modules">
-          {PRACTICE_MODULES.map((module, index) => (
-            <article
-              key={module.name}
-              className="instrument-row"
-              style={{ ["--i" as string]: index }}
-            >
-              <h2>{module.name}</h2>
-              <p>{module.body}</p>
-            </article>
-          ))}
+        <section className="band band-flush">
+          <FlowDiagram variant="practice" />
         </section>
-        <PageActions
-          primary={{ href: "/briefing", label: "Book a briefing" }}
-          secondary={{ href: "/diagnostic", label: "Retrieval Graph Diagnostic" }}
-        />
+        <section className="band" aria-label="Practice modules">
+          <ul className="system-labels">
+            {PRACTICE_MODULES.map((module) => (
+              <li key={module.name}>{module.name}</li>
+            ))}
+          </ul>
+        </section>
+        <section className="band band-close">
+          <PageActions primary={{ href: "/briefing", label: "Book a briefing" }} />
+        </section>
       </article>
     </SiteChrome>
   );
