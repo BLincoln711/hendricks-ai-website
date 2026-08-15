@@ -27,11 +27,11 @@ export function ProbeResults({
   return (
     <section className="probe" aria-live="polite">
       <div className="probe-stage">
-        <div className="probe-board-block">
+        <div className="instrument">
           <table className="surface-board">
             <tbody>
               {result.surfaces.map((row, index) => (
-                <tr key={row.id} style={{ animationDelay: `${80 + index * 70}ms` }}>
+                <tr key={row.id} style={{ animationDelay: `${70 + index * 65}ms` }}>
                   <th scope="row">{row.label}</th>
                   <td>
                     <Cell state={row.state} />
@@ -40,7 +40,6 @@ export function ProbeResults({
               ))}
             </tbody>
           </table>
-          <p className="probe-quiet">Chosen is unmeasured. Paid is unmeasured.</p>
         </div>
 
         <div className="probe-copy probe-copy-tight">

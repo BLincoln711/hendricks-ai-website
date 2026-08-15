@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Newsreader, Source_Sans_3 } from "next/font/google";
+import { IBM_Plex_Mono, Instrument_Serif, Inter } from "next/font/google";
 import "./globals.css";
 import { defaultMetadata } from "./metadata";
 import HubSpotTracking from "./components/HubSpotTracking";
@@ -7,15 +7,23 @@ import GoogleTagManager from "./components/GoogleTagManager";
 import GTMNoScript from "./components/GTMNoScript";
 import GlobalSchemas from "../components/GlobalSchemas";
 
-const newsreader = Newsreader({
+const instrument = Instrument_Serif({
   subsets: ["latin"],
+  weight: "400",
   variable: "--font-serif",
   display: "swap",
 });
 
-const sourceSans = Source_Sans_3({
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -35,7 +43,7 @@ export default function RootLayout({
         />
         <GoogleTagManager />
       </head>
-      <body className={`${newsreader.variable} ${sourceSans.variable} font-sans`}>
+      <body className={`${instrument.variable} ${inter.variable} ${plexMono.variable} font-sans`}>
         <GTMNoScript />
         <HubSpotTracking />
         <GlobalSchemas />

@@ -11,12 +11,14 @@ export const metadata: Metadata = {
 export default function BriefingPage() {
   return (
     <SiteChrome>
-      <article className="page-article">
-        <PageIntro title="Briefing" deck={POSITIONING} />
-        <p>
-          A briefing is how install and operate are scoped. The Retrieval Graph
-          Diagnostic can be commissioned on its own.
-        </p>
+      <article className="product">
+        <PageIntro eyebrow="Briefing" title="Briefing" deck={POSITIONING} />
+        <section className="product-section panel">
+          <p>
+            A briefing is how install and operate are scoped. The Retrieval Graph
+            Diagnostic can be commissioned on its own.
+          </p>
+        </section>
         <p className="page-ctas">
           <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
             Book a briefing

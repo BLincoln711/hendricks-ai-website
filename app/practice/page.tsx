@@ -12,18 +12,19 @@ export const metadata: Metadata = {
 export default function PracticePage() {
   return (
     <SiteChrome>
-      <article className="page-article">
-        <PageIntro title="Practice" deck={POSITIONING} />
-        <ol className="module-list">
-          {PRACTICE_MODULES.map((module) => (
-            <li key={module.name}>
+      <article className="product">
+        <PageIntro eyebrow="Practice" title="Practice" deck={POSITIONING} />
+        <div className="module-grid product-section">
+          {PRACTICE_MODULES.map((module, index) => (
+            <div key={module.name} className="panel module-card">
+              <div className="module-index">0{index + 1}</div>
               <h2>{module.name}</h2>
               <p>{module.body}</p>
-            </li>
+            </div>
           ))}
-        </ol>
-        <section>
-          <h2>Refusal</h2>
+        </div>
+        <section className="product-section">
+          <p className="mono-label">Refusal</p>
           <p>{REFUSAL}</p>
         </section>
         <p className="page-ctas">

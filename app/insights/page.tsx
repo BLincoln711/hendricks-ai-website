@@ -41,17 +41,17 @@ const ARCHIVE = [
 export default function InsightsPage() {
   return (
     <SiteChrome>
-      <article className="page-article">
-        <PageIntro title="Insights" deck="The archive. Not a volume play." />
-        <section>
-          <h2>Start here</h2>
-          <p>
+      <article className="product">
+        <PageIntro eyebrow="Insights" title="Insights" />
+        <section className="product-section panel">
+          <p className="mono-label">Start here</p>
+          <h2>
             <Link href={`/insights/${FEATURED.slug}`}>{FEATURED.title}</Link>
-          </p>
+          </h2>
         </section>
-        <section>
-          <h2>Archive</h2>
-          <ul className="plain-list">
+        <section className="product-section">
+          <p className="mono-label">Archive</p>
+          <ul className="archive-list">
             {ARCHIVE.map((item) => (
               <li key={item.slug}>
                 <Link href={`/insights/${item.slug}`}>{item.title}</Link>

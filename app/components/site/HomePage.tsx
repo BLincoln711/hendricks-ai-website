@@ -12,8 +12,9 @@ import { SiteChrome } from "./SiteChrome";
 export function HomePage() {
   return (
     <SiteChrome>
-      <article className="page-article">
-        <header className="page-intro">
+      <article className="product">
+        <header className="product-hero">
+          <p className="mono-label">Search intelligence engineering</p>
           <h1>Hendricks · Search intelligence engineering</h1>
           <p className="deck">
             One system. We install it. We operate it. Built for the CMO, the managing
@@ -22,8 +23,8 @@ export function HomePage() {
           <p className="lede">{POSITIONING}</p>
         </header>
 
-        <section>
-          <h2>Proof</h2>
+        <section className="product-section">
+          <p className="mono-label">Proof</p>
           <p>
             He has been on both sides of the retrieval problem: Search and Innovation
             Lead at SolarWinds, and Global Paid Search Director at Merkle. Dentsu is the
@@ -31,32 +32,41 @@ export function HomePage() {
           </p>
         </section>
 
-        <section>
-          <h2>Method</h2>
-          <p className="method-line">{METHOD_STEPS.join(" → ")}</p>
-          <p>Object = {METHOD_OBJECT}.</p>
-        </section>
-
-        <section>
-          <h2>Practice</h2>
-          <ul className="plain-list">
-            {PRACTICE_MODULES.map((module) => (
-              <li key={module.name}>
-                <strong>{module.name}.</strong> {module.body}
-              </li>
+        <section className="product-section">
+          <p className="mono-label">Method</p>
+          <div className="method-rail">
+            {METHOD_STEPS.map((step, index) => (
+              <div key={step} className="panel method-step">
+                <div className="module-index">0{index + 1}</div>
+                <strong>{step}</strong>
+              </div>
             ))}
-          </ul>
+          </div>
+          <p style={{ marginTop: "1rem" }}>Object = {METHOD_OBJECT}.</p>
         </section>
 
-        <section>
-          <h2>Refusal</h2>
+        <section className="product-section">
+          <p className="mono-label">Practice</p>
+          <div className="module-grid">
+            {PRACTICE_MODULES.map((module, index) => (
+              <div key={module.name} className="panel module-card">
+                <div className="module-index">0{index + 1}</div>
+                <h2>{module.name}</h2>
+                <p>{module.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="product-section">
+          <p className="mono-label">Refusal</p>
           <p>{REFUSAL}</p>
         </section>
 
-        <section>
-          <h2>{DIAGNOSTIC.name}</h2>
-          <p>
-            {DIAGNOSTIC.price} / {DIAGNOSTIC.duration}. Available on its own.
+        <section className="product-section panel">
+          <p className="mono-label">{DIAGNOSTIC.name}</p>
+          <p className="price-figure">
+            {DIAGNOSTIC.price} <span style={{ color: "var(--muted)", fontSize: "0.45em" }}>/ {DIAGNOSTIC.duration}</span>
           </p>
           <p>{DIAGNOSTIC.lede}</p>
         </section>

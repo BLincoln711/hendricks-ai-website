@@ -23,20 +23,22 @@ const STEP_COPY: Record<(typeof METHOD_STEPS)[number], string> = {
 export default function MethodPage() {
   return (
     <SiteChrome>
-      <article className="page-article">
+      <article className="product">
         <PageIntro
+          eyebrow="Method"
           title="Method"
           deck={`${METHOD_STEPS.join(" → ")}. Object = ${METHOD_OBJECT}.`}
         />
-        <p>{POSITIONING}</p>
-        <ol className="module-list">
-          {METHOD_STEPS.map((step) => (
-            <li key={step}>
-              <h2>{step}</h2>
+        <p className="product-section lede">{POSITIONING}</p>
+        <div className="method-rail product-section">
+          {METHOD_STEPS.map((step, index) => (
+            <div key={step} className="panel method-step">
+              <div className="module-index">0{index + 1}</div>
+              <strong>{step}</strong>
               <p>{STEP_COPY[step]}</p>
-            </li>
+            </div>
           ))}
-        </ol>
+        </div>
         <p className="page-ctas">
           <Link href="/practice">Practice</Link>
           <Link href="/diagnostic">Retrieval Graph Diagnostic</Link>

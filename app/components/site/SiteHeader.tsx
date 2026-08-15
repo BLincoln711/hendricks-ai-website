@@ -29,6 +29,9 @@ export function SiteHeader() {
             );
           })}
         </nav>
+        <Link href="/briefing" className="header-briefing">
+          Briefing
+        </Link>
         <button
           type="button"
           className="site-menu-button"

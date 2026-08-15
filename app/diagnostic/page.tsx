@@ -12,21 +12,26 @@ export const metadata: Metadata = {
 export default function DiagnosticPage() {
   return (
     <SiteChrome>
-      <article className="page-article">
+      <article className="product">
         <PageIntro
+          eyebrow="Diagnostic"
           title={DIAGNOSTIC.name}
           deck={`${DIAGNOSTIC.price} / ${DIAGNOSTIC.duration}.`}
         />
-        <p className="lede">{DIAGNOSTIC.lede}</p>
-        <section>
-          <h2>Weeks</h2>
-          <ol className="plain-list">
+        <section className="product-section panel">
+          <p className="price-figure">{DIAGNOSTIC.price}</p>
+          <p className="lede">{DIAGNOSTIC.lede}</p>
+        </section>
+        <section className="product-section">
+          <p className="mono-label">Weeks</p>
+          <div className="week-grid">
             {DIAGNOSTIC.weeks.map((week, index) => (
-              <li key={week}>
-                Week {index + 1}: {week}
-              </li>
+              <div key={week} className="panel week-cell">
+                <div className="module-index">0{index + 1}</div>
+                <h3>{week}</h3>
+              </div>
             ))}
-          </ol>
+          </div>
         </section>
         <p>
           The diagnostic is available on its own. After it, you decide whether we
