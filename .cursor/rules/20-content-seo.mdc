@@ -1,0 +1,24 @@
+---
+description: Approved content, claims, SEO, structured data, and editorial safeguards
+globs:
+  - "content/**/*.md"
+  - "src/content/**/*.{ts,tsx,json}"
+  - "src/app/**/page.tsx"
+  - "src/lib/seo/**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Content and SEO Rule
+
+- Preserve approved copy unless correcting a factual, legal, grammar, or accessibility issue.
+- Do not create fake metrics, logos, testimonials, clients, or outcomes.
+- No guaranteed citation, ranking, recommendation, or revenue language.
+- Describe AI results as observed under defined contexts.
+- Explain that Hendricks does not access hidden model reasoning.
+- Every indexable page needs a unique title, description, canonical, H1, and social image.
+- Structured data must match visible content.
+- Sanitize JSON-LD output.
+- Do not add review or rating schema without verified visible evidence.
+- Do not add FAQPage markup by default.
+- Research pages require author, published date, modified date, data-through date when relevant, methodology, sources, and limitations.
+- The Search Economy is an external independent publication, not a Hendricks service or research section.

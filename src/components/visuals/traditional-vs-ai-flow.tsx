@@ -1,0 +1,106 @@
+import { ChevronRight } from 'lucide-react'
+
+import { cn } from '@/lib/utils/cn'
+
+/**
+ * Two process rows contrasting traditional ranking with the AI-mediated
+ * selection journey (docs/13 §6). Stacks with clear labels on mobile.
+ *
+ * Built from ordered lists rather than an SVG so the sequence is conveyed by
+ * markup, not only by visual arrangement.
+ */
+function Flow({
+  label,
+  steps,
+  tone,
+}: {
+  label: string
+  steps: readonly string[]
+  tone: 'muted' | 'active'
+}) {
+  return (
+    <div className="flex flex-col gap-4">
+      <h3
+        className={cn(
+          'text-[1.0625rem] font-medium',
+          tone === 'active' ? 'text-[var(--color-navy)]' : 'text-[var(--color-slate)]',
+        )}
+      >
+        {label}
+      </h3>
+      <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-2">
+        {steps.map((step, index) => (
+          <li key={step} className="flex items-center gap-1.5">
+            <span
+              className={cn(
+                'inline-flex items-center rounded-[var(--radius-control)] border px-2.5 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap',
+                tone === 'active'
+                  ? 'border-[var(--color-blue)] bg-[color-mix(in_srgb,var(--color-blue)_8%,white)] text-[var(--color-navy)]'
+                  : 'border-[var(--color-border)] bg-white text-[var(--color-slate)]',
+              )}
+            >
+              {step}
+            </span>
+            {index < steps.length - 1 ? (
+              <ChevronRight
+                className={cn(
+                  'size-3.5 shrink-0',
+                  tone === 'active' ? 'text-[var(--color-blue)]' : 'text-[var(--color-border)]',
+                )}
+                aria-hidden="true"
+              />
+            ) : null}
+          </li>
+        ))}
+      </ol>
+    </div>
+  )
+}
+
+export function TraditionalVsAiFlow({
+  traditional,
+  aiMediated,
+  className,
+}: {
+  traditional: { label: string; steps: readonly string[] }
+  aiMediated: { label: string; steps: readonly string[] }
+  className?: string
+}) {
+  return (
+    <div className={cn('grid gap-8 lg:grid-cols-2 lg:gap-12', className)}>
+      <Flow label={traditional.label} steps={traditional.steps} tone="muted" />
+      <Flow label={aiMediated.label} steps={aiMediated.steps} tone="active" />
+    </div>
+  )
+}
+
+/**
+ * The complete Discoverable → Revenue path. Rendered as a single wrapping
+ * sequence; the amber terminal node marks the commercial outcome.
+ */
+export function CompletePath({ steps, className }: { steps: readonly string[]; className?: string }) {
+  return (
+    <ol className={cn('flex flex-wrap items-center gap-x-1.5 gap-y-2', className)}>
+      {steps.map((step, index) => {
+        const isLast = index === steps.length - 1
+        return (
+          <li key={step} className="flex items-center gap-1.5">
+            <span
+              className={cn(
+                'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap',
+                isLast
+                  ? 'border-[var(--color-amber)] bg-[color-mix(in_srgb,var(--color-amber)_14%,white)] text-[var(--color-navy)]'
+                  : 'border-[var(--color-border)] bg-white text-[var(--color-graphite)]',
+              )}
+            >
+              {step}
+            </span>
+            {!isLast ? (
+              <ChevronRight className="size-3.5 shrink-0 text-[var(--color-border)]" aria-hidden="true" />
+            ) : null}
+          </li>
+        )
+      })}
+    </ol>
+  )
+}

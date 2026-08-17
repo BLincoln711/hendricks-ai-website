@@ -1,0 +1,157 @@
+# Content Verification Register
+
+Nothing on this list may be published until its status is `approved` and an
+approved source is recorded. Seeded from `templates/content-verification.csv` and
+extended with items found while reading the approved copy in `content/pages/`.
+
+Governing rules: `docs/12-CONTENT-GOVERNANCE.md` §6 (proof rules) and §7 (founder
+claims), and `.cursor/rules/20-content-seo.mdc`.
+
+## Status legend
+
+- `pending` — not yet reviewed by Brandon
+- `approved` — wording and source confirmed, safe to publish
+- `blocked` — cannot publish; needs external permission or legal review
+
+---
+
+## Founder claims
+
+| # | Claim | Proposed location | What must be verified | Status |
+|---|---|---|---|---|
+| F1 | "More than fifteen years inside search" | Homepage founder section, About | Exact start year and approved wording. `content/pages/01-home.md` flags this explicitly. | pending |
+| F2 | Homepage credibility line: "more than fifteen years of enterprise search, paid and organic acquisition, analytics, and search operating systems" | Homepage hero | The approved copy itself says "Verify the exact experience statement before publication." | pending |
+| F3 | SolarWinds title and dates | About | Exact title, start and end dates | pending |
+| F4 | Merkle / Dentsu title and dates | About | Exact title, start and end dates, which entity | pending |
+| F5 | Ahrefs advisory role | About | Current or former, approved wording | pending |
+| F6 | University relationship | About | Institution, role, approved wording | pending |
+| F7 | Speaking credentials | About | Named events and dates | pending |
+| F8 | "Brandon personally architects Hendricks engagements" | Homepage founder section | Confirm this remains accurate as the firm scales | pending |
+| F9 | Job title — "Search Intelligence Engineer" | Homepage, About, `Person` JSON-LD | Confirm this is the title to publish | pending |
+
+Per `docs/12` §7, where relationship context matters the copy must state whether
+work occurred through employment, agency, consulting, or direct Hendricks
+engagement.
+
+## Client and brand assets
+
+| # | Item | Proposed location | What must be verified | Status |
+|---|---|---|---|---|
+| C1 | Any client or employer logo | About, Results | Written permission and correct relationship context. A client name may not be used merely because Brandon worked with it through a former employer (`docs/12` §6). | blocked |
+| C2 | Testimonials | Results | Attribution, role, relationship, written permission | blocked |
+| C3 | Case study metrics | Results | Baseline, intervention, timeframe, measurement source, limitations, permission | blocked |
+
+`showResults` stays `false` until at least two verified case studies exist, or one
+verified case study plus one clearly labeled research experiment.
+
+## Imagery
+
+| # | Item | Proposed location | What must be verified | Status |
+|---|---|---|---|---|
+| I1 | Founder portrait | Homepage founder section, About | Approved original photograph and final alt text | pending |
+| I2 | Portrait resolution ceiling | Homepage, About | **Known limitation.** Best available source is 1024×819 landscape, cropped to ~660×819. Founder columns are sized to ~380px so this covers 2×. Replace when a photographer re-export is available. No AI upscaling. | pending |
+| I3 | Wordmark provenance | Global | Confirm Hendricks owns the wordmark artwork and typeface licensing permits web use as artwork | pending |
+
+## External venture
+
+| # | Item | Proposed location | What must be verified | Status |
+|---|---|---|---|---|
+| E1 | The Search Economy description | About page only, founder biography | Final approved description. Approved wording is in `docs/01` §13 and `docs/12` §8. | pending |
+
+Hard constraints, from `docs/10` §2. The Search Economy must be absent from
+Solutions, primary navigation, and the footer; must never be described as a
+Hendricks research arm; must have no Hendricks route; must appear only in
+Brandon's founder context on About; and must link externally to
+`https://thesearcheconomy.com`.
+
+The `check:content` script fails the build if any Search Economy reference appears
+outside `/about`.
+
+## Pricing claims
+
+**Decided 2026-08-16 (Brandon): fees are disclosed in conversation, not published.**
+This resolves P1–P3 and matches `docs/01` §15, which excludes a public pricing
+calculator, and `docs/03` §2, which excludes a pricing nav item. `/diagnostic`
+describes the fee as fixed and scope-based, and `/for-brands` lists engagement types
+without amounts. A unit test asserts no currency figure reaches `/diagnostic`.
+
+| # | Item | Proposed location | Decision | Status |
+|---|---|---|---|---|
+| P1 | Diagnostic fee | `/diagnostic` | Withheld. Page states a fixed fee set by scope rather than hours, and lists the eight scope factors that determine it. | resolved — withheld |
+| P2 | 90-Day Program fee | `/for-brands` | Withheld. Engagement type described without an amount. | resolved — withheld |
+| P3 | Managed Search Intelligence monthly fee | `/for-brands` | Withheld. Engagement type described without an amount. | resolved — withheld |
+
+If this reverses, the figures live in `content/pages/07-diagnostic.md` and
+`content/pages/09-for-brands.md` and would need re-transcribing into the content
+objects; the guard test in `tests/unit/commercial-content.test.ts` would need
+removing at the same time.
+
+## Legal
+
+| # | Item | Proposed location | What must be verified | Status |
+|---|---|---|---|---|
+| L1 | Privacy notice | `/privacy` | Written by counsel. Placeholder ships clearly marked. | blocked |
+| L2 | Website terms | `/terms` | Written by counsel. Placeholder ships clearly marked. | blocked |
+| L3 | Form consent language | `/diagnostic`, `/contact` | Approved consent wording and data-handling description | blocked |
+| L4 | Cookie and consent banner | Global | Whether a CMP is required, and which. `docs/07` §10 assigns this to legal counsel or the business owner. | blocked |
+| L5 | AI crawler policy | `robots.ts` | `docs/06` §7 requires a separately approved policy for AI training versus search discovery. Not to be decided silently in code. | pending |
+
+## Unanswered FAQ topics
+
+Three approved pages carry a "FAQ topics" list: questions without answers.
+`docs/12` §6 and `AGENTS.md` forbid inventing the answers, so none of these
+sections are rendered and no `FAQPage` JSON-LD is emitted. Each needs approved
+answers before it can ship.
+
+| # | Source | Proposed location | Topics | Status |
+|---|---|---|---|---|
+| Q1 | `content/pages/03-search-demand-intelligence.md` §"FAQ topics" | `/solutions/search-demand-intelligence` | 5 questions, incl. how demand is estimated when AI prompts are not publicly reported | pending |
+| Q2 | `content/pages/04-selection-intelligence.md` §"FAQ topics" | `/solutions/selection-intelligence` | 6 questions, incl. personalization handling and which AI systems are tested | pending |
+| Q3 | `content/pages/06-search-impact-measurement.md` §"FAQ topics" | `/solutions/search-impact-measurement` | 6 questions, incl. correlation versus causation and self-reported attribution | pending |
+
+Q2's "Is this the same as AI rank tracking?" and Q3's correlation-versus-causation
+question are category-defining answers. Both carry the risk of overclaiming, so
+their wording needs the same scrutiny as a metric definition.
+
+## SEO copy
+
+| # | Item | Proposed location | What must be verified | Status |
+|---|---|---|---|---|
+| S1 | Two approved title tags exceed the width Google renders | `/solutions` (85 chars), `/diagnostic` (78 chars) | Both are transcribed verbatim from the approved copy and are published as written. Confirm whether to shorten them or accept SERP truncation. | pending |
+| S2 | `/how-it-works` title ends "\| How It Works" rather than "\| Hendricks" | `/how-it-works` | The only page whose approved title does not close on the brand. Confirm intentional. | pending |
+
+## Internal links to unbuilt routes
+
+Approved copy points at six editorial routes that do not land until Phase 6, plus
+two legal routes awaiting counsel. Nothing links to a 404 today: `src/config/routes.ts`
+marks each route `built: false`, navigation and related-content lists filter on it,
+and CTAs whose approved destination is unbuilt fall back through `ctaHref`.
+
+| # | Approved destination | Referenced from | Current behaviour | Status |
+|---|---|---|---|---|
+| R1 | `/methodology` | All four solution pages, `/how-it-works`, `/diagnostic`, `/for-agencies`, homepage measurement CTA, footer | Filtered from related-content lists; homepage CTA falls back to `/solutions/search-impact-measurement` | pending Phase 6 |
+| R2 | `/what-is-selection-intelligence` | `/solutions/selection-intelligence`, homepage distinction CTA, footer | Filtered; homepage CTA falls back to `/solutions/selection-intelligence` | pending Phase 6 |
+| R3 | `/what-is-search-intelligence-engineering` | `/solutions/search-demand-intelligence`, footer | Filtered | pending Phase 6 |
+| R4 | `/ai-selection-problem` | `/solutions/selection-intelligence`, footer | Filtered | pending Phase 6 |
+| R5 | `/research` | Footer, 404 page | Footer column hidden entirely | pending Phase 6 |
+| R6 | `/corrections` | Footer legal row | Filtered | pending Phase 6 |
+| R7 | `/privacy`, `/terms` | Footer legal row | Filtered; blocks the Phase 5 forms via L1/L3 | blocked on L1, L2 |
+
+`docs/03` §6 asks each solution page to link at least two relevant research pages.
+No research pages exist yet, so each currently links two or three sibling
+solutions instead. The unit suite asserts the sibling minimum; the research
+requirement is met in Phase 6.
+
+## Organization structured data
+
+Per `docs/06` §8, these `Organization` fields may only be emitted once verified:
+
+| # | Field | Status |
+|---|---|---|
+| O1 | Founding date | pending |
+| O2 | Public business address | pending |
+| O3 | Public contact point | pending |
+| O4 | `sameAs` official profiles | pending |
+
+Until approved, the homepage `Organization` node emits only name, URL, logo, and
+founder.

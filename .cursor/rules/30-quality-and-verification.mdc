@@ -1,0 +1,28 @@
+---
+description: Testing, accessibility, browser verification, and release-quality gates
+alwaysApply: true
+---
+
+# Quality Rule
+
+A feature is not complete until it is tested.
+
+Required checks before final delivery:
+
+- TypeScript passes with no ignored errors.
+- Lint passes.
+- Unit tests pass.
+- Production build passes.
+- Playwright route and form tests pass.
+- Axe checks show no serious or critical violations.
+- Key routes render at 1440px, 1024px, and 390px widths.
+- No console errors or hydration warnings.
+- No horizontal overflow.
+- Keyboard navigation and visible focus work.
+- Reduced-motion mode remains complete and understandable.
+- Forms show success, invalid, server-error, and rate-limit states.
+- All internal links resolve.
+- Staging is noindex; production is indexable as specified.
+- Metadata, sitemap, robots, canonical, and JSON-LD are inspected in the rendered HTML.
+
+Do not suppress a failing test merely to complete the build.

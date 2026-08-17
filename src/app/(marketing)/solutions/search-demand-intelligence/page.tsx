@@ -1,0 +1,195 @@
+import type { Metadata } from 'next'
+
+import { Container } from '@/components/layout/container'
+import { PageHero } from '@/components/layout/page-hero'
+import { Section } from '@/components/layout/section'
+import { SectionHeading } from '@/components/layout/section-heading'
+import { ClosingCta } from '@/components/sections/closing-cta'
+import { Deliverables } from '@/components/sections/deliverables'
+import { RelatedLinks } from '@/components/sections/related-links'
+import { JsonLd } from '@/components/seo/json-ld'
+import { Callout } from '@/components/ui/callout'
+import { SignalList } from '@/components/ui/signal-list'
+import { SolutionMotif } from '@/components/visuals/solution-motif'
+import { routes } from '@/config/routes'
+import {
+  bestFit,
+  closing,
+  deliverables,
+  hero,
+  inputs,
+  intentContext,
+  meta,
+  problem,
+  related,
+  weighting,
+} from '@/content/pages/search-demand-intelligence'
+import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
+import { buildMetadata } from '@/lib/seo/metadata'
+
+export const metadata: Metadata = buildMetadata({
+  title: meta.title,
+  description: meta.description,
+  path: routes.searchDemandIntelligence.path,
+})
+
+export default function SearchDemandIntelligencePage() {
+  return (
+    <>
+      <JsonLd
+        data={jsonLdGraph(
+          webPageSchema({
+            path: routes.searchDemandIntelligence.path,
+            title: meta.title,
+            description: meta.description,
+          }),
+        )}
+      />
+
+      <PageHero
+        eyebrow={hero.eyebrow}
+        title={hero.title}
+        lead={hero.lead}
+        primaryCta={hero.primaryCta}
+        breadcrumbs={[
+          { label: routes.home.label, href: routes.home.path },
+          { label: routes.solutions.label, href: routes.solutions.path },
+          { label: routes.searchDemandIntelligence.label },
+        ]}
+        visual={
+          <div className="rounded-[var(--radius-panel)] border border-[color-mix(in_srgb,var(--color-field)_20%,transparent)] bg-[var(--color-navy-2)] p-8">
+            <SolutionMotif motif="demand" />
+          </div>
+        }
+      />
+
+      <Section variant="field" size="major" ariaLabelledBy="problem-title">
+        <Container>
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
+            <div className="flex flex-col gap-6">
+              <SectionHeading eyebrow={problem.eyebrow} title={problem.title} id="problem-title" />
+              <div className="flex flex-col gap-2">
+                {problem.statements.map((statement) => (
+                  <p key={statement} className="text-[1.0625rem] text-[var(--color-graphite)]">
+                    {statement}
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4 rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-white p-6 md:p-8">
+              <h3 className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+                {problem.determinesLead}
+              </h3>
+              <SignalList items={problem.determines} />
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Section variant="white" size="major" ariaLabelledBy="inputs-title">
+        <Container>
+          <div className="flex flex-col gap-10">
+            <SectionHeading
+              eyebrow={inputs.eyebrow}
+              title={inputs.title}
+              description={inputs.lead}
+              id="inputs-title"
+              maxWidth="wide"
+            />
+
+            <ul className="flex flex-wrap gap-2">
+              {inputs.items.map((item) => (
+                <li
+                  key={item}
+                  className="rounded-[var(--radius-control)] border border-[var(--color-border)] bg-[var(--color-field)] px-3 py-1.5 text-[0.875rem] text-[var(--color-graphite)]"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <p className="measure text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]">
+              {inputs.closing}
+            </p>
+          </div>
+        </Container>
+      </Section>
+
+      <Section variant="soft" size="major" ariaLabelledBy="intent-context-title">
+        <Container>
+          <div className="flex flex-col gap-10">
+            <SectionHeading
+              eyebrow={intentContext.eyebrow}
+              title={intentContext.title}
+              id="intent-context-title"
+              maxWidth="wide"
+            />
+
+            <div className="grid gap-5 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
+              <div className="flex flex-col gap-3 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white p-6">
+                <h3 className="text-eyebrow text-[var(--color-slate)]">
+                  {intentContext.keywordLabel}
+                </h3>
+                <p className="font-mono text-[0.9375rem] text-[var(--color-slate)]">
+                  {intentContext.keyword}
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3 rounded-[var(--radius-card)] border-l-2 border-[var(--color-blue)] bg-white p-6">
+                <h3 className="text-eyebrow text-[var(--color-blue)]">
+                  {intentContext.contextLabel}
+                </h3>
+                <p className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]">
+                  {intentContext.context}
+                </p>
+              </div>
+            </div>
+
+            <p className="measure text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]">
+              {intentContext.comparison}
+            </p>
+
+            <div className="flex flex-col gap-4 border-t border-[var(--color-border)] pt-8">
+              <h3 className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+                {intentContext.libraryLead}
+              </h3>
+              <SignalList items={intentContext.libraryUses} columns={2} />
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Deliverables title={deliverables.title} detailed={deliverables.items} />
+
+      <Section variant="white" size="standard">
+        <Container width="narrow">
+          <Callout variant="methodology" title={weighting.title}>
+            <p className="rounded-[var(--radius-control)] bg-white p-4 font-mono text-[0.875rem] leading-relaxed text-[var(--color-navy)]">
+              {weighting.formula}
+            </p>
+            <p>{weighting.note}</p>
+          </Callout>
+        </Container>
+      </Section>
+
+      <Section variant="field" size="major" ariaLabelledBy="best-fit-title">
+        <Container>
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
+            <SectionHeading
+              eyebrow={bestFit.eyebrow}
+              title={bestFit.title}
+              description={bestFit.lead}
+              id="best-fit-title"
+            />
+            <SignalList items={bestFit.items} />
+          </div>
+        </Container>
+      </Section>
+
+      <RelatedLinks title="Related solutions and research." links={related} />
+
+      <ClosingCta title={closing.title} primaryCta={closing.primaryCta} />
+    </>
+  )
+}

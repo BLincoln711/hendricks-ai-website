@@ -1,0 +1,17 @@
+event_name,trigger,required_parameters,optional_parameters,contains_pii,notes
+audience_path_select,Visitor selects Brands or Agencies,audience_type|cta_location,destination_url,false,Fire once per click
+solution_view,Solution detail page becomes visible,solution_name|page_name,,false,Prefer page-level context over scroll spam
+primary_cta_click,Primary commercial CTA is activated,cta_label|cta_location|destination_url,audience_type|solution_name,false,Do not fire again on destination load
+diagnostic_start,Visitor focuses or begins Diagnostic form,form_name|page_name,audience_type,false,Fire once per session/form
+diagnostic_step_complete,Visitor completes a multistep form step,form_name|form_step,audience_type,false,Only if multistep form is used
+diagnostic_submit,Validated Diagnostic submission request begins,form_name|audience_type,,false,No field values
+diagnostic_success,Lead submission succeeds,form_name|audience_type,delivery_channels,false,No personal information
+diagnostic_error,Lead submission fails,form_name|error_type,audience_type,false,Use generic error categories
+agency_partner_inquiry_start,Agency form begins,form_name|page_name,,false,Fire once
+agency_partner_inquiry_submit,Agency inquiry succeeds,form_name,,false,No field values
+research_view,Research article viewed,content_slug|content_category|content_author,content_publish_date|content_data_through_date,false,Page view enrichment
+research_related_click,Related research or solution clicked,content_slug|destination_url,cta_label,false,No user text
+case_study_view,Verified case study viewed,case_study_slug|evidence_grade,industry,false,Only when Results enabled
+external_venture_click,External founder venture clicked,external_brand_name|destination_url|cta_location,,false,Use for The Search Economy founder link only
+contact_submit,General contact form succeeds,form_name|audience_type,,false,No personal information
+form_validation_error,Client or server validation error occurs,form_name|error_type,field_name,false,Do not include entered value

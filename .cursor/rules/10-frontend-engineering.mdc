@@ -1,0 +1,26 @@
+---
+description: Frontend architecture, React, Next.js, component, and performance requirements
+globs:
+  - "src/**/*.{ts,tsx,css}"
+  - "app/**/*.{ts,tsx,css}"
+  - "components/**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# Frontend Engineering Rule
+
+- Use Next.js App Router and TypeScript strict mode.
+- Use Server Components by default.
+- Keep client boundaries small and intentional.
+- Use `next/image` and provide meaningful alt text or empty alt for decorative images.
+- Use `next/link` for internal navigation.
+- Use route Metadata APIs and file-based metadata.
+- Avoid waterfalls and fetch independent resources in parallel.
+- Do not define components inside components.
+- Keep nonprimitive default props outside render where appropriate.
+- Use semantic HTML before ARIA.
+- Use shadcn/ui primitives as owned source and customize them to the Hendricks design system.
+- Avoid unnecessary dependencies and broad barrel imports.
+- Prefer CSS transitions and transforms over JavaScript animation.
+- Every animation must have a reduced-motion equivalent.
+- Never render important page copy only after hydration.

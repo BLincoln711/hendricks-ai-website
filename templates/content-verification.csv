@@ -1,0 +1,11 @@
+claim_or_asset,type,proposed_location,verification_needed,approved_source,status,notes
+More than fifteen years of search experience,founder_claim,Homepage and About,Confirm start year and wording,,pending,
+SolarWinds title and dates,employment_claim,About,Confirm exact title and dates,,pending,
+Merkle or Dentsu title and dates,employment_claim,About,Confirm exact title and dates,,pending,
+Ahrefs advisory role,advisory_claim,About,Confirm current role and approved wording,,pending,
+University relationship,education_claim,About,Confirm institution role and approved wording,,pending,
+Client or employer logos,brand_asset,About or Results,Confirm permission and relationship context,,pending,
+Founder portrait,image,About and Homepage,Obtain approved original photograph and alt text,,pending,
+Case study metrics,result,Results,Require baseline timeframe source and permission,,pending,
+Testimonials,testimonial,Results,Require attribution role relationship and permission,,pending,
+The Search Economy description,external_venture,About,Confirm final approved description and ownership wording,,pending,Standalone publication only

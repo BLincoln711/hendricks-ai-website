@@ -1,0 +1,116 @@
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
+
+import { Container } from '@/components/layout/container'
+import { PageHero } from '@/components/layout/page-hero'
+import { Section } from '@/components/layout/section'
+import { SectionHeading } from '@/components/layout/section-heading'
+import { RelatedLinks } from '@/components/sections/related-links'
+import { JsonLd } from '@/components/seo/json-ld'
+import { routes } from '@/config/routes'
+import { expectations, hero, meta, related, routing } from '@/content/pages/contact'
+import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
+import { buildMetadata } from '@/lib/seo/metadata'
+
+export const metadata: Metadata = buildMetadata({
+  title: meta.title,
+  description: meta.description,
+  path: routes.contact.path,
+})
+
+/**
+ * The inquiry form is Phase 5 and is blocked on approved consent language and a
+ * published privacy notice (CONTENT_VERIFICATION.md L1, L3). Until then this page
+ * carries the approved routing and expectation copy only — no form is rendered
+ * with invented consent text, and no submission endpoint is advertised.
+ */
+export default function ContactPage() {
+  return (
+    <>
+      <JsonLd
+        data={jsonLdGraph(
+          webPageSchema({
+            path: routes.contact.path,
+            title: meta.title,
+            description: meta.description,
+          }),
+        )}
+      />
+
+      <PageHero
+        eyebrow={hero.eyebrow}
+        title={hero.title}
+        lead={hero.lead}
+        breadcrumbs={[
+          { label: routes.home.label, href: routes.home.path },
+          { label: routes.contact.label },
+        ]}
+      />
+
+      <Section variant="field" size="major" ariaLabelledBy="routing-title">
+        <Container>
+          <div className="flex flex-col gap-10">
+            <SectionHeading
+              eyebrow={routing.eyebrow}
+              title={routing.title}
+              id="routing-title"
+              maxWidth="wide"
+            />
+
+            <blockquote className="border-l-2 border-[var(--color-blue)] pl-6">
+              <p className="text-h3 measure text-[var(--color-navy)]">{routing.prompt}</p>
+            </blockquote>
+
+            <ul className="grid gap-5 md:grid-cols-2">
+              {routing.choices.map((choice) => (
+                <li
+                  key={choice.name}
+                  className="flex flex-col gap-3 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white p-6"
+                >
+                  <h3 className="text-[1.125rem] font-medium text-[var(--color-navy)]">
+                    {choice.name}
+                  </h3>
+                  <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                    {choice.description}
+                  </p>
+                  {choice.href && choice.linkLabel ? (
+                    <Link
+                      href={choice.href}
+                      className="group mt-auto inline-flex items-center gap-1.5 pt-1 text-[0.9375rem] font-medium text-[var(--color-blue)] underline decoration-1 underline-offset-4 transition-colors hover:text-[var(--color-blue-hover)]"
+                    >
+                      {choice.linkLabel}
+                      <ArrowRight
+                        aria-hidden="true"
+                        className="size-4 transition-transform duration-[var(--duration-micro)] group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+                      />
+                    </Link>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Container>
+      </Section>
+
+      <Section variant="white" size="standard" ariaLabelledBy="expectations-title">
+        <Container width="narrow">
+          <div className="flex flex-col gap-5">
+            <SectionHeading
+              eyebrow={expectations.eyebrow}
+              title={expectations.title}
+              id="expectations-title"
+            />
+            {expectations.body.map((paragraph) => (
+              <p key={paragraph} className="text-lead text-[var(--color-slate)]">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      <RelatedLinks title="Where to go next." links={related} />
+    </>
+  )
+}

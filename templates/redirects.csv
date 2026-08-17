@@ -1,0 +1,2 @@
+old_url,new_url,redirect_type,rationale,backlink_priority,search_traffic_priority,qa_status
+/example-old-route,/closest-relevant-new-route,308,Replace this example with real crawl data,unknown,unknown,pending
