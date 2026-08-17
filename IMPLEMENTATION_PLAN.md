@@ -4,9 +4,10 @@ Derived from the handoff kit in `docs/`, `content/pages/`, and `templates/`.
 Source-of-truth order per `README.md`: `AGENTS.md` → `.cursor/rules/` → `docs/01` →
 `docs/03` → `docs/04` → `content/pages/` → remaining technical and QA documents.
 
-**Scope of the current pass:** Phase 0 through Phase 4 (`docs/11-BUILD-PLAN.md`).
-Phases 5–9 are planned here but deliberately not implemented yet. Phase 4
-decisions are recorded in §17.
+**Scope of the current pass:** Phase 0 through Phase 4, plus HEN-0604 (the four
+definition pages) from Phase 6 (`docs/11-BUILD-PLAN.md`). Phase 5 and the rest of
+Phase 6 through Phase 9 are planned here but not implemented. Phase 4 decisions are
+recorded in §17 and Phase 6 decisions in §18.
 
 ---
 
@@ -65,24 +66,29 @@ From `docs/03-INFORMATION-ARCHITECTURE.md` §3. Status reflects this pass.
 | `/how-it-works` | Commercial | Yes | **Built** |
 | `/for-brands` | Commercial | Yes | **Built** |
 | `/for-agencies` | Commercial | Yes | **Built** |
-| `/results` | Proof | Flagged off | Phase 6 |
-| `/research` | Editorial index | Yes | Phase 6 |
-| `/research/[slug]` | Article | Yes | Phase 6 |
-| `/what-is-search-intelligence-engineering` | Definition | Yes | Phase 6 |
-| `/what-is-selection-intelligence` | Definition | Yes | Phase 6 |
-| `/ai-selection-problem` | Definition | Yes | Phase 6 |
-| `/methodology` | Definition | Yes | Phase 6 |
+| `/results` | Proof | Flagged off | Phase 6 — blocked on Sanity |
+| `/research` | Editorial index | Yes | Phase 6 — blocked on Sanity |
+| `/research/[slug]` | Article | Yes | Phase 6 — blocked on Sanity |
+| `/what-is-search-intelligence-engineering` | Definition | Yes | **Built** |
+| `/what-is-selection-intelligence` | Definition | Yes | **Built** |
+| `/ai-selection-problem` | Definition | Yes | **Built** |
+| `/methodology` | Definition | Yes | **Built** |
 | `/about` | Commercial | Yes | **Built** |
 | `/contact` | Form | Yes | **Built** — body only; form is Phase 5 |
 | `/privacy` | Legal | Yes | Blocked on counsel |
 | `/terms` | Legal | Yes | Blocked on counsel |
-| `/corrections` | Editorial policy | Yes | Phase 6 |
-| `/studio/[[...tool]]` | Sanity Studio | No | Phase 6 |
+| `/corrections` | Editorial policy | Yes | Phase 6 — no approved copy exists |
+| `/studio/[[...tool]]` | Sanity Studio | No | Phase 6 — blocked on Sanity |
 | 404 / error | System | No | **Built** |
 
 Every unbuilt route carries `built: false` in `src/config/routes.ts`. Navigation,
 footer columns, related-content lists, the 404 page, and the sitemap all filter on
 that flag, so no link or `<loc>` can point at a route that does not exist. See §17.
+
+Sixteen routes are built and prerendered. Phase 6 shipped the four definition pages
+without a single copy change to the pages referencing them: the approved
+destinations were already recorded in the content objects and gated on `built`, so
+marking them built was enough. See §18.
 
 Routes explicitly **not** built (`docs/01` §15): login, dashboard, public pricing,
 free prompt checker, chatbot, e-commerce, user accounts.
@@ -114,12 +120,18 @@ Added in Phase 4 — shared: `SignalList`, `FitList`, `Deliverables`,
 `InterventionLedgerPreview`, `ImpactMeasurementStack`, `PartnershipModels`,
 `OperatingLayer`.
 
-`FaqAccordion`, `QuoteBlock`, `DefinitionBlock`, `ArticleCard`, `CaseStudyCard`,
-and `AuthorCard` remain unbuilt: no page in Phase 4 has approved content for them.
-The three form components are Phase 5.
+Added in Phase 6: `SiteShell` (extracted so the `(marketing)` and `(editorial)`
+route groups and the 404 page share one shell rather than three copies),
+`DirectAnswer`, `SourcesNote`, `NegationLadder`, `ChipSet`.
 
-Every Phase 4 component is a Server Component. The client bundle is unchanged
-from Phase 3.
+`FaqAccordion`, `QuoteBlock`, `DefinitionBlock`, `ArticleCard`, `CaseStudyCard`,
+and `AuthorCard` remain unbuilt. `DefinitionBlock` was superseded: the definition
+pages needed a `DirectAnswer` at the top and a `SourcesNote` at the bottom rather
+than one block, so the planned component was split. The card and author components
+belong to the Sanity-backed research hub. The three form components are Phase 5.
+
+Every Phase 4 and Phase 6 component is a Server Component. The client bundle is
+unchanged from Phase 3.
 
 Client components are limited to `MobileNavigation`, the `SelectionMap` entry
 animation, and the analytics dispatcher. Everything else is a Server Component.
@@ -227,8 +239,11 @@ export const features = {
 - **Phase 4** — 10 commercial pages, plus the `/diagnostic` and `/contact` bodies.
   *(this pass — see §17 for why the two form pages were pulled forward)*
 - **Phase 5** — diagnostic form, contact form, agency inquiry form, lead service.
-- **Phase 6** — Sanity, research hub, article template, definition pages, Results
-  behind flag.
+  *(blocked: every form needs approved consent language and a published privacy
+  notice — `CONTENT_VERIFICATION.md` L1, L3)*
+- **Phase 6** — HEN-0604, the four definition pages. *(this pass — see §18)*
+  HEN-0601 Sanity setup, HEN-0602 research hub, HEN-0603 article template, and
+  HEN-0605 Results remain, all blocked on Sanity credentials.
 - **Phase 7** — GTM/GA4, typed events, Vercel Analytics, sitemap, robots, JSON-LD
   validation, staging noindex.
 - **Phase 8** — migration and redirects (see §12).
@@ -320,19 +335,27 @@ No AI upscaling — it would invent facial detail on a real person, which `docs/
 - **Unit (Vitest + RTL):** content-object shape, metadata builder, JSON-LD
   sanitizer, feature-flag gating, analytics helper parameter shape, Selection Map
   text alternative presence. Phase 4 adds the route registry (`tests/unit/routes.test.ts`)
-  and a governance sweep over all eleven commercial content objects
-  (`tests/unit/commercial-content.test.ts`): banned hype language, unnegated
+  and a governance sweep over every page content object
+  (`tests/unit/page-content.test.ts`): banned hype language, unnegated
   guarantees, ambiguous CTAs, the retired "Selection Engineering" name, Search
-  Economy containment, and internal links that resolve.
+  Economy containment, and internal links that resolve. Phase 6 extends the sweep
+  to the four definition pages and adds the `docs/03` §6 linking rules as
+  assertions — two editorial links per solution page, one solution and one
+  methodology link per editorial page, all four solutions from the category
+  definition — because two of those were being violated silently.
 - **E2E (Playwright + axe):** homepage renders at 1440/1024/390, no serious or
   critical axe violations, skip link works, mobile menu traps and restores focus,
   keyboard-only journey, no horizontal overflow at 320px, reduced-motion renders
-  the final Selection Map state. Phase 4 adds `tests/e2e/commercial-routes.spec.ts`:
+  the final Selection Map state. Phase 4 adds `tests/e2e/routes.spec.ts`:
   a per-route sweep of status, title, description, canonical, single H1, single
   main landmark, breadcrumb trail, axe, console errors, and conversion path;
   plus a whole-site internal link crawl, sitemap parity against the built routes,
-  narrow-viewport overflow on all eleven routes, and keyboard reachability of the
-  wide evidence-grade table.
+  narrow-viewport overflow on every route, and keyboard reachability of the
+  wide tables. Phase 6 runs all of that over the four definition pages too, and
+  adds: the direct answer renders above the first `h2`, the `DefinedTerm`
+  description equals the visible direct answer, the two pages that define no term
+  emit no `DefinedTerm`, each page publishes a machine-readable review date, and
+  the outcome classifications render as an unordered set rather than a sequence.
 - **Scripts:** both were declared in `package.json` from Phase 1 but only written in
   Phase 4, so the "fails the build" claim in this plan was untrue until now. Both
   are in `pnpm verify`.
@@ -350,9 +373,18 @@ No AI upscaling — it would invent facial detail on a real person, which `docs/
 Two guards deliberately assert shape rather than wording. Titles and H1s in the
 E2E sweep are read from the content objects, so it verifies that approved copy
 reaches the rendered document while the unit suite pins the copy itself. And the
-guarantee guard drops the two sections whose heading carries the negation — the
-poor-fit list on `/diagnostic`, the partner commitments on `/for-agencies` —
-because no list item inside them reads as negated on its own.
+guarantee guard drops the sections whose heading carries the negation — the
+poor-fit list on `/diagnostic`, the partner commitments on `/for-agencies`, the
+"what it is not" list on the category definition — because no list item inside them
+reads as negated on its own.
+
+`playwright.config.ts` sets `reuseExistingServer: false` unconditionally. Reusing a
+server locally means the suite silently tests whatever build that process started
+with; a server left running from an earlier session whose `.next` directory has
+since been rebuilt serves 404s for new routes and wrong-MIME chunk responses, which
+cascade into unstyled pages and dozens of misleading `target-size` and overflow
+failures. Failing loudly on a busy port is better than passing against the wrong
+build.
 
 ## 15. Risks and assumptions
 
@@ -422,7 +454,8 @@ Registered as `CONTENT_VERIFICATION.md` R1–R7.
 **Solution pages cross-link siblings, not research.** `docs/03` §6 asks each
 solution page to link at least two relevant research pages. None exist yet, so
 each links two or three sibling solutions instead. The unit suite asserts the
-sibling minimum; the research requirement lands in Phase 6.
+sibling minimum; the research requirement lands in Phase 6. *(Closed in Phase 6 —
+see §18.)*
 
 **Vercel Analytics is conditional.** `Analytics` and `SpeedInsights` render only
 when `NEXT_PUBLIC_VERCEL_ENV` or `VERCEL` is set. Off-platform they 404 and the
@@ -434,3 +467,61 @@ every page and made the "no console errors" assertion untestable locally.
 wrapper's min-content width and pushed its grid column past the viewport instead
 of letting the scroll region take over. `min-w-0` on the wrapper is load-bearing,
 not cosmetic.
+
+## 18. Phase 6 decisions
+
+**Only HEN-0604 was built.** Phase 6 has five tickets. Four of them — Sanity setup,
+the research hub, the article template, and the Results schema — need a Sanity
+project ID, dataset, and tokens that do not exist yet, and a research hub with no
+articles in it is a thin page rather than a shipped feature. HEN-0604 needs none of
+that: `docs/11` explicitly permits the definition pages to be version-controlled at
+launch, and `docs/12` §15 prefers it, to keep the category vocabulary off the CMS
+critical path. So the four definition pages shipped and the CMS work did not.
+
+**An `(editorial)` route group, with the shell extracted.** `docs/02` §4 separates
+editorial routes from commercial ones in the file tree, so the definition pages live
+under `src/app/(editorial)/`. Both group layouts render the same shell, and
+`not-found.tsx` was already duplicating that markup a second time, so the shell moved
+into `SiteShell` and all three now call it. The route groups are a file-tree
+boundary, not a styling one, and nothing should reimplement the shell per group.
+
+**No copy changed to close R1–R4.** Every reference to the four definition pages was
+already recorded in the content objects and gated on `built`. Marking the routes
+built was the whole change: the footer Research column appeared, related-content
+lists gained their editorial links, and both homepage CTAs reverted from their
+fallbacks to canonical destinations. A unit test now asserts no fallback is in use.
+
+**Two Phase 4 linking violations fixed.** `docs/03` §6 requires two research links
+per solution page. `/solutions/search-presence-engineering` and
+`/solutions/search-impact-measurement` each had one, because three of the four
+editorial routes did not exist when they shipped. Both gained a second, and the rule
+is now a unit assertion rather than a manual check. The same pass added
+`/ai-selection-problem` → `/methodology`, which the research-page rule requires.
+
+**The category definition links all four solutions through its outcomes.** `docs/03`
+§6 asks category definitions to link all four solutions. The four outcomes on
+`/what-is-search-intelligence-engineering` map one-to-one onto the four solutions, so
+each outcome carries the link rather than padding the related list to eight entries.
+
+**`DefinedTerm` only where a term is defined.** `docs/06` §8 allows
+`DefinedTerm`/`DefinedTermSet` only where it reproduces visible content. The two
+"what is" pages emit it, with `description` set to the visible direct answer
+verbatim — which is what keeps it honest, and what a test asserts. `/methodology`
+and `/ai-selection-problem` emit `WebPage` only: one is a standards document and the
+other explains a problem, so neither defines a term.
+
+**Sources blocks state a basis, not a citation list.** The definition page template
+asks for "sources and update information". These pages state the Hendricks position
+rather than reporting external findings, so there is no citation list, and inventing
+one would be worse than stating none. The block carries the review date and where
+the definition is operationalised instead. The date is a transcription date, not a
+substantive review — registered as `CONTENT_VERIFICATION.md` D1.
+
+**`ChipSet` exists because `CompletePath` asserts sequence.** `CompletePath`
+separates chips with chevrons and marks the last one amber, which reads as an ordered
+progression toward a terminal outcome. The ten outcome classifications on
+`/methodology` are categories one observation can carry several of at once, so
+rendering them that way asserted something the copy does not say. `ChipSet` renders
+an unordered set, with an optional `+` separator for the intent-context formula where
+the labels genuinely do sum. Caught in the browser audit, not by a test; a test now
+pins it.

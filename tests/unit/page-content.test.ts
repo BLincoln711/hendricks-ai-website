@@ -2,27 +2,41 @@ import { describe, expect, it } from 'vitest'
 
 import { isBuilt } from '@/config/routes'
 import * as about from '@/content/pages/about'
+import * as aiSelectionProblem from '@/content/pages/ai-selection-problem'
 import * as contact from '@/content/pages/contact'
 import * as diagnostic from '@/content/pages/diagnostic'
 import * as forAgencies from '@/content/pages/for-agencies'
 import * as forBrands from '@/content/pages/for-brands'
 import * as howItWorks from '@/content/pages/how-it-works'
+import * as methodology from '@/content/pages/methodology'
 import * as sdi from '@/content/pages/search-demand-intelligence'
 import * as sim from '@/content/pages/search-impact-measurement'
 import * as spe from '@/content/pages/search-presence-engineering'
 import * as si from '@/content/pages/selection-intelligence'
 import * as solutions from '@/content/pages/solutions'
+import * as wisie from '@/content/pages/what-is-search-intelligence-engineering'
+import * as wisi from '@/content/pages/what-is-selection-intelligence'
 
 /**
- * Guards on the Phase 4 commercial pages. These assert the rules from docs/12
- * (language), docs/10 §2 (brand separation), and docs/03 §6 (internal linking)
- * against every content object at once, so a new page cannot quietly skip them.
+ * Guards on every content object the site renders, commercial and editorial.
+ * These assert the rules from docs/12 (language), docs/10 §2 (brand separation),
+ * and docs/03 §6 (internal linking) against all pages at once, so a new page
+ * cannot quietly skip them.
  */
 
 /** Serialises `value` with the named keys, at any depth, left out. */
 function omitKeys(value: unknown, keys: readonly string[]): string {
   return JSON.stringify(value, (key, nested) => (keys.includes(key) ? undefined : nested))
 }
+
+/** The routes that count as "research pages" for the linking rule in docs/03 §6. */
+const EDITORIAL_ROUTES: readonly string[] = [
+  '/what-is-search-intelligence-engineering',
+  '/what-is-selection-intelligence',
+  '/ai-selection-problem',
+  '/methodology',
+  '/research',
+]
 
 const pages = [
   { route: '/solutions', meta: solutions.solutionsMeta, content: solutions },
@@ -36,6 +50,14 @@ const pages = [
   { route: '/about', meta: about.meta, content: about },
   { route: '/diagnostic', meta: diagnostic.meta, content: diagnostic },
   { route: '/contact', meta: contact.meta, content: contact },
+  {
+    route: '/what-is-search-intelligence-engineering',
+    meta: wisie.meta,
+    content: wisie,
+  },
+  { route: '/what-is-selection-intelligence', meta: wisi.meta, content: wisi },
+  { route: '/ai-selection-problem', meta: aiSelectionProblem.meta, content: aiSelectionProblem },
+  { route: '/methodology', meta: methodology.meta, content: methodology },
 ] as const
 
 describe.each(pages)('$route content', ({ route, meta, content }) => {
@@ -71,10 +93,11 @@ describe.each(pages)('$route content', ({ route, meta, content }) => {
     // docs/12 §3. Approved copy does name guarantees, but only ever to rule
     // them out, in two shapes. Whole sections whose heading carries the
     // negation — the poor-fit list on /diagnostic, the partner commitments on
-    // /for-agencies — are dropped, because no single list item inside them
-    // reads as negated on its own. What survives must negate in place.
+    // /for-agencies, the "what it is not" list on the category definition — are
+    // dropped, because no single list item inside them reads as negated on its
+    // own. What survives must negate in place.
     const negatedInPlace = /\bno\b|\bnot\b|\bnever\b|without|rather than|instead of/
-    const clauses = omitKeys(content, ['notFit', 'commitments'])
+    const clauses = omitKeys(content, ['notFit', 'commitments', 'whatItIsNot'])
       .toLowerCase()
       .split(/[.!?,;]|","|":"/)
 
@@ -145,8 +168,116 @@ describe('Solution page structure', () => {
     expect(built.length).toBeGreaterThanOrEqual(2)
   })
 
+  it.each(solutionPages)('$name links at least two editorial pages', ({ content }) => {
+    // docs/03 §6 — "every solution page links to the Diagnostic and at least two
+    // relevant research pages". Both /solutions/search-presence-engineering and
+    // /solutions/search-impact-measurement shipped Phase 4 with only one, because
+    // three of the four editorial routes did not exist yet.
+    const editorial = content.related.filter(
+      (link) => isBuilt(link.href) && EDITORIAL_ROUTES.includes(link.href),
+    )
+    expect(editorial.map((link) => link.href).length).toBeGreaterThanOrEqual(2)
+  })
+
   it.each(solutionPages)('$name states deliverables', ({ content }) => {
     expect(content.deliverables.items.length).toBeGreaterThan(0)
+  })
+})
+
+describe('Definition pages', () => {
+  const definitionPages = [
+    { route: '/what-is-search-intelligence-engineering', content: wisie },
+    { route: '/what-is-selection-intelligence', content: wisi },
+    { route: '/ai-selection-problem', content: aiSelectionProblem },
+    { route: '/methodology', content: methodology },
+  ] as const
+
+  it.each(definitionPages)('$route links a solution and the methodology', ({ route, content }) => {
+    // docs/03 §6 — "every research page links to one relevant solution and one
+    // methodology page". The link may sit anywhere on the page, not only in the
+    // related list: the category definition carries its four solution links on
+    // the outcomes section instead. /methodology is itself the methodology page.
+    const hrefs = [...JSON.stringify(content).matchAll(/"href":"(\/[^"]*)"/g)].map(
+      (match) => match[1],
+    )
+
+    expect(hrefs.some((href) => href.startsWith('/solutions/'))).toBe(true)
+
+    if (route !== '/methodology') {
+      expect(hrefs).toContain('/methodology')
+    }
+  })
+
+  it.each(definitionPages)('$route resolves every related link', ({ content }) => {
+    // Unlike the commercial pages, nothing in these related lists is allowed to
+    // point at an unbuilt route: the editorial routes they reference now exist.
+    for (const link of content.related) {
+      expect(isBuilt(link.href), `unbuilt: ${link.href}`).toBe(true)
+    }
+  })
+
+  it.each(definitionPages)('$route dates its review', ({ content }) => {
+    // The "sources and update information" requirement in docs/03. A reader
+    // cannot judge whether a definition is current without this.
+    expect(content.sources.reviewed).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+    expect(Number.isNaN(Date.parse(content.sources.reviewed))).toBe(false)
+    expect(content.sources.appliedIn.length).toBeGreaterThan(0)
+  })
+
+  it.each(definitionPages)('$route claims no external source it does not cite', ({ content }) => {
+    // These pages state the Hendricks position. Saying "according to research"
+    // without a citation is the failure mode docs/12 §4 exists to prevent.
+    expect(content.sources.basis.toLowerCase()).toMatch(/hendricks/)
+  })
+
+  it('gives the two "what is" pages a quotable direct answer', () => {
+    // docs/06 §7 — the answer must stand alone, and it is reused verbatim as the
+    // DefinedTerm description, so it has to be a complete sentence.
+    for (const page of [wisie, wisi]) {
+      expect(page.directAnswer.answer.startsWith(page.directAnswer.term)).toBe(true)
+      expect(page.directAnswer.answer.endsWith('.')).toBe(true)
+      expect(page.directAnswer.answer.length).toBeGreaterThan(120)
+    }
+  })
+
+  it('links all four solutions from the category definition', () => {
+    // docs/03 §6 — "category definitions link to all four solutions where
+    // relevant". The four outcomes map onto the four solutions, so they carry it.
+    expect(wisie.outcomes.items.map((item) => item.solution.href)).toEqual([
+      '/solutions/search-demand-intelligence',
+      '/solutions/selection-intelligence',
+      '/solutions/search-presence-engineering',
+      '/solutions/search-impact-measurement',
+    ])
+  })
+
+  it('sends the AI Selection Problem page to Selection Intelligence and the Diagnostic', () => {
+    // docs/03 §6, stated for this page specifically.
+    expect(aiSelectionProblem.related.map((link) => link.href)).toContain(
+      '/solutions/selection-intelligence',
+    )
+    expect(aiSelectionProblem.hero.primaryCta.href).toBe('/diagnostic')
+  })
+
+  it('keeps the methodology honest about influence and causation', () => {
+    // docs/12 §4 — the two claims the whole measurement story rests on.
+    const limits = methodology.limitations.items.join(' ')
+    expect(limits).toContain('Citation does not prove influence.')
+    expect(limits).toContain('Correlation does not prove causation.')
+  })
+
+  it('refuses to claim the methodology reverse-engineers model logic', () => {
+    expect(methodology.statement.quote).toContain('does not claim to reverse-engineer')
+  })
+
+  it('presents no weighting model as universal', () => {
+    expect(methodology.weighting.limitation).toContain('should be presented as universal')
+  })
+
+  it('describes selection as observed distribution rather than a universal ranking', () => {
+    // docs/12 §2 — the single most important framing rule on the site.
+    expect(wisi.whyContext.closing).toContain('not one universal ranking')
+    expect(wisi.limitation.title).toContain('does not reveal')
   })
 })
 

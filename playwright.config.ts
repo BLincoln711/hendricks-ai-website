@@ -27,10 +27,16 @@ export default defineConfig({
 
   // Build once and serve the production output — dev-mode overlays and HMR
   // scripts would otherwise pollute the axe results.
+  //
+  // Never reuse a server already on the port. Reusing one locally means the suite
+  // silently tests whatever build that process started with: a stale server whose
+  // .next directory has since been rebuilt serves 404s for new routes and
+  // wrong-MIME chunk responses, which then cascade into unstyled pages and dozens
+  // of misleading target-size and overflow failures.
   webServer: {
     command: `pnpm build && pnpm start --port ${PORT}`,
     url: baseURL,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 180_000,
   },
 })

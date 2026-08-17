@@ -122,25 +122,39 @@ their wording needs the same scrutiny as a metric definition.
 
 ## Internal links to unbuilt routes
 
-Approved copy points at six editorial routes that do not land until Phase 6, plus
-two legal routes awaiting counsel. Nothing links to a 404 today: `src/config/routes.ts`
-marks each route `built: false`, navigation and related-content lists filter on it,
-and CTAs whose approved destination is unbuilt fall back through `ctaHref`.
+Nothing links to a 404: `src/config/routes.ts` marks each unbuilt route
+`built: false`, navigation and related-content lists filter on it, and CTAs whose
+approved destination is unbuilt fall back through `ctaHref`.
+
+Four of the six editorial routes shipped in Phase 6. Their references resolved
+automatically — no copy changed, because the approved destinations were recorded
+in the content objects from the start and the gate simply opened.
 
 | # | Approved destination | Referenced from | Current behaviour | Status |
 |---|---|---|---|---|
-| R1 | `/methodology` | All four solution pages, `/how-it-works`, `/diagnostic`, `/for-agencies`, homepage measurement CTA, footer | Filtered from related-content lists; homepage CTA falls back to `/solutions/search-impact-measurement` | pending Phase 6 |
-| R2 | `/what-is-selection-intelligence` | `/solutions/selection-intelligence`, homepage distinction CTA, footer | Filtered; homepage CTA falls back to `/solutions/selection-intelligence` | pending Phase 6 |
-| R3 | `/what-is-search-intelligence-engineering` | `/solutions/search-demand-intelligence`, footer | Filtered | pending Phase 6 |
-| R4 | `/ai-selection-problem` | `/solutions/selection-intelligence`, footer | Filtered | pending Phase 6 |
-| R5 | `/research` | Footer, 404 page | Footer column hidden entirely | pending Phase 6 |
-| R6 | `/corrections` | Footer legal row | Filtered | pending Phase 6 |
+| R1 | `/methodology` | All four solution pages, `/how-it-works`, `/diagnostic`, `/for-agencies`, `/ai-selection-problem`, homepage measurement CTA, footer | Live. Homepage CTA reverted from its `/solutions/search-impact-measurement` fallback | resolved |
+| R2 | `/what-is-selection-intelligence` | `/solutions/selection-intelligence`, `/solutions/search-impact-measurement`, homepage distinction CTA, footer | Live. Homepage CTA reverted from its `/solutions/selection-intelligence` fallback | resolved |
+| R3 | `/what-is-search-intelligence-engineering` | `/solutions/search-demand-intelligence`, `/solutions/search-presence-engineering`, footer | Live | resolved |
+| R4 | `/ai-selection-problem` | `/solutions/selection-intelligence`, footer | Live | resolved |
+| R5 | `/research` | Footer, 404 page | Footer column now renders the four definition pages and omits the hub | blocked on Sanity credentials |
+| R6 | `/corrections` | Footer legal row | Filtered | blocked — no approved copy exists for this route |
 | R7 | `/privacy`, `/terms` | Footer legal row | Filtered; blocks the Phase 5 forms via L1/L3 | blocked on L1, L2 |
 
 `docs/03` §6 asks each solution page to link at least two relevant research pages.
-No research pages exist yet, so each currently links two or three sibling
-solutions instead. The unit suite asserts the sibling minimum; the research
-requirement is met in Phase 6.
+That is now satisfied on all four, and a unit test enforces it. Two of them —
+`/solutions/search-presence-engineering` and `/solutions/search-impact-measurement`
+— shipped Phase 4 with only one editorial link and were corrected in Phase 6.
+
+## Definition page review dates
+
+The four definition pages each publish a "last reviewed" date, because a reader
+cannot judge whether a definition is current without one (`docs/03`, definition
+page template). The date is stored in each content object as `sources.reviewed`.
+
+| # | Item | Current value | What must be confirmed | Status |
+|---|---|---|---|---|
+| D1 | Last-reviewed date on all four definition pages | 2026-08-16 | This is the date the approved copy was transcribed, not a date Brandon reviewed the substance. Either confirm it or supply the real review date. | pending |
+| D2 | Who owns the review cycle and how often | not stated | The pages claim to be revised as platform behaviour changes. Decide the interval, or soften the claim. | pending |
 
 ## Organization structured data
 

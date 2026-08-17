@@ -3,19 +3,23 @@ import { expect, test, type Page } from '@playwright/test'
 
 import { indexableBuiltRoutes } from '@/config/routes'
 import * as about from '@/content/pages/about'
+import * as aiSelectionProblem from '@/content/pages/ai-selection-problem'
 import * as contact from '@/content/pages/contact'
 import * as diagnostic from '@/content/pages/diagnostic'
 import * as forAgencies from '@/content/pages/for-agencies'
 import * as forBrands from '@/content/pages/for-brands'
 import * as howItWorks from '@/content/pages/how-it-works'
+import * as methodology from '@/content/pages/methodology'
 import * as sdi from '@/content/pages/search-demand-intelligence'
 import * as sim from '@/content/pages/search-impact-measurement'
 import * as spe from '@/content/pages/search-presence-engineering'
 import * as si from '@/content/pages/selection-intelligence'
 import * as solutions from '@/content/pages/solutions'
+import * as wisie from '@/content/pages/what-is-search-intelligence-engineering'
+import * as wisi from '@/content/pages/what-is-selection-intelligence'
 
 /**
- * Route sweep for the Phase 4 commercial pages.
+ * Route sweep for every built page, commercial and editorial.
  *
  * Titles and H1s are read from the content objects rather than duplicated here,
  * so this suite verifies that the approved copy actually reaches the rendered
@@ -35,7 +39,20 @@ const commercialRoutes = [
   { path: '/contact', meta: contact.meta, h1: contact.hero.title },
 ] as const
 
-for (const route of commercialRoutes) {
+const editorialRoutes = [
+  {
+    path: '/what-is-search-intelligence-engineering',
+    meta: wisie.meta,
+    h1: wisie.hero.title,
+  },
+  { path: '/what-is-selection-intelligence', meta: wisi.meta, h1: wisi.hero.title },
+  { path: '/ai-selection-problem', meta: aiSelectionProblem.meta, h1: aiSelectionProblem.hero.title },
+  { path: '/methodology', meta: methodology.meta, h1: methodology.hero.title },
+] as const
+
+const builtRoutes = [...commercialRoutes, ...editorialRoutes]
+
+for (const route of builtRoutes) {
   test.describe(route.path, () => {
     test('renders the approved title, description, canonical, and H1', async ({ page }) => {
       const response = await page.goto(route.path)
@@ -119,7 +136,7 @@ for (const route of commercialRoutes) {
 test.describe('Narrow viewport integrity', () => {
   test.use({ viewport: { width: 320, height: 800 } })
 
-  for (const route of commercialRoutes) {
+  for (const route of builtRoutes) {
     test(`${route.path} does not overflow horizontally at 320px`, async ({ page }) => {
       await page.goto(route.path)
 
@@ -134,30 +151,110 @@ test.describe('Narrow viewport integrity', () => {
 })
 
 test.describe('Wide tables', () => {
-  test('keeps the evidence grade table reachable by keyboard on a narrow viewport', async ({
+  const tableRoutes = [
+    { path: '/solutions/search-impact-measurement', caption: sim.evidenceGrades.caption },
+    { path: '/methodology', caption: methodology.evidenceGrades.caption },
+    { path: '/what-is-search-intelligence-engineering', caption: wisie.whyItExists.caption },
+  ] as const
+
+  for (const route of tableRoutes) {
+    test(`${route.path} keeps its table reachable by keyboard on a narrow viewport`, async ({
+      page,
+    }) => {
+      // The table is wider than a phone, so its wrapper must be a focusable
+      // scroll region rather than silently clipping rows (WCAG 2.1.1).
+      await page.setViewportSize({ width: 390, height: 844 })
+      await page.goto(route.path)
+
+      await expect(page.getByRole('table').first()).toBeVisible()
+
+      const region = page.getByRole('region', { name: route.caption })
+      await expect(region).toHaveAttribute('tabindex', '0')
+    })
+
+    test(`${route.path} gives every table a caption`, async ({ page }) => {
+      await page.goto(route.path)
+
+      const tables = page.getByRole('table')
+      const count = await tables.count()
+      expect(count).toBeGreaterThan(0)
+
+      for (let index = 0; index < count; index += 1) {
+        await expect(tables.nth(index).locator('caption')).not.toBeEmpty()
+      }
+    })
+  }
+})
+
+test.describe('Definition pages', () => {
+  test.describe.configure({ mode: 'parallel' })
+
+  for (const route of editorialRoutes) {
+    test(`${route.path} dates its review in machine-readable form`, async ({ page }) => {
+      await page.goto(route.path)
+
+      const time = page.getByRole('main').locator('time')
+      await expect(time).toHaveCount(1)
+      await expect(time).toHaveAttribute('datetime', /^\d{4}-\d{2}-\d{2}$/)
+    })
+  }
+
+  for (const page_ of [
+    { path: '/what-is-search-intelligence-engineering', content: wisie },
+    { path: '/what-is-selection-intelligence', content: wisi },
+  ] as const) {
+    test(`${page_.path} shows the direct answer above every other section`, async ({ page }) => {
+      await page.goto(page_.path)
+
+      const answer = page.getByText(page_.content.directAnswer.answer, { exact: true })
+      await expect(answer).toBeVisible()
+
+      // It must sit high enough to be the first thing read after the H1.
+      const answerBox = await answer.boundingBox()
+      const h1Box = await page.getByRole('heading', { level: 1 }).boundingBox()
+      const firstH2Box = await page.getByRole('heading', { level: 2 }).first().boundingBox()
+
+      expect(answerBox!.y).toBeGreaterThan(h1Box!.y)
+      expect(answerBox!.y).toBeLessThan(firstH2Box!.y)
+    })
+
+    test(`${page_.path} emits a DefinedTerm that matches the visible answer`, async ({ page }) => {
+      // docs/06 §8 — the markup may only reproduce visible content.
+      await page.goto(page_.path)
+
+      const raw = await page.locator('script[type="application/ld+json"]').first().textContent()
+      const graph = JSON.parse(raw ?? '{}')['@graph'] as Record<string, unknown>[]
+      const term = graph.find((node) => node['@type'] === 'DefinedTerm')
+
+      expect(term).toBeDefined()
+      expect(term!.name).toBe(page_.content.directAnswer.term)
+      expect(term!.description).toBe(page_.content.directAnswer.answer)
+    })
+  }
+
+  test('/methodology presents outcome classifications as a set, not a sequence', async ({
     page,
   }) => {
-    // The table is wider than a phone, so its wrapper must be a focusable
-    // scroll region rather than silently clipping rows (WCAG 2.1.1).
-    await page.setViewportSize({ width: 390, height: 844 })
-    await page.goto('/solutions/search-impact-measurement')
+    // The ten classifications are categories one observation can carry several of
+    // at once. CompletePath renders an ordered list, which would assert a
+    // progression the copy does not describe; ChipSet renders an unordered one.
+    await page.goto('/methodology')
 
-    const table = page.getByRole('table')
-    await expect(table.first()).toBeVisible()
+    const section = page.locator('section', { has: page.locator('#classification-title') })
+    await expect(section.locator('ol')).toHaveCount(0)
 
-    const region = page.getByRole('region', { name: sim.evidenceGrades.caption })
-    await expect(region).toHaveAttribute('tabindex', '0')
+    const chips = section.locator('ul > li')
+    await expect(chips).toHaveCount(10)
+    await expect(chips.last()).toHaveText('Uncertain')
   })
 
-  test('gives every table a caption', async ({ page }) => {
-    await page.goto('/solutions/search-impact-measurement')
-
-    const tables = page.getByRole('table')
-    const count = await tables.count()
-    expect(count).toBeGreaterThan(0)
-
-    for (let index = 0; index < count; index += 1) {
-      await expect(tables.nth(index).locator('caption')).not.toBeEmpty()
+  test('/ai-selection-problem and /methodology emit no DefinedTerm', async ({ page }) => {
+    // Neither page defines a term, so the markup would not reproduce visible
+    // content. Emitting it anyway is the failure docs/06 §8 warns against.
+    for (const path of ['/ai-selection-problem', '/methodology']) {
+      await page.goto(path)
+      const raw = await page.locator('script[type="application/ld+json"]').first().textContent()
+      expect(raw, path).not.toContain('DefinedTerm')
     }
   })
 })
@@ -175,7 +272,7 @@ test.describe('Internal link integrity', () => {
   test('every internal link across the built site resolves', async ({ page, request }) => {
     const hrefs = new Set<string>()
 
-    for (const route of [{ path: '/' }, ...commercialRoutes]) {
+    for (const route of [{ path: '/' }, ...builtRoutes]) {
       for (const href of await internalLinksOn(page, route.path)) {
         hrefs.add(href.split('#')[0] || '/')
       }
@@ -206,7 +303,7 @@ test.describe('Sitemap', () => {
   test('omits routes that are not built yet', async ({ request }) => {
     const xml = await (await request.get('/sitemap.xml')).text()
 
-    for (const path of ['/research', '/methodology', '/results', '/privacy', '/terms']) {
+    for (const path of ['/research', '/corrections', '/results', '/privacy', '/terms']) {
       expect(xml, `sitemap advertises unbuilt ${path}`).not.toContain(`${path}</loc>`)
     }
   })

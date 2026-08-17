@@ -55,27 +55,30 @@ export const routes = {
   about: { path: '/about', label: 'About', indexable: true, built: true },
   contact: { path: '/contact', label: 'Contact', indexable: true, built: true },
 
-  // Phase 6 — editorial system.
-  research: { path: '/research', label: 'Research Hub', indexable: true, built: false },
+  // Definition pages (HEN-0604). Version-controlled rather than in Sanity, which
+  // docs/11 permits and which keeps the category vocabulary off the CMS critical path.
   whatIsSearchIntelligenceEngineering: {
     path: '/what-is-search-intelligence-engineering',
     label: 'What Is Search Intelligence Engineering?',
     indexable: true,
-    built: false,
+    built: true,
   },
   whatIsSelectionIntelligence: {
     path: '/what-is-selection-intelligence',
     label: 'What Is Selection Intelligence?',
     indexable: true,
-    built: false,
+    built: true,
   },
   aiSelectionProblem: {
     path: '/ai-selection-problem',
     label: 'The AI Selection Problem',
     indexable: true,
-    built: false,
+    built: true,
   },
-  methodology: { path: '/methodology', label: 'Methodology', indexable: true, built: false },
+  methodology: { path: '/methodology', label: 'Methodology', indexable: true, built: true },
+
+  // Remainder of Phase 6 — blocked on Sanity credentials.
+  research: { path: '/research', label: 'Research Hub', indexable: true, built: false },
   corrections: { path: '/corrections', label: 'Corrections', indexable: true, built: false },
 
   // Feature-flagged off until verified case studies exist.

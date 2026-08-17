@@ -188,6 +188,11 @@ export const related: readonly RelatedLink[] = [
     label: 'How It Works',
     description: 'Where measurement closes the Demand-to-Selection loop.',
   },
+  {
+    href: routes.whatIsSelectionIntelligence.path,
+    label: 'What Is Selection Intelligence?',
+    description: 'Definitions for the observed rates this solution reports against revenue.',
+  },
 ]
 
 export const closing = {

@@ -227,6 +227,11 @@ export const related: readonly RelatedLink[] = [
     label: 'Methodology',
     description: 'How interventions are prioritized, tested, and graded.',
   },
+  {
+    href: routes.whatIsSearchIntelligenceEngineering.path,
+    label: 'What Is Search Intelligence Engineering?',
+    description: 'The seven layers this solution engineers, and why the work is engineering.',
+  },
 ]
 
 export const closing = {

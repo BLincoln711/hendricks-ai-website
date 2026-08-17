@@ -2,10 +2,12 @@ import { describe, expect, it } from 'vitest'
 
 import {
   breadcrumbSchema,
+  definedTermSchema,
   jsonLdGraph,
   organizationSchema,
   serializeJsonLd,
 } from '@/lib/seo/json-ld'
+import * as wisi from '@/content/pages/what-is-selection-intelligence'
 
 describe('serializeJsonLd', () => {
   it('escapes a closing script tag so it cannot break out of the script block', () => {
@@ -68,6 +70,30 @@ describe('breadcrumbSchema', () => {
     })
     // The current page carries no item URL.
     expect(schema.itemListElement[2]).not.toHaveProperty('item')
+  })
+})
+
+describe('definedTermSchema', () => {
+  it('describes the term with the answer visible on the page', () => {
+    // docs/06 §8 — the markup may only reproduce visible content. Passing the
+    // page's own directAnswer through is what keeps that true.
+    const schema = definedTermSchema({
+      path: '/what-is-selection-intelligence',
+      term: wisi.directAnswer.term,
+      directAnswer: wisi.directAnswer.answer,
+    })
+
+    expect(schema.name).toBe('Selection Intelligence')
+    expect(schema.description).toBe(wisi.directAnswer.answer)
+    expect(schema.url).toBe('https://hendricks.ai/what-is-selection-intelligence')
+  })
+
+  it('groups every term into one shared vocabulary set', () => {
+    const a = definedTermSchema({ path: '/a', term: 'A', directAnswer: 'A is a thing.' })
+    const b = definedTermSchema({ path: '/b', term: 'B', directAnswer: 'B is a thing.' })
+
+    expect(a['@id']).not.toBe(b['@id'])
+    expect(a.inDefinedTermSet['@id']).toBe(b.inDefinedTermSet['@id'])
   })
 })
 

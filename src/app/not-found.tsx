@@ -1,9 +1,7 @@
 import Link from 'next/link'
 
 import { Container } from '@/components/layout/container'
-import { SiteFooter } from '@/components/layout/site-footer'
-import { SiteHeader } from '@/components/layout/site-header'
-import { SkipLink } from '@/components/layout/skip-link'
+import { SiteShell } from '@/components/layout/site-shell'
 import { SignalDot } from '@/components/visuals/signal-dot'
 import { buttonVariants } from '@/components/ui/button'
 import { isBuilt, routes } from '@/config/routes'
@@ -16,15 +14,13 @@ export default function NotFound() {
     { label: 'Selection Intelligence', href: routes.selectionIntelligence.path },
     { label: 'How It Works', href: routes.howItWorks.path },
     { label: 'Search Intelligence Diagnostic', href: routes.diagnostic.path },
+    { label: 'Methodology', href: routes.methodology.path },
     { label: 'Research', href: routes.research.path },
   ].filter((link) => isBuilt(link.href))
 
   return (
-    <>
-      <SkipLink />
-      <SiteHeader />
-      <main id="main" tabIndex={-1}>
-        <Container>
+    <SiteShell>
+      <Container>
           <div className="flex flex-col gap-8 py-24 md:py-36">
             <p className="text-eyebrow flex items-center gap-2 text-[var(--color-amber)]">
               <SignalDot size={6} tone="amber" />
@@ -63,9 +59,7 @@ export default function NotFound() {
               </ul>
             </div>
           </div>
-        </Container>
-      </main>
-      <SiteFooter />
-    </>
+      </Container>
+    </SiteShell>
   )
 }

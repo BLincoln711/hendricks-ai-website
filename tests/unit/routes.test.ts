@@ -16,7 +16,10 @@ describe('Route registry', () => {
     }
   })
 
-  it('marks the twelve Phase 4 routes as built', () => {
+  it('marks exactly the routes that have been built', () => {
+    // Twelve commercial routes from Phase 4, plus the four definition pages from
+    // Phase 6. Anything else in the registry is still unbuilt, and this list is
+    // what stops a route being flagged built before its page exists.
     const built = Object.values(routes)
       .filter((route) => route.built)
       .map((route) => route.path)
@@ -26,16 +29,20 @@ describe('Route registry', () => {
       [
         '/',
         '/about',
+        '/ai-selection-problem',
         '/contact',
         '/diagnostic',
         '/for-agencies',
         '/for-brands',
         '/how-it-works',
+        '/methodology',
         '/solutions',
         '/solutions/search-demand-intelligence',
         '/solutions/search-impact-measurement',
         '/solutions/search-presence-engineering',
         '/solutions/selection-intelligence',
+        '/what-is-search-intelligence-engineering',
+        '/what-is-selection-intelligence',
       ].sort(),
     )
   })
@@ -66,9 +73,18 @@ describe('ctaHref', () => {
   })
 
   it('falls back while the canonical destination is unbuilt', () => {
+    // /research is the live case: approved copy points at it and it has no page.
+    expect(ctaHref('/research', '/methodology')).toBe('/methodology')
+    expect(ctaHref('/not-a-route', '/methodology')).toBe('/methodology')
+  })
+
+  it('has no remaining fallback in use now the definition pages are built', () => {
+    // Both homepage CTAs that shipped Phase 4 on a fallback should have reverted
+    // to their canonical destination without a copy change.
     expect(ctaHref('/what-is-selection-intelligence', '/solutions/selection-intelligence')).toBe(
-      '/solutions/selection-intelligence',
+      '/what-is-selection-intelligence',
     )
+    expect(ctaHref('/methodology', '/solutions/search-impact-measurement')).toBe('/methodology')
   })
 })
 

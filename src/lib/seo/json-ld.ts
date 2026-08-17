@@ -103,6 +103,41 @@ export function personSchema({
   }
 }
 
+/**
+ * DefinedTerm node for a definition page.
+ *
+ * docs/06 §8 allows this only where it reproduces visible content, and warns
+ * against expecting a rich result from it. `description` is therefore the page's
+ * visible direct answer verbatim, not a summary written for crawlers.
+ *
+ * The terms are grouped into one `DefinedTermSet` so the vocabulary reads as a
+ * deliberate set rather than four unrelated pages.
+ */
+export function definedTermSchema({
+  path,
+  term,
+  directAnswer,
+}: {
+  path: string
+  term: string
+  directAnswer: string
+}) {
+  const url = new URL(path, siteConfig.url).toString()
+  return {
+    '@type': 'DefinedTerm',
+    '@id': `${url}#term`,
+    name: term,
+    description: directAnswer,
+    url,
+    inDefinedTermSet: {
+      '@type': 'DefinedTermSet',
+      '@id': `${siteConfig.url}/#vocabulary`,
+      name: 'Search Intelligence Engineering vocabulary',
+      url: siteConfig.url,
+    },
+  }
+}
+
 export type BreadcrumbEntry = { label: string; href?: string }
 
 export function breadcrumbSchema(items: BreadcrumbEntry[]) {
