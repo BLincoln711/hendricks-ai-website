@@ -105,6 +105,28 @@ Then start the dev server and verify the site in a real browser at desktop, tabl
 - Do not delete approved content or simplify the site architecture without recording the reason.
 - When blocked only by a missing credential or brand asset, implement a safe placeholder interface and document the exact required input.
 
+## Privacy and legal implementation
+
+Before touching forms, cookies, analytics, or legal routes, read:
+
+- `legal/01-FORM-AND-CONSENT-COPY.md`
+- `content/pages/19-privacy.md`
+- `content/pages/20-terms.md`
+- `docs/16-PRIVACY-CONSENT-AND-LEGAL-IMPLEMENTATION.md`
+
+Non-negotiable rules:
+
+- Inquiry forms use a notice at collection, not a required “privacy consent” checkbox.
+- Marketing email permission is separate, optional, and unchecked.
+- The website uses a global opt-in consent banner.
+- All non-essential analytics remain blocked before acceptance.
+- Use basic Google Consent Mode v2.
+- Do not add advertising or retargeting tags at launch.
+- Honor Global Privacy Control.
+- Never send form content or other personal information to analytics.
+- Build `/privacy`, `/terms`, and `/privacy-request`.
+- Do not launch with unresolved legal placeholders.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know

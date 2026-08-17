@@ -75,8 +75,9 @@ From `docs/03-INFORMATION-ARCHITECTURE.md` §3. Status reflects this pass.
 | `/methodology` | Definition | Yes | **Built** |
 | `/about` | Commercial | Yes | **Built** |
 | `/contact` | Form | Yes | **Built** — body only; form is Phase 5 |
-| `/privacy` | Legal | Yes | Blocked on counsel |
-| `/terms` | Legal | Yes | Blocked on counsel |
+| `/privacy` | Legal | Yes | **Built** |
+| `/terms` | Legal | Yes | **Built** |
+| `/privacy-request` | Form | No — deliberately | **Built** |
 | `/corrections` | Editorial policy | Yes | Phase 6 — no approved copy exists |
 | `/studio/[[...tool]]` | Sanity Studio | No | Phase 6 — blocked on Sanity |
 | 404 / error | System | No | **Built** |
@@ -85,10 +86,16 @@ Every unbuilt route carries `built: false` in `src/config/routes.ts`. Navigation
 footer columns, related-content lists, the 404 page, and the sitemap all filter on
 that flag, so no link or `<loc>` can point at a route that does not exist. See §17.
 
-Sixteen routes are built and prerendered. Phase 6 shipped the four definition pages
-without a single copy change to the pages referencing them: the approved
-destinations were already recorded in the content objects and gated on `built`, so
-marking them built was enough. See §18.
+Nineteen routes are built. Phase 6 shipped the four definition pages without a
+single copy change to the pages referencing them: the approved destinations were
+already recorded in the content objects and gated on `built`, so marking them
+built was enough. See §18.
+
+`/privacy-request` is the one built route that is not indexable. It is excluded
+from the sitemap and carries `noindex`, because it is a place people go when they
+already have a reason to, not a search result (`docs/16` §9). All other built
+routes are prerendered; `/privacy-request` renders per request so its timing
+defense has a fresh timestamp. See §19.
 
 Routes explicitly **not** built (`docs/01` §15): login, dashboard, public pricing,
 free prompt checker, chatbot, e-commerce, user accounts.
@@ -525,3 +532,69 @@ rendering them that way asserted something the copy does not say. `ChipSet` rend
 an unordered set, with an optional `+` separator for the intent-context formula where
 the labels genuinely do sum. Caught in the browser audit, not by a test; a test now
 pins it.
+
+## 19. Privacy, consent, and legal decisions
+
+Implements `docs/16-PRIVACY-CONSENT-AND-LEGAL-IMPLEMENTATION.md` and
+`legal/01-FORM-AND-CONSENT-COPY.md`. Closes L1–L4.
+
+**Consent is opt-in, and nothing optional runs before it.** Google Consent Mode v2
+defaults are queued `beforeInteractive`, ahead of any tag, with everything denied
+except `security_storage` and `functionality_storage`. Vercel Analytics and Speed
+Insights mount only after an explicit grant. The test that matters is not that the
+banner looks right but that no request reaches an analytics endpoint before a
+decision, so that is what the suite asserts.
+
+**Reject, manage, and accept are the same control three times.** Same variant, same
+size, one click each. Making accept easier than reject is a compliance defect rather
+than a design preference (`docs/16` §6), and an e2e test compares the rendered
+classes so a future restyle cannot quietly break it. The banner has no close button:
+dismissal must not be readable as consent.
+
+**Global Privacy Control is obeyed without argument.** When the browser sends the
+signal, analytics is denied, the record is written with `source: 'gpc'`, the banner
+never appears, and the modal explains the signal and offers no way to accept. A
+stored grant made before the signal was switched on loses to it, because the signal
+is the newer instruction.
+
+**`useSyncExternalStore` rather than state plus an effect.** Consent lives in
+`localStorage` and `navigator.globalPrivacyControl`, both outside React. Reading them
+in an effect and calling `setState` cascades a render on every visit and trips the
+compiler's purity rules. The store in `src/lib/consent/store.ts` is the source of
+truth and the provider subscribes to it, which also gives the server snapshot an
+honest `unknown` status instead of guessing.
+
+**Consent decisions expire.** Records carry a version and a 180-day expiry, and a
+version bump or an expiry invalidates the record and asks again. A decision made
+against a materially different disclosure is not a decision about this one.
+
+**Legal copy is structured data, not markup.** `src/content/legal/` stores documents
+as typed blocks and `LegalDocument` renders them. That is what lets a test assert
+every section is reachable from the contents list, that the dates are machine
+readable, and that no bracketed placeholder survived transcription — none of which
+is checkable against a blob of HTML. `check:content` now fails on any `[LIKE THIS]`
+string, which is how an unresolved venue or date would have shipped.
+
+**Submitting a form is not consent to marketing.** The forms carry a notice at
+collection and a separate, unticked marketing checkbox. Per `legal/01`, the notice
+links the Privacy Notice rather than restating it, and the confirmation copy no
+longer implies a subscription.
+
+**`/privacy-request` is unindexed and rendered per request.** It is excluded from the
+sitemap and marked `noindex` (`docs/16` §9). It renders dynamically because the
+timing defense needs a fresh `startedAt`; a prerendered page would stamp it at build
+time and reject every real submission. Defense is a honeypot, a minimum elapsed time,
+and a rate limit — no CAPTCHA, because a privacy request is exactly the wrong place
+to put an accessibility barrier in front of someone exercising a right.
+
+**Delivery is stubbed, and the case reference is not.** Requests are validated,
+recorded, and given a case reference the submitter can quote, but no mail is sent
+until `privacy@hendricks.ai` exists (`CONTENT_VERIFICATION.md` L6). The reference is
+generated regardless so the contract does not change when delivery is wired in.
+
+**The fixed banner reserves its own space.** It measures itself and publishes
+`--consent-banner-height`, which `body` consumes as bottom padding. Without it the
+banner permanently covers the last stretch of every page — on a phone, tall enough to
+swallow a submit button. `scroll-padding-top` was added in the same pass, because the
+sticky header was landing anchor targets underneath itself, which the legal tables of
+contents would have hit on every jump.

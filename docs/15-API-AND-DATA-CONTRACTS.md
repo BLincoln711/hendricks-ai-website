@@ -33,7 +33,7 @@ const leadInputSchema = z.object({
   ]).optional(),
   desiredTiming: z.string().trim().max(160).optional(),
   additionalContext: z.string().trim().max(5000).optional(),
-  privacyConsent: z.literal(true),
+  marketingOptIn: z.boolean().default(false),
   honeypot: z.string().max(0),
   startedAt: z.number().int().positive(),
   turnstileToken: z.string().optional(),
@@ -52,6 +52,29 @@ const leadInputSchema = z.object({
 ```
 
 Agency and contact forms may make some Diagnostic-specific fields optional. Use discriminated unions if that creates clearer validation.
+
+
+### Server-controlled privacy metadata
+
+Do not accept privacy-notice or consent-language versions as authoritative client values. After validation, the server adds:
+
+```ts
+type PrivacySubmissionMetadata = {
+  privacyNoticeVersion: string
+  formCopyVersion: string
+  submittedAt: string
+  marketingConsent?: {
+    optedIn: true
+    languageVersion: string
+    collectedAt: string
+    sourceUrl: string
+  }
+}
+```
+
+When `marketingOptIn` is false, do not create a marketing-consent record and do not add the email address to a marketing list.
+
+The form notice is a notice at collection, not bundled consent to the Privacy Notice.
 
 ## 3. Public response schema
 
@@ -242,3 +265,83 @@ A case study query must filter:
 - defined limitations
 
 The frontend must not trust UI hiding alone; the query and route enforce the gate.
+
+
+## 9. Privacy request endpoint
+
+Recommended route:
+
+`POST /api/privacy-requests`
+
+```ts
+const privacyRequestInputSchema = z.object({
+  firstName: z.string().trim().min(1).max(80),
+  lastName: z.string().trim().min(1).max(80),
+  email: z.string().trim().email().max(254),
+  country: z.string().trim().min(2).max(100),
+  stateOrProvince: z.string().trim().max(100).optional(),
+  relationship: z.enum([
+    'website-visitor',
+    'inquiry-submitter',
+    'marketing-subscriber',
+    'client-representative',
+    'agency-partner-representative',
+    'authorized-agent',
+    'other',
+  ]),
+  requestType: z.enum([
+    'access',
+    'correct',
+    'delete',
+    'portability',
+    'object-or-restrict',
+    'withdraw-consent',
+    'opt-out',
+    'appeal',
+    'other',
+  ]),
+  details: z.string().trim().min(10).max(5000),
+  isAuthorizedAgent: z.boolean().default(false),
+  originalRequestId: z.string().trim().max(100).optional(),
+  attestation: z.literal(true),
+  honeypot: z.string().max(0),
+  startedAt: z.number().int().positive(),
+  turnstileToken: z.string().optional(),
+})
+```
+
+The endpoint returns a public-safe request ID and stores the case in a restricted system. Do not send request details to analytics, Slack, or a broad email distribution list.
+
+Recommended success response:
+
+```json
+{
+  "ok": true,
+  "requestId": "PRIV-2026-000123",
+  "message": "Your privacy request has been received."
+}
+```
+
+## 10. Consent preference contract
+
+Consent preference must be available synchronously before optional scripts are evaluated.
+
+```ts
+type ConsentState = {
+  version: string
+  analytics: 'granted' | 'denied'
+  advertising: 'denied'
+  source: 'banner' | 'preferences' | 'gpc'
+  gpc: boolean
+  decidedAt: string
+  expiresAt: string
+}
+```
+
+Rules:
+
+- Missing, invalid, expired, or version-mismatched state means analytics is denied.
+- GPC means analytics is denied.
+- Advertising remains denied at launch.
+- Do not send the consent record itself to GA4.
+- Store consent events in the CMP or approved first-party consent log.

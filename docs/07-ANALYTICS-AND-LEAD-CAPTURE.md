@@ -99,7 +99,7 @@ Capture at first landing and preserve through the lead journey:
 
 Store this information with the lead submission, not just GA4.
 
-Use a first-party cookie or session/local storage only after determining the appropriate consent behavior. Version the storage schema.
+Use session or first-party storage for attribution only after the visitor grants analytics consent. Without analytics consent, capture only attribution present on the submitted request, such as the current URL, current referrer, and query parameters available at submission. Version every storage schema.
 
 ## 7. Diagnostic form
 
@@ -117,7 +117,9 @@ Use a first-party cookie or session/local storage only after determining the app
 - Approximate monthly search investment range
 - Desired timing
 - Additional context
-- Privacy consent
+- Optional marketing email opt-in
+
+Display the approved notice at collection from `legal/01-FORM-AND-CONSENT-COPY.md` immediately before the submit button. The notice is not a consent field.
 
 ### Suggested investment ranges
 
@@ -135,7 +137,8 @@ This field is a qualifier, not a public pricing gate.
 - Email must be valid.
 - Website must be a valid HTTP(S) URL.
 - Text fields have sensible maximum lengths.
-- Consent is required.
+- Marketing opt-in is optional, unchecked by default, and false when omitted.
+- The server records the current Privacy Notice and form-copy versions; do not trust client-supplied version values.
 - Honeypot must remain empty.
 - Submission time under a minimum threshold is suspicious.
 - Validate on server even when client validation exists.
@@ -186,10 +189,17 @@ Do not use an inaccessible visual CAPTCHA.
 
 ## 10. Consent and privacy
 
-- Make consent language configurable.
-- Implement consent mode and a configurable CMP integration point.
-- Legal counsel or the business owner decides the final banner and policy requirements.
-- Do not load advertising tags before appropriate consent where required.
+The launch decision is defined in `docs/16-PRIVACY-CONSENT-AND-LEGAL-IMPLEMENTATION.md`.
+
+- Implement a global opt-in consent banner.
+- Use basic Google Consent Mode v2.
+- Do not load Google Analytics, Vercel Web Analytics, Vercel Speed Insights, or another non-essential measurement script before analytics consent.
+- Advertising and retargeting tags are prohibited at launch.
+- Honor Global Privacy Control by keeping optional analytics denied.
+- Do not require visitors to “consent to the Privacy Notice” to submit an inquiry.
+- Show the approved notice at collection.
+- Keep marketing email consent separate, optional, and unchecked.
+- Never send personal information or form-field content to analytics.
 - Do not claim the developer has provided legal advice.
 
 ## 11. Verification

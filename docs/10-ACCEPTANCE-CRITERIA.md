@@ -185,3 +185,25 @@ For every primary route:
 - [ ] Key content renders.
 - [ ] Navigation works.
 - [ ] Screenshot is captured.
+
+
+## Privacy and consent acceptance
+
+- `/privacy`, `/terms`, and `/privacy-request` are complete and responsive.
+- No legal placeholder is visible in production.
+- Inquiry forms do not require bundled privacy consent.
+- Approved notice at collection is visible before submit.
+- Optional marketing consent is unchecked and non-blocking.
+- No phone or file-upload field exists at launch.
+- No optional analytics request occurs before consent.
+- Google Consent Mode v2 defaults to denied.
+- Advertising consent remains denied.
+- GPC keeps optional analytics denied.
+- Reject and accept have equal prominence and equal interaction cost.
+- Privacy Choices is available in the footer on every route.
+- Withdrawal stops future optional analytics.
+- No personal information appears in analytics, URLs, or generic telemetry.
+- Privacy request supports access, correction, deletion, portability, objection, opt-out, and appeal.
+- Privacy inboxes are monitored.
+- Actual vendor list and retention settings match the Privacy Notice.
+- Counsel has reviewed the final entity, venue, liability, and privacy copy.

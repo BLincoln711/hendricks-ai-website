@@ -38,5 +38,11 @@ export default defineConfig({
     url: baseURL,
     reuseExistingServer: false,
     timeout: 180_000,
+    // The optional-analytics master switch is on under test so the consent gate
+    // is exercised rather than passing vacuously. With it off, "no analytics
+    // request before consent" would prove nothing — the vendors were never a
+    // possibility. Production keeps it off until these tests pass on a
+    // deployment (docs/11, privacy phase).
+    env: { NEXT_PUBLIC_ENABLE_OPTIONAL_ANALYTICS: 'true' },
   },
 })

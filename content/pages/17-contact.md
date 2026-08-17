@@ -41,11 +41,24 @@ We will review the context, determine whether a Search Intelligence Diagnostic i
 - Current search and measurement environment
 - Desired timing
 - Additional context
-- Privacy consent
+- Optional marketing email opt-in
 
 ## Primary open-text prompt
 
 > What decision can your current search, AI-visibility, or data system not answer?
+
+
+## Notice at collection
+
+Place immediately above the submit button:
+
+> Hendricks will use the information you provide to route, evaluate, and respond to your inquiry; maintain business records; and protect the website from fraud and abuse. We may share it with service providers that host the website, deliver email, secure the form, and operate our customer-relationship systems. Do not submit confidential, proprietary, financial, health, government-identifier, or other sensitive personal information. See our [Privacy Notice](/privacy).
+
+## Optional marketing checkbox
+
+Unchecked by default:
+
+- [ ] Send me occasional Hendricks research and service updates by email. I can unsubscribe at any time. This is optional and is not a condition of receiving a response.
 
 ## Submit button
 
@@ -53,6 +66,6 @@ We will review the context, determine whether a Search Intelligence Diagnostic i
 
 ## Confirmation
 
-Thank you. Your inquiry is being reviewed for fit.
+Thank you. Your inquiry has been received. Hendricks will review the information and respond when an appropriate next step is available.
 
-The next response will identify the most appropriate next step—not place you into a generic automated sales sequence.
+Submitting this form does not create a client relationship. You will not be enrolled in marketing unless you separately selected the optional marketing checkbox.

@@ -310,3 +310,21 @@ Create `RELEASE_REPORT.md` with:
 - Missing credentials/assets
 - Known limitations
 - Rollback notes
+
+
+## Privacy and legal phase
+
+Before enabling production analytics or forms:
+
+1. Implement `/privacy`, `/terms`, and `/privacy-request`.
+2. Replace all bracketed legal placeholders.
+3. Create and monitor `privacy@hendricks.ai` and `legal@hendricks.ai`.
+4. Implement the global consent banner and Privacy Choices modal.
+5. Implement basic Google Consent Mode v2.
+6. Keep all optional analytics disabled until consent.
+7. Remove the required privacy-consent checkbox from inquiry forms.
+8. Add the approved notice at collection and optional marketing checkbox.
+9. Configure privacy-request workflow, deadlines, verification, appeal, and processor deletion.
+10. Obtain legal review against actual vendors and practices.
+
+Do not enable `NEXT_PUBLIC_ENABLE_OPTIONAL_ANALYTICS=true` until the consent network tests pass.

@@ -90,11 +90,14 @@ removing at the same time.
 
 | # | Item | Proposed location | What must be verified | Status |
 |---|---|---|---|---|
-| L1 | Privacy notice | `/privacy` | Written by counsel. Placeholder ships clearly marked. | blocked |
-| L2 | Website terms | `/terms` | Written by counsel. Placeholder ships clearly marked. | blocked |
-| L3 | Form consent language | `/diagnostic`, `/contact` | Approved consent wording and data-handling description | blocked |
-| L4 | Cookie and consent banner | Global | Whether a CMP is required, and which. `docs/07` §10 assigns this to legal counsel or the business owner. | blocked |
+| L1 | Privacy notice | `/privacy` | Approved copy supplied 2026-08-16 and published verbatim. Counsel review of the privacy language is still outstanding (docs/16 §14). | approved — pending counsel review |
+| L2 | Website terms | `/terms` | Approved copy supplied 2026-08-16 and published verbatim. Venue resolved to Harris County, Texas by Brandon. Counsel review of liability and venue is still outstanding. | approved — pending counsel review |
+| L3 | Form consent language | `/diagnostic`, `/contact`, `/privacy-request` | Resolved by `legal/01-FORM-AND-CONSENT-COPY.md`. Forms now carry a notice at collection and a separate, unticked marketing opt-in; submitting is not treated as consent to marketing. | approved |
+| L4 | Cookie and consent banner | Global | Resolved by `docs/16`. Opt-in banner, Privacy Choices modal, Consent Mode v2 defaults, and Global Privacy Control support are built. No third-party CMP is used. | approved |
 | L5 | AI crawler policy | `robots.ts` | `docs/06` §7 requires a separately approved policy for AI training versus search discovery. Not to be decided silently in code. | pending |
+| L6 | `privacy@hendricks.ai` and `legal@hendricks.ai` | `/privacy`, `/terms`, `/privacy-request` | Both addresses are published in the legal copy. They must exist and be monitored before launch. | blocked — mailboxes not confirmed |
+| L7 | Vendor list, CRM provider, and retention settings | `/privacy` §"Additional U.S. State Disclosures" and §"How We Share" | The notice describes categories rather than named vendors. Confirm the actual processors, the CRM, and the retention periods match what is written. | pending |
+| L8 | Privacy request workflow | `/privacy-request` | Requests are validated, rate limited, and given a case reference, but delivery is stubbed pending a mailbox. Confirm who works the queue and the response deadline. | blocked on L6 |
 
 ## Unanswered FAQ topics
 
@@ -138,7 +141,8 @@ in the content objects from the start and the gate simply opened.
 | R4 | `/ai-selection-problem` | `/solutions/selection-intelligence`, footer | Live | resolved |
 | R5 | `/research` | Footer, 404 page | Footer column now renders the four definition pages and omits the hub | blocked on Sanity credentials |
 | R6 | `/corrections` | Footer legal row | Filtered | blocked — no approved copy exists for this route |
-| R7 | `/privacy`, `/terms` | Footer legal row | Filtered; blocks the Phase 5 forms via L1/L3 | blocked on L1, L2 |
+| R7 | `/privacy`, `/terms` | Footer legal row, both form notices, consent banner and modal | Live | resolved |
+| R8 | `/privacy-request` | Footer legal row, `/privacy` | Live, and deliberately excluded from the sitemap and from indexing (docs/16 §9). It is a destination for people who already have a reason to be there, not a search result. | resolved |
 
 `docs/03` §6 asks each solution page to link at least two relevant research pages.
 That is now satisfied on all four, and a unit test enforces it. Two of them —

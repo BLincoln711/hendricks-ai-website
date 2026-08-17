@@ -60,8 +60,9 @@ Use an accessible sheet/dialog menu with the same hierarchy. The CTA appears as 
 | `/methodology` | Research and measurement standards | Technical buyers | Start with a Diagnostic | Yes | Required |
 | `/about` | Founder credibility and company principles | All | Start with a Diagnostic | Yes | Required |
 | `/contact` | General routing and qualification | All | Submit inquiry | Yes | Required |
-| `/privacy` | Privacy notice | All | None | Yes | Legal review |
-| `/terms` | Website terms | All | None | Yes | Legal review |
+| `/privacy` | Privacy notice | All | None | Yes | Required; legal review |
+| `/terms` | Website terms | All | None | Yes | Required; legal review |
+| `/privacy-request` | Privacy-rights request and appeal form | All | Submit request | No | Required |
 | `/corrections` | Editorial corrections policy | Research readers | Submit correction | Yes | Required with research |
 | `/studio/[[...tool]]` | Sanity Studio | Editors | None | No | Required |
 
@@ -187,6 +188,8 @@ Do not display breadcrumbs on the homepage.
 
 - Privacy
 - Terms
+- Privacy Request
+- Privacy Choices
 - Corrections
 - Copyright
 

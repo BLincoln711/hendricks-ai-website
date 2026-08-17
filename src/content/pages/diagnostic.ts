@@ -11,8 +11,8 @@ import { routes } from '@/config/routes'
  *   CONTENT_VERIFICATION.md P1 is `pending`: whether the fee is published on the
  *   site or disclosed in conversation is an open decision. The factors that set
  *   the fee are approved and are published.
- * - The application form is Phase 5 and blocked on approved consent language and
- *   a published privacy notice (L1, L3).
+ * - The application form is Phase 5. Its legal model is settled and its approved
+ *   wording is in `formLegal` below.
  */
 
 export const meta = {
@@ -201,6 +201,26 @@ export const related: readonly RelatedLink[] = [
     description: 'The research standards behind every Diagnostic conclusion.',
   },
 ]
+
+/**
+ * Legal model for the Phase 5 application form (legal/01 §1, docs/16 §7).
+ *
+ * The notice renders immediately above the submit button and must be readable
+ * without opening a modal. The marketing checkbox is unchecked by default and
+ * the form must submit when it is left that way. There is no privacy-consent
+ * checkbox and adding one would be a regression.
+ */
+export const formLegal = {
+  notice:
+    'Hendricks will use the contact, professional, company, and inquiry information you provide to evaluate and respond to your request, maintain business records, and protect the form from fraud and abuse. We may share this information with service providers that host the website, deliver email, secure the form, and operate our customer-relationship systems. Do not submit confidential, proprietary, financial, health, government-identifier, or other sensitive personal information through this form. Learn more in our [Privacy Notice](/privacy).',
+  marketingOptIn:
+    'Send me occasional Hendricks research, event invitations, and service updates by email. I can unsubscribe at any time. This is optional and is not a condition of receiving a response.',
+  submitLabel: 'Apply for a Diagnostic',
+  confirmation:
+    'Thank you. Your request has been received and is being reviewed for fit. A Hendricks representative may contact you using the business contact information you provided. Submitting this form does not create a client relationship or require Hendricks to accept an engagement.',
+  confirmationEmailFooter:
+    'You received this service message because you submitted a request through Hendricks.ai. This message confirms your inquiry; it does not enroll you in marketing unless you separately selected the optional marketing checkbox.',
+} as const
 
 export const closing = {
   eyebrow: 'Application',

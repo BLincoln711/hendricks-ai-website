@@ -24,6 +24,14 @@ const serverSchema = z.object({
   NEXT_PUBLIC_VERCEL_ENV: z
     .enum(['development', 'preview', 'production'])
     .default('development'),
+  /**
+   * Optional analytics remain off until the consent network tests pass against a
+   * deployed environment (docs/11, privacy phase). Absent means false.
+   */
+  NEXT_PUBLIC_ENABLE_OPTIONAL_ANALYTICS: z
+    .enum(['true', 'false'])
+    .default('false')
+    .or(z.literal('').transform(() => 'false' as const)),
 
   NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().optional(),
   NEXT_PUBLIC_SANITY_DATASET: z.string().default('production'),

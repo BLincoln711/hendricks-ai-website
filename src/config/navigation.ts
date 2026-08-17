@@ -99,8 +99,21 @@ export const footerNavigation = {
   },
 } as const
 
+/**
+ * Footer legal row (legal/01 §11).
+ *
+ * Deliberately omits a "Do Not Sell or Share My Personal Information" link:
+ * Hendricks neither sells personal information nor shares it for cross-context
+ * behavioral advertising at launch, so the link would misdescribe the site. It
+ * becomes required before any advertising, retargeting, or audience-matching
+ * technology is introduced.
+ *
+ * The Privacy Choices control is not listed here because it is a button that
+ * reopens the consent manager, not a route.
+ */
 export const legalNavigation = built([
-  { label: 'Privacy', href: routes.privacy.path },
-  { label: 'Terms', href: routes.terms.path },
+  { label: 'Privacy Notice', href: routes.privacy.path },
+  { label: 'Terms of Use', href: routes.terms.path },
+  { label: 'Privacy Request', href: routes.privacyRequest.path },
   { label: 'Corrections', href: routes.corrections.path },
 ])

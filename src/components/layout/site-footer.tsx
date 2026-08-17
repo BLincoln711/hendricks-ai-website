@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { PrivacyChoicesButton } from '@/components/consent/privacy-choices-button'
 import { Container } from '@/components/layout/container'
 import { Wordmark } from '@/components/layout/wordmark'
 import { footerNavigation, legalNavigation } from '@/config/navigation'
@@ -62,7 +63,7 @@ export function SiteFooter() {
           <p className="text-[0.8125rem] text-[color-mix(in_srgb,var(--color-field)_58%,transparent)]">
             © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
-          <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 empty:hidden">
+          <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
             {legalNavigation.map((item) => (
               <li key={item.href}>
                 <Link
@@ -73,6 +74,9 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+            <li>
+              <PrivacyChoicesButton />
+            </li>
           </ul>
         </div>
       </Container>

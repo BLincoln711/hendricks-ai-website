@@ -107,9 +107,13 @@ describe.each(pages)('$route content', ({ route, meta, content }) => {
   })
 
   it('uses no ambiguous call to action', () => {
-    // docs/01 §12 — CTAs must name the next action.
-    expect(corpus.toLowerCase()).not.toContain('learn more')
-    expect(corpus.toLowerCase()).not.toContain('get started')
+    // docs/01 §12 — CTAs must name the next action. `formLegal` is excluded:
+    // it is approved legal wording from legal/01, where "Learn more in our
+    // Privacy Notice" is the notice at collection rather than a call to action,
+    // and it may not be reworded to satisfy a copy rule aimed at CTAs.
+    const ctaCorpus = omitKeys(content, ['formLegal']).toLowerCase()
+    expect(ctaCorpus).not.toContain('learn more')
+    expect(ctaCorpus).not.toContain('get started')
   })
 
   it('calls the implementation solution Search Presence Engineering', () => {

@@ -17,9 +17,10 @@ describe('Route registry', () => {
   })
 
   it('marks exactly the routes that have been built', () => {
-    // Twelve commercial routes from Phase 4, plus the four definition pages from
-    // Phase 6. Anything else in the registry is still unbuilt, and this list is
-    // what stops a route being flagged built before its page exists.
+    // Twelve commercial routes from Phase 4, the four definition pages from
+    // Phase 6, and the three legal routes. Anything else in the registry is
+    // still unbuilt, and this list is what stops a route being flagged built
+    // before its page exists.
     const built = Object.values(routes)
       .filter((route) => route.built)
       .map((route) => route.path)
@@ -36,15 +37,25 @@ describe('Route registry', () => {
         '/for-brands',
         '/how-it-works',
         '/methodology',
+        '/privacy',
+        '/privacy-request',
         '/solutions',
         '/solutions/search-demand-intelligence',
         '/solutions/search-impact-measurement',
         '/solutions/search-presence-engineering',
         '/solutions/selection-intelligence',
+        '/terms',
         '/what-is-search-intelligence-engineering',
         '/what-is-selection-intelligence',
       ].sort(),
     )
+  })
+
+  it('keeps the privacy request form out of the sitemap', () => {
+    // docs/16 §9 — reachable from the footer and the Privacy Notice, but a
+    // transactional form with no reason to compete in search results.
+    expect(routes.privacyRequest.indexable).toBe(false)
+    expect(indexableBuiltRoutes().map((route) => route.path)).not.toContain('/privacy-request')
   })
 
   it('keeps the flagged Results route out of the sitemap', () => {

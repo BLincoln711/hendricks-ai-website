@@ -4,14 +4,10 @@ import { routes } from '@/config/routes'
 /**
  * Approved copy, transcribed from content/pages/17-contact.md.
  *
- * The inquiry form is Phase 5. It is blocked on two items in
- * CONTENT_VERIFICATION.md, neither of which can be resolved in code:
- *
- * - L3, form consent language: no approved consent wording exists.
- * - L1, privacy notice: the consent copy has to link to a published notice.
- *
- * The field list and confirmation copy therefore stay in the approved markdown
- * rather than being rendered with invented consent text.
+ * The inquiry form itself is Phase 5. Its legal model is settled: docs/16 §7
+ * removed the bundled privacy-consent checkbox in favour of a notice at
+ * collection, and the approved wording for both now lives in `formLegal` below
+ * so the form inherits it rather than inventing it.
  */
 
 export const meta = {
@@ -70,8 +66,31 @@ export const expectations = {
   eyebrow: 'What Happens Next',
   title: 'Your inquiry is reviewed for fit.',
   body: [
-    'The next response will identify the most appropriate next step—not place you into a generic automated sales sequence.',
+    'Hendricks will review the information and respond when an appropriate next step is available.',
+    'Submitting the form does not create a client relationship. You will not be enrolled in marketing unless you separately select the optional marketing checkbox.',
   ],
+} as const
+
+/**
+ * Legal model for the Phase 5 inquiry form (legal/01 §2, docs/16 §7).
+ *
+ * There is no privacy-consent checkbox here, and adding one would be a
+ * regression rather than an oversight: Hendricks needs the submitted
+ * information to answer the request, so the lawful basis is the request itself,
+ * and bundling consent into it would misdescribe what is happening.
+ *
+ * `notice` renders immediately above the submit button and must be readable
+ * without opening a modal. `marketingOptIn` is unchecked by default and the
+ * form must submit when it is left that way.
+ */
+export const formLegal = {
+  notice:
+    'Hendricks will use the information you provide to route, evaluate, and respond to your inquiry; maintain business records; and protect the website from fraud and abuse. We may share it with service providers that host the website, deliver email, secure the form, and operate our customer-relationship systems. Do not submit confidential, proprietary, financial, health, government-identifier, or other sensitive personal information. See our [Privacy Notice](/privacy).',
+  marketingOptIn:
+    'Send me occasional Hendricks research and service updates by email. I can unsubscribe at any time. This is optional and is not a condition of receiving a response.',
+  submitLabel: 'Send Inquiry',
+  confirmation:
+    'Thank you. Your inquiry has been received. Hendricks will review the information and respond when an appropriate next step is available. Submitting this form does not create a client relationship.',
 } as const
 
 export const related: readonly RelatedLink[] = [

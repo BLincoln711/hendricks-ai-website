@@ -84,9 +84,22 @@ export const routes = {
   // Feature-flagged off until verified case studies exist.
   results: { path: '/results', label: 'Results', indexable: false, built: false },
 
-  // Awaiting counsel — CONTENT_VERIFICATION.md L1/L2.
-  privacy: { path: '/privacy', label: 'Privacy', indexable: true, built: false },
-  terms: { path: '/terms', label: 'Terms', indexable: true, built: false },
+  // Legal routes. Approved copy arrived with the privacy and legal addendum;
+  // remaining launch conditions are operational, not editorial, and are tracked
+  // in CONTENT_VERIFICATION.md L6–L9.
+  privacy: { path: '/privacy', label: 'Privacy Notice', indexable: true, built: true },
+  terms: { path: '/terms', label: 'Terms of Use', indexable: true, built: true },
+  /**
+   * Linked from the footer and the Privacy Notice, never from primary
+   * navigation (docs/16 §9). Left out of the sitemap because it is a
+   * transactional form rather than a page worth ranking.
+   */
+  privacyRequest: {
+    path: '/privacy-request',
+    label: 'Privacy Request',
+    indexable: false,
+    built: true,
+  },
 } as const satisfies Record<string, RouteDefinition>
 
 export type RouteKey = keyof typeof routes

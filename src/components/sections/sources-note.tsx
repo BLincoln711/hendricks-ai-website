@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Container } from '@/components/layout/container'
 import { Section } from '@/components/layout/section'
 import { isBuilt } from '@/config/routes'
+import { formatLongDate } from '@/lib/utils/format-date'
 
 /**
  * "Sources and update information" block required on definition pages
@@ -26,12 +27,7 @@ export function SourcesNote({
   basis: string
   appliedIn: readonly { label: string; href: string }[]
 }) {
-  const formatted = new Date(`${reviewed}T00:00:00Z`).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'UTC',
-  })
+  const formatted = formatLongDate(reviewed)
 
   const available = appliedIn.filter((item) => isBuilt(item.href))
 

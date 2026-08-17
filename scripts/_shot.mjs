@@ -2,7 +2,7 @@ import { chromium } from '@playwright/test'
 import { mkdirSync } from 'node:fs'
 
 const BASE = 'http://127.0.0.1:3100'
-const OUT = '.screens/phase6'
+const OUT = '.screens/legal'
 mkdirSync(OUT, { recursive: true })
 
 const paths = [
@@ -22,6 +22,9 @@ const paths = [
   ['def-si', '/what-is-selection-intelligence'],
   ['def-asp', '/ai-selection-problem'],
   ['def-methodology', '/methodology'],
+  ['privacy', '/privacy'],
+  ['terms', '/terms'],
+  ['privacy-request', '/privacy-request'],
 ]
 
 const viewports = [

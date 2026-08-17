@@ -13,4 +13,15 @@ export const features = {
   enableTurnstile: false,
 } as const
 
+/**
+ * Master switch for every optional analytics vendor (docs/11, privacy phase).
+ *
+ * Read from the environment rather than this file because it is an operational
+ * gate, not a design decision: docs/11 forbids enabling it until the consent
+ * network tests pass against a deployed environment. Consent is still required
+ * on top of it — this only decides whether the vendors exist as a possibility.
+ */
+export const optionalAnalyticsEnabled =
+  process.env.NEXT_PUBLIC_ENABLE_OPTIONAL_ANALYTICS === 'true'
+
 export type Features = typeof features

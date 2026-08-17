@@ -81,8 +81,26 @@
 }
 
 @layer base {
+  :root {
+    /* Mirrors the sticky header's `h-16 md:h-20` in `site-header.tsx`. */
+    --header-height: 4rem;
+  }
+
+  @media (min-width: 48rem) {
+    :root {
+      --header-height: 5rem;
+    }
+  }
+
   html {
     -webkit-text-size-adjust: 100%;
+    /*
+     * The site header is sticky and the consent banner is fixed, so anything
+     * scrolled to by an in-page anchor or by the browser would otherwise land
+     * underneath one of them. The legal tables of contents depend on this.
+     */
+    scroll-padding-top: calc(var(--header-height) + 1rem);
+    scroll-padding-bottom: calc(var(--consent-banner-height, 0px) + 1rem);
   }
 
   body {
@@ -92,6 +110,13 @@
     font-size: var(--text-body);
     line-height: 1.65;
     text-rendering: optimizeLegibility;
+    /*
+     * The consent banner is fixed to the bottom of the viewport and sets this
+     * variable to its own measured height while it is on screen. Without the
+     * reservation it covers the end of the page permanently, which on a phone
+     * is tall enough to swallow a form's submit button.
+     */
+    padding-bottom: var(--consent-banner-height, 0px);
   }
 
   h1,

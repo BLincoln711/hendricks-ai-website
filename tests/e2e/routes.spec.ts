@@ -303,7 +303,9 @@ test.describe('Sitemap', () => {
   test('omits routes that are not built yet', async ({ request }) => {
     const xml = await (await request.get('/sitemap.xml')).text()
 
-    for (const path of ['/research', '/corrections', '/results', '/privacy', '/terms']) {
+    // /privacy-request is built but deliberately not indexable (docs/16 §9), so
+    // it belongs on this list for a different reason than the unbuilt routes.
+    for (const path of ['/research', '/corrections', '/results', '/privacy-request']) {
       expect(xml, `sitemap advertises unbuilt ${path}`).not.toContain(`${path}</loc>`)
     }
   })

@@ -17,11 +17,19 @@ const SRC = path.join(ROOT, 'src')
 /**
  * The Search Economy may appear only in Brandon's founder biography on /about
  * (docs/10 §2). These are the only files permitted to name it.
+ *
+ * The two legal documents are a narrow, deliberate exception. Both name it to
+ * disclaim it — the Privacy Notice to say its privacy practices are governed
+ * elsewhere, the Terms to say its terms are governed elsewhere. That is the
+ * opposite of presenting it as a Hendricks offering, and omitting the disclaimer
+ * would leave the separation less clear rather than more.
  */
 const SEARCH_ECONOMY_ALLOWLIST = [
   'src/content/pages/about.ts',
   'src/components/sections/external-venture-card.tsx',
   'src/app/(marketing)/about/page.tsx',
+  'src/content/legal/privacy.ts',
+  'src/content/legal/terms.ts',
 ]
 
 /** docs/12 §3 — the "Avoid" list. */
@@ -41,7 +49,21 @@ const BANNED_PHRASES = [
 /** docs/12 §2 — names that were retired before launch. */
 const RETIRED_TERMS = ['Selection Engineering', 'GEO-only', 'AI rank tracking as a service']
 
-const PLACEHOLDER_PATTERNS = [/lorem ipsum/i, /\bTKTK\b/, /\bTODO:/, /\bFIXME\b/, /\bXXX\b/]
+const PLACEHOLDER_PATTERNS = [
+  /lorem ipsum/i,
+  /\bTKTK\b/,
+  /\bTODO:/,
+  /\bFIXME\b/,
+  /\bXXX\b/,
+  /**
+   * Bracketed all-caps tokens, the form every unresolved value in the legal
+   * source documents takes: `[EFFECTIVE DATE]`, `[COUNTY]`,
+   * `[LEGAL ENTITY NAME]`. `docs/16` §14 forbids launching with any of them, and
+   * a published Privacy Notice reading "[EFFECTIVE DATE]" is worse than no
+   * notice at all. Markdown links are mixed case and do not match.
+   */
+  /\[[A-Z][A-Z ]{2,}\]/,
+]
 
 /**
  * Components that render sample data and therefore must carry the label from
