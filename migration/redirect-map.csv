@@ -1,127 +1,128 @@
 old_url,new_url,redirect_type,rationale,backlink_priority,search_traffic_priority,qa_status
 /about,/about,308,Retain URL; rewrite content,unknown,unknown,pending
-/audit,,,Conflicting positioning; needs disposition,unknown,unknown,pending
+/audit,/diagnostic,308,Not disposed in this pass; already 308s to /diagnostic via the legacy map in next.config.ts so nothing was left to dispose,unknown,unknown,passed
 /contact,/contact,308,Retain URL; rewrite content,unknown,unknown,pending
-/dashboard,,410,Authenticated or internal route; not public,none,none,pending
-/dashboard/[slug],,410,Authenticated or internal route; not public,none,none,pending
-/dashboard/admin,,410,Authenticated or internal route; not public,none,none,pending
-/dashboard/ads-manager,,410,Authenticated or internal route; not public,none,none,pending
-/dashboard/ads-manager/anomalies,,410,Authenticated or internal route; not public,none,none,pending
-/dashboard/ads-manager/forecast,,410,Authenticated or internal route; not public,none,none,pending
-/dashboard/ads-manager/optimization-log,,410,Authenticated or internal route; not public,none,none,pending
-/dashboard/ads-manager/overview,,410,Authenticated or internal route; not public,none,none,pending
-/dashboard/ads-manager/recommendations,,410,Authenticated or internal route; not public,none,none,pending
-/dashboard/agent-system,,410,Authenticated or internal route; not public,none,none,pending
-/dashboard/agent-system/chat,,410,Authenticated or internal route; not public,none,none,pending
-/dashboard/agent-system/signals,,410,Authenticated or internal route; not public,none,none,pending
-/dashboard/agent-system/workflows,,410,Authenticated or internal route; not public,none,none,pending
-/dashboard/intelligence,,410,Authenticated or internal route; not public,none,none,pending
-/dashboard/knowledge,,410,Authenticated or internal route; not public,none,none,pending
-/dashboard/proposals,,410,Authenticated or internal route; not public,none,none,pending
+/dashboard,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/dashboard/[slug],,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts prefix rule,none,none,passed
+/dashboard/admin,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/dashboard/ads-manager,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/dashboard/ads-manager/anomalies,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/dashboard/ads-manager/forecast,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/dashboard/ads-manager/optimization-log,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/dashboard/ads-manager/overview,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/dashboard/ads-manager/recommendations,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/dashboard/agent-system,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/dashboard/agent-system/chat,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/dashboard/agent-system/signals,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/dashboard/agent-system/workflows,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/dashboard/intelligence,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/dashboard/knowledge,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/dashboard/proposals,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
 /diagnostic,/diagnostic,308,Retain URL; rewrite to Search Intelligence Diagnostic,unknown,unknown,pending
-/industries,,,Conflicting positioning; needs disposition,unknown,unknown,pending
-/industries/accounting-firms,,,Conflicting positioning; needs disposition,unknown,unknown,pending
-/industries/consulting-firms,,,Conflicting positioning; needs disposition,unknown,unknown,pending
-/industries/energy-operations,,,Conflicting positioning; needs disposition,unknown,unknown,pending
-/industries/healthcare,,,Conflicting positioning; needs disposition,unknown,unknown,pending
-/industries/healthcare-practices,,,Conflicting positioning; needs disposition,unknown,unknown,pending
-/industries/law-firms,,,Conflicting positioning; needs disposition,unknown,unknown,pending
-/industries/marketing-agencies,,,Conflicting positioning; needs disposition,unknown,unknown,pending
-/industries/multi-location-services,,,Conflicting positioning; needs disposition,unknown,unknown,pending
-/industries/professional-services,,,Conflicting positioning; needs disposition,unknown,unknown,pending
-/insights,/research,308,Editorial index maps to new Research hub,unknown,unknown,pending
-/insights/a2a-protocol-business-operations,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/agent-collision-detection-preventing-duplicate-work,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/agent-orchestration-patterns-execution-models,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/agent-state-management-persistent-context-ai-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/agent-to-agent-communication-patterns-building-self-coordinating-ai-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/ai-agent-governance-architecture,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/ai-agents-for-accounting-firms,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/ai-agents-for-healthcare-operations,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/ai-agents-for-law-firms,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/ai-agents-professional-services-operations,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/ai-agents-vs-automation-difference,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/ai-consulting-vs-ai-architecture,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/ai-experimentation-vs-transformation,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/architecture-precedes-automation,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/autonomous-ai-agent-architecture-for-enterprise,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/batch-vs-stream-processing-ai-agent-architectures,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/bigquery-ai-agent-memory-system,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/build-ai-in-house-or-outsource,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/cache-invalidation-strategies-ai-agent-decision-systems-bigquery,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/checkpoint-patterns-long-running-ai-agent-tasks,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/circuit-breaker-patterns-ai-agent-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/claude-code-ai-agent-development,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/consensus-mechanisms-multi-agent-decision-making,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/data-foundation-for-ai,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/data-lineage-tracking-ai-agent-systems-bigquery-audit-trails,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/dead-letter-queue-patterns-failed-ai-agent-tasks,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/decision-latency-ai-agent-systems-production-viability,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/dependency-mapping-ai-agent-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/error-recovery-patterns-production-ai-agent-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/event-driven-architectures-ai-agents-real-time-operations,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/five-architecture-decisions-ai-agent-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/five-layers-operating-architecture,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/fragmented-tools-unified-architecture,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/gemini-enterprise-agent-platform-mid-market,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/google-adk-vs-langchain-enterprise-deployment,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/google-cloud-agent-systems-adk-gemini,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/graceful-degradation-patterns-ai-agent-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/hidden-cost-skipping-architecture-ai-agent-sprawl-technical-debt,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/how-ai-search-engines-cite-mid-market-firms-2026,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/how-to-implement-ai-agents-business-operations,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/how-to-measure-ai-roi,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/idempotency-patterns-ai-agent-operations,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/memory-leak-patterns-ai-agent-systems-bigquery,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/multi-agent-orchestration-workflows,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/operating-architecture-professional-services,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/operational-handoff-protocols-ai-agents-transfer-work,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/partition-pruning-strategies-ai-agent-query-performance-bigquery,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/pattern-recognition-vs-rule-based-logic-ai-agents,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/performance-metrics-mid-market,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/query-cost-optimization-patterns-ai-agent-bigquery-workloads,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/rate-limiting-throttling-patterns-ai-agent-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/resource-contention-patterns-multi-agent-systems-bigquery,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/retry-logic-exponential-backoff-ai-agent-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/rpa-to-ai-agents-migration,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/schema-evolution-strategies-ai-agent-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/service-level-objectives-ai-agent-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/signal-degradation-multi-agent-systems-data-architecture,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/signal-pattern-libraries-pre-built-detection-logic-ai-agents,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/signs-operations-need-architecture,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/stateful-vs-stateless-ai-agent-design-patterns,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/task-handoff-failures-ai-agent-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/time-based-agent-activation-patterns-scheduling-ai-operations,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/transaction-isolation-levels-multi-agent-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/versioning-rollback-strategies-production-ai-agent-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/what-ai-agent-operating-system-looks-like-production,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/what-are-ai-agents-for-business,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/what-are-multi-agent-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/what-is-ai-agent-orchestration,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/what-is-architecture-for-autonomous-ai-agent-systems,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/what-is-operating-architecture,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/why-ai-agent-projects-fail-production,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/why-ai-pilots-fail-mid-market,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/insights/why-more-ai-agents-is-not-the-answer,,,Requires individual disposition per docs/09 s5; do not bulk redirect,unknown,unknown,pending
-/lines/customer-experience,,,Conflicting positioning; needs disposition,unknown,unknown,pending
-/lines/marketing-operations,,,Conflicting positioning; needs disposition,unknown,unknown,pending
-/lines/operations,,,Conflicting positioning; needs disposition,unknown,unknown,pending
-/lines/sales-and-service,,,Conflicting positioning; needs disposition,unknown,unknown,pending
-/login,,410,Authenticated or internal route; not public,none,none,pending
-/portal/[clientId],,410,Authenticated or internal route; not public,none,none,pending
-/portal/a2ui-test,,410,Authenticated or internal route; not public,none,none,pending
-/portal/access-denied,,410,Authenticated or internal route; not public,none,none,pending
-/preview,,410,Authenticated or internal route; not public,none,none,pending
-/preview/home-v5,,410,Authenticated or internal route; not public,none,none,pending
-/preview/insights,,410,Authenticated or internal route; not public,none,none,pending
-/preview/lines/customer-experience,,410,Authenticated or internal route; not public,none,none,pending
-/preview/lines/marketing-operations,,410,Authenticated or internal route; not public,none,none,pending
-/preview/lines/operations,,410,Authenticated or internal route; not public,none,none,pending
-/preview/lines/sales-and-service,,410,Authenticated or internal route; not public,none,none,pending
-/pricing,,,Conflicting positioning; needs disposition,unknown,unknown,pending
+/glossary/multi-engine-visibility-index,,410,Retired glossary entry; the /glossary parent redirects but matches exactly and never its children; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/industries,,410,Index of nine retired vertical pages; would serve links to Gone URLs; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/industries/accounting-firms,,410,Off-thesis vertical positioning retired with the previous site; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/industries/consulting-firms,,410,Off-thesis vertical positioning retired with the previous site; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/industries/energy-operations,,410,Off-thesis vertical positioning retired with the previous site; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/industries/healthcare,,410,Off-thesis vertical positioning retired with the previous site; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/industries/healthcare-practices,,410,Off-thesis vertical positioning retired with the previous site; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/industries/law-firms,,410,Off-thesis vertical positioning retired with the previous site; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/industries/marketing-agencies,,410,Off-thesis vertical positioning retired with the previous site; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/industries/multi-location-services,,410,Off-thesis vertical positioning retired with the previous site; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/industries/professional-services,,410,Off-thesis vertical positioning retired with the previous site; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights,,,Hub not disposed in this pass; remains Brandon call; /research is unbuilt so the previously recorded 308 was never shipped; currently 404,unknown,unknown,pending
+/insights/a2a-protocol-business-operations,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/agent-collision-detection-preventing-duplicate-work,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/agent-orchestration-patterns-execution-models,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/agent-state-management-persistent-context-ai-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/agent-to-agent-communication-patterns-building-self-coordinating-ai-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/ai-agent-governance-architecture,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/ai-agents-for-accounting-firms,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/ai-agents-for-healthcare-operations,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/ai-agents-for-law-firms,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/ai-agents-professional-services-operations,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/ai-agents-vs-automation-difference,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/ai-consulting-vs-ai-architecture,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/ai-experimentation-vs-transformation,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/architecture-precedes-automation,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/autonomous-ai-agent-architecture-for-enterprise,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/batch-vs-stream-processing-ai-agent-architectures,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/bigquery-ai-agent-memory-system,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/build-ai-in-house-or-outsource,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/cache-invalidation-strategies-ai-agent-decision-systems-bigquery,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/checkpoint-patterns-long-running-ai-agent-tasks,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/circuit-breaker-patterns-ai-agent-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/claude-code-ai-agent-development,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/consensus-mechanisms-multi-agent-decision-making,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/data-foundation-for-ai,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/data-lineage-tracking-ai-agent-systems-bigquery-audit-trails,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/dead-letter-queue-patterns-failed-ai-agent-tasks,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/decision-latency-ai-agent-systems-production-viability,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/dependency-mapping-ai-agent-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/error-recovery-patterns-production-ai-agent-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/event-driven-architectures-ai-agents-real-time-operations,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/five-architecture-decisions-ai-agent-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/five-layers-operating-architecture,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/fragmented-tools-unified-architecture,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/gemini-enterprise-agent-platform-mid-market,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/google-adk-vs-langchain-enterprise-deployment,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/google-cloud-agent-systems-adk-gemini,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/graceful-degradation-patterns-ai-agent-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/hidden-cost-skipping-architecture-ai-agent-sprawl-technical-debt,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/how-ai-search-engines-cite-mid-market-firms-2026,/solutions/selection-intelligence,308,On-thesis; argued how AI engines choose which firms to cite; maps to Selection Intelligence; permanent:true in next.config.ts emits 308,unknown,unknown,passed
+/insights/how-to-implement-ai-agents-business-operations,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/how-to-measure-ai-roi,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/idempotency-patterns-ai-agent-operations,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/memory-leak-patterns-ai-agent-systems-bigquery,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/multi-agent-orchestration-workflows,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/operating-architecture-professional-services,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/operational-handoff-protocols-ai-agents-transfer-work,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/partition-pruning-strategies-ai-agent-query-performance-bigquery,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/pattern-recognition-vs-rule-based-logic-ai-agents,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/performance-metrics-mid-market,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/query-cost-optimization-patterns-ai-agent-bigquery-workloads,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/rate-limiting-throttling-patterns-ai-agent-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/resource-contention-patterns-multi-agent-systems-bigquery,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/retry-logic-exponential-backoff-ai-agent-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/rpa-to-ai-agents-migration,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/schema-evolution-strategies-ai-agent-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/service-level-objectives-ai-agent-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/signal-degradation-multi-agent-systems-data-architecture,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/signal-pattern-libraries-pre-built-detection-logic-ai-agents,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/signs-operations-need-architecture,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/stateful-vs-stateless-ai-agent-design-patterns,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/task-handoff-failures-ai-agent-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/time-based-agent-activation-patterns-scheduling-ai-operations,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/transaction-isolation-levels-multi-agent-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/versioning-rollback-strategies-production-ai-agent-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/what-ai-agent-operating-system-looks-like-production,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/what-are-ai-agents-for-business,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/what-are-multi-agent-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/what-is-ai-agent-orchestration,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/what-is-architecture-for-autonomous-ai-agent-systems,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/what-is-operating-architecture,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/why-ai-agent-projects-fail-production,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/why-ai-pilots-fail-mid-market,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/insights/why-more-ai-agents-is-not-the-answer,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/lines/customer-experience,,410,Digital Assembly Line page; off-thesis under Search Intelligence Engineering; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/lines/marketing-operations,,410,Digital Assembly Line page; off-thesis under Search Intelligence Engineering; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/lines/operations,,410,Digital Assembly Line page; off-thesis under Search Intelligence Engineering; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/lines/sales-and-service,,410,Digital Assembly Line page; off-thesis under Search Intelligence Engineering; 410 Gone via src/proxy.ts,unknown,unknown,passed
+/login,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/portal/[clientId],,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts prefix rule,none,none,passed
+/portal/a2ui-test,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/portal/access-denied,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/preview,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/preview/home-v5,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/preview/insights,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/preview/lines/customer-experience,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/preview/lines/marketing-operations,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/preview/lines/operations,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/preview/lines/sales-and-service,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
+/pricing,,,Not disposed in this pass; remains Brandon call; currently 404,unknown,unknown,pending
 /privacy,/privacy,308,Retain URL; legal review,unknown,unknown,pending
-/questionnaire/[clientSlug],,410,Authenticated or internal route; not public,none,none,pending
-/questionnaire/not-available,,410,Authenticated or internal route; not public,none,none,pending
+/questionnaire/[clientSlug],,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts prefix rule,none,none,passed
+/questionnaire/not-available,,410,Authenticated or internal route; not public; 410 Gone via src/proxy.ts,none,none,passed
 /results,/results,308,Retain URL; gated behind showResults flag,unknown,unknown,pending
-/security,,,Conflicting positioning; needs disposition,unknown,unknown,pending
+/security,,,Not disposed in this pass; remains Brandon call; currently 404,unknown,unknown,pending
 /terms,/terms,308,Retain URL; legal review,unknown,unknown,pending

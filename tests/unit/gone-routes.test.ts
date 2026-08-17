@@ -1,0 +1,381 @@
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
+
+import { describe, expect, it } from 'vitest'
+
+import nextConfig from '../../next.config'
+import {
+  GONE_EXACT_PATHS,
+  GONE_INDUSTRY_PATHS,
+  GONE_INSIGHT_PATHS,
+  GONE_INTERNAL_PATHS,
+  GONE_LINE_PATHS,
+  GONE_PATH_PREFIXES,
+  GONE_STANDALONE_PATHS,
+  config as proxyConfig,
+  isGone,
+} from '@/proxy'
+import { indexableBuiltRoutes, isBuilt, routes } from '@/config/routes'
+
+/**
+ * A 410 is as unrecoverable as a permanent redirect. Crawlers drop the URL on
+ * seeing it, so a path that lands in the Gone list by mistake is not repaired by
+ * shipping a fix later. Every rule below is therefore asserted against the live
+ * route registry and the live Next config rather than against a copy of either.
+ */
+
+const ON_THESIS_SOURCE = '/insights/how-ai-search-engines-cite-mid-market-firms-2026'
+const ON_THESIS_DESTINATION = 'https://hendricks.ai/solutions/selection-intelligence'
+
+const allRoutePaths: string[] = Object.values(routes).map((route) => route.path)
+const builtRoutePaths: string[] = Object.values(routes)
+  .filter((route) => route.built)
+  .map((route) => route.path)
+
+const redirectRules = nextConfig.redirects
+  ? await nextConfig.redirects()
+  : ([] as Awaited<ReturnType<NonNullable<typeof nextConfig.redirects>>>)
+
+/** Sources that name one concrete path, so the host catch-all is left out. */
+const literalRedirectSources = redirectRules
+  .filter((rule) => !rule.source.includes(':') && !rule.has)
+  .map((rule) => rule.source)
+
+/**
+ * Models how Next expands a matcher entry. Every entry in the proxy config is
+ * either a literal path or a `/base/:path*` form, and path-to-regexp matches the
+ * latter against the base itself and anything beneath it.
+ */
+function matcherCovers(matcher: string, pathname: string): boolean {
+  const suffix = '/:path*'
+
+  if (matcher.endsWith(suffix)) {
+    const base = matcher.slice(0, -suffix.length)
+    return pathname === base || pathname.startsWith(`${base}/`)
+  }
+
+  return pathname === matcher
+}
+
+const matchers = Array.isArray(proxyConfig.matcher)
+  ? (proxyConfig.matcher as string[])
+  : [proxyConfig.matcher as string]
+
+function isMatched(pathname: string): boolean {
+  return matchers.some((matcher) => matcherCovers(matcher, pathname))
+}
+
+describe('Gone list shape', () => {
+  it('holds every group exactly once', () => {
+    expect(GONE_EXACT_PATHS).toEqual([
+      ...GONE_INTERNAL_PATHS,
+      ...GONE_INSIGHT_PATHS,
+      ...GONE_INDUSTRY_PATHS,
+      ...GONE_LINE_PATHS,
+      ...GONE_STANDALONE_PATHS,
+    ])
+    expect(new Set(GONE_EXACT_PATHS).size).toBe(GONE_EXACT_PATHS.length)
+  })
+
+  it('keeps the counts the CSV records', () => {
+    // Drift here means the arrays and migration/redirect-map.csv have parted
+    // company. Re-derive both rather than editing the number.
+    expect(GONE_INTERNAL_PATHS).toHaveLength(26)
+    expect(GONE_INSIGHT_PATHS).toHaveLength(72)
+    expect(GONE_INDUSTRY_PATHS).toHaveLength(10)
+    expect(GONE_LINE_PATHS).toHaveLength(4)
+    expect(GONE_STANDALONE_PATHS).toHaveLength(1)
+    expect(GONE_EXACT_PATHS).toHaveLength(113)
+  })
+
+  it('uses absolute paths with no trailing slash', () => {
+    for (const gone of GONE_EXACT_PATHS) {
+      expect(gone.startsWith('/'), gone).toBe(true)
+      expect(gone.endsWith('/'), gone).toBe(false)
+    }
+  })
+
+  it('anchors every prefix on a trailing slash so it can only take children', () => {
+    for (const prefix of GONE_PATH_PREFIXES) {
+      expect(prefix.startsWith('/'), prefix).toBe(true)
+      expect(prefix.endsWith('/'), prefix).toBe(true)
+    }
+  })
+})
+
+describe('Gone list against the route registry', () => {
+  it('never names a built, indexable route', () => {
+    const live = new Set(indexableBuiltRoutes().map((route) => route.path))
+
+    for (const gone of GONE_EXACT_PATHS) {
+      expect(live.has(gone), `410 would remove a live indexable route: ${gone}`).toBe(false)
+    }
+  })
+
+  it('never names any route in the registry, built or not', () => {
+    // An unbuilt route is a route that ships later. A 410 on it would be cached
+    // by crawlers before the page exists.
+    const registry = new Set(allRoutePaths)
+
+    for (const gone of GONE_EXACT_PATHS) {
+      expect(registry.has(gone), `410 shadows a registered route: ${gone}`).toBe(false)
+    }
+  })
+
+  it('leaves every built route reachable, with or without a trailing slash', () => {
+    for (const route of builtRoutePaths) {
+      expect(isGone(route), `410 rule swallows a built route: ${route}`).toBe(false)
+      expect(isGone(`${route}/`), `410 rule swallows a built route: ${route}/`).toBe(false)
+    }
+  })
+
+  it('keeps no prefix in front of a registered route', () => {
+    for (const prefix of GONE_PATH_PREFIXES) {
+      for (const route of allRoutePaths) {
+        expect(
+          route.startsWith(prefix),
+          `prefix ${prefix} would 410 the registered route ${route}`,
+        ).toBe(false)
+      }
+    }
+  })
+
+  it('keeps the proxy matcher off every built route', () => {
+    // The matcher is only a gate, but a live page has no reason to pay for the
+    // proxy on every request.
+    for (const route of builtRoutePaths) {
+      expect(isMatched(route), `matcher puts the proxy in front of ${route}`).toBe(false)
+    }
+  })
+})
+
+/**
+ * The case that pays for this whole file. `/solutions` and its four children are
+ * the commercial core of the site, and `/solutions/engineering` is a retired
+ * sibling one segment away from all of them. Any prefix-shaped rule takes the
+ * live pages down with the dead one.
+ */
+describe('Solutions', () => {
+  const liveSolutions = [
+    '/solutions',
+    '/solutions/search-demand-intelligence',
+    '/solutions/selection-intelligence',
+    '/solutions/search-presence-engineering',
+    '/solutions/search-impact-measurement',
+  ]
+
+  it('serves the hub and all four children', () => {
+    for (const live of liveSolutions) {
+      expect(isBuilt(live), `${live} is not a built route`).toBe(true)
+      expect(isGone(live), `${live} is 410`).toBe(false)
+      expect(isMatched(live), `${live} is behind the proxy`).toBe(false)
+    }
+  })
+
+  it('routes /solutions/engineering through the redirect map, not the Gone list', () => {
+    // The base config already 308s it to /solutions/search-presence-engineering,
+    // its true equivalent. Next evaluates redirects before the proxy, so a 410
+    // entry here would be dead code that misreports production, and a redirect
+    // to a live page beats a 410 on a URL that has one.
+    expect(literalRedirectSources).toContain('/solutions/engineering')
+    expect(GONE_EXACT_PATHS).not.toContain('/solutions/engineering')
+    expect(isGone('/solutions/engineering')).toBe(false)
+  })
+
+  it('mentions no /solutions path in any matcher entry', () => {
+    for (const matcher of matchers) {
+      expect(matcher.startsWith('/solutions'), `matcher touches solutions: ${matcher}`).toBe(false)
+    }
+  })
+})
+
+describe('The one surviving insight', () => {
+  it('is redirected rather than removed', () => {
+    const rule = redirectRules.find((candidate) => candidate.source === ON_THESIS_SOURCE)
+
+    expect(rule, 'the on-thesis insight has no redirect').toBeDefined()
+    expect(rule?.destination).toBe(ON_THESIS_DESTINATION)
+    // permanent:true emits 308, which is what migration/redirect-map.csv records.
+    expect(rule?.permanent).toBe(true)
+  })
+
+  it('is absent from the Gone list and from the archive array', () => {
+    expect(GONE_EXACT_PATHS).not.toContain(ON_THESIS_SOURCE)
+    expect(GONE_INSIGHT_PATHS).not.toContain(ON_THESIS_SOURCE)
+    expect(isGone(ON_THESIS_SOURCE)).toBe(false)
+  })
+
+  it('lands on a built route', () => {
+    const destination = new URL(ON_THESIS_DESTINATION).pathname
+
+    expect(isBuilt(destination), `redirect destination is unbuilt: ${destination}`).toBe(true)
+  })
+
+  it('resolves in one hop from www', () => {
+    // A relative destination would keep a www request on www and hand it to the
+    // host catch-all for a second hop, so the destination has to be absolute on
+    // the apex and the rule has to sit ahead of that catch-all.
+    expect(ON_THESIS_DESTINATION.startsWith('https://hendricks.ai/')).toBe(true)
+
+    const ownIndex = redirectRules.findIndex((rule) => rule.source === ON_THESIS_SOURCE)
+    const hostIndex = redirectRules.findIndex((rule) =>
+      rule.has?.some((condition) => condition.type === 'host'),
+    )
+
+    expect(ownIndex).toBeGreaterThanOrEqual(0)
+    expect(hostIndex).toBeGreaterThanOrEqual(0)
+    expect(ownIndex).toBeLessThan(hostIndex)
+  })
+})
+
+describe('Gone list against next.config.ts', () => {
+  it('never 410s a path that already redirects', () => {
+    // Next runs redirects before the proxy. A path in both places would never
+    // reach the 410, so the entry would be a lie about production behaviour.
+    for (const source of literalRedirectSources) {
+      expect(GONE_EXACT_PATHS, `${source} both redirects and 410s`).not.toContain(source)
+      expect(isGone(source), `${source} both redirects and 410s`).toBe(false)
+    }
+  })
+
+  it('leaves the redirect sources the base ships intact', () => {
+    // Two of them sit one segment from a Gone path, so a regression here is the
+    // likely way a redirect gets clobbered.
+    expect(literalRedirectSources).toContain('/glossary')
+    expect(literalRedirectSources).toContain('/faq-brandon-hendricks')
+    expect(isGone('/glossary')).toBe(false)
+    expect(isGone('/faq-brandon-hendricks')).toBe(false)
+    // The retired child of /glossary has no rule of its own, so it is a 410.
+    expect(literalRedirectSources).not.toContain('/glossary/multi-engine-visibility-index')
+    expect(isGone('/glossary/multi-engine-visibility-index')).toBe(true)
+  })
+})
+
+describe('isGone', () => {
+  it('recognises each group', () => {
+    expect(isGone('/insights/why-ai-pilots-fail-mid-market')).toBe(true)
+    expect(isGone('/industries')).toBe(true)
+    expect(isGone('/industries/law-firms')).toBe(true)
+    expect(isGone('/lines/operations')).toBe(true)
+    expect(isGone('/login')).toBe(true)
+    expect(isGone('/preview/insights')).toBe(true)
+  })
+
+  it('covers the bracketed CSV patterns by prefix', () => {
+    expect(isGone('/dashboard/any-client')).toBe(true)
+    expect(isGone('/portal/any-client-id')).toBe(true)
+    expect(isGone('/questionnaire/any-client-slug')).toBe(true)
+  })
+
+  it('ignores a trailing slash', () => {
+    expect(isGone('/login/')).toBe(true)
+    expect(isGone('/industries/law-firms/')).toBe(true)
+  })
+
+  it('leaves undisposed paths alone', () => {
+    // These three are still Brandon's call and must keep returning 404 rather
+    // than the unrecoverable 410.
+    expect(isGone('/insights')).toBe(false)
+    expect(isGone('/pricing')).toBe(false)
+    expect(isGone('/security')).toBe(false)
+  })
+
+  it('leaves unrelated paths alone', () => {
+    expect(isGone('/')).toBe(false)
+    expect(isGone('/not-a-route')).toBe(false)
+    expect(isGone('/insights-hub')).toBe(false)
+    expect(isGone('/industries-report')).toBe(false)
+  })
+})
+
+describe('Proxy matcher', () => {
+  it('reaches every path the Gone list names', () => {
+    // A Gone path the matcher misses never reaches the proxy and 404s instead.
+    for (const gone of GONE_EXACT_PATHS) {
+      expect(isMatched(gone), `matcher never sees ${gone}`).toBe(true)
+    }
+  })
+
+  it('reaches the children each prefix stands for', () => {
+    for (const prefix of GONE_PATH_PREFIXES) {
+      expect(isMatched(`${prefix}sample-segment`), `matcher never sees ${prefix}*`).toBe(true)
+    }
+  })
+
+  it('uses only absolute literals and trailing :path* forms', () => {
+    for (const matcher of matchers) {
+      expect(matcher.startsWith('/'), matcher).toBe(true)
+      expect(
+        !matcher.includes(':') || matcher.endsWith('/:path*'),
+        `unexpected matcher shape: ${matcher}`,
+      ).toBe(true)
+    }
+  })
+})
+
+/**
+ * migration/redirect-map.csv is named as the source of truth in src/proxy.ts, so
+ * the claim is enforced rather than left as a comment.
+ */
+describe('Redirect map', () => {
+  const csv = readFileSync(path.join(process.cwd(), 'migration/redirect-map.csv'), 'utf8')
+  const rows = csv
+    .trim()
+    .split('\n')
+    .slice(1)
+    .map((line) => {
+      const [old_url, new_url, redirect_type, rationale, , , qa_status] = line.split(',')
+      return { old_url, new_url, redirect_type, rationale, qa_status }
+    })
+
+  const byPath = new Map(rows.map((row) => [row.old_url, row]))
+  /** The three bracketed sources are Next route patterns, covered by prefixes. */
+  const bracketed = rows.filter((row) => row.old_url.includes('['))
+
+  it('parses as seven columns on every row', () => {
+    for (const line of csv.trim().split('\n')) {
+      expect(line.split(','), line).toHaveLength(7)
+    }
+  })
+
+  it('records a 410 row for every Gone path, marked passed', () => {
+    for (const gone of GONE_EXACT_PATHS) {
+      const row = byPath.get(gone)
+
+      expect(row, `no CSV row for ${gone}`).toBeDefined()
+      expect(row?.redirect_type, `CSV does not record ${gone} as 410`).toBe('410')
+      expect(row?.new_url, `a 410 has no destination: ${gone}`).toBe('')
+      expect(row?.qa_status, `${gone} is shipped but not marked passed`).toBe('passed')
+    }
+  })
+
+  it('has no 410 row the proxy does not serve', () => {
+    for (const row of rows.filter((candidate) => candidate.redirect_type === '410')) {
+      if (bracketed.includes(row)) {
+        const prefix = `${row.old_url.slice(0, row.old_url.indexOf('/['))}/`
+        expect(GONE_PATH_PREFIXES, `no prefix covers ${row.old_url}`).toContain(prefix)
+        continue
+      }
+
+      expect(isGone(row.old_url), `CSV says 410 but the proxy does not: ${row.old_url}`).toBe(true)
+    }
+  })
+
+  it('records the surviving insight as a 308 to Selection Intelligence', () => {
+    const row = byPath.get(ON_THESIS_SOURCE)
+
+    expect(row?.redirect_type).toBe('308')
+    expect(row?.new_url).toBe('/solutions/selection-intelligence')
+    expect(row?.qa_status).toBe('passed')
+  })
+
+  it('leaves the three undisposed URLs undisposed', () => {
+    for (const undisposed of ['/insights', '/pricing', '/security']) {
+      const row = byPath.get(undisposed)
+
+      expect(row?.redirect_type, `${undisposed} was disposed of`).toBe('')
+      expect(row?.new_url, `${undisposed} was given a destination`).toBe('')
+      expect(row?.qa_status).toBe('pending')
+    }
+  })
+})
