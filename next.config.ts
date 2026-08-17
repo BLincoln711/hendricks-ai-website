@@ -30,6 +30,21 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }]
   },
+  /**
+   * One canonical host. Both hostnames resolve to this project, so without a
+   * redirect the whole site is served twice and every page competes with its own
+   * duplicate. Every canonical, the sitemap, and robots already name the apex.
+   */
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.hendricks.ai' }],
+        destination: 'https://hendricks.ai/:path*',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default nextConfig
