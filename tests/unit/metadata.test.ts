@@ -43,7 +43,7 @@ describe('buildMetadata', () => {
     expect(metadata.robots).toMatchObject({ index: true, follow: true })
   })
 
-  it('never indexes a route that opts out, even in production', () => {
+  it('never indexes a route that opts out, but still follows its links in production', () => {
     process.env.NEXT_PUBLIC_VERCEL_ENV = 'production'
 
     const metadata = buildMetadata({
@@ -53,7 +53,27 @@ describe('buildMetadata', () => {
       index: false,
     })
 
+    // `follow` is deliberately decoupled from `index`. A production route that
+    // opts out of indexing still has outbound links worth crawling, and
+    // `/privacy-request` links to `/privacy`.
+    expect(metadata.robots).toMatchObject({ index: false, follow: true })
+    expect(metadata.robots).toMatchObject({ googleBot: { index: false, follow: true } })
+  })
+
+  it('keeps a nonproduction opt-out route fully nofollow', () => {
+    process.env.NEXT_PUBLIC_VERCEL_ENV = 'preview'
+
+    const metadata = buildMetadata({
+      title: 'Studio',
+      description: 'Content studio.',
+      path: '/studio',
+      index: false,
+    })
+
+    // The decoupling above is gated on the environment, so preview and
+    // development stay exactly `noindex, nofollow` (docs/06 §2).
     expect(metadata.robots).toMatchObject({ index: false, follow: false })
+    expect(metadata.robots).toMatchObject({ googleBot: { index: false, follow: false } })
   })
 
   it('emits an absolute title so the layout template cannot double-append the brand', () => {
