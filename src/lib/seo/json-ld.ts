@@ -27,6 +27,19 @@ export function organizationSchema() {
     '@type': 'Organization',
     '@id': `${siteConfig.url}/#organization`,
     name: siteConfig.name,
+    /*
+      The registered entity behind the trade name, confirmed in
+      LEGAL_ENTITY_UPDATE.md and already published in visible copy: /terms opens
+      "The Site is operated by Hendricks Agency LLC, doing business as
+      Hendricks", and /privacy names the same entity in its controller block.
+
+      This is the one identity field that resolves the "Hendricks" collision
+      against a filing a machine can check, which is why it belongs here while
+      address, contactPoint, foundingDate, and sameAs stay omitted: those are
+      still unverified per CONTENT_VERIFICATION.md O1-O4 and a test pins their
+      absence.
+    */
+    legalName: 'Hendricks Agency LLC',
     url: siteConfig.url,
     logo: {
       '@type': 'ImageObject',
@@ -154,8 +167,20 @@ export function webPageSchema({
  * visible service description and provider information. Nothing in the graph
  * currently states what Hendricks sells.
  *
- * `offers` and `priceSpecification` are deliberately absent: fees are withheld
- * from the site, so any price node here would be unsupported by visible content.
+ * Commercial and reputation fields are deliberately absent, and must stay that
+ * way: no `offers`, `hasOfferCatalog`, `priceSpecification`, `price`,
+ * `priceRange`, `areaServed`, `aggregateRating`, or `review`.
+ *
+ * The pricing half is settled, not pending: CONTENT_VERIFICATION.md P1–P3
+ * resolved every fee as withheld, so no page renders an amount, a currency, or
+ * a catalog of purchasable items. Markup that named one would be the only place
+ * on the site asserting a price, which is exactly the drift docs/06 §9 forbids.
+ * The rating half is worse than unsupported: `aggregateRating` and `review`
+ * assert third-party testimony, and the site publishes none.
+ *
+ * `mainEntityOfPage` closes the loop with `webPageSchema({ mainEntityFragment:
+ * 'service' })` so the page and its subject reference each other rather than
+ * leaving the Service floating in the graph.
  */
 export function serviceSchema({
   path,
@@ -178,6 +203,7 @@ export function serviceSchema({
     url,
     serviceType: siteConfig.category,
     provider: { '@id': `${siteConfig.url}/#organization` },
+    mainEntityOfPage: { '@id': `${url}#webpage` },
     ...(serviceOutput?.length
       ? { serviceOutput: serviceOutput.map((item) => ({ '@type': 'Thing', name: item })) }
       : {}),
