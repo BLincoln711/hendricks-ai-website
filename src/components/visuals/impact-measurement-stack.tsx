@@ -42,12 +42,21 @@ export function ImpactMeasurementStack({
             <span className="font-mono text-[0.875rem] text-[var(--color-blue)] tabular-nums">
               {level.number}
             </span>
+            {/*
+              The question sits inside the heading rather than in a sibling `<p>`.
+              On its own, `{level.name}` reads as a bare noun (Exposure, Behavior)
+              once the surrounding markup is stripped; the question is what makes
+              the level self-describing. Both strings are approved verbatim, so
+              only their DOM position changes. `mt-2` reproduces the parent's
+              `gap-2`, and `font-normal` undoes the heading's `font-medium`, so
+              the rendered result is unchanged.
+            */}
             <h3 className="text-[1.375rem] leading-snug font-medium text-[var(--color-navy)]">
-              {level.name}
+              {level.name}{' '}
+              <span className="mt-2 block text-[0.9375rem] leading-relaxed font-normal text-[var(--color-slate)]">
+                {level.question}
+              </span>
             </h3>
-            <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
-              {level.question}
-            </p>
           </div>
 
           <ul className="flex flex-wrap gap-1.5 md:pt-8">

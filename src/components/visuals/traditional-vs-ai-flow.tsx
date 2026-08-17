@@ -42,13 +42,22 @@ function Flow({
               {step}
             </span>
             {index < steps.length - 1 ? (
-              <ChevronRight
-                className={cn(
-                  'size-3.5 shrink-0',
-                  tone === 'active' ? 'text-[var(--color-blue)]' : 'text-[var(--color-border)]',
-                )}
-                aria-hidden="true"
-              />
+              <>
+                {/*
+                  The chips carry no whitespace text node between them, so a
+                  tag-stripping extractor renders the sequence as one run-together
+                  word. `sr-only` is absolutely positioned and therefore not a
+                  flex item, so it adds no gap and changes nothing visually.
+                */}
+                <span className="sr-only">, </span>
+                <ChevronRight
+                  className={cn(
+                    'size-3.5 shrink-0',
+                    tone === 'active' ? 'text-[var(--color-blue)]' : 'text-[var(--color-border)]',
+                  )}
+                  aria-hidden="true"
+                />
+              </>
             ) : null}
           </li>
         ))}
@@ -96,7 +105,11 @@ export function CompletePath({ steps, className }: { steps: readonly string[]; c
               {step}
             </span>
             {!isLast ? (
-              <ChevronRight className="size-3.5 shrink-0 text-[var(--color-border)]" aria-hidden="true" />
+              <>
+                {/* Same separator as `Flow` above, for the same reason. */}
+                <span className="sr-only">, </span>
+                <ChevronRight className="size-3.5 shrink-0 text-[var(--color-border)]" aria-hidden="true" />
+              </>
             ) : null}
           </li>
         )

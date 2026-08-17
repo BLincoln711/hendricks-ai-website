@@ -40,21 +40,42 @@ const variants = {
 export function Callout({
   variant = 'insight',
   title,
+  titleId,
+  headingLevel = 3,
   label,
   children,
   className,
 }: {
   variant?: keyof typeof variants
   title?: string
+  /**
+   * Sets an id on the title heading so a parent Section can point its
+   * ariaLabelledBy at it, rather than the section going unnamed.
+   */
+  titleId?: string
+  /**
+   * Promotes the title to an h2 where the Callout carries the section-level
+   * answer instead of a subsection point. Defaults to 3, so every existing
+   * caller renders exactly as before.
+   */
+  headingLevel?: 2 | 3
   /** Overrides the default variant label when the copy needs a specific word. */
   label?: string
   children: ReactNode
   className?: string
 }) {
   const { label: defaultLabel, Icon, container, accent } = variants[variant]
+  const Heading = `h${headingLevel}` as 'h2' | 'h3'
 
   return (
-    <aside
+    // role="note" on a div, not <aside>.
+    // Main-content extractors routinely discard <aside> as tangential, which on
+    // /methodology drops an honesty statement the unit tests guard. role="note"
+    // keeps the callout announced to assistive technology and keeps its text
+    // inside extracted main content, while dropping a complementary landmark
+    // that a few sentences never warranted.
+    <div
+      role="note"
       className={cn(
         'flex flex-col gap-3 rounded-[var(--radius-panel)] border-l-2 p-6 md:p-8',
         container,
@@ -67,14 +88,21 @@ export function Callout({
       </p>
 
       {title ? (
-        <h3 className="text-[1.25rem] leading-snug font-medium text-[var(--color-navy)]">
+        // The className is deliberately identical at both heading levels. The
+        // 1.25rem callout scale belongs to the callout surface, not to the
+        // document outline, so a promoted h2 must not grow to the page h2
+        // scale. This is not a visual inconsistency to fix.
+        <Heading
+          id={titleId}
+          className="text-[1.25rem] leading-snug font-medium text-[var(--color-navy)]"
+        >
           {title}
-        </h3>
+        </Heading>
       ) : null}
 
       <div className="flex flex-col gap-3 text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">
         {children}
       </div>
-    </aside>
+    </div>
   )
 }

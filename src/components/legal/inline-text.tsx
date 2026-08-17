@@ -11,6 +11,10 @@ import type { ReactNode } from 'react'
  */
 const INLINE = /\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|`([^`]+)`/g
 
+/** Shared so the routed and unrouted links are indistinguishable on the page. */
+const LINK_CLASS =
+  'text-[var(--color-blue)] underline decoration-[color-mix(in_srgb,var(--color-blue)_40%,transparent)] underline-offset-4 hover:decoration-[var(--color-blue)]'
+
 export function InlineText({ text }: { text: string }): ReactNode {
   const nodes: ReactNode[] = []
   let cursor = 0
@@ -26,14 +30,21 @@ export function InlineText({ text }: { text: string }): ReactNode {
     const [raw, linkLabel, href, bold, code] = match
 
     if (linkLabel && href) {
+      // Only an in-app path gets `next/link`, whose prefetch and client-side
+      // navigation are meaningless for a `mailto:`, a `tel:`, an external URL, or
+      // a bare fragment. Every legal string carries a local path today, so this
+      // renders exactly what it rendered before; it is here so the first
+      // non-local href is handled correctly rather than routed.
       nodes.push(
-        <Link
-          key={key++}
-          href={href}
-          className="text-[var(--color-blue)] underline decoration-[color-mix(in_srgb,var(--color-blue)_40%,transparent)] underline-offset-4 hover:decoration-[var(--color-blue)]"
-        >
-          {linkLabel}
-        </Link>,
+        href.startsWith('/') ? (
+          <Link key={key++} href={href} className={LINK_CLASS}>
+            {linkLabel}
+          </Link>
+        ) : (
+          <a key={key++} href={href} className={LINK_CLASS}>
+            {linkLabel}
+          </a>
+        ),
       )
     } else if (bold) {
       nodes.push(

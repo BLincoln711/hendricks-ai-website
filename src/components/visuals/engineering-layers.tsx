@@ -44,7 +44,15 @@ export function EngineeringLayers({
           </div>
 
           <div className="flex flex-col gap-2 lg:pt-1">
-            <h4 className="text-eyebrow text-[var(--color-slate)]">Work can include</h4>
+            {/*
+              Composed from `layer.title` rather than a fixed label. Seven layers
+              render on one route, so a hardcoded string shipped seven identical
+              H4s in the document outline. The title is approved copy already
+              printed in the H3 above, so no new string is authored here.
+            */}
+            <h4 className="text-eyebrow text-[var(--color-slate)]">
+              Work on {layer.title} can include
+            </h4>
             <ul className="flex flex-wrap gap-1.5">
               {layer.workItems.map((item) => (
                 <li

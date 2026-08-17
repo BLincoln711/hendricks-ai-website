@@ -45,10 +45,17 @@ export function PartnershipModels({
             {model.description}
           </p>
 
-          <p className="mt-auto flex flex-col gap-1 border-t border-[var(--color-border)] pt-4 text-[0.9375rem] text-[var(--color-graphite)]">
-            <span className="text-eyebrow text-[var(--color-slate)]">Best for</span>
-            {model.bestFor}
-          </p>
+          {/*
+            A real description list rather than a styled paragraph: "Best for" is
+            a term and the line beneath it is that term's definition, and a `<dl>`
+            is the markup that states the pairing. Valid inside the `<li>`. The
+            classes are unchanged from the paragraph they replace, and preflight
+            zeroes the default `dd` indent, so nothing moves on screen.
+          */}
+          <dl className="mt-auto flex flex-col gap-1 border-t border-[var(--color-border)] pt-4 text-[0.9375rem] text-[var(--color-graphite)]">
+            <dt className="text-eyebrow text-[var(--color-slate)]">Best for</dt>
+            <dd>{model.bestFor}</dd>
+          </dl>
         </li>
       ))}
     </ul>

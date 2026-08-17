@@ -20,7 +20,13 @@ export function DemandToSelectionPath({
       {steps.map((step, index) => (
         <li key={step.number} className="flex flex-col gap-3">
           <div className="flex items-center gap-3">
+            {/*
+              Hidden from assistive technology because the same digit is carried
+              by the `sr-only` prefix inside the heading below. Without this a
+              screen reader announces the number twice per step.
+            */}
             <span
+              aria-hidden="true"
               className={cn(
                 'inline-flex size-9 shrink-0 items-center justify-center rounded-full border font-mono text-[0.875rem] font-medium',
                 onNavy
@@ -49,6 +55,13 @@ export function DemandToSelectionPath({
               onNavy ? 'text-[var(--color-field)]' : 'text-[var(--color-navy)]',
             )}
           >
+            {/*
+              Carries the step number into the heading text, so the four headings
+              read as an ordered path rather than four unrelated verbs once the
+              list markup is stripped. Visually hidden: the number is already
+              shown in the circle above.
+            */}
+            <span className="sr-only">Step {step.number}. </span>
             {step.name}
           </h3>
           <p
