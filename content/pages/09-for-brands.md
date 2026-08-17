@@ -94,6 +94,6 @@ Show the client team, agencies, and Hendricks connected through one Demand-to-Se
 
 ## Final CTA
 
-# See where valuable demand is becoming customer consideration—and where it is not.
+# See where valuable demand is becoming customer consideration, and where it is not.
 
 **CTA:** Start with a Search Intelligence Diagnostic

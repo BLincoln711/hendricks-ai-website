@@ -158,7 +158,7 @@ export const related: readonly RelatedLink[] = [
 
 export const closing = {
   title:
-    'See where valuable demand is becoming customer consideration—and where it is not.',
+    'See where valuable demand is becoming customer consideration, and where it is not.',
   primaryCta: {
     label: 'Start with a Search Intelligence Diagnostic',
     href: routes.diagnostic.path,

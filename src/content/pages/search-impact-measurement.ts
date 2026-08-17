@@ -18,7 +18,7 @@ export const meta = {
 
 export const hero = {
   eyebrow: 'Search Impact Measurement',
-  title: 'Prove what changed—and how much confidence the business should place in it.',
+  title: 'Prove what changed, and how much confidence the business should place in it.',
   lead: [
     'A higher AI mention rate is not automatically a business result.',
     'A citation is not revenue.',

@@ -76,7 +76,7 @@ Show multiple candidate brands entering the system and a smaller shortlist emerg
 
 `Need → Intent Interpretation → Research → Comparison → Synthesis → Shortlist → Choice`
 
-A business can have a strong website, high rankings, excellent reviews, active paid media, respected leadership, and a recognizable brand—and still fail to enter an AI-mediated buying journey.
+A business can have a strong website, high rankings, excellent reviews, active paid media, respected leadership, and a recognizable brand, and still fail to enter an AI-mediated buying journey.
 
 The loss can happen before a visit.
 
@@ -148,7 +148,7 @@ Hendricks combines available search, paid media, customer, sales, CRM, competito
 
 ### Selection Intelligence
 
-## Know when your brand enters the shortlist—and when it disappears.
+## Know when your brand enters the shortlist, and when it disappears.
 
 Measure how search and AI systems represent, cite, compare, consider, and recommend your brand across realistic customer contexts.
 
@@ -200,7 +200,7 @@ A recommendation is not the same as customer selection.
 | Selection | Did the customer choose it? |
 | Impact | Did that choice produce commercial value? |
 
-AI-mediated results can vary by context, wording, location, platform, and time. Hendricks therefore measures controlled intent contexts and repeated outcomes—not one pretend universal ranking.
+AI-mediated results can vary by context, wording, location, platform, and time. Hendricks therefore measures controlled intent contexts and repeated outcomes, not one pretend universal ranking.
 
 **CTA:** Learn What Selection Intelligence Measures
 
@@ -280,7 +280,7 @@ Changes evaluated through baselines, staggered rollouts, matched groups, holdout
 
 Hendricks does not claim access to a model’s hidden reasoning.
 
-We study inputs, outputs, sources, interventions, and business outcomes—then state how much confidence the evidence supports.
+We study inputs, outputs, sources, interventions, and business outcomes, then state how much confidence the evidence supports.
 
 **Link:** Read the Hendricks Measurement Methodology
 
@@ -318,7 +318,7 @@ Your agency keeps the client relationship. Responsibilities, branding, data acce
 
 **Eyebrow:** START WITH EVIDENCE
 
-# Direct engagements begin with a fixed-scope diagnostic—not an open-ended retainer.
+# Direct engagements begin with a fixed-scope diagnostic, not an open-ended retainer.
 
 The Search Intelligence Diagnostic establishes the market demand, customer contexts, competitive baseline, selection gaps, data quality, implementation priorities, and measurement plan.
 
@@ -376,7 +376,7 @@ Brandon personally architects Hendricks engagements.
 
 Tell Hendricks what your organization needs to understand, improve, or build.
 
-We will determine whether a Search Intelligence Diagnostic is the appropriate first step—and say directly when a simpler solution is sufficient.
+We will determine whether a Search Intelligence Diagnostic is the appropriate first step, and say directly when a simpler solution is sufficient.
 
 **Primary CTA:** Start with a Search Intelligence Diagnostic
 

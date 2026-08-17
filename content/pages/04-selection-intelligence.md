@@ -8,15 +8,15 @@
 
 **Title:** Selection Intelligence for AI and Search Visibility | Hendricks
 
-**Description:** Measure when your brand is absent, referenced, considered, or recommended across AI-mediated and traditional search—and understand the evidence associated with competitor wins.
+**Description:** Measure when your brand is absent, referenced, considered, or recommended across AI-mediated and traditional search, and understand the evidence associated with competitor wins.
 
-**H1:** Know when your brand enters the shortlist—and when it disappears.
+**H1:** Know when your brand enters the shortlist, and when it disappears.
 
 ## Hero
 
 **Eyebrow:** SELECTION INTELLIGENCE
 
-# Know when your brand enters the shortlist—and when it disappears.
+# Know when your brand enters the shortlist, and when it disappears.
 
 Selection Intelligence is the evidence-based analysis of whether, where, and under what customer contexts a brand is discovered, understood, considered, and recommended across search and AI-mediated buying journeys.
 

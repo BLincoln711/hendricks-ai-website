@@ -20,7 +20,7 @@
 
 The Search Intelligence Diagnostic is a fixed-scope engagement that identifies where valuable customer demand exists, whether your brand enters consideration, which observable conditions separate you from stronger competitors, and what should be implemented first.
 
-You leave with a system map and an evidence-based roadmap—not a generic audit.
+You leave with a system map and an evidence-based roadmap, not a generic audit.
 
 **Primary CTA:** Apply for a Diagnostic
 
@@ -57,31 +57,31 @@ Final scope depends on the market, customer journey, geography, data access, and
 
 ## Five phases
 
-### Phase 1 — Frame
+### Phase 1. Frame
 
 Define the business question, target customer, market, success criteria, constraints, and commercial outcome.
 
 **Output:** Decision Brief
 
-### Phase 2 — Map demand
+### Phase 2. Map demand
 
 Build the Demand Map and Intent Context Library.
 
 **Output:** Commercial Demand Model
 
-### Phase 3 — Establish the baseline
+### Phase 3. Establish the baseline
 
 Measure current visibility, understanding, consideration, recommendation, sources, competitors, and outcome stability.
 
 **Output:** Selection Baseline
 
-### Phase 4 — Diagnose the gap
+### Phase 4. Diagnose the gap
 
 Identify the technical, entity, content, evidence, authority, acquisition, conversion, and measurement gaps associated with lost consideration.
 
 **Output:** Commercial Selection Gap and Evidence Graph
 
-### Phase 5 — Design the roadmap
+### Phase 5. Design the roadmap
 
 Prioritize interventions, experiments, owners, data requirements, sequencing, and measurement.
 

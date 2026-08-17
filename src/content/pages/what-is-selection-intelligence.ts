@@ -83,7 +83,7 @@ export const whyContext = {
     'Time periods',
   ],
   closing:
-    'The output is an observed distribution and stability analysis—not one universal ranking.',
+    'The output is an observed distribution and stability analysis, not one universal ranking.',
 } as const
 
 export const metrics = {

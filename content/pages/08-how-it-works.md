@@ -28,7 +28,7 @@ Hendricks does not collapse the entire journey into a single unexplained score.
 
 **Primary CTA:** Start with a Search Intelligence Diagnostic
 
-## Stage 1 — Demand
+## Stage 1. Demand
 
 # What are customers trying to accomplish?
 
@@ -36,7 +36,7 @@ Inputs can include search behavior, paid-search terms, customer questions, CRM d
 
 **Hendricks output:** Demand Map
 
-## Stage 2 — Context
+## Stage 2. Context
 
 # Who has the need, under what conditions, and at what point in the journey?
 
@@ -44,7 +44,7 @@ Hendricks defines the relevant customer, use case, geography, constraints, prior
 
 **Hendricks output:** Intent Context Library
 
-## Stage 3 — Discovery and understanding
+## Stage 3. Discovery and understanding
 
 # Can search and AI systems find and accurately understand the brand?
 
@@ -52,15 +52,15 @@ Hendricks evaluates technical access, entities, services, products, expertise, l
 
 **Hendricks output:** Brand Understanding Map
 
-## Stage 4 — Consideration and recommendation
+## Stage 4. Consideration and recommendation
 
-# Does the brand become a legitimate option—and is it actively favored?
+# Does the brand become a legitimate option, and is it actively favored?
 
 Hendricks runs controlled context panels, classifies outcomes, maps sources, and benchmarks competitors.
 
 **Hendricks output:** Selection Map
 
-## Stage 5 — Engineering
+## Stage 5. Engineering
 
 # What conditions should be changed?
 
@@ -68,7 +68,7 @@ Hendricks prioritizes technical, content, evidence, authority, paid, organic, co
 
 **Hendricks output:** Intervention Roadmap
 
-## Stage 6 — Impact
+## Stage 6. Impact
 
 # Did exposure, customer behavior, pipeline, or revenue change?
 

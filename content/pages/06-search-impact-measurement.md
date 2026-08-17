@@ -10,13 +10,13 @@
 
 **Description:** Connect search and AI visibility with branded demand, referrals, customer behavior, CRM opportunities, pipeline, revenue, and controlled evidence.
 
-**H1:** Prove what changed—and how much confidence the business should place in it.
+**H1:** Prove what changed, and how much confidence the business should place in it.
 
 ## Hero
 
 **Eyebrow:** SEARCH IMPACT MEASUREMENT
 
-# Prove what changed—and how much confidence the business should place in it.
+# Prove what changed, and how much confidence the business should place in it.
 
 A higher AI mention rate is not automatically a business result.
 

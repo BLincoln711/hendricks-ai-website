@@ -14,12 +14,12 @@ import { routes } from '@/config/routes'
 export const meta = {
   title: 'Selection Intelligence for AI and Search Visibility | Hendricks',
   description:
-    'Measure when your brand is absent, referenced, considered, or recommended across AI-mediated and traditional search—and understand the evidence associated with competitor wins.',
+    'Measure when your brand is absent, referenced, considered, or recommended across AI-mediated and traditional search, and understand the evidence associated with competitor wins.',
 } as const
 
 export const hero = {
   eyebrow: 'Selection Intelligence',
-  title: 'Know when your brand enters the shortlist—and when it disappears.',
+  title: 'Know when your brand enters the shortlist, and when it disappears.',
   lead: [
     'Selection Intelligence is the evidence-based analysis of whether, where, and under what customer contexts a brand is discovered, understood, considered, and recommended across search and AI-mediated buying journeys.',
   ],

@@ -24,7 +24,7 @@ export const meta = {
 
 export const hero = {
   eyebrow: 'Research and Measurement Standards',
-  title: 'Measure the decision—not just the prompt.',
+  title: 'Measure the decision, not just the prompt.',
   lead: [
     'Traditional search often centered on the keyword. Early AI-search measurement often centers on the prompt.',
     'Hendricks centers on the commercial intent context.',
