@@ -88,9 +88,18 @@ export function webPageSchema({
 export function personSchema({
   jobTitle,
   imagePath,
+  alumniOf,
 }: {
   jobTitle: string
   imagePath: string
+  /**
+   * Former employers, verified per CONTENT_VERIFICATION.md F3 and F4.
+   *
+   * Only organizations Brandon was employed by belong here. Brands reached as
+   * clients through a former employer are excluded by docs/12 §6, so this list
+   * must never grow to include them.
+   */
+  alumniOf?: readonly string[]
 }) {
   return {
     '@type': 'Person',
@@ -100,6 +109,9 @@ export function personSchema({
     url: new URL('/about', siteConfig.url).toString(),
     image: new URL(imagePath, siteConfig.url).toString(),
     worksFor: { '@id': `${siteConfig.url}/#organization` },
+    ...(alumniOf?.length
+      ? { alumniOf: alumniOf.map((name) => ({ '@type': 'Organization', name })) }
+      : {}),
   }
 }
 

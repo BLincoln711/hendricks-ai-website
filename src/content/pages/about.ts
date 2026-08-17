@@ -85,9 +85,69 @@ export const principles = {
   ],
 } as const
 
+/**
+ * CONTENT_VERIFICATION.md F3, F4, F5, F9 — updated 2026-08-17 from Brandon's
+ * LinkedIn profile entries, which are the public record any reader can check.
+ *
+ * Titles and dates here follow LinkedIn verbatim. They do NOT match the career
+ * record in ~/claudecode/CLAUDE-md-templates/brandon-facts.md, which lists
+ * "Global Search Director" (Merkle / Dentsu) and "Global Director of Search"
+ * (SolarWinds). LinkedIn shows "Global Paid Search Director" at Merkle and
+ * "Global Search and Innovation Lead" at SolarWinds. The public record wins
+ * for published copy; the memory file needs correcting separately.
+ *
+ * Employer is "Merkle" alone, not "Merkle and Dentsu" — LinkedIn records the
+ * employment against Merkle. Merkle is a dentsu company, but that is a
+ * corporate-parent fact, not a second employer.
+ *
+ * Both prior roles are labeled as employment per docs/12 §7 relationship
+ * context. No client or employer logo appears; C1 stays blocked, and per
+ * docs/12 §6 a client reached through a former employer is not claimed here.
+ */
 export const experience = {
   eyebrow: 'Experience',
-  title: 'The capability areas behind Hendricks engagements.',
+  title: 'Where the Hendricks perspective was built.',
+  lead: 'Two enterprise search leadership roles, held as an employee, and the firm that followed them.',
+  roles: [
+    {
+      title: 'Global Paid Search Director',
+      organization: 'Merkle',
+      relationship: 'Employment',
+      period: 'Jan 2022 to Dec 2023',
+      description:
+        'Directed cross functional teams and agency partners, allocating search investment across geographies to support full funnel performance and branding objectives. Refined campaign structure, audience segmentation, and bidding technique, working alongside Google, Microsoft, and Adobe on strategy and performance reporting.',
+    },
+    {
+      title: 'Global Search and Innovation Lead',
+      organization: 'SolarWinds',
+      relationship: 'Employment',
+      period: 'Apr 2024 to Sep 2025',
+      description:
+        'Drove strategy and execution for paid and organic search across global markets, focused on brand visibility, qualified lead generation, and search performance. Aligned search with business goals across cross functional teams, applying B2B approaches built for the era of AI.',
+    },
+    {
+      title: 'Founder',
+      organization: 'Hendricks',
+      relationship: 'Current',
+      period: 'Present',
+      description:
+        'These experiences formed the basis of the Search Intelligence Engineering perspective. Search is not just a channel to optimize. It is a data and signal system that must be engineered.',
+    },
+  ],
+  /**
+   * CONTENT_VERIFICATION.md F5 resolved 2026-08-17. Current, not former:
+   * LinkedIn records Mar 2025 to Present. The "one of thirteen" figure is
+   * Brandon's own published wording on that entry.
+   */
+  advisory: {
+    title: 'Ahrefs Customer Advisory Board',
+    organization: 'Ahrefs',
+    relationship: 'Current advisory role',
+    period: 'Since Mar 2025',
+    description:
+      'One of thirteen members selected for the Ahrefs Customer Advisory Board, providing strategic input to Ahrefs leadership on product development, customer experience, and market opportunities.',
+  },
+  capabilitiesTitle: 'The capability areas behind Hendricks engagements.',
   items: [
     'Enterprise search leadership',
     'Total Search operating models',

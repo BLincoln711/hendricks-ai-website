@@ -19,15 +19,60 @@ claims), and `.cursor/rules/20-content-seo.mdc`.
 
 | # | Claim | Proposed location | What must be verified | Status |
 |---|---|---|---|---|
-| F1 | "More than fifteen years inside search" | Homepage founder section, About | Exact start year and approved wording. `content/pages/01-home.md` flags this explicitly. | pending |
-| F2 | Homepage credibility line: "more than fifteen years of enterprise search, paid and organic acquisition, analytics, and search operating systems" | Homepage hero | The approved copy itself says "Verify the exact experience statement before publication." | pending |
-| F3 | SolarWinds title and dates | About | Exact title, start and end dates | pending |
-| F4 | Merkle / Dentsu title and dates | About | Exact title, start and end dates, which entity | pending |
-| F5 | Ahrefs advisory role | About | Current or former, approved wording | pending |
+| F1 | "More than fifteen years inside search" | Homepage founder section, About | Exact start year and approved wording. `content/pages/01-home.md` flags this explicitly. | wording approved, start year pending |
+| F2 | Homepage credibility line: "more than fifteen years of enterprise search, paid and organic acquisition, analytics, and search operating systems" | Homepage hero | The approved copy itself says "Verify the exact experience statement before publication." | wording approved, start year pending |
+| F3 | SolarWinds title and dates | About | Exact title, start and end dates | approved |
+| F4 | Merkle / Dentsu title and dates | About | Exact title, start and end dates, which entity | approved |
+| F5 | Ahrefs advisory role | About | Current or former, approved wording | approved |
 | F6 | University relationship | About | Institution, role, approved wording | pending |
 | F7 | Speaking credentials | About | Named events and dates | pending |
 | F8 | "Brandon personally architects Hendricks engagements" | Homepage founder section | Confirm this remains accurate as the firm scales | pending |
-| F9 | Job title — "Search Intelligence Engineer" | Homepage, About, `Person` JSON-LD | Confirm this is the title to publish | pending |
+| F9 | Job title — "Search Intelligence Engineer" | Homepage, About, `Person` JSON-LD | Confirm this is the title to publish | approved |
+
+### Resolution log — 2026-08-17
+
+Source: the canonical career record in
+`~/claudecode/CLAUDE-md-templates/brandon-facts.md` (confirmed by Brandon
+2026-08-15), corroborated by the retired hendricks.ai `/about` page
+(`~/Archive/archived-2026-06-03/Hendricks.AI/hendricks-ai-website/app/about/page.tsx`,
+Nov 2025), which was publicly published under this positioning.
+
+- F3 — **approved.** SolarWinds, **Global Search and Innovation Lead**,
+  **Apr 2024 to Sep 2025**. Confirmed by Brandon 2026-08-17. Four competing
+  titles existed for this one role: the LinkedIn header (published), the body
+  text of that same entry ("Global Senior Search Lead"), "Global Director of
+  Search" (`brandon-facts.md`), and "Director of Search" (retired Nov 2025
+  site). The last three are rejected.
+- F4 — **approved.** **Merkle**, **Global Paid Search Director**, **Jan 2022 to
+  Dec 2023**. Confirmed by Brandon 2026-08-17. The title is paid-search
+  specific; "Global Search Director" overstates scope and is not published.
+  Recorded as a single employer, not "Merkle and Dentsu".
+
+> **`brandon-facts.md` corrected 2026-08-17.** The canonical career record had
+> the wrong title for both roles and no dates. It now carries the verbatim
+> LinkedIn titles and dates plus the Ahrefs advisory entry. Any deliverable
+> that reused the old titles is wrong and should be re-checked.
+
+> **Coverage gap.** The three recovered LinkedIn entries span Jan 2022 onward
+> only. They do not evidence F1/F2's "more than fifteen years", which depends on
+> roles before 2022 that have not been recovered.
+- F9 — **approved.** "Search Intelligence Engineer" was already the published
+  founder title on the retired site, in both visible copy and `Person` JSON-LD.
+- F1 / F2 — the "more than fifteen years" wording appeared on both retired
+  pages and remains true, so it is safe to publish. The exact start year is
+  still unrecorded. Note the phrase has been carried unchanged since Nov 2025
+  and will understate the number over time; revisit when the start year lands.
+- F5 — **approved.** Ahrefs Customer Advisory Board, Mar 2025 to Present, so
+  **current**, not former. One of thirteen members. Source: LinkedIn.
+- F6 — **still pending.** No university relationship appears on either retired
+  page. Nothing recovered; this needs Brandon directly.
+- F7 — **still pending.** The retired page listed speaking *topics* only, with
+  no named event or date. That is the exact unsupported form F7 guards against.
+- F8 — not addressed by the recovered sources.
+
+C1 remains blocked and no client or employer logo is used. No client brand is
+named in the experience section, including brands reached through a former
+employer.
 
 Per `docs/12` §7, where relationship context matters the copy must state whether
 work occurred through employment, agency, consulting, or direct Hendricks
