@@ -34,6 +34,8 @@ export default function ContactPage() {
             path: routes.contact.path,
             title: meta.title,
             description: meta.description,
+            type: 'ContactPage',
+            hasBreadcrumb: true,
           }),
         )}
       />
@@ -42,6 +44,7 @@ export default function ContactPage() {
         eyebrow={hero.eyebrow}
         title={hero.title}
         lead={hero.lead}
+        path={routes.contact.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.contact.label },

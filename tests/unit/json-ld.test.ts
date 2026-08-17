@@ -5,8 +5,13 @@ import {
   definedTermSchema,
   jsonLdGraph,
   organizationSchema,
+  personSchema,
   serializeJsonLd,
+  webPageSchema,
+  websiteSchema,
 } from '@/lib/seo/json-ld'
+import { siteConfig } from '@/config/site'
+import { experience } from '@/content/pages/about'
 import * as wisi from '@/content/pages/what-is-selection-intelligence'
 
 describe('serializeJsonLd', () => {
@@ -103,5 +108,74 @@ describe('jsonLdGraph', () => {
 
     expect(graph['@context']).toBe('https://schema.org')
     expect(graph['@graph']).toHaveLength(2)
+  })
+})
+
+describe('personSchema alumniOf', () => {
+  /**
+   * The published markup asserted "Dentsu" as an employer while the visible
+   * role timeline named Merkle and SolarWinds only, and while about.ts and
+   * CONTENT_VERIFICATION.md F4 both recorded the decision to publish Merkle
+   * alone. Structured data that contradicts the page it ships on is the worst
+   * class of defect on a site whose product is honest machine representation.
+   *
+   * This test, rather than the one-line deletion, is the actual fix: it makes
+   * the drift impossible to reintroduce.
+   */
+  it('names only employers rendered in the visible role timeline', () => {
+    const visibleEmployers = new Set(experience.roles.map((role) => role.organization))
+
+    const schema = personSchema({
+      jobTitle: siteConfig.founderRole,
+      imagePath: '/images/brandon-lincoln-hendricks-portrait.jpg',
+      alumniOf: ['Merkle', 'SolarWinds'],
+    }) as { alumniOf?: { name: string }[] }
+
+    for (const org of schema.alumniOf ?? []) {
+      expect(visibleEmployers, `"${org.name}" is in alumniOf but not on the page`).toContain(
+        org.name,
+      )
+    }
+  })
+})
+
+describe('page graphs are self-contained', () => {
+  /**
+   * Organization and WebSite used to be emitted on the homepage alone while 17
+   * other pages referenced them by `@id` through `isPartOf` and `about`. A
+   * crawler or answer engine fetches one URL at a time, so every deep link
+   * resolved to a graph naming no organization. SiteShell now emits both on
+   * every route.
+   */
+  it('defines the nodes that webPageSchema references', () => {
+    const graph = jsonLdGraph(
+      organizationSchema(),
+      websiteSchema(),
+      webPageSchema({ path: '/solutions', title: 'T', description: 'D' }),
+    )
+
+    const ids = new Set(graph['@graph'].map((node) => (node as { '@id'?: string })['@id']))
+    const page = graph['@graph'][2] as {
+      isPartOf: { '@id': string }
+      about: { '@id': string }
+    }
+
+    expect(ids).toContain(page.isPartOf['@id'])
+    expect(ids).toContain(page.about['@id'])
+  })
+
+  it('points breadcrumb at the id the BreadcrumbList actually carries', () => {
+    const page = webPageSchema({
+      path: '/solutions',
+      title: 'T',
+      description: 'D',
+      hasBreadcrumb: true,
+    }) as { breadcrumb: { '@id': string } }
+
+    const list = breadcrumbSchema([{ label: 'Home', href: '/' }], '/solutions') as {
+      '@id': string
+    }
+
+    expect(page.breadcrumb['@id']).toBe(list['@id'])
   })
 })

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { Container } from '@/components/layout/container'
@@ -6,6 +7,16 @@ import { SignalDot } from '@/components/visuals/signal-dot'
 import { buttonVariants } from '@/components/ui/button'
 import { isBuilt, routes } from '@/config/routes'
 import { cn } from '@/lib/utils/cn'
+
+/*
+  Without this, every 404 inherits the root layout's default title, so the
+  retired URLs still being recrawled all report under the homepage title.
+  No `robots` key: Next.js already serves not-found with `noindex`, and
+  declaring it again emits a duplicate directive.
+*/
+export const metadata: Metadata = {
+  title: { absolute: 'Page not found | Hendricks' },
+}
 
 /** Diagnostic-style 404 (docs/14 §10). */
 export default function NotFound() {
@@ -24,7 +35,7 @@ export default function NotFound() {
           <div className="flex flex-col gap-8 py-24 md:py-36">
             <p className="text-eyebrow flex items-center gap-2 text-[var(--color-amber)]">
               <SignalDot size={6} tone="amber" />
-              Status 404 — unresolved path
+              Status 404, unresolved path
             </p>
 
             <h1 className="text-h1 measure-tight">This path did not resolve.</h1>

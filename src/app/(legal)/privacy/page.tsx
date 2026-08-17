@@ -22,11 +22,14 @@ export default function PrivacyPage() {
             path: routes.privacy.path,
             title: privacyNotice.meta.title,
             description: privacyNotice.meta.description,
+            hasBreadcrumb: true,
+            datePublished: privacyNotice.effectiveDate,
+            dateModified: privacyNotice.lastUpdated,
           }),
         )}
       />
 
-      <LegalDocument document={privacyNotice} />
+      <LegalDocument document={privacyNotice} path={routes.privacy.path} label={routes.privacy.label} />
     </>
   )
 }

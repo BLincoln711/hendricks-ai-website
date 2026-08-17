@@ -40,6 +40,7 @@ export default function ForBrandsPage() {
             path: routes.forBrands.path,
             title: meta.title,
             description: meta.description,
+            hasBreadcrumb: true,
           }),
         )}
       />
@@ -49,6 +50,7 @@ export default function ForBrandsPage() {
         title={hero.title}
         lead={hero.lead}
         primaryCta={hero.primaryCta}
+        path={routes.forBrands.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.forBrands.label },

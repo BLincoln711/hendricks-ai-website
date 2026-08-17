@@ -27,7 +27,12 @@ import {
   whyEngineering,
   whyItExists,
 } from '@/content/pages/what-is-search-intelligence-engineering'
-import { definedTermSchema, jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
+import {
+  definedTermSchema,
+  definedTermSetSchema,
+  jsonLdGraph,
+  webPageSchema,
+} from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 export const metadata: Metadata = buildMetadata({
@@ -45,7 +50,22 @@ export default function WhatIsSearchIntelligenceEngineeringPage() {
             path: routes.whatIsSearchIntelligenceEngineering.path,
             title: meta.title,
             description: meta.description,
+            // The subject of a definition page is the term it defines, not the
+            // firm. Without mainEntity the graph never says what this page is about.
+            mainEntityFragment: 'term',
+            about: null,
+            hasBreadcrumb: true,
+            // Emitted only because this page renders the same date visibly in
+            // its SourcesNote <time>. Pages without a visible date get none.
+            dateModified: sources.reviewed,
           }),
+          definedTermSetSchema([
+            {
+              name: 'Search Intelligence Engineering',
+              path: routes.whatIsSearchIntelligenceEngineering.path,
+            },
+            { name: 'Selection Intelligence', path: routes.whatIsSelectionIntelligence.path },
+          ]),
           definedTermSchema({
             path: routes.whatIsSearchIntelligenceEngineering.path,
             term: directAnswer.term,
@@ -59,6 +79,7 @@ export default function WhatIsSearchIntelligenceEngineeringPage() {
         title={hero.title}
         lead={hero.lead}
         primaryCta={hero.primaryCta}
+        path={routes.whatIsSearchIntelligenceEngineering.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.whatIsSearchIntelligenceEngineering.label },

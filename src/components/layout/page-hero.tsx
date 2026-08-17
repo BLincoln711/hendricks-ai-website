@@ -23,6 +23,7 @@ export function PageHero({
   primaryCta,
   secondaryCta,
   breadcrumbs,
+  path,
   visual,
   children,
   theme = 'navy',
@@ -34,6 +35,9 @@ export function PageHero({
   primaryCta?: Cta
   secondaryCta?: Cta
   breadcrumbs?: BreadcrumbEntry[]
+  /** Current route path, so the BreadcrumbList gets an `@id` the page's
+   *  WebPage node can point at through `breadcrumb`. */
+  path?: string
   visual?: ReactNode
   children?: ReactNode
   theme?: 'navy' | 'field'
@@ -44,7 +48,7 @@ export function PageHero({
     <Section variant={onNavy ? 'navy' : 'field'} size="major" ariaLabelledBy="page-title">
       <Container>
         <div className="flex flex-col gap-8">
-          {breadcrumbs ? <Breadcrumbs items={breadcrumbs} onNavy={onNavy} /> : null}
+          {breadcrumbs ? <Breadcrumbs items={breadcrumbs} onNavy={onNavy} path={path} /> : null}
 
           <div
             className={cn(
@@ -53,24 +57,31 @@ export function PageHero({
             )}
           >
             <div className="flex flex-col gap-6">
-              <p
-                className={cn(
-                  'text-eyebrow flex items-center gap-2',
-                  onNavy ? 'text-[var(--color-cyan)]' : 'text-[var(--color-blue)]',
-                )}
-              >
-                <SignalDot size={6} tone={onNavy ? 'cyan' : 'blue'} />
-                {eyebrow}
-              </p>
-
+              {/*
+                Eyebrow nested inside the h1 for the same reason as
+                SectionHeading: it carries the page's proper noun ("Selection
+                Intelligence", "Search Presence Engineering") while the title is
+                a sentence that does not repeat it. As a sibling <p> the page's
+                own subject was absent from its only h1.
+              */}
               <h1
                 id="page-title"
                 className={cn(
-                  'text-h1 max-w-[24ch]',
+                  'flex flex-col gap-6',
                   onNavy ? 'text-[var(--color-field)]' : 'text-[var(--color-navy)]',
                 )}
               >
-                {title}
+                <span
+                  className={cn(
+                    'text-eyebrow flex items-center gap-2',
+                    onNavy ? 'text-[var(--color-cyan)]' : 'text-[var(--color-blue)]',
+                  )}
+                >
+                  <SignalDot size={6} tone={onNavy ? 'cyan' : 'blue'} />
+                  {eyebrow}
+                </span>
+                {/* Separator for inline text extraction. See SectionHeading. */}{' '}
+                <span className="text-h1 max-w-[24ch]">{title}</span>
               </h1>
 
               {subtitle ? (

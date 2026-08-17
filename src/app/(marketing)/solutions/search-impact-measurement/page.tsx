@@ -24,7 +24,7 @@ import {
   meta,
   related,
 } from '@/content/pages/search-impact-measurement'
-import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
+import { jsonLdGraph, serviceSchema, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 export const metadata: Metadata = buildMetadata({
@@ -42,6 +42,18 @@ export default function SearchImpactMeasurementPage() {
             path: routes.searchImpactMeasurement.path,
             title: meta.title,
             description: meta.description,
+            mainEntityFragment: 'service',
+            hasBreadcrumb: true,
+          }),
+          /*
+            docs/06 §8 requires Service on the solution pages. `description` is
+            the page's own visible hero lead verbatim rather than the meta
+            description, so the markup reproduces what a reader actually sees.
+          */
+          serviceSchema({
+            path: routes.searchImpactMeasurement.path,
+            name: routes.searchImpactMeasurement.label,
+            description: hero.lead.join(' '),
           }),
         )}
       />
@@ -51,6 +63,7 @@ export default function SearchImpactMeasurementPage() {
         title={hero.title}
         lead={hero.lead}
         primaryCta={hero.primaryCta}
+        path={routes.searchImpactMeasurement.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.solutions.label, href: routes.solutions.path },
