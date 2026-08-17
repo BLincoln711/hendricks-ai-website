@@ -28,7 +28,7 @@ import {
   whatWeDo,
 } from '@/content/pages/home'
 import { buildMetadata } from '@/lib/seo/metadata'
-import { jsonLdGraph, organizationSchema, webPageSchema, websiteSchema } from '@/lib/seo/json-ld'
+import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
 
 export const metadata: Metadata = buildMetadata({
   title: homeMeta.title,
@@ -40,9 +40,10 @@ export default function HomePage() {
   return (
     <>
       <JsonLd
+        // Organization and WebSite are emitted site-wide by SiteShell, so the
+        // homepage carries only its own WebPage node. Emitting them here too
+        // would duplicate both nodes on this one document.
         data={jsonLdGraph(
-          organizationSchema(),
-          websiteSchema(),
           webPageSchema({ path: '/', title: homeMeta.title, description: homeMeta.description }),
         )}
       />

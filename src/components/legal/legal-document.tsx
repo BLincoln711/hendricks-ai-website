@@ -1,7 +1,9 @@
+import { Breadcrumbs } from '@/components/layout/breadcrumbs'
 import { Container } from '@/components/layout/container'
 import { Section } from '@/components/layout/section'
 import { InlineText } from '@/components/legal/inline-text'
 import { DataTable } from '@/components/ui/data-table'
+import { routes } from '@/config/routes'
 import type { LegalBlock, LegalDocument as LegalDocumentContent } from '@/content/legal/types'
 import { formatLongDate } from '@/lib/utils/format-date'
 
@@ -65,12 +67,32 @@ function Block({ block, index }: { block: LegalBlock; index: number }) {
   }
 }
 
-export function LegalDocument({ document }: { document: LegalDocumentContent }) {
+export function LegalDocument({
+  document,
+  path,
+  label,
+}: {
+  document: LegalDocumentContent
+  /** Route path, for the breadcrumb trail and its `@id`. */
+  path?: string
+  label?: string
+}) {
   return (
     <>
       <Section variant="field" size="standard" ariaLabelledBy="legal-title">
         <Container width="narrow">
           <div className="flex flex-col gap-6">
+            {/*
+              These two pages were the only routes on the site with no
+              navigational context in any form, visible or structured.
+            */}
+            {path && label ? (
+              <Breadcrumbs
+                items={[{ label: routes.home.label, href: routes.home.path }, { label }]}
+                path={path}
+              />
+            ) : null}
+
             <p className="text-eyebrow text-[var(--color-slate)]">{document.hero.eyebrow}</p>
             <h1 className="text-h1 text-[var(--color-navy)]">{document.hero.title}</h1>
 

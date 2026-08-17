@@ -43,11 +43,21 @@ export default function AboutPage() {
             path: routes.about.path,
             title: meta.title,
             description: meta.description,
+            // docs/06 §8 names AboutPage for this route. `mainEntity` points at
+            // the Person node below, which is what declares that this page is
+            // about Brandon Lincoln Hendricks rather than merely mentioning him.
+            type: 'AboutPage',
+            mainEntity: { '@id': `${siteConfig.url}/about#person` },
+            hasBreadcrumb: true,
           }),
           personSchema({
             jobTitle: siteConfig.founderRole,
             imagePath: hero.portrait.src,
-            alumniOf: ['Merkle', 'Dentsu', 'SolarWinds'],
+            // Must match the employers rendered in the visible role timeline.
+            // "Dentsu" was asserted here while `about.ts` records the opposite
+            // decision: the employer is Merkle alone, because that is what the
+            // public record shows (CONTENT_VERIFICATION.md F4).
+            alumniOf: ['Merkle', 'SolarWinds'],
           }),
         )}
       />
@@ -65,6 +75,7 @@ export default function AboutPage() {
                 { label: routes.about.label },
               ]}
               onNavy
+              path={routes.about.path}
             />
 
             <div className="grid items-start gap-10 md:grid-cols-[minmax(0,320px)_minmax(0,1fr)] md:gap-14">

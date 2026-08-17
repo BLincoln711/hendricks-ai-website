@@ -21,7 +21,7 @@ import {
   responsibilities,
   stages,
 } from '@/content/pages/how-it-works'
-import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
+import { itemListSchema, jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 export const metadata: Metadata = buildMetadata({
@@ -39,6 +39,21 @@ export default function HowItWorksPage() {
             path: routes.howItWorks.path,
             title: meta.title,
             description: meta.description,
+            hasBreadcrumb: true,
+            mainEntityFragment: 'the-hendricks-sequence',
+          }),
+          /*
+            ItemList, not HowTo: Google retired HowTo rich results, and these
+            are stages Hendricks performs rather than steps the reader follows.
+            Names and descriptions are the rendered strings verbatim.
+          */
+          itemListSchema({
+            path: routes.howItWorks.path,
+            name: 'The Hendricks sequence',
+            items: stages.items.map((stage) => ({
+              name: `${stage.name}: ${stage.question}`,
+              description: `${stage.description} Output: ${stage.output}.`,
+            })),
           }),
         )}
       />
@@ -48,6 +63,7 @@ export default function HowItWorksPage() {
         title={hero.title}
         lead={hero.lead}
         primaryCta={hero.primaryCta}
+        path={routes.howItWorks.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.howItWorks.label },

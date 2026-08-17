@@ -22,11 +22,14 @@ export default function TermsPage() {
             path: routes.terms.path,
             title: termsOfUse.meta.title,
             description: termsOfUse.meta.description,
+            hasBreadcrumb: true,
+            datePublished: termsOfUse.effectiveDate,
+            dateModified: termsOfUse.lastUpdated,
           }),
         )}
       />
 
-      <LegalDocument document={termsOfUse} />
+      <LegalDocument document={termsOfUse} path={routes.terms.path} label={routes.terms.label} />
     </>
   )
 }

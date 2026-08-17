@@ -26,7 +26,7 @@ import {
   metrics,
   related,
 } from '@/content/pages/selection-intelligence'
-import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
+import { jsonLdGraph, serviceSchema, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 export const metadata: Metadata = buildMetadata({
@@ -44,6 +44,18 @@ export default function SelectionIntelligencePage() {
             path: routes.selectionIntelligence.path,
             title: meta.title,
             description: meta.description,
+            mainEntityFragment: 'service',
+            hasBreadcrumb: true,
+          }),
+          /*
+            docs/06 §8 requires Service on the solution pages. `description` is
+            the page's own visible hero lead verbatim rather than the meta
+            description, so the markup reproduces what a reader actually sees.
+          */
+          serviceSchema({
+            path: routes.selectionIntelligence.path,
+            name: routes.selectionIntelligence.label,
+            description: hero.lead.join(' '),
           }),
         )}
       />
@@ -53,6 +65,7 @@ export default function SelectionIntelligencePage() {
         title={hero.title}
         lead={hero.lead}
         primaryCta={hero.primaryCta}
+        path={routes.selectionIntelligence.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.solutions.label, href: routes.solutions.path },

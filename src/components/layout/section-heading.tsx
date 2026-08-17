@@ -30,27 +30,53 @@ export function SectionHeading({
 
   return (
     <div className={cn('flex flex-col gap-4', className)}>
-      {eyebrow ? (
-        <p
-          className={cn(
-            'text-eyebrow flex items-center gap-2',
-            onNavy ? 'text-[var(--color-cyan)]' : 'text-[var(--color-blue)]',
-          )}
-        >
-          <SignalDot size={6} tone={onNavy ? 'cyan' : 'blue'} />
-          {eyebrow}
-        </p>
-      ) : null}
+      {/*
+        The eyebrow is nested inside the heading rather than sitting beside it
+        as a sibling <p>.
 
+        The eyebrow carries the proper noun the section is about ("Evidence
+        Grades", "Intent Context", "Seven Engineering Layers") while the title
+        is usually a full sentence that never repeats it. Retrieval systems
+        chunk a page by its headings and prepend the heading text to each
+        segment, so with the term outside the heading, every section was
+        labelled with a sentence that omitted its own subject.
+
+        Nesting rather than duplicating with sr-only: hidden text repeating
+        visible text two lines above reads as heading stuffing, and nesting
+        reaches the identical result. Rendered output is unchanged because the
+        flex column and both type styles move onto the spans.
+      */}
       <Heading
         id={id}
-        className={cn(
-          level === 2 ? 'text-h2' : 'text-h3',
-          measures[maxWidth],
-          onNavy && 'text-[var(--color-field)]',
-        )}
+        className={cn('flex flex-col gap-4', measures[maxWidth])}
       >
-        {title}
+        {eyebrow ? (
+          <span
+            className={cn(
+              'text-eyebrow flex items-center gap-2',
+              onNavy ? 'text-[var(--color-cyan)]' : 'text-[var(--color-blue)]',
+            )}
+          >
+            <SignalDot size={6} tone={onNavy ? 'cyan' : 'blue'} />
+            {eyebrow}
+          </span>
+        ) : null}
+        {/*
+          Explicit separator so a text extractor that treats sibling spans as
+          inline yields "Intent Context What a unit..." rather than
+          "Intent ContextWhat a unit...". A whitespace-only text node does not
+          create an anonymous flex item, so layout is unaffected.
+        */}
+        {eyebrow ? ' ' : null}
+
+        <span
+          className={cn(
+            level === 2 ? 'text-h2' : 'text-h3',
+            onNavy && 'text-[var(--color-field)]',
+          )}
+        >
+          {title}
+        </span>
       </Heading>
 
       {description ? (

@@ -35,6 +35,34 @@ export function organizationSchema() {
       height: 507,
     },
     description: siteConfig.description,
+    /*
+      "Hendricks" collides with a gin brand, a NASCAR team, an Indiana county,
+      and a hospital system. Nothing in the graph currently tells a resolver
+      which subject area this one occupies, so the name alone has to do all the
+      disambiguating work and cannot.
+
+      Every term below names a discipline the site visibly describes across
+      /solutions, /methodology, and the definition pages. The two expanded
+      abbreviations are the standard expansions of "GEO/AEO", which renders
+      visibly in the discipline table at
+      `content/pages/what-is-search-intelligence-engineering.ts:52`.
+
+      None of these asserts a credential, a client, or a result, so none is
+      gated on CONTENT_VERIFICATION.md. `slogan` is the visible homepage h1
+      verbatim.
+    */
+    slogan: siteConfig.categoryLine,
+    knowsAbout: [
+      'Search Intelligence Engineering',
+      'Selection Intelligence',
+      'Answer engine optimization',
+      'Generative engine optimization',
+      'AI search visibility',
+      'Search demand analysis',
+      'Search impact measurement',
+      'Organic search',
+      'Paid search',
+    ],
     founder: {
       '@type': 'Person',
       '@id': `${siteConfig.url}/about#person`,
@@ -55,25 +83,135 @@ export function websiteSchema() {
   }
 }
 
+/**
+ * WebPage node, or a supported subtype.
+ *
+ * `type` exists because docs/06 §8 names `AboutPage` for /about, and because a
+ * bare `WebPage` on every route tells a parser nothing about what any page is.
+ * Only subtypes schema.org actually defines are accepted.
+ *
+ * `mainEntity` is what declares a page's subject. Without it the only thing the
+ * graph says about a definition page is that it belongs to a website.
+ *
+ * `datePublished` and `dateModified` are optional and must be passed ONLY for
+ * pages carrying a visible date a reader can check. Stamping the rest with a
+ * build date asserts a review that nobody performed.
+ */
 export function webPageSchema({
   path,
   title,
   description,
+  type = 'WebPage',
+  about,
+  mainEntity,
+  mainEntityFragment,
+  hasBreadcrumb = false,
+  datePublished,
+  dateModified,
 }: {
   path: string
   title: string
   description: string
+  type?: 'WebPage' | 'AboutPage' | 'ContactPage' | 'CollectionPage'
+  /** Overrides the default `about: Organization`. Pass null to omit it entirely. */
+  about?: { '@id': string } | null
+  mainEntity?: { '@id': string }
+  /**
+   * Shorthand for a subject node defined on this same page, such as `service`
+   * or `term`. Saves every caller from rebuilding the absolute URL, which is
+   * where `@id` mismatches creep in.
+   */
+  mainEntityFragment?: string
+  /** Set when the page renders <Breadcrumbs>, which emits the matching node. */
+  hasBreadcrumb?: boolean
+  datePublished?: string
+  dateModified?: string
 }) {
   const url = new URL(path, siteConfig.url).toString()
+  const aboutNode = about === undefined ? { '@id': `${siteConfig.url}/#organization` } : about
+  const subject = mainEntity ?? (mainEntityFragment ? { '@id': `${url}#${mainEntityFragment}` } : undefined)
+
   return {
-    '@type': 'WebPage',
+    '@type': type,
     '@id': `${url}#webpage`,
     url,
     name: title,
     description,
     isPartOf: { '@id': `${siteConfig.url}/#website` },
-    about: { '@id': `${siteConfig.url}/#organization` },
+    ...(aboutNode ? { about: aboutNode } : {}),
+    ...(subject ? { mainEntity: subject } : {}),
+    ...(hasBreadcrumb ? { breadcrumb: { '@id': `${url}#breadcrumb` } } : {}),
+    ...(datePublished ? { datePublished } : {}),
+    ...(dateModified ? { dateModified } : {}),
     inLanguage: 'en-US',
+  }
+}
+
+/**
+ * Service node for a solution page.
+ *
+ * docs/06 §8 requires this on the solution pages and specifies that it use the
+ * visible service description and provider information. Nothing in the graph
+ * currently states what Hendricks sells.
+ *
+ * `offers` and `priceSpecification` are deliberately absent: fees are withheld
+ * from the site, so any price node here would be unsupported by visible content.
+ */
+export function serviceSchema({
+  path,
+  name,
+  description,
+  serviceOutput,
+}: {
+  path: string
+  name: string
+  description: string
+  /** Deliverable names, taken verbatim from the page's rendered list. */
+  serviceOutput?: readonly string[]
+}) {
+  const url = new URL(path, siteConfig.url).toString()
+  return {
+    '@type': 'Service',
+    '@id': `${url}#service`,
+    name,
+    description,
+    url,
+    serviceType: siteConfig.category,
+    provider: { '@id': `${siteConfig.url}/#organization` },
+    ...(serviceOutput?.length
+      ? { serviceOutput: serviceOutput.map((item) => ({ '@type': 'Thing', name: item })) }
+      : {}),
+  }
+}
+
+/**
+ * ItemList for an ordered sequence rendered visibly on the page.
+ *
+ * `ItemList` rather than `HowTo`: Google retired HowTo rich results, and these
+ * are steps Hendricks performs, not steps the reader performs.
+ */
+export function itemListSchema({
+  path,
+  name,
+  items,
+}: {
+  path: string
+  name: string
+  items: readonly { name: string; description?: string }[]
+}) {
+  const url = new URL(path, siteConfig.url).toString()
+  return {
+    '@type': 'ItemList',
+    '@id': `${url}#${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+    name,
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    numberOfItems: items.length,
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      ...(item.description ? { description: item.description } : {}),
+    })),
   }
 }
 
@@ -141,20 +279,46 @@ export function definedTermSchema({
     name: term,
     description: directAnswer,
     url,
-    inDefinedTermSet: {
-      '@type': 'DefinedTermSet',
-      '@id': `${siteConfig.url}/#vocabulary`,
-      name: 'Search Intelligence Engineering vocabulary',
-      url: siteConfig.url,
-    },
+    // Reference only. The set itself is emitted once, by definedTermSetSchema,
+    // so the vocabulary resolves to a single node that actually lists members
+    // rather than to an inline stub repeated on each page with none.
+    inDefinedTermSet: { '@id': `${siteConfig.url}/#vocabulary` },
+  }
+}
+
+/**
+ * The vocabulary node itself, emitted alongside a DefinedTerm.
+ *
+ * Previously the set was inlined into every `DefinedTerm` with no
+ * `hasDefinedTerm`, so it declared a named vocabulary containing nothing. The
+ * members below are the definition pages that are actually built and live;
+ * `isBuilt` keeps a term from being advertised before its page exists.
+ */
+export function definedTermSetSchema(terms: readonly { name: string; path: string }[]) {
+  return {
+    '@type': 'DefinedTermSet',
+    '@id': `${siteConfig.url}/#vocabulary`,
+    name: 'Search Intelligence Engineering vocabulary',
+    url: siteConfig.url,
+    publisher: { '@id': `${siteConfig.url}/#organization` },
+    hasDefinedTerm: terms.map((term) => ({
+      '@type': 'DefinedTerm',
+      '@id': `${new URL(term.path, siteConfig.url).toString()}#term`,
+      name: term.name,
+      url: new URL(term.path, siteConfig.url).toString(),
+    })),
   }
 }
 
 export type BreadcrumbEntry = { label: string; href?: string }
 
-export function breadcrumbSchema(items: BreadcrumbEntry[]) {
+export function breadcrumbSchema(items: BreadcrumbEntry[], path?: string) {
+  // The `@id` lets a page's WebPage node reference this list by `breadcrumb`
+  // instead of leaving it floating unattached in the document.
+  const id = path ? `${new URL(path, siteConfig.url).toString()}#breadcrumb` : undefined
   return {
     '@type': 'BreadcrumbList',
+    ...(id ? { '@id': id } : {}),
     itemListElement: items.map((item, index) => ({
       '@type': 'ListItem',
       position: index + 1,

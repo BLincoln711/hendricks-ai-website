@@ -14,9 +14,13 @@ import { cn } from '@/lib/utils/cn'
 export function Breadcrumbs({
   items,
   onNavy = false,
+  path,
 }: {
   items: BreadcrumbEntry[]
   onNavy?: boolean
+  /** Current route path. Gives the emitted list a stable `@id` so the page's
+   *  WebPage node can reference it through `breadcrumb`. */
+  path?: string
 }) {
   return (
     <>
@@ -62,7 +66,7 @@ export function Breadcrumbs({
           })}
         </ol>
       </nav>
-      <JsonLd data={jsonLdGraph(breadcrumbSchema(items))} />
+      <JsonLd data={jsonLdGraph(breadcrumbSchema(items, path))} />
     </>
   )
 }

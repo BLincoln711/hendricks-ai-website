@@ -37,6 +37,7 @@ export default function ForAgenciesPage() {
             path: routes.forAgencies.path,
             title: meta.title,
             description: meta.description,
+            hasBreadcrumb: true,
           }),
         )}
       />
@@ -46,6 +47,7 @@ export default function ForAgenciesPage() {
         title={hero.title}
         lead={hero.lead}
         primaryCta={hero.primaryCta}
+        path={routes.forAgencies.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.forAgencies.label },

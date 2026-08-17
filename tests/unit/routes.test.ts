@@ -1,5 +1,7 @@
+import type { NextConfig } from 'next'
 import { describe, expect, it } from 'vitest'
 
+import nextConfig from '../../next.config'
 import { ctaHref, indexableBuiltRoutes, isBuilt, routes } from '@/config/routes'
 import { footerNavigation, legalNavigation, primaryNavigation } from '@/config/navigation'
 
@@ -119,5 +121,56 @@ describe('Navigation link integrity', () => {
     expect(internalHrefs).toContain('/solutions/search-impact-measurement')
     expect(internalHrefs).toContain('/for-brands')
     expect(internalHrefs).toContain('/for-agencies')
+  })
+})
+
+/**
+ * Legacy redirects are the one part of the config that cannot be corrected by
+ * shipping a fix. They are served `permanent`, browsers cache that aggressively,
+ * and a visitor who follows a wrong one may not reach the real page again for a
+ * long time. So the rules are asserted rather than reviewed.
+ */
+describe('Legacy redirects', () => {
+  const routePaths = new Set<string>(Object.values(routes).map((route) => route.path))
+
+  const rules = nextConfig.redirects
+    ? nextConfig.redirects()
+    : Promise.resolve([] as Awaited<ReturnType<NonNullable<NextConfig['redirects']>>>)
+
+  it('never shadows a path in the route registry', async () => {
+    // Redirects are evaluated before filesystem routes. A rule for an unbuilt
+    // route would silently break that page on the day it ships.
+    for (const rule of await rules) {
+      expect(routePaths.has(rule.source), `redirect shadows a real route: ${rule.source}`).toBe(
+        false,
+      )
+    }
+  })
+
+  it('sends every internal destination to a route that is built', async () => {
+    for (const rule of await rules) {
+      if (rule.destination.startsWith('http')) continue
+
+      const target = Object.values(routes).find((route) => route.path === rule.destination)
+      expect(target, `redirect ${rule.source} points at no known route`).toBeDefined()
+      expect(
+        target?.built,
+        `redirect ${rule.source} points at an unbuilt route: ${rule.destination}`,
+      ).toBe(true)
+    }
+  })
+
+  it('declares each source once', async () => {
+    const sources = (await rules).map((rule) => rule.source)
+    expect(new Set(sources).size).toBe(sources.length)
+  })
+
+  it('redirects the www host to the apex', async () => {
+    const hostRule = (await rules).find((rule) =>
+      rule.has?.some((condition) => condition.type === 'host'),
+    )
+
+    expect(hostRule?.destination).toBe('https://hendricks.ai/:path*')
+    expect(hostRule?.permanent).toBe(true)
   })
 })

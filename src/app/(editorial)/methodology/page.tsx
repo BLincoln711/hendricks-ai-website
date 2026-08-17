@@ -47,6 +47,10 @@ export default function MethodologyPage() {
             path: routes.methodology.path,
             title: meta.title,
             description: meta.description,
+            hasBreadcrumb: true,
+            // Emitted only because this page renders the same date visibly in
+            // its SourcesNote <time>. Pages without a visible date get none.
+            dateModified: sources.reviewed,
           }),
         )}
       />
@@ -56,6 +60,7 @@ export default function MethodologyPage() {
         title={hero.title}
         lead={hero.lead}
         primaryCta={hero.primaryCta}
+        path={routes.methodology.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.methodology.label },

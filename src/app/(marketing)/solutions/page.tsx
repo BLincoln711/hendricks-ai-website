@@ -9,6 +9,7 @@ import { SolutionFeature } from '@/components/sections/solution-feature'
 import { JsonLd } from '@/components/seo/json-ld'
 import { SystemFlow } from '@/components/visuals/system-flow'
 import { routes } from '@/config/routes'
+import { siteConfig } from '@/config/site'
 import {
   solutionsBridge,
   solutionsHero,
@@ -34,7 +35,34 @@ export default function SolutionsPage() {
             path: routes.solutions.path,
             title: solutionsMeta.title,
             description: solutionsMeta.description,
+            type: 'CollectionPage',
+            mainEntityFragment: 'solutions',
+            hasBreadcrumb: true,
           }),
+          /*
+            Each entry is a self-describing Service node rather than a bare
+            `@id` reference. A bare reference to a node defined on another URL
+            resolves to nothing when a crawler parses this page in isolation,
+            which is how answer engines read it.
+          */
+          {
+            '@type': 'ItemList',
+            '@id': `${siteConfig.url}/solutions#solutions`,
+            name: solutionsList.title,
+            numberOfItems: solutionsList.items.length,
+            itemListElement: solutionsList.items.map((item, index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              item: {
+                '@type': 'Service',
+                '@id': `${new URL(item.cta.href, siteConfig.url).toString()}#service`,
+                name: item.name,
+                description: item.description,
+                url: new URL(item.cta.href, siteConfig.url).toString(),
+                provider: { '@id': `${siteConfig.url}/#organization` },
+              },
+            })),
+          },
         )}
       />
 
@@ -43,6 +71,7 @@ export default function SolutionsPage() {
         title={solutionsHero.title}
         lead={solutionsHero.lead}
         primaryCta={solutionsHero.primaryCta}
+        path={routes.solutions.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.solutions.label },

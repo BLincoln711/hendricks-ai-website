@@ -23,7 +23,7 @@ import {
   related,
   scope,
 } from '@/content/pages/diagnostic'
-import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
+import { itemListSchema, jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 export const metadata: Metadata = buildMetadata({
@@ -41,6 +41,20 @@ export default function DiagnosticPage() {
             path: routes.diagnostic.path,
             title: meta.title,
             description: meta.description,
+            hasBreadcrumb: true,
+            mainEntityFragment: 'diagnostic-phases',
+          }),
+          /*
+            The five phases render as a visible ordered list with a named
+            output per phase. ItemList reproduces that exactly.
+          */
+          itemListSchema({
+            path: routes.diagnostic.path,
+            name: 'Diagnostic phases',
+            items: phases.items.map((phase) => ({
+              name: phase.name,
+              description: `${phase.description} Output: ${phase.output}.`,
+            })),
           }),
         )}
       />
@@ -50,6 +64,7 @@ export default function DiagnosticPage() {
         title={hero.title}
         lead={hero.lead}
         primaryCta={hero.primaryCta}
+        path={routes.diagnostic.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.diagnostic.label },
