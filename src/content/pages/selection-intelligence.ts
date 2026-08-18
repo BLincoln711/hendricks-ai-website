@@ -1,3 +1,4 @@
+import type { FaqItem } from '@/components/sections/faq-section'
 import type { RelatedLink } from '@/components/sections/related-links'
 import type { Cta } from '@/components/ui/cta'
 import type { ContextPanel } from '@/components/visuals/context-panel-diagram'
@@ -6,9 +7,6 @@ import { routes } from '@/config/routes'
 
 /**
  * Approved copy, transcribed from content/pages/04-selection-intelligence.md.
- *
- * The markdown's "FAQ topics" list is not rendered — questions without approved
- * answers. Tracked in CONTENT_VERIFICATION.md as Q2.
  */
 
 export const meta = {
@@ -175,6 +173,92 @@ export const limitation = {
   ],
   closing:
     'Then we identify patterns, test hypotheses, and state the evidence level behind each conclusion.',
+} as const
+
+/**
+ * The six questions are the approved list from
+ * content/pages/04-selection-intelligence.md, previously carried as topics
+ * without answers and tracked in CONTENT_VERIFICATION.md as Q2. The answers are
+ * approved copy, mirrored back into the markdown beneath each question.
+ *
+ * Two of the six are load-bearing and were written to a fixed scope rather than
+ * to a word count.
+ *
+ * "Which AI and search systems do you test?" states the reported scope: Google
+ * AI Overviews, ChatGPT, and Perplexity. Google AI Mode, Gemini, and Microsoft
+ * Copilot are named only to place them outside that scope. A prospect who reads
+ * the answer and comes away believing Hendricks measures Gemini has been misled
+ * by omission, so the exclusion is repeated in plain words on the three names
+ * rather than softened with "currently" or "not yet", both of which read as a
+ * promise of future coverage.
+ *
+ * "Is this the same as AI rank tracking?" reuses the argument already approved
+ * on /what-is-selection-intelligence instead of publishing a second, competing
+ * definition. Generative engine optimization and answer engine
+ * optimization appear in the same answer as the adjacent categories a buyer
+ * arrives holding, never as a description of what Hendricks sells. That answer
+ * names the definition page in prose and the related list below carries the
+ * link, rather than the answer object carrying an href the FaqItem type has no
+ * field for.
+ *
+ * No FAQPage markup is emitted for this section. docs/06 §10 forbids adding it
+ * automatically, and these answers earn their place with a reader whether or not
+ * a search engine renders them.
+ */
+export const faq = {
+  eyebrow: 'Common Questions',
+  title: 'Six questions to settle before commissioning a baseline.',
+  items: [
+    {
+      question: 'How do you account for personalization?',
+      answer: [
+        'Hendricks treats personalization as a variable to be tested, not as noise to be removed. Every Selection Intelligence baseline runs the same commercial need through four context panels: a neutral baseline, cohort contexts that supply real customer characteristics, multi-step journey contexts, and a repeated time and platform panel.',
+        'Running one need through all four panels produces a distribution rather than a single answer. Hendricks reports an observed consideration rate and an observed recommendation rate across the defined contexts, alongside Selection Stability, which records how consistently an outcome survives reasonable changes in wording, context, platform, location, and time.',
+        'Hendricks does not claim to reproduce any individual person’s account history or prior conversations. Personal memory cannot be reproduced universally, so a baseline measures the conditions Hendricks can define, vary, and repeat, and every conclusion carries the grade of evidence behind it.',
+      ],
+    },
+    {
+      question: 'Is this the same as AI rank tracking?',
+      answer: [
+        'No. AI rank tracking asks where a brand appeared for a prompt. Selection Intelligence asks a harder question: across commercially important customer contexts, under what conditions does the brand enter consideration, and what observable evidence separates winning outcomes from losing ones?',
+        'The same distinction separates Selection Intelligence from the practices sold as generative engine optimization, or GEO, and answer engine optimization, or AEO. Counting mentions and citations measures visibility. A mention is not consideration, a citation is not a recommendation, and a brand can be quoted in an answer that goes on to favor a competitor.',
+        'Hendricks does not sell GEO or AEO. Selection Intelligence is the measurement layer inside Search Intelligence Engineering, and its output is an observed distribution and a stability analysis across defined contexts, not one universal ranking.',
+        'Hendricks publishes the full definition, including what Selection Intelligence does not mean, on the What Is Selection Intelligence page.',
+      ],
+    },
+    {
+      question: 'Which AI and search systems do you test?',
+      answer: [
+        'Hendricks observes three systems in a Selection Intelligence baseline: Google AI Overviews, ChatGPT, and Perplexity. No other system contributes to a Hendricks observed consideration rate, observed recommendation rate, or Selection Stability figure, and no result from one system is extrapolated to another.',
+        'Google AI Mode, Gemini, and Microsoft Copilot are surfaces that exist in the same information environment, and they are named here for that reason alone. Hendricks does not test, monitor, measure, or report on Google AI Mode, Gemini, or Microsoft Copilot. A Selection Intelligence baseline says nothing about how a brand performs on a surface Hendricks does not observe.',
+        'Reported scope is limited to the parts of AI-mediated search Hendricks can observe under controlled conditions and store for re-inspection. Each run is recorded with its exact question, supplied context, platform, date, location, response, and cited sources, so a client can audit an observation rather than accept a number.',
+      ],
+    },
+    {
+      question: 'How many prompts or contexts are required?',
+      answer: [
+        'There is no fixed number, and a prompt is not the unit of measurement. Hendricks counts commercial intent contexts, each one a defined combination of customer need, customer profile, use case, constraints, geography, decision stage, and commercial value. A typical Search Intelligence Diagnostic covers approximately 100–300 commercially prioritized intent contexts.',
+        'One intent context is observed more than once. Each context is run across the four panels, across Google AI Overviews, ChatGPT, and Perplexity, and across dates, so the number of individual observations in a baseline is considerably larger than the number of contexts.',
+        'Final scope depends on the market, the customer journey, geography, data access, and the number of business lines. Hendricks sets the count per engagement, and the Intent Context Library that fixes it is built before any baseline measurement runs.',
+      ],
+    },
+    {
+      question: 'Can one brand be strong for one cohort and weak for another?',
+      answer: [
+        'Yes, and cohort divergence is one of the most common findings in a Selection Intelligence baseline. A brand can be recommended for one customer cohort, treated as a marginal option for a second, and absent for a third, all within the same commercial need.',
+        'Cohort contexts supply the characteristics a real buyer brings to a decision: company size, use case, geography, budget, priorities, and constraints. Adding those characteristics changes which brands are treated as legitimate candidates. A brand favored in a neutral test can leave the consideration set once the customer states a constraint the brand does not visibly satisfy.',
+        'A single blended score hides the divergence. One averaged number can look stable while the highest-value segment is being lost, can credit a position earned in a low-value use case, and can conceal a competitor that wins every context in a priority market. Hendricks therefore reports the observed consideration rate and the observed recommendation rate by context and by cohort rather than as one brand-level figure.',
+      ],
+    },
+    {
+      question: 'How frequently should the baseline be repeated?',
+      answer: [
+        'Hendricks publishes no fixed interval. A Selection Intelligence baseline is a dated observation of a moving environment, so re-measurement should be triggered by a change in one of the inputs the baseline depends on rather than by a date on a calendar.',
+        'Four changes are worth re-measuring for. The brand publishes, removes, or materially changes evidence a priority decision depends on. The competitive set changes. The commercial priorities or customer cohorts under measurement change. An intervention from Search Presence Engineering ships and needs a before-and-after read.',
+        'Low Selection Stability is its own trigger. An outcome that already varied across wording, context, platform, location, and time was fragile before anything changed, and one repeat run will not settle it. Model and search behavior also changes over time, which is why Hendricks records the date of every observation and reports a baseline as the state of a defined set of contexts on the dates it was measured.',
+      ],
+    },
+  ] satisfies readonly FaqItem[],
 } as const
 
 export const related: readonly RelatedLink[] = [
