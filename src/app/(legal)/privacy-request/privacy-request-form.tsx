@@ -6,7 +6,6 @@ import { useFormStatus } from 'react-dom'
 import { InlineText } from '@/components/legal/inline-text'
 import { Button } from '@/components/ui/button'
 import {
-  appeal,
   confirmation,
   errors,
   form,
@@ -28,6 +27,11 @@ import { submitPrivacyRequest, type PrivacyRequestState } from './actions'
  *
  * No CAPTCHA. `21-privacy-request.md` prohibits an inaccessible one, and the
  * honeypot plus timing floor in the action cover the same ground.
+ *
+ * Nothing a reader still needs after submitting belongs in this component. The
+ * success state replaces the whole form, so anything rendered here is gone once
+ * the request is filed. The appeal copy lives on the page below the form for
+ * that reason.
  */
 
 const initialState: PrivacyRequestState = { status: 'idle' }
@@ -415,11 +419,6 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
         </p>
 
         <SubmitButton />
-      </div>
-
-      <div className="flex flex-col gap-3 border-t border-[var(--color-border)] pt-8">
-        <h2 className="text-[1.0625rem] font-medium text-[var(--color-navy)]">{appeal.title}</h2>
-        <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">{appeal.body}</p>
       </div>
     </form>
   )

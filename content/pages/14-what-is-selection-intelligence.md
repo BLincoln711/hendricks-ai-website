@@ -55,7 +55,7 @@ Hendricks therefore tests:
 - Repeated runs
 - Time periods
 
-The output is an observed distribution and stability analysis—not one universal ranking.
+The output is an observed distribution and stability analysis, not one universal ranking.
 
 ## Metrics
 

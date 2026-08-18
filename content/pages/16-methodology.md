@@ -10,13 +10,13 @@
 
 **Description:** Learn how Hendricks defines intent contexts, measures observed consideration, analyzes evidence, grades conclusions, and connects interventions to business outcomes.
 
-**H1:** Measure the decision—not just the prompt.
+**H1:** Measure the decision, not just the prompt.
 
 ## Hero
 
 **Eyebrow:** RESEARCH AND MEASUREMENT STANDARDS
 
-# Measure the decision—not just the prompt.
+# Measure the decision, not just the prompt.
 
 Traditional search often centered on the keyword.
 

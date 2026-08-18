@@ -19,10 +19,11 @@ describe('Route registry', () => {
   })
 
   it('marks exactly the routes that have been built', () => {
-    // Twelve commercial routes from Phase 4, the four definition pages from
-    // Phase 6, and the three legal routes. Anything else in the registry is
-    // still unbuilt, and this list is what stops a route being flagged built
-    // before its page exists.
+    // Twelve commercial routes from Phase 4, the six definition pages, and the
+    // three legal routes. Anything else in the registry is still unbuilt, and
+    // this list is what stops a route being flagged built before its page
+    // exists. The last two definition pages carry the buyer-facing entry
+    // vocabulary and were added once their pages landed in the same commit.
     const built = Object.values(routes)
       .filter((route) => route.built)
       .map((route) => route.path)
@@ -47,6 +48,8 @@ describe('Route registry', () => {
         '/solutions/search-presence-engineering',
         '/solutions/selection-intelligence',
         '/terms',
+        '/what-is-ai-mediated-search',
+        '/what-is-generative-engine-optimization',
         '/what-is-search-intelligence-engineering',
         '/what-is-selection-intelligence',
       ].sort(),

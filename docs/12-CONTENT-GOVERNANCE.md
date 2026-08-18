@@ -28,7 +28,7 @@ Hendricks sounds:
 
 - Know where your brand is missing from the shortlist.
 - Find the selection gaps costing you valuable demand.
-- Measure the decision—not just the prompt.
+- Measure the decision, not just the prompt.
 - Visibility tells you where you appeared. Selection Intelligence tells you what that appearance means.
 - We improve the conditions a brand can control and measure what changes.
 - Observed consideration rate
@@ -46,6 +46,13 @@ Hendricks sounds:
 - Unlock exponential growth
 - Proprietary algorithm, unless one exists and can be described
 - The number-one AI selection firm, unless independently substantiated
+
+### Punctuation
+
+- The em-dash (U+2014) is prohibited in visitor-facing copy. Use a comma or a full stop. This is Brandon's standing brand rule, confirmed 2026-08-17: an em-dash reads as machine-written, and a comma or full stop carries the same clause break without the tell.
+- This rule is why the "Measure the decision, not just the prompt." pattern above is punctuated with a comma. It shipped with an em-dash, and the "Strong" list is not an exemption from the punctuation rule. All 15 visitor-facing occurrences were re-punctuated across `src/content/` and `content/pages/` on 2026-08-17, so a future audit should not re-raise the earlier wording as approved copy.
+- Hyphens and en-dashes are unaffected. A numeric range such as `100–300 intent contexts` or `$15,000–$25,000` reads as typeset rather than generated and stays as it is.
+- `scripts/validate-content.ts` enforces this. It scans the rendered content strings under `src/content/` and the approved copy under `content/pages/`, and it strips code comments first, so a comment explaining the rule is not itself a failure.
 
 ## 4. Claims framework
 

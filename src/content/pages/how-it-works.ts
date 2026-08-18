@@ -71,7 +71,7 @@ export const stages = {
     {
       number: 'Stage 4',
       name: 'Consideration and recommendation',
-      question: 'Does the brand become a legitimate option—and is it actively favored?',
+      question: 'Does the brand become a legitimate option, and is it actively favored?',
       description:
         'Hendricks runs controlled context panels, classifies outcomes, maps sources, and benchmarks competitors.',
       output: 'Selection Map',

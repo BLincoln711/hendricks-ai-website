@@ -76,21 +76,32 @@ export default function ForBrandsPage() {
               maxWidth="wide"
             />
 
-            <dl className="grid gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
+            {/*
+              Headings rather than a description list. The approved markdown marks
+              all four of these as H3, and the engagements section below already
+              renders its items that way, so the two halves of the page now
+              segment the same. A heading cannot be nested inside a `<dt>`,
+              because the HTML content model forbids it, so the elements change:
+              `<ul>`/`<li>` replaces `<dl>`/`<div>`, `<h3>` replaces `<dt>`, `<p>`
+              replaces `<dd>`. Every class is carried over unchanged, and
+              preflight zeroes both the list bullet and the heading's default
+              size, so nothing moves on screen.
+            */}
+            <ul className="grid gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
               {changes.items.map((item) => (
-                <div
+                <li
                   key={item.name}
                   className="flex flex-col gap-2 border-t-2 border-[var(--color-blue)] pt-5"
                 >
-                  <dt className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+                  <h3 className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
                     {item.name}
-                  </dt>
-                  <dd className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                  </h3>
+                  <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
                     {item.description}
-                  </dd>
-                </div>
+                  </p>
+                </li>
               ))}
-            </dl>
+            </ul>
           </div>
         </Container>
       </Section>

@@ -148,7 +148,24 @@ export const sources = {
   ],
 } as const
 
+/**
+ * `content/pages/15-ai-selection-problem.md` records no related destinations, so
+ * this list is an internal-linking decision under docs/03 §6 rather than approved
+ * copy.
+ *
+ * The AI-mediated search definition leads it deliberately. This page asserts in
+ * its own hero that AI-mediated search performs more of the interpretation,
+ * research, comparison, and evaluation before the customer reaches a website,
+ * then spends every section after that on the consequences without once defining
+ * the mechanism or naming a surface it happens on. That definition now exists,
+ * and a reader who does not already accept the premise should reach it first.
+ */
 export const related: readonly RelatedLink[] = [
+  {
+    href: routes.whatIsAiMediatedSearch.path,
+    label: 'What Is AI-Mediated Search?',
+    description: 'How an AI system interprets a request and composes an answer before the click.',
+  },
   {
     href: routes.whatIsSelectionIntelligence.path,
     label: 'What Is Selection Intelligence?',

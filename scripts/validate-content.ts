@@ -3,16 +3,25 @@
  *
  * Enforces the rules from `docs/12-CONTENT-GOVERNANCE.md`, `docs/10` §2, and
  * `AGENTS.md` that can be checked without rendering: brand separation, placeholder
- * text, retired terminology, hype language, and the illustrative-data label.
+ * text, retired terminology, hype language, banned punctuation, and the
+ * illustrative-data label.
  *
  * This runs on source rather than rendered HTML so it can gate a commit without a
  * build. The rendered-output equivalents live in `tests/e2e/commercial-routes.spec.ts`.
+ *
+ * It reads two trees: `src/`, the code that renders, and `content/pages/`, the
+ * approved copy that code is transcribed from. The punctuation rule is the only
+ * one applied to both, because it is the only rule where the two drifting apart
+ * is itself the defect.
  */
 import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 
 const ROOT = process.cwd()
 const SRC = path.join(ROOT, 'src')
+
+/** The approved copy the `src/content/` objects are transcribed from. */
+const CONTENT_PAGES = path.join(ROOT, 'content', 'pages')
 
 /**
  * The Search Economy may appear only in Brandon's founder biography on /about
@@ -73,29 +82,59 @@ const PLACEHOLDER_PATTERNS = [
 const SAMPLE_DATA_COMPONENTS = ['src/components/visuals/selection-map.tsx']
 const ILLUSTRATIVE_LABEL = 'Illustrative interface. Not a client result.'
 
+/**
+ * docs/12 §3 — the em-dash is prohibited in visitor-facing copy. It is Brandon's
+ * standing brand rule, confirmed 2026-08-17: an em-dash reads as machine-written,
+ * and a comma or a full stop carries the same clause break without the tell.
+ *
+ * The check covers the two directories that hold approved copy and nothing else:
+ * `src/content/`, which is what the pages render, and `content/pages/`, the source
+ * of record those objects are transcribed from. Pairing them is the point. The
+ * rendered string and the approved string may not drift apart on punctuation, and
+ * a strip that reached only one of the two would leave the other standing as a
+ * template for reintroducing the character.
+ *
+ * The en-dash is deliberately untouched. `100–300 intent contexts` is a numeric
+ * range, not a clause break, and reads as typeset rather than generated.
+ */
+const EM_DASH = '—'
+
 type Failure = { file: string; message: string }
 
-async function sourceFiles(dir: string): Promise<string[]> {
+async function sourceFiles(dir: string, match = /\.(ts|tsx)$/): Promise<string[]> {
   const entries = await readdir(dir, { withFileTypes: true })
 
   const nested = await Promise.all(
     entries.map(async (entry) => {
       const full = path.join(dir, entry.name)
-      if (entry.isDirectory()) return sourceFiles(full)
-      return /\.(ts|tsx)$/.test(entry.name) ? [full] : []
+      if (entry.isDirectory()) return sourceFiles(full, match)
+      return match.test(entry.name) ? [full] : []
     }),
   )
 
   return nested.flat()
 }
 
-/** Strips comments so a note explaining why a term is banned is not itself a hit. */
+/**
+ * Strips comments so a note explaining why a term is banned is not itself a hit.
+ *
+ * Block comments collapse to their own newlines rather than to nothing, so line
+ * numbers survive and a punctuation failure can name the line it was found on.
+ */
 function stripComments(source: string): string {
-  return source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '')
+  return source
+    .replace(/\/\*[\s\S]*?\*\//g, (block) => block.replace(/[^\n]/g, ''))
+    .replace(/^\s*\/\/.*$/gm, '')
+}
+
+/** The 1-indexed lines of `source` containing `needle`, for actionable failures. */
+function linesContaining(source: string, needle: string): number[] {
+  return source.split('\n').flatMap((line, index) => (line.includes(needle) ? [index + 1] : []))
 }
 
 async function main() {
   const files = await sourceFiles(SRC)
+  const copyFiles = await sourceFiles(CONTENT_PAGES, /\.md$/)
   const failures: Failure[] = []
 
   for (const file of files) {
@@ -136,6 +175,31 @@ async function main() {
         message: `renders sample data without the label "${ILLUSTRATIVE_LABEL}"`,
       })
     }
+
+    // Only `src/content/` holds rendered copy. The rest of `src/` is component
+    // and route code, where an em-dash is as likely to sit in a log line or an
+    // identifier as in a sentence, and judging that needs a reader.
+    if (relative.startsWith(path.join('src', 'content') + path.sep)) {
+      for (const line of linesContaining(source, EM_DASH)) {
+        failures.push({
+          file: relative,
+          message: `em-dash on line ${line}: prohibited in visitor-facing copy (docs/12 §3)`,
+        })
+      }
+    }
+  }
+
+  // The approved copy carries no code comments, so the raw file is the content.
+  for (const file of copyFiles) {
+    const relative = path.relative(ROOT, file)
+    const raw = await readFile(file, 'utf8')
+
+    for (const line of linesContaining(raw, EM_DASH)) {
+      failures.push({
+        file: relative,
+        message: `em-dash on line ${line}: prohibited in visitor-facing copy (docs/12 §3)`,
+      })
+    }
   }
 
   for (const relative of SAMPLE_DATA_COMPONENTS) {
@@ -155,7 +219,7 @@ async function main() {
     process.exit(1)
   }
 
-  console.log(`check:content passed — ${files.length} files clean.`)
+  console.log(`check:content passed — ${files.length + copyFiles.length} files clean.`)
 }
 
 main().catch((error) => {

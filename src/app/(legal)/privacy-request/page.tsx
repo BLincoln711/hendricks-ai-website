@@ -2,8 +2,9 @@ import type { Metadata } from 'next'
 
 import { Container } from '@/components/layout/container'
 import { Section } from '@/components/layout/section'
+import { InlineText } from '@/components/legal/inline-text'
 import { routes } from '@/config/routes'
-import { hero, meta } from '@/content/legal/privacy-request'
+import { appeal, hero, meta } from '@/content/legal/privacy-request'
 import { requestTimestamp } from '@/lib/forms/request-time'
 import { buildMetadata } from '@/lib/seo/metadata'
 
@@ -36,7 +37,7 @@ export default async function PrivacyRequestPage() {
                   key={paragraph}
                   className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]"
                 >
-                  {paragraph}
+                  <InlineText text={paragraph} />
                 </p>
               ))}
             </div>
@@ -47,6 +48,28 @@ export default async function PrivacyRequestPage() {
       <Section variant="white" size="standard">
         <Container width="narrow">
           <PrivacyRequestForm startedAt={startedAt} />
+        </Container>
+      </Section>
+
+      {/*
+        Appeal copy sits below the form, not inside it. Inside the form it was
+        lost on submission: the success state early-returns in place of the whole
+        form, which took the page's only publication of the appeal address with
+        it at exactly the moment a reader has a decision to appeal.
+      */}
+      <Section variant="field" size="small" ariaLabelledBy="privacy-appeal-title">
+        <Container width="narrow">
+          <div className="flex flex-col gap-3">
+            <h2
+              id="privacy-appeal-title"
+              className="text-[1.0625rem] font-medium text-[var(--color-navy)]"
+            >
+              {appeal.title}
+            </h2>
+            <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+              {appeal.body}
+            </p>
+          </div>
         </Container>
       </Section>
     </>

@@ -26,7 +26,7 @@ export const hero = {
   title: 'Find Your Commercial Selection Gap.',
   lead: [
     'The Search Intelligence Diagnostic is a fixed-scope engagement that identifies where valuable customer demand exists, whether your brand enters consideration, which observable conditions separate you from stronger competitors, and what should be implemented first.',
-    'You leave with a system map and an evidence-based roadmap—not a generic audit.',
+    'You leave with a system map and an evidence-based roadmap, not a generic audit.',
   ],
   primaryCta: {
     label: 'Apply for a Diagnostic',
@@ -226,7 +226,7 @@ export const closing = {
   eyebrow: 'Application',
   title: 'Leave with clarity about what should be built first.',
   body: [
-    'Tell Hendricks what your organization needs to understand, improve, or build. We will determine whether a Diagnostic is the appropriate first step—and say directly when a simpler solution is sufficient.',
+    'Tell Hendricks what your organization needs to understand, improve, or build. We will determine whether a Diagnostic is the appropriate first step, and say directly when a simpler solution is sufficient.',
   ],
   primaryCta: {
     label: 'Apply for a Search Intelligence Diagnostic',

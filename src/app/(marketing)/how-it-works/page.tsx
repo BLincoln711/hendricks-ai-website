@@ -30,6 +30,17 @@ export const metadata: Metadata = buildMetadata({
   path: routes.howItWorks.path,
 })
 
+/**
+ * The registry label for a solution path, so a stage link names its
+ * destination instead of repeating a generic phrase. Read from the registry
+ * rather than restated here because the solution names are locked strings and a
+ * second copy is where drift starts. Returns `undefined` for an unregistered
+ * path so the caller keeps its own fallback.
+ */
+function registryLabel(path: string): string | undefined {
+  return Object.values(routes).find((route) => route.path === path)?.label
+}
+
 export default function HowItWorksPage() {
   return (
     <>
@@ -78,10 +89,20 @@ export default function HowItWorksPage() {
                   key={stage}
                   className={
                     isLast
-                      ? 'rounded-full border border-[var(--color-amber)] bg-[color-mix(in_srgb,var(--color-amber)_18%,transparent)] px-3 py-1.5 text-[0.8125rem] font-medium text-[var(--color-field)]'
+                      ? 'flex items-center gap-1.5 rounded-full border border-[var(--color-amber)] bg-[color-mix(in_srgb,var(--color-amber)_18%,transparent)] px-3 py-1.5 text-[0.8125rem] font-medium text-[var(--color-field)]'
                       : 'rounded-full border border-[color-mix(in_srgb,var(--color-field)_24%,transparent)] px-3 py-1.5 text-[0.8125rem] text-[color-mix(in_srgb,var(--color-field)_80%,transparent)]'
                   }
                 >
+                  {/*
+                    The terminal node is the commercial outcome, and amber was
+                    the only thing saying so. That is nothing to a reader who
+                    cannot separate the amber border from the grey one. The
+                    signal dot restates the marker as a shape, which survives
+                    without color. Amber rather than the default blue because
+                    this chip sits on the navy hero, where the blue is close to
+                    invisible.
+                  */}
+                  {isLast ? <SignalDot size={6} tone="amber" /> : null}
                   {stage}
                 </li>
               )
@@ -115,35 +136,50 @@ export default function HowItWorksPage() {
               {stages.items.map((stage) => (
                 <li
                   key={stage.number}
-                  className="grid gap-4 border-t border-[var(--color-border)] py-8 lg:grid-cols-[minmax(0,0.55fr)_minmax(0,1.45fr)] lg:gap-12"
+                  className="flex flex-col gap-3 border-t border-[var(--color-border)] py-8"
                 >
-                  <div className="flex flex-col gap-1">
-                    <span className="font-mono text-[0.8125rem] text-[var(--color-blue)]">
-                      {stage.number}
-                    </span>
-                    <span className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
-                      {stage.name}
-                    </span>
-                  </div>
+                  {/*
+                    The stage label sits inside the heading rather than in a
+                    sibling column. Lifted on its own, "What are customers
+                    trying to accomplish?" has no subject; "Stage 1. Demand.
+                    What are customers trying to accomplish?" answers for
+                    itself. Both strings are the approved ones and keep their
+                    own size and color, so only their DOM position changes.
 
-                  <div className="flex flex-col gap-3">
-                    <h3 className="text-h3 text-[var(--color-navy)]">{stage.question}</h3>
-                    <p className="measure text-[1rem] leading-relaxed text-[var(--color-slate)]">
-                      {stage.description}
-                    </p>
-                    <p className="flex flex-wrap items-center gap-x-2 gap-y-1 pt-1 text-[0.9375rem]">
-                      <SignalDot size={6} />
-                      <span className="font-medium text-[var(--color-navy)]">
-                        Output: {stage.output}
-                      </span>
-                      <Link
-                        href={stage.solutionHref}
-                        className="text-[var(--color-blue)] underline decoration-1 underline-offset-4 transition-colors hover:text-[var(--color-blue-hover)]"
-                      >
-                        Related solution
-                      </Link>
-                    </p>
-                  </div>
+                    The two-column grid went with the label. `text-h3` clamps up
+                    to 2.125rem, and a full question set in it wraps to six
+                    lines inside a 0.55fr column, so the row now stacks.
+                  */}
+                  <h3 className="text-h3 text-[var(--color-navy)]">
+                    <span className="mb-2 block text-[0.8125rem] leading-normal font-normal tracking-normal">
+                      <span className="font-mono text-[var(--color-blue)]">{stage.number}.</span>{' '}
+                      <span className="font-medium">{stage.name}.</span>
+                    </span>{' '}
+                    {stage.question}
+                  </h3>
+
+                  <p className="measure text-[1rem] leading-relaxed text-[var(--color-slate)]">
+                    {stage.description}
+                  </p>
+
+                  <p className="flex flex-wrap items-center gap-x-2 gap-y-1 pt-1 text-[0.9375rem]">
+                    <SignalDot size={6} />
+                    <span className="font-medium text-[var(--color-navy)]">
+                      Output: {stage.output}
+                    </span>
+                    {/*
+                      Six links reading "Related solution" gave a screen-reader
+                      user six identical link names for six different
+                      destinations. The label is read from the route registry so
+                      the locked solution names are not restated here.
+                    */}
+                    <Link
+                      href={stage.solutionHref}
+                      className="text-[var(--color-blue)] underline decoration-1 underline-offset-4 transition-colors hover:text-[var(--color-blue-hover)]"
+                    >
+                      {registryLabel(stage.solutionHref) ?? 'Related solution'}
+                    </Link>
+                  </p>
                 </li>
               ))}
             </ol>

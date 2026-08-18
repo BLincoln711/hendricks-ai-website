@@ -8,6 +8,20 @@ import { routes } from '@/config/routes'
  *
  * Do not edit these strings without a corresponding change to the approved
  * markdown (docs/02 §6).
+ *
+ * No `related` export, by omission rather than by decision. Every internal link
+ * this page carries points at a solution or at the Diagnostic, so /solutions is
+ * the only top-level commercial page that reaches no research page at all. The
+ * four solution pages each satisfy the docs/03 §6 two-research-links rule and a
+ * unit test enforces it; the hub above them is not covered by that test and does
+ * not satisfy it.
+ *
+ * Adding one is a two-part change and both parts must land together: a `related`
+ * array here, and a `<RelatedLinks />` block in
+ * `src/app/(marketing)/solutions/page.tsx`, which currently imports no such
+ * component. /what-is-ai-mediated-search is the strongest first entry, because
+ * the hero copy above already contrasts SEO, paid media, and AI-visibility tools
+ * without ever defining the environment those tools point at.
  */
 
 export const solutionsMeta = {

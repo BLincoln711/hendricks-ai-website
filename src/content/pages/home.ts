@@ -60,7 +60,7 @@ export const problem = {
       'Choice',
     ],
   },
-  body: 'A business can have a strong website, high rankings, excellent reviews, active paid media, respected leadership, and a recognizable brand—and still fail to enter an AI-mediated buying journey.',
+  body: 'A business can have a strong website, high rankings, excellent reviews, active paid media, respected leadership, and a recognizable brand, and still fail to enter an AI-mediated buying journey.',
   emphasis: ['The loss can happen before a visit.', 'Before a click.', 'Before the company’s analytics records the buyer.'],
   quote:
     'You cannot be chosen if you are not seen. But being seen does not guarantee being understood. Being understood does not guarantee trust. And trust does not guarantee selection.',
@@ -137,7 +137,7 @@ export const solutions = {
     {
       number: '02',
       name: 'Selection Intelligence',
-      title: 'Know when your brand enters the shortlist—and when it disappears.',
+      title: 'Know when your brand enters the shortlist, and when it disappears.',
       description: [
         'Measure how search and AI systems represent, cite, compare, consider, and recommend your brand across realistic customer contexts.',
         'See which competitors win, which sources shape the result, how stable the outcome is, and where evidence is missing.',
@@ -203,7 +203,7 @@ export const distinction = {
     { stage: 'Impact', question: 'Did that choice produce commercial value?' },
   ],
   closing:
-    'AI-mediated results can vary by context, wording, location, platform, and time. Hendricks therefore measures controlled intent contexts and repeated outcomes—not one pretend universal ranking.',
+    'AI-mediated results can vary by context, wording, location, platform, and time. Hendricks therefore measures controlled intent contexts and repeated outcomes, not one pretend universal ranking.',
   cta: {
     label: 'Learn What Selection Intelligence Measures',
     href: ctaHref('/what-is-selection-intelligence', '/solutions/selection-intelligence'),
@@ -296,7 +296,7 @@ export const measurement = {
   ],
   closing: [
     'Hendricks does not claim access to a model’s hidden reasoning.',
-    'We study inputs, outputs, sources, interventions, and business outcomes—then state how much confidence the evidence supports.',
+    'We study inputs, outputs, sources, interventions, and business outcomes, then state how much confidence the evidence supports.',
   ],
   cta: {
     label: 'Read the Hendricks Measurement Methodology',
@@ -342,7 +342,7 @@ export const audiences = {
 
 export const diagnostic = {
   eyebrow: 'Start with Evidence',
-  title: 'Direct engagements begin with a fixed-scope diagnostic—not an open-ended retainer.',
+  title: 'Direct engagements begin with a fixed-scope diagnostic, not an open-ended retainer.',
   lead: 'The Search Intelligence Diagnostic establishes the market demand, customer contexts, competitive baseline, selection gaps, data quality, implementation priorities, and measurement plan.',
   outcomeLead: 'At the end, the client knows:',
   outcomes: [
@@ -388,7 +388,7 @@ export const finalCta = {
   title: 'What decision can your current search system not answer?',
   body: [
     'Tell Hendricks what your organization needs to understand, improve, or build.',
-    'We will determine whether a Search Intelligence Diagnostic is the appropriate first step—and say directly when a simpler solution is sufficient.',
+    'We will determine whether a Search Intelligence Diagnostic is the appropriate first step, and say directly when a simpler solution is sufficient.',
   ],
   primaryCta: {
     label: 'Start with a Search Intelligence Diagnostic',

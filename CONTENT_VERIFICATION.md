@@ -139,27 +139,92 @@ removing at the same time.
 | L2 | Website terms | `/terms` | Approved copy supplied 2026-08-16 and published verbatim. Venue resolved to Harris County, Texas by Brandon. Counsel review of liability and venue is still outstanding. | approved — pending counsel review |
 | L3 | Form consent language | `/diagnostic`, `/contact`, `/privacy-request` | Resolved by `legal/01-FORM-AND-CONSENT-COPY.md`. Forms now carry a notice at collection and a separate, unticked marketing opt-in; submitting is not treated as consent to marketing. | approved |
 | L4 | Cookie and consent banner | Global | Resolved by `docs/16`. Opt-in banner, Privacy Choices modal, Consent Mode v2 defaults, and Global Privacy Control support are built. No third-party CMP is used. | approved |
-| L5 | AI crawler policy | `robots.ts` | `docs/06` §7 requires a separately approved policy for AI training versus search discovery. Not to be decided silently in code. | pending |
+| L5 | AI crawler policy | `robots.ts` | Approved 2026-08-17, source Brandon decision: all AI crawlers are allowed, both search discovery and training. `docs/06` §7 required this to be decided in policy rather than silently in code; `robots.ts` now names both classes explicitly, each named group repeating the wildcard's disallow list. | approved |
 | L6 | `privacy@hendricks.ai` and `legal@hendricks.ai` | `/privacy`, `/terms`, `/privacy-request` | Both addresses are published in the legal copy. They must exist and be monitored before launch. | blocked — mailboxes not confirmed |
 | L7 | Vendor list, CRM provider, and retention settings | `/privacy` §"Additional U.S. State Disclosures" and §"How We Share" | The notice describes categories rather than named vendors. Confirm the actual processors, the CRM, and the retention periods match what is written. | pending |
 | L8 | Privacy request workflow | `/privacy-request` | Requests are validated, rate limited, and given a case reference, but delivery is stubbed pending a mailbox. Confirm who works the queue and the response deadline. | blocked on L6 |
 
-## Unanswered FAQ topics
+## AI system scope and category vocabulary
 
-Three approved pages carry a "FAQ topics" list: questions without answers.
-`docs/12` §6 and `AGENTS.md` forbid inventing the answers, so none of these
-sections are rendered and no `FAQPage` JSON-LD is emitted. Each needs approved
-answers before it can ship.
+Two decisions Brandon took on 2026-08-17 govern how the site may name AI systems
+and how it may use the GEO and AEO vocabulary. They are recorded here rather than
+only in the pages that shipped with them, because they bind every page, FAQ
+answer, and deliverable that names an AI system or an optimization practice,
+including ones not yet written.
 
-| # | Source | Proposed location | Topics | Status |
+| # | Item | Applies to | Decision and source | Status |
 |---|---|---|---|---|
-| Q1 | `content/pages/03-search-demand-intelligence.md` §"FAQ topics" | `/solutions/search-demand-intelligence` | 5 questions, incl. how demand is estimated when AI prompts are not publicly reported | pending |
-| Q2 | `content/pages/04-selection-intelligence.md` §"FAQ topics" | `/solutions/selection-intelligence` | 6 questions, incl. personalization handling and which AI systems are tested | pending |
-| Q3 | `content/pages/06-search-impact-measurement.md` §"FAQ topics" | `/solutions/search-impact-measurement` | 6 questions, incl. correlation versus causation and self-reported attribution | pending |
+| A1 | Which AI systems Hendricks observes | Every page, FAQ answer, and deliverable that names an AI system | Hendricks observes exactly three systems: Google AI Overviews, ChatGPT, and Perplexity. The list is closed, so no "including", "such as", or "among others" may precede it. Gemini and Microsoft Copilot may be named as surfaces that exist in the information environment, and must never be described as systems Hendricks measures, tests, monitors, or reports on. Source: Brandon decision 2026-08-17. | approved |
+| A2 | GEO and AEO as entry vocabulary, not positioning | `/what-is-generative-engine-optimization`, `/what-is-ai-mediated-search`, the three FAQ sections | Bridge, do not adopt. The terms are used in titles, direct answers, and headings so the pages can be retrieved for what buyers actually type, and the framing is then argued to be incomplete and the reader routed to Search Intelligence Engineering. Hendricks is not a GEO or AEO vendor, and no page may describe a Hendricks service as GEO or AEO work. Source: Brandon decision 2026-08-17. | approved |
+
+The copy those two decisions unlocked was written by the implementation, not
+supplied as approved copy. That distinction is the point of the next three rows.
+
+| # | Item | Location | What must be verified | Status |
+|---|---|---|---|---|
+| A3 | Two new definition pages | `/what-is-ai-mediated-search`, `/what-is-generative-engine-optimization` | Implementation-authored copy, not transcription. Every other object in `src/content/pages/` was transcribed from approved markdown that existed first. These two were written alongside their markdown twins, `content/pages/22-what-is-ai-mediated-search.md` and `content/pages/23-what-is-generative-engine-optimization.md`, on the same day, so the twin corroborates the code but is not an independent approval. Brandon's editorial review is owed on every visitor-facing string. | authored 2026-08-17, pending editorial review |
+| A4 | 17 FAQ answers | `/solutions/search-demand-intelligence` (5), `/solutions/selection-intelligence` (6), `/solutions/search-impact-measurement` (6) | The questions are approved copy and were not reworded. The answers are new. Each was written from material already published on the same page rather than from any new fact, but none has been read by Brandon. Detail in the FAQ sections table below. | questions approved, answers authored 2026-08-17 and pending editorial review |
+| A5 | External platform documentation as a cited source | `/what-is-ai-mediated-search`, `/what-is-generative-engine-optimization` | A scoped extension of the sources posture, and the first external sources this site cites. The other four definition pages state the Hendricks position and correctly cite nothing, and the only other outbound link in `src/content/` is the external-venture link on `/about`, which is not a citation. These two describe the observable behaviour of systems Hendricks does not control, which is permitted only where the platform's own documentation carries the claim, so every such claim is sourced to first-party documentation: Google Search Central, OpenAI, and Perplexity. No blog, vendor study, analyst figure, or statistic is cited. Gemini and Microsoft Copilot are named on both pages without a citation, correctly: neither page says anything about what either product does, and naming a public product as part of the environment is not a claim that needs a source. A citation for a surface Hendricks does not observe would also read, in a reference list, as evidence of an engagement that does not exist. Every URL was fetched 2026-08-17, resolves without redirecting, and needs re-checking at each review. | posture approved, URLs verified 2026-08-17 |
+
+### Resolution log, 2026-08-17
+
+Source for A1 and A2: Brandon decision, 2026-08-17. Those are the only new facts
+approved on that date and neither may be extended by inference.
+
+- Both decisions exist because the corpus was lexically sealed. At commit `HEAD`
+  before this change, `git grep` over `src/content/pages/` returned zero
+  occurrences of Perplexity, Gemini, Copilot, "AI Overviews", Bing, "generative
+  engine", and "answer engine", and the only two occurrences of ChatGPT were
+  dismissals: "Before tracking ChatGPT mentions" on Search Demand Intelligence,
+  and "Guaranteed ChatGPT citations" in the Diagnostic's not-designed-for list. A
+  page cannot be retrieved for a word it does not contain, so this was a
+  candidate-set problem that no amount of schema or heading work could reach.
+- A1 is a ceiling, not a floor. It caps what may be claimed. It does not oblige
+  any page to name all three systems, and it does not make naming a fourth
+  product wrong, only claiming coverage of one.
+- A3 and A4 are recorded so a later reader cannot mistake authored copy for
+  transcribed approved copy. The rest of `src/content/pages/` carries the stronger
+  provenance and says so in each file's header comment; these do not.
+- Reachability, since an unlinked page is an orphan whatever its content. Both new
+  pages sit in `footerNavigation.research`, which renders on every route, so each
+  has a sitewide internal link. Both are linked from
+  `/what-is-search-intelligence-engineering`, which carries the site's only
+  GEO/AEO comparison row. `/what-is-ai-mediated-search` is additionally linked
+  from `/ai-selection-problem`, which argues from AI-mediated search throughout
+  and never defines it, and from the GEO page.
+- `/solutions` is left as the one top-level commercial page linking to no research
+  page. Its content object has no `related` array and its page file renders no
+  related block, so closing that needs both, and neither was in scope here. The
+  gap and the two-part fix are recorded in the header comment of
+  `src/content/pages/solutions.ts`.
+
+## FAQ sections
+
+Three approved pages carry a "FAQ topics" list: questions supplied without
+answers. `docs/12` §6 and `AGENTS.md` forbid inventing the answers, so these
+sections shipped unrendered until 2026-08-17, when all 17 answers were authored
+against material already published on the same pages and mirrored into the
+approved markdown. The questions were not reworded. The answers are new and are
+the subject of row A4 above.
+
+No `FAQPage` JSON-LD is emitted for any of them, and none may be added. `docs/06`
+§10 forbids adding it automatically, and Google deprecated FAQ rich results for
+most sites, so the sections ship as visible question-shaped headings only. The
+shared renderer, `src/components/sections/faq-section.tsx`, emits no structured
+data, which means a page cannot acquire it as a side effect of rendering
+questions.
+
+| # | Source | Location | Topics | Status |
+|---|---|---|---|---|
+| Q1 | `content/pages/03-search-demand-intelligence.md` §"FAQ topics" | `/solutions/search-demand-intelligence` | 5 questions, incl. how demand is estimated when AI prompts are not publicly reported | questions approved, 5 answers pending editorial review |
+| Q2 | `content/pages/04-selection-intelligence.md` §"FAQ" | `/solutions/selection-intelligence` | 6 questions, incl. personalization handling and which AI systems are tested | questions approved, 6 answers pending editorial review |
+| Q3 | `content/pages/06-search-impact-measurement.md` §"FAQ topics" | `/solutions/search-impact-measurement` | 6 questions, incl. correlation versus causation and self-reported attribution | questions approved, 6 answers pending editorial review |
 
 Q2's "Is this the same as AI rank tracking?" and Q3's correlation-versus-causation
 question are category-defining answers. Both carry the risk of overclaiming, so
-their wording needs the same scrutiny as a metric definition.
+their wording needs the same scrutiny as a metric definition. Q2 also carries the
+answer that states A1's observed-systems scope to a buyer, which makes it the
+highest-consequence paragraph of the 17.
 
 ## SEO copy
 
@@ -196,14 +261,17 @@ That is now satisfied on all four, and a unit test enforces it. Two of them —
 
 ## Definition page review dates
 
-The four definition pages each publish a "last reviewed" date, because a reader
-cannot judge whether a definition is current without one (`docs/03`, definition
-page template). The date is stored in each content object as `sources.reviewed`.
+Each definition page publishes a "last reviewed" date, because a reader cannot
+judge whether a definition is current without one (`docs/03`, definition page
+template). The date is stored in each content object as `sources.reviewed`, and
+`src/app/sitemap.ts` reads that same constant rather than keeping a second copy,
+so the visible date and the advertised date cannot drift apart.
 
 | # | Item | Current value | What must be confirmed | Status |
 |---|---|---|---|---|
-| D1 | Last-reviewed date on all four definition pages | 2026-08-16 | This is the date the approved copy was transcribed, not a date Brandon reviewed the substance. Either confirm it or supply the real review date. | pending |
+| D1 | Last-reviewed date on the four original definition pages | 2026-08-16 | This is the date the approved copy was transcribed, not a date Brandon reviewed the substance. Either confirm it or supply the real review date. | pending |
 | D2 | Who owns the review cycle and how often | not stated | The pages claim to be revised as platform behaviour changes. Decide the interval, or soften the claim. | pending |
+| D3 | Last-reviewed date on the two entry-vocabulary pages | 2026-08-17 | These two were authored on 2026-08-17 rather than transcribed on 2026-08-16, so the later date is a real content diff rather than a freshness stamp. It still records authorship, not review: like D1 it becomes a review date only once A3 clears. Both pages also cite external documentation (A5), which gives them a stronger reason than the other four to carry a short review interval once D2 is decided. | pending on A3 |
 
 ## Organization structured data
 

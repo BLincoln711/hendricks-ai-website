@@ -2,6 +2,7 @@ import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
 import { indexableBuiltRoutes } from '@/config/routes'
+import { siteConfig } from '@/config/site'
 import * as about from '@/content/pages/about'
 import * as aiSelectionProblem from '@/content/pages/ai-selection-problem'
 import * as contact from '@/content/pages/contact'
@@ -15,6 +16,8 @@ import * as sim from '@/content/pages/search-impact-measurement'
 import * as spe from '@/content/pages/search-presence-engineering'
 import * as si from '@/content/pages/selection-intelligence'
 import * as solutions from '@/content/pages/solutions'
+import * as wiams from '@/content/pages/what-is-ai-mediated-search'
+import * as wgeo from '@/content/pages/what-is-generative-engine-optimization'
 import * as wisie from '@/content/pages/what-is-search-intelligence-engineering'
 import * as wisi from '@/content/pages/what-is-selection-intelligence'
 
@@ -25,32 +28,87 @@ import * as wisi from '@/content/pages/what-is-selection-intelligence'
  * so this suite verifies that the approved copy actually reaches the rendered
  * document. The unit suite is what pins the copy itself.
  */
+
+/**
+ * The text a page's H1 actually renders.
+ *
+ * `PageHero` nests the eyebrow inside the h1 as its first span, so the heading
+ * reads as the eyebrow followed by the title rather than the title alone. That
+ * is deliberate (see the comment in `page-hero.tsx`): the eyebrow carries the
+ * page's proper noun, "Selection Intelligence", while the title is a sentence
+ * that does not repeat it, and as a sibling `<p>` the page's own subject was
+ * absent from its only h1. Asserting `hero.title` alone would therefore pass
+ * only against a shape the site no longer renders.
+ *
+ * CSS uppercases the eyebrow, which does not change `textContent`, so the
+ * expected string uses the approved source casing.
+ *
+ * `/about` is the single exception and is spelled out below: it builds its own
+ * hero because the portrait sits in the primary column, and there the eyebrow
+ * stays a sibling `<p>`.
+ */
+function headingText(hero: { readonly eyebrow: string; readonly title: string }): string {
+  return `${hero.eyebrow} ${hero.title}`
+}
+
 const commercialRoutes = [
-  { path: '/solutions', meta: solutions.solutionsMeta, h1: solutions.solutionsHero.title },
-  { path: '/solutions/search-demand-intelligence', meta: sdi.meta, h1: sdi.hero.title },
-  { path: '/solutions/selection-intelligence', meta: si.meta, h1: si.hero.title },
-  { path: '/solutions/search-presence-engineering', meta: spe.meta, h1: spe.hero.title },
-  { path: '/solutions/search-impact-measurement', meta: sim.meta, h1: sim.hero.title },
-  { path: '/how-it-works', meta: howItWorks.meta, h1: howItWorks.hero.title },
-  { path: '/for-brands', meta: forBrands.meta, h1: forBrands.hero.title },
-  { path: '/for-agencies', meta: forAgencies.meta, h1: forAgencies.hero.title },
+  { path: '/solutions', meta: solutions.solutionsMeta, h1: headingText(solutions.solutionsHero) },
+  { path: '/solutions/search-demand-intelligence', meta: sdi.meta, h1: headingText(sdi.hero) },
+  { path: '/solutions/selection-intelligence', meta: si.meta, h1: headingText(si.hero) },
+  { path: '/solutions/search-presence-engineering', meta: spe.meta, h1: headingText(spe.hero) },
+  { path: '/solutions/search-impact-measurement', meta: sim.meta, h1: headingText(sim.hero) },
+  { path: '/how-it-works', meta: howItWorks.meta, h1: headingText(howItWorks.hero) },
+  { path: '/for-brands', meta: forBrands.meta, h1: headingText(forBrands.hero) },
+  { path: '/for-agencies', meta: forAgencies.meta, h1: headingText(forAgencies.hero) },
+  // Own hero, eyebrow outside the h1.
   { path: '/about', meta: about.meta, h1: about.hero.title },
-  { path: '/diagnostic', meta: diagnostic.meta, h1: diagnostic.hero.title },
-  { path: '/contact', meta: contact.meta, h1: contact.hero.title },
+  { path: '/diagnostic', meta: diagnostic.meta, h1: headingText(diagnostic.hero) },
+  { path: '/contact', meta: contact.meta, h1: headingText(contact.hero) },
 ] as const
 
 const editorialRoutes = [
   {
     path: '/what-is-search-intelligence-engineering',
     meta: wisie.meta,
-    h1: wisie.hero.title,
+    h1: headingText(wisie.hero),
   },
-  { path: '/what-is-selection-intelligence', meta: wisi.meta, h1: wisi.hero.title },
-  { path: '/ai-selection-problem', meta: aiSelectionProblem.meta, h1: aiSelectionProblem.hero.title },
-  { path: '/methodology', meta: methodology.meta, h1: methodology.hero.title },
+  { path: '/what-is-selection-intelligence', meta: wisi.meta, h1: headingText(wisi.hero) },
+  { path: '/what-is-ai-mediated-search', meta: wiams.meta, h1: headingText(wiams.hero) },
+  {
+    path: '/what-is-generative-engine-optimization',
+    meta: wgeo.meta,
+    h1: headingText(wgeo.hero),
+  },
+  { path: '/ai-selection-problem', meta: aiSelectionProblem.meta, h1: headingText(aiSelectionProblem.hero) },
+  { path: '/methodology', meta: methodology.meta, h1: headingText(methodology.hero) },
 ] as const
 
 const builtRoutes = [...commercialRoutes, ...editorialRoutes]
+
+/**
+ * Every JSON-LD node on the page, unioned across all ld+json blocks.
+ *
+ * A parser reads the whole document, not one block. `SiteShell` emits the
+ * Organization and WebSite graph (docs/06 §8), and it renders ahead of the page
+ * body, so the first block on every route is the global one rather than the
+ * page's own. Reading positionally therefore asserts against the wrong graph:
+ * it fails a page that does emit its node, and it passes a page that emits one
+ * it should not. Both failure modes were live before this helper existed.
+ *
+ * Only top-level `@graph` members are returned. Nested `{ '@id': ... }` values
+ * are references to a node declared elsewhere, not declarations, so leaving them
+ * out is what makes the "exactly once" count below mean what it says. A block
+ * may also be a bare node instead of an `@graph` wrapper, which is why the
+ * fallback wraps it.
+ */
+async function jsonLdNodes(page: Page): Promise<Record<string, unknown>[]> {
+  const blocks = await page.locator('script[type="application/ld+json"]').allTextContents()
+
+  return blocks.flatMap((raw) => {
+    const parsed = JSON.parse(raw) as Record<string, unknown>
+    return (parsed['@graph'] as Record<string, unknown>[] | undefined) ?? [parsed]
+  })
+}
 
 for (const route of builtRoutes) {
   test.describe(route.path, () => {
@@ -155,6 +213,11 @@ test.describe('Wide tables', () => {
     { path: '/solutions/search-impact-measurement', caption: sim.evidenceGrades.caption },
     { path: '/methodology', caption: methodology.evidenceGrades.caption },
     { path: '/what-is-search-intelligence-engineering', caption: wisie.whyItExists.caption },
+    // Two tables on this route. The surfaces table renders first and is the one
+    // that carries the observed-scope column, so it is the one pinned here; the
+    // caption test below still iterates both.
+    { path: '/what-is-ai-mediated-search', caption: wiams.surfaces.caption },
+    { path: '/what-is-generative-engine-optimization', caption: wgeo.versusSie.caption },
   ] as const
 
   for (const route of tableRoutes) {
@@ -202,6 +265,8 @@ test.describe('Definition pages', () => {
   for (const page_ of [
     { path: '/what-is-search-intelligence-engineering', content: wisie },
     { path: '/what-is-selection-intelligence', content: wisi },
+    { path: '/what-is-ai-mediated-search', content: wiams },
+    { path: '/what-is-generative-engine-optimization', content: wgeo },
   ] as const) {
     test(`${page_.path} shows the direct answer above every other section`, async ({ page }) => {
       await page.goto(page_.path)
@@ -222,9 +287,7 @@ test.describe('Definition pages', () => {
       // docs/06 §8 — the markup may only reproduce visible content.
       await page.goto(page_.path)
 
-      const raw = await page.locator('script[type="application/ld+json"]').first().textContent()
-      const graph = JSON.parse(raw ?? '{}')['@graph'] as Record<string, unknown>[]
-      const term = graph.find((node) => node['@type'] === 'DefinedTerm')
+      const term = (await jsonLdNodes(page)).find((node) => node['@type'] === 'DefinedTerm')
 
       expect(term).toBeDefined()
       expect(term!.name).toBe(page_.content.directAnswer.term)
@@ -253,8 +316,34 @@ test.describe('Definition pages', () => {
     // content. Emitting it anyway is the failure docs/06 §8 warns against.
     for (const path of ['/ai-selection-problem', '/methodology']) {
       await page.goto(path)
-      const raw = await page.locator('script[type="application/ld+json"]').first().textContent()
-      expect(raw, path).not.toContain('DefinedTerm')
+      // Read across every block, not the first one. `SiteShell`'s global graph
+      // sits ahead of the page's own and never contains a DefinedTerm, so a
+      // first-block read passed here no matter what these pages emitted.
+      const blocks = await page.locator('script[type="application/ld+json"]').allTextContents()
+      expect(blocks.join('\n'), path).not.toContain('DefinedTerm')
+    }
+  })
+})
+
+test.describe('Entity graph', () => {
+  test('declares the Organization and WebSite nodes exactly once on every route', async ({
+    page,
+  }) => {
+    // `webPageSchema` points `isPartOf` and `about` at these two `@id`s on every
+    // page, so both have to resolve or the graph terminates in a pointer to
+    // nothing (docs/06 §8). Exactly once, not merely present: `SiteShell` is the
+    // single emitter, and a page that also emitted them would publish the same
+    // two `@id`s twice on one document, which is a duplicate entity declaration
+    // rather than a second reference to one entity.
+    const organizationId = `${siteConfig.url}/#organization`
+    const websiteId = `${siteConfig.url}/#website`
+
+    for (const route of [{ path: '/' }, ...builtRoutes]) {
+      await page.goto(route.path)
+      const ids = (await jsonLdNodes(page)).map((node) => node['@id'])
+
+      expect(ids.filter((id) => id === organizationId), route.path).toHaveLength(1)
+      expect(ids.filter((id) => id === websiteId), route.path).toHaveLength(1)
     }
   })
 })

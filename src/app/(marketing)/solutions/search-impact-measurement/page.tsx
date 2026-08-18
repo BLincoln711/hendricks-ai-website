@@ -6,6 +6,7 @@ import { Section } from '@/components/layout/section'
 import { SectionHeading } from '@/components/layout/section-heading'
 import { ClosingCta } from '@/components/sections/closing-cta'
 import { Deliverables } from '@/components/sections/deliverables'
+import { FaqSection } from '@/components/sections/faq-section'
 import { RelatedLinks } from '@/components/sections/related-links'
 import { JsonLd } from '@/components/seo/json-ld'
 import { Callout } from '@/components/ui/callout'
@@ -17,6 +18,7 @@ import {
   closing,
   deliverables,
   evidenceGrades,
+  faq,
   hero,
   impactContract,
   levels,
@@ -132,6 +134,18 @@ export default function SearchImpactMeasurementPage() {
           </Callout>
         </Container>
       </Section>
+
+      {/*
+        docs/14 §3 places the FAQ directly after the limitation statement and
+        before Related, and that order is the argument: the questions settle a
+        decision the page has already made rather than carrying the page's
+        primary answer, so lifting the block higher would displace it.
+        FaqSection supplies its own Section, surface, and aria-labelledby, the
+        same way RelatedLinks and ClosingCta below it do. Its default white
+        surface separates the field band above from the soft Related band
+        below. No FAQPage markup is emitted here, per docs/06 §10.
+      */}
+      <FaqSection eyebrow={faq.eyebrow} title={faq.title} items={faq.items} />
 
       <RelatedLinks title="Related solutions and research." links={related} />
 

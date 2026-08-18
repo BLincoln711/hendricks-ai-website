@@ -58,7 +58,15 @@ export function SolutionFeature({
         <SolutionMotif motif={solution.motif} />
 
         <div className="flex flex-col gap-3 border-t border-[var(--color-border)] pt-5">
-          <h4 className="text-eyebrow text-[var(--color-slate)]">Primary outputs</h4>
+          {/*
+            Composed from `solution.name` rather than a fixed label. Four
+            solutions render on one route, so a hardcoded string shipped four
+            identical H4s in the document outline. The name is approved copy
+            already printed in the H3 above, so no new string is authored here.
+          */}
+          <h4 className="text-eyebrow text-[var(--color-slate)]">
+            Primary outputs of {solution.name}
+          </h4>
           <ul className="flex flex-col gap-2">
             {solution.outputs.map((output) => (
               <li key={output} className="flex items-start gap-2.5">
