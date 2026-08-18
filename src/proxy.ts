@@ -238,7 +238,42 @@ export const GONE_EXACT_PATHS: readonly string[] = [
  * `/portal` and `/questionnaire` have no bare row in the CSV and are
  * deliberately left to 404.
  */
-export const GONE_PATH_PREFIXES: readonly string[] = ['/dashboard/', '/portal/', '/questionnaire/']
+/**
+ * The one retired-section URL that must survive the prefix rule below.
+ *
+ * `next.config.ts` 308s this path to /solutions/selection-intelligence because
+ * it is the single on-thesis article of the 73. Next evaluates redirects before
+ * the proxy, so in practice the redirect already wins and this list is belt and
+ * braces. It is here anyway because relying on that ordering is an invisible
+ * dependency: if the redirect is ever moved, removed, or reordered, the article
+ * would start returning 410 with nothing in the code explaining why.
+ */
+export const GONE_PREFIX_EXCEPTIONS: readonly string[] = [
+  '/insights/how-ai-search-engines-cite-mid-market-firms-2026',
+]
+
+export const GONE_PATH_PREFIXES: readonly string[] = [
+  '/dashboard/',
+  '/portal/',
+  '/questionnaire/',
+  /**
+   * The whole /insights section is retired, so match it by prefix rather than
+   * by the 73 enumerated slugs.
+   *
+   * Enumeration alone left real holes. Search Console still holds indexed
+   * /insights URLs that appear in neither the retired repo's filesystem nor
+   * migration/redirect-map.csv, because the CSV was built from the filesystem
+   * rather than from Search Console. `/insights/what-is-search-intelligence-engineer`
+   * is one: indexed, 404ing, and absent from the list. A prefix retires the
+   * section as a section, which is what actually happened, and it cannot be
+   * outrun by a URL nobody enumerated.
+   *
+   * Safe because no live route begins with /insights/ and the one surviving
+   * article is exempted above. tests/unit/gone-routes.test.ts asserts both
+   * against the live registry.
+   */
+  '/insights/',
+]
 
 /** Drops a trailing slash so `/login/` cannot dodge the exact-match list. */
 function normalisePath(pathname: string): string {
@@ -248,6 +283,8 @@ function normalisePath(pathname: string): string {
 /** Whether a request path is one of the retired routes. Exported for the tests. */
 export function isGone(pathname: string): boolean {
   const path = normalisePath(pathname)
+
+  if (GONE_PREFIX_EXCEPTIONS.includes(path)) return false
 
   return (
     GONE_EXACT_PATHS.includes(path) || GONE_PATH_PREFIXES.some((prefix) => path.startsWith(prefix))
