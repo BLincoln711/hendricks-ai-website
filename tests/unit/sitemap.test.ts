@@ -7,6 +7,8 @@ import { privacyNotice } from '@/content/legal/privacy'
 import { termsOfUse } from '@/content/legal/terms'
 import { sources as aiSelectionProblemSources } from '@/content/pages/ai-selection-problem'
 import { sources as methodologySources } from '@/content/pages/methodology'
+import { sources as aiMediatedSearchSources } from '@/content/pages/what-is-ai-mediated-search'
+import { sources as generativeEngineOptimizationSources } from '@/content/pages/what-is-generative-engine-optimization'
 import { sources as searchIntelligenceEngineeringSources } from '@/content/pages/what-is-search-intelligence-engineering'
 import { sources as selectionIntelligenceSources } from '@/content/pages/what-is-selection-intelligence'
 
@@ -44,6 +46,8 @@ const sourcedDates: Record<string, string> = {
   [routes.whatIsSelectionIntelligence.path]: selectionIntelligenceSources.reviewed,
   [routes.aiSelectionProblem.path]: aiSelectionProblemSources.reviewed,
   [routes.methodology.path]: methodologySources.reviewed,
+  [routes.whatIsAiMediatedSearch.path]: aiMediatedSearchSources.reviewed,
+  [routes.whatIsGenerativeEngineOptimization.path]: generativeEngineOptimizationSources.reviewed,
   [routes.about.path]: '2026-08-17',
   [routes.terms.path]: termsOfUse.lastUpdated,
   [routes.privacy.path]: privacyNotice.lastUpdated,
@@ -89,8 +93,8 @@ describe('sitemap', () => {
   })
 
   it('reads each definition page date from the constant that page renders', () => {
-    // These four pages show `sources.reviewed` in a visible <time>. Reading the
-    // same constant is what makes the visible date and the sitemap unable to
+    // Each of these pages shows `sources.reviewed` in a visible <time>. Reading
+    // the same constant is what makes the visible date and the sitemap unable to
     // disagree.
     expect(dateFor(routes.whatIsSearchIntelligenceEngineering.path)).toBe(
       searchIntelligenceEngineeringSources.reviewed,
@@ -100,6 +104,23 @@ describe('sitemap', () => {
     )
     expect(dateFor(routes.aiSelectionProblem.path)).toBe(aiSelectionProblemSources.reviewed)
     expect(dateFor(routes.methodology.path)).toBe(methodologySources.reviewed)
+    expect(dateFor(routes.whatIsAiMediatedSearch.path)).toBe(aiMediatedSearchSources.reviewed)
+    expect(dateFor(routes.whatIsGenerativeEngineOptimization.path)).toBe(
+      generativeEngineOptimizationSources.reviewed,
+    )
+  })
+
+  it('gives the two entry-vocabulary pages a date later than the transcription floor', () => {
+    // These two were written on 2026-08-17 rather than transcribed on 2026-08-16
+    // with the rest of the corpus, so they are the only definition pages
+    // entitled to a later date. Asserting the direction rather than the literal
+    // keeps this from becoming a second hand-maintained copy of the date.
+    const floor = Date.parse('2026-08-16')
+
+    expect(Date.parse(dateFor(routes.whatIsAiMediatedSearch.path))).toBeGreaterThan(floor)
+    expect(Date.parse(dateFor(routes.whatIsGenerativeEngineOptimization.path))).toBeGreaterThan(
+      floor,
+    )
   })
 
   it('reads each legal route date from the document it publishes', () => {

@@ -6,6 +6,8 @@ import { privacyNotice } from '@/content/legal/privacy'
 import { termsOfUse } from '@/content/legal/terms'
 import { sources as aiSelectionProblemSources } from '@/content/pages/ai-selection-problem'
 import { sources as methodologySources } from '@/content/pages/methodology'
+import { sources as aiMediatedSearchSources } from '@/content/pages/what-is-ai-mediated-search'
+import { sources as generativeEngineOptimizationSources } from '@/content/pages/what-is-generative-engine-optimization'
 import { sources as searchIntelligenceEngineeringSources } from '@/content/pages/what-is-search-intelligence-engineering'
 import { sources as selectionIntelligenceSources } from '@/content/pages/what-is-selection-intelligence'
 
@@ -39,13 +41,23 @@ import { sources as selectionIntelligenceSources } from '@/content/pages/what-is
  * change to the page, not by a review of it.
  */
 const lastModified: Record<string, string> = {
-  // The four definition pages already render `sources.reviewed` inside a visible
-  // <time> element. Reading the same constant means the sitemap and the page can
-  // never disagree.
+  // Every definition page renders `sources.reviewed` inside a visible <time>
+  // element. Reading the same constant means the sitemap and the page can never
+  // disagree, which is why no date below is typed in by hand.
   [routes.whatIsSearchIntelligenceEngineering.path]: searchIntelligenceEngineeringSources.reviewed,
   [routes.whatIsSelectionIntelligence.path]: selectionIntelligenceSources.reviewed,
   [routes.aiSelectionProblem.path]: aiSelectionProblemSources.reviewed,
   [routes.methodology.path]: methodologySources.reviewed,
+
+  // The two entry-vocabulary definition pages, added 2026-08-17. They read the
+  // same constant for the same reason, and they carry a later review date than
+  // the other four because they were written on that date rather than reviewed
+  // on it. That is a real content diff, not a freshness stamp, so docs/06 §15 is
+  // satisfied. If either page is ever published without rendering its
+  // `sources.reviewed` in a visible <time>, remove its entry here: an advertised
+  // date the reader cannot see is exactly the drift this map exists to prevent.
+  [routes.whatIsAiMediatedSearch.path]: aiMediatedSearchSources.reviewed,
+  [routes.whatIsGenerativeEngineOptimization.path]: generativeEngineOptimizationSources.reviewed,
 
   // Commit 2cfcb05, dated 2026-08-17, published the founder career record: the
   // About content object grew by 62 lines, the page by 41, and a role-timeline

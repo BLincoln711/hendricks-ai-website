@@ -16,6 +16,8 @@ import * as sim from '@/content/pages/search-impact-measurement'
 import * as spe from '@/content/pages/search-presence-engineering'
 import * as si from '@/content/pages/selection-intelligence'
 import * as solutions from '@/content/pages/solutions'
+import * as wiams from '@/content/pages/what-is-ai-mediated-search'
+import * as wgeo from '@/content/pages/what-is-generative-engine-optimization'
 import * as wisie from '@/content/pages/what-is-search-intelligence-engineering'
 import * as wisi from '@/content/pages/what-is-selection-intelligence'
 
@@ -71,6 +73,12 @@ const editorialRoutes = [
     h1: headingText(wisie.hero),
   },
   { path: '/what-is-selection-intelligence', meta: wisi.meta, h1: headingText(wisi.hero) },
+  { path: '/what-is-ai-mediated-search', meta: wiams.meta, h1: headingText(wiams.hero) },
+  {
+    path: '/what-is-generative-engine-optimization',
+    meta: wgeo.meta,
+    h1: headingText(wgeo.hero),
+  },
   { path: '/ai-selection-problem', meta: aiSelectionProblem.meta, h1: headingText(aiSelectionProblem.hero) },
   { path: '/methodology', meta: methodology.meta, h1: headingText(methodology.hero) },
 ] as const
@@ -205,6 +213,11 @@ test.describe('Wide tables', () => {
     { path: '/solutions/search-impact-measurement', caption: sim.evidenceGrades.caption },
     { path: '/methodology', caption: methodology.evidenceGrades.caption },
     { path: '/what-is-search-intelligence-engineering', caption: wisie.whyItExists.caption },
+    // Two tables on this route. The surfaces table renders first and is the one
+    // that carries the observed-scope column, so it is the one pinned here; the
+    // caption test below still iterates both.
+    { path: '/what-is-ai-mediated-search', caption: wiams.surfaces.caption },
+    { path: '/what-is-generative-engine-optimization', caption: wgeo.versusSie.caption },
   ] as const
 
   for (const route of tableRoutes) {
@@ -252,6 +265,8 @@ test.describe('Definition pages', () => {
   for (const page_ of [
     { path: '/what-is-search-intelligence-engineering', content: wisie },
     { path: '/what-is-selection-intelligence', content: wisi },
+    { path: '/what-is-ai-mediated-search', content: wiams },
+    { path: '/what-is-generative-engine-optimization', content: wgeo },
   ] as const) {
     test(`${page_.path} shows the direct answer above every other section`, async ({ page }) => {
       await page.goto(page_.path)

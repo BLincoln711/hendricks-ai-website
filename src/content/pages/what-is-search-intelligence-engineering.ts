@@ -171,6 +171,20 @@ export const sources = {
   ],
 } as const
 
+/**
+ * The first two entries are the destinations the approved markdown names under
+ * "Related CTAs". Everything after them is an internal-linking decision under
+ * docs/03 §6 rather than approved copy, which is the established pattern on this
+ * page and on /ai-selection-problem.
+ *
+ * The two entry-vocabulary pages sit third and fourth on purpose. This page
+ * carries the only GEO/AEO row on the site, in the `whyItExists` table, and a
+ * reader who arrived on that vocabulary needs somewhere to go with it. The table
+ * itself cannot carry the link: `DataTableRow` is `Record<string, string>`, so a
+ * cell holds text and nothing else, and putting a link in one would mean
+ * changing a shared component to serve a single row. The related block does the
+ * job without that.
+ */
 export const related: readonly RelatedLink[] = [
   {
     href: routes.solutions.path,
@@ -181,6 +195,16 @@ export const related: readonly RelatedLink[] = [
     href: routes.howItWorks.path,
     label: 'See how the system works',
     description: 'The six stages, who owns what, and the operating cycle.',
+  },
+  {
+    href: routes.whatIsGenerativeEngineOptimization.path,
+    label: 'What Is Generative Engine Optimization?',
+    description: 'What generative engine optimization covers, and where the framing runs out.',
+  },
+  {
+    href: routes.whatIsAiMediatedSearch.path,
+    label: 'What Is AI-Mediated Search?',
+    description: 'Where AI-mediated search happens, and which systems Hendricks observes.',
   },
   {
     href: routes.whatIsSelectionIntelligence.path,

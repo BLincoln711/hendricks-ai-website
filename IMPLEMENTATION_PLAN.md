@@ -443,10 +443,16 @@ unbuilt would have meant either two dead ends or rewriting approved CTA copy. Th
 forms themselves remain Phase 5 and are blocked on `CONTENT_VERIFICATION.md` L1
 and L3, which is a legal dependency rather than an engineering one.
 
-**No FAQ sections.** Three approved pages carry a "FAQ topics" list of questions
-with no answers. `docs/12` §6 and `AGENTS.md` forbid inventing them, so the
-sections are omitted rather than shipped empty, and no `FAQPage` JSON-LD is
-emitted. Registered as `CONTENT_VERIFICATION.md` Q1–Q3.
+**FAQ sections ship as visible copy only, and carry no `FAQPage` JSON-LD.**
+Three approved pages carry a "FAQ topics" list of questions. The questions were
+approved; the answers were not, and `docs/12` §6 and `AGENTS.md` forbid
+inventing them, so the sections stayed unrendered until 2026-08-17, when all 17
+answers were authored from material already published on the same page and
+mirrored into the approved markdown. They now render through
+`src/components/sections/faq-section.tsx`, which emits no structured data of any
+kind, so a page cannot acquire `FAQPage` markup as a side effect of rendering
+questions. `docs/06` §10 still forbids adding it. The answers remain pending
+Brandon's editorial review, registered as `CONTENT_VERIFICATION.md` Q1–Q3 and A4.
 
 **Unbuilt routes are gated in one place.** Approved copy points at six Phase 6
 editorial routes and two legal routes. Rather than editing the copy, each route
