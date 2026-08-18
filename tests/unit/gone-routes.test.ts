@@ -11,6 +11,7 @@ import {
   GONE_INTERNAL_PATHS,
   GONE_LINE_PATHS,
   GONE_PATH_PREFIXES,
+  GONE_PREFIX_EXCEPTIONS,
   GONE_STANDALONE_PATHS,
   config as proxyConfig,
   isGone,
@@ -376,6 +377,60 @@ describe('Redirect map', () => {
       expect(row?.redirect_type, `${undisposed} was disposed of`).toBe('')
       expect(row?.new_url, `${undisposed} was given a destination`).toBe('')
       expect(row?.qa_status).toBe('pending')
+    }
+  })
+})
+
+/**
+ * The /insights section is retired by prefix rather than by enumerating slugs.
+ *
+ * Enumeration left real holes: Search Console holds indexed /insights URLs that
+ * exist in neither the retired repo nor migration/redirect-map.csv, because the
+ * CSV was built from a filesystem rather than from Search Console. These tests
+ * pin the two properties that make a prefix safe here.
+ */
+describe('Retired /insights section', () => {
+  it('retires an insight URL that nobody enumerated', () => {
+    // Indexed and 404ing in production before the prefix rule landed.
+    expect(isGone('/insights/what-is-search-intelligence-engineer')).toBe(true)
+    expect(isGone('/insights/a-slug-that-never-existed')).toBe(true)
+  })
+
+  it('retires every enumerated insight too, with or without a trailing slash', () => {
+    for (const insight of GONE_INSIGHT_PATHS) {
+      expect(isGone(insight)).toBe(true)
+      expect(isGone(`${insight}/`)).toBe(true)
+    }
+  })
+
+  it('spares the one on-thesis article the prefix would otherwise take', () => {
+    for (const exception of GONE_PREFIX_EXCEPTIONS) {
+      expect(isGone(exception)).toBe(false)
+      expect(isGone(`${exception}/`)).toBe(false)
+    }
+  })
+
+  it('keeps every exception out of the enumerated Gone list', () => {
+    // Belt and braces: an exception that also sat in GONE_EXACT_PATHS would be
+    // decided by ordering inside isGone rather than by intent.
+    for (const exception of GONE_PREFIX_EXCEPTIONS) {
+      expect(GONE_EXACT_PATHS).not.toContain(exception)
+    }
+  })
+
+  it('leaves the /insights hub to 404 rather than 410', () => {
+    // The hub is the natural 301 target for /research once that route ships, so
+    // a 410 would be semantically wrong. The trailing slash on the prefix is
+    // what keeps the bare path out.
+    expect(isGone('/insights')).toBe(false)
+  })
+
+  it('sends every exception somewhere real', () => {
+    // An exemption is only safe if something else actually handles the path.
+    // Exempting a URL from the 410 with no redirect behind it turns a decisive
+    // Gone into a soft 404, which is strictly worse than either.
+    for (const exception of GONE_PREFIX_EXCEPTIONS) {
+      expect(literalRedirectSources).toContain(exception)
     }
   })
 })
