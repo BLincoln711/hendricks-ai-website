@@ -1,6 +1,11 @@
 import type { RelatedLink } from '@/components/sections/related-links'
 import type { Cta } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
+import {
+  observedSystemsContext,
+  observedSystemsExclusion,
+  observedSystemsSentence,
+} from '@/content/shared/observed-systems'
 
 /**
  * Approved copy, transcribed from
@@ -126,16 +131,23 @@ export const runsOut = {
 /**
  * The observed-systems list is exact and closed. Naming a fourth system here, or
  * softening the list with "including", would claim coverage Hendricks does not
- * run. Gemini and Microsoft Copilot are named only as surfaces that exist in the
- * information environment, which is why they appear in the second paragraph and
- * never in the first.
+ * run. Google AI Mode, Gemini, and Microsoft Copilot are named only as surfaces
+ * that exist in the information environment, which is why they appear in the
+ * second paragraph and never in the first.
+ *
+ * Both sentences are read from src/content/shared/observed-systems.ts (docs/17
+ * 3.5) rather than written here. Before that, this page excluded only Gemini and
+ * Microsoft Copilot, while naming Google AI Mode twice elsewhere on the page: in
+ * the Google Search Central paragraph and in runsOut 04. A surface named as part
+ * of the environment and then left out of the exclusion is the exact drift A1
+ * exists to prevent, so the exclusion here now names all three.
  */
 export const observed = {
   eyebrow: 'Scope',
   title: 'Which AI systems does Hendricks observe?',
   body: [
-    'Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity. Those are the surfaces where Hendricks runs controlled tests, records the outcome of each run, and reports observed consideration and observed recommendation.',
-    'Other AI surfaces exist in the same information environment, Gemini and Microsoft Copilot among them. Hendricks does not measure, test, monitor, or report on Gemini or Microsoft Copilot, and no Hendricks deliverable claims coverage that was not run.',
+    `${observedSystemsSentence} Those are the surfaces where Hendricks runs controlled tests, records the outcome of each run, and reports observed consideration and observed recommendation.`,
+    `${observedSystemsContext} ${observedSystemsExclusion} No Hendricks deliverable claims coverage that was not run.`,
   ],
 } as const
 

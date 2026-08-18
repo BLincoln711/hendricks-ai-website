@@ -84,7 +84,7 @@ Eyebrow: Scope
 
 Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity. Those are the surfaces where Hendricks runs controlled tests, records the outcome of each run, and reports observed consideration and observed recommendation.
 
-Other AI surfaces exist in the same information environment, Gemini and Microsoft Copilot among them. Hendricks does not measure, test, monitor, or report on Gemini or Microsoft Copilot, and no Hendricks deliverable claims coverage that was not run.
+Google AI Mode, Gemini, and Microsoft Copilot are surfaces that exist in the same information environment, and they are named here for that reason alone. Hendricks does not measure, test, monitor, or report on Google AI Mode, Gemini, or Microsoft Copilot. No Hendricks deliverable claims coverage that was not run.
 
 ## GEO and AEO compared with Search Intelligence Engineering.
 

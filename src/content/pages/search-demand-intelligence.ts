@@ -2,6 +2,10 @@ import type { RelatedLink } from '@/components/sections/related-links'
 import type { NamedDeliverable } from '@/components/sections/deliverables'
 import type { Cta } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
+import {
+  observedSystemsExclusion,
+  observedSystemsSentence,
+} from '@/content/shared/observed-systems'
 
 /**
  * Approved copy, transcribed from content/pages/03-search-demand-intelligence.md.
@@ -17,6 +21,14 @@ import { routes } from '@/config/routes'
  *
  * The section ships as visible copy only. docs/06 §10 forbids FAQPage markup, so
  * no JSON-LD accompanies it and none should be added.
+ *
+ * The demand-estimation answer states the observed-systems boundary by rendering
+ * the shared constants from `@/content/shared/observed-systems` rather than a
+ * local wording of them (docs/17 §3.5). The boundary is a compliance statement
+ * and belongs adjacent to the claim it bounds, so it stays on this page in full,
+ * including the exclusion. What it may not do is drift, so it is not retyped
+ * here. `/what-is-ai-mediated-search` carries the canonical surfaces table and is
+ * linked from `related` for the reader who wants the whole picture.
  */
 
 export const meta = {
@@ -176,7 +188,7 @@ export const faq = {
       question: 'How do you estimate demand when AI prompts are not publicly reported?',
       answer: [
         'The assistant platforms do not publish prompt volumes. Hendricks therefore does not hold a prompt-volume dataset for AI-mediated search and does not present an estimate as though it were a measurement. Demand is modeled from evidence that can be observed directly: Search Console queries, paid-search terms, keyword and SERP data, CRM opportunities, closed-customer data, sales-call transcripts, customer interviews, reviews, support questions, and on-site search.',
-        'Those proxies become intent contexts, and the intent contexts are run as controlled tests against the three systems Hendricks observes: Google AI Overviews, ChatGPT, and Perplexity. Gemini and Microsoft Copilot exist in the same information environment, and Hendricks does not measure, test, monitor, or report on Gemini or Microsoft Copilot. This is why the weighting model carries an Evidence Confidence term. An estimated demand figure stays labeled estimated for as long as it remains one.',
+        `Those proxies become intent contexts, and the intent contexts are run as controlled tests. ${observedSystemsSentence} ${observedSystemsExclusion} This is why the weighting model carries an Evidence Confidence term. An estimated demand figure stays labeled estimated for as long as it remains one.`,
       ],
     },
     {
@@ -224,6 +236,11 @@ export const related: readonly RelatedLink[] = [
     href: routes.whatIsSearchIntelligenceEngineering.path,
     label: 'What Is Search Intelligence Engineering?',
     description: 'Understand the category this solution belongs to.',
+  },
+  {
+    href: routes.whatIsAiMediatedSearch.path,
+    label: routes.whatIsAiMediatedSearch.label,
+    description: 'See which AI systems Hendricks observes, and which it does not.',
   },
 ]
 

@@ -36,7 +36,7 @@ export const layers = {
       number: '01',
       title: 'Technical access',
       description:
-        'Ensure important information can be crawled, indexed, rendered, retrieved, and understood without unnecessary barriers.',
+        'Ensure important information can be crawled, indexed, rendered, retrieved, and understood without unnecessary barriers. Structured data is implemented here for entity clarity and eligibility in traditional search features, not because it lifts AI citation. Google Search Central states there is no special structured data to add for AI Overviews or AI Mode, and Hendricks does not sell it as a citation lever.',
       workItems: [
         'Crawl and indexation',
         'Server-rendered content',
@@ -231,6 +231,12 @@ export const related: readonly RelatedLink[] = [
     href: routes.whatIsSearchIntelligenceEngineering.path,
     label: 'What Is Search Intelligence Engineering?',
     description: 'The seven layers this solution engineers, and why the work is engineering.',
+  },
+  {
+    href: routes.whatIsGenerativeEngineOptimization.path,
+    label: 'What Is Generative Engine Optimization?',
+    description:
+      'What Google Search Central documents about structured data and AI surfaces, and where the GEO framing runs out.',
   },
 ]
 

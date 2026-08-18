@@ -163,11 +163,7 @@ Hendricks does not claim to reproduce any individual person’s account history 
 
 ### Is this the same as AI rank tracking?
 
-No. AI rank tracking asks where a brand appeared for a prompt. Selection Intelligence asks a harder question: across commercially important customer contexts, under what conditions does the brand enter consideration, and what observable evidence separates winning outcomes from losing ones?
-
-The same distinction separates Selection Intelligence from the practices sold as generative engine optimization, or GEO, and answer engine optimization, or AEO. Counting mentions and citations measures visibility. A mention is not consideration, a citation is not a recommendation, and a brand can be quoted in an answer that goes on to favor a competitor.
-
-Hendricks does not sell GEO or AEO. Selection Intelligence is the measurement layer inside Search Intelligence Engineering, and its output is an observed distribution and a stability analysis across defined contexts, not one universal ranking.
+No. AI rank tracking reports where a brand appeared for a prompt, and a Selection Intelligence baseline reports observed consideration and recommendation rates by context and by cohort, with the competitor and evidence patterns behind them.
 
 Hendricks publishes the full definition, including what Selection Intelligence does not mean, on the What Is Selection Intelligence page.
 
@@ -175,7 +171,7 @@ Hendricks publishes the full definition, including what Selection Intelligence d
 
 Hendricks observes three systems in a Selection Intelligence baseline: Google AI Overviews, ChatGPT, and Perplexity. No other system contributes to a Hendricks observed consideration rate, observed recommendation rate, or Selection Stability figure, and no result from one system is extrapolated to another.
 
-Google AI Mode, Gemini, and Microsoft Copilot are surfaces that exist in the same information environment, and they are named here for that reason alone. Hendricks does not test, monitor, measure, or report on Google AI Mode, Gemini, or Microsoft Copilot. A Selection Intelligence baseline says nothing about how a brand performs on a surface Hendricks does not observe.
+Google AI Mode, Gemini, and Microsoft Copilot are surfaces that exist in the same information environment, and they are named here for that reason alone. Hendricks does not measure, test, monitor, or report on Google AI Mode, Gemini, or Microsoft Copilot. A Selection Intelligence baseline says nothing about how a brand performs on a surface Hendricks does not observe.
 
 Reported scope is limited to the parts of AI-mediated search Hendricks can observe under controlled conditions and store for re-inspection. Each run is recorded with its exact question, supplied context, platform, date, location, response, and cited sources, so a client can audit an observation rather than accept a number.
 

@@ -159,12 +159,22 @@ export const sources = {
  * then spends every section after that on the consequences without once defining
  * the mechanism or naming a surface it happens on. That definition now exists,
  * and a reader who does not already accept the premise should reach it first.
+ *
+ * Its description carries the docs/17 §3.2 cede of "rank well and still lose the
+ * shortlist" as far as this file can. The owning page states that claim beside a
+ * named surface; the `consequence` section here states it without one. The claim
+ * itself stays, because it is this page's H1 payload and its Problem-register
+ * argument, and because `consequence.closing` is a `readonly string[]` rendered
+ * as bare paragraphs with no link affordance. Routing the claim through this
+ * description is the only half of the cede that lands without editing
+ * `src/app/(editorial)/ai-selection-problem/page.tsx`.
  */
 export const related: readonly RelatedLink[] = [
   {
     href: routes.whatIsAiMediatedSearch.path,
     label: 'What Is AI-Mediated Search?',
-    description: 'How an AI system interprets a request and composes an answer before the click.',
+    description:
+      'Why a brand can rank well and still lose the shortlist, and the surfaces where that happens.',
   },
   {
     href: routes.whatIsSelectionIntelligence.path,

@@ -1,6 +1,11 @@
 import type { RelatedLink } from '@/components/sections/related-links'
 import type { Cta } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
+import {
+  observedSystemRows,
+  observedSystemsExclusion,
+  observedSystemsSentence,
+} from '@/content/shared/observed-systems'
 
 /**
  * Approved copy, transcribed from content/pages/22-what-is-ai-mediated-search.md.
@@ -85,19 +90,18 @@ export const surfaces = {
     { key: 'environment', header: 'Where it sits' },
     { key: 'observed', header: 'Observed by Hendricks' },
   ],
-  rows: [
-    { surface: 'AI Overviews', environment: 'Inside Google Search', observed: 'Yes' },
-    { surface: 'AI Mode', environment: 'Inside Google Search', observed: 'No' },
-    { surface: 'ChatGPT', environment: 'Assistant product', observed: 'Yes' },
-    { surface: 'Perplexity', environment: 'Assistant product', observed: 'Yes' },
-    { surface: 'Gemini', environment: 'Assistant product', observed: 'No' },
-    { surface: 'Microsoft Copilot', environment: 'Assistant product', observed: 'No' },
-  ],
+  // The rows and both scope sentences come from src/content/shared/observed-systems.ts,
+  // which transcribed them from this page. This page stays the canonical
+  // explanation (docs/17 3.5) because it is the only rendering with an
+  // "Observed by Hendricks" column, but it reads the strings back out of the
+  // shared module rather than holding a second copy. Otherwise the canonical
+  // page is the one place the constant can silently fork from.
+  rows: observedSystemRows,
   observed: {
     title: 'Which surfaces does Hendricks observe?',
     body: [
-      'Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity.',
-      'Google AI Mode, Gemini, and Microsoft Copilot are named on this page because they exist in the same information environment. Hendricks does not measure, test, monitor, or report on Google AI Mode, Gemini, or Microsoft Copilot.',
+      observedSystemsSentence,
+      `Google AI Mode, Gemini, and Microsoft Copilot are named on this page because they exist in the same information environment. ${observedSystemsExclusion}`,
     ],
   },
 } as const
@@ -177,21 +181,39 @@ export const comparison = {
 } as const
 
 /**
- * The entry vocabulary a buyer types is GEO and AEO. The page uses both terms so
- * it can be retrieved for them, then says plainly what they are and are not.
+ * The vocabulary slot on this page. It carries one owned definition and one
+ * pointer, and the split is deliberate.
+ *
+ * "AI search visibility" is the highest-demand buyer term the corpus used
+ * without ever defining, so this page defines it once and every other page that
+ * uses the phrase links here (docs/17 §3.2). It belongs on this page rather than
+ * a solution page because it is Term register: the reader is asking what a word
+ * means, not what a client receives.
+ *
+ * GEO and AEO were previously restated here in full. They are defined on
+ * /what-is-generative-engine-optimization and docs/17 §3.10 cuts the second
+ * rendering to a pointer, which is the last body line plus the CTA. What stays
+ * is the distinction this page owns and that page does not: the difference
+ * between the environment and the work aimed at it.
+ *
+ * The scope line is a reference to the table above rather than a fourth wording
+ * of the observed-systems statement. Restating it here would add the paraphrase
+ * that docs/17 §3.5 exists to remove.
+ *
  * Hendricks does not sell GEO or AEO services and no line here may suggest it.
  */
 export const vocabulary = {
   eyebrow: 'Vocabulary',
-  title: 'Is AI-mediated search the same as GEO or AEO?',
+  title: 'What is AI search visibility?',
   body: [
-    'No. GEO, generative engine optimization, and AEO, answer engine optimization, are names for work aimed at earning mentions and citations inside AI answers. AI-mediated search is the environment that work is aimed at, not the work itself.',
-    'The distinction is commercial, not academic. A mention is not consideration and a citation is not a recommendation, so a program that stops at the citation stops short of the decision it was bought to influence.',
-    'Hendricks measures the decision rather than the mention, and that measurement sits inside Search Intelligence Engineering.',
+    'AI search visibility is the presence of a brand in the answers AI systems compose and in the sources those answers cite. It is a presence measure: it records that the brand appeared, on a named surface, for a named question, on a given date.',
+    'Visibility is not selection. A brand can be present in an answer that goes on to recommend a competitor, and it can be present for questions no buyer with budget ever asks. Entering a consideration set that carries commercial value is a separate outcome, earned separately, which is why Hendricks reports observed consideration rate and observed recommendation rate rather than a count of appearances.',
+    'Any visibility Hendricks reports is bounded by the surfaces marked as observed in the table above.',
+    'Generative engine optimization (GEO) and answer engine optimization (AEO) are names for the work aimed at earning that visibility. AI-mediated search is the environment that work is aimed at, not the work itself.',
   ],
   cta: {
-    label: 'Read What Is Search Intelligence Engineering?',
-    href: routes.whatIsSearchIntelligenceEngineering.path,
+    label: 'Read What Is Generative Engine Optimization?',
+    href: routes.whatIsGenerativeEngineOptimization.path,
     analytics: { location: 'wiams_vocabulary' },
   } satisfies Cta,
 } as const

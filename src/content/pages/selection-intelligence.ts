@@ -2,8 +2,12 @@ import type { FaqItem } from '@/components/sections/faq-section'
 import type { RelatedLink } from '@/components/sections/related-links'
 import type { Cta } from '@/components/ui/cta'
 import type { ContextPanel } from '@/components/visuals/context-panel-diagram'
-import type { MetricDefinition } from '@/components/visuals/metric-definitions'
 import { routes } from '@/config/routes'
+import { baselineMetricDefinitions } from '@/content/shared/metrics'
+import {
+  observedSystemsContext,
+  observedSystemsExclusion,
+} from '@/content/shared/observed-systems'
 
 /**
  * Approved copy, transcribed from content/pages/04-selection-intelligence.md.
@@ -129,31 +133,19 @@ export const deliverables = {
   ],
 } as const
 
+/**
+ * The four measures a baseline reports, rendered from the shared definitions in
+ * src/content/shared/metrics.ts (docs/17 §3.7). /what-is-selection-intelligence
+ * is the canonical page for the definitions themselves; this page states them
+ * because a buyer reading what a baseline produces should not have to leave to
+ * find out what the numbers mean. Both pages now render one wording, which is
+ * what docs/12 §6 requires. Evidence Coverage is not part of the baseline subset
+ * and is defined on the definition page alone.
+ */
 export const metrics = {
   eyebrow: 'Metric Definitions',
   title: 'Every Hendricks measure is defined before it is reported.',
-  items: [
-    {
-      name: 'Observed Consideration Rate',
-      definition:
-        'The commercially weighted percentage of defined test contexts in which the brand is presented as a legitimate option.',
-    },
-    {
-      name: 'Observed Recommendation Rate',
-      definition:
-        'The commercially weighted percentage of defined test contexts in which the brand is explicitly favored or recommended.',
-    },
-    {
-      name: 'Selection Stability',
-      definition:
-        'The consistency of consideration or recommendation across reasonable variations in context, wording, platform, location, and time.',
-    },
-    {
-      name: 'Commercial Selection Gap',
-      definition:
-        'The value-weighted difference between the client’s observed position and the relevant benchmark.',
-    },
-  ] satisfies readonly MetricDefinition[],
+  items: baselineMetricDefinitions,
 } as const
 
 export const limitation = {
@@ -192,14 +184,17 @@ export const limitation = {
  * rather than softened with "currently" or "not yet", both of which read as a
  * promise of future coverage.
  *
- * "Is this the same as AI rank tracking?" reuses the argument already approved
- * on /what-is-selection-intelligence instead of publishing a second, competing
- * definition. Generative engine optimization and answer engine
- * optimization appear in the same answer as the adjacent categories a buyer
- * arrives holding, never as a description of what Hendricks sells. That answer
- * names the definition page in prose and the related list below carries the
- * link, rather than the answer object carrying an href the FaqItem type has no
- * field for.
+ * "Is this the same as AI rank tracking?" is one sentence and a pointer, per
+ * docs/17 §3.9. /what-is-selection-intelligence owns the contrast in its
+ * versusRankTracking block, so this answer no longer restates the question each
+ * discipline asks. What it keeps is the difference in Deliverable register: what
+ * a client receives from each. The generative engine optimization and answer
+ * engine optimization material is dropped rather than relocated, because
+ * /what-is-generative-engine-optimization already defines both and already
+ * states that Hendricks does not sell either as a service (docs/17 §3.10).
+ * The answer names the definition page in prose and the related list below
+ * carries the link, rather than the answer object carrying an href the FaqItem
+ * type has no field for.
  *
  * No FAQPage markup is emitted for this section. docs/06 §10 forbids adding it
  * automatically, and these answers earn their place with a reader whether or not
@@ -220,9 +215,7 @@ export const faq = {
     {
       question: 'Is this the same as AI rank tracking?',
       answer: [
-        'No. AI rank tracking asks where a brand appeared for a prompt. Selection Intelligence asks a harder question: across commercially important customer contexts, under what conditions does the brand enter consideration, and what observable evidence separates winning outcomes from losing ones?',
-        'The same distinction separates Selection Intelligence from the practices sold as generative engine optimization, or GEO, and answer engine optimization, or AEO. Counting mentions and citations measures visibility. A mention is not consideration, a citation is not a recommendation, and a brand can be quoted in an answer that goes on to favor a competitor.',
-        'Hendricks does not sell GEO or AEO. Selection Intelligence is the measurement layer inside Search Intelligence Engineering, and its output is an observed distribution and a stability analysis across defined contexts, not one universal ranking.',
+        'No. AI rank tracking reports where a brand appeared for a prompt, and a Selection Intelligence baseline reports observed consideration and recommendation rates by context and by cohort, with the competitor and evidence patterns behind them.',
         'Hendricks publishes the full definition, including what Selection Intelligence does not mean, on the What Is Selection Intelligence page.',
       ],
     },
@@ -230,7 +223,15 @@ export const faq = {
       question: 'Which AI and search systems do you test?',
       answer: [
         'Hendricks observes three systems in a Selection Intelligence baseline: Google AI Overviews, ChatGPT, and Perplexity. No other system contributes to a Hendricks observed consideration rate, observed recommendation rate, or Selection Stability figure, and no result from one system is extrapolated to another.',
-        'Google AI Mode, Gemini, and Microsoft Copilot are surfaces that exist in the same information environment, and they are named here for that reason alone. Hendricks does not test, monitor, measure, or report on Google AI Mode, Gemini, or Microsoft Copilot. A Selection Intelligence baseline says nothing about how a brand performs on a surface Hendricks does not observe.',
+        // docs/17 3.5. Both sentences are read from
+        // src/content/shared/observed-systems.ts. The framing sentence was
+        // already byte-identical to the shared constant, which is where the
+        // constant was transcribed from. The exclusion was not: this page said
+        // "does not test, monitor, measure" against the canonical "does not
+        // measure, test, monitor". Same three surfaces, drifted verb order,
+        // which is precisely the failure A1 treats as a compliance problem
+        // rather than a style problem.
+        `${observedSystemsContext} ${observedSystemsExclusion} A Selection Intelligence baseline says nothing about how a brand performs on a surface Hendricks does not observe.`,
         'Reported scope is limited to the parts of AI-mediated search Hendricks can observe under controlled conditions and store for re-inspection. Each run is recorded with its exact question, supplied context, platform, date, location, response, and cited sources, so a client can audit an observation rather than accept a number.',
       ],
     },

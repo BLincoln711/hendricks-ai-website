@@ -2,6 +2,7 @@ import type { RelatedLink } from '@/components/sections/related-links'
 import type { Cta } from '@/components/ui/cta'
 import type { ContextPanel } from '@/components/visuals/context-panel-diagram'
 import { routes } from '@/config/routes'
+import { evidenceGradeRows } from '@/content/shared/evidence-grades'
 
 /**
  * Approved copy, transcribed from content/pages/16-methodology.md.
@@ -120,6 +121,14 @@ export const weighting = {
   limitation: 'No weighting model should be presented as universal.',
 } as const
 
+/**
+ * This page owns the four-grade table (docs/17 §3.8). The rows are the shared
+ * constant rather than a local copy, so the standard cannot be edited here and
+ * left stale on a page that names a grade. `/solutions/search-impact-measurement`
+ * carries the Grade A clause only, read off the same constant.
+ *
+ * Columns and caption stay page-owned. They are presentation, not the standard.
+ */
 export const evidenceGrades = {
   eyebrow: 'Evidence Grades',
   title: 'Every conclusion carries the grade of evidence behind it.',
@@ -128,18 +137,7 @@ export const evidenceGrades = {
     { key: 'grade', header: 'Grade', rowHeader: true, width: '16%' },
     { key: 'evidence', header: 'Evidence' },
   ],
-  rows: [
-    { grade: 'A', evidence: 'Controlled experiment combined with first-party CRM or revenue data' },
-    {
-      grade: 'B',
-      evidence: 'Strong first-party exposure, behavior, and commercial time-series evidence',
-    },
-    {
-      grade: 'C',
-      evidence: 'Repeated controlled context-panel observations and consistent source patterns',
-    },
-    { grade: 'D', evidence: 'Directional API, synthetic, or isolated observation' },
-  ],
+  rows: evidenceGradeRows,
 } as const
 
 export const statement = {
