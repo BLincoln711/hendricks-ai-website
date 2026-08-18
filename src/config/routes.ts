@@ -57,6 +57,14 @@ export const routes = {
 
   // Definition pages (HEN-0604). Version-controlled rather than in Sanity, which
   // docs/11 permits and which keeps the category vocabulary off the CMS critical path.
+  //
+  // The vocabulary set now covers two registers rather than one. The first two
+  // entries define the Hendricks category in Hendricks language. The two that
+  // follow define the buyer-facing entry terms, the words a buyer already types
+  // before they have heard of Search Intelligence Engineering. A page cannot be
+  // retrieved for a term it never contains, so the entry terms need routes of
+  // their own. They are bridges into the category, not renames of it: no route
+  // here describes a Hendricks service as GEO, AEO, or AI-mediated search work.
   whatIsSearchIntelligenceEngineering: {
     path: '/what-is-search-intelligence-engineering',
     label: 'What Is Search Intelligence Engineering?',
@@ -66,6 +74,18 @@ export const routes = {
   whatIsSelectionIntelligence: {
     path: '/what-is-selection-intelligence',
     label: 'What Is Selection Intelligence?',
+    indexable: true,
+    built: true,
+  },
+  whatIsAiMediatedSearch: {
+    path: '/what-is-ai-mediated-search',
+    label: 'What Is AI-Mediated Search?',
+    indexable: true,
+    built: true,
+  },
+  whatIsGenerativeEngineOptimization: {
+    path: '/what-is-generative-engine-optimization',
+    label: 'What Is Generative Engine Optimization?',
     indexable: true,
     built: true,
   },

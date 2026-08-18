@@ -81,6 +81,16 @@ export const footerNavigation = {
       ...(features.showResults ? [{ label: 'Results', href: routes.results.path }] : []),
     ]),
   },
+  /**
+   * Definition pages live here rather than in primary navigation.
+   *
+   * Primary navigation is the commercial path and every entry on it is a page a
+   * buyer converts from. The definition pages are read before a buyer knows what
+   * Hendricks is called, so they belong in the persistent footer, which appears
+   * on every route and therefore gives each one a sitewide internal link. The
+   * two entry-vocabulary pages are listed on the same terms as the four that
+   * preceded them: reachability, not promotion.
+   */
   research: {
     heading: 'Research',
     items: built([
@@ -92,6 +102,14 @@ export const footerNavigation = {
       {
         label: 'What Is Selection Intelligence?',
         href: routes.whatIsSelectionIntelligence.path,
+      },
+      {
+        label: 'What Is AI-Mediated Search?',
+        href: routes.whatIsAiMediatedSearch.path,
+      },
+      {
+        label: 'What Is Generative Engine Optimization?',
+        href: routes.whatIsGenerativeEngineOptimization.path,
       },
       { label: 'The AI Selection Problem', href: routes.aiSelectionProblem.path },
       { label: 'Methodology', href: routes.methodology.path },
