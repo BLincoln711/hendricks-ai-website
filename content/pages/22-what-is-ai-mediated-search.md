@@ -8,7 +8,7 @@
 
 **Title:** What Is AI-Mediated Search? | Hendricks
 
-**Description:** AI-mediated search is search in which an AI system interprets the request and composes an answer before the click, in Google AI Overviews and AI Mode and in ChatGPT, Perplexity, and Gemini.
+**Description:** AI-mediated search is search in which an AI system interprets the request and composes an answer before the click. Why a brand can rank #1 on Google and still not appear in AI answers.
 
 **H1:** What Is AI-Mediated Search?
 
@@ -67,11 +67,11 @@ Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity.
 
 Google AI Mode, Gemini, and Microsoft Copilot are named on this page because they exist in the same information environment. Hendricks does not measure, test, monitor, or report on Google AI Mode, Gemini, or Microsoft Copilot.
 
-## What changes for a brand when interpretation moves upstream of the click?
+## Why can a brand rank #1 on Google and still not appear in AI answers?
 
-**Eyebrow:** WHAT CHANGES
+**Eyebrow:** RANKING VERSUS APPEARING
 
-The comparison a brand used to win on its own website now happens before the customer arrives. Rankings can hold while the brand is left out of the set of options presented.
+A brand can rank #1 on Google and still not appear in AI answers, because a position in a ranked list of links and a named source inside a composed answer are two different outcomes, and holding the first does not produce the second. Hendricks publishes no figure for how often this happens. The share of AI-cited pages that also rank in Google is a different quantity from the share of well-ranked pages that get cited, and only the second describes this problem. What can be established for one brand is narrower and more useful: whether it was named, on which observed surface, for which question, and on which date.
 
 - The brand is absent from the options presented, so it is never evaluated.
 - The brand appears, but is described from outdated, thin, or contradictory evidence.
@@ -133,7 +133,7 @@ Hendricks cannot see inside these systems. Hendricks reports what was observed, 
 
 This definition is maintained by Hendricks. Where the page describes systems Hendricks does not control, it states publicly observable behavior and cites the platform’s own documentation. No third-party research, vendor study, or statistic is reported.
 
-**Last reviewed:** 2026-08-17
+**Last reviewed:** 2026-08-19
 
 - Google Search Central, [AI features and your website](https://developers.google.com/search/docs/appearance/ai-features)
 - OpenAI, [Overview of OpenAI Crawlers](https://developers.openai.com/api/docs/bots)

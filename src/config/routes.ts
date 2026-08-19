@@ -95,6 +95,22 @@ export const routes = {
     indexable: true,
     built: true,
   },
+
+  /**
+   * Buyer-decision route, cluster C10 (docs/17 §4.10, specified in §5.3). It
+   * sits in `(editorial)` beside the definition pages, but it defines no term
+   * and emits no `DefinedTerm` node.
+   *
+   * The path deliberately names a decision rather than a comparison. A URL that
+   * promises a vendor ranking will be read as one, and docs/17 §4.11 X1 concedes
+   * tool-comparison listicles outright.
+   */
+  aiVisibilityToolOrPartner: {
+    path: '/ai-visibility-tool-or-partner',
+    label: 'AI Visibility Tool or Partner',
+    indexable: true,
+    built: true,
+  },
   methodology: { path: '/methodology', label: 'Methodology', indexable: true, built: true },
 
   // Remainder of Phase 6 — blocked on Sanity credentials.

@@ -142,6 +142,18 @@ export const related: readonly RelatedLink[] = [
     label: 'The AI Selection Problem',
     description: 'Why visibility stopped being a sufficient measure.',
   },
+  /*
+    Second inbound link required by docs/17 §5 artifact 5 for
+    /ai-visibility-tool-or-partner. It is reciprocal: that page links here twice,
+    once for the four-part model it does not restate and once for the Selection
+    Intelligence versus AI rank tracking contrast this page owns in
+    `versusRankTracking`.
+  */
+  {
+    href: routes.aiVisibilityToolOrPartner.path,
+    label: 'Do You Need an AI Visibility Tool or a Partner?',
+    description: 'What a monitoring tool produces, and the three jobs it leaves to people.',
+  },
 ]
 
 export const closing = {

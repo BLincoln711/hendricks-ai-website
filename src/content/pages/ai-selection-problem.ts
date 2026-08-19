@@ -174,7 +174,7 @@ export const related: readonly RelatedLink[] = [
     href: routes.whatIsAiMediatedSearch.path,
     label: 'What Is AI-Mediated Search?',
     description:
-      'Why a brand can rank well and still lose the shortlist, and the surfaces where that happens.',
+      'Why a brand can rank #1 on Google and still not appear in AI answers, and the surfaces where that happens.',
   },
   {
     href: routes.whatIsSelectionIntelligence.path,

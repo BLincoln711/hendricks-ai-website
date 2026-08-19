@@ -134,9 +134,11 @@ Every row is a decision. The third column is an instruction to the implementer, 
 | What determines the cost of this class of work | `/diagnostic`, the eight scope factors | `/ai-search-visibility-audit` states that cost is set by scope rather than hours and links. It does not reproduce the eight factors. |
 | What the work is not designed to deliver | `/diagnostic`, the not-designed-for list | `/ai-search-visibility-audit` writes its own limits list for the generic category and links to the Hendricks one. |
 | White-label delivery under an agency brand | `/for-agencies` | Nowhere else. |
+| What an agency tells a client who asks why the brand is not in ChatGPT | `/for-agencies` | Nowhere else. The diagnosis of why a brand is absent stays with `/what-is-ai-mediated-search` and `/what-is-selection-intelligence`. `/for-agencies` answers what the principal says and in what order, and links. |
+| What an agency should not promise a client about AI citation | `/for-agencies` | The underlying no-control claim stays with `/solutions/search-presence-engineering`. `/for-agencies` references it in one line and links, and turns the Partner Commitments list into the argument behind it. |
 | Why the same question produces different answers | `/why-ai-answers-change` (new) | `/what-is-ai-mediated-search` keeps its two-clause statement of variance and links. `/solutions/selection-intelligence` keeps its answer about what Hendricks does in a baseline, which is Deliverable register. |
 | Tool versus partner, and build versus buy | `/ai-visibility-tool-or-partner` (new) | `/for-agencies` links to it from the question it currently poses and never answers. |
-| What to ask a vendor before signing | `/ai-visibility-tool-or-partner` (new) | Nowhere else. |
+| What to ask a vendor before signing | `/ai-visibility-tool-or-partner` (owner assigned, no rendering) | Nowhere else. The owning page shipped 2026-08-19 with six headings and does not yet carry this answer. See the build record in 5.3. Blocked on D5. |
 | How a brand gets misrepresented, and what fixes it | Diagnosis: `/what-is-ai-mediated-search`. Remedy: `/solutions/search-presence-engineering` layer 02 | The two currently sit on separate pages with no link between them. Add the link both ways. See 4.6. |
 
 ### 3.3 The four-part model
@@ -520,6 +522,18 @@ Never name a vendor, a product, or a price on this page.
 Inbound links required: `/for-agencies` (from the question it currently poses and does not answer), `/solutions`, `/solutions/selection-intelligence`, `/why-ai-answers-change`, footer research column.
 
 Blocked: partially, on decision D5. If Brandon will not publish a criterion Hendricks fails, H2 6 is cut and the page ships with six headings. It is still worth building without it.
+
+#### Build record, 2026-08-19
+
+Shipped in the reduced form: six headings, H2 6 held. D5 is unanswered, not declined. Section 9 records a recommendation, section 9 also states that none of those items is a writer's call, and nothing in the tree records a decision, so the seventh heading was held rather than softened. A vetting list rewritten until it stops needing D5 is the self-ranked listicle with better manners, which is what the two constraints above exist to prevent. Adding H2 6 later is purely additive: no shipped copy has to change to accommodate it.
+
+Sequencing: option B was taken. `/why-ai-answers-change` is unbuilt, `scripts/check-links.ts` fails on a link to an unbuilt route, and this page was not sequenced behind it. The `/why-ai-answers-change` inbound link named above is therefore owed, not dropped. It lands when that route ships. Criterion 3 of H2 6 was the passage that would have enumerated the sampling demand, and because H2 6 is held there is no unowned enumeration on this page to reconcile later.
+
+Inbound links as shipped: `/solutions/selection-intelligence` and `/what-is-selection-intelligence`, plus the footer research column. That satisfies artifact 5 with two built pages. Two of the four named above are owed rather than delivered. `/solutions` has no `related` export and renders no related block, so an inbound link from it belongs to the 5.4 item for that page. `/for-agencies` was under concurrent edit by another writer when this route shipped, and its own file comment records that hero question 5 was gated on this route not existing in `src/config/routes.ts`. That gate is now lifted, and the link is owed from that page's next change.
+
+Artifacts as shipped: route entry `aiVisibilityToolOrPartner`; `src/content/pages/ai-visibility-tool-or-partner.ts`; `content/pages/26-ai-visibility-tool-or-partner.md`; `src/app/(editorial)/ai-visibility-tool-or-partner/page.tsx`; the route's `opengraph-image.tsx`; the two inbound links and the footer column; the 3.2 row annotation above. The page emits `WebPage` with a breadcrumb and a modified date, and deliberately no `DefinedTerm` and no membership in `definedTermSetSchema`, because it defines nothing. An e2e guard asserts the absence.
+
+Sources: none. `docs/18-SOURCE-LEDGER.md` has no section for this route and `docs/19` §7.2 forbids an agent adding one, which is the correct outcome anyway: every claim on the page is either about what a buyer can check or about Hendricks, and no external document supports either.
 
 ### 5.4 Existing routes: what each owned answer needs
 

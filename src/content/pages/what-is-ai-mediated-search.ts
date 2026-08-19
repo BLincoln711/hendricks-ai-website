@@ -39,7 +39,7 @@ import {
 export const meta = {
   title: 'What Is AI-Mediated Search? | Hendricks',
   description:
-    'AI-mediated search is search in which an AI system interprets the request and composes an answer before the click, in Google AI Overviews and AI Mode and in ChatGPT, Perplexity, and Gemini.',
+    'AI-mediated search is search in which an AI system interprets the request and composes an answer before the click. Why a brand can rank #1 on Google and still not appear in AI answers.',
 } as const
 
 export const hero = {
@@ -106,10 +106,38 @@ export const surfaces = {
   },
 } as const
 
+/**
+ * The section that answers the symptom a buyer actually types.
+ *
+ * The heading and lead carry the buyer's own words on purpose. Before this
+ * change the corpus contained "rank #1", "number one", "top of Google", and
+ * "not appear in AI answers" zero times across 18 content objects, while the
+ * claim itself was stated three times in the site's own vocabulary. A page
+ * cannot be retrieved for words it does not contain. Read that as a
+ * precondition for retrieval, never as a lever: the property does not
+ * distinguish cited pages from uncited ones, only this corpus from every page
+ * that has the words at all.
+ *
+ * The third sentence of the lead is load-bearing and must not be cut for
+ * length. The circulating measurements behind this question run "cited but not
+ * ranked", which is the reverse of the quantity the question asks about, and
+ * docs/18-SOURCE-LEDGER.md records for the Xu, Iqbal, Montgomery preprint that
+ * "written carelessly, a citation here inverts the finding". Naming the
+ * direction of measurement and attaching no number is the honest form of this
+ * answer. No percentage, range, "most", or "a growing share" may be added
+ * here. The defensible figure would require a Selection Intelligence run on
+ * Hendricks itself, which does not exist.
+ *
+ * `comparison.closing` below states the same distinction in comparison
+ * register, closing the traditional-versus-AI table, and the
+ * /ai-selection-problem related description points a reader at it. Leave it
+ * alone. Rewriting it to match this section creates the third rendering this
+ * section exists to avoid.
+ */
 export const upstream = {
-  eyebrow: 'What Changes',
-  title: 'What changes for a brand when interpretation moves upstream of the click?',
-  lead: 'The comparison a brand used to win on its own website now happens before the customer arrives. Rankings can hold while the brand is left out of the set of options presented.',
+  eyebrow: 'Ranking Versus Appearing',
+  title: 'Why can a brand rank #1 on Google and still not appear in AI answers?',
+  lead: 'A brand can rank #1 on Google and still not appear in AI answers, because a position in a ranked list of links and a named source inside a composed answer are two different outcomes, and holding the first does not produce the second. Hendricks publishes no figure for how often this happens. The share of AI-cited pages that also rank in Google is a different quantity from the share of well-ranked pages that get cited, and only the second describes this problem. What can be established for one brand is narrower and more useful: whether it was named, on which observed surface, for which question, and on which date.',
   items: [
     'The brand is absent from the options presented, so it is never evaluated.',
     'The brand appears, but is described from outdated, thin, or contradictory evidence.',
@@ -245,7 +273,7 @@ export const limitation = {
  * settles at rather than one that redirects.
  */
 export const sources = {
-  reviewed: '2026-08-17',
+  reviewed: '2026-08-19',
   basis:
     'This definition is maintained by Hendricks. Where the page describes systems Hendricks does not control, it states publicly observable behavior and cites the platform’s own documentation. No third-party research, vendor study, or statistic is reported.',
   citations: [

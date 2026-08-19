@@ -5,6 +5,7 @@ import { indexableBuiltRoutes } from '@/config/routes'
 import { siteConfig } from '@/config/site'
 import * as about from '@/content/pages/about'
 import * as aiSelectionProblem from '@/content/pages/ai-selection-problem'
+import * as avtop from '@/content/pages/ai-visibility-tool-or-partner'
 import * as contact from '@/content/pages/contact'
 import * as diagnostic from '@/content/pages/diagnostic'
 import * as forAgencies from '@/content/pages/for-agencies'
@@ -81,6 +82,14 @@ const editorialRoutes = [
   },
   { path: '/ai-selection-problem', meta: aiSelectionProblem.meta, h1: headingText(aiSelectionProblem.hero) },
   { path: '/methodology', meta: methodology.meta, h1: headingText(methodology.hero) },
+  // Buyer-decision route rather than a definition page. It shares the sweep
+  // because it shares the shape: PageHero, DirectAnswer, question-shaped H2s,
+  // SourcesNote, RelatedLinks, ClosingCta.
+  {
+    path: '/ai-visibility-tool-or-partner',
+    meta: avtop.meta,
+    h1: headingText(avtop.hero),
+  },
 ] as const
 
 const builtRoutes = [...commercialRoutes, ...editorialRoutes]
@@ -218,6 +227,9 @@ test.describe('Wide tables', () => {
     // caption test below still iterates both.
     { path: '/what-is-ai-mediated-search', caption: wiams.surfaces.caption },
     { path: '/what-is-generative-engine-optimization', caption: wgeo.versusSie.caption },
+    // Two tables on this route as well. The monitoring-versus-measurement table
+    // renders first, so it is the one pinned; the caption test iterates both.
+    { path: '/ai-visibility-tool-or-partner', caption: avtop.monitoringVsMeasurement.caption },
   ] as const
 
   for (const route of tableRoutes) {
@@ -311,10 +323,18 @@ test.describe('Definition pages', () => {
     await expect(chips.last()).toHaveText('Uncertain')
   })
 
-  test('/ai-selection-problem and /methodology emit no DefinedTerm', async ({ page }) => {
-    // Neither page defines a term, so the markup would not reproduce visible
-    // content. Emitting it anyway is the failure docs/06 §8 warns against.
-    for (const path of ['/ai-selection-problem', '/methodology']) {
+  test('the three non-definition editorial routes emit no DefinedTerm', async ({ page }) => {
+    // None of these pages defines a term, so the markup would not reproduce
+    // visible content. Emitting it anyway is the failure docs/06 §8 warns
+    // against. /ai-visibility-tool-or-partner is the one to watch: it renders a
+    // DirectAnswer block whose `term` prop is the decision label "Tool or
+    // partner", and a DefinedTerm node named after a purchase decision would
+    // state a claim the page does not make.
+    for (const path of [
+      '/ai-selection-problem',
+      '/methodology',
+      '/ai-visibility-tool-or-partner',
+    ]) {
       await page.goto(path)
       // Read across every block, not the first one. `SiteShell`'s global graph
       // sits ahead of the page's own and never contains a DefinedTerm, so a

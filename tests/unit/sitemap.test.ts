@@ -6,6 +6,7 @@ import { siteConfig } from '@/config/site'
 import { privacyNotice } from '@/content/legal/privacy'
 import { termsOfUse } from '@/content/legal/terms'
 import { sources as aiSelectionProblemSources } from '@/content/pages/ai-selection-problem'
+import { sources as aiVisibilityToolOrPartnerSources } from '@/content/pages/ai-visibility-tool-or-partner'
 import { sources as methodologySources } from '@/content/pages/methodology'
 import { sources as aiMediatedSearchSources } from '@/content/pages/what-is-ai-mediated-search'
 import { sources as generativeEngineOptimizationSources } from '@/content/pages/what-is-generative-engine-optimization'
@@ -48,6 +49,7 @@ const sourcedDates: Record<string, string> = {
   [routes.methodology.path]: methodologySources.reviewed,
   [routes.whatIsAiMediatedSearch.path]: aiMediatedSearchSources.reviewed,
   [routes.whatIsGenerativeEngineOptimization.path]: generativeEngineOptimizationSources.reviewed,
+  [routes.aiVisibilityToolOrPartner.path]: aiVisibilityToolOrPartnerSources.reviewed,
   [routes.about.path]: '2026-08-17',
   [routes.terms.path]: termsOfUse.lastUpdated,
   [routes.privacy.path]: privacyNotice.lastUpdated,

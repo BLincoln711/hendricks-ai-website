@@ -288,6 +288,18 @@ export const related: readonly RelatedLink[] = [
     label: 'The AI Selection Problem',
     description: 'Why being seen no longer means being chosen.',
   },
+  /*
+    Inbound link required by docs/17 §5.3 for /ai-visibility-tool-or-partner.
+    The anchor is descriptive rather than an exact-match commercial keyword
+    (docs/06 §13), and the card is the route a reader takes when the question is
+    how this work gets bought rather than what it measures.
+  */
+  {
+    href: routes.aiVisibilityToolOrPartner.path,
+    label: 'Do You Need an AI Visibility Tool or a Partner?',
+    description:
+      'Whether to buy a monitoring feed, staff the capability, or contract it, and what a feed leaves undone either way.',
+  },
 ]
 
 export const closing = {

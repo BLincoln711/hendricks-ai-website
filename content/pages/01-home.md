@@ -92,6 +92,8 @@ Before the company’s analytics records the buyer.
 
 Most organizations have major blind spots across that path.
 
+**Link:** [See why a brand can rank #1 on Google and still not appear in AI answers](/what-is-ai-mediated-search)
+
 ---
 
 ## What Hendricks actually does
