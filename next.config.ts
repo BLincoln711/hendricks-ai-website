@@ -58,6 +58,19 @@ const legacyRedirects: ReadonlyArray<readonly [source: string, destination: stri
   ['/solutions/foundation', '/solutions'],
   ['/solutions/operations', '/solutions'],
   ['/solutions/engineering', '/solutions/search-presence-engineering'],
+  /**
+   * Perplexity cites this URL as the answer to "consultant to connect AI search
+   * visibility to pipeline" (measured 2026-08-18). The page never existed: the
+   * retired site's registry holds 74 insight slugs and this is not one of them.
+   * The engine invented it.
+   *
+   * It reached us as a 410 through the /insights/ prefix rule, which is correct
+   * for the ~100 genuinely retired pages and wrong for this one, because an
+   * engine is actively sending people here. Point it at the solution that
+   * actually answers the query rather than telling the one interested visitor
+   * the resource is gone.
+   */
+  ['/insights/ai-search-visibility-revenue-impact', '/solutions/search-impact-measurement'],
   ['/solutions/system', '/how-it-works'],
   ['/solutions/partnership', '/for-agencies'],
 
