@@ -250,6 +250,9 @@ export const GONE_EXACT_PATHS: readonly string[] = [
  */
 export const GONE_PREFIX_EXCEPTIONS: readonly string[] = [
   '/insights/how-ai-search-engines-cite-mid-market-firms-2026',
+  // Never a real page. Perplexity invented it and cites it for a
+  // high-intent query, so it earns a redirect rather than a 410.
+  '/insights/ai-search-visibility-revenue-impact',
 ]
 
 export const GONE_PATH_PREFIXES: readonly string[] = [
