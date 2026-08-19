@@ -50,10 +50,14 @@ describe('/llms.txt', () => {
 
     // /results is feature-flagged off until verified case studies exist, and
     // /privacy-request is a transactional form kept out of the sitemap.
+    //
+    // /research and /corrections were on this list while both were unbuilt. Both
+    // shipped, and both are indexable, so they are now advertised here on the
+    // same terms as every other built route. The assertion above already pins
+    // the file to `indexableBuiltRoutes()` exactly, so nothing is lost by their
+    // removal from this list.
     expect(advertised).not.toContain('/results')
     expect(advertised).not.toContain('/privacy-request')
-    expect(advertised).not.toContain('/research')
-    expect(advertised).not.toContain('/corrections')
   })
 
   it('names no client and no former employer', () => {

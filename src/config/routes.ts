@@ -113,9 +113,65 @@ export const routes = {
   },
   methodology: { path: '/methodology', label: 'Methodology', indexable: true, built: true },
 
-  // Remainder of Phase 6 — blocked on Sanity credentials.
-  research: { path: '/research', label: 'Research Hub', indexable: true, built: false },
-  corrections: { path: '/corrections', label: 'Corrections', indexable: true, built: false },
+  /**
+   * Research hub, shipped from `src/content/research/` rather than from Sanity.
+   *
+   * CONTENT_VERIFICATION.md R5 records this route as blocked on Sanity
+   * credentials. docs/17 §7 wave 2.1 reverses that: the block was a sequencing
+   * assumption rather than a credential, and the definition pages above had
+   * already proved that version-controlled editorial content ships fine. A dated
+   * measurement with a stated method is, if anything, the content that least
+   * belongs behind an editor with no diff.
+   *
+   * The hub is deliberately absent from primary navigation.
+   * `content/pages/12-research.md` gates that on publishing three category
+   * foundation pages, and one study is not three. It is reachable from the
+   * persistent footer research column, which renders on every route, and from
+   * one body-content link, the related list on `/corrections`. That is
+   * reachability, not promotion. It is thinner than the definition pages get,
+   * and the open item is recorded below rather than assumed away: no commercial
+   * or editorial page yet links to the research in body copy. Placement is the
+   * answer-architect's call, and `/ai-selection-problem` is the page docs/17
+   * wave 2.3 names as wanting the dated observation this study supplies. The
+   * matching note sits on `primaryNavigation` in `src/config/navigation.ts`, and
+   * the condition that reverses the navigation gate is three published
+   * foundation pages.
+   */
+  research: { path: '/research', label: 'Research Hub', indexable: true, built: true },
+
+  /**
+   * The first research article.
+   *
+   * Registered by its concrete path even though it is served by the dynamic
+   * `research/[slug]` segment, because the registry is what the sitemap,
+   * `llms.txt`, and every `isBuilt`-filtered link list read. A dynamic pattern
+   * registered here would advertise a literal `[slug]` URL to crawlers; leaving
+   * the article unregistered would keep a published page out of the sitemap and
+   * make it unlinkable from any related-content list. `scripts/check-links.ts`
+   * resolves a concrete path against the dynamic directory that serves it.
+   *
+   * The slug is mirrored in `src/content/research/index.ts`, which reads `path`
+   * from here rather than restating it. Adding an article means adding a route
+   * entry and a registry entry, in that order.
+   */
+  researchHendricksSelectionBaseline: {
+    path: '/research/hendricks-selection-baseline',
+    label: 'Hendricks Selection Baseline',
+    indexable: true,
+    built: true,
+  },
+
+  /**
+   * Corrections policy and log.
+   *
+   * CONTENT_VERIFICATION.md R6 recorded this as blocked on missing copy rather
+   * than on a credential, and docs/17 wave 0 item 0.4 costed the unblock at
+   * roughly 200 words. The copy now exists in `src/content/pages/corrections.ts`
+   * and the route is built, which turns on the footer legal link and repoints
+   * the corrections link on every research article away from its `ctaHref`
+   * fallback with no edit to the article.
+   */
+  corrections: { path: '/corrections', label: 'Corrections', indexable: true, built: true },
 
   // Feature-flagged off until verified case studies exist.
   results: { path: '/results', label: 'Results', indexable: false, built: false },

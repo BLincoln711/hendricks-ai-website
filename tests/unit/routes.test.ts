@@ -19,11 +19,11 @@ describe('Route registry', () => {
   })
 
   it('marks exactly the routes that have been built', () => {
-    // Twelve commercial routes from Phase 4, the six definition pages, and the
-    // three legal routes. Anything else in the registry is still unbuilt, and
-    // this list is what stops a route being flagged built before its page
-    // exists. The last two definition pages carry the buyer-facing entry
-    // vocabulary and were added once their pages landed in the same commit.
+    // Twelve commercial routes from Phase 4, the six definition pages, the three
+    // legal routes, and the four routes that closed out Phase 6: /corrections,
+    // the research hub, and the first research article. Anything else in the
+    // registry is still unbuilt, and this list is what stops a route being
+    // flagged built before its page exists.
     const built = Object.values(routes)
       .filter((route) => route.built)
       .map((route) => route.path)
@@ -38,6 +38,9 @@ describe('Route registry', () => {
         // definition pages and defines no term.
         '/ai-visibility-tool-or-partner',
         '/contact',
+        // R6 in CONTENT_VERIFICATION.md was blocked on missing copy rather than
+        // on a credential. The copy landed, so the route did.
+        '/corrections',
         '/diagnostic',
         '/for-agencies',
         '/for-brands',
@@ -45,6 +48,14 @@ describe('Route registry', () => {
         '/methodology',
         '/privacy',
         '/privacy-request',
+        // R5 recorded the hub as blocked on Sanity credentials. docs/17 §7 wave
+        // 2.1 reversed that: it ships from src/content/research/ on the same
+        // precedent as the definition pages.
+        '/research',
+        // Research articles are registered by concrete path, not as a dynamic
+        // pattern, because this registry is what the sitemap and llms.txt read.
+        // The dynamic segment that serves them is resolved by check:links.
+        '/research/hendricks-selection-baseline',
         '/solutions',
         '/solutions/search-demand-intelligence',
         '/solutions/search-impact-measurement',
@@ -81,7 +92,10 @@ describe('Route registry', () => {
 describe('isBuilt', () => {
   it('recognises built routes and rejects unbuilt or unknown ones', () => {
     expect(isBuilt('/solutions/selection-intelligence')).toBe(true)
-    expect(isBuilt('/research')).toBe(false)
+    expect(isBuilt('/research')).toBe(true)
+    // /results is the remaining unbuilt route: feature-flagged off until
+    // verified case studies exist, not merely unwritten.
+    expect(isBuilt('/results')).toBe(false)
     expect(isBuilt('/not-a-route')).toBe(false)
   })
 })
@@ -92,9 +106,17 @@ describe('ctaHref', () => {
   })
 
   it('falls back while the canonical destination is unbuilt', () => {
-    // /research is the live case: approved copy points at it and it has no page.
-    expect(ctaHref('/research', '/methodology')).toBe('/methodology')
+    // /results is the live case: it is feature-flagged off until verified case
+    // studies exist. /research held this slot until the hub shipped, which is
+    // the mechanism working as designed rather than a case going missing.
+    expect(ctaHref('/results', '/methodology')).toBe('/methodology')
     expect(ctaHref('/not-a-route', '/methodology')).toBe('/methodology')
+  })
+
+  it('reverts a research CTA to its canonical destination now the hub is built', () => {
+    expect(ctaHref('/research', '/methodology')).toBe('/research')
+    // The corrections link on every research article resolves through this pair.
+    expect(ctaHref('/corrections', '/contact')).toBe('/corrections')
   })
 
   it('has no remaining fallback in use now the definition pages are built', () => {

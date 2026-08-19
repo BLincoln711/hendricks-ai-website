@@ -60,9 +60,20 @@ const legacyRedirects: ReadonlyArray<readonly [source: string, destination: stri
   ['/solutions/engineering', '/solutions/search-presence-engineering'],
   /**
    * Perplexity cites this URL as the answer to "consultant to connect AI search
-   * visibility to pipeline" (measured 2026-08-18). The page never existed: the
-   * retired site's registry holds 74 insight slugs and this is not one of them.
-   * The engine invented it.
+   * visibility to pipeline" (measured 2026-08-18).
+   *
+   * This was a REAL article: published 2025-11-25 as commit ab7705c on the
+   * archive/legacy-site branch, at app/insights/ai-search-visibility-revenue-impact,
+   * and retired 2026-08-17 when the legacy site was replaced. An earlier version
+   * of this comment claimed the engine invented the URL. That was wrong. The
+   * check had been run against ~/claudecode/hendricks, a different retired site
+   * with a different directory layout, so the slug was absent from the registry
+   * that was searched and present in the one that mattered.
+   *
+   * The correct reading is more useful than the wrong one: an engine is still
+   * citing a page the firm deleted, nine months after it was published, for the
+   * highest-intent query in the set. The citation was earned by real content and
+   * then thrown away.
    *
    * It reached us as a 410 through the /insights/ prefix rule, which is correct
    * for the ~100 genuinely retired pages and wrong for this one, because an

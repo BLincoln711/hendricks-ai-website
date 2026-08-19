@@ -250,8 +250,13 @@ export const GONE_EXACT_PATHS: readonly string[] = [
  */
 export const GONE_PREFIX_EXCEPTIONS: readonly string[] = [
   '/insights/how-ai-search-engines-cite-mid-market-firms-2026',
-  // Never a real page. Perplexity invented it and cites it for a
-  // high-intent query, so it earns a redirect rather than a 410.
+  // A real article, published 2025-11-25 (ab7705c on archive/legacy-site) and
+  // retired 2026-08-17 when the site was replaced. Perplexity still cited it on
+  // 2026-08-18 for a high-intent query, nine months after publication, so it
+  // earns a redirect rather than a 410. An earlier comment here called it
+  // fabricated; that was wrong, and the error came from searching the wrong
+  // retired repo. Two exist. This repo's legacy site is the archive/legacy-site
+  // branch, structured as app/insights/, not ~/claudecode/hendricks.
   '/insights/ai-search-visibility-revenue-impact',
 ]
 
