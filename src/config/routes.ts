@@ -162,6 +162,51 @@ export const routes = {
   },
 
   /**
+   * The answer-stability study.
+   *
+   * Registered the same way and for the same reasons as the article above: a
+   * concrete path, because this registry is what the sitemap, `llms.txt`,
+   * `check:links`, and every `isBuilt`-filtered link list read, and a dynamic
+   * pattern here would advertise a literal `[slug]` URL to crawlers.
+   *
+   * Publishing this article and the citation-structure study alongside it brings
+   * the section to three published assets. `content/pages/12-research.md` line
+   * 88 gates primary navigation on three category FOUNDATION pages, which is a
+   * different count from three studies, so `src/config/navigation.ts` is
+   * deliberately untouched. Moving that gate is Brandon's decision, not a side
+   * effect of shipping research.
+   */
+  researchAnswerStabilityTwoRuns: {
+    path: '/research/answer-stability-two-runs',
+    label: 'Answer Stability, Two Runs',
+    indexable: true,
+    built: true,
+  },
+
+  /**
+   * The citation-set structure study, E1 in docs/17 §8.1.
+   *
+   * Registered by concrete path for the same reasons as the two articles above.
+   * The slug names the buyer question rather than the measure, because the
+   * question is what a reader types and the measure is what the page answers it
+   * with.
+   *
+   * It reads the same run of record as the self-baseline study,
+   * 2026-08-19-110930, for a different question. That page asks whether one
+   * brand appeared in the citation set. This one describes the structure of the
+   * set itself: how many domains filled how many slots, how little any of them
+   * recurred, and how little the engines had in common. Two studies on one run
+   * is not duplication as long as neither restates the other's answer, and the
+   * two link to each other.
+   */
+  researchWhoGetsCitedInAiAnswers: {
+    path: '/research/who-gets-cited-in-ai-answers',
+    label: 'Who Gets Cited in AI Answers',
+    indexable: true,
+    built: true,
+  },
+
+  /**
    * Corrections policy and log.
    *
    * CONTENT_VERIFICATION.md R6 recorded this as blocked on missing copy rather

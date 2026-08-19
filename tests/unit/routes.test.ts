@@ -20,10 +20,10 @@ describe('Route registry', () => {
 
   it('marks exactly the routes that have been built', () => {
     // Twelve commercial routes from Phase 4, the six definition pages, the three
-    // legal routes, and the four routes that closed out Phase 6: /corrections,
-    // the research hub, and the first research article. Anything else in the
-    // registry is still unbuilt, and this list is what stops a route being
-    // flagged built before its page exists.
+    // legal routes, the four routes that closed out Phase 6 (/corrections, the
+    // research hub, and the first research article), and every research article
+    // published since. Anything else in the registry is still unbuilt, and this
+    // list is what stops a route being flagged built before its page exists.
     const built = Object.values(routes)
       .filter((route) => route.built)
       .map((route) => route.path)
@@ -55,7 +55,9 @@ describe('Route registry', () => {
         // Research articles are registered by concrete path, not as a dynamic
         // pattern, because this registry is what the sitemap and llms.txt read.
         // The dynamic segment that serves them is resolved by check:links.
+        '/research/answer-stability-two-runs',
         '/research/hendricks-selection-baseline',
+        '/research/who-gets-cited-in-ai-answers',
         '/solutions',
         '/solutions/search-demand-intelligence',
         '/solutions/search-impact-measurement',
