@@ -2,6 +2,11 @@ import type { RelatedLink } from '@/components/sections/related-links'
 import type { Cta } from '@/components/ui/cta'
 import type { MeasurementLevel } from '@/components/visuals/impact-measurement-stack'
 import { routes } from '@/config/routes'
+import { evidenceGradeRows } from '@/content/shared/evidence-grades'
+import {
+  observedSystemsContext,
+  observedSystemsExclusion,
+} from '@/content/shared/observed-systems'
 
 /**
  * Approved copy, transcribed from content/pages/06-search-impact-measurement.md.
@@ -104,25 +109,27 @@ export const levels = {
   ] satisfies readonly MeasurementLevel[],
 } as const
 
+/**
+ * `/methodology` owns the four-grade standard (docs/17 §3.8). This page held a
+ * second copy of it whose four cells each differed from the table by a word or a
+ * clause order, Grade A most consequentially: "revenue evidence" against the
+ * table's "revenue data". Two published standards out of one standard.
+ *
+ * The rows now read off `evidenceGradeRows`, renamed to the `standard` column
+ * key this page's table renders, so no wording is written twice and neither page
+ * can drift from the other.
+ *
+ * Still owed, and blocked outside this file: docs/17 §3.8 reduces this section to
+ * the title above, the Grade A clause alone, and a link to `/methodology`. The
+ * page component renders `rows` through `DataTable` and offers no link surface,
+ * and `tests/unit/page-content.test.ts` asserts at least three rows here. Both
+ * belong to other owners, so the table stays four rows for now.
+ */
 export const evidenceGrades = {
   eyebrow: 'Evidence Grades',
   title: 'Every executive conclusion states its evidence grade.',
   caption: 'Hendricks evidence grades and the standard each one requires.',
-  rows: [
-    {
-      grade: 'A',
-      standard: 'Controlled experiment combined with first-party CRM or revenue evidence',
-    },
-    {
-      grade: 'B',
-      standard: 'Strong first-party exposure, behavioral, and commercial time-series evidence',
-    },
-    {
-      grade: 'C',
-      standard: 'Repeated controlled context observations and consistent source patterns',
-    },
-    { grade: 'D', standard: 'Directional synthetic, API, or isolated observation' },
-  ],
+  rows: evidenceGradeRows.map((row) => ({ grade: row.grade, standard: row.evidence })),
 } as const
 
 export const deliverables = {
@@ -197,7 +204,13 @@ export const faq = {
         'No. Google Analytics 4 cannot identify all AI traffic, and Hendricks does not report it as though it can. An analytics tool can only classify a visit from what arrives with it, so a referral from an AI assistant is countable in GA4 only when a referrer arrives and is recognized as one.',
         'Three limits stack on top of each other. Assistant referrals are attributed inconsistently across tools and across time. Some visits arrive with no referrer at all and are recorded as direct. And some AI influence never produces a click, because the buyer reads an answer, forms a preference, and arrives later through a branded search or a direct visit that carries no trace of the original exposure.',
         'Hendricks bounds that gap rather than filling it with a guess. Exposure is measured where the answer itself can be observed, across the three systems Hendricks observes: Google AI Overviews, ChatGPT, and Perplexity. AI-assistant referrals are then reported as a floor rather than a total. Branded search, direct visits, decision-content engagement, and self-reported source data are tracked as leading indicators, and every conclusion carries the evidence grade that states how much weight it can hold.',
-        'Other assistant surfaces exist in the information environment. Gemini and Microsoft Copilot are two of them. Hendricks does not measure, test, monitor, or report on Gemini or Microsoft Copilot, and no Hendricks deliverable should be read as covering either one.',
+        // docs/17 3.5. This paragraph previously excluded only Gemini and
+        // Microsoft Copilot, in wording written fresh on this page. It now reads
+        // both sentences out of src/content/shared/observed-systems.ts, which
+        // names all three unobserved surfaces. "either one" became "any of them"
+        // because the list went from two surfaces to three; nothing else in the
+        // paragraph changed.
+        `${observedSystemsContext} ${observedSystemsExclusion} No Hendricks deliverable should be read as covering any of them.`,
       ],
     },
     {
@@ -238,7 +251,7 @@ export const faq = {
         'Correlation is two measures moving together. Causation is evidence that one of them produced the other. On a Hendricks engagement the distinction is not academic. It decides which evidence grade a conclusion carries, and therefore what the business is entitled to do with that conclusion.',
         'A before-and-after chart is correlation. A visibility increase and a pipeline increase in the same quarter is correlation. Hendricks does not claim causation from a simple before-and-after chart, because the same movement can be produced by seasonality, a pricing change, a new sales hire, a competitor leaving the market, or a campaign running in another channel at the same time.',
         'Causal evidence requires a comparison that isolates the intervention. The forms Hendricks uses are stated openly: baseline comparisons, staggered rollouts, matched demand clusters, geographic comparisons, segment holdouts, landing-page experiments, paid-search validation, and interrupted time-series analysis. None of them removes doubt. Each of them narrows the set of explanations that survive.',
-        'The evidence grades carry the rest. Grade A requires a controlled experiment combined with first-party CRM or revenue evidence. Grade B is strong first-party time-series evidence across exposure, behavior, and commercial outcomes, which is correlation reported as correlation. Grades C and D are weaker again. Correlation does not prove causation, and a graded conclusion states plainly which of the two is on offer.',
+        'The evidence grades carry the rest. Grade A is the only grade that requires a controlled experiment, and the Hendricks methodology publishes the full scale and what each grade permits. Correlation does not prove causation, and a graded conclusion states plainly which of the two is on offer.',
       ],
     },
   ],

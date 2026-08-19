@@ -88,10 +88,10 @@ What evidence suggests the intervention contributed to the change?
 
 | Grade | Standard |
 |---|---|
-| A | Controlled experiment combined with first-party CRM or revenue evidence |
-| B | Strong first-party exposure, behavioral, and commercial time-series evidence |
-| C | Repeated controlled context observations and consistent source patterns |
-| D | Directional synthetic, API, or isolated observation |
+| A | Controlled experiment combined with first-party CRM or revenue data |
+| B | Strong first-party exposure, behavior, and commercial time-series evidence |
+| C | Repeated controlled context-panel observations and consistent source patterns |
+| D | Directional API, synthetic, or isolated observation |
 
 Every executive conclusion should state its evidence grade.
 
@@ -147,7 +147,7 @@ Three limits stack on top of each other. Assistant referrals are attributed inco
 
 Hendricks bounds that gap rather than filling it with a guess. Exposure is measured where the answer itself can be observed, across the three systems Hendricks observes: Google AI Overviews, ChatGPT, and Perplexity. AI-assistant referrals are then reported as a floor rather than a total. Branded search, direct visits, decision-content engagement, and self-reported source data are tracked as leading indicators, and every conclusion carries the evidence grade that states how much weight it can hold.
 
-Other assistant surfaces exist in the information environment. Gemini and Microsoft Copilot are two of them. Hendricks does not measure, test, monitor, or report on Gemini or Microsoft Copilot, and no Hendricks deliverable should be read as covering either one.
+Google AI Mode, Gemini, and Microsoft Copilot are surfaces that exist in the same information environment, and they are named here for that reason alone. Hendricks does not measure, test, monitor, or report on Google AI Mode, Gemini, or Microsoft Copilot. No Hendricks deliverable should be read as covering any of them.
 
 ### How should self-reported attribution be used?
 
@@ -189,7 +189,7 @@ A before-and-after chart is correlation. A visibility increase and a pipeline in
 
 Causal evidence requires a comparison that isolates the intervention. The forms Hendricks uses are stated openly: baseline comparisons, staggered rollouts, matched demand clusters, geographic comparisons, segment holdouts, landing-page experiments, paid-search validation, and interrupted time-series analysis. None of them removes doubt. Each of them narrows the set of explanations that survive.
 
-The evidence grades carry the rest. Grade A requires a controlled experiment combined with first-party CRM or revenue evidence. Grade B is strong first-party time-series evidence across exposure, behavior, and commercial outcomes, which is correlation reported as correlation. Grades C and D are weaker again. Correlation does not prove causation, and a graded conclusion states plainly which of the two is on offer.
+The evidence grades carry the rest. Grade A is the only grade that requires a controlled experiment, and the Hendricks methodology publishes the full scale and what each grade permits. Correlation does not prove causation, and a graded conclusion states plainly which of the two is on offer.
 
 ## Final CTA
 

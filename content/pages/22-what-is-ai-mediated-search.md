@@ -105,17 +105,19 @@ Traditional search results return a page of links and leave the comparison to th
 
 Neither replaces the other. A brand can rank well and still lose the shortlist, which is why the two are measured separately.
 
-## Is AI-mediated search the same as GEO or AEO?
+## What is AI search visibility?
 
 **Eyebrow:** VOCABULARY
 
-No. GEO, generative engine optimization, and AEO, answer engine optimization, are names for work aimed at earning mentions and citations inside AI answers. AI-mediated search is the environment that work is aimed at, not the work itself.
+AI search visibility is the presence of a brand in the answers AI systems compose and in the sources those answers cite. It is a presence measure: it records that the brand appeared, on a named surface, for a named question, on a given date.
 
-The distinction is commercial, not academic. A mention is not consideration and a citation is not a recommendation, so a program that stops at the citation stops short of the decision it was bought to influence.
+Visibility is not selection. A brand can be present in an answer that goes on to recommend a competitor, and it can be present for questions no buyer with budget ever asks. Entering a consideration set that carries commercial value is a separate outcome, earned separately, which is why Hendricks reports observed consideration rate and observed recommendation rate rather than a count of appearances.
 
-Hendricks measures the decision rather than the mention, and that measurement sits inside Search Intelligence Engineering.
+Any visibility Hendricks reports is bounded by the surfaces marked as observed in the table above.
 
-**Link:** [Read What Is Search Intelligence Engineering?](/what-is-search-intelligence-engineering)
+Generative engine optimization (GEO) and answer engine optimization (AEO) are names for the work aimed at earning that visibility. AI-mediated search is the environment that work is aimed at, not the work itself.
+
+**Link:** [Read What Is Generative Engine Optimization?](/what-is-generative-engine-optimization)
 
 ## Limitation
 

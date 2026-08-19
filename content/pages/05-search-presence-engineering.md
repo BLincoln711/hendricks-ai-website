@@ -32,7 +32,7 @@ A selection gap can originate from technical access, unclear positioning, weak s
 
 ### 1. Technical access
 
-Ensure important information can be crawled, indexed, rendered, retrieved, and understood without unnecessary barriers.
+Ensure important information can be crawled, indexed, rendered, retrieved, and understood without unnecessary barriers. Structured data is implemented here for entity clarity and eligibility in traditional search features, not because it lifts AI citation. Google Search Central states there is no special structured data to add for AI Overviews or AI Mode, and Hendricks does not sell it as a citation lever.
 
 Work can include:
 

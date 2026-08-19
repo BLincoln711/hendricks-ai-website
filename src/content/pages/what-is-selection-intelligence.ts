@@ -1,7 +1,7 @@
 import type { RelatedLink } from '@/components/sections/related-links'
 import type { Cta } from '@/components/ui/cta'
-import type { MetricDefinition } from '@/components/visuals/metric-definitions'
 import { routes } from '@/config/routes'
+import { metricDefinitions } from '@/content/shared/metrics'
 
 /**
  * Approved copy, transcribed from content/pages/14-what-is-selection-intelligence.md.
@@ -86,34 +86,22 @@ export const whyContext = {
     'The output is an observed distribution and stability analysis, not one universal ranking.',
 } as const
 
+/**
+ * This page is the canonical location for the five metric definitions
+ * (docs/17 §3.7), because a defined term belongs on the page that defines the
+ * term. The strings themselves live in src/content/shared/metrics.ts so that
+ * /solutions/selection-intelligence renders the same wording instead of a second
+ * definition of the same measure, which docs/12 §6 forbids.
+ *
+ * Three of the five definitions changed wording when they moved. The solutions
+ * page stated the unit, a percentage of defined test contexts, where this page
+ * stated a frequency adverb. A rate a reader cannot audit is not a rate, so the
+ * unit wording won.
+ */
 export const metrics = {
   eyebrow: 'Metrics',
   title: 'Five measures, each defined before it is reported.',
-  items: [
-    {
-      name: 'Observed Consideration Rate',
-      definition:
-        'How frequently the brand is presented as a legitimate candidate across defined, commercially weighted contexts.',
-    },
-    {
-      name: 'Observed Recommendation Rate',
-      definition: 'How frequently the brand is explicitly favored or shortlisted.',
-    },
-    {
-      name: 'Selection Stability',
-      definition: 'How consistently the result survives reasonable context changes.',
-    },
-    {
-      name: 'Evidence Coverage',
-      definition:
-        'How much clear, current, and corroborated evidence exists for claims needed to win priority decisions.',
-    },
-    {
-      name: 'Commercial Selection Gap',
-      definition:
-        'The value-weighted difference between the client’s observed position and the relevant benchmark.',
-    },
-  ] satisfies readonly MetricDefinition[],
+  items: metricDefinitions,
 } as const
 
 export const limitation = {

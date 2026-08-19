@@ -61,15 +61,15 @@ The output is an observed distribution and stability analysis, not one universal
 
 ### Observed Consideration Rate
 
-How frequently the brand is presented as a legitimate candidate across defined, commercially weighted contexts.
+The commercially weighted percentage of defined test contexts in which the brand is presented as a legitimate option.
 
 ### Observed Recommendation Rate
 
-How frequently the brand is explicitly favored or shortlisted.
+The commercially weighted percentage of defined test contexts in which the brand is explicitly favored or recommended.
 
 ### Selection Stability
 
-How consistently the result survives reasonable context changes.
+The consistency of consideration or recommendation across reasonable variations in context, wording, platform, location, and time.
 
 ### Evidence Coverage
 

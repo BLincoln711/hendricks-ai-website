@@ -9,6 +9,14 @@ import { routes } from '@/config/routes'
  * The markdown's "Agency inquiry" field list belongs to the agency inquiry form,
  * which is Phase 5 and blocked on approved consent language
  * (CONTENT_VERIFICATION.md L3).
+ *
+ * This page states no observed-systems boundary of its own and never has, so
+ * docs/17 §3.5 left it out of the five pages that carry one. It does sell "AI
+ * visibility and citation analysis" to a reseller, which is the audience least
+ * able to check the scope for itself, so `related` links the canonical surfaces
+ * table on `/what-is-ai-mediated-search`. A related card is a pointer, not a
+ * scope statement: if this page is ever to bound its own capability list, the
+ * boundary has to be approved into the markdown, not implied by a link.
  */
 
 export const meta = {
@@ -127,6 +135,11 @@ export const related: readonly RelatedLink[] = [
     href: routes.methodology.path,
     label: 'Methodology',
     description: 'The research standards your clients will be shown.',
+  },
+  {
+    href: routes.whatIsAiMediatedSearch.path,
+    label: routes.whatIsAiMediatedSearch.label,
+    description: 'See which AI systems Hendricks observes, and which it does not.',
   },
 ]
 
