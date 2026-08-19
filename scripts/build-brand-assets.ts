@@ -21,8 +21,19 @@ import path from 'node:path'
 
 import sharp from 'sharp'
 
-const SOURCE_LOGO = '/Users/m3-ultra-blh/claudecode/hendricks/public/hendricks-logo.png'
-const SOURCE_PORTRAIT = '/Users/m3-ultra-blh/claudecode/hendricks/public/brandon-hendricks-2026.jpg'
+/**
+ * Source art is vendored into this repo rather than read from an absolute path.
+ *
+ * Both constants previously pointed at /Users/m3-ultra-blh/..., a home directory
+ * that exists on the M3 Ultra and nowhere else, inside ~/claudecode/hendricks,
+ * which is the RETIRED previous site. The script therefore ran on exactly one
+ * machine and depended on a repo that is scheduled to go away. The MacBook is
+ * now the head for this repo, so it ran nowhere useful at all.
+ *
+ * Vendoring costs a few hundred kilobytes and removes both failure modes.
+ */
+const SOURCE_LOGO = path.join(process.cwd(), 'assets/source/hendricks-logo.png')
+const SOURCE_PORTRAIT = path.join(process.cwd(), 'assets/source/brandon-hendricks-2026.jpg')
 
 const BRAND_DIR = path.join(process.cwd(), 'public/brand')
 const IMAGES_DIR = path.join(process.cwd(), 'public/images')
