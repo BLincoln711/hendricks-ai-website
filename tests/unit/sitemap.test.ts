@@ -7,11 +7,13 @@ import { privacyNotice } from '@/content/legal/privacy'
 import { termsOfUse } from '@/content/legal/terms'
 import { sources as aiSelectionProblemSources } from '@/content/pages/ai-selection-problem'
 import { sources as aiVisibilityToolOrPartnerSources } from '@/content/pages/ai-visibility-tool-or-partner'
+import { sources as correctionsSources } from '@/content/pages/corrections'
 import { sources as methodologySources } from '@/content/pages/methodology'
 import { sources as aiMediatedSearchSources } from '@/content/pages/what-is-ai-mediated-search'
 import { sources as generativeEngineOptimizationSources } from '@/content/pages/what-is-generative-engine-optimization'
 import { sources as searchIntelligenceEngineeringSources } from '@/content/pages/what-is-search-intelligence-engineering'
 import { sources as selectionIntelligenceSources } from '@/content/pages/what-is-selection-intelligence'
+import { researchArticles } from '@/content/research'
 
 /** A plain ISO calendar date. Deliberately not a full timestamp (docs/06 §6). */
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/
@@ -51,11 +53,36 @@ const sourcedDates: Record<string, string> = {
   [routes.whatIsGenerativeEngineOptimization.path]: generativeEngineOptimizationSources.reviewed,
   [routes.aiVisibilityToolOrPartner.path]: aiVisibilityToolOrPartnerSources.reviewed,
   [routes.about.path]: '2026-08-17',
+  [routes.corrections.path]: correctionsSources.reviewed,
   [routes.terms.path]: termsOfUse.lastUpdated,
   [routes.privacy.path]: privacyNotice.lastUpdated,
+  // Research. Each article advertises its own `byline.updated`, and the hub
+  // advertises the newest article's, because the hub's content is the index.
+  ...Object.fromEntries(
+    researchArticles.map((article) => [article.path, article.updatedDate] as const),
+  ),
+  ...(researchArticles.length > 0
+    ? { [routes.research.path]: researchArticles[0].updatedDate }
+    : {}),
 }
 
 describe('sitemap', () => {
+  it('advertises the research hub and its published articles', () => {
+    // docs/06 §6 requires published research articles in the sitemap. Articles
+    // are registered by concrete path in src/config/routes.ts, so they arrive
+    // here through `indexableBuiltRoutes()` like any other route rather than
+    // through a second code path that could fall out of step with the registry.
+    const advertised = new Set(entries.map((entry) => entry.url))
+
+    expect(advertised.has(absolute(routes.research.path))).toBe(true)
+    expect(advertised.has(absolute(routes.researchHendricksSelectionBaseline.path))).toBe(true)
+
+    // A dynamic pattern must never reach a crawler.
+    for (const entry of entries) {
+      expect(entry.url, 'sitemap advertises a dynamic route pattern').not.toContain('[')
+    }
+  })
+
   it('advertises exactly the routes that are both built and indexable', () => {
     const advertised = entries.map((entry) => entry.url).sort()
     const expected = indexableBuiltRoutes()
@@ -68,10 +95,9 @@ describe('sitemap', () => {
   it('omits every unbuilt, flagged-off, and noindex route', () => {
     const advertised = new Set(entries.map((entry) => entry.url))
 
-    // Unbuilt: advertising these would hand a crawler a 404.
-    expect(advertised.has(absolute(routes.research.path))).toBe(false)
-    expect(advertised.has(absolute(routes.corrections.path))).toBe(false)
-    // Flagged off until verified case studies exist.
+    // Flagged off until verified case studies exist, and the only route left in
+    // the registry that is neither built nor indexable. /research and
+    // /corrections held the unbuilt slots here until both shipped in Phase 6.
     expect(advertised.has(absolute(routes.results.path))).toBe(false)
     // Built, but a transactional form rather than a page worth ranking.
     expect(advertised.has(absolute(routes.privacyRequest.path))).toBe(false)

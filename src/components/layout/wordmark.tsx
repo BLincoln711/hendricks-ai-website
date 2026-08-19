@@ -57,7 +57,7 @@ export function WordmarkLink({
     <Link
       href="/"
       className={cn('inline-flex items-center rounded-sm', className)}
-      aria-label="Hendricks — home"
+      aria-label="Hendricks, home"
     >
       <Wordmark tone={tone} width={width} priority={priority} />
     </Link>

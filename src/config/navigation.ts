@@ -52,7 +52,34 @@ export const primaryNavigation: NavigationItem[] = built([
   { label: 'How It Works', href: routes.howItWorks.path },
   { label: 'For Brands', href: routes.forBrands.path },
   { label: 'For Agencies', href: routes.forAgencies.path },
-  { label: 'Research', href: routes.research.path },
+  /*
+    Research is deliberately absent from this list, and its absence is a content
+    rule rather than an oversight.
+
+    content/pages/12-research.md line 88: "Do not launch a research index with no
+    meaningful content. Publish at least the three category foundation pages
+    before linking Research in the primary navigation." That sentence carries two
+    separate rules. The first forbids an empty index, which /research is not: it
+    publishes a dated study with a stated method. The second gates this list on
+    three published foundation pages, and one study is not three.
+
+    The entry lived here from Phase 4 and was invisible only because
+    `routes.research.built` was false and `built()` filtered it out. Marking the
+    route built would therefore have promoted it into primary navigation as a
+    side effect of shipping the page, which is the opposite of what the approved
+    copy asks for. Removing it makes the rule explicit instead of accidental.
+
+    The hub is not orphaned. It sits at the top of `footerNavigation.research`,
+    which renders on every route, and one body-content link points at it, the
+    related list on `/corrections`. That is thinner than the definition pages
+    get. No commercial or editorial page yet links to the research in body copy;
+    that placement is the answer-architect's call and is recorded as an open item
+    on `routes.research` in ./routes.ts.
+
+    Restore this line, in this position between For Agencies and About, once
+    three category foundation pages are published under /research. Nothing else
+    needs to change.
+  */
   { label: 'About', href: routes.about.path },
 ])
 

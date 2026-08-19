@@ -8,6 +8,16 @@
  * 2. Every built route other than `/` ships its own `opengraph-image.tsx` (docs/06 §3).
  * 3. Every href the navigation actually exports resolves to a built route.
  *
+ * Checks 1 and 2 resolve a registry path against dynamic segment directories as
+ * well as literal ones, so `/research/<slug>` is satisfied by
+ * `src/app/(editorial)/research/[slug]`. Research articles are registered by
+ * concrete path on purpose: the registry is what the sitemap and `llms.txt` read,
+ * and a dynamic pattern registered there would advertise a literal `[slug]` URL
+ * to crawlers. Check 3 and the unbuilt-but-served check below stay on exact
+ * matches, because a registered-but-unbuilt article served by an existing
+ * dynamic segment is not a defect: `generateStaticParams` reads the same
+ * registry, so it is simply not generated.
+ *
  * The exported navigation arrays are imported and inspected post-filter, so this
  * verifies the values the site renders rather than the source that produces them.
  * Content-object hrefs are covered by `tests/unit/commercial-content.test.ts`, and
@@ -54,6 +64,32 @@ function routePathFor(directory: string): string {
   return relative === '' ? '/' : `/${relative}`
 }
 
+/**
+ * Resolves a registry path to the directory that serves it.
+ *
+ * Exact match first, which is every static route. A path with no directory of
+ * its own then falls back to a same-depth directory whose differing segments are
+ * all dynamic, so `/research/hendricks-selection-baseline` resolves to
+ * `research/[slug]`. Without this the registry could not describe a dynamic
+ * route at all, and a published article would have to choose between being in
+ * the sitemap and passing this check.
+ */
+function resolveDirectory(served: Map<string, string>, routePath: string): string | undefined {
+  const segments = routePath.split('/')
+
+  for (const [servedPath, directory] of served) {
+    const servedSegments = servedPath.split('/')
+    if (servedSegments.length !== segments.length) continue
+
+    const matches = servedSegments.every(
+      (segment, index) => segment === segments[index] || /^\[.+\]$/.test(segment),
+    )
+    if (matches) return directory
+  }
+
+  return undefined
+}
+
 async function exists(target: string): Promise<boolean> {
   try {
     await stat(target)
@@ -74,7 +110,8 @@ async function main() {
   const served = new Map(directories.map((directory) => [routePathFor(directory), directory]))
 
   for (const route of Object.values(routes)) {
-    const directory = served.get(route.path)
+    const exactDirectory = served.get(route.path)
+    const directory = exactDirectory ?? resolveDirectory(served, route.path)
 
     if (route.built && !directory) {
       failures.push({
@@ -84,9 +121,9 @@ async function main() {
       continue
     }
 
-    if (!route.built && directory) {
+    if (!route.built && exactDirectory) {
       failures.push({
-        where: path.relative(ROOT, directory),
+        where: path.relative(ROOT, exactDirectory),
         message: `${route.path} has a page.tsx but is marked unbuilt, so nothing links to it`,
       })
       continue

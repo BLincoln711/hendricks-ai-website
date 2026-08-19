@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
-import { indexableBuiltRoutes } from '@/config/routes'
+import { indexableBuiltRoutes, routes } from '@/config/routes'
 import { siteConfig } from '@/config/site'
 import * as about from '@/content/pages/about'
 import * as aiSelectionProblem from '@/content/pages/ai-selection-problem'
@@ -21,6 +21,8 @@ import * as wiams from '@/content/pages/what-is-ai-mediated-search'
 import * as wgeo from '@/content/pages/what-is-generative-engine-optimization'
 import * as wisie from '@/content/pages/what-is-search-intelligence-engineering'
 import * as wisi from '@/content/pages/what-is-selection-intelligence'
+import { researchArticles } from '@/content/research'
+import * as researchHub from '@/content/research/hub'
 
 /**
  * Route sweep for every built page, commercial and editorial.
@@ -92,7 +94,29 @@ const editorialRoutes = [
   },
 ] as const
 
-const builtRoutes = [...commercialRoutes, ...editorialRoutes]
+/**
+ * The research hub and every published article.
+ *
+ * Built from the registry rather than listed, so a second article joins the
+ * sweep by being published. They sit outside `editorialRoutes` on purpose: that
+ * list drives the "one machine-readable review date" assertion below, and a
+ * study renders four dates by design, one for each of published, updated, data
+ * through, and last reviewed.
+ */
+const researchRoutes = [
+  {
+    path: routes.research.path,
+    meta: researchHub.meta,
+    h1: headingText(researchHub.hero),
+  },
+  ...researchArticles.map((article) => ({
+    path: article.path,
+    meta: article.content.meta,
+    h1: headingText({ eyebrow: article.content.hero.eyebrow, title: article.content.hero.title }),
+  })),
+]
+
+const builtRoutes = [...commercialRoutes, ...editorialRoutes, ...researchRoutes]
 
 /**
  * Every JSON-LD node on the page, unioned across all ld+json blocks.
@@ -413,9 +437,14 @@ test.describe('Sitemap', () => {
     const xml = await (await request.get('/sitemap.xml')).text()
 
     // /privacy-request is built but deliberately not indexable (docs/16 §9), so
-    // it belongs on this list for a different reason than the unbuilt routes.
-    for (const path of ['/research', '/corrections', '/results', '/privacy-request']) {
+    // it belongs on this list for a different reason than /results, which is
+    // feature-flagged off until verified case studies exist. /research and
+    // /corrections were here while both were unbuilt; both shipped in Phase 6.
+    for (const path of ['/results', '/privacy-request']) {
       expect(xml, `sitemap advertises unbuilt ${path}`).not.toContain(`${path}</loc>`)
     }
+
+    // A dynamic segment must never be advertised as a literal URL.
+    expect(xml, 'sitemap advertises a dynamic route pattern').not.toContain('[slug]')
   })
 })

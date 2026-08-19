@@ -6,11 +6,13 @@ import { privacyNotice } from '@/content/legal/privacy'
 import { termsOfUse } from '@/content/legal/terms'
 import { sources as aiSelectionProblemSources } from '@/content/pages/ai-selection-problem'
 import { sources as aiVisibilityToolOrPartnerSources } from '@/content/pages/ai-visibility-tool-or-partner'
+import { sources as correctionsSources } from '@/content/pages/corrections'
 import { sources as methodologySources } from '@/content/pages/methodology'
 import { sources as aiMediatedSearchSources } from '@/content/pages/what-is-ai-mediated-search'
 import { sources as generativeEngineOptimizationSources } from '@/content/pages/what-is-generative-engine-optimization'
 import { sources as searchIntelligenceEngineeringSources } from '@/content/pages/what-is-search-intelligence-engineering'
 import { sources as selectionIntelligenceSources } from '@/content/pages/what-is-selection-intelligence'
+import { latestResearchArticle, researchArticles } from '@/content/research'
 
 /**
  * Sitemap (docs/06 §6).
@@ -73,6 +75,25 @@ const lastModified: Record<string, string> = {
   // date constant on the About content object to read, so the commit is the
   // record and the hash is cited here in place of one.
   [routes.about.path]: '2026-08-17',
+
+  // The corrections policy renders `sources.reviewed` in a visible <time>, the
+  // same contract the editorial routes above satisfy.
+  [routes.corrections.path]: correctionsSources.reviewed,
+
+  /*
+    Research. Every article's date is its own `byline.updated`, read through the
+    registry and never retyped, so the date this file advertises is the date the
+    reader sees in the article's publication record. The hub carries the newest
+    article's date because the hub's content is the index: it changes when a
+    study is published or revised and at no other time. Both are spread in rather
+    than listed, so a second article needs no edit here.
+  */
+  ...Object.fromEntries(
+    researchArticles.map((article) => [article.path, article.updatedDate] as const),
+  ),
+  ...(latestResearchArticle
+    ? { [routes.research.path]: latestResearchArticle.updatedDate }
+    : {}),
 
   // Both legal documents render their own last-updated date, so the sitemap
   // reads that field rather than keeping a second copy of it.
