@@ -257,7 +257,37 @@ export const faq = {
   ],
 } as const
 
+/**
+ * The page component titles this block "Related solutions and research." Until
+ * now it listed no research, because the site had none.
+ *
+ * `/research/hendricks-selection-baseline` belongs here for one reason and it is
+ * the reason the first FAQ answer already gives: a large share of AI influence
+ * leaves no trace an analytics tool can classify. That answer bounds the gap
+ * from the analytics side. The study bounds it from the answer side, by counting
+ * how many answers named a source at all, and a reader who has just been told
+ * that exposure is measured "where the answer itself can be observed" is the
+ * exact reader who should see what that observation returned.
+ *
+ * The description states one run's counts and stops. It does not read them as a
+ * rate, a trend, or an attribution finding: the study ran twice on two query
+ * sets with no intervention and no control, and docs/12 §4 plus that page's own
+ * decision 4 both forbid stretching it further. The FAQ answers above are
+ * `readonly string[]` rendered as bare paragraphs with no link affordance, so
+ * this card is where the link lands without editing the page component.
+ *
+ * The 2026-08-19 counts here were replaced on 2026-08-19 when the study
+ * repointed at run 2026-08-19-110930. The earlier ones came from a run whose
+ * result file a scheduled job overwrote in place. Quote whatever that study
+ * publishes; never carry a figure forward from this file's history.
+ */
 export const related: readonly RelatedLink[] = [
+  {
+    href: routes.researchHendricksSelectionBaseline.path,
+    label: 'Hendricks Selection Baseline',
+    description:
+      'How often the answers in one dated run named a source at all: on 2026-08-19, 20 of the 47 measured cells cited at least one source and the other 27 carried no source at all.',
+  },
   {
     href: routes.searchPresenceEngineering.path,
     label: 'Search Presence Engineering',

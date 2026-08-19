@@ -20,10 +20,16 @@ import { routes } from '@/config/routes'
  *    `alumniOf` defect be fixed and made the first entry here, and docs/17 wave
  *    0 item 0.4 repeats it: a corrections page whose first entry is the firm
  *    correcting its own structured data is worth more than an empty one. The
- *    entry below is that fix, and it is verifiable in git: `alumniOf` was
+ *    seed entry is that fix, and it is verifiable in git: `alumniOf` was
  *    published as `['Merkle', 'Dentsu', 'SolarWinds']` in commit 2cfcb05 on
  *    2026-08-17 and reduced to `['Merkle', 'SolarWinds']` in commit 57371c6 the
  *    same day. `tests/unit/json-ld.test.ts` now pins it.
+ *
+ *    THE LOG NOW HOLDS THREE ENTRIES, NEWEST FIRST. The two added on 2026-08-19
+ *    both correct `/research/hendricks-selection-baseline`, and that page states
+ *    in its own copy that both are recorded here. If either entry is removed,
+ *    the study page becomes false in its own corrections section. Add entries at
+ *    the head of the array; the page renders them in array order.
  *
  * 2. NAMING DENTSU IS THE POINT, NOT A C1 BREACH. CONTENT_VERIFICATION.md C1
  *    blocks a client or employer name used to borrow its credibility, and blocks
@@ -149,24 +155,63 @@ export const recording = {
   body: [
     'A corrected page carries the correction rather than a clean version of itself. The entry states what was published, not only what replaced it, so a reader can see the claim that was wrong.',
     'Each entry records the date the claim was published, the date it was corrected, what was wrong, and what changed. Where a figure was revised, both figures appear.',
-    'Structured data is in scope. A claim a visitor never reads but a machine can read is still a published claim, and the first entry below is one of those.',
+    'Structured data is in scope. A claim a visitor never reads but a machine can read is still a published claim, and the oldest entry below is one of those.',
     'Where a published Hendricks figure is contradicted by someone running the same design, the contradiction is published here beside the original figure. That case is the reason this page exists.',
   ],
 } as const
 
 /**
- * The log. One entry, seeded per decision 1 above.
+ * The log. Three entries, newest first. The seed entry is per decision 1 above.
  *
  * `published` and `corrected` are ISO dates so the page can render machine
- * readable <time> elements. They are the same date here, which is a fact about
- * this correction rather than a placeholder: the wrong markup shipped and was
- * removed on 2026-08-17.
+ * readable <time> elements. They are the same date in all three entries, which
+ * is a fact about these corrections rather than a placeholder: each wrong claim
+ * shipped and was corrected on the same day.
+ *
+ * The two 2026-08-19 entries are separate corrections to the same page with
+ * separate causes, and neither may be folded into the other. The first is a
+ * destroyed record: figures that were taken from a real run whose result file a
+ * scheduled job then overwrote in place, so nothing could be reproduced. The
+ * second is a check run against the wrong repository. The study page's own
+ * corrections section states that both are recorded here.
  */
 export const log = {
   eyebrow: 'Log',
   title: 'Corrections to date.',
-  lead: 'One entry. The log opens with the first correction Hendricks recorded about itself, and it does not reconstruct changes made before this page existed.',
+  lead: 'Three entries, newest first. The log does not reconstruct changes made before this page existed.',
   entries: [
+    {
+      id: 'baseline-unreproducible-run',
+      title: 'Figures from a run whose record had been overwritten, on the Hendricks Selection Baseline',
+      published: '2026-08-19',
+      corrected: '2026-08-19',
+      page: {
+        label: 'Hendricks Selection Baseline',
+        href: routes.researchHendricksSelectionBaseline.path,
+      },
+      claim:
+        'The study published a 2026-08-19 run of 51 cells with all 51 measured, 19 of them citing a source, 248 distinct domains across 305 citation slots, 218 domains cited exactly once, reddit.com in 14 cells, linkedin.com in 10, and Google AI Overviews returning no sourced overview on any of the 17 questions.',
+      fault:
+        'Two faults. The figures came from a real three-engine run at 22:54 on 2026-08-18 that carried the 2026-08-19 date, and Hendricks destroyed that run’s result file. The probe named each result file from the client and the date alone, so the scheduled job at 06:16 on 2026-08-19 wrote over it in place. That job queries one engine and carries the alternating engine forward from the day before, so the surviving file held 32 records: 17 Perplexity cells from that morning, 15 ChatGPT cells flagged as carried forward from 2026-08-18, and no Google AI Overviews cells at all. No published figure could be reproduced from any surviving record, which disqualifies it on a page whose value is that a reader can check it. Separately, one figure was wrong on its merits: Google AI Overviews returned one sourced overview of the 17, not none.',
+      change:
+        'Every 2026-08-19 figure on the study is now read from run 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. That run measured 47 of its 51 cells, 20 of them citing a source, across 247 distinct domains and 308 citation slots, and cited hendricks.ai in none of them. Google AI Overviews is reported at 1 of the 13 cells that returned a measurement, the other 4 of its 17 having errored. An answer reported as citing consumer software help pages rested on the destroyed file, cannot be checked against the archive, and came off the page. The 2026-08-18 run is untouched and still reproduces from its own file. The instrument changed as well: every run now writes an immutable archive keyed to a run id, plus a manifest recording which engines were queried, which were carried forward from an earlier run, and which were not run at all. Those are three different states and a bare result file cannot tell them apart after the fact.',
+    },
+    {
+      id: 'baseline-retired-article-citation',
+      title: 'A real citation reported as a citation of a page that never existed, on the Hendricks Selection Baseline',
+      published: '2026-08-19',
+      corrected: '2026-08-19',
+      page: {
+        label: 'Hendricks Selection Baseline',
+        href: routes.researchHendricksSelectionBaseline.path,
+      },
+      claim:
+        'The study said the single hendricks.ai citation in the 2026-08-18 run pointed at an address that had never existed, and counted both runs as zero citations on that basis.',
+      fault:
+        'The page was real. Hendricks published it on 2025-11-25, retired it on 2026-08-17 while replacing the site, and Perplexity cited it on 2026-08-18, the day after it came down. Hendricks reached the wrong conclusion by running the history check against the wrong repository. The firm has two retired sites, the check searched the one with 74 registered insight slugs and a different directory layout, did not find the address there, and stopped. The address was in the other retired site, the one belonging to this codebase. The same published sentence also said the address appeared in no list of retired addresses, and it was in that list in this site’s own source at the time.',
+      change:
+        'The 2026-08-18 run now reports one real citation of a retired page, and the study leads with the fact that an engine cited an article after the firm had deleted it. The 2026-08-19 run still reports zero. The study’s methodology now carries a step requiring that a claim about a Hendricks page is verified against that page, by named repository, branch, and command.',
+    },
     {
       id: 'about-alumni-of',
       title: 'A third employer in the founder structured data on the About page',

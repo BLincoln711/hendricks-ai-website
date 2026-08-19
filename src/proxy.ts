@@ -33,7 +33,7 @@ import type { NextRequest, ProxyConfig } from 'next/server'
  * Nothing here may collide with a rule in `next.config.ts`. Next evaluates
  * headers, then redirects, then the proxy, so a path that already redirects
  * never reaches this file and listing it here would be dead code that
- * misreports production behaviour. Three legacy paths sit on that line and are
+ * misreports production behaviour. Five legacy paths sit on that line and are
  * deliberately absent:
  *
  * - `/solutions/engineering` already 308s to `/solutions/search-presence-
@@ -41,6 +41,10 @@ import type { NextRequest, ProxyConfig } from 'next/server'
  * - `/faq-brandon-hendricks` already 308s to `/about`.
  * - `/insights/how-ai-search-engines-cite-mid-market-firms-2026` is the single
  *   on-thesis insight and 308s to `/solutions/selection-intelligence`.
+ * - `/insights/ai-search-visibility-revenue-impact` holds the only citation the
+ *   firm has measured and 308s to `/solutions/search-impact-measurement`.
+ * - `/insights`, the bare hub, 308s to `/research`. The section beneath it is
+ *   still Gone; only the hub moved, because `/research` replaced it.
  *
  * tests/unit/gone-routes.test.ts asserts that separation against the real
  * config rather than a copy of it.
@@ -89,8 +93,10 @@ export const GONE_INTERNAL_PATHS: readonly string[] = [
  * confirmed against a real directory in the retired build rather than guessed.
  *
  * The 73rd, `/insights/how-ai-search-engines-cite-mid-market-firms-2026`, is the
- * single on-thesis piece and is redirected from `next.config.ts` instead. The
- * `/insights` hub itself has no disposition yet and is deliberately not here.
+ * single on-thesis piece and is redirected from `next.config.ts` instead.
+ *
+ * The `/insights` hub is not here either, and must not be added. It 308s to
+ * `/research` from `next.config.ts`, so it never reaches the proxy at all.
  */
 export const GONE_INSIGHT_PATHS: readonly string[] = [
   '/insights/a2a-protocol-business-operations',
@@ -239,13 +245,15 @@ export const GONE_EXACT_PATHS: readonly string[] = [
  * deliberately left to 404.
  */
 /**
- * The one retired-section URL that must survive the prefix rule below.
+ * The retired-section URLs that must survive the prefix rule below. Two, both
+ * article URLs. The `/insights` hub is not one of them and does not need to be:
+ * the prefix carries a trailing slash, so a bare path never matches it.
  *
- * `next.config.ts` 308s this path to /solutions/selection-intelligence because
+ * `next.config.ts` 308s the first to /solutions/selection-intelligence because
  * it is the single on-thesis article of the 73. Next evaluates redirects before
  * the proxy, so in practice the redirect already wins and this list is belt and
  * braces. It is here anyway because relying on that ordering is an invisible
- * dependency: if the redirect is ever moved, removed, or reordered, the article
+ * dependency: if a redirect is ever moved, removed, or reordered, the article
  * would start returning 410 with nothing in the code explaining why.
  */
 export const GONE_PREFIX_EXCEPTIONS: readonly string[] = [
@@ -276,9 +284,16 @@ export const GONE_PATH_PREFIXES: readonly string[] = [
    * section as a section, which is what actually happened, and it cannot be
    * outrun by a URL nobody enumerated.
    *
-   * Safe because no live route begins with /insights/ and the one surviving
-   * article is exempted above. tests/unit/gone-routes.test.ts asserts both
+   * Safe because no live route begins with /insights/ and both surviving
+   * articles are exempted above. tests/unit/gone-routes.test.ts asserts both
    * against the live registry.
+   *
+   * The trailing slash is doing real work here. It is the only thing keeping
+   * the bare `/insights` hub out of this rule, and the hub now 308s to
+   * `/research` rather than 404ing, so dropping the slash would convert the
+   * successor redirect into an unrecoverable 410 and sweep the whole section
+   * into a hub at the same time. tests/unit/gone-routes.test.ts pins the hub
+   * and its children apart for that reason.
    */
   '/insights/',
 ]
@@ -346,10 +361,12 @@ export function proxy(request: NextRequest) {
  * redirect in `next.config.ts` rather than a 410. tests/unit/gone-routes.test.ts
  * pins that.
  *
- * `/insights/:path*` is safe to widen because the one surviving insight is
+ * `/insights/:path*` is safe to widen because the two surviving insights are
  * redirected by `next.config.ts`, which Next evaluates before the proxy, and
- * because `isGone` returns false for it even if it did arrive here. The
- * `/insights` hub is undisposed and reaches the proxy only to be passed through.
+ * because `isGone` returns false for them even if they did arrive here. The
+ * bare `/insights` hub matches this entry too, since `:path*` accepts a
+ * zero-length repeat, but it 308s to `/research` from `next.config.ts` and so
+ * is decided a stage earlier.
  *
  * There is no `runtime` option here. Next 16 rejects route segment config in a
  * proxy file outright; the proxy always runs on the Node.js runtime.

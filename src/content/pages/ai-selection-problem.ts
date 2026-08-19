@@ -94,6 +94,84 @@ export const notEnough = {
   ],
 } as const
 
+/**
+ * The displacement question, and the one section on this page that observes the
+ * phenomenon the rest of the page asserts.
+ *
+ * WHY IT IS HERE AND NOT ON /what-is-ai-mediated-search. That page now owns the
+ * absence diagnosis in full: whether the answer cited anybody, and the four
+ * states ruled out in order. This is the other reading of the same screen and a
+ * different buyer question. Absence asks whether the brand was there.
+ * Displacement asks what it means that a competitor was. docs/17 3.1 puts the
+ * second in Problem register, and this page is the Problem-register owner of the
+ * selection gap under docs/17 4.1. Nothing here re-enumerates those four states.
+ * The section names the page that separates them and stops, which is docs/17
+ * rule one in operation.
+ *
+ * WHY IT IS HERE AT ALL. docs/17 6.1 records this page as asserting the
+ * phenomenon and never observing it, and wants one dated instance rather than
+ * more prose. Wave 2.3 gated that on E1 or E3, and E3 published on 2026-08-19.
+ * The `related` card added in the same change carries the pointer; this carries
+ * the instance, which is the half the card comment says a related list cannot
+ * make on its own.
+ *
+ * THE FIGURES ARE QUOTED, NEVER RECOMPUTED. The distribution figures are
+ * published at /research/hendricks-selection-baseline and appear here in the
+ * form that page publishes them. They are the only figures in this section, and
+ * they are chosen because no other page uses them. The per-engine counts and the
+ * populated-cell counts from the same run are already published on
+ * /what-is-ai-mediated-search, and repeating them here would be the duplication
+ * rule one exists to prevent. Two figures are deliberately absent: nothing here
+ * reports run-to-run churn, because that run repeated no cell within a date and
+ * therefore measured none, and nothing here reports an error rate, because one
+ * checkable error across two runs is not a rate.
+ *
+ * THE RUN DATE IS IN THE SENTENCE ON PURPOSE. Both published runs carry
+ * similar-looking distinct-domain and slot figures, so a distribution sentence
+ * with no date in it leaves a reader unable to tell which run is being quoted.
+ * Do not remove the date to tighten the line. The figures themselves were
+ * replaced on 2026-08-19 when the study repointed at run 2026-08-19-110930; the
+ * earlier ones came from a run whose result file a scheduled job overwrote in
+ * place. Quote whatever that study publishes and never restore a number from
+ * this file's history.
+ *
+ * The variance mechanism is not explained here. docs/17 4.3 assigns it to
+ * /why-ai-answers-change, which is not built. This section states the
+ * consequence for the reader, that one screen is one observation, and stops.
+ * When that route ships it takes an inbound link from here and this copy
+ * shortens rather than grows.
+ *
+ * The closing refuses the outcome rather than selling it. No firm controls
+ * whether an AI system recommends a brand, which docs/17 3.2 assigns to
+ * /solutions/search-presence-engineering. It is stated here in one line and in
+ * different words, in Problem register, exactly as /diagnostic states it in its
+ * not-designed-for list. Do not argue it here and do not add the seven layers.
+ */
+export const competitorRecommendation = {
+  eyebrow: 'One Observation, Not A Ranking',
+  title: 'Why does ChatGPT recommend a competitor instead of your brand?',
+  lead: 'A competitor recommendation is one observation, not a ranking. It records that a competitor was named once, on one surface, on one date, under one set of conditions. Nothing in a single answer screen establishes that the same competitor is named on the next run, or that a shortlist formed and the brand lost a place on it.',
+  body: [
+    'Hendricks published a dated run of this measurement against its own brand. In the 2026-08-19 run, 247 distinct domains filled 308 citation slots across the answers that cited anything, and 212 of those domains were cited exactly once.',
+    'A citation set distributed that way is not a standings table with a competitor placed above a brand in it. It is a wide, shallow spread in which most sources appear once and then do not appear again. That is what a reader is looking at when a competitor is named in an answer and their own brand is not.',
+  ],
+  limitation: {
+    title: 'What that run does not establish.',
+    body: [
+      'The 2026-08-19 run covered 17 buyer questions on one date and measured 47 of its 51 cells, with nothing changed between it and the run before it and nothing held back for comparison. It records how the sources in those answers were distributed. It establishes nothing about why any source was chosen, nothing about any other brand’s category, and nothing about what a change to a website would do to a later answer.',
+    ],
+  },
+  closing: [
+    'Separating the causes behind a competitor recommendation is a different job. The What Is AI-Mediated Search page separates them in order, cheapest first. What comes before that job is the reading itself: an answer screen is one observation, and an observation is worth what its sampling is worth.',
+    'No firm controls whether an AI system recommends a brand, and Hendricks does not sell that outcome. What can be established is whether a brand enters consideration, under which customer contexts, on which observed surfaces, and on which dates. A brand that has seen a competitor recommended once knows that it happened once. The What Is Selection Intelligence page states what a baseline reports instead, and why it is reported that way.',
+  ],
+  cta: {
+    label: 'See the run these figures come from',
+    href: routes.researchHendricksSelectionBaseline.path,
+    analytics: { location: 'asp_competitor_recommendation' },
+  } satisfies Cta,
+} as const
+
 export const intelligenceGap = {
   eyebrow: 'The Intelligence Gap',
   title: 'Most businesses cannot answer:',
@@ -139,9 +217,15 @@ export const response = {
 } as const
 
 export const sources = {
-  reviewed: '2026-08-16',
+  /*
+    Re-dated from 2026-08-16 because the page now publishes figures. docs/06 15
+    requires the visible review date to move when material changes, and
+    tests/unit/sitemap.test.ts reads this same constant, so the sitemap entry and
+    the visible <time> cannot disagree.
+  */
+  reviewed: '2026-08-19',
   basis:
-    'This page states the Hendricks position on how AI-mediated search changes buying journeys. It does not report a study, and no external finding is claimed.',
+    'This page states the Hendricks position on how AI-mediated search changes buying journeys. The figures it quotes come from a dated first-party Hendricks run, published in full with its denominators and its limits on the Hendricks Selection Baseline. No third-party research, vendor study, or external finding is claimed.',
   appliedIn: [
     { label: 'Selection Intelligence', href: routes.selectionIntelligence.path },
     { label: 'the Diagnostic', href: routes.diagnostic.path },
@@ -168,6 +252,28 @@ export const sources = {
  * as bare paragraphs with no link affordance. Routing the claim through this
  * description is the only half of the cede that lands without editing
  * `src/app/(editorial)/ai-selection-problem/page.tsx`.
+ *
+ * THE RESEARCH LINK, AND WHY IT SITS HERE.
+ *
+ * This page asserts that a brand can be absent from the options presented during
+ * an AI-assisted buying decision, and until now it evidenced that with nothing.
+ * docs/17 §5.4 records the page as wanting one dated observation rather than more
+ * prose, and wave 2.3 gates that on E1 or E3. E3 published on 2026-08-19 as
+ * `/research/hendricks-selection-baseline`. The comment on `research` in
+ * `src/config/routes.ts` names the other half of the same defect: the study was
+ * reachable from the footer and from `/corrections` and from no page whose
+ * argument it evidences. One card carries both ends of that.
+ *
+ * It sits second rather than first on purpose. The AI-mediated search definition
+ * still leads, for the reason stated above. A reader who does not accept the
+ * premise should meet the mechanism before the measurement.
+ *
+ * The description quotes the study's published figures and derives nothing from
+ * them. Per that page's own decision 4 the two runs used different query sets and
+ * carry no cause, so nothing here may read them as a trend, as proof that a
+ * tactic works, or as a statement about brands in general. This card is a
+ * pointer with a number on it, and the deepening docs/17 wave 2.3 describes is a
+ * separate change to the page body that this file cannot make on its own.
  */
 export const related: readonly RelatedLink[] = [
   {
@@ -175,6 +281,12 @@ export const related: readonly RelatedLink[] = [
     label: 'What Is AI-Mediated Search?',
     description:
       'Why a brand can rank #1 on Google and still not appear in AI answers, and the surfaces where that happens.',
+  },
+  {
+    href: routes.researchHendricksSelectionBaseline.path,
+    label: 'Hendricks Selection Baseline',
+    description:
+      'Hendricks pointed the measurement at its own brand and published the result: across 17 buyer questions and 51 answer cells on 2026-08-19, hendricks.ai was cited zero times.',
   },
   {
     href: routes.whatIsSelectionIntelligence.path,

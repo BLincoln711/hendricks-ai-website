@@ -120,6 +120,15 @@ Store for each run where legally and technically permitted:
 - Correlation does not prove causation.
 - Offline selection may not be attributable.
 
+## Related research
+
+- Hendricks Selection Baseline
+  This methodology run end to end on Hendricks itself, with its denominators published: 47 of 51 cells measured in the 2026-08-19 run, 20 of them citing at least one source, all read from an archived run a reader can ask for by id.
+
+This page states the standards and shows no run against them. The link above is the worked example: the query set, the cell counts, the error count, the cost, and the stated limits, on one page. It is the only entry in this page's related list recorded here. The rest of that list is an internal-linking decision under `docs/03` section 6 rather than approved copy, and it lives in `src/content/pages/methodology.ts`.
+
+The figures are quoted from `/research/hendricks-selection-baseline` exactly as that page publishes them, and none is recomputed into a new statistic.
+
 ## Final CTA
 
 # Establish a baseline before making claims.

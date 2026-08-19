@@ -191,7 +191,36 @@ export const sources = {
   ],
 } as const
 
+/**
+ * The research link leads this list, and the reason is a gap on this page rather
+ * than a promotion of that one.
+ *
+ * docs/17 §6.1 records the defect plainly: this page publishes a posture and
+ * calls it a protocol. It lists ten outcome states and instructs that classifier
+ * rules and human-review thresholds be defined without saying what any of them
+ * are, and it lists twelve fields to store for each run without ever showing a
+ * run. `/research/hendricks-selection-baseline` is this methodology carried
+ * through to a published number, with the query set, the cell counts, the error
+ * count, and the limits on the page. It is the worked example the standards
+ * section has never had, so it goes first.
+ *
+ * The description quotes the study's own denominators and derives nothing from
+ * them. It states what the reader will find, not what the numbers prove: two
+ * runs with no intervention and no control prove nothing about any tactic, and
+ * no sentence on this page may suggest otherwise.
+ *
+ * The 2026-08-19 denominators here were replaced on 2026-08-19 when the study
+ * repointed at run 2026-08-19-110930. The earlier ones came from a run whose
+ * result file a scheduled job overwrote in place. Quote whatever that study
+ * publishes; never carry a figure forward from this file's history.
+ */
 export const related: readonly RelatedLink[] = [
+  {
+    href: routes.researchHendricksSelectionBaseline.path,
+    label: 'Hendricks Selection Baseline',
+    description:
+      'This methodology run end to end on Hendricks itself, with its denominators published: 47 of 51 cells measured in the 2026-08-19 run, 20 of them citing at least one source, all read from an archived run a reader can ask for by id.',
+  },
   {
     href: routes.selectionIntelligence.path,
     label: 'Selection Intelligence',
