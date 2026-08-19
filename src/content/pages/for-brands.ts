@@ -152,7 +152,8 @@ export const related: readonly RelatedLink[] = [
   {
     href: routes.forAgencies.path,
     label: 'For Agencies',
-    description: 'If you are an agency evaluating a specialist partner instead.',
+    description:
+      'How an agency answers a client asking why the brand is not in ChatGPT, and what it should not promise.',
   },
 ]
 

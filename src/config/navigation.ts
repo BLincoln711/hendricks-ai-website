@@ -112,6 +112,10 @@ export const footerNavigation = {
         href: routes.whatIsGenerativeEngineOptimization.path,
       },
       { label: 'The AI Selection Problem', href: routes.aiSelectionProblem.path },
+      {
+        label: 'AI Visibility Tool or Partner',
+        href: routes.aiVisibilityToolOrPartner.path,
+      },
       { label: 'Methodology', href: routes.methodology.path },
     ]),
   },

@@ -5,6 +5,7 @@ import { siteConfig } from '@/config/site'
 import { privacyNotice } from '@/content/legal/privacy'
 import { termsOfUse } from '@/content/legal/terms'
 import { sources as aiSelectionProblemSources } from '@/content/pages/ai-selection-problem'
+import { sources as aiVisibilityToolOrPartnerSources } from '@/content/pages/ai-visibility-tool-or-partner'
 import { sources as methodologySources } from '@/content/pages/methodology'
 import { sources as aiMediatedSearchSources } from '@/content/pages/what-is-ai-mediated-search'
 import { sources as generativeEngineOptimizationSources } from '@/content/pages/what-is-generative-engine-optimization'
@@ -58,6 +59,12 @@ const lastModified: Record<string, string> = {
   // date the reader cannot see is exactly the drift this map exists to prevent.
   [routes.whatIsAiMediatedSearch.path]: aiMediatedSearchSources.reviewed,
   [routes.whatIsGenerativeEngineOptimization.path]: generativeEngineOptimizationSources.reviewed,
+
+  // The buyer-decision route, published 2026-08-19. It is not a definition page
+  // and emits no DefinedTerm, but it renders `sources.reviewed` in the same
+  // visible <time> through SourcesNote, so it qualifies on the same terms: the
+  // date advertised here is the date the reader can see on the page.
+  [routes.aiVisibilityToolOrPartner.path]: aiVisibilityToolOrPartnerSources.reviewed,
 
   // Commit 2cfcb05, dated 2026-08-17, published the founder career record: the
   // About content object grew by 62 lines, the page by 41, and a role-timeline

@@ -145,6 +145,8 @@ export default function HomePage() {
               <CompletePath steps={problem.completePath} />
               <p className="text-[0.9375rem] text-[var(--color-slate)]">{problem.closing}</p>
             </div>
+
+            <TextCta cta={problem.cta} />
           </div>
         </Container>
       </Section>

@@ -89,4 +89,5 @@ It analyzes controlled inputs, observable outputs, citations, sources, brand ass
 
 - Explore the Selection Intelligence solution
 - Read the measurement methodology
+- Do You Need an AI Visibility Tool or a Partner?
 - Establish a baseline through the Diagnostic

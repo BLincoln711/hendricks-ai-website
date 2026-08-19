@@ -5,6 +5,8 @@ import { PageHero } from '@/components/layout/page-hero'
 import { Section } from '@/components/layout/section'
 import { SectionHeading } from '@/components/layout/section-heading'
 import { ClosingCta } from '@/components/sections/closing-cta'
+import { DirectAnswer } from '@/components/sections/direct-answer'
+import { FaqSection } from '@/components/sections/faq-section'
 import { RelatedLinks } from '@/components/sections/related-links'
 import { JsonLd } from '@/components/seo/json-ld'
 import { SignalList } from '@/components/ui/signal-list'
@@ -12,8 +14,10 @@ import { PartnershipModels } from '@/components/visuals/partnership-models'
 import { routes } from '@/config/routes'
 import {
   capabilities,
+  clientConversation,
   closing,
   commitments,
+  directAnswer,
   hero,
   meta,
   models,
@@ -77,6 +81,32 @@ export default function ForAgenciesPage() {
           </div>
         </div>
       </PageHero>
+
+      <DirectAnswer term={directAnswer.term} answer={directAnswer.answer} />
+
+      {/*
+        The four client-conversation answers, immediately after the direct
+        answer and ahead of Partnership Models, because the question set is the
+        spine of the top half of this page.
+
+        `headingLevel={2}` promotes each question to a section heading of its
+        own, which faq-section.tsx permits for exactly this shape and which puts
+        the buyer's phrasing into the heading that travels with the chunk.
+
+        The band is `soft` because FaqSection supplies its own Section and the
+        two neighbours are fixed: DirectAnswer above is hard-coded white, and
+        Partnership Models below is field.
+
+        No FAQPage markup is emitted here, per docs/06 section 10.
+      */}
+      <FaqSection
+        id="client-conversation"
+        eyebrow={clientConversation.eyebrow}
+        title={clientConversation.title}
+        items={clientConversation.items}
+        headingLevel={2}
+        variant="soft"
+      />
 
       <Section variant="field" size="major" ariaLabelledBy="models-title">
         <Container>

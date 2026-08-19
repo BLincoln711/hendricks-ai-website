@@ -34,6 +34,9 @@ describe('Route registry', () => {
         '/',
         '/about',
         '/ai-selection-problem',
+        // Buyer-decision route, docs/17 §5.3. It sits in (editorial) with the
+        // definition pages and defines no term.
+        '/ai-visibility-tool-or-partner',
         '/contact',
         '/diagnostic',
         '/for-agencies',

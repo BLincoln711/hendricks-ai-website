@@ -153,14 +153,14 @@ export default function WhatIsAiMediatedSearchPage() {
         </Container>
       </Section>
 
-      <Section variant="white" size="major" ariaLabelledBy="upstream-title">
+      <Section variant="white" size="major" ariaLabelledBy="ranking-gap-title">
         <Container>
           <div className="flex flex-col gap-10">
             <SectionHeading
               eyebrow={upstream.eyebrow}
               title={upstream.title}
               description={upstream.lead}
-              id="upstream-title"
+              id="ranking-gap-title"
               level={2}
             />
 

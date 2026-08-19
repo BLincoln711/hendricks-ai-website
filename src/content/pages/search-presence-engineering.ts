@@ -238,6 +238,17 @@ export const related: readonly RelatedLink[] = [
     description:
       'What Google Search Central documents about structured data and AI surfaces, and where the GEO framing runs out.',
   },
+  /**
+   * The reciprocal of the outbound reference in the `/for-agencies`
+   * client-conversation block. That block tells an agency principal what not to
+   * promise a client and references the no-control claim this page owns
+   * (docs/17 §3.2), so the link runs both ways rather than one.
+   */
+  {
+    href: routes.forAgencies.path,
+    label: 'For Agencies',
+    description: 'What an agency tells a client who asks why the brand is not in ChatGPT.',
+  },
 ]
 
 export const closing = {

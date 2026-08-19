@@ -32,6 +32,44 @@ Hendricks provides a specialized intelligence and engineering layer while protec
 
 **Primary CTA:** Discuss an Agency Partnership
 
+## Direct answer
+
+**Eyebrow:** THE CLIENT CONVERSATION
+
+**The honest answer to a client asking why the brand is not in ChatGPT is that absence is not yet a diagnosis. A single answer screen is one observation under one set of conditions, so what the client is owed first is a reading of what ChatGPT says about the brand and its competitors across repeated runs and the customer contexts the business actually sells into. An agency can commit to producing that reading and to improving the conditions the brand controls. No agency can commit to the citation itself.**
+
+## The client conversation
+
+**Eyebrow:** WHEN A CLIENT ASKS
+
+# The client conversation, answered.
+
+### Why does ChatGPT recommend a competitor and not our client?
+
+A competitor recommendation has more than one possible cause, and an agency principal settles it by ruling causes out in order rather than by reading the screenshot the client sent. Technical access comes first, because it is a precondition rather than a judgment and the cheapest candidate to eliminate. What the brand did in the answer comes second.
+
+Absent from the options presented and present but not recommended are different problems with different remedies. The What Is AI-Mediated Search page carries the first. The What Is Selection Intelligence page carries the difference between appearing and being considered. Stability comes last, because a cause that appears in one run and not the next is not the cause.
+
+One screenshot cannot separate those causes. It records that something happened once, not whether the brand was unreachable, present and passed over, or unlucky in a single run. Answering the client from the screenshot is a guess, and the client will remember the guess.
+
+### What can we tell the client we will actually find out?
+
+A reading tells the client what the observed systems returned for the commercial questions the business sells into, which competitors were named, and which sources those answers drew on, recorded run by run with the question, the supplied context, the date, and the response kept for re-inspection. Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity.
+
+The surfaces table on the What Is AI-Mediated Search page states which surfaces are observed and which are not, and an agency should hand a client that boundary before the first report rather than after it. What a baseline produces is set out on the Selection Intelligence solution page.
+
+### What should we not promise the client?
+
+Three commitments sit outside an agency’s control and none should be made: the citation itself, a date by which a citation appears, and a number that will still read the same when the measurement is repeated. The Search Presence Engineering page states plainly why the first is nobody’s to give.
+
+What an agency can be held to is the conditions the brand controls, the method used to observe the result, and a record of what changed and when. The Partner Commitments Hendricks publishes for agency partnerships are the contractual form of that, and the line that matters most in a client conversation is the one that permits no fabricated results and no guaranteed citation claims.
+
+### How do we check whether ChatGPT can reach the client’s site at all?
+
+Technical access is the one candidate cause an agency can check the same day, before any measurement is commissioned. The What Is Generative Engine Optimization page carries the first-party platform documentation for it.
+
+Platform documentation states which crawler surfaces a site in a system’s search results and how a site controls its access. It does not establish that allowing access produces a citation. Access is a precondition that can be checked, not a lever with a measured effect. An agency that sells it as a lever is selling plausible mechanism as measured effect.
+
 ## Partnership models
 
 ### White-label specialist

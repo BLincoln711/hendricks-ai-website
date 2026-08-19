@@ -1,5 +1,5 @@
 import type { Cta } from '@/components/ui/cta'
-import { ctaHref } from '@/config/routes'
+import { ctaHref, routes } from '@/config/routes'
 
 /**
  * Approved homepage copy, transcribed from content/pages/01-home.md.
@@ -76,6 +76,16 @@ export const problem = {
     'Revenue',
   ],
   closing: 'Most organizations have major blind spots across that path.',
+  // The section states the wedge in the buyer's own terms and, until this entry
+  // existed, carried no link of any kind. docs/03 §6: the highest-authority
+  // section on the site should not be a dead end. Destination is the page that
+  // owns "rank well and still lose the shortlist" (docs/17 §3.2), and the label
+  // is descriptive rather than exact-match commercial (docs/06 §13).
+  cta: {
+    label: 'See why a brand can rank #1 on Google and still not appear in AI answers',
+    href: routes.whatIsAiMediatedSearch.path,
+    analytics: { location: 'home_problem' },
+  } satisfies Cta,
 } as const
 
 export const whatWeDo = {
