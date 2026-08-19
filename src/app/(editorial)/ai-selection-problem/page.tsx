@@ -8,12 +8,15 @@ import { ClosingCta } from '@/components/sections/closing-cta'
 import { RelatedLinks } from '@/components/sections/related-links'
 import { SourcesNote } from '@/components/sections/sources-note'
 import { JsonLd } from '@/components/seo/json-ld'
+import { Callout } from '@/components/ui/callout'
+import { TextCta } from '@/components/ui/cta'
 import { SignalList } from '@/components/ui/signal-list'
 import { NegationLadder } from '@/components/visuals/negation-ladder'
 import { CompletePath, TraditionalVsAiFlow } from '@/components/visuals/traditional-vs-ai-flow'
 import { routes } from '@/config/routes'
 import {
   closing,
+  competitorRecommendation,
   consequence,
   hero,
   intelligenceGap,
@@ -123,6 +126,71 @@ export default function AiSelectionProblemPage() {
               <div className="rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[var(--color-field)] p-6">
                 <CompletePath steps={notEnough.path} />
               </div>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/*
+        The dated instance docs/17 6.1 says this page needs, placed after the
+        ladder so a reader has already met "being considered does not guarantee
+        recommendation" before being shown what a recommendation going elsewhere
+        is actually worth.
+
+        Container is narrow to match the ladder above it, because this section is
+        argument rather than inventory and the two inventory sections on either
+        side use the full width. The figures sit in body copy rather than in a
+        table: three numbers describing one distribution are a statement, not a
+        comparison, and a two-column table of them would be a comparison with
+        nothing on the other side.
+
+        The limitation is a Callout rather than a trailing paragraph. It is the
+        qualification the figures are only publishable with, and a retrieval
+        system lifting this section has to lift it too.
+      */}
+      <Section variant="field" size="major" ariaLabelledBy="competitor-title">
+        <Container width="narrow">
+          <div className="flex flex-col gap-8">
+            <SectionHeading
+              eyebrow={competitorRecommendation.eyebrow}
+              title={competitorRecommendation.title}
+              description={competitorRecommendation.lead}
+              id="competitor-title"
+              level={2}
+            />
+
+            <div className="flex flex-col gap-4">
+              {competitorRecommendation.body.map((paragraph) => (
+                <p
+                  key={paragraph}
+                  className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+
+            <Callout
+              variant="limitation"
+              label="Honest limitation"
+              title={competitorRecommendation.limitation.title}
+            >
+              {competitorRecommendation.limitation.body.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </Callout>
+
+            <div className="flex flex-col gap-4">
+              {competitorRecommendation.closing.map((paragraph) => (
+                <p
+                  key={paragraph}
+                  className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]"
+                >
+                  {paragraph}
+                </p>
+              ))}
+
+              <TextCta cta={competitorRecommendation.cta} />
             </div>
           </div>
         </Container>

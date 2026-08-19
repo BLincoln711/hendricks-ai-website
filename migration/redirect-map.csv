@@ -30,7 +30,7 @@ old_url,new_url,redirect_type,rationale,backlink_priority,search_traffic_priorit
 /industries/marketing-agencies,,410,Off-thesis vertical positioning retired with the previous site; 410 Gone via src/proxy.ts,unknown,unknown,passed
 /industries/multi-location-services,,410,Off-thesis vertical positioning retired with the previous site; 410 Gone via src/proxy.ts,unknown,unknown,passed
 /industries/professional-services,,410,Off-thesis vertical positioning retired with the previous site; 410 Gone via src/proxy.ts,unknown,unknown,passed
-/insights,,,Hub not disposed in this pass; remains Brandon call; /research is unbuilt so the previously recorded 308 was never shipped; currently 404,unknown,unknown,pending
+/insights,/research,308,Hub disposed 2026-08-19; /research is the successor hub and is now built and published so the 308 this row previously recorded as blocked now ships; the section beneath the hub is unaffected and keeps its 410 from the /insights/ prefix rule in src/proxy.ts,unknown,unknown,passed
 /insights/a2a-protocol-business-operations,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
 /insights/agent-collision-detection-preventing-duplicate-work,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed
 /insights/agent-orchestration-patterns-execution-models,,410,Off-thesis autonomous agent archive; no Search Intelligence Engineering equivalent; 410 Gone via src/proxy.ts,unknown,unknown,passed

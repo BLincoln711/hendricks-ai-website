@@ -86,6 +86,43 @@ Being discovered and being chosen are now separate outcomes, and most reporting 
 
 **Link:** [Read The AI Selection Problem](/ai-selection-problem)
 
+## Why is my brand not showing up in ChatGPT?
+
+**Eyebrow:** ABSENCE VERSUS NO SOURCES
+
+A brand is missing from a ChatGPT answer for one of two reasons that look identical on screen and are not the same problem. Either the answer cited sources and the brand was not among them, or the answer cited nothing at all. An answer that cites nobody has no slot for any brand to win.
+
+Hendricks measured that split on its own brand and published the run. On 2026-08-19, all three engines were sent the same 17 buyer questions. ChatGPT cited sources on 2 of them and answered the rest with no source attached. Perplexity cited sources on 17. Google AI Overviews returned a measurement on 13 of its 17 and cited sources on 1 of those. The run produced 51 cells, measured 47 of them, and 20 of those carried a citation of any kind. It is archived as run 2026-08-19-110930.
+
+Those figures describe 17 questions, three systems, one geography, and one date. Nothing was changed between that run and the one before it, and nothing was held back for comparison, so the run establishes what those answers looked like and nothing about what a change to a website would do to them. It is a baseline, not evidence that any tactic works.
+
+What the split changes is the first question worth asking. Before a brand asks why it lost a ChatGPT answer, it has to establish whether the answer had anything to lose. For most of the questions in that run, the honest reading is not that a shortlist formed without the brand. It is that no shortlist was published at all.
+
+An answer that names a source is not the same as an answer that is right. In the run a day earlier, ChatGPT answered a question about who audits brand visibility in AI assistants by listing viaudit.com, a domain that returned no DNS record and no response when it was checked with dig and curl on 2026-08-18.
+
+**Link:** [Read the run, its denominators, and its limits](/research/hendricks-selection-baseline)
+
+## How does a brand find out why it is not showing up in ChatGPT?
+
+**Eyebrow:** RULING CAUSES OUT
+
+A brand finds out why it is not showing up in ChatGPT by separating four states that look the same on one answer screen, in order, cheapest first. Three of the four are not competitive losses. Each carries a different remedy, and only two of them respond to anything a brand does to its own evidence.
+
+**Table caption:** Four states behind a brand missing from a ChatGPT answer, in the order they are ruled out.
+
+| Check | What it establishes | Why it sits here |
+|---|---|---|
+| Did the answer cite any source at all? | Whether the question produced citation slots that any brand could occupy. | An answer that cites nobody is not a shortlist the brand lost, and no work on the brand adds a slot to it. |
+| Did a sourced answer leave the brand out? | Whether the brand was passed over inside an answer that named other sources. | This is the only one of the four states that is a competitive loss, and it is the one most treatments of this question assume without checking the first. |
+| Did the answer name the brand and describe it wrongly? | Whether the problem is absence or description. | A brand described from outdated, thin, or contradictory evidence reads as missing to anyone scanning an answer for a reason to shortlist it, and the remedy is a different one. |
+| Did the result hold when the question was asked again? | Whether the reading is an observation or a single screen. | A result that appears in one run and not the next has not been established, so nothing read once settles which of the three states above applies. |
+
+Two of those four states are worth acting on, and neither is fixed by publishing more pages. Absence from a sourced answer and a wrong description are both conditions of the evidence an AI system can find and corroborate about a brand: whether the site can be reached and read, whether the organization, its services, and its people are defined consistently wherever they are described, and whether decision-stage content exists for the questions buyers actually ask. Search Presence Engineering is the work on those conditions.
+
+Hendricks labels the reasoning behind that work for what it is. Improving those conditions is a plausible mechanism rather than a measured effect. No controlled test available to Hendricks shows that the work produces a citation, no page on this site claims one, and the two published runs tested nothing, because Hendricks changed nothing about the site between them and held nothing back for comparison.
+
+**Link:** [See the Search Presence Engineering layers](/solutions/search-presence-engineering)
+
 ## How is AI-mediated search different from traditional search results?
 
 **Eyebrow:** TRADITIONAL VERSUS AI-MEDIATED
@@ -131,7 +168,7 @@ Hendricks cannot see inside these systems. Hendricks reports what was observed, 
 
 ## Sources and updates
 
-This definition is maintained by Hendricks. Where the page describes systems Hendricks does not control, it states publicly observable behavior and cites the platform’s own documentation. No third-party research, vendor study, or statistic is reported.
+This definition is maintained by Hendricks. Where the page describes systems Hendricks does not control, it states publicly observable behavior and cites the platform’s own documentation. The figures on this page come from first-party Hendricks measurement, published in full with its query set, its denominators, its method, and its limits at the Hendricks Selection Baseline. No third-party research, vendor study, or statistic is reported.
 
 **Last reviewed:** 2026-08-19
 

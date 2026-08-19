@@ -191,6 +191,15 @@ Causal evidence requires a comparison that isolates the intervention. The forms 
 
 The evidence grades carry the rest. Grade A is the only grade that requires a controlled experiment, and the Hendricks methodology publishes the full scale and what each grade permits. Correlation does not prove causation, and a graded conclusion states plainly which of the two is on offer.
 
+## Related research
+
+- Hendricks Selection Baseline
+  How often the answers in one dated run named a source at all: on 2026-08-19, 20 of the 47 measured cells cited at least one source and the other 27 carried no source at all.
+
+The first FAQ answer bounds the attribution gap from the analytics side. The link above bounds it from the answer side, by counting how many answers named a source at all. It is the only entry in this page's related list recorded here. The rest of that list is an internal-linking decision under `docs/03` section 6 rather than approved copy, and it lives in `src/content/pages/search-impact-measurement.ts`.
+
+The figures are quoted from `/research/hendricks-selection-baseline` exactly as that page publishes them. Two runs on two query sets, with no intervention and no control, are not a rate and are not published as one.
+
 ## Final CTA
 
 # Make the work accountable to a business outcome.

@@ -24,8 +24,13 @@ import {
  * fourth.
  *
  * Render order the page is built against:
- *   hero, directAnswer, surfaces, upstream, comparison, vocabulary, limitation,
- *   related, sources, closing.
+ *   hero, directAnswer, surfaces, upstream, absence, diagnosis, comparison,
+ *   vocabulary, limitation, related, sources, closing.
+ *
+ * `absence` and `diagnosis` answer the same question `upstream` answers, in the
+ * words a brand-side buyer types rather than in Google vocabulary, and they sit
+ * immediately after it for that reason. They are not a third rendering of the
+ * ranking contrast and must not be rewritten into one.
  *
  * `sources.citations` is new on this page and has no precedent elsewhere in
  * src/content. Every other definition page states a Hendricks position and
@@ -158,6 +163,137 @@ export const upstream = {
 } as const
 
 /**
+ * The buyer's own phrasing of the same symptom, and the one section on this page
+ * that carries a number.
+ *
+ * docs/17 §3.2 assigns the diagnosis of why a brand is absent to this page and
+ * to /what-is-selection-intelligence. /for-agencies owns the adjacent answer,
+ * which is what a principal says to a client and in what order, and it already
+ * links here for the diagnosis itself. Nothing in this section may be rewritten
+ * into that register: this is what is happening, not what to say about it.
+ *
+ * Why the section exists at all. The corpus stated the diagnosis only in Google
+ * vocabulary ("rank #1 ... not appear in AI answers") and never in the words a
+ * brand-side buyer types. It also had no answer to the prior question, which the
+ * self-baseline made answerable for the first time on 2026-08-19: whether the
+ * answer cited anybody. A question that returns no sources has no slot for any
+ * brand to win, and every generic five-reasons treatment of this subject skips
+ * straight past it.
+ *
+ * THE FIGURES ARE QUOTED, NEVER RECOMPUTED. Every number below is published at
+ * /research/hendricks-selection-baseline and appears here in the same form it
+ * appears there. Do not derive a rate, a percentage, a trend, or a comparison
+ * between the two runs from them: the runs used different query sets, and that
+ * page's own limitations section forbids reading them as a series. Do not add a
+ * figure from anywhere else. The baseline has no intervention and no control, so
+ * no sentence here may present it as evidence that any tactic works.
+ *
+ * EVERY 2026-08-19 FIGURE HERE WAS REPLACED ON 2026-08-19. The first published
+ * set came from a run whose result file a scheduled job overwrote in place, so
+ * nothing in it could be reproduced, and one of its figures was also wrong:
+ * Google AI Overviews returned one sourced overview, on 1 of the 13 cells it
+ * returned a measurement on, not none of 17. The
+ * replacements are read from run 2026-08-19-110930, which is named in the copy
+ * below so a reader can ask for the file. See decision 0A in
+ * `src/content/research/hendricks-selection-baseline.ts` before editing a
+ * number here, and never restore the zero for Google AI Overviews.
+ *
+ * The closing paragraph used to report a run 2 Perplexity answer citing consumer
+ * software help pages. That observation rested on the destroyed file and cannot
+ * be checked against the archive, so it was replaced by the run 1 viaudit.com
+ * finding, which reproduces from run 1's own file. Do not restore it.
+ */
+export const absence = {
+  eyebrow: 'Absence Versus No Sources',
+  title: 'Why is my brand not showing up in ChatGPT?',
+  lead: 'A brand is missing from a ChatGPT answer for one of two reasons that look identical on screen and are not the same problem. Either the answer cited sources and the brand was not among them, or the answer cited nothing at all. An answer that cites nobody has no slot for any brand to win.',
+  body: [
+    'Hendricks measured that split on its own brand and published the run. On 2026-08-19, all three engines were sent the same 17 buyer questions. ChatGPT cited sources on 2 of them and answered the rest with no source attached. Perplexity cited sources on 17. Google AI Overviews returned a measurement on 13 of its 17 and cited sources on 1 of those. The run produced 51 cells, measured 47 of them, and 20 of those carried a citation of any kind. It is archived as run 2026-08-19-110930.',
+    'Those figures describe 17 questions, three systems, one geography, and one date. Nothing was changed between that run and the one before it, and nothing was held back for comparison, so the run establishes what those answers looked like and nothing about what a change to a website would do to them. It is a baseline, not evidence that any tactic works.',
+    'What the split changes is the first question worth asking. Before a brand asks why it lost a ChatGPT answer, it has to establish whether the answer had anything to lose. For most of the questions in that run, the honest reading is not that a shortlist formed without the brand. It is that no shortlist was published at all.',
+    'An answer that names a source is not the same as an answer that is right. In the run a day earlier, ChatGPT answered a question about who audits brand visibility in AI assistants by listing viaudit.com, a domain that returned no DNS record and no response when it was checked with dig and curl on 2026-08-18.',
+  ],
+  cta: {
+    label: 'Read the run, its denominators, and its limits',
+    href: routes.researchHendricksSelectionBaseline.path,
+    analytics: { location: 'wiams_absence' },
+  } satisfies Cta,
+} as const
+
+/**
+ * The order the four states are ruled out in, as a table rather than prose.
+ *
+ * A sequence of checks written as paragraphs is the most common way a good
+ * answer becomes unretrievable, and this one is a comparison as well as a
+ * sequence: each row is a state, what settles it, and why it sits where it does.
+ * One row has to survive being lifted without the other three.
+ *
+ * Row 4 deliberately does not restate the variance mechanism. docs/17 §4.3
+ * assigns that answer to /why-ai-answers-change, which is not built, so this row
+ * states the consequence for the reader and stops. When that route ships it
+ * takes an inbound link from here, and this row shortens rather than grows.
+ *
+ * The closing carries the mechanism label required by docs/17 §11 rule 8, in
+ * those exact words. It is not a hedge and it is not decorative. The best
+ * available controlled evidence does not show that this class of work produces a
+ * citation, and a page that sells the conditions without saying so is selling
+ * plausible mechanism as measured effect. Do not soften it, and do not move it
+ * into a comment.
+ *
+ * The three conditions named in the closing are three of the seven layers owned
+ * by /solutions/search-presence-engineering. They are named in one clause and
+ * linked, never re-listed. Restating the seven layers here is the duplication
+ * docs/17 rule one exists to prevent.
+ */
+export const diagnosis = {
+  eyebrow: 'Ruling Causes Out',
+  title: 'How does a brand find out why it is not showing up in ChatGPT?',
+  lead: 'A brand finds out why it is not showing up in ChatGPT by separating four states that look the same on one answer screen, in order, cheapest first. Three of the four are not competitive losses. Each carries a different remedy, and only two of them respond to anything a brand does to its own evidence.',
+  caption:
+    'Four states behind a brand missing from a ChatGPT answer, in the order they are ruled out.',
+  columns: [
+    { key: 'check', header: 'Check', rowHeader: true, width: '30%' },
+    { key: 'settles', header: 'What it establishes' },
+    { key: 'order', header: 'Why it sits here' },
+  ],
+  rows: [
+    {
+      check: 'Did the answer cite any source at all?',
+      settles: 'Whether the question produced citation slots that any brand could occupy.',
+      order:
+        'An answer that cites nobody is not a shortlist the brand lost, and no work on the brand adds a slot to it.',
+    },
+    {
+      check: 'Did a sourced answer leave the brand out?',
+      settles: 'Whether the brand was passed over inside an answer that named other sources.',
+      order:
+        'This is the only one of the four states that is a competitive loss, and it is the one most treatments of this question assume without checking the first.',
+    },
+    {
+      check: 'Did the answer name the brand and describe it wrongly?',
+      settles: 'Whether the problem is absence or description.',
+      order:
+        'A brand described from outdated, thin, or contradictory evidence reads as missing to anyone scanning an answer for a reason to shortlist it, and the remedy is a different one.',
+    },
+    {
+      check: 'Did the result hold when the question was asked again?',
+      settles: 'Whether the reading is an observation or a single screen.',
+      order:
+        'A result that appears in one run and not the next has not been established, so nothing read once settles which of the three states above applies.',
+    },
+  ],
+  closing: [
+    'Two of those four states are worth acting on, and neither is fixed by publishing more pages. Absence from a sourced answer and a wrong description are both conditions of the evidence an AI system can find and corroborate about a brand: whether the site can be reached and read, whether the organization, its services, and its people are defined consistently wherever they are described, and whether decision-stage content exists for the questions buyers actually ask. Search Presence Engineering is the work on those conditions.',
+    'Hendricks labels the reasoning behind that work for what it is. Improving those conditions is a plausible mechanism rather than a measured effect. No controlled test available to Hendricks shows that the work produces a citation, no page on this site claims one, and the two published runs tested nothing, because Hendricks changed nothing about the site between them and held nothing back for comparison.',
+  ],
+  cta: {
+    label: 'See the Search Presence Engineering layers',
+    href: routes.searchPresenceEngineering.path,
+    analytics: { location: 'wiams_diagnosis' },
+  } satisfies Cta,
+} as const
+
+/**
  * A real comparison rather than prose pretending to be one, so a single row
  * survives being lifted on its own.
  */
@@ -259,7 +395,13 @@ export const limitation = {
 /**
  * The only content object on the site that carries external citations. Every
  * claim this page makes about a platform is traceable to that platform's own
- * documentation, and no blog, vendor study, or statistic is cited.
+ * documentation, and no blog, vendor study, or third-party statistic is cited.
+ *
+ * The `absence` section added a second class of evidence to this page: a
+ * first-party figure produced by Hendricks and published on this site with its
+ * denominators and its limits. That is not an external citation and it does not
+ * touch A5, so it belongs in `basis` and in the body link rather than in the
+ * reference list below, which carries platform documentation only.
  *
  * The list carries a citation only where the page makes a claim that needs one.
  * Naming a public product as part of the environment is not such a claim, which
@@ -275,7 +417,7 @@ export const limitation = {
 export const sources = {
   reviewed: '2026-08-19',
   basis:
-    'This definition is maintained by Hendricks. Where the page describes systems Hendricks does not control, it states publicly observable behavior and cites the platform’s own documentation. No third-party research, vendor study, or statistic is reported.',
+    'This definition is maintained by Hendricks. Where the page describes systems Hendricks does not control, it states publicly observable behavior and cites the platform’s own documentation. The figures on this page come from first-party Hendricks measurement, published in full with its query set, its denominators, its method, and its limits at the Hendricks Selection Baseline. No third-party research, vendor study, or statistic is reported.',
   citations: [
     {
       title: 'AI features and your website',

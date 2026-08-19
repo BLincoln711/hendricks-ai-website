@@ -15,8 +15,10 @@ import { DataTable } from '@/components/ui/data-table'
 import { SignalList } from '@/components/ui/signal-list'
 import { routes } from '@/config/routes'
 import {
+  absence,
   closing,
   comparison,
+  diagnosis,
   directAnswer,
   hero,
   limitation,
@@ -176,6 +178,81 @@ export default function WhatIsAiMediatedSearchPage() {
               </div>
 
               <TextCta cta={upstream.cta} />
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      {/*
+        The same question as the section above, in the words a brand-side buyer
+        types. It carries the only figures on this page, and they are quoted from
+        /research/hendricks-selection-baseline rather than restated in a new
+        form. The body link is deliberate rather than decorative: a reader who
+        wants to check a number has to be able to reach the run that produced it
+        in one click, and the figures are meaningless without the denominators
+        and limits that live there.
+      */}
+      <Section variant="soft" size="major" ariaLabelledBy="absence-title">
+        <Container>
+          <div className="flex flex-col gap-8">
+            <SectionHeading
+              eyebrow={absence.eyebrow}
+              title={absence.title}
+              description={absence.lead}
+              id="absence-title"
+              level={2}
+            />
+
+            <div className="flex flex-col gap-4">
+              {absence.body.map((paragraph) => (
+                <p
+                  key={paragraph}
+                  className="text-[1.0625rem] measure leading-relaxed text-[var(--color-graphite)]"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+
+            <TextCta cta={absence.cta} />
+          </div>
+        </Container>
+      </Section>
+
+      {/*
+        A sequence of checks and a comparison of states at once, so it renders as
+        a table rather than four paragraphs. Each row states the check, what it
+        settles, and why it sits at that position, which is what lets one row be
+        lifted without the other three.
+      */}
+      <Section variant="white" size="major" ariaLabelledBy="diagnosis-title">
+        <Container>
+          <div className="flex flex-col gap-10">
+            <SectionHeading
+              eyebrow={diagnosis.eyebrow}
+              title={diagnosis.title}
+              description={diagnosis.lead}
+              id="diagnosis-title"
+              level={2}
+            />
+
+            <DataTable
+              caption={diagnosis.caption}
+              columns={diagnosis.columns}
+              rows={diagnosis.rows}
+            />
+
+            <div className="flex flex-col gap-4">
+              {diagnosis.closing.map((paragraph) => (
+                <p
+                  key={paragraph}
+                  className="text-[1.0625rem] measure leading-relaxed text-[var(--color-graphite)]"
+                >
+                  {paragraph}
+                </p>
+              ))}
+
+              <TextCta cta={diagnosis.cta} />
             </div>
           </div>
         </Container>

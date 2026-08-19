@@ -28,7 +28,7 @@ export default function Error({
       <div className="flex flex-col gap-6 py-24 md:py-36">
         <p className="text-eyebrow flex items-center gap-2 text-[var(--color-amber)]">
           <SignalDot size={6} tone="amber" />
-          Status 500 — request failed
+          Status 500, request failed
         </p>
         <h1 className="text-h1 measure-tight">Something went wrong on our side.</h1>
         <p className="text-lead measure">

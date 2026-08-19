@@ -274,9 +274,9 @@ describe('isGone', () => {
   })
 
   it('leaves undisposed paths alone', () => {
-    // These three are still Brandon's call and must keep returning 404 rather
-    // than the unrecoverable 410.
-    expect(isGone('/insights')).toBe(false)
+    // These two are still Brandon's call and must keep returning 404 rather
+    // than the unrecoverable 410. `/insights` used to sit here; it is disposed
+    // now and has its own describe block below.
     expect(isGone('/pricing')).toBe(false)
     expect(isGone('/security')).toBe(false)
   })
@@ -370,8 +370,19 @@ describe('Redirect map', () => {
     expect(row?.qa_status).toBe('passed')
   })
 
-  it('leaves the three undisposed URLs undisposed', () => {
-    for (const undisposed of ['/insights', '/pricing', '/security']) {
+  it('records the hub as a shipped 308 to the research hub', () => {
+    // This row read blocked until /research shipped. If it ever reverts to an
+    // empty disposition, the redirect in next.config.ts has been dropped and
+    // the hub is 404ing again.
+    const row = byPath.get('/insights')
+
+    expect(row?.redirect_type).toBe('308')
+    expect(row?.new_url).toBe('/research')
+    expect(row?.qa_status).toBe('passed')
+  })
+
+  it('leaves the two undisposed URLs undisposed', () => {
+    for (const undisposed of ['/pricing', '/security']) {
       const row = byPath.get(undisposed)
 
       expect(row?.redirect_type, `${undisposed} was disposed of`).toBe('')
@@ -403,7 +414,7 @@ describe('Retired /insights section', () => {
     }
   })
 
-  it('spares the one on-thesis article the prefix would otherwise take', () => {
+  it('spares both exempted articles the prefix would otherwise take', () => {
     for (const exception of GONE_PREFIX_EXCEPTIONS) {
       expect(isGone(exception)).toBe(false)
       expect(isGone(`${exception}/`)).toBe(false)
@@ -418,13 +429,6 @@ describe('Retired /insights section', () => {
     }
   })
 
-  it('leaves the /insights hub to 404 rather than 410', () => {
-    // The hub is the natural 301 target for /research once that route ships, so
-    // a 410 would be semantically wrong. The trailing slash on the prefix is
-    // what keeps the bare path out.
-    expect(isGone('/insights')).toBe(false)
-  })
-
   it('sends every exception somewhere real', () => {
     // An exemption is only safe if something else actually handles the path.
     // Exempting a URL from the 410 with no redirect behind it turns a decisive
@@ -432,5 +436,101 @@ describe('Retired /insights section', () => {
     for (const exception of GONE_PREFIX_EXCEPTIONS) {
       expect(literalRedirectSources).toContain(exception)
     }
+  })
+})
+
+/**
+ * The hub and the section beneath it now hold opposite dispositions, and one
+ * character separates them: the trailing slash on the `/insights/` prefix.
+ *
+ * `/insights` was held at 404 while nothing had replaced it, on the recorded
+ * reasoning that it was the natural redirect target for `/research` once that
+ * route shipped. `/research` shipped, so the hub now 308s there while every
+ * article beneath it stays Gone.
+ *
+ * Both ways of losing that distinction are one-line edits. Drop the slash from
+ * the prefix and the hub starts returning an unrecoverable 410 on a URL that has
+ * a live successor. Widen the redirect to `/insights/:path*` and ~100 retired
+ * articles get swept into a hub, which is the mass redirect docs/09 section 5
+ * forbids and which Google reads as a soft 404. Neither is visible in review, so
+ * both are pinned here.
+ */
+describe('The /insights hub against its children', () => {
+  const HUB = '/insights'
+  const SUCCESSOR = '/research'
+
+  it('redirects the hub to the research hub, permanently', () => {
+    const rule = redirectRules.find((candidate) => candidate.source === HUB)
+
+    expect(rule, 'the /insights hub has no redirect').toBeDefined()
+    expect(rule?.destination).toBe(SUCCESSOR)
+    // permanent:true emits 308, which is what migration/redirect-map.csv records.
+    expect(rule?.permanent).toBe(true)
+  })
+
+  it('sends the hub to a route that is actually built', () => {
+    // The whole reason the hub stopped being a 404 is that /research exists. If
+    // it ever becomes unbuilt, the redirect is a soft 404 and the 410 was better.
+    expect(isBuilt(SUCCESSOR), `${SUCCESSOR} is not a built route`).toBe(true)
+  })
+
+  it('never 410s the hub, with or without a trailing slash', () => {
+    expect(isGone(HUB)).toBe(false)
+    expect(isGone(`${HUB}/`)).toBe(false)
+    expect(GONE_EXACT_PATHS).not.toContain(HUB)
+  })
+
+  it('still 410s any slug beneath the hub, enumerated or not', () => {
+    for (const slug of [
+      '/insights/why-ai-pilots-fail-mid-market',
+      '/insights/what-is-search-intelligence-engineer',
+      '/insights/a-slug-that-never-existed',
+    ]) {
+      expect(isGone(slug), `${slug} should be Gone`).toBe(true)
+      expect(isGone(`${slug}/`), `${slug}/ should be Gone`).toBe(true)
+    }
+  })
+
+  it('redirects the hub without touching either exempted article', () => {
+    expect(GONE_PREFIX_EXCEPTIONS).toHaveLength(2)
+
+    for (const exception of GONE_PREFIX_EXCEPTIONS) {
+      const rule = redirectRules.find((candidate) => candidate.source === exception)
+
+      expect(rule, `${exception} has no redirect`).toBeDefined()
+      if (!rule) continue
+
+      expect(rule.permanent, `${exception} is not a permanent redirect`).toBe(true)
+
+      const destination = rule.destination.startsWith('http')
+        ? new URL(rule.destination).pathname
+        : rule.destination
+
+      expect(isBuilt(destination), `${exception} points at an unbuilt route`).toBe(true)
+      expect(destination, `${exception} was swept into the hub redirect`).not.toBe(SUCCESSOR)
+    }
+  })
+
+  it('separates the hub from its children on the trailing slash alone', () => {
+    // If this prefix ever loses its slash, every assertion above stops meaning
+    // anything: the bare hub would match it and 410.
+    expect(GONE_PATH_PREFIXES).toContain('/insights/')
+    expect(GONE_PATH_PREFIXES).not.toContain(HUB)
+  })
+
+  it('keeps the redirect on the bare hub and off the section', () => {
+    // A `/insights/:path*` source would carry a colon and drop out of
+    // literalRedirectSources, so assert the shape of the rule itself.
+    const insightRules = redirectRules.filter((rule) => rule.source.startsWith('/insights'))
+
+    for (const rule of insightRules) {
+      expect(rule.source.includes(':'), `bulk redirect of ${rule.source}`).toBe(false)
+      expect(rule.source.includes('*'), `bulk redirect of ${rule.source}`).toBe(false)
+    }
+
+    // The hub plus the two article exemptions, and nothing else.
+    expect(insightRules.map((rule) => rule.source).sort()).toEqual(
+      [HUB, ...GONE_PREFIX_EXCEPTIONS].sort(),
+    )
   })
 })
