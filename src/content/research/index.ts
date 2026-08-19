@@ -1,5 +1,7 @@
 import { routes } from '@/config/routes'
+import * as answerStabilityTwoRuns from '@/content/research/answer-stability-two-runs'
 import * as hendricksSelectionBaseline from '@/content/research/hendricks-selection-baseline'
+import * as whoGetsCitedInAiAnswers from '@/content/research/who-gets-cited-in-ai-answers'
 import type { ResearchArticle } from '@/content/research/types'
 
 export * from '@/content/research/types'
@@ -40,6 +42,13 @@ export * from '@/content/research/types'
  * ORDERING. Newest first. The hub renders the head of this array as the featured
  * study and the tail as a grid, so the order is a rendering decision as well as
  * a reading one. Do not sort at render time; the array is the order.
+ *
+ * Every article published so far carries the same published date, so "newest
+ * first" does not discriminate between them and the order below is a reading
+ * order. The self-baseline stays at the head because it introduces the
+ * instrument, the run-id discipline, and the vocabulary the later studies read
+ * from, and because it is the study that carries the corrections. A later
+ * article with a genuinely newer published date takes the head.
  */
 export const researchArticles: readonly ResearchArticle[] = [
   {
@@ -83,12 +92,78 @@ export const researchArticles: readonly ResearchArticle[] = [
     },
     content: hendricksSelectionBaseline,
   },
+  {
+    slug: 'answer-stability-two-runs',
+    path: routes.researchAnswerStabilityTwoRuns.path,
+    /*
+      Measurement and Attribution rather than Selection Intelligence or
+      AI-Mediated Search. The study's subject is not what the answers said, it is
+      how much a single reading of an answer can be trusted, which is a question
+      about the instrument. Filing it under Selection Intelligence would also
+      overclaim in metadata: the article's limitation 08 says in visitor copy
+      that it is not a Selection Stability measurement and reports none of the
+      four Selection Intelligence measures.
+    */
+    category: 'Measurement and Attribution',
+    title: answerStabilityTwoRuns.hero.title,
+    summary: answerStabilityTwoRuns.meta.description,
+    publishedDate: answerStabilityTwoRuns.byline.published,
+    updatedDate: answerStabilityTwoRuns.byline.updated,
+    dataThroughDate: answerStabilityTwoRuns.byline.dataThrough,
+    designation: answerStabilityTwoRuns.experimentLabel.label,
+    /*
+      Observation, not Result. docs/12 §4 reserves Result for work carrying a
+      baseline, an intervention, a timeframe, a measurement source, and
+      limitations. There was no intervention here and nothing was held back, and
+      the article's own limitation 01 says so in visitor copy.
+    */
+    claimClass: 'Observation',
+    relatedSolution: {
+      label: routes.selectionIntelligence.label,
+      href: routes.selectionIntelligence.path,
+    },
+    content: answerStabilityTwoRuns,
+  },
+  {
+    slug: 'who-gets-cited-in-ai-answers',
+    path: routes.researchWhoGetsCitedInAiAnswers.path,
+    /*
+      AI-Mediated Search rather than Measurement and Attribution. The subject is
+      what the answers cited, not how the instrument behaves, so it files beside
+      the self-baseline it shares a run of record with. Selection Intelligence
+      would overclaim in metadata for the same reason it does on that study: the
+      article's limitation 08 says in visitor copy that it counts citation rather
+      than consideration and reports none of the four Selection Intelligence
+      measures.
+    */
+    category: 'AI-Mediated Search',
+    title: whoGetsCitedInAiAnswers.hero.title,
+    summary: whoGetsCitedInAiAnswers.meta.description,
+    publishedDate: whoGetsCitedInAiAnswers.byline.published,
+    updatedDate: whoGetsCitedInAiAnswers.byline.updated,
+    dataThroughDate: whoGetsCitedInAiAnswers.byline.dataThrough,
+    designation: whoGetsCitedInAiAnswers.experimentLabel.label,
+    /*
+      Observation, not Result. docs/12 §4 reserves Result for work carrying a
+      baseline, an intervention, a timeframe, a measurement source, and
+      limitations. This study describes one reading of one citation set with no
+      intervention and no holdout, and its limitations lead paragraph says so in
+      visitor copy. docs/17 §8.1 pre-committed E1 to publishing as an Observation
+      for exactly that reason.
+    */
+    claimClass: 'Observation',
+    relatedSolution: {
+      label: routes.selectionIntelligence.label,
+      href: routes.selectionIntelligence.path,
+    },
+    content: whoGetsCitedInAiAnswers,
+  },
 ]
 
 /** The featured study on the hub, and the destination of its primary CTA. */
 export const latestResearchArticle: ResearchArticle | undefined = researchArticles[0]
 
-/** Everything after the featured study. Empty while one article is published. */
+/** Everything after the featured study, rendered as the hub grid. */
 export const furtherResearchArticles: readonly ResearchArticle[] = researchArticles.slice(1)
 
 export function findResearchArticle(slug: string): ResearchArticle | undefined {

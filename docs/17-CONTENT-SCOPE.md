@@ -142,6 +142,7 @@ Every row is a decision. The third column is an instruction to the implementer, 
 | Tool versus partner, and build versus buy | `/ai-visibility-tool-or-partner` (new) | `/for-agencies` links to it from the question it currently poses and never answers. |
 | What to ask a vendor before signing | `/ai-visibility-tool-or-partner` (owner assigned, no rendering) | Nowhere else. The owning page shipped 2026-08-19 with six headings and does not yet carry this answer. See the build record in 5.3. Blocked on D5. |
 | How a brand gets misrepresented, and what fixes it | Diagnosis: `/what-is-ai-mediated-search`. Remedy: `/solutions/search-presence-engineering` layer 02 | The two currently sit on separate pages with no link between them. Add the link both ways. See 4.6. |
+| Who owns AI answers in a category, and what it would take to displace them | `/research/who-gets-cited-in-ai-answers` (E1, published 2026-08-19) | Nowhere else. `/ai-selection-problem` keeps the citation-distribution figures it already quotes from `/research/hendricks-selection-baseline` for the same run, and links here for the structure of the set rather than restating it. `/what-is-ai-mediated-search` keeps its per-engine and populated-cell figures from the same run. The domain tables are facts about the answers and are never rendered as a vendor ranking on any page. |
 
 ### 3.3 The four-part model
 
