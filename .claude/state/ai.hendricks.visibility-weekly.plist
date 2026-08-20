@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  ai.hendricks.visibility-weekly
+
+  NOT INSTALLED. This file is a proposal, version-controlled with the system it
+  would run. It does nothing until Brandon copies and loads it. Installing a
+  recurring job that spends money on his machine is his decision, not an
+  agent's.
+
+  To install:
+    cp /Users/brandonlhendricks/dev/hendricks-ai/.claude/state/ai.hendricks.visibility-weekly.plist ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/ai.hendricks.visibility-weekly.plist
+
+  To remove:
+    launchctl unload ~/Library/LaunchAgents/ai.hendricks.visibility-weekly.plist
+    rm ~/Library/LaunchAgents/ai.hendricks.visibility-weekly.plist
+
+  To test before trusting it:
+    /Users/brandonlhendricks/dev/hendricks-ai/scripts/visibility-run.sh --dry-run
+
+  RUNS ON THE MACBOOK, not the Ultra. The MacBook is the head: the repo, the
+  state file and the reports live here. The script reaches the Ultra over ssh
+  to run the probe, so the Ultra needs to be up and Tailscale needs to be
+  current. Tailscale key expiry is the recurring failure mode and it surfaces
+  as exit 1 with "cannot reach ultra over ssh" in the error log.
+
+  WEEKLY, MONDAY 09:15. The reasoning is in docs/20-AGENTIC-SYSTEM.md section 6.
+  In short: whether an engine cites anyone at all was stable across 51 of 51
+  cells in a same-day repeat, so daily probing does not detect state changes any
+  sooner. Which sources it cites churns at a mean overlap of 0.68 with nothing
+  changed, so a daily source-set delta is indistinguishable from noise, and a
+  Class B candidate needs two consecutive runs to confirm no matter how often
+  the probe runs. Weekly is the fastest cadence that produces a confirmable
+  finding, and it costs about $0.38 a week.
+
+  09:15 rather than overnight, for two reasons. The shared 06:00 job on the
+  Ultra runs all thirteen clients and must be clear first. And a laptop is more
+  likely to be awake mid-morning than at 03:00, so a failure is seen the same
+  day rather than discovered a week later. If the machine is asleep at 09:15,
+  launchd runs the job at the next wake, which is the correct behaviour here:
+  a late measurement is worth more than a skipped one.
+
+  Cost: about $0.38 per run, roughly $20 a year. The script refuses to spend
+  if the dry-run estimate exceeds $2.00.
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>ai.hendricks.visibility-weekly</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/brandonlhendricks/dev/hendricks-ai/scripts/visibility-run.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/brandonlhendricks/dev/hendricks-ai</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>HOME</key>
+        <string>/Users/brandonlhendricks</string>
+    </dict>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Weekday</key>
+        <integer>1</integer>
+        <key>Hour</key>
+        <integer>9</integer>
+        <key>Minute</key>
+        <integer>15</integer>
+    </dict>
+
+    <!-- Never at load. Loading the job must not spend money as a side effect. -->
+    <key>RunAtLoad</key>
+    <false/>
+
+    <!-- One cycle per fire. The script also refuses a second cycle on a day
+         that already has one, so a double fire costs nothing. -->
+    <key>ThrottleInterval</key>
+    <integer>3600</integer>
+
+    <key>StandardOutPath</key>
+    <string>/Users/brandonlhendricks/Library/Logs/hendricks-visibility/launchd-visibility-weekly.out</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/brandonlhendricks/Library/Logs/hendricks-visibility/launchd-visibility-weekly.err</string>
+</dict>
+</plist>

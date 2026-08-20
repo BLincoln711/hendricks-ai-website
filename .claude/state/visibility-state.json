@@ -1,0 +1,520 @@
+{
+  "schema_version": "1.0.0",
+  "state_updated_at": "2026-08-19T22:56:39-05:00",
+  "state_updated_by": "visibility-run.sh",
+  "state_readme": ".claude/state/README.md",
+  "_ownership": {
+    "measurement_block": "scripts/visibility-run.sh writes query_set, run_of_record, prior_run, comparison, position, competitor_distribution, spend.",
+    "decision_block": "visibility-director writes director, open_items, pending_confirmation, terminated_findings, next_action.",
+    "nobody_else": "The other seven agents do not read or write this file. They are dispatched with facts, not pointed at state.",
+    "rule": "Re-read immediately before writing and write only your own block. A whole-file overwrite from a stale read destroys the other writer's work.",
+    "unknown_convention": "A fact that has not been measured is null with a sibling *_reason string. Never a zero, never an empty string, never a guess."
+  },
+  "query_set": {
+    "client_key": "hendricks",
+    "source": "ultra:~/claudecode/total-search-dashboard/checker/clients.json",
+    "query_count": 17,
+    "cells_per_full_run": 51,
+    "fingerprint_sha256_12": "cf5b3b4d39ec",
+    "stages": {
+      "1_problem_aware": 6,
+      "2_solution_aware": 6,
+      "3_vendor_aware": 5
+    },
+    "adopted": "2026-08-18",
+    "first_measured_run": "2026-08-19-110930",
+    "replaced_set": {
+      "query_count": 15,
+      "cells_per_full_run": 45,
+      "last_measured_date": "2026-08-18",
+      "query_overlap_with_current": 0,
+      "consequence": "The two sets share no query. Every figure in docs/19 section 1.1 and every target in docs/19 section 2.2 was measured against the 15-query set and cannot be compared to any run of the current set. docs/19 section 2.3 voids those targets on a query set change. They have not been restated. Tracked as escalation E1.",
+      "verified_by": "seed, 2026-08-19, by comparing the distinct query strings in hendricks-citation-results-2026-08-18.json against hendricks-citation-results-2026-08-19.json"
+    }
+  },
+  "run_of_record": {
+    "run_id": "2026-08-19-181155",
+    "date_stamp": "2026-08-19",
+    "archive": "ultra:~/claudecode/total-search-dashboard/checker/history/runs/hendricks-2026-08-19-181155.json",
+    "manifest": "ultra:~/claudecode/total-search-dashboard/checker/history/runs/manifest-2026-08-19-181155.json",
+    "engines_requested": [
+      "chat_gpt",
+      "perplexity",
+      "google_aio"
+    ],
+    "engines_carried_forward": [],
+    "carried": 0,
+    "cells": 51,
+    "measured": 49,
+    "failed": 2,
+    "cost_usd": 0.3835,
+    "probe_exit_code": null,
+    "probe_exit_code_reason": "Not recorded. The manifest carries no exit code and this run was not measured by this script, so nothing observed it. Inferable as 0 from the run-health gate, which exits 1 under half measured and 2 at zero. An inference is not a record.",
+    "comparison_safe": true,
+    "comparison_safe_basis": "carried is 0, engines_carried_forward is empty, cells matches the prior run, and the query set fingerprint is unchanged. Probe exit code is not part of this basis unless this script observed the run itself.",
+    "answer_state": {
+      "_definition": "Four buckets, never folded. populated means the engine answered and cited at least one source. cited_nothing means the engine answered and cited none. no_answer_surface means the probe succeeded but the engine produced no answer surface at all, which on Google AI Overviews means no overview was returned for that query. failed means the probe did not return a measurement.",
+      "_denominator_rule": "The operative denominator for a citation question is populated plus cited_nothing. no_answer_surface and failed cells cannot cite anyone and must never be counted as losses.",
+      "totals": {
+        "cells": 51,
+        "measured": 49,
+        "populated": 20,
+        "cited_nothing": 15,
+        "no_answer_surface": 14,
+        "failed": 2
+      },
+      "per_engine": {
+        "chat_gpt": {
+          "cells": 17,
+          "measured": 17,
+          "populated": 2,
+          "cited_nothing": 15,
+          "no_answer_surface": 0,
+          "failed": 0
+        },
+        "perplexity": {
+          "cells": 17,
+          "measured": 17,
+          "populated": 17,
+          "cited_nothing": 0,
+          "no_answer_surface": 0,
+          "failed": 0
+        },
+        "google_aio": {
+          "cells": 17,
+          "measured": 15,
+          "populated": 1,
+          "cited_nothing": 0,
+          "no_answer_surface": 14,
+          "failed": 2
+        }
+      },
+      "failed_cells": [
+        "google_aio/how-do-i-report-ai-search-visibility-to-my-ceo-o",
+        "google_aio/why-is-my-brand-not-showing-up-in-chatgpt"
+      ],
+      "per_cell_source_of_truth": "The archive. State carries counts plus the failed-cell list."
+    }
+  },
+  "prior_run": {
+    "run_id": "2026-08-19-110930",
+    "date_stamp": "2026-08-19",
+    "archive": "ultra:~/claudecode/total-search-dashboard/checker/history/runs/hendricks-2026-08-19-110930.json",
+    "manifest": "ultra:~/claudecode/total-search-dashboard/checker/history/runs/manifest-2026-08-19-110930.json",
+    "engines_requested": [
+      "chat_gpt",
+      "perplexity",
+      "google_aio"
+    ],
+    "engines_carried_forward": [],
+    "carried": 0,
+    "cells": 51,
+    "measured": 47,
+    "failed": 4,
+    "cost_usd": 0.3769,
+    "probe_exit_code": null,
+    "probe_exit_code_reason": "Not recorded. The manifest carries no exit code and this run was not measured by this script, so nothing observed it. Inferable as 0 from the run-health gate, which exits 1 under half measured and 2 at zero. An inference is not a record.",
+    "comparison_safe": true,
+    "comparison_safe_basis": "carried is 0, engines_carried_forward is empty, cells matches the prior run, and the query set fingerprint is unchanged. Probe exit code is not part of this basis unless this script observed the run itself.",
+    "answer_state": {
+      "_definition": "Four buckets, never folded. populated means the engine answered and cited at least one source. cited_nothing means the engine answered and cited none. no_answer_surface means the probe succeeded but the engine produced no answer surface at all, which on Google AI Overviews means no overview was returned for that query. failed means the probe did not return a measurement.",
+      "_denominator_rule": "The operative denominator for a citation question is populated plus cited_nothing. no_answer_surface and failed cells cannot cite anyone and must never be counted as losses.",
+      "totals": {
+        "cells": 51,
+        "measured": 47,
+        "populated": 20,
+        "cited_nothing": 15,
+        "no_answer_surface": 12,
+        "failed": 4
+      },
+      "per_engine": {
+        "chat_gpt": {
+          "cells": 17,
+          "measured": 17,
+          "populated": 2,
+          "cited_nothing": 15,
+          "no_answer_surface": 0,
+          "failed": 0
+        },
+        "perplexity": {
+          "cells": 17,
+          "measured": 17,
+          "populated": 17,
+          "cited_nothing": 0,
+          "no_answer_surface": 0,
+          "failed": 0
+        },
+        "google_aio": {
+          "cells": 17,
+          "measured": 13,
+          "populated": 1,
+          "cited_nothing": 0,
+          "no_answer_surface": 12,
+          "failed": 4
+        }
+      },
+      "failed_cells": [
+        "google_aio/chatgpt-is-giving-wrong-information-about-my-com",
+        "google_aio/do-ai-visibility-scores-actually-mean-anything",
+        "google_aio/how-much-does-geo-cost-per-month",
+        "google_aio/why-does-chatgpt-recommend-my-competitor-instead"
+      ],
+      "per_cell_source_of_truth": "The archive. State carries counts plus the failed-cell list."
+    }
+  },
+  "comparison": {
+    "pair": [
+      "2026-08-19-110930",
+      "2026-08-19-181155"
+    ],
+    "eligible": true,
+    "eligibility_basis": "Both manifests carried 0, both requested the same engines, both are the same cell count, and the query set fingerprint did not change between them.",
+    "cited_or_not": {
+      "cells_matched": 51,
+      "cells_total": 51,
+      "flips": 0,
+      "reading": "Whether an engine cites anyone at all did not move on a single cell. This is the Class A stability that lets one run be enough to call a state change."
+    },
+    "answer_state_flips": {
+      "count": 6,
+      "flips": [
+        {
+          "cell": "google_aio/chatgpt-is-giving-wrong-information-about-my-com",
+          "was": "failed",
+          "now": "no_answer_surface"
+        },
+        {
+          "cell": "google_aio/do-ai-visibility-scores-actually-mean-anything",
+          "was": "failed",
+          "now": "no_answer_surface"
+        },
+        {
+          "cell": "google_aio/how-do-i-report-ai-search-visibility-to-my-ceo-o",
+          "was": "no_answer_surface",
+          "now": "failed"
+        },
+        {
+          "cell": "google_aio/how-much-does-geo-cost-per-month",
+          "was": "failed",
+          "now": "no_answer_surface"
+        },
+        {
+          "cell": "google_aio/why-does-chatgpt-recommend-my-competitor-instead",
+          "was": "failed",
+          "now": "no_answer_surface"
+        },
+        {
+          "cell": "google_aio/why-is-my-brand-not-showing-up-in-chatgpt",
+          "was": "no_answer_surface",
+          "now": "failed"
+        }
+      ],
+      "all_on_google_aio": true,
+      "reading": "Every flip is a Google AI Overviews probe succeeding or failing, not an engine changing its citation behaviour. Judge AI Overviews on the failure count, not cell by cell.",
+      "caution": "A literal reading of the Class A rule, which names movement into or out of failed, fires 6 times on this pair. It should fire zero times. Every one of these cells moved between failed and no_answer_surface, so none of them was ever a cell where anything was cited. The correct unit is the cited-or-not state, and that did not move."
+    },
+    "source_set_churn": {
+      "cells_cited_in_either_run": 20,
+      "mean_jaccard_overlap": 0.6822,
+      "identical_sets": 2,
+      "disjoint_sets": 0,
+      "reading": "Measured churn floor with nothing changed is a mean overlap near 0.68. Any Class B claim smaller than this is noise."
+    },
+    "domains_entered_count": 51,
+    "domains_exited_count": 47,
+    "domains_entered_sample": [
+      "advantagebizmarketing.com",
+      "aktion.geo.de",
+      "androidauthority.com",
+      "argeo.ai",
+      "blog.thinkfuel.ca",
+      "botsee.io",
+      "columnfivemedia.com",
+      "contentsquare.com",
+      "ct.nl",
+      "demandgenreport.com",
+      "demandlocal.com",
+      "demg.ai",
+      "digitalsuccess.us",
+      "enilon.com",
+      "ervins.studio",
+      "formativedigital.com",
+      "geoaura.world",
+      "growleads.io",
+      "growthspreeofficial.com",
+      "guideflow.com",
+      "hexxen.com",
+      "hubspot.jp",
+      "ipsos.com",
+      "launchcodex.com",
+      "louisvilleky.gov",
+      "markedox.digital",
+      "martech.org",
+      "monaqo.in",
+      "moz.com",
+      "newhavenct.gov",
+      "newhavenindependent.org",
+      "omnicite.co",
+      "pcguide.com",
+      "peec.ai",
+      "prnewswire.com",
+      "saashero.net",
+      "scalenut.com",
+      "tech.co",
+      "tech.yahoo.com",
+      "terrahq.com"
+    ],
+    "domains_exited_sample": [
+      "aigreets.com",
+      "aimers.io",
+      "almcorp.com",
+      "backlinko.com",
+      "clicklaboratory.com",
+      "cnet.com",
+      "community.shopify.com",
+      "digitalagencynetwork.com",
+      "digiustad.com",
+      "eagrowthsolutions.com",
+      "explodingtopics.com",
+      "freeacademy.ai",
+      "futurist.com",
+      "geochecktool.com",
+      "geoly.ai",
+      "get-ryze.ai",
+      "hackernoon.com",
+      "howtogeek.com",
+      "igmguru.com",
+      "kampaio.com",
+      "magnetoitsolutions.com",
+      "margen.net",
+      "marketerhire.com",
+      "marshassoc.com",
+      "media-village.co.uk",
+      "meeeters.com",
+      "mybrandi.ai",
+      "news.ycombinator.com",
+      "nicodigital.com",
+      "openquestionsblog.substack.com",
+      "rankinllm.ai",
+      "refinery89.com",
+      "salespeak.ai",
+      "searchenginepeople.com",
+      "seo-hacker.com",
+      "seoprofy.com",
+      "seoteric.com",
+      "shortlist.io",
+      "skool.com",
+      "slashgear.com"
+    ],
+    "interval_hours": 7,
+    "what_this_pair_is": "A deliberate same-day repeat run to measure whether the instrument is stable. It is an instrument test, not a week-over-week reading, and it must not be cited as evidence that anything did or did not change over time."
+  },
+  "position": {
+    "owned_domain": "hendricks.ai",
+    "owned_cited_cells": 0,
+    "denominator_cells": 51,
+    "denominator_populated_cells": 20,
+    "as_of_run": "2026-08-19-181155",
+    "also_zero_in_run": "2026-08-19-110930",
+    "owned_cited_urls": [],
+    "owned_url_http_checks": [],
+    "owned_url_http_checks_reason": "There are no owned citations to resolve.",
+    "statement": "hendricks.ai is cited in 0 of 51 cells and 0 of the 20 populated cells.",
+    "not_a_regression": "This is not a fall from the 1 of 45 recorded in docs/19 section 1.1. That citation was earned on a query that is no longer in the set. The two numbers measure different question sets and subtracting one from the other produces a false finding.",
+    "historical_citation": {
+      "run_date": "2026-08-18",
+      "query_set": "the retired 15-query set",
+      "engine": "perplexity",
+      "query": "Consultant to connect AI search visibility to pipeline",
+      "cited_url": "https://www.hendricks.ai/insights/ai-search-visibility-revenue-impact/",
+      "in_current_query_set": false,
+      "url_status_when_cited": "410 Gone",
+      "url_status_now": "308 to https://hendricks.ai/solutions/search-impact-measurement, which returns 200",
+      "url_verified_by": "seed, 2026-08-19, curl with and without redirect following",
+      "note": "This closes docs/19 section 7.2 decision D10 in the direction that document recommended. docs/19 still describes it as open."
+    },
+    "owned_citation_cells": [],
+    "denominator_answering_cells": 35,
+    "denominator_note": "Three denominators, and a published figure must name which one it uses. 51 is every cell. 35 is cells where an engine produced an answer at all. 20 is cells where an engine cited at least one source, which is the only denominator against which a citation share is meaningful."
+  },
+  "competitor_distribution": {
+    "as_of_run": "2026-08-19-181155",
+    "distinct_domains": 251,
+    "domain_slots_filled": 304,
+    "domains_cited_exactly_once": 223,
+    "share_cited_exactly_once": 0.888,
+    "top_ten_share_of_slots": 0.148,
+    "top_ten": [
+      {
+        "domain": "reddit.com",
+        "cells": 11
+      },
+      {
+        "domain": "linkedin.com",
+        "cells": 8
+      },
+      {
+        "domain": "semrush.com",
+        "cells": 8
+      },
+      {
+        "domain": "maxaeo.ai",
+        "cells": 4
+      },
+      {
+        "domain": "ahrefs.com",
+        "cells": 3
+      },
+      {
+        "domain": "amicited.com",
+        "cells": 3
+      },
+      {
+        "domain": "aeovision.ai",
+        "cells": 2
+      },
+      {
+        "domain": "airanklab.com",
+        "cells": 2
+      },
+      {
+        "domain": "clicksgeek.com",
+        "cells": 2
+      },
+      {
+        "domain": "community.openai.com",
+        "cells": 2
+      }
+    ],
+    "tie_note": "Ranks tied on cell count are ordered alphabetically. Movement inside a tie is a sorting artifact.",
+    "prior_run_for_contrast": {
+      "run_id": "2026-08-19-110930",
+      "distinct_domains": 247,
+      "domain_slots_filled": 308,
+      "domains_cited_exactly_once": 212,
+      "top_ten_share_of_slots": 0.1494
+    },
+    "engine_disjointness": {
+      "perplexity_distinct_domains": 240,
+      "chat_gpt_distinct_domains": 11,
+      "google_aio_distinct_domains": 6,
+      "perplexity_chat_gpt_shared": 4,
+      "shared_domains": [
+        "ahrefs.com",
+        "scalenut.com",
+        "semrush.com",
+        "subscribepr.com"
+      ],
+      "prior_run_shared": 1,
+      "caution": "The two engines shared 1 domain on the earlier run and 4 on the later one, with nothing changed in between. The direction is solid, the engines are nearly disjoint, but the exact count is churn and must not be published as a figure without a two-run confirmation."
+    },
+    "falsification_watch": "docs/19 section 8.2 fails the plan if this head consolidates."
+  },
+  "director": {
+    "last_mode": null,
+    "last_mode_reason": "The visibility-director has never run. This file was seeded by hand from the archives so the director has something trustworthy to read on its first cycle. Do not read null as OBSERVE.",
+    "last_decision": null,
+    "last_rule_fired": null,
+    "last_run_id_read": null,
+    "last_cycle_at": null,
+    "cycles_ending_in_observe_consecutively": 0
+  },
+  "open_items": {
+    "analyses_outstanding": [],
+    "briefs_written_not_shipped": [],
+    "changes_gated_not_merged": [],
+    "escalations_open": [
+      {
+        "id": "E1",
+        "raised_at": "2026-08-19",
+        "raised_by": "seed",
+        "severity": "blocking for any target report",
+        "question": "docs/19 section 2.2 states 30, 60 and 90 day targets against a 45-cell denominator from a query set that has been entirely replaced. Restate them against 51 cells and 20 populated cells, or state that the horizon clock restarts from 2026-08-19?",
+        "measured_basis": "Zero query overlap between the 15-query set last measured 2026-08-18 and the 17-query set first measured 2026-08-19-110930.",
+        "recommendation": "Restate the targets against 51 cells and restart the 30/60/90 clock from 2026-08-19, because no run of the current set predates that date and a horizon measured from a denominator that no longer exists cannot be scored.",
+        "consequence_if_unanswered": "No cycle can report progress against a target. The program can still measure and still act, but every target line reads as unscoreable.",
+        "owner": "Brandon"
+      },
+      {
+        "id": "E2",
+        "raised_at": "2026-08-19",
+        "raised_by": "seed",
+        "severity": "corrupts the run of record if unnoticed",
+        "question": "The shared 06:00 LaunchAgent ai.hendricks.total-search-citations on the Ultra runs every client including hendricks, with no --engines flag, which turns carry-forward on. Should hendricks be excluded from that job?",
+        "measured_basis": "clients.json lists hendricks among 13 clients. The job runs daily_citations.py with no arguments, so engines default to perplexity daily plus chat_gpt on even-ordinal days, google_aio never, and carry is True. On 2026-08-19 it produced a 32-cell hendricks result with 15 chat_gpt records carried forward from 2026-08-18.",
+        "recommendation": "Exclude hendricks from the shared job and let the weekly program run own it. Those daily runs cannot support a comparison, never include Google AI Overviews, and now write archives and manifests that a careless reader could select as the run of record.",
+        "consequence_if_unanswered": "Manageable but permanent. scripts/visibility-run.sh already refuses any run whose manifest shows carried cells, so the guard holds. The cost is that the archive fills with runs that look like measurements and are not.",
+        "owner": "Brandon"
+      }
+    ],
+    "escalations_answered": [
+      {
+        "id": "D10",
+        "source": "docs/19 section 7.2",
+        "question": "Whether to redirect the retired URL that held the firm's only measured citation.",
+        "resolved": "2026-08-19 or earlier",
+        "observed": "https://hendricks.ai/insights/ai-search-visibility-revenue-impact returns 308 to /solutions/search-impact-measurement, which returns 200.",
+        "verified_by": "seed, 2026-08-19, curl",
+        "follow_up": "docs/19 section 7.2 still lists D10 as open and should be updated. That is Brandon's edit, not an agent's."
+      }
+    ],
+    "documentation_drift": [
+      {
+        "id": "DD1",
+        "where": "docs/19 section 7.1",
+        "says": "Monthly full three-system run, about $1.20. Weekly Perplexity-only, $0.09.",
+        "measured": "A full three-engine 17-query run billed $0.3769 and $0.3835 on 2026-08-19. The dry-run estimator says $1.33 for the same run, so the estimator runs roughly 3.5 times high.",
+        "consequence": "The cost argument for splitting weekly Perplexity-only from monthly full is much weaker than docs/19 assumed. See docs/20 section 6."
+      },
+      {
+        "id": "DD2",
+        "where": "docs/19 section 7.1 and section 1.3, and the team table in all eight agent definitions",
+        "says": "The durable run ledger is docs/measurement/visibility-runs.md, owned by visibility-prober, and every cited figure traces to it.",
+        "measured": "The path does not exist. There is no docs/measurement directory in the repo, verified 2026-08-19. The durable record is the immutable archive and manifest per run id in ultra:~/claudecode/total-search-dashboard/checker/history/runs/, which is what the three published studies actually cite, plus this state file and .claude/state/reports/.",
+        "consequence": "Eight agent definitions instruct an agent to read or write a file that is not there, and demand-scout was told to append to it, which would have made it a second writer on a ledger visibility-prober owns. The agent files now state the archive plus state as the record of truth and forbid a second ledger. Whether to create docs/measurement/visibility-runs.md as a human-readable index over the archive is Brandon's call, not an agent's."
+      }
+    ]
+  },
+  "pending_confirmation": [
+    {
+      "id": "B1",
+      "opened_run": "2026-08-19-181155",
+      "class": "B",
+      "observation": "semrush.com moved from 6 cells to 8 and maxaeo.ai from 5 to 4 between the two runs of 2026-08-19.",
+      "confirming_condition": "semrush.com holds at 7 or more cells in the next comparison-eligible run of the identical 17-query set.",
+      "null_hypothesis": "Inside the measured churn floor of 0.6822 mean overlap. The expected outcome is that this does not confirm.",
+      "status": "open"
+    }
+  ],
+  "terminated_findings": [],
+  "spend": {
+    "currency": "USD",
+    "program_runs_today": 2,
+    "program_spend_today": 0.7604,
+    "program_spend_today_date": "2026-08-19",
+    "program_spend_cycle": 0.7604,
+    "cycle_started": "2026-08-19",
+    "cost_reference": {
+      "full_three_engine_17_queries_actual": 0.3835,
+      "full_three_engine_17_queries_dry_run_estimate": 1.33,
+      "estimator_bias": "The dry-run estimate has run roughly 3.5 times the billed amount. Ceiling guard, never a forecast.",
+      "perplexity_only_17_queries_actual": 0.1034
+    },
+    "not_counted_here": "The shared 06:00 job spent about $0.1034 on hendricks on 2026-08-19. That job is not owned by this program and its spend is excluded from program totals. See escalation E2."
+  },
+  "next_action": {
+    "action": "First scheduled weekly measurement cycle",
+    "command": "scripts/visibility-run.sh",
+    "trigger": "Not scheduled. The LaunchAgent at .claude/state/ai.hendricks.visibility-weekly.plist is written and deliberately not installed. It runs nothing until Brandon loads it.",
+    "recommended_first_run": "2026-08-24, Monday, 09:15 local",
+    "estimated_cost": 0.3835,
+    "blocked_by": null,
+    "why_this_and_not_something_else": "Position is zero on a query set with only one comparison-eligible pair, and that pair is a same-day instrument test rather than a time series. Nothing can be judged as movement until a second week exists. The correct next act is one more measurement, not an analysis."
+  },
+  "last_cycle": {
+    "started_at": "2026-08-19T22:56:39-0500",
+    "mode": "rebuild",
+    "run_id": "2026-08-19-181155",
+    "ineligible_runs_skipped": []
+  }
+}
