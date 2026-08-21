@@ -207,6 +207,30 @@ export const routes = {
   },
 
   /**
+   * The third research article.
+   *
+   * The two studies before this one read a citation set to ask who was in it.
+   * This one makes the engines the subject and asks whether they agree, which is
+   * the assumption every blended cross-engine visibility score rests on. It is
+   * the first study in the section to publish an `errorsFound` section, because
+   * two instrument defects were found while producing its run and both had
+   * already generated a wrong reading.
+   *
+   * A fourth engine was probed in that run and nothing from it is published.
+   * CONTENT_VERIFICATION A1 holds the observed set at three systems and
+   * `src/content/shared/observed-systems.ts` states in visitor copy that
+   * Hendricks does not report on Gemini. Widening that boundary is a scope
+   * decision that lands in A1 and in the shared module first, never in an
+   * article.
+   */
+  researchNoSharedSourceAcrossEngines: {
+    path: '/research/no-shared-source-across-engines',
+    label: 'No Shared Source Across Engines',
+    indexable: true,
+    built: true,
+  },
+
+  /**
    * Corrections policy and log.
    *
    * CONTENT_VERIFICATION.md R6 recorded this as blocked on missing copy rather
