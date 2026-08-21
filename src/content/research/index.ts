@@ -1,5 +1,6 @@
 import { routes } from '@/config/routes'
 import * as answerStabilityTwoRuns from '@/content/research/answer-stability-two-runs'
+import * as noSharedSourceAcrossEngines from '@/content/research/no-shared-source-across-engines'
 import * as hendricksSelectionBaseline from '@/content/research/hendricks-selection-baseline'
 import * as whoGetsCitedInAiAnswers from '@/content/research/who-gets-cited-in-ai-answers'
 import type { ResearchArticle } from '@/content/research/types'
@@ -43,14 +44,53 @@ export * from '@/content/research/types'
  * study and the tail as a grid, so the order is a rendering decision as well as
  * a reading one. Do not sort at render time; the array is the order.
  *
- * Every article published so far carries the same published date, so "newest
- * first" does not discriminate between them and the order below is a reading
- * order. The self-baseline stays at the head because it introduces the
- * instrument, the run-id discipline, and the vocabulary the later studies read
- * from, and because it is the study that carries the corrections. A later
- * article with a genuinely newer published date takes the head.
+ * The first three articles all carry 2026-08-19, so "newest first" did not
+ * discriminate between them and their relative order is a reading order: the
+ * self-baseline sits ahead of the other two because it introduces the
+ * instrument, the run-id discipline, and the vocabulary they read from, and
+ * because it carries the corrections.
+ *
+ * The cross-engine study carries 2026-08-21 and therefore takes the head, which
+ * is the rule this comment previously stated in advance. Its own run is also the
+ * first in the section to measure every cell it sent, and it is the first to
+ * publish an errorsFound section, so featuring it does not cost the section the
+ * introduction the self-baseline provides: the two link to each other.
  */
 export const researchArticles: readonly ResearchArticle[] = [
+  {
+    slug: 'no-shared-source-across-engines',
+    path: routes.researchNoSharedSourceAcrossEngines.path,
+    /*
+      Measurement and Attribution rather than AI-Mediated Search. The subject is
+      not what the answers cited, it is whether a number averaged across engines
+      can describe anything, which is a question about the measurement rather
+      than about the surfaces. The citation counts on the page are the evidence
+      for that argument rather than the argument itself. Selection Intelligence
+      would overclaim in metadata for the same reason it does on the two studies
+      before it: limitation 08 says in visitor copy that this reports none of the
+      four Selection Intelligence measures.
+    */
+    category: 'Measurement and Attribution',
+    title: noSharedSourceAcrossEngines.hero.title,
+    summary: noSharedSourceAcrossEngines.meta.description,
+    publishedDate: noSharedSourceAcrossEngines.byline.published,
+    updatedDate: noSharedSourceAcrossEngines.byline.updated,
+    dataThroughDate: noSharedSourceAcrossEngines.byline.dataThrough,
+    designation: noSharedSourceAcrossEngines.experimentLabel.label,
+    /*
+      Observation, not Result. docs/12 §4 reserves Result for work carrying a
+      baseline, an intervention, a timeframe, a measurement source, and
+      limitations. There was no intervention here and nothing was held back. The
+      six-run ChatGPT count is repeated measurement of an unchanged condition,
+      which is still observation: nothing was done to the engine between runs.
+    */
+    claimClass: 'Observation',
+    relatedSolution: {
+      label: routes.selectionIntelligence.label,
+      href: routes.selectionIntelligence.path,
+    },
+    content: noSharedSourceAcrossEngines,
+  },
   {
     slug: 'hendricks-selection-baseline',
     path: routes.researchHendricksSelectionBaseline.path,

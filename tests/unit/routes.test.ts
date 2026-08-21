@@ -57,6 +57,7 @@ describe('Route registry', () => {
         // The dynamic segment that serves them is resolved by check:links.
         '/research/answer-stability-two-runs',
         '/research/hendricks-selection-baseline',
+        '/research/no-shared-source-across-engines',
         '/research/who-gets-cited-in-ai-answers',
         '/solutions',
         '/solutions/search-demand-intelligence',
