@@ -3,8 +3,9 @@
  *
  * Every rule here fails closed: a missing, malformed, expired, or version-shifted
  * record means analytics is denied. Advertising is a literal `'denied'` rather
- * than a decision, because docs/16 §2 prohibits advertising technologies at
- * launch and a type that cannot express "granted" cannot be granted by accident.
+ * than a decision, because advertising storage, retargeting, and audience
+ * matching remain denied even after analytics acceptance, and a type that cannot
+ * express "granted" cannot be granted by accident.
  */
 
 export type ConsentDecision = 'granted' | 'denied'
@@ -30,7 +31,7 @@ export type ConsentState = {
  * re-prompts every visitor — that is the intended effect, not a side effect.
  */
 export const CONSENT_STORAGE_KEY = 'hendricks_privacy_v1'
-export const CONSENT_VERSION = '2026-08-16'
+export const CONSENT_VERSION = '2026-08-27'
 
 /** docs/16 §4 — re-prompt no later than six months after the recorded choice. */
 export const CONSENT_MAX_AGE_DAYS = 180

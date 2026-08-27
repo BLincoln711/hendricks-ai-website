@@ -230,8 +230,9 @@ export const privacyNotice: LegalDocument = {
           type: 'list',
           items: [
             '**Google Analytics 4**, to measure website use and events;',
-            '**Vercel Web Analytics**, to understand page visits and referral patterns; and',
-            '**Vercel Speed Insights**, to measure website performance.',
+            '**Vercel Web Analytics**, to understand page visits and referral patterns;',
+            '**Vercel Speed Insights**, to measure website performance; and',
+            '**LinkedIn Insight Tag**, to measure visits and LinkedIn-referred traffic.',
           ],
         },
         {
@@ -254,7 +255,7 @@ export const privacyNotice: LegalDocument = {
         { type: 'subheading', text: 'D. Advertising and Retargeting' },
         {
           type: 'paragraph',
-          text: 'With analytics consent, Hendricks may use the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic. Advertising storage remains denied. Hendricks does not use retargeting, audience matching, or cross-context behavioral advertising, and does not use session-replay or product-analytics tools such as Hotjar, Microsoft Clarity, or Mixpanel. If these practices change, Hendricks will update this Notice and the privacy-choice mechanism before enabling them.',
+          text: 'With analytics consent, Hendricks may use the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic. Google advertising storage, advertising user data, and advertising personalization remain denied. Hendricks does not use the Insight Tag for retargeting, audience matching, or cross-context behavioral advertising, and does not use session-replay or product-analytics tools such as Hotjar, Microsoft Clarity, or Mixpanel. If these practices change, Hendricks will update this Notice and the privacy-choice mechanism before enabling them.',
         },
       ],
     },

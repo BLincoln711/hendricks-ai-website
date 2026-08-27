@@ -40,6 +40,15 @@ describe('Consent state', () => {
     expect(parseConsentState(stored, NOW)).toBeNull()
   })
 
+  it('invalidates a grant recorded before the LinkedIn Insight Tag disclosure', () => {
+    const stored = JSON.stringify({
+      ...createConsentState({ analytics: 'granted', source: 'banner', gpc: false, now: NOW }),
+      version: '2026-08-16',
+    })
+
+    expect(parseConsentState(stored, NOW)).toBeNull()
+  })
+
   it('denies analytics once the record has expired', () => {
     const state = createConsentState({
       analytics: 'granted',

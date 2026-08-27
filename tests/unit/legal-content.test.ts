@@ -108,7 +108,12 @@ describe('Privacy Notice', () => {
     expect(textOf(privacyNotice)).toContain(
       'With analytics consent, Hendricks may use the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic.',
     )
-    expect(textOf(privacyNotice)).toContain('Advertising storage remains denied.')
+    expect(textOf(privacyNotice)).toContain(
+      'Google advertising storage, advertising user data, and advertising personalization remain denied.',
+    )
+    expect(textOf(privacyNotice)).toContain(
+      '**LinkedIn Insight Tag**, to measure visits and LinkedIn-referred traffic.',
+    )
     expect(textOf(privacyNotice)).not.toContain('does not use advertising pixels')
   })
 

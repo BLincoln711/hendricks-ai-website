@@ -523,8 +523,9 @@ These technologies are active because the website cannot reliably provide the re
 With your permission, Hendricks may use:
 
 - **Google Analytics 4**, to measure website use and events;
-- **Vercel Web Analytics**, to understand page visits and referral patterns; and
-- **Vercel Speed Insights**, to measure website performance.
+- **Vercel Web Analytics**, to understand page visits and referral patterns;
+- **Vercel Speed Insights**, to measure website performance; and
+- **LinkedIn Insight Tag**, to measure visits and LinkedIn-referred traffic.
 
 Although Vercel describes its analytics and performance products as cookie-free and privacy focused, Hendricks treats them as optional at launch and blocks them until analytics consent.
 
@@ -538,7 +539,7 @@ Where a supported browser sends a Global Privacy Control signal, Hendricks treat
 
 ### D. Advertising and Retargeting
 
-With analytics consent, Hendricks may use the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic. Advertising storage remains denied. Hendricks does not use retargeting, audience matching, or cross-context behavioral advertising, and does not use session-replay or product-analytics tools such as Hotjar, Microsoft Clarity, or Mixpanel. If these practices change, Hendricks will update this Notice and the privacy-choice mechanism before enabling them.
+With analytics consent, Hendricks may use the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic. Google advertising storage, advertising user data, and advertising personalization remain denied. Hendricks does not use the Insight Tag for retargeting, audience matching, or cross-context behavioral advertising, and does not use session-replay or product-analytics tools such as Hotjar, Microsoft Clarity, or Mixpanel. If these practices change, Hendricks will update this Notice and the privacy-choice mechanism before enabling them.
 
 ## 7. How We Disclose Personal Information
 

@@ -20,10 +20,9 @@ import { configureGa4, ga4ScriptSrc, resetGa4Runtime, sendGa4PageView } from '@/
  * the matching public env ID is present, so an empty production env stays
  * silent.
  *
- * LinkedIn Insight is classified as advertising in docs/16 and the live
- * Privacy Notice. This component will load it only when
- * `NEXT_PUBLIC_LINKEDIN_PARTNER_ID` is set. Leave that env empty until the
- * Privacy Notice is updated — this file does not invent that copy.
+ * LinkedIn Insight loads only after analytics consent when
+ * `NEXT_PUBLIC_LINKEDIN_PARTNER_ID` is set. The Privacy Notice discloses it as
+ * a measurement vendor. Google advertising storage remains denied.
  */
 
 function Ga4Runtime({ measurementId }: { measurementId: string }) {
