@@ -53,9 +53,16 @@ export function readCampaignAttribution(
   return attribution
 }
 
+export function ga4ScriptSrc(measurementId: string): string {
+  return `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`
+}
+
 export function configureGa4(measurementId: string): void {
   if (typeof window === 'undefined' || typeof window.gtag !== 'function') return
 
+  // send_page_view is false so SPA navigations do not double-count. This does
+  // not disable enhanced measurement: session_start, user_engagement, and
+  // engagement_time stay on GA4 automatic collection once the tag is loaded.
   window.gtag('js', new Date())
   window.gtag('config', measurementId, {
     send_page_view: false,

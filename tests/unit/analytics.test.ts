@@ -6,6 +6,7 @@ import { shouldLoadGa4, shouldLoadLinkedInInsight } from '@/lib/analytics/gates'
 import {
   canSendToGa4,
   configureGa4,
+  ga4ScriptSrc,
   readCampaignAttribution,
   resetGa4PageViewForTests,
   sendGa4PageView,
@@ -82,19 +83,44 @@ describe('Diagnostic destination matching', () => {
 
     anchor.remove()
   })
+
+  it('skips PrimaryCta / TextCta links so the listener does not double-count', () => {
+    const anchor = document.createElement('a')
+    anchor.setAttribute('href', '/diagnostic')
+    anchor.setAttribute('data-hendricks-cta', '')
+    document.body.appendChild(anchor)
+
+    expect(diagnosticCtaFromClickTarget(anchor, origin)).toBeNull()
+
+    anchor.remove()
+  })
 })
 
 describe('Campaign attribution', () => {
-  it('reads UTM source and medium from the query string', () => {
-    expect(readCampaignAttribution('?utm_source=linkedin&utm_medium=social&utm_campaign=diag')).toEqual({
+  it('reads every UTM field used on page_view', () => {
+    expect(
+      readCampaignAttribution(
+        '?utm_source=linkedin&utm_medium=social&utm_campaign=diag&utm_term=sie&utm_content=hero',
+      ),
+    ).toEqual({
       campaign_source: 'linkedin',
       campaign_medium: 'social',
       campaign_name: 'diag',
+      campaign_term: 'sie',
+      campaign_content: 'hero',
     })
   })
 
   it('returns an empty object when no campaign params are present', () => {
     expect(readCampaignAttribution('?foo=bar')).toEqual({})
+  })
+})
+
+describe('GA4 script URL', () => {
+  it('loads gtag.js from googletagmanager.com with the env measurement ID', () => {
+    expect(ga4ScriptSrc('G-AB12CD34EF')).toBe(
+      'https://www.googletagmanager.com/gtag/js?id=G-AB12CD34EF',
+    )
   })
 })
 
@@ -136,10 +162,16 @@ describe('GA4 send gate', () => {
     expect(gtag).not.toHaveBeenCalledWith('event', 'page_view', expect.anything())
   })
 
-  it('sends a page_view with path, location, and referrer after grant + configure', () => {
+  it('sends a page_view with path, location, referrer, and UTM campaign fields', () => {
     recordDecision('granted', 'banner')
     configureGa4('G-AB12CD34EF')
     expect(canSendToGa4()).toBe(true)
+
+    window.history.pushState(
+      {},
+      '',
+      '/?utm_source=linkedin&utm_medium=social&utm_campaign=diag&utm_term=sie&utm_content=hero',
+    )
 
     sendGa4PageView()
 
@@ -151,6 +183,11 @@ describe('GA4 send gate', () => {
         page_location: expect.stringContaining('http'),
         page_title: expect.any(String),
         page_referrer: expect.any(String),
+        campaign_source: 'linkedin',
+        campaign_medium: 'social',
+        campaign_name: 'diag',
+        campaign_term: 'sie',
+        campaign_content: 'hero',
       }),
     )
   })

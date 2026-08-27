@@ -10,7 +10,7 @@ import {
   trackDiagnosticCtaClick,
 } from '@/lib/analytics/diagnostic-cta'
 import { shouldLoadGa4, shouldLoadLinkedInInsight } from '@/lib/analytics/gates'
-import { configureGa4, sendGa4PageView } from '@/lib/analytics/gtag'
+import { configureGa4, ga4ScriptSrc, sendGa4PageView } from '@/lib/analytics/gtag'
 
 /**
  * Consent-gated GA4 and LinkedIn Insight Tag.
@@ -36,7 +36,7 @@ function Ga4Runtime({ measurementId }: { measurementId: string }) {
   return (
     <Script
       id="ga4-gtag"
-      src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`}
+      src={ga4ScriptSrc(measurementId)}
       strategy="afterInteractive"
       onReady={() => {
         configureGa4(measurementId)
@@ -101,8 +101,6 @@ export function ConsentedTags({
     partnerId: linkedInPartnerId,
     analyticsGranted,
   })
-
-  if (!analyticsGranted) return null
 
   return (
     <>

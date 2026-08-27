@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import type { ReactNode } from 'react'
 
 import { Button, type ButtonProps } from '@/components/ui/button'
+import { isDiagnosticDestination, trackDiagnosticCtaClick } from '@/lib/analytics/diagnostic-cta'
 import { trackEvent, type AudienceType } from '@/lib/analytics/events'
 import { cn } from '@/lib/utils/cn'
 
@@ -37,6 +38,9 @@ export function PrimaryCta({
   const Icon = cta.external ? ArrowUpRight : ArrowRight
 
   const handleClick = () => {
+    if (typeof window !== 'undefined' && isDiagnosticDestination(cta.href, window.location.origin)) {
+      trackDiagnosticCtaClick(window.location.pathname)
+    }
     if (!cta.analytics) return
     trackEvent('primary_cta_click', {
       cta_label: cta.label,
@@ -52,6 +56,7 @@ export function PrimaryCta({
       <Link
         href={cta.href}
         onClick={handleClick}
+        data-hendricks-cta=""
         {...(cta.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       >
         {cta.label}
@@ -73,6 +78,9 @@ export function TextCta({
   className?: string
 }) {
   const handleClick = () => {
+    if (typeof window !== 'undefined' && isDiagnosticDestination(cta.href, window.location.origin)) {
+      trackDiagnosticCtaClick(window.location.pathname)
+    }
     if (!cta.analytics) return
     trackEvent('primary_cta_click', {
       cta_label: cta.label,
@@ -85,6 +93,7 @@ export function TextCta({
     <Link
       href={cta.href}
       onClick={handleClick}
+      data-hendricks-cta=""
       className={cn(
         'group inline-flex items-center gap-1.5 font-medium underline decoration-1 underline-offset-4 transition-colors duration-[var(--duration-micro)]',
         onNavy
