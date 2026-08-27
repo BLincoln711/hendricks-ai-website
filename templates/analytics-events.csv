@@ -2,6 +2,7 @@ event_name,trigger,required_parameters,optional_parameters,contains_pii,notes
 audience_path_select,Visitor selects Brands or Agencies,audience_type|cta_location,destination_url,false,Fire once per click
 solution_view,Solution detail page becomes visible,solution_name|page_name,,false,Prefer page-level context over scroll spam
 primary_cta_click,Primary commercial CTA is activated,cta_label|cta_location|destination_url,audience_type|solution_name,false,Do not fire again on destination load
+diagnostic_cta_click,Any same-origin link to /diagnostic is activated,page_path,,false,Consented GA4 event; header footer and body links share one listener
 diagnostic_start,Visitor focuses or begins Diagnostic form,form_name|page_name,audience_type,false,Fire once per session/form
 diagnostic_step_complete,Visitor completes a multistep form step,form_name|form_step,audience_type,false,Only if multistep form is used
 diagnostic_submit,Validated Diagnostic submission request begins,form_name|audience_type,,false,No field values

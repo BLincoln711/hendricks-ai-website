@@ -25,6 +25,8 @@ const OPTIONAL_ANALYTICS = [
   'doubleclick.net',
   'facebook.net',
   'linkedin.com/px',
+  'snap.licdn.com',
+  'px.ads.linkedin.com',
   'tiktok.com',
 ]
 
@@ -192,6 +194,17 @@ test.describe('Accepting analytics', () => {
     await page.getByRole('button', { name: banner.accept }).click()
 
     await expect(page.locator('[aria-live="polite"]')).toHaveText('Optional analytics accepted.')
+  })
+
+  test('loads no GA4 or LinkedIn tag when measurement env IDs are empty', async ({ page }) => {
+    const requests = recordAnalyticsRequests(page)
+
+    await page.goto('/')
+    await page.getByRole('button', { name: banner.accept }).click()
+    await expect(page.getByRole('heading', { name: banner.title })).toBeHidden()
+    await page.goto('/about')
+
+    expect(requests, `vendor tag fired with empty env:\n${requests.join('\n')}`).toEqual([])
   })
 })
 
