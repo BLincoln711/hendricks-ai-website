@@ -6,6 +6,8 @@
  * information must never appear in any parameter object (docs/07 §3, §5).
  */
 
+import { canSendToGa4, sendGtagEvent } from '@/lib/analytics/gtag'
+
 export type AudienceType = 'brand' | 'agency'
 
 type EventMap = {
@@ -30,6 +32,7 @@ type EventMap = {
   external_venture_click: { external_brand_name: string; destination_url: string }
   contact_submit: { form_name: string }
   form_validation_error: { form_name: string; error_type: string }
+  diagnostic_cta_click: { page_path: string }
 }
 
 export type EventName = keyof EventMap
@@ -44,4 +47,10 @@ export function trackEvent<T extends EventName>(event: T, params: EventMap[T]): 
   if (typeof window === 'undefined') return
   window.dataLayer = window.dataLayer ?? []
   window.dataLayer.push({ event, ...params })
+
+  // First-party dataLayer writes do not leave the browser. GA4 only receives
+  // the event after analytics consent and after gtag.js has actually loaded.
+  if (canSendToGa4()) {
+    sendGtagEvent(event, params)
+  }
 }

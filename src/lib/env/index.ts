@@ -21,6 +21,24 @@ const serverSchema = z.object({
     .regex(/^GTM-[A-Z0-9]+$/, 'GTM container ID must look like GTM-XXXXXXX')
     .optional()
     .or(z.literal('').transform(() => undefined)),
+  /**
+   * GA4 web stream ID. Empty means gtag.js is never loaded. Do not invent a
+   * measurement ID — set this only in Vercel when a real G- ID exists.
+   */
+  NEXT_PUBLIC_GA_MEASUREMENT_ID: z
+    .string()
+    .regex(/^G-[A-Z0-9]+$/, 'GA4 measurement ID must look like G-XXXXXXXX')
+    .optional()
+    .or(z.literal('').transform(() => undefined)),
+  /**
+   * LinkedIn Insight Tag partner ID. Empty keeps the pixel off. Do not set
+   * this in production until the Privacy Notice is updated to name the tag.
+   */
+  NEXT_PUBLIC_LINKEDIN_PARTNER_ID: z
+    .string()
+    .regex(/^\d+$/, 'LinkedIn partner ID must be numeric')
+    .optional()
+    .or(z.literal('').transform(() => undefined)),
   NEXT_PUBLIC_VERCEL_ENV: z
     .enum(['development', 'preview', 'production'])
     .default('development'),
@@ -71,6 +89,8 @@ export const isIndexable = isProduction
 
 export const integrationStatus = {
   gtm: Boolean(env.NEXT_PUBLIC_GTM_ID),
+  ga4: Boolean(env.NEXT_PUBLIC_GA_MEASUREMENT_ID),
+  linkedinInsight: Boolean(env.NEXT_PUBLIC_LINKEDIN_PARTNER_ID),
   sanity: Boolean(env.NEXT_PUBLIC_SANITY_PROJECT_ID),
   email: Boolean(env.RESEND_API_KEY && env.LEAD_NOTIFICATION_EMAIL),
   crmWebhook: Boolean(env.CRM_WEBHOOK_URL),

@@ -5,8 +5,10 @@ import Script from 'next/script'
 
 import { ConsentManager } from '@/components/consent/consent-manager'
 import { ConsentProvider } from '@/components/consent/consent-provider'
+import { ConsentedTags } from '@/components/consent/consented-tags'
 import { OptionalAnalytics } from '@/components/consent/optional-analytics'
 import { siteConfig } from '@/config/site'
+import { readGaMeasurementId, readLinkedInPartnerId } from '@/lib/analytics/ids'
 import { consentModeDefaultScript } from '@/lib/consent/google-consent-mode'
 
 import './globals.css'
@@ -28,6 +30,8 @@ export const viewport: Viewport = {
 }
 
 const onVercel = Boolean(process.env.NEXT_PUBLIC_VERCEL_ENV ?? process.env.VERCEL)
+const gaMeasurementId = readGaMeasurementId()
+const linkedInPartnerId = readLinkedInPartnerId()
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -48,6 +52,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           <ConsentManager />
           <OptionalAnalytics onVercel={onVercel} />
+          <ConsentedTags
+            gaMeasurementId={gaMeasurementId}
+            linkedInPartnerId={linkedInPartnerId}
+          />
         </ConsentProvider>
       </body>
     </html>
