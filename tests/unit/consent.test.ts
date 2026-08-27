@@ -180,6 +180,7 @@ describe('Consent copy', () => {
     expect(analytics?.description).toContain('Google Analytics 4')
     expect(analytics?.description).toContain('Vercel Web Analytics')
     expect(analytics?.description).toContain('Vercel Speed Insights')
+    expect(analytics?.description).toContain('LinkedIn Insight Tag')
   })
 
   it('promises that analytics carries no identifying form content', () => {

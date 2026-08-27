@@ -104,6 +104,18 @@ describe('Privacy Notice', () => {
     expect(textOf(privacyNotice)).toContain('Global Privacy Control')
   })
 
+  it('discloses the LinkedIn Insight Tag after analytics consent and does not claim pixels are unused', () => {
+    expect(textOf(privacyNotice)).toContain(
+      'With analytics consent, Hendricks may use the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic.',
+    )
+    expect(textOf(privacyNotice)).toContain('Advertising storage remains denied.')
+    expect(textOf(privacyNotice)).not.toContain('does not use advertising pixels')
+  })
+
+  it('names LinkedIn as a measurement vendor after consent', () => {
+    expect(textOf(privacyNotice)).toContain('LinkedIn as a measurement vendor')
+  })
+
   it('publishes a retention period for each record type', () => {
     const retention = privacyNotice.sections.find((section) => section.id === 'retention')
     const table = retention?.blocks.find((block) => block.type === 'table')

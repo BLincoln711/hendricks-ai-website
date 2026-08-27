@@ -236,7 +236,7 @@ The site is planned to use Google Tag Manager and Google Analytics 4 and will be
   - `ad_storage`
   - `ad_user_data`
   - `ad_personalization`
-- At launch, keep advertising-related states denied even after analytics acceptance because the site is not using advertising or retargeting tags.
+- Keep advertising-related Consent Mode states denied even after analytics acceptance. After analytics consent, the LinkedIn Insight Tag may load to measure visits and LinkedIn-referred traffic. It is not used for retargeting, audience matching, or advertising personalization.
 - Treat Vercel Web Analytics and Vercel Speed Insights as optional analytics and do not load them until analytics consent. This is more conservative than relying solely on their cookie-free design.
 - Store only the visitor's consent choice, policy version, and timestamp before consent. That storage is strictly necessary to remember the request.
 - Show the banner on the first visit and when the consent version changes.
@@ -257,7 +257,7 @@ The site is planned to use Google Tag Manager and Google Analytics 4 and will be
 
 ## Banner body
 
-> We use essential technologies to operate and secure this website. With your permission, we also use analytics technologies to understand how the site is used and improve its performance. Optional analytics are off until you accept them. You can change your choice at any time through **Privacy Choices**.
+> We use essential technologies to operate and secure this website. With your permission, we also use analytics technologies to understand how the site is used and improve its performance, and may use the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic. Optional analytics are off until you accept them. You can change your choice at any time through **Privacy Choices**.
 
 ## Links
 
@@ -303,7 +303,7 @@ Examples may include:
 
 **Status:** Off by default; visitor controlled
 
-> Analytics help Hendricks understand page use, navigation, form performance, and site speed. When enabled, this category may load Google Analytics 4, Vercel Web Analytics, and Vercel Speed Insights. Analytics data must not include form-field values, email addresses, names, company names, message content, or other directly identifying information.
+> Analytics help Hendricks understand page use, navigation, form performance, and site speed. When enabled, this category may load Google Analytics 4, Vercel Web Analytics, Vercel Speed Insights, and the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic. Analytics data must not include form-field values, email addresses, names, company names, message content, or other directly identifying information.
 
 ## Buttons
 
@@ -326,7 +326,7 @@ The footer must include:
 - **Privacy Choices** — button that reopens the consent manager
 - [Privacy Request](/privacy-request)
 
-Do not display a “Do Not Sell or Share My Personal Information” link at launch because Hendricks will not sell personal information or share it for cross-context behavioral advertising. Add the required link and opt-out mechanism before introducing advertising pixels, retargeting, audience matching, or another practice that may constitute sale or sharing under applicable law.
+Do not display a “Do Not Sell or Share My Personal Information” link because Hendricks does not sell personal information or share it for cross-context behavioral advertising. The LinkedIn Insight Tag may load after analytics consent to measure visits and LinkedIn-referred traffic; advertising storage remains denied. Add the required link and opt-out mechanism before enabling retargeting, audience matching, or another practice that may constitute sale or sharing under applicable law.
 
 ---
 
@@ -528,7 +528,7 @@ With your permission, Hendricks may use:
 
 Although Vercel describes its analytics and performance products as cookie-free and privacy focused, Hendricks treats them as optional at launch and blocks them until analytics consent.
 
-Hendricks uses basic consent mode for Google tags: Google Analytics is not loaded and Google measurement requests are not sent before analytics consent. Advertising storage, advertising user data, and advertising personalization remain disabled at launch.
+Hendricks uses basic consent mode for Google tags: Google Analytics is not loaded and Google measurement requests are not sent before analytics consent. Advertising storage, advertising user data, and advertising personalization remain denied.
 
 You may accept, reject, or withdraw optional analytics at any time through the **Privacy Choices** link in the website footer.
 
@@ -538,7 +538,7 @@ Where a supported browser sends a Global Privacy Control signal, Hendricks treat
 
 ### D. Advertising and Retargeting
 
-At launch, Hendricks does not use advertising pixels, cross-context behavioral advertising, audience matching, or retargeting tags on the website. If these practices change, Hendricks will update this Notice and the privacy-choice mechanism before enabling them.
+With analytics consent, Hendricks may use the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic. Advertising storage remains denied. Hendricks does not use retargeting, audience matching, or cross-context behavioral advertising, and does not use session-replay or product-analytics tools such as Hotjar, Microsoft Clarity, or Mixpanel. If these practices change, Hendricks will update this Notice and the privacy-choice mechanism before enabling them.
 
 ## 7. How We Disclose Personal Information
 
@@ -558,7 +558,7 @@ Service providers may process information only to provide contracted functions, 
 - Professional consulting; and
 - Accounting, legal, and administrative support.
 
-The launch stack may include Vercel, Google, Sanity, Resend, Cloudflare, and the selected customer-relationship platform. The actual vendor list and configuration must be verified before publication.
+The service-provider stack may include Vercel, Google, Sanity, Resend, Cloudflare, and the selected customer-relationship platform. After analytics consent, it may also include LinkedIn as a measurement vendor. The actual vendor list and configuration must be verified before publication.
 
 ### B. Professional Advisers
 
@@ -580,7 +580,7 @@ Information may be disclosed or transferred as part of a merger, acquisition, fi
 
 Hendricks does not sell personal information for money.
 
-At launch, Hendricks also does not share personal information for cross-context behavioral advertising and does not process personal information for targeted advertising as those terms are defined by applicable U.S. state privacy laws.
+Hendricks also does not share personal information for cross-context behavioral advertising and does not process personal information for targeted advertising as those terms are defined by applicable U.S. state privacy laws.
 
 If those practices change, Hendricks will provide the required notice, opt-out method, and recognition of applicable browser-based opt-out signals before the change takes effect.
 
@@ -663,7 +663,7 @@ For residents of U.S. states with applicable comprehensive privacy laws, the fol
 
 Hendricks does not intentionally collect sensitive personal information through the public website and does not use or disclose sensitive personal information for purposes requiring a separate right to limit.
 
-Hendricks does not sell the categories above and, at launch, does not share them for cross-context behavioral advertising.
+Hendricks does not sell the categories above and does not share them for cross-context behavioral advertising.
 
 ## 14. Marketing Communications
 
@@ -981,6 +981,7 @@ Must not run before analytics acceptance:
 - Google Tag Manager tags that perform analytics
 - Vercel Web Analytics
 - Vercel Speed Insights
+- LinkedIn Insight Tag
 - Session replay
 - A/B testing
 - Heatmaps
@@ -988,18 +989,20 @@ Must not run before analytics acceptance:
 
 ### Advertising
 
-Not permitted at launch:
+After analytics consent, Hendricks may load the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic. Advertising storage, advertising user data, and advertising personalization remain denied. The Insight Tag is not used for retargeting, audience matching, or cross-context behavioral advertising.
+
+Still not permitted:
 
 - Google Ads remarketing
 - Meta Pixel
-- LinkedIn Insight Tag
 - TikTok Pixel
 - Audience matching
 - Cross-context behavioral advertising
 - Retargeting
 - Advertising personalization
+- Session-replay or product-analytics tools such as Hotjar, Microsoft Clarity, or Mixpanel
 
-If an advertising tag is proposed, stop implementation until the Privacy Notice, banner categories, opt-out methods, vendor contracts, state-law analysis, and GPC behavior are updated.
+If another advertising tag is proposed, or if retargeting, audience matching, or advertising storage would be enabled, stop implementation until the Privacy Notice, banner categories, opt-out methods, vendor contracts, state-law analysis, and GPC behavior are updated.
 
 ## 3. Google Consent Mode
 
@@ -1076,7 +1079,7 @@ When GPC is true:
 - Do not load optional analytics.
 - Persist the source as `gpc`.
 - The user may view the preferences panel, but the interface must not pressure the user to override GPC.
-- Do not add an advertising tag.
+- Do not load the LinkedIn Insight Tag or other optional measurement tags.
 
 ## 6. Banner UI
 
@@ -1188,7 +1191,7 @@ Maintain a case record with:
 
 Before production:
 
-- Execute or accept applicable data-processing terms with Vercel, Google, Sanity, Resend, Cloudflare, and the CRM provider.
+- Execute or accept applicable data-processing terms with Vercel, Google, LinkedIn, Sanity, Resend, Cloudflare, and the CRM provider.
 - Maintain a subprocessor register.
 - Configure minimum access and retention.
 - Prohibit personal information in analytics event properties.
@@ -1257,7 +1260,7 @@ Do not launch until these are completed:
 - Actual CRM provider
 - Actual retention settings
 - Actual privacy-request workflow
-- Confirmation that advertising and retargeting are disabled
+- Confirmation that retargeting, audience matching, and advertising storage remain disabled; the LinkedIn Insight Tag loads only after analytics consent
 - Counsel review of liability, venue, and privacy language
 
 ## 15. Acceptance tests
@@ -1277,6 +1280,7 @@ After analytics acceptance:
 - GA4 loads exactly once.
 - Approved analytics events fire exactly once.
 - Vercel analytics and Speed Insights may load.
+- The LinkedIn Insight Tag may load to measure visits and LinkedIn-referred traffic.
 - Advertising consent states remain denied.
 
 After withdrawal:

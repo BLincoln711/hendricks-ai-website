@@ -230,7 +230,7 @@ The site is planned to use Google Tag Manager and Google Analytics 4 and will be
   - `ad_storage`
   - `ad_user_data`
   - `ad_personalization`
-- At launch, keep advertising-related states denied even after analytics acceptance because the site is not using advertising or retargeting tags.
+- Keep advertising-related Consent Mode states denied even after analytics acceptance. After analytics consent, the LinkedIn Insight Tag may load to measure visits and LinkedIn-referred traffic. It is not used for retargeting, audience matching, or advertising personalization.
 - Treat Vercel Web Analytics and Vercel Speed Insights as optional analytics and do not load them until analytics consent. This is more conservative than relying solely on their cookie-free design.
 - Store only the visitor's consent choice, policy version, and timestamp before consent. That storage is strictly necessary to remember the request.
 - Show the banner on the first visit and when the consent version changes.
@@ -251,7 +251,7 @@ The site is planned to use Google Tag Manager and Google Analytics 4 and will be
 
 ## Banner body
 
-> We use essential technologies to operate and secure this website. With your permission, we also use analytics technologies to understand how the site is used and improve its performance. Optional analytics are off until you accept them. You can change your choice at any time through **Privacy Choices**.
+> We use essential technologies to operate and secure this website. With your permission, we also use analytics technologies to understand how the site is used and improve its performance, and may use the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic. Optional analytics are off until you accept them. You can change your choice at any time through **Privacy Choices**.
 
 ## Links
 
@@ -297,7 +297,7 @@ Examples may include:
 
 **Status:** Off by default; visitor controlled
 
-> Analytics help Hendricks understand page use, navigation, form performance, and site speed. When enabled, this category may load Google Analytics 4, Vercel Web Analytics, and Vercel Speed Insights. Analytics data must not include form-field values, email addresses, names, company names, message content, or other directly identifying information.
+> Analytics help Hendricks understand page use, navigation, form performance, and site speed. When enabled, this category may load Google Analytics 4, Vercel Web Analytics, Vercel Speed Insights, and the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic. Analytics data must not include form-field values, email addresses, names, company names, message content, or other directly identifying information.
 
 ## Buttons
 
@@ -320,7 +320,7 @@ The footer must include:
 - **Privacy Choices** — button that reopens the consent manager
 - [Privacy Request](/privacy-request)
 
-Do not display a “Do Not Sell or Share My Personal Information” link at launch because Hendricks will not sell personal information or share it for cross-context behavioral advertising. Add the required link and opt-out mechanism before introducing advertising pixels, retargeting, audience matching, or another practice that may constitute sale or sharing under applicable law.
+Do not display a “Do Not Sell or Share My Personal Information” link because Hendricks does not sell personal information or share it for cross-context behavioral advertising. The LinkedIn Insight Tag may load after analytics consent to measure visits and LinkedIn-referred traffic; advertising storage remains denied. Add the required link and opt-out mechanism before enabling retargeting, audience matching, or another practice that may constitute sale or sharing under applicable law.
 
 ---
 
