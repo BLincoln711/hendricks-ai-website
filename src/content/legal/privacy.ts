@@ -16,7 +16,7 @@ import type { LegalDocument } from '@/content/legal/types'
  */
 
 /** Version recorded against form submissions (docs/16 §7). */
-export const PRIVACY_NOTICE_VERSION = '2026-08-16'
+export const PRIVACY_NOTICE_VERSION = '2026-08-27'
 
 export const privacyNotice: LegalDocument = {
   meta: {
@@ -28,8 +28,8 @@ export const privacyNotice: LegalDocument = {
     eyebrow: 'Legal',
     title: 'Privacy Notice',
   },
-  effectiveDate: '2026-08-16',
-  lastUpdated: '2026-08-16',
+  effectiveDate: '2026-08-27',
+  lastUpdated: '2026-08-27',
   intro: [
     'This Privacy Notice explains how **Hendricks Agency LLC**, doing business as **Hendricks** (“Hendricks,” “we,” “us,” or “our”), collects, uses, discloses, and protects personal information when you visit **hendricks.ai**, submit an inquiry or application, subscribe to communications, interact with us, or receive services that refer to this Notice.',
   ],
@@ -230,8 +230,9 @@ export const privacyNotice: LegalDocument = {
           type: 'list',
           items: [
             '**Google Analytics 4**, to measure website use and events;',
-            '**Vercel Web Analytics**, to understand page visits and referral patterns; and',
-            '**Vercel Speed Insights**, to measure website performance.',
+            '**Vercel Web Analytics**, to understand page visits and referral patterns;',
+            '**Vercel Speed Insights**, to measure website performance; and',
+            '**LinkedIn Insight Tag**, to measure visits and LinkedIn-referred traffic.',
           ],
         },
         {
@@ -240,7 +241,7 @@ export const privacyNotice: LegalDocument = {
         },
         {
           type: 'paragraph',
-          text: 'Hendricks uses basic consent mode for Google tags: Google Analytics is not loaded and Google measurement requests are not sent before analytics consent. Advertising storage, advertising user data, and advertising personalization remain disabled at launch.',
+          text: 'Hendricks uses basic consent mode for Google tags: Google Analytics is not loaded and Google measurement requests are not sent before analytics consent. Advertising storage, advertising user data, and advertising personalization remain denied.',
         },
         {
           type: 'paragraph',
@@ -254,7 +255,7 @@ export const privacyNotice: LegalDocument = {
         { type: 'subheading', text: 'D. Advertising and Retargeting' },
         {
           type: 'paragraph',
-          text: 'At launch, Hendricks does not use advertising pixels, cross-context behavioral advertising, audience matching, or retargeting tags on the website. If these practices change, Hendricks will update this Notice and the privacy-choice mechanism before enabling them.',
+          text: 'With analytics consent, Hendricks may use the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic. Google advertising storage, advertising user data, and advertising personalization remain denied. Hendricks does not use the Insight Tag for retargeting, audience matching, or cross-context behavioral advertising, and does not use session-replay or product-analytics tools such as Hotjar, Microsoft Clarity, or Mixpanel. If these practices change, Hendricks will update this Notice and the privacy-choice mechanism before enabling them.',
         },
       ],
     },
@@ -287,7 +288,7 @@ export const privacyNotice: LegalDocument = {
         },
         {
           type: 'paragraph',
-          text: 'The launch stack may include Vercel, Google, Sanity, Resend, Cloudflare, and the selected customer-relationship platform.',
+          text: 'The service-provider stack may include Vercel, Google, Sanity, Resend, Cloudflare, and the selected customer-relationship platform. After analytics consent, it may also include LinkedIn as a measurement vendor.',
         },
         { type: 'subheading', text: 'B. Professional Advisers' },
         {
@@ -318,7 +319,7 @@ export const privacyNotice: LegalDocument = {
         { type: 'paragraph', text: 'Hendricks does not sell personal information for money.' },
         {
           type: 'paragraph',
-          text: 'At launch, Hendricks also does not share personal information for cross-context behavioral advertising and does not process personal information for targeted advertising as those terms are defined by applicable U.S. state privacy laws.',
+          text: 'Hendricks also does not share personal information for cross-context behavioral advertising and does not process personal information for targeted advertising as those terms are defined by applicable U.S. state privacy laws.',
         },
         {
           type: 'paragraph',
@@ -528,7 +529,7 @@ export const privacyNotice: LegalDocument = {
         },
         {
           type: 'paragraph',
-          text: 'Hendricks does not sell the categories above and, at launch, does not share them for cross-context behavioral advertising.',
+          text: 'Hendricks does not sell the categories above and does not share them for cross-context behavioral advertising.',
         },
       ],
     },

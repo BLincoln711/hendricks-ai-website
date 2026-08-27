@@ -11,7 +11,7 @@ import { routes } from '@/config/routes'
 
 export const banner = {
   title: 'Your privacy choices',
-  body: 'We use essential technologies to operate and secure this website. With your permission, we also use analytics technologies to understand how the site is used and improve its performance. Optional analytics are off until you accept them. You can change your choice at any time through Privacy Choices.',
+  body: 'We use essential technologies to operate and secure this website. With your permission, we also use analytics technologies to understand how the site is used and improve its performance, and may use the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic. Optional analytics are off until you accept them. You can change your choice at any time through Privacy Choices.',
   privacyLink: { label: 'Privacy Notice', href: routes.privacy.path },
   // Mobile order from §9. Reject is first and carries the same weight as accept.
   reject: 'Reject optional',
@@ -40,7 +40,7 @@ export const preferences = {
       name: 'Analytics',
       status: 'Off by default; visitor controlled',
       description:
-        'Analytics help Hendricks understand page use, navigation, form performance, and site speed. When enabled, this category may load Google Analytics 4, Vercel Web Analytics, and Vercel Speed Insights. Analytics data must not include form-field values, email addresses, names, company names, message content, or other directly identifying information.',
+        'Analytics help Hendricks understand page use, navigation, form performance, and site speed. When enabled, this category may load Google Analytics 4, Vercel Web Analytics, Vercel Speed Insights, and the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic. Analytics data must not include form-field values, email addresses, names, company names, message content, or other directly identifying information.',
       examples: [],
     },
   ],

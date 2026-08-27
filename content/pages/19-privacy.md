@@ -1,7 +1,7 @@
 # Privacy Notice
 
-**Effective Date:** [EFFECTIVE DATE]  
-**Last Updated:** [LAST UPDATED DATE]
+**Effective Date:** 27 August 2026  
+**Last Updated:** 27 August 2026
 
 This Privacy Notice explains how **Hendricks Agency LLC**, doing business as **Hendricks** (“Hendricks,” “we,” “us,” or “our”), collects, uses, discloses, and protects personal information when you visit **hendricks.ai**, submit an inquiry or application, subscribe to communications, interact with us, or receive services that refer to this Notice.
 
@@ -130,12 +130,13 @@ These technologies are active because the website cannot reliably provide the re
 With your permission, Hendricks may use:
 
 - **Google Analytics 4**, to measure website use and events;
-- **Vercel Web Analytics**, to understand page visits and referral patterns; and
-- **Vercel Speed Insights**, to measure website performance.
+- **Vercel Web Analytics**, to understand page visits and referral patterns;
+- **Vercel Speed Insights**, to measure website performance; and
+- **LinkedIn Insight Tag**, to measure visits and LinkedIn-referred traffic.
 
 Although Vercel describes its analytics and performance products as cookie-free and privacy focused, Hendricks treats them as optional at launch and blocks them until analytics consent.
 
-Hendricks uses basic consent mode for Google tags: Google Analytics is not loaded and Google measurement requests are not sent before analytics consent. Advertising storage, advertising user data, and advertising personalization remain disabled at launch.
+Hendricks uses basic consent mode for Google tags: Google Analytics is not loaded and Google measurement requests are not sent before analytics consent. Advertising storage, advertising user data, and advertising personalization remain denied.
 
 You may accept, reject, or withdraw optional analytics at any time through the **Privacy Choices** link in the website footer.
 
@@ -145,7 +146,7 @@ Where a supported browser sends a Global Privacy Control signal, Hendricks treat
 
 ### D. Advertising and Retargeting
 
-At launch, Hendricks does not use advertising pixels, cross-context behavioral advertising, audience matching, or retargeting tags on the website. If these practices change, Hendricks will update this Notice and the privacy-choice mechanism before enabling them.
+With analytics consent, Hendricks may use the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic. Google advertising storage, advertising user data, and advertising personalization remain denied. Hendricks does not use the Insight Tag for retargeting, audience matching, or cross-context behavioral advertising, and does not use session-replay or product-analytics tools such as Hotjar, Microsoft Clarity, or Mixpanel. If these practices change, Hendricks will update this Notice and the privacy-choice mechanism before enabling them.
 
 ## 7. How We Disclose Personal Information
 
@@ -165,7 +166,7 @@ Service providers may process information only to provide contracted functions, 
 - Professional consulting; and
 - Accounting, legal, and administrative support.
 
-The launch stack may include Vercel, Google, Sanity, Resend, Cloudflare, and the selected customer-relationship platform. The actual vendor list and configuration must be verified before publication.
+The service-provider stack may include Vercel, Google, Sanity, Resend, Cloudflare, and the selected customer-relationship platform. After analytics consent, it may also include LinkedIn as a measurement vendor. The actual vendor list and configuration must be verified before publication.
 
 ### B. Professional Advisers
 
@@ -187,7 +188,7 @@ Information may be disclosed or transferred as part of a merger, acquisition, fi
 
 Hendricks does not sell personal information for money.
 
-At launch, Hendricks also does not share personal information for cross-context behavioral advertising and does not process personal information for targeted advertising as those terms are defined by applicable U.S. state privacy laws.
+Hendricks also does not share personal information for cross-context behavioral advertising and does not process personal information for targeted advertising as those terms are defined by applicable U.S. state privacy laws.
 
 If those practices change, Hendricks will provide the required notice, opt-out method, and recognition of applicable browser-based opt-out signals before the change takes effect.
 
@@ -270,7 +271,7 @@ For residents of U.S. states with applicable comprehensive privacy laws, the fol
 
 Hendricks does not intentionally collect sensitive personal information through the public website and does not use or disclose sensitive personal information for purposes requiring a separate right to limit.
 
-Hendricks does not sell the categories above and, at launch, does not share them for cross-context behavioral advertising.
+Hendricks does not sell the categories above and does not share them for cross-context behavioral advertising.
 
 ## 14. Marketing Communications
 

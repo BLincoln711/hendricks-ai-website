@@ -28,6 +28,7 @@ Must not run before analytics acceptance:
 - Google Tag Manager tags that perform analytics
 - Vercel Web Analytics
 - Vercel Speed Insights
+- LinkedIn Insight Tag
 - Session replay
 - A/B testing
 - Heatmaps
@@ -35,18 +36,20 @@ Must not run before analytics acceptance:
 
 ### Advertising
 
-Not permitted at launch:
+After analytics consent, Hendricks may load the LinkedIn Insight Tag to measure visits and LinkedIn-referred traffic. Advertising storage, advertising user data, and advertising personalization remain denied. The Insight Tag is not used for retargeting, audience matching, or cross-context behavioral advertising.
+
+Still not permitted:
 
 - Google Ads remarketing
 - Meta Pixel
-- LinkedIn Insight Tag
 - TikTok Pixel
 - Audience matching
 - Cross-context behavioral advertising
 - Retargeting
 - Advertising personalization
+- Session-replay or product-analytics tools such as Hotjar, Microsoft Clarity, or Mixpanel
 
-If an advertising tag is proposed, stop implementation until the Privacy Notice, banner categories, opt-out methods, vendor contracts, state-law analysis, and GPC behavior are updated.
+If another advertising tag is proposed, or if retargeting, audience matching, or advertising storage would be enabled, stop implementation until the Privacy Notice, banner categories, opt-out methods, vendor contracts, state-law analysis, and GPC behavior are updated.
 
 ## 3. Google Consent Mode
 
@@ -123,7 +126,7 @@ When GPC is true:
 - Do not load optional analytics.
 - Persist the source as `gpc`.
 - The user may view the preferences panel, but the interface must not pressure the user to override GPC.
-- Do not add an advertising tag.
+- Do not load the LinkedIn Insight Tag or other optional measurement tags.
 
 ## 6. Banner UI
 
@@ -235,7 +238,7 @@ Maintain a case record with:
 
 Before production:
 
-- Execute or accept applicable data-processing terms with Vercel, Google, Sanity, Resend, Cloudflare, and the CRM provider.
+- Execute or accept applicable data-processing terms with Vercel, Google, LinkedIn, Sanity, Resend, Cloudflare, and the CRM provider.
 - Maintain a subprocessor register.
 - Configure minimum access and retention.
 - Prohibit personal information in analytics event properties.
@@ -304,7 +307,7 @@ Do not launch until these are completed:
 - Actual CRM provider
 - Actual retention settings
 - Actual privacy-request workflow
-- Confirmation that advertising and retargeting are disabled
+- Confirmation that retargeting, audience matching, and advertising storage remain disabled; the LinkedIn Insight Tag loads only after analytics consent
 - Counsel review of liability, venue, and privacy language
 
 ## 15. Acceptance tests
@@ -324,6 +327,7 @@ After analytics acceptance:
 - GA4 loads exactly once.
 - Approved analytics events fire exactly once.
 - Vercel analytics and Speed Insights may load.
+- The LinkedIn Insight Tag may load to measure visits and LinkedIn-referred traffic.
 - Advertising consent states remain denied.
 
 After withdrawal:

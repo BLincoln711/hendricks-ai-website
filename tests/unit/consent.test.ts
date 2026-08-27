@@ -40,6 +40,15 @@ describe('Consent state', () => {
     expect(parseConsentState(stored, NOW)).toBeNull()
   })
 
+  it('invalidates a grant recorded before the LinkedIn Insight Tag disclosure', () => {
+    const stored = JSON.stringify({
+      ...createConsentState({ analytics: 'granted', source: 'banner', gpc: false, now: NOW }),
+      version: '2026-08-16',
+    })
+
+    expect(parseConsentState(stored, NOW)).toBeNull()
+  })
+
   it('denies analytics once the record has expired', () => {
     const state = createConsentState({
       analytics: 'granted',
@@ -180,6 +189,7 @@ describe('Consent copy', () => {
     expect(analytics?.description).toContain('Google Analytics 4')
     expect(analytics?.description).toContain('Vercel Web Analytics')
     expect(analytics?.description).toContain('Vercel Speed Insights')
+    expect(analytics?.description).toContain('LinkedIn Insight Tag')
   })
 
   it('promises that analytics carries no identifying form content', () => {
