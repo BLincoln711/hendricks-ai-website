@@ -94,8 +94,16 @@ export function sendGa4PageView(): void {
   lastPageLocation = pageLocation
 }
 
-/** Test seam. */
-export function resetGa4PageViewForTests(): void {
+/**
+ * Clears the SPA page_view cache and the configured flag. Called when the
+ * consented GA4 runtime unmounts (withdraw) so a later grant can send again.
+ */
+export function resetGa4Runtime(): void {
   lastPageLocation = undefined
   ga4Configured = false
+}
+
+/** Test seam. */
+export function resetGa4PageViewForTests(): void {
+  resetGa4Runtime()
 }

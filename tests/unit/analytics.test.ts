@@ -9,6 +9,7 @@ import {
   ga4ScriptSrc,
   readCampaignAttribution,
   resetGa4PageViewForTests,
+  resetGa4Runtime,
   sendGa4PageView,
 } from '@/lib/analytics/gtag'
 import { parseGaMeasurementId, parseLinkedInPartnerId } from '@/lib/analytics/ids'
@@ -200,6 +201,28 @@ describe('GA4 send gate', () => {
 
     const pageViews = gtag.mock.calls.filter((call) => call[0] === 'event' && call[1] === 'page_view')
     expect(pageViews).toHaveLength(1)
+  })
+
+  it('sends page_view again after the runtime is reset (withdraw then grant)', () => {
+    recordDecision('granted', 'banner')
+    configureGa4('G-AB12CD34EF')
+    sendGa4PageView()
+    resetGa4Runtime()
+    configureGa4('G-AB12CD34EF')
+    sendGa4PageView()
+
+    const pageViews = gtag.mock.calls.filter((call) => call[0] === 'event' && call[1] === 'page_view')
+    expect(pageViews).toHaveLength(2)
+  })
+
+  it('never sends a handmade session_start or user_engagement event', () => {
+    recordDecision('granted', 'banner')
+    configureGa4('G-AB12CD34EF')
+    sendGa4PageView()
+
+    const eventNames = gtag.mock.calls.filter((call) => call[0] === 'event').map((call) => call[1])
+    expect(eventNames).toEqual(['page_view'])
+    expect(gtag).toHaveBeenCalledWith('config', 'G-AB12CD34EF', { send_page_view: false })
   })
 
   it('forwards consented typed events to gtag and still writes the first-party dataLayer', () => {

@@ -10,7 +10,7 @@ import {
   trackDiagnosticCtaClick,
 } from '@/lib/analytics/diagnostic-cta'
 import { shouldLoadGa4, shouldLoadLinkedInInsight } from '@/lib/analytics/gates'
-import { configureGa4, ga4ScriptSrc, sendGa4PageView } from '@/lib/analytics/gtag'
+import { configureGa4, ga4ScriptSrc, resetGa4Runtime, sendGa4PageView } from '@/lib/analytics/gtag'
 
 /**
  * Consent-gated GA4 and LinkedIn Insight Tag.
@@ -32,6 +32,10 @@ function Ga4Runtime({ measurementId }: { measurementId: string }) {
   useEffect(() => {
     sendGa4PageView()
   }, [pathname])
+
+  useEffect(() => {
+    return () => resetGa4Runtime()
+  }, [])
 
   return (
     <Script
@@ -70,8 +74,9 @@ window._linkedin_data_partner_ids.push(${JSON.stringify(partnerId)});
 }
 
 /**
- * Capture-phase listener for any same-origin /diagnostic link: header CTA,
- * mobile nav, footer, PrimaryCta, and in-body links. Does not change labels.
+ * Capture-phase listener for same-origin /diagnostic links that are not
+ * PrimaryCta / TextCta (header, mobile nav, footer, other body links).
+ * Those CTA components fire diagnostic_cta_click themselves. No copy changes.
  */
 export function DiagnosticCtaTracker() {
   useEffect(() => {
