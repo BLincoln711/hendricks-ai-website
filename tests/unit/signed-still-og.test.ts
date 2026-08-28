@@ -13,7 +13,6 @@ const SHIP_BYTES = 896953
 
 const CONTENT_OG_PATHS = [
   'src/app/(editorial)/research/opengraph-image.png',
-  'src/app/(editorial)/research/[slug]/opengraph-image.png',
   'src/app/(editorial)/what-is-search-intelligence-engineering/opengraph-image.png',
   'src/app/(editorial)/what-is-selection-intelligence/opengraph-image.png',
   'src/app/(editorial)/what-is-ai-mediated-search/opengraph-image.png',
@@ -27,7 +26,7 @@ function sha256(filePath: string) {
 }
 
 describe('wordless signed-still content og:image', () => {
-  it('keeps the public ship file and all eight route copies on the exact still', () => {
+  it('keeps the public ship file and the seven static route copies on the exact still', () => {
     const source = path.join(process.cwd(), 'public/og/signed-still-1200x630.png')
     expect(readFileSync(source).byteLength).toBe(SHIP_BYTES)
     expect(sha256(source)).toBe(SHIP_SHA256)
@@ -37,5 +36,15 @@ describe('wordless signed-still content og:image', () => {
       expect(readFileSync(filePath).byteLength, relative).toBe(SHIP_BYTES)
       expect(sha256(filePath), relative).toBe(SHIP_SHA256)
     }
+  })
+
+  it('serves research article cards from the ship file, not a type-card redraw', () => {
+    const handler = readFileSync(
+      path.join(process.cwd(), 'src/app/(editorial)/research/[slug]/opengraph-image.tsx'),
+      'utf8',
+    )
+    expect(handler).toContain("public/og/signed-still-1200x630.png")
+    expect(handler).not.toContain('renderOgImage')
+    expect(handler).toContain('generateStaticParams')
   })
 })
