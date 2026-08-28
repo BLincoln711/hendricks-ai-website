@@ -66,7 +66,9 @@ describe('QA delete-only cuts: About, SPE, agencies, research hub', () => {
   it('removes Total Search from the three named live routes', () => {
     expect(corpusOf(spe)).not.toContain('Total Search')
     expect(corpusOf(forAgencies)).not.toContain('Total Search')
-    expect(researchCategories).not.toContain('Total Search')
-    expect(researchArticles.every((article) => article.category !== 'Total Search')).toBe(true)
+    expect([...researchCategories]).not.toContain('Total Search')
+    expect(researchArticles.map((article) => article.category as string)).not.toContain(
+      'Total Search',
+    )
   })
 })
