@@ -175,7 +175,7 @@ Every figure in these tables is read from run 2026-08-19-110930, archived at his
 
 Eyebrow: Methodology
 
-The instrument is a first-party probe that calls the DataForSEO AI Optimization API, one question at a time, per engine, and records the URLs each engine cited. It is the same instrument Hendricks points at a client engagement, and it produced this run for a different study before this one was written.
+The instrument is a first-party probe that records the URLs each engine cited, one question at a time, per engine. It is the same instrument Hendricks points at a client engagement.
 
 ### 01. Read the citation set from one archived run, and name the run.
 
@@ -228,7 +228,7 @@ Eyebrow: Sample and Date Range
 - Populated cells: 20. Only these contributed citation slots, so 20 is the denominator for every figure about the structure of the set.
 - Citation slots: 308. Distinct domains: 247.
 - Geography and language: one setting, held constant across the run.
-- Instrument: a first-party probe calling the DataForSEO AI Optimization API.
+- Instrument: a first-party probe.
 
 The 17-question set and how it was built are published on the self-baseline study, which reports the same run of record for a different question. This study does not restate the query-set construction and links to it instead.
 
@@ -344,7 +344,7 @@ CTA: Read the Methodology
 
 ## Sources and updates
 
-This page reports first-party measurement produced by Hendricks. Every figure on it is read from a single probe run on 2026-08-19, run 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. The run is recorded with its denominators, its error count, and the engines it queried. No figure on this page is derived, averaged, rounded, or recomputed into a new statistic. The page reports no third-party research, no vendor study, and no statistic from anyone else, and therefore cites none. Naming the DataForSEO AI Optimization API is instrument disclosure rather than a citation or an endorsement.
+This page reports first-party measurement produced by Hendricks. Every figure on it is read from a single probe run on 2026-08-19, run 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. The run is recorded with its denominators, its error count, and the engines it queried. No figure on this page is derived, averaged, rounded, or recomputed into a new statistic. The page reports no third-party research, no vendor study, and no statistic from anyone else, and therefore cites none.
 
 Last reviewed 2026-08-19.
 

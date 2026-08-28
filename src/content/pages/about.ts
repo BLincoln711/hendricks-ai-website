@@ -134,23 +134,9 @@ export const experience = {
         'These experiences formed the basis of the Search Intelligence Engineering perspective. Search is not just a channel to optimize. It is a data and signal system that must be engineered.',
     },
   ],
-  /**
-   * CONTENT_VERIFICATION.md F5 resolved 2026-08-17. Current, not former:
-   * LinkedIn records Mar 2025 to Present. The "one of thirteen" figure is
-   * Brandon's own published wording on that entry.
-   */
-  advisory: {
-    title: 'Ahrefs Customer Advisory Board',
-    organization: 'Ahrefs',
-    relationship: 'Current advisory role',
-    period: 'Since Mar 2025',
-    description:
-      'One of thirteen members selected for the Ahrefs Customer Advisory Board, providing strategic input to Ahrefs leadership on product development, customer experience, and market opportunities.',
-  },
   capabilitiesTitle: 'The capability areas behind Hendricks engagements.',
   items: [
     'Enterprise search leadership',
-    'Total Search operating models',
     'Paid and organic acquisition',
     'Analytics and attribution',
     'Data and AI systems',

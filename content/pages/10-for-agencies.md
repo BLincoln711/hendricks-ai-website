@@ -105,7 +105,7 @@ Hendricks architects and deploys a repeatable Search Intelligence capability tha
 - Entity and brand-understanding analysis
 - Decision-content architecture
 - Search Presence Engineering
-- Paid and organic Total Search
+- Paid and organic
 - Search impact measurement
 - BigQuery and data engineering
 - Governed monitoring agents

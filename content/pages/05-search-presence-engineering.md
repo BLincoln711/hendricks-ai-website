@@ -113,7 +113,7 @@ Work can include:
 - Digital PR
 - Source corrections
 
-### 6. Total Search coverage
+### 6.
 
 Use paid and organic search as one demand-capture system.
 

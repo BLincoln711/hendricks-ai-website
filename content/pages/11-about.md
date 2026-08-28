@@ -73,7 +73,6 @@ Use a chronological or capability-based layout. Every named role must be verifie
 Possible areas to include after verification:
 
 - Enterprise search leadership
-- Total Search operating models
 - Paid and organic acquisition
 - Analytics and attribution
 - Data and AI systems

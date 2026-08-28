@@ -198,7 +198,7 @@ export const capabilities = {
     'Entity and brand-understanding analysis',
     'Decision-content architecture',
     'Search Presence Engineering',
-    'Paid and organic Total Search',
+    'Paid and organic',
     'Search impact measurement',
     'BigQuery and data engineering',
     'Governed monitoring agents',

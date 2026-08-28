@@ -119,7 +119,6 @@ export const layers = {
     },
     {
       number: '06',
-      title: 'Total Search coverage',
       description: 'Use paid and organic search as one demand-capture system.',
       workItems: [
         'Shared query taxonomy',

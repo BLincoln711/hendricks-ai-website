@@ -188,6 +188,23 @@ describe('Solution page structure', () => {
   })
 })
 
+describe('Total Search label cuts', () => {
+  it('drops the Total Search labels from Search Presence Engineering layer 06', () => {
+    const layer06 = spe.layers.items.find((layer) => layer.number === '06')
+    expect(layer06?.description).toBe(
+      'Use paid and organic search as one demand-capture system.',
+    )
+    expect(layer06?.title).toBeUndefined()
+    expect(JSON.stringify(spe)).not.toContain('Total Search')
+  })
+
+  it('drops Total Search from the agencies paid-and-organic capability only', () => {
+    expect(forAgencies.capabilities.items).toContain('Paid and organic')
+    expect(forAgencies.capabilities.items).not.toContain('Paid and organic Total Search')
+    expect(JSON.stringify(forAgencies)).not.toContain('Total Search')
+  })
+})
+
 describe('Definition pages', () => {
   const definitionPages = [
     { route: '/what-is-search-intelligence-engineering', content: wisie },
@@ -346,6 +363,20 @@ describe('Measurement honesty', () => {
 })
 
 describe('About page', () => {
+  it('keeps the verified Merkle and SolarWinds employment titles', () => {
+    const titles = about.experience.roles.map((role) => `${role.title}, ${role.organization}`)
+    expect(titles).toContain('Global Paid Search Director, Merkle')
+    expect(titles).toContain('Global Search and Innovation Lead, SolarWinds')
+    expect(titles.join(' ')).not.toContain('Global Lead of Total Search')
+  })
+
+  it('does not publish the Ahrefs advisory block or the Total Search operating-models label', () => {
+    const corpus = JSON.stringify(about)
+    expect(corpus).not.toContain('Ahrefs Customer Advisory Board')
+    expect(corpus).not.toContain('Total Search operating models')
+    expect(about.experience).not.toHaveProperty('advisory')
+  })
+
   it('frames The Search Economy as an independent publication', () => {
     // docs/10 §2 — never a Hendricks research arm or solution.
     expect(about.externalVenture.name).toBe('The Search Economy')

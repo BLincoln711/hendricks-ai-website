@@ -281,6 +281,10 @@ describe('personSchema alumniOf', () => {
         org.name,
       )
     }
+
+    expect(schema.alumniOf?.map((org) => org.name)).toEqual(['Merkle', 'SolarWinds'])
+    expect(JSON.stringify(schema)).not.toContain('Ahrefs')
+    expect(schema).not.toHaveProperty('memberOf')
   })
 })
 

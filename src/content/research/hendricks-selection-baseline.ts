@@ -129,8 +129,8 @@ import {
  *    stays dark.
  *
  * 3. EVERY FIGURE COMES FROM A DATED RUN, AND THE RUN IS NAMED. Two runs,
- *    2026-08-18 and 2026-08-19, produced by the first-party probe against the
- *    DataForSEO AI Optimization API. No number on this page is derived,
+ *    2026-08-18 and 2026-08-19, produced by the first-party probe. No number
+ *    on this page is derived,
  *    averaged, rounded, or recomputed from those runs into a new statistic,
  *    because docs/19 rule one requires every number to carry its denominator,
  *    its run date, and its run-health line. Percentages appear only where the
@@ -163,8 +163,7 @@ import {
  *
  * SOURCES. No external citation. docs/18-SOURCE-LEDGER.md approves external
  * sources per page and this page reports first-party measurement only, so
- * `sources` carries no `citations` array. Naming the DataForSEO AI Optimization
- * API is instrument disclosure, not a citation and not an endorsement.
+ * `sources` carries no `citations` array.
  *
  * THE FIFTEEN ELEMENTS. docs/06 §12 requires all of them on a substantial
  * research article. Their homes here, in render order:
@@ -463,7 +462,7 @@ export const data = {
   ],
   note: [
     'The domain tables record which sources these answers cited. They are facts about the answers and nothing else. They are not a ranking of firms, they carry no judgment about any company behind a domain, and no page on this site publishes one.',
-    'Run 1 errored on 6 of its 45 cells, all of them Google AI Overviews, all returning DataForSEO task error 40101. That is why the Google AI Overviews figure for run 1 reads against 9 successful probes rather than 15. Run 2 errored on 4 of its 51 cells, the same DataForSEO task error 40101, which is an upstream server error rather than a finding about any engine. All four were Google AI Overviews cells, exactly as in run 1, so the Google AI Overviews figure for run 2 reads against 13 successful probes rather than 17. ChatGPT and Perplexity each returned a measurement on all 17 questions they were sent, so their columns read against 17.',
+    'Run 1 errored on 6 of its 45 cells, all of them Google AI Overviews. That is why the Google AI Overviews figure for run 1 reads against 9 successful probes rather than 15. Run 2 errored on 4 of its 51 cells, which is an upstream server error rather than a finding about any engine. All four were Google AI Overviews cells, exactly as in run 1, so the Google AI Overviews figure for run 2 reads against 13 successful probes rather than 17. ChatGPT and Perplexity each returned a measurement on all 17 questions they were sent, so their columns read against 17.',
     'The single cell citing hendricks.ai in run 1 cites a page Hendricks published on 2025-11-25 and retired on 2026-08-17. The citation is counted here because it happened. The page it points at is gone, which is a separate fact and is reported next to it rather than folded into the count. Key finding 01 and the corrections section carry the detail.',
     'Every run 2 figure above is read from run 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. The manifest records all three engines as requested, none carried forward from an earlier run, 51 cells, 47 measured, and $0.3769 spent. A reader checking a figure on this page can name that run id and ask for the file it came from.',
   ],
@@ -507,7 +506,7 @@ export const errorsFound = {
 export const methodology = {
   eyebrow: 'Methodology',
   title: 'How these numbers were produced',
-  lead: 'The instrument is a first-party probe that calls the DataForSEO AI Optimization API, one question at a time, per engine, and records the URLs each engine cited. It is the same instrument Hendricks points at a client engagement. Nothing about either run was built for this page.',
+  lead: 'The instrument is a first-party probe that records the URLs each engine cited, one question at a time, per engine. It is the same instrument Hendricks points at a client engagement.',
   items: [
     {
       number: '01',
@@ -537,7 +536,7 @@ export const methodology = {
       number: '05',
       name: 'Report the run health next to the number.',
       description:
-        'Run 1 errored on 6 of 45 cells, all of them Google AI Overviews. Run 2 errored on 4 of 51, all of them Google AI Overviews again. Both runs failed the same way, DataForSEO task error 40101, which is an upstream server error. A run that fails and a run that finds nothing produce similar-looking output files and mean opposite things, so the error count travels with every figure taken from either run.',
+        'Run 1 errored on 6 of 45 cells, all of them Google AI Overviews. Run 2 errored on 4 of 51, all of them Google AI Overviews again. Both runs failed the same way, which is an upstream server error. A run that fails and a run that finds nothing produce similar-looking output files and mean opposite things, so the error count travels with every figure taken from either run.',
     },
     {
       number: '06',
@@ -580,7 +579,7 @@ export const sample = {
     'Questions: 15 in run 1, 17 in run 2. The second set replaced the first and does not extend it.',
     'Cells: 45 in run 1, of which 39 were measured and 6 errored. 51 in run 2, of which 47 were measured and 4 errored.',
     'Geography and language: one setting, held constant across both runs.',
-    'Instrument: a first-party probe calling the DataForSEO AI Optimization API.',
+    'Instrument: a first-party probe.',
     'Run of record: run 2 is 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. Run 1 reproduces from its own 2026-08-18 result file, unchanged.',
     'Resolution check: the one cited hendricks.ai address was fetched by hand on 2026-08-18 and returned HTTP 410 Gone.',
   ],
@@ -673,7 +672,7 @@ export const limitations = {
       number: '07',
       name: 'Four cells in run 2 produced no measurement.',
       description:
-        'Run 2 sent 51 cells and measured 47. Four returned DataForSEO task error 40101, an upstream server error, and an errored cell is a broken instrument rather than a finding of absence. All four were Google AI Overviews cells, so that engine returned a measurement on 13 of the 17 questions it was sent and its figure on this page reads against 13. The counts themselves are exact. What no figure here can say is what those four cells would have returned, and nothing on this page estimates it.',
+        'Run 2 sent 51 cells and measured 47. Four returned an upstream server error, and an errored cell is a broken instrument rather than a finding of absence. All four were Google AI Overviews cells, so that engine returned a measurement on 13 of the 17 questions it was sent and its figure on this page reads against 13. The counts themselves are exact. What no figure here can say is what those four cells would have returned, and nothing on this page estimates it.',
     },
     {
       number: '08',
