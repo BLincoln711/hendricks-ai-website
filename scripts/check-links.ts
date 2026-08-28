@@ -5,7 +5,8 @@
  * filesystem, none of which a type error would catch:
  *
  * 1. Every route marked `built` has a `page.tsx`.
- * 2. Every built route other than `/` ships its own `opengraph-image.tsx` (docs/06 §3).
+ * 2. Every built route other than `/` ships its own `opengraph-image.tsx` or
+ *    `opengraph-image.png` (docs/06 §3).
  * 3. Every href the navigation actually exports resolves to a built route.
  *
  * Checks 1 and 2 resolve a registry path against dynamic segment directories as
@@ -131,10 +132,12 @@ async function main() {
 
     if (!directory || route.path === '/') continue
 
-    if (!(await exists(path.join(directory, 'opengraph-image.tsx')))) {
+    const hasGeneratedOg = await exists(path.join(directory, 'opengraph-image.tsx'))
+    const hasStaticOg = await exists(path.join(directory, 'opengraph-image.png'))
+    if (!hasGeneratedOg && !hasStaticOg) {
       failures.push({
         where: path.relative(ROOT, directory),
-        message: `${route.path} has no opengraph-image.tsx (docs/06 §3)`,
+        message: `${route.path} has no opengraph-image.tsx or opengraph-image.png (docs/06 §3)`,
       })
     }
   }
