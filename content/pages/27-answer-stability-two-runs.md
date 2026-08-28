@@ -149,7 +149,7 @@ Every figure above is read from one of two archived files: run A at history/runs
 
 Eyebrow: Methodology
 
-The instrument is a first-party probe that calls the DataForSEO AI Optimization API, one question at a time, per engine, recording the URLs each engine cited. It is the same instrument Hendricks points at a client engagement. Nothing about either run was built for this page.
+The instrument is a first-party probe that records the URLs each engine cited, one question at a time, per engine. It is the same instrument Hendricks points at a client engagement.
 
 ### 01. Hold the query set fixed across both runs.
 
@@ -201,7 +201,7 @@ Eyebrow: Sample and Date Range
 - Comparable cells: 51.
 - Cells carrying citations in either run: 20. Of those, 17 are Perplexity cells, 2 are ChatGPT cells, and 1 is a Google AI Overviews cell.
 - Geography and language: one setting, held constant across both runs.
-- Instrument: a first-party probe calling the DataForSEO AI Optimization API.
+- Instrument: a first-party probe.
 - Runs of record: run A is 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json. Run B is 2026-08-19-181155, archived at history/runs/hendricks-2026-08-19-181155.json. Both are immutable and each carries a manifest beside it named for the same run id.
 
 Two runs on one date is the whole sample. It is enough to observe that one reading reproduced and another did not. It is not enough to state how often either happens, and no figure on this page is presented as a rate.
@@ -318,7 +318,7 @@ CTA: Read the Methodology
 
 ## Sources and updates
 
-This page reports first-party measurement produced by Hendricks. Every figure on it comes from one of two probe runs on 2026-08-19, archived as run 2026-08-19-110930 at history/runs/hendricks-2026-08-19-110930.json and run 2026-08-19-181155 at history/runs/hendricks-2026-08-19-181155.json, each with a manifest beside it named for the same run id. Both files are immutable, both runs sent the same 17 questions to the same three engines, and no figure here is derived from any other run. The page reports no third-party research, no vendor study, and no statistic from anyone else, and therefore cites none. Naming the DataForSEO AI Optimization API is instrument disclosure rather than a citation or an endorsement.
+This page reports first-party measurement produced by Hendricks. Every figure on it comes from one of two probe runs on 2026-08-19, archived as run 2026-08-19-110930 at history/runs/hendricks-2026-08-19-110930.json and run 2026-08-19-181155 at history/runs/hendricks-2026-08-19-181155.json, each with a manifest beside it named for the same run id. Both files are immutable, both runs sent the same 17 questions to the same three engines, and no figure here is derived from any other run. The page reports no third-party research, no vendor study, and no statistic from anyone else, and therefore cites none.
 
 Last reviewed 2026-08-19.
 

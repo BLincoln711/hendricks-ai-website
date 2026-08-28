@@ -77,8 +77,7 @@ import {
  *
  * SOURCES. No external citation. docs/18-SOURCE-LEDGER.md approves external
  * sources per page and this page reports first-party measurement only, so
- * `sources` carries no `citations` array. Naming the DataForSEO AI Optimization
- * API is instrument disclosure, not a citation and not an endorsement.
+ * `sources` carries no `citations` array.
  *
  * NO `errorsFound`. The section is optional in ./types and this pair produced no
  * verified defect in any answer. An empty section, or one filled with a defect
@@ -377,7 +376,7 @@ export const data = {
 export const methodology = {
   eyebrow: 'Methodology',
   title: 'How this comparison was produced',
-  lead: 'The instrument is a first-party probe that calls the DataForSEO AI Optimization API, one question at a time, per engine, recording the URLs each engine cited. It is the same instrument Hendricks points at a client engagement. Nothing about either run was built for this page.',
+  lead: 'The instrument is a first-party probe that records the URLs each engine cited, one question at a time, per engine. It is the same instrument Hendricks points at a client engagement.',
   items: [
     {
       number: '01',
@@ -452,7 +451,7 @@ export const sample = {
     'Comparable cells: 51.',
     'Cells carrying citations in either run: 20. Of those, 17 are Perplexity cells, 2 are ChatGPT cells, and 1 is a Google AI Overviews cell.',
     'Geography and language: one setting, held constant across both runs.',
-    'Instrument: a first-party probe calling the DataForSEO AI Optimization API.',
+    'Instrument: a first-party probe.',
     'Runs of record: run A is 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json. Run B is 2026-08-19-181155, archived at history/runs/hendricks-2026-08-19-181155.json. Both are immutable and each carries a manifest beside it named for the same run id.',
   ],
   note: [
@@ -624,7 +623,7 @@ export const relatedSolution = {
 export const sources = {
   reviewed: '2026-08-19',
   basis:
-    'This page reports first-party measurement produced by Hendricks. Every figure on it comes from one of two probe runs on 2026-08-19, archived as run 2026-08-19-110930 at history/runs/hendricks-2026-08-19-110930.json and run 2026-08-19-181155 at history/runs/hendricks-2026-08-19-181155.json, each with a manifest beside it named for the same run id. Both files are immutable, both runs sent the same 17 questions to the same three engines, and no figure here is derived from any other run. The page reports no third-party research, no vendor study, and no statistic from anyone else, and therefore cites none. Naming the DataForSEO AI Optimization API is instrument disclosure rather than a citation or an endorsement.',
+    'This page reports first-party measurement produced by Hendricks. Every figure on it comes from one of two probe runs on 2026-08-19, archived as run 2026-08-19-110930 at history/runs/hendricks-2026-08-19-110930.json and run 2026-08-19-181155 at history/runs/hendricks-2026-08-19-181155.json, each with a manifest beside it named for the same run id. Both files are immutable, both runs sent the same 17 questions to the same three engines, and no figure here is derived from any other run. The page reports no third-party research, no vendor study, and no statistic from anyone else, and therefore cites none.',
   appliedIn: [
     { label: 'the Selection Intelligence solution', href: routes.selectionIntelligence.path },
     { label: 'the Methodology', href: routes.methodology.path },

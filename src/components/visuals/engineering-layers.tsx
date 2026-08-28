@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils/cn'
 
 export type EngineeringLayer = {
   number: string
-  title: string
+  title?: string
   description: string
   workItems: readonly string[]
 }
@@ -34,9 +34,11 @@ export function EngineeringLayers({
               {layer.number}
             </span>
             <div className="flex flex-col gap-2">
-              <h3 className="text-[1.375rem] leading-snug font-medium text-[var(--color-navy)]">
-                {layer.title}
-              </h3>
+              {layer.title ? (
+                <h3 className="text-[1.375rem] leading-snug font-medium text-[var(--color-navy)]">
+                  {layer.title}
+                </h3>
+              ) : null}
               <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
                 {layer.description}
               </p>
@@ -48,11 +50,14 @@ export function EngineeringLayers({
               Composed from `layer.title` rather than a fixed label. Seven layers
               render on one route, so a hardcoded string shipped seven identical
               H4s in the document outline. The title is approved copy already
-              printed in the H3 above, so no new string is authored here.
+              printed in the H3 above, so no new string is authored here. A layer
+              with no title omits the heading rather than inventing a replacement.
             */}
-            <h4 className="text-eyebrow text-[var(--color-slate)]">
-              Work on {layer.title} can include
-            </h4>
+            {layer.title ? (
+              <h4 className="text-eyebrow text-[var(--color-slate)]">
+                Work on {layer.title} can include
+              </h4>
+            ) : null}
             <ul className="flex flex-wrap gap-1.5">
               {layer.workItems.map((item) => (
                 <li

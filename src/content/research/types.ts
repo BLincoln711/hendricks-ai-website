@@ -74,7 +74,6 @@ export const researchCategories = [
   'Search Demand',
   'AI-Mediated Search',
   'Search Presence Engineering',
-  'Total Search',
   'Measurement and Attribution',
   'Data and Systems',
 ] as const

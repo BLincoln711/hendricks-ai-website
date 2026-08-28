@@ -36,7 +36,6 @@ It is not The Search Economy. Do not import The Search Economy content or brandi
 - Search Demand
 - AI-Mediated Search
 - Search Presence Engineering
-- Total Search
 - Measurement and Attribution
 - Data and Systems
 

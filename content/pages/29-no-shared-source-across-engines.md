@@ -187,7 +187,7 @@ None of the three changed a figure published on this page. The first two concern
 
 ## How these numbers were produced
 
-The instrument is a first-party probe that calls the DataForSEO AI Optimization API, one question at a time, per engine, and records the URLs each engine cited along with the answer text it returned. It is the same instrument Hendricks points at a client engagement.
+The instrument is a first-party probe that records the URLs each engine cited, one question at a time, per engine. It is the same instrument Hendricks points at a client engagement.
 
 ### 01. Send one fixed question set to every engine in the same run, and name the run.
 
@@ -239,7 +239,7 @@ CTA: Read the full Hendricks methodology
 - Citation slots: 449. Distinct domains: 319.
 - Cross-run count: six runs, 2026-08-19-110930, 2026-08-19-181155, 2026-08-20-060002, 2026-08-20-104059, 2026-08-20-105338, and 2026-08-20-110653, spanning roughly 26 hours.
 - Geography and language: one setting, held constant across every run named here.
-- Instrument: a first-party probe calling the DataForSEO AI Optimization API.
+- Instrument: a first-party probe.
 
 The 17-question set and how it was built are published on the self-baseline study, which reports a different run for a different question. This study does not restate the query-set construction and links to it instead.
 
@@ -355,7 +355,7 @@ CTA: Read the Methodology
 
 **Reviewed:** 2026-08-21
 
-This page reports first-party measurement produced by Hendricks. Every single-run figure on it is read from run 2026-08-20-110653, archived at history/runs/hendricks-2026-08-20-110653.json with its manifest at history/runs/manifest-2026-08-20-110653.json. The one cross-run figure is read from six archived runs, each named in the sample section. Every run is recorded with its denominators, its error count, and the engines it queried. No figure on this page is derived, averaged, rounded, or recomputed into a new statistic. The page reports no third-party research, no vendor study, and no statistic from anyone else, and therefore cites none. Naming the DataForSEO AI Optimization API is instrument disclosure rather than a citation or an endorsement.
+This page reports first-party measurement produced by Hendricks. Every single-run figure on it is read from run 2026-08-20-110653, archived at history/runs/hendricks-2026-08-20-110653.json with its manifest at history/runs/manifest-2026-08-20-110653.json. The one cross-run figure is read from six archived runs, each named in the sample section. Every run is recorded with its denominators, its error count, and the engines it queried. No figure on this page is derived, averaged, rounded, or recomputed into a new statistic. The page reports no third-party research, no vendor study, and no statistic from anyone else, and therefore cites none.
 
 Applied in: the Selection Intelligence solution, the Methodology, the Search Intelligence Diagnostic.
 

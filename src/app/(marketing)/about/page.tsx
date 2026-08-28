@@ -206,32 +206,6 @@ export default function AboutPage() {
               <SignalList items={experience.items} columns={2} />
             </div>
 
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
-              <h3 className="text-xl font-semibold text-[var(--color-navy)]">
-                {experience.advisory.title}
-              </h3>
-              <div>
-                <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.9375rem] text-[var(--color-graphite)]">
-                  <span className="font-medium">{experience.advisory.organization}</span>
-                  <span aria-hidden="true" className="text-[var(--color-slate)]">
-                    /
-                  </span>
-                  <span className="text-[var(--color-slate)]">
-                    {experience.advisory.period}
-                  </span>
-                  <span aria-hidden="true" className="text-[var(--color-slate)]">
-                    /
-                  </span>
-                  <span className="text-[var(--color-slate)]">
-                    {experience.advisory.relationship}
-                  </span>
-                </p>
-                <p className="mt-3 text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">
-                  {experience.advisory.description}
-                </p>
-              </div>
-            </div>
-
             <ExternalVentureCard
               label={externalVenture.label}
               name={externalVenture.name}

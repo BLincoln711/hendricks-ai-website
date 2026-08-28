@@ -152,7 +152,7 @@ Table caption: Most frequently cited domains in the 2026-08-19 run.
 
 The domain tables record which sources these answers cited. They are facts about the answers and nothing else. They are not a ranking of firms, they carry no judgment about any company behind a domain, and no page on this site publishes one.
 
-Run 1 errored on 6 of its 45 cells, all of them Google AI Overviews, all returning DataForSEO task error 40101. That is why the Google AI Overviews figure for run 1 reads against 9 successful probes rather than 15. Run 2 errored on 4 of its 51 cells, the same DataForSEO task error 40101, which is an upstream server error rather than a finding about any engine. All four were Google AI Overviews cells, exactly as in run 1, so the Google AI Overviews figure for run 2 reads against 13 successful probes rather than 17. ChatGPT and Perplexity each returned a measurement on all 17 questions they were sent, so their columns read against 17.
+Run 1 errored on 6 of its 45 cells, all of them Google AI Overviews. That is why the Google AI Overviews figure for run 1 reads against 9 successful probes rather than 15. Run 2 errored on 4 of its 51 cells, which is an upstream server error rather than a finding about any engine. All four were Google AI Overviews cells, exactly as in run 1, so the Google AI Overviews figure for run 2 reads against 13 successful probes rather than 17. ChatGPT and Perplexity each returned a measurement on all 17 questions they were sent, so their columns read against 17.
 
 The single cell citing hendricks.ai in run 1 cites a page Hendricks published on 2025-11-25 and retired on 2026-08-17. The citation is counted here because it happened. The page it points at is gone, which is a separate fact and is reported next to it rather than folded into the count. Key finding 01 and the corrections section carry the detail.
 
@@ -178,7 +178,7 @@ Two further defects were reported in this section when the page was first publis
 
 Eyebrow: Methodology
 
-The instrument is a first-party probe that calls the DataForSEO AI Optimization API, one question at a time, per engine, and records the URLs each engine cited. It is the same instrument Hendricks points at a client engagement. Nothing about either run was built for this page.
+The instrument is a first-party probe that records the URLs each engine cited, one question at a time, per engine. It is the same instrument Hendricks points at a client engagement.
 
 ### 01. Fix the query set before the run.
 
@@ -198,7 +198,7 @@ Every cell is measured and populated, measured and empty, or errored. Folding an
 
 ### 05. Report the run health next to the number.
 
-Run 1 errored on 6 of 45 cells, all of them Google AI Overviews. Run 2 errored on 4 of 51, all of them Google AI Overviews again. Both runs failed the same way, DataForSEO task error 40101, which is an upstream server error. A run that fails and a run that finds nothing produce similar-looking output files and mean opposite things, so the error count travels with every figure taken from either run.
+Run 1 errored on 6 of 45 cells, all of them Google AI Overviews. Run 2 errored on 4 of 51, all of them Google AI Overviews again. Both runs failed the same way, which is an upstream server error. A run that fails and a run that finds nothing produce similar-looking output files and mean opposite things, so the error count travels with every figure taken from either run.
 
 ### 06. Resolve every cited URL, and verify anything unexpected outside the probe.
 
@@ -228,7 +228,7 @@ Eyebrow: Sample and Date Range
 - Questions: 15 in run 1, 17 in run 2. The second set replaced the first and does not extend it.
 - Cells: 45 in run 1, of which 39 were measured and 6 errored. 51 in run 2, of which 47 were measured and 4 errored.
 - Geography and language: one setting, held constant across both runs.
-- Instrument: a first-party probe calling the DataForSEO AI Optimization API.
+- Instrument: a first-party probe.
 - Run of record: run 2 is 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. Run 1 reproduces from its own 2026-08-18 result file, unchanged.
 - Resolution check: the one cited hendricks.ai address was fetched by hand on 2026-08-18 and returned HTTP 410 Gone.
 
@@ -288,7 +288,7 @@ Twenty-seven of the 47 measured cells in run 2 carried no source at all. The den
 
 ### 07. Four cells in run 2 produced no measurement.
 
-Run 2 sent 51 cells and measured 47. Four returned DataForSEO task error 40101, an upstream server error, and an errored cell is a broken instrument rather than a finding of absence. All four were Google AI Overviews cells, so that engine returned a measurement on 13 of the 17 questions it was sent and its figure on this page reads against 13. The counts themselves are exact. What no figure here can say is what those four cells would have returned, and nothing on this page estimates it.
+Run 2 sent 51 cells and measured 47. Four returned an upstream server error, and an errored cell is a broken instrument rather than a finding of absence. All four were Google AI Overviews cells, so that engine returned a measurement on 13 of the 17 questions it was sent and its figure on this page reads against 13. The counts themselves are exact. What no figure here can say is what those four cells would have returned, and nothing on this page estimates it.
 
 ### 08. This is not yet a full Selection Intelligence baseline.
 

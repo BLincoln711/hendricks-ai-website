@@ -85,8 +85,7 @@ import {
  *
  * SOURCES. No external citation. docs/18-SOURCE-LEDGER.md approves external
  * sources per page and this page reports first-party measurement only, so
- * `sources` carries no `citations` array. Naming the DataForSEO AI Optimization
- * API is instrument disclosure, not a citation and not an endorsement.
+ * `sources` carries no `citations` array.
  *
  * THE FIFTEEN ELEMENTS. docs/06 §12 requires all of them. Their homes here, in
  * render order:
@@ -438,7 +437,7 @@ export const errorsFound = {
 export const methodology = {
   eyebrow: 'Methodology',
   title: 'How these numbers were produced',
-  lead: 'The instrument is a first-party probe that calls the DataForSEO AI Optimization API, one question at a time, per engine, and records the URLs each engine cited along with the answer text it returned. It is the same instrument Hendricks points at a client engagement.',
+  lead: 'The instrument is a first-party probe that records the URLs each engine cited, one question at a time, per engine. It is the same instrument Hendricks points at a client engagement.',
   items: [
     {
       number: '01',
@@ -515,7 +514,7 @@ export const sample = {
     'Citation slots: 449. Distinct domains: 319.',
     'Cross-run count: six runs, 2026-08-19-110930, 2026-08-19-181155, 2026-08-20-060002, 2026-08-20-104059, 2026-08-20-105338, and 2026-08-20-110653, spanning roughly 26 hours.',
     'Geography and language: one setting, held constant across every run named here.',
-    'Instrument: a first-party probe calling the DataForSEO AI Optimization API.',
+    'Instrument: a first-party probe.',
   ],
   note: [
     'The 17-question set and how it was built are published on the self-baseline study, which reports a different run for a different question. This study does not restate the query-set construction and links to it instead.',
@@ -682,7 +681,7 @@ export const relatedSolution = {
 export const sources = {
   reviewed: '2026-08-21',
   basis:
-    'This page reports first-party measurement produced by Hendricks. Every single-run figure on it is read from run 2026-08-20-110653, archived at history/runs/hendricks-2026-08-20-110653.json with its manifest at history/runs/manifest-2026-08-20-110653.json. The one cross-run figure is read from six archived runs, each named in the sample section. Every run is recorded with its denominators, its error count, and the engines it queried. No figure on this page is derived, averaged, rounded, or recomputed into a new statistic. The page reports no third-party research, no vendor study, and no statistic from anyone else, and therefore cites none. Naming the DataForSEO AI Optimization API is instrument disclosure rather than a citation or an endorsement.',
+    'This page reports first-party measurement produced by Hendricks. Every single-run figure on it is read from run 2026-08-20-110653, archived at history/runs/hendricks-2026-08-20-110653.json with its manifest at history/runs/manifest-2026-08-20-110653.json. The one cross-run figure is read from six archived runs, each named in the sample section. Every run is recorded with its denominators, its error count, and the engines it queried. No figure on this page is derived, averaged, rounded, or recomputed into a new statistic. The page reports no third-party research, no vendor study, and no statistic from anyone else, and therefore cites none.',
   appliedIn: [
     { label: 'the Selection Intelligence solution', href: routes.selectionIntelligence.path },
     { label: 'the Methodology', href: routes.methodology.path },
