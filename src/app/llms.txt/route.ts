@@ -63,6 +63,7 @@ function vocabularySection(): string {
     '',
     `- ${siteConfig.category}`,
     `- ${siteConfig.problemCategory}`,
+    `- ${siteConfig.visibilityTerm}: ${siteConfig.visibilityDefinition} ${siteConfig.founderRole} ${siteConfig.founder} treats that measure as the starting record, not the result.`,
     ...solutionsList.items.map((item) => `- ${item.name}: ${item.description}`),
   ].join('\n')
 }
