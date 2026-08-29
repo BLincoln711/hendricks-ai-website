@@ -14,6 +14,9 @@ export const siteConfig = {
   operatingLine:
     'Measure demand. Understand AI visibility. Engineer selection. Prove business impact.',
   problemCategory: 'The AI Selection Problem',
+  visibilityTerm: 'AI Search Visibility',
+  visibilityDefinition:
+    'The presence of a brand in the answers AI systems compose and in the sources those answers cite.',
   description:
     'Hendricks maps valuable search demand, measures whether brands enter consideration across Google and AI search, engineers search-presence gaps, and connects the work to business impact.',
   founder: 'Brandon Lincoln Hendricks',
