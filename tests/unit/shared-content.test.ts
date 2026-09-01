@@ -83,28 +83,29 @@ describe('Shared metric definitions', () => {
 })
 
 describe('Shared observed-systems boundary', () => {
-  it('marks exactly three surfaces as observed', () => {
-    // CONTENT_VERIFICATION A1 is a closed list. Three, and never a fourth.
+  it('marks exactly four surfaces as observed', () => {
+    // CONTENT_VERIFICATION A1 is a closed list. Four since the 2026-09-01
+    // amendment that added Gemini, and never a fifth.
     const observed = observedSystems.observedSystemRows.filter((row) => row.observed === 'Yes')
-    expect(observed.map((row) => row.surface)).toEqual(['AI Overviews', 'ChatGPT', 'Perplexity'])
+    expect(observed.map((row) => row.surface)).toEqual(['AI Overviews', 'ChatGPT', 'Perplexity', 'Gemini'])
   })
 
-  it('marks AI Mode, Gemini, and Microsoft Copilot as not observed', () => {
-    for (const surface of ['AI Mode', 'Gemini', 'Microsoft Copilot']) {
+  it('marks AI Mode and Microsoft Copilot as not observed', () => {
+    for (const surface of ['AI Mode', 'Microsoft Copilot']) {
       const row = observedSystems.observedSystemRows.find((item) => item.surface === surface)
       expect(row, `${surface} is missing from the surfaces table`).toBeDefined()
       expect(row?.observed).toBe('No')
     }
   })
 
-  it('names the three observed systems in the canonical sentence', () => {
-    for (const system of ['Google AI Overviews', 'ChatGPT', 'Perplexity']) {
+  it('names the four observed systems in the canonical sentence', () => {
+    for (const system of ['Google AI Overviews', 'ChatGPT', 'Perplexity', 'Gemini']) {
       expect(observedSystems.observedSystemsSentence).toContain(system)
     }
   })
 
-  it('names all three unobserved surfaces in the exclusion sentence', () => {
-    for (const surface of ['Google AI Mode', 'Gemini', 'Microsoft Copilot']) {
+  it('names both unobserved surfaces in the exclusion sentence', () => {
+    for (const surface of ['Google AI Mode', 'Microsoft Copilot']) {
       expect(observedSystems.observedSystemsExclusion).toContain(surface)
     }
     expect(observedSystems.observedSystemsExclusion).toContain(

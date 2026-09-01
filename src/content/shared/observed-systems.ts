@@ -17,10 +17,14 @@
  * below are transcribed from that page. The other four pages render a constant
  * from here and link to the table. None of them writes the boundary fresh.
  *
- * Hendricks observes exactly three systems. Nothing here may be reworded,
- * extended, or re-derived to imply a fourth. Google AI Mode, Gemini, and
- * Microsoft Copilot are named as surfaces that exist and are marked `'No'`, which
- * is a factual statement about the environment and never a capability claim.
+ * Hendricks observes exactly four systems. The list is closed under
+ * CONTENT_VERIFICATION A1 and nothing here may be reworded, extended, or
+ * re-derived to imply a fifth. Gemini joined the observed set on 2026-09-01,
+ * Brandon decision recorded in CONTENT_VERIFICATION A1, when the Answer Index
+ * corpus measured it alongside the original three; the A1 resolution log carries
+ * the date. Google AI Mode and Microsoft Copilot are named as surfaces that
+ * exist and are marked `'No'`, which is a factual statement about the
+ * environment and never a capability claim.
  */
 
 export type ObservedSystemRow = {
@@ -43,7 +47,7 @@ export const observedSystemRows = [
   { surface: 'AI Mode', environment: 'Inside Google Search', observed: 'No' },
   { surface: 'ChatGPT', environment: 'Assistant product', observed: 'Yes' },
   { surface: 'Perplexity', environment: 'Assistant product', observed: 'Yes' },
-  { surface: 'Gemini', environment: 'Assistant product', observed: 'No' },
+  { surface: 'Gemini', environment: 'Assistant product', observed: 'Yes' },
   { surface: 'Microsoft Copilot', environment: 'Assistant product', observed: 'No' },
 ] as const satisfies readonly ObservedSystemRow[]
 
@@ -52,14 +56,14 @@ export const observedSystemRows = [
  * renders this string rather than a paraphrase of it.
  */
 export const observedSystemsSentence =
-  'Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity.'
+  'Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini.'
 
 /**
  * The canonical exclusion sentence, naming all three unobserved surfaces
  * explicitly. Transcribed from `/what-is-ai-mediated-search`.
  */
 export const observedSystemsExclusion =
-  'Hendricks does not measure, test, monitor, or report on Google AI Mode, Gemini, or Microsoft Copilot.'
+  'Hendricks does not measure, test, monitor, or report on Google AI Mode or Microsoft Copilot.'
 
 /**
  * Optional framing for a page that has no table of its own and therefore has to
@@ -68,4 +72,4 @@ export const observedSystemsExclusion =
  * wording of it. Render it before `observedSystemsExclusion` or not at all.
  */
 export const observedSystemsContext =
-  'Google AI Mode, Gemini, and Microsoft Copilot are surfaces that exist in the same information environment, and they are named here for that reason alone.'
+  'Google AI Mode and Microsoft Copilot are surfaces that exist in the same information environment, and they are named here for that reason alone.'

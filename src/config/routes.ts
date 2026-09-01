@@ -231,6 +231,21 @@ export const routes = {
   },
 
   /**
+   * The fifth research article and the first from the 480-question corpus.
+   * Registered by concrete path like the four before it, because this registry
+   * is what the sitemap, llms.txt, and check:links read. The slug carries the
+   * report's own name rather than a finding, because the same corpus is also
+   * published as a PDF and a data package under that name and the three
+   * artifacts cite one URL.
+   */
+  researchTheAnswerIndex: {
+    path: '/research/the-answer-index',
+    label: 'The Answer Index',
+    indexable: true,
+    built: true,
+  },
+
+  /**
    * Corrections policy and log.
    *
    * CONTENT_VERIFICATION.md R6 recorded this as blocked on missing copy rather

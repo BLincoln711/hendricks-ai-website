@@ -154,7 +154,7 @@ including ones not yet written.
 
 | # | Item | Applies to | Decision and source | Status |
 |---|---|---|---|---|
-| A1 | Which AI systems Hendricks observes | Every page, FAQ answer, and deliverable that names an AI system | Hendricks observes exactly three systems: Google AI Overviews, ChatGPT, and Perplexity. The list is closed, so no "including", "such as", or "among others" may precede it. Gemini and Microsoft Copilot may be named as surfaces that exist in the information environment, and must never be described as systems Hendricks measures, tests, monitors, or reports on. Source: Brandon decision 2026-08-17. | approved |
+| A1 | Which AI systems Hendricks observes | Every page, FAQ answer, and deliverable that names an AI system | Hendricks observes exactly four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini. The list is closed, so no "including", "such as", or "among others" may precede it. Google AI Mode and Microsoft Copilot may be named as surfaces that exist in the information environment, and must never be described as systems Hendricks measures, tests, monitors, or reports on. Gemini was added by Brandon decision 2026-09-01, when the Answer Index corpus measured it alongside the original three; the original three-system list was Brandon decision 2026-08-17. | approved |
 | A2 | GEO and AEO as entry vocabulary, not positioning | `/what-is-generative-engine-optimization`, `/what-is-ai-mediated-search`, the three FAQ sections | Bridge, do not adopt. The terms are used in titles, direct answers, and headings so the pages can be retrieved for what buyers actually type, and the framing is then argued to be incomplete and the reader routed to Search Intelligence Engineering. Hendricks is not a GEO or AEO vendor, and no page may describe a Hendricks service as GEO or AEO work. Source: Brandon decision 2026-08-17. | approved |
 
 The copy those two decisions unlocked was written by the implementation, not
@@ -165,6 +165,27 @@ supplied as approved copy. That distinction is the point of the next three rows.
 | A3 | Two new definition pages | `/what-is-ai-mediated-search`, `/what-is-generative-engine-optimization` | Implementation-authored copy, not transcription. Every other object in `src/content/pages/` was transcribed from approved markdown that existed first. These two were written alongside their markdown twins, `content/pages/22-what-is-ai-mediated-search.md` and `content/pages/23-what-is-generative-engine-optimization.md`, on the same day, so the twin corroborates the code but is not an independent approval. Brandon's editorial review is owed on every visitor-facing string. | authored 2026-08-17, pending editorial review |
 | A4 | 17 FAQ answers | `/solutions/search-demand-intelligence` (5), `/solutions/selection-intelligence` (6), `/solutions/search-impact-measurement` (6) | The questions are approved copy and were not reworded. The answers are new. Each was written from material already published on the same page rather than from any new fact, but none has been read by Brandon. Detail in the FAQ sections table below. | questions approved, answers authored 2026-08-17 and pending editorial review |
 | A5 | External platform documentation as a cited source | `/what-is-ai-mediated-search`, `/what-is-generative-engine-optimization` | A scoped extension of the sources posture, and the first external sources this site cites. The other four definition pages state the Hendricks position and correctly cite nothing, and the only other outbound link in `src/content/` is the external-venture link on `/about`, which is not a citation. These two describe the observable behaviour of systems Hendricks does not control, which is permitted only where the platform's own documentation carries the claim, so every such claim is sourced to first-party documentation: Google Search Central, OpenAI, and Perplexity. No blog, vendor study, analyst figure, or statistic is cited. Gemini and Microsoft Copilot are named on both pages without a citation, correctly: neither page says anything about what either product does, and naming a public product as part of the environment is not a claim that needs a source. A citation for a surface Hendricks does not observe would also read, in a reference list, as evidence of an engagement that does not exist. Every URL was fetched 2026-08-17, resolves without redirecting, and needs re-checking at each review. | posture approved, URLs verified 2026-08-17 |
+
+### Resolution log, 2026-09-01
+
+Source for the A1 amendment: Brandon decision, 2026-09-01, recorded during the
+Answer Index publication session. Gemini becomes the fourth observed system.
+Consequences, all shipped in the same change: `src/content/shared/observed-systems.ts`
+flips the Gemini row and rewords the canonical sentence and exclusion;
+`tests/unit/shared-content.test.ts` pins the four-system boundary; the four
+published research articles render the changed sentence, so each carries a dated
+update paragraph in its corrections section and an updated-date bump. The change
+is a scope widening, not a correction: the prior sentence was true when
+published, so it is logged on each page rather than entered in the corrections
+log, which is reserved for claims that were wrong.
+
+The fifth research article, `/research/the-answer-index`, publishes figures from
+runs run-2026-09-01T022903Z and run-2026-09-01T014944Z against panel v2.0, sha
+7a15060d8b5ec5f6, read from the verified-figures file `data/report_data.json` in
+the answer-index workspace. Same-day, three formal corrections landed in the
+corrections log, all tracing to one parser defect in the probe's Google AI
+Overviews reading during the 2026-08-19 window, with the new corpus cited as
+corroboration rather than cause.
 
 ### Resolution log, 2026-08-17
 
