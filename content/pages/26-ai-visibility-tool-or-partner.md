@@ -157,7 +157,7 @@ Eyebrow: Where Hendricks Sits
 
 Hendricks sits on the partner side of this decision and sells no tool. Hendricks designs the observation set against the decisions a business sells into, runs it under controlled conditions, classifies each outcome against a written rule, and reports what changed alongside what the method cannot show. The instrument is chosen to fit that design rather than the design fitted to an instrument.
 
-Two boundaries belong beside that description. Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity. Hendricks does not measure, test, monitor, or report on Google AI Mode, Gemini, or Microsoft Copilot. And Hendricks publishes no fee on this site, so a reader cannot price the work from this page and has to ask what a stated scope would cost.
+Two boundaries belong beside that description. Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini. Hendricks does not measure, test, monitor, or report on Google AI Mode or Microsoft Copilot. And Hendricks publishes no fee on this site, so a reader cannot price the work from this page and has to ask what a stated scope would cost.
 
 CTA: See which AI systems Hendricks observes
 

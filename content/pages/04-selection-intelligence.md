@@ -169,9 +169,9 @@ Hendricks publishes the full definition, including what Selection Intelligence d
 
 ### Which AI and search systems do you test?
 
-Hendricks observes three systems in a Selection Intelligence baseline: Google AI Overviews, ChatGPT, and Perplexity. No other system contributes to a Hendricks observed consideration rate, observed recommendation rate, or Selection Stability figure, and no result from one system is extrapolated to another.
+Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini. No other system contributes to a Hendricks observed consideration rate, observed recommendation rate, or Selection Stability figure, and no result from one system is extrapolated to another.
 
-Google AI Mode, Gemini, and Microsoft Copilot are surfaces that exist in the same information environment, and they are named here for that reason alone. Hendricks does not measure, test, monitor, or report on Google AI Mode, Gemini, or Microsoft Copilot. A Selection Intelligence baseline says nothing about how a brand performs on a surface Hendricks does not observe.
+Google AI Mode and Microsoft Copilot are surfaces that exist in the same information environment, and they are named here for that reason alone. Hendricks does not measure, test, monitor, or report on Google AI Mode or Microsoft Copilot. A Selection Intelligence baseline says nothing about how a brand performs on a surface Hendricks does not observe.
 
 Reported scope is limited to the parts of AI-mediated search Hendricks can observe under controlled conditions and store for re-inspection. Each run is recorded with its exact question, supplied context, platform, date, location, response, and cited sources, so a client can audit an observation rather than accept a number.
 

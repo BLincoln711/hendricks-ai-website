@@ -128,8 +128,8 @@ without amounts. A unit test asserts no currency figure reaches `/diagnostic`.
 
 If this reverses, the figures live in `content/pages/07-diagnostic.md` and
 `content/pages/09-for-brands.md` and would need re-transcribing into the content
-objects; the guard test in `tests/unit/commercial-content.test.ts` would need
-removing at the same time.
+objects; the guard test in `tests/unit/page-content.test.ts` ("publishes no
+price until it is approved") would need removing at the same time.
 
 ## Legal
 

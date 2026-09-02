@@ -145,9 +145,9 @@ No. Google Analytics 4 cannot identify all AI traffic, and Hendricks does not re
 
 Three limits stack on top of each other. Assistant referrals are attributed inconsistently across tools and across time. Some visits arrive with no referrer at all and are recorded as direct. And some AI influence never produces a click, because the buyer reads an answer, forms a preference, and arrives later through a branded search or a direct visit that carries no trace of the original exposure.
 
-Hendricks bounds that gap rather than filling it with a guess. Exposure is measured where the answer itself can be observed, across the three systems Hendricks observes: Google AI Overviews, ChatGPT, and Perplexity. AI-assistant referrals are then reported as a floor rather than a total. Branded search, direct visits, decision-content engagement, and self-reported source data are tracked as leading indicators, and every conclusion carries the evidence grade that states how much weight it can hold.
+Hendricks bounds that gap rather than filling it with a guess. Exposure is measured where the answer itself can be observed. Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini. AI-assistant referrals are then reported as a floor rather than a total. Branded search, direct visits, decision-content engagement, and self-reported source data are tracked as leading indicators, and every conclusion carries the evidence grade that states how much weight it can hold.
 
-Google AI Mode, Gemini, and Microsoft Copilot are surfaces that exist in the same information environment, and they are named here for that reason alone. Hendricks does not measure, test, monitor, or report on Google AI Mode, Gemini, or Microsoft Copilot. No Hendricks deliverable should be read as covering any of them.
+Google AI Mode and Microsoft Copilot are surfaces that exist in the same information environment, and they are named here for that reason alone. Hendricks does not measure, test, monitor, or report on Google AI Mode or Microsoft Copilot. No Hendricks deliverable should be read as covering any of them.
 
 ### How should self-reported attribution be used?
 

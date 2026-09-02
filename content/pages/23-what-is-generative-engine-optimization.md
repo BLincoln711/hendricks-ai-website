@@ -82,9 +82,9 @@ A citation is exposure. Hendricks treats exposure as the first level of evidence
 
 Eyebrow: Scope
 
-Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity. Those are the surfaces where Hendricks runs controlled tests, records the outcome of each run, and reports observed consideration and observed recommendation.
+Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini. Those are the surfaces where Hendricks runs controlled tests, records the outcome of each run, and reports observed consideration and observed recommendation.
 
-Google AI Mode, Gemini, and Microsoft Copilot are surfaces that exist in the same information environment, and they are named here for that reason alone. Hendricks does not measure, test, monitor, or report on Google AI Mode, Gemini, or Microsoft Copilot. No Hendricks deliverable claims coverage that was not run.
+Google AI Mode and Microsoft Copilot are surfaces that exist in the same information environment, and they are named here for that reason alone. Hendricks does not measure, test, monitor, or report on Google AI Mode or Microsoft Copilot. No Hendricks deliverable claims coverage that was not run.
 
 ## GEO and AEO compared with Search Intelligence Engineering.
 

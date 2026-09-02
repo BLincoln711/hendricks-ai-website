@@ -59,7 +59,7 @@ export const observedSystemsSentence =
   'Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini.'
 
 /**
- * The canonical exclusion sentence, naming all three unobserved surfaces
+ * The canonical exclusion sentence, naming both unobserved surfaces
  * explicitly. Transcribed from `/what-is-ai-mediated-search`.
  */
 export const observedSystemsExclusion =
@@ -67,7 +67,7 @@ export const observedSystemsExclusion =
 
 /**
  * Optional framing for a page that has no table of its own and therefore has to
- * say why the three unobserved surfaces are named at all. Transcribed from
+ * say why the two unobserved surfaces are named at all. Transcribed from
  * `/solutions/selection-intelligence`, which carried the only page-neutral
  * wording of it. Render it before `observedSystemsExclusion` or not at all.
  */

@@ -9,8 +9,9 @@ import { observedSystemsSentence } from '@/content/shared/observed-systems'
  * Approved copy, transcribed from content/pages/10-for-agencies.md.
  *
  * The markdown's "Agency inquiry" field list belongs to the agency inquiry form,
- * which is Phase 5 and blocked on approved consent language
- * (CONTENT_VERIFICATION.md L3).
+ * which lands with the redesign's forms work (handoff PR 10). Its consent
+ * language is approved (CONTENT_VERIFICATION.md L3); delivery is unconfirmed
+ * until that work ships.
  *
  * The observed-systems boundary. This page sells "AI visibility and citation
  * analysis" to a reseller, which is the audience least able to check the scope
@@ -29,11 +30,12 @@ import { observedSystemsSentence } from '@/content/shared/observed-systems'
  * `clientConversation` closes one of the five questions the hero poses. Four
  * remain open, and docs/17 §11 rule 9 names this page as the standing example of
  * a page that poses a question it does not answer. Question 5, on software
- * versus internal build versus operating model, is gated on
- * `/ai-visibility-tool-or-partner`, which is absent from `src/config/routes.ts`
- * and cannot be linked yet. Do not invent answers to the remaining four to make
- * the block feel complete, and do not reword the block title to imply it answers
- * all five.
+ * versus internal build versus operating model, is answered on
+ * `/ai-visibility-tool-or-partner`, which is built and registered in
+ * `src/config/routes.ts` but not yet linked from this page; the link lands
+ * with the page rebuild (handoff PR 10). Do not invent answers to the remaining
+ * four to make the block feel complete, and do not reword the block title to
+ * imply it answers all five.
  *
  * The four answers reference their owning pages by name rather than by inline
  * anchor, because `FaqItem.answer` is `readonly string[]` and `faq-section.tsx`

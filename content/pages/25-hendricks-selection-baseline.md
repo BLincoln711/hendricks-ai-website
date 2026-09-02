@@ -296,7 +296,7 @@ It measures citation presence. It does not report Observed Consideration Rate, O
 
 ### 09. The measurement covers one slice of AI-mediated search.
 
-Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity. Hendricks does not measure, test, monitor, or report on Google AI Mode, Gemini, or Microsoft Copilot. A baseline on the observed set says nothing about the surfaces outside it, and nothing on this page should be read as a statement about them.
+Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini. Hendricks does not measure, test, monitor, or report on Google AI Mode or Microsoft Copilot. A baseline on the observed set says nothing about the surfaces outside it, and nothing on this page should be read as a statement about them.
 
 ## Author and dates
 
@@ -304,15 +304,19 @@ Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity. 
 
 **Published:** 2026-08-19
 
-**Updated:** 2026-08-19
+**Updated:** 2026-09-01
 
 **Data through:** 2026-08-19
 
 The updated date on this page moves when a figure, a method, or a limitation changes. It is not refreshed to signal activity. It moved twice on the day of publication, for the two corrections recorded below. The data-through date is the last run this page reports, run 2026-08-19-110930, and will not advance until a further run is published here.
 
-## Two corrections to this page, and how the next one gets made
+## Three corrections to this page, and how the next one gets made
 
 Eyebrow: Corrections
+
+Correction, 2026-09-01. What was published: the 2026-08-19 run read Google AI Overviews citing a source on 1 of its 13 measured cells, and findings 02 and 03 built on that reading, including the sentence in the first correction below that the reading the page draws from that number is unchanged. That sentence is withdrawn. What was wrong: the probe was bailing out of any overview panel the vendor flagged as asynchronously rendered, discarding usable panels, so this engine read as nearly silent when it was not. This is the second correction to this page involving the same engine and it is the deeper one: the first replaced a destroyed file with an archived run, and the archived run was itself read through the defective parser. The counts stand as a record of what the instrument read; findings 02 and 03 now carry the corrected conclusions inline. Corroboration, not cause: corpus run run-2026-09-01T022903Z, taken after the parser fix, reads Google AI Overviews citing on 430 of 462 rendered panels. The full entry is in the corrections log.
+
+Update, 2026-09-01. The scope sentence this page renders from the shared observed-systems module changed when Gemini became the fourth observed system, a boundary decision recorded in CONTENT_VERIFICATION A1 on 2026-09-01. The sentence on this page changed with it. No figure on this page changed, and nothing from Gemini is reported here.
 
 Correction, 2026-08-19. What was published: a 2026-08-19 run of 51 cells with all 51 measured, 19 of them citing a source, 248 distinct domains across 305 citation slots, 218 domains cited exactly once, reddit.com in 14 cells, linkedin.com in 10, and Google AI Overviews returning no sourced overview on any of the 17.
 
@@ -331,6 +335,16 @@ Both entries, with what was published and what changed, are in the corrections l
 If a figure here is wrong, or a third party runs this design and gets a materially different result, the correction is published with its date, the original figure, the contradicting result, and what changed. Nothing on this page is quietly edited.
 
 That path exists because a firm selling measurement discipline has to be correctable in public. Needing it twice on the first day is not the demonstration anyone would choose. Publishing both anyway is the whole argument for having it.
+
+Change history:
+
+| Date | Kind | Summary |
+|---|---|---|
+| 2026-08-19 | publication | Published. |
+| 2026-08-19 | correction | Figures from a run whose record had been overwritten replaced with run 2026-08-19-110930. |
+| 2026-08-19 | correction | A real citation of a retired page had been reported as a citation of a page that never existed. |
+| 2026-09-01 | correction | A Google AI Overviews reading produced by a parser that discarded rendered panels; findings 02 and 03 corrected inline. |
+| 2026-09-01 | scope | Gemini joined the observed set on 2026-09-01, after this run, and the scope sentence under Limitations moved with the shared module. The run compared three systems, Google AI Overviews, ChatGPT, and Perplexity, and nothing from Gemini is reported on this page. |
 
 CTA: Read the corrections policy
 

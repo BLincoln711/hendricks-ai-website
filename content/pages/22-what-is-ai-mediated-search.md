@@ -58,14 +58,14 @@ The same interpretation happens inside assistant products rather than a results 
 | AI Mode | Inside Google Search | No |
 | ChatGPT | Assistant product | Yes |
 | Perplexity | Assistant product | Yes |
-| Gemini | Assistant product | No |
+| Gemini | Assistant product | Yes |
 | Microsoft Copilot | Assistant product | No |
 
 ### Which surfaces does Hendricks observe?
 
-Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity.
+Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini.
 
-Google AI Mode, Gemini, and Microsoft Copilot are named on this page because they exist in the same information environment. Hendricks does not measure, test, monitor, or report on Google AI Mode, Gemini, or Microsoft Copilot.
+Google AI Mode, Gemini, and Microsoft Copilot are named on this page because they exist in the same information environment. Hendricks does not measure, test, monitor, or report on Google AI Mode or Microsoft Copilot.
 
 ## Why can a brand rank #1 on Google and still not appear in AI answers?
 

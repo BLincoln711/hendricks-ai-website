@@ -20,10 +20,12 @@ export const metadata: Metadata = buildMetadata({
 })
 
 /**
- * The inquiry form is Phase 5 and is blocked on approved consent language and a
- * published privacy notice (CONTENT_VERIFICATION.md L1, L3). Until then this page
- * carries the approved routing and expectation copy only — no form is rendered
- * with invented consent text, and no submission endpoint is advertised.
+ * The consent language and the privacy notice are approved
+ * (CONTENT_VERIFICATION.md L1, L3), so the inquiry form is no longer blocked on
+ * copy. It lands with the redesign's forms work (handoff PR 10), and email
+ * delivery is unconfirmed until then. This page carries the approved routing
+ * and expectation copy only: no form is rendered and no submission endpoint is
+ * advertised.
  */
 export default function ContactPage() {
   return (

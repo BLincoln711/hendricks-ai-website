@@ -8,11 +8,12 @@ import { routes } from '@/config/routes'
  * Two deliberate omissions:
  *
  * - The "$15,000–$25,000" range and the "$15,000" support line are withheld.
- *   CONTENT_VERIFICATION.md P1 is `pending`: whether the fee is published on the
- *   site or disclosed in conversation is an open decision. The factors that set
- *   the fee are approved and are published.
- * - The application form is Phase 5. Its legal model is settled and its approved
- *   wording is in `formLegal` below.
+ *   CONTENT_VERIFICATION.md P1 is resolved as withheld: the fee is disclosed in
+ *   conversation, not on the site. The factors that set the fee are approved
+ *   and are published.
+ * - The application form lands with the redesign's /diagnostic rebuild (handoff
+ *   PR 9). Its legal model is settled (CONTENT_VERIFICATION.md L3) and its
+ *   approved wording is in `formLegal` below.
  */
 
 export const meta = {

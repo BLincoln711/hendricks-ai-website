@@ -54,7 +54,7 @@ One screenshot cannot separate those causes. It records that something happened 
 
 ### What can we tell the client we will actually find out?
 
-A reading tells the client what the observed systems returned for the commercial questions the business sells into, which competitors were named, and which sources those answers drew on, recorded run by run with the question, the supplied context, the date, and the response kept for re-inspection. Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity.
+A reading tells the client what the observed systems returned for the commercial questions the business sells into, which competitors were named, and which sources those answers drew on, recorded run by run with the question, the supplied context, the date, and the response kept for re-inspection. Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini.
 
 The surfaces table on the What Is AI-Mediated Search page states which surfaces are observed and which are not, and an agency should hand a client that boundary before the first report rather than after it. What a baseline produces is set out on the Selection Intelligence solution page.
 

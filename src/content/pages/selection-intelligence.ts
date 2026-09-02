@@ -7,6 +7,7 @@ import { baselineMetricDefinitions } from '@/content/shared/metrics'
 import {
   observedSystemsContext,
   observedSystemsExclusion,
+  observedSystemsSentence,
 } from '@/content/shared/observed-systems'
 
 /**
@@ -176,13 +177,14 @@ export const limitation = {
  * Two of the six are load-bearing and were written to a fixed scope rather than
  * to a word count.
  *
- * "Which AI and search systems do you test?" states the reported scope: Google
- * AI Overviews, ChatGPT, and Perplexity. Google AI Mode, Gemini, and Microsoft
- * Copilot are named only to place them outside that scope. A prospect who reads
- * the answer and comes away believing Hendricks measures Gemini has been misled
- * by omission, so the exclusion is repeated in plain words on the three names
- * rather than softened with "currently" or "not yet", both of which read as a
- * promise of future coverage.
+ * "Which AI and search systems do you test?" states the reported scope by
+ * rendering the shared observed-systems sentence: Google AI Overviews, ChatGPT,
+ * Perplexity, and Gemini (CONTENT_VERIFICATION A1, amended 2026-09-01). Google
+ * AI Mode and Microsoft Copilot are named only to place them outside that
+ * scope. A prospect who reads the answer and comes away believing Hendricks
+ * measures Copilot has been misled by omission, so the exclusion is repeated in
+ * plain words on both names rather than softened with "currently" or "not
+ * yet", both of which read as a promise of future coverage.
  *
  * "Is this the same as AI rank tracking?" is one sentence and a pointer, per
  * docs/17 §3.9. /what-is-selection-intelligence owns the contrast in its
@@ -222,15 +224,11 @@ export const faq = {
     {
       question: 'Which AI and search systems do you test?',
       answer: [
-        'Hendricks observes three systems in a Selection Intelligence baseline: Google AI Overviews, ChatGPT, and Perplexity. No other system contributes to a Hendricks observed consideration rate, observed recommendation rate, or Selection Stability figure, and no result from one system is extrapolated to another.',
-        // docs/17 3.5. Both sentences are read from
-        // src/content/shared/observed-systems.ts. The framing sentence was
-        // already byte-identical to the shared constant, which is where the
-        // constant was transcribed from. The exclusion was not: this page said
-        // "does not test, monitor, measure" against the canonical "does not
-        // measure, test, monitor". Same three surfaces, drifted verb order,
-        // which is precisely the failure A1 treats as a compliance problem
-        // rather than a style problem.
+        `${observedSystemsSentence} No other system contributes to a Hendricks observed consideration rate, observed recommendation rate, or Selection Stability figure, and no result from one system is extrapolated to another.`,
+        // docs/17 3.5. All three sentences are read from
+        // src/content/shared/observed-systems.ts. The scope sentence was a page
+        // literal that still listed three after A1 added Gemini on 2026-09-01,
+        // which is the drift the shared module exists to prevent.
         `${observedSystemsContext} ${observedSystemsExclusion} A Selection Intelligence baseline says nothing about how a brand performs on a surface Hendricks does not observe.`,
         'Reported scope is limited to the parts of AI-mediated search Hendricks can observe under controlled conditions and store for re-inspection. Each run is recorded with its exact question, supplied context, platform, date, location, response, and cited sources, so a client can audit an observation rather than accept a number.',
       ],

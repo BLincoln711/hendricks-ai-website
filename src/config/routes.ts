@@ -123,19 +123,17 @@ export const routes = {
    * measurement with a stated method is, if anything, the content that least
    * belongs behind an editor with no diff.
    *
-   * The hub is deliberately absent from primary navigation.
-   * `content/pages/12-research.md` gates that on publishing three category
-   * foundation pages, and one study is not three. It is reachable from the
-   * persistent footer research column, which renders on every route, and from
-   * one body-content link, the related list on `/corrections`. That is
-   * reachability, not promotion. It is thinner than the definition pages get,
-   * and the open item is recorded below rather than assumed away: no commercial
-   * or editorial page yet links to the research in body copy. Placement is the
-   * answer-architect's call, and `/ai-selection-problem` is the page docs/17
-   * wave 2.3 names as wanting the dated observation this study supplies. The
-   * matching note sits on `primaryNavigation` in `src/config/navigation.ts`, and
-   * the condition that reverses the navigation gate is three published
-   * foundation pages.
+   * The hub is absent from primary navigation today, and the condition that
+   * kept it out no longer holds. `content/pages/12-research.md` gates the link
+   * on publishing three category foundation pages; five studies are published
+   * under this route. Research returns to primary navigation between For
+   * Agencies and About with the header rebuild (CANON R6 default, redesign
+   * handoff PR 3), and closing CONTENT_VERIFICATION R6 is Brandon's act, not a
+   * build commit. Until then the hub is reachable from the persistent footer
+   * research column, which renders on every route, and from the related list
+   * on `/corrections`. No commercial page yet links to the research in body
+   * copy; that placement lands with the page rebuilds. The matching note sits
+   * on `primaryNavigation` in `src/config/navigation.ts`.
    */
   research: { path: '/research', label: 'Research Hub', indexable: true, built: true },
 
@@ -216,12 +214,12 @@ export const routes = {
    * two instrument defects were found while producing its run and both had
    * already generated a wrong reading.
    *
-   * A fourth engine was probed in that run and nothing from it is published.
-   * CONTENT_VERIFICATION A1 holds the observed set at three systems and
-   * `src/content/shared/observed-systems.ts` states in visitor copy that
-   * Hendricks does not report on Gemini. Widening that boundary is a scope
-   * decision that lands in A1 and in the shared module first, never in an
-   * article.
+   * A fourth engine, Gemini, was probed in that run and nothing from it is
+   * published on the page. CONTENT_VERIFICATION A1 added Gemini to the observed
+   * set on 2026-09-01, in A1 and in `src/content/shared/observed-systems.ts`
+   * first, never in an article. The study renders the shared scope sentence as
+   * it stands today and records the change under Corrections; its figures still
+   * count the three engines the run compared.
    */
   researchNoSharedSourceAcrossEngines: {
     path: '/research/no-shared-source-across-engines',

@@ -245,7 +245,7 @@ The 17-question set and how it was built are published on the self-baseline stud
 
 The six runs behind the cross-run count sit inside a 26-hour window, which is a narrow one. The count says how this engine behaved on this question set inside that window and is not offered as a property of the engine.
 
-A fourth engine was probed in the run of record and nothing from it is reported on this page. The observed-systems boundary is three systems and is stated under Limitations. Widening it is a scope decision that belongs in CONTENT_VERIFICATION A1 and in the shared observed-systems module, not in a research page.
+A fourth engine was probed in the run of record and nothing from it is reported on this page. Every figure here counts the three engines the run compared, Google AI Overviews, ChatGPT, and Perplexity. The observed-systems boundary that applies today is stated under Limitations, and the date it widened is recorded under Corrections.
 
 ## Five things this study assumes
 
@@ -307,7 +307,7 @@ It counts which domains were cited and how often engines retrieved at all. It do
 
 ### 09. The measurement covers one slice of AI-mediated search.
 
-Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity. Hendricks does not measure, test, monitor, or report on Google AI Mode, Gemini, or Microsoft Copilot. A citation set drawn from the observed systems says nothing about the surfaces outside it, and nothing on this page should be read as a statement about them.
+Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini. Hendricks does not measure, test, monitor, or report on Google AI Mode or Microsoft Copilot. A citation set drawn from the observed systems says nothing about the surfaces outside it, and nothing on this page should be read as a statement about them.
 
 ## Author and dates
 
@@ -315,21 +315,35 @@ Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity. 
 
 **Published:** 2026-08-21
 
-**Updated:** 2026-08-21
+**Updated:** 2026-09-01
 
 **Data through:** 2026-08-20
 
 The published date is the day this page went live. The data-through date is the day of the run it reports, run 2026-08-20-110653, which is the day before. The two differ on purpose and neither is rounded to match the other. The updated date moves when a figure, a method, or a limitation changes, and is not refreshed to signal activity.
 
-## No corrections to this page yet, and one finding that was killed before it reached it
+## No corrections to this page, two dated updates, and one finding that was killed before it reached it
 
-This page has been corrected zero times. That is a statement about its age rather than about its accuracy, and it is published as a starting count so a later reader can see whether it moved.
+This page has been corrected zero times. That is a statement about its age rather than about its accuracy, and it is published as a starting count so a later reader can see whether it moved. Two dated updates below add later evidence without changing any figure.
+
+Update, 2026-09-01. A later Hendricks corpus of 480 questions across eight industries, run run-2026-09-01T022903Z, finds 78 domains cited by all three of the engines compared on this page, and 60 cited by all four once Gemini is included. That does not contradict the zero published here, it explains it. ChatGPT filled 9 citation slots in this run, which caps the all-three count at 9 before any engine disagreement is measured, and in 17-question draws from the larger corpus under that condition a zero occurs in roughly one draw in four, with a single shared domain the most likely outcome. The figure on this page is a reading of what a 9-domain set can overlap with, exactly as Limitation 03 states, and it should not be quoted as a property of the three engines.
+
+Update, 2026-09-01. The pairwise ChatGPT counts on this page, one domain shared with Perplexity and none with Google AI Overviews, are likewise functions of that 9-domain set. The durable form of the same comparison in the larger corpus is a mean per-question overlap of 0.020 with Perplexity over 480 questions and 0.011 with Google AI Overviews over 430, the lowest of any engine pair measured. The direction this page reported holds. The counts themselves should not travel without their denominator.
+
+Update, 2026-09-01. The scope sentence this page renders from the shared observed-systems module changed when Gemini became the fourth observed system, a boundary decision recorded in CONTENT_VERIFICATION A1 on 2026-09-01. The sentence on this page changed with it. No figure on this page changed, and nothing from Gemini is reported here.
 
 One finding was discarded during production rather than corrected after it. A draft reading about one engine dropping a high-volume community source did not survive the next run, which gave that engine more citation slots and produced the citation the draft said was absent. It is recorded under Errors Found rather than quietly dropped, because the denominator that made it look real is the same order as one this page still relies on.
 
 If a figure here is wrong, or a third party runs this design and gets a materially different result, the correction is published with its date, the original figure, the contradicting result, and what changed. Nothing on this page is quietly edited, and the updated date above moves with the correction.
 
 A firm selling measurement discipline has to be correctable in public. The corrections log carries every entry for every page in this section.
+
+Change history:
+
+| Date | Kind | Summary |
+|---|---|---|
+| 2026-08-21 | publication | Published. |
+| 2026-09-01 | update | The 480-question corpus run run-2026-09-01T022903Z added as later evidence on the all-three count and the pairwise ChatGPT counts; no figure changed. |
+| 2026-09-01 | scope | Gemini joined the observed set on 2026-09-01, after this run, and the scope sentence under Limitations moved with the shared module. The run compared three systems, Google AI Overviews, ChatGPT, and Perplexity, and nothing from Gemini is reported on this page. |
 
 CTA: Read the corrections policy
 
@@ -371,4 +385,4 @@ The article module is `src/content/research/no-shared-source-across-engines.ts` 
 
 This is the first study in the section to publish an `errorsFound` section. Two instrument defects were found while producing its run and both had already produced a wrong reading, so the section exists rather than being omitted as it was on the three studies before it.
 
-A fourth engine was probed in the run of record and nothing from it appears on the page. `CONTENT_VERIFICATION.md` A1 holds the observed set at three systems and `src/content/shared/observed-systems.ts` states in visitor copy that Hendricks does not report on Gemini. Widening that boundary is a scope decision that lands in A1 and in the shared module first, never in an article.
+A fourth engine, Gemini, was probed in the run of record and nothing from it appears on the page. `CONTENT_VERIFICATION.md` A1 added Gemini to the observed set on 2026-09-01, in A1 and in `src/content/shared/observed-systems.ts` first, never in an article. The scope sentence under Limitations moved with the module; the figures did not, and the dated update under Corrections says so.

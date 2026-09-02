@@ -143,7 +143,7 @@ Keyword data is one input among many. Hendricks combines it with Search Console 
 
 The assistant platforms do not publish prompt volumes. Hendricks therefore does not hold a prompt-volume dataset for AI-mediated search and does not present an estimate as though it were a measurement. Demand is modeled from evidence that can be observed directly: Search Console queries, paid-search terms, keyword and SERP data, CRM opportunities, closed-customer data, sales-call transcripts, customer interviews, reviews, support questions, and on-site search.
 
-Those proxies become intent contexts, and the intent contexts are run as controlled tests. Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity. Hendricks does not measure, test, monitor, or report on Google AI Mode, Gemini, or Microsoft Copilot. This is why the weighting model carries an Evidence Confidence term. An estimated demand figure stays labeled estimated for as long as it remains one.
+Those proxies become intent contexts, and the intent contexts are run as controlled tests. Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini. Hendricks does not measure, test, monitor, or report on Google AI Mode or Microsoft Copilot. This is why the weighting model carries an Evidence Confidence term. An estimated demand figure stays labeled estimated for as long as it remains one.
 
 ### How do paid-search and CRM data affect prioritization?
 

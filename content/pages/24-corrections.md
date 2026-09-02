@@ -78,7 +78,37 @@ Where a published Hendricks figure is contradicted by someone running the same d
 
 Eyebrow: Log
 
-Three entries, newest first. The log does not reconstruct changes made before this page existed.
+Six entries, newest first. The log does not reconstruct changes made before this page existed.
+
+### A Google AI Overviews reading produced by a parser that discarded rendered panels, on the Hendricks Selection Baseline
+
+Published 2026-08-19. Corrected 2026-09-01. Page: Hendricks Selection Baseline.
+
+What was published: The study read Google AI Overviews as citing a source on 1 of its 13 measured cells in the 2026-08-19 run, findings 02 and 03 built conclusions on that reading, and the first correction to the page stated that the reading it draws from that number was unchanged.
+
+What was wrong: The probe bailed out of any overview panel the vendor flagged as asynchronously rendered, discarding usable panels, so the engine read as nearly silent when it was not. The archived run the first correction pointed to was itself read through the defective parser, which is why this entry exists on a page that had already been corrected once for the same engine. The probe’s own source now records the defect and the fix: treating the asynchronous flag alone as absence had discarded fully usable answers.
+
+What changed: The published counts stand as records of what the defective instrument read, and the conclusions built on them are corrected inline on the page: the most-answers-cited-nothing headline now holds for ChatGPT rather than for all three engines, the averaging argument now rests on the two engines that were read correctly, and the sentence in the earlier correction claiming the reading was unchanged is withdrawn by name. Corroboration rather than cause: corpus run run-2026-09-01T022903Z, taken after the parser fix, reads Google AI Overviews citing on 430 of 462 rendered panels at 6.8 sources per rendered panel.
+
+### An engine-contribution reading resting on the same discarded panels, on Who Gets Cited in AI Answers
+
+Published 2026-08-19. Corrected 2026-09-01. Page: Who Gets Cited in AI Answers.
+
+What was published: Finding 03 read Google AI Overviews as supplying 6 domains across 6 slots and concluded that almost the entire citation set in the run came from one engine.
+
+What was wrong: The same parser defect: asynchronously rendered overview panels were discarded, so the engine’s contribution describes the defect rather than the engine.
+
+What changed: The counts stand as a record of the instrument; the almost-everything-from-one-engine conclusion came off, and the finding now carries the corrected reading inline with the run id of the corroborating corpus, run-2026-09-01T022903Z, which reads the engine citing on 430 of 462 rendered panels.
+
+### A stability reading of 1.00 that was the parser defect agreeing with itself, on Two Runs, Same Questions
+
+Published 2026-08-19. Corrected 2026-09-01. Page: Two Runs, Same Questions.
+
+What was published: Finding 04 reported Google AI Overviews returning an identical citation set on its one comparable cell, an overlap of 1.00, and finding 01 reported agreement on whether a cell cited across all 51 comparable cells.
+
+What was wrong: Twelve Google AI Overviews cells read as empty in both runs because the parser discarded asynchronously rendered panels in both, so the defect agreed with itself, and the single 1.00 cell was the one panel that escaped it, read twice.
+
+What changed: A scope note on finding 01 and a corrected reading on finding 04 are inline: no Google AI Overviews stability reading exists on that pair of runs. The later corpus rounds, run-2026-09-01T014944Z against run-2026-09-01T022903Z, read that engine’s self-agreement at 0.622 over 201 rendered panels under the fixed parser.
 
 ### Figures from a run whose record had been overwritten, on the Hendricks Selection Baseline
 

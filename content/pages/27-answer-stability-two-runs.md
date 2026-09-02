@@ -268,7 +268,7 @@ Selection Stability is a Selection Intelligence measure across repeated runs of 
 
 ### 09. The measurement covers one slice of AI-mediated search.
 
-Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity. Hendricks does not measure, test, monitor, or report on Google AI Mode, Gemini, or Microsoft Copilot. A stability observation on the observed set says nothing about the surfaces outside it, and nothing on this page should be read as a statement about them.
+Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini. Hendricks does not measure, test, monitor, or report on Google AI Mode or Microsoft Copilot. A stability observation on the observed set says nothing about the surfaces outside it, and nothing on this page should be read as a statement about them.
 
 ## Author and dates
 
@@ -276,23 +276,33 @@ Hendricks observes three systems: Google AI Overviews, ChatGPT, and Perplexity. 
 
 **Published:** 2026-08-19
 
-**Updated:** 2026-08-19
+**Updated:** 2026-09-01
 
 **Data through:** 2026-08-19
 
 The updated date on this page moves when a figure, a method, or a limitation changes. It is not refreshed to signal activity. The data-through date is the later of the two runs this page reports, run 2026-08-19-181155, and will not advance until a further run pair is published here.
 
-## Nothing corrected yet, and how the first one gets made
+## One correction to this page, and how the next one gets made
 
 Eyebrow: Corrections
 
-Nothing on this page has been corrected. That is a statement about its age rather than about its quality. It was published on the date of the two runs it reports.
+Correction, 2026-09-01. What was published: finding 04 reported a Google AI Overviews overlap of 1.00 on its one comparable cell, and finding 01 reported agreement across all 51 comparable cells without stating how many of those cells that engine actually populated. What was wrong: the probe was discarding asynchronously rendered overview panels in both runs, so 12 Google AI Overviews cells read as empty in both runs by defect, the defect agreed with itself, and the single 1.00 cell was the one panel that escaped it, read twice. The figures stand as records of what the instrument read; the scope note on finding 01 and the corrected reading on finding 04 are now inline. Corroboration, not cause: the corpus rounds run-2026-09-01T014944Z and run-2026-09-01T022903Z, taken after the parser fix, read that engine’s self-agreement at 0.622 over 201 rendered panels. The full entry is in the corrections log.
+
+Update, 2026-09-01. The scope sentence this page renders from the shared observed-systems module changed when Gemini became the fourth observed system, a boundary decision recorded in CONTENT_VERIFICATION A1 on 2026-09-01. The sentence on this page changed with it. No figure on this page changed, and nothing from Gemini is reported here.
 
 If a figure here is wrong, or a third party runs this design and gets a materially different result, the correction is published with its date, the original figure, the contradicting result, and what changed. Nothing on this page is quietly edited.
 
 The first Hendricks study published under this format needed two corrections on its first day. One of them was necessary because the result file behind a published figure had been overwritten in place by a scheduled job before anyone tried to reproduce it. Both runs on this page were archived under their own run ids, with a manifest beside each, before a word of this page was written. That is the fix for the failure rather than a promise about it.
 
 A firm selling measurement discipline has to be correctable in public, and the record of the correction is the part that makes the discipline checkable.
+
+Change history:
+
+| Date | Kind | Summary |
+|---|---|---|
+| 2026-08-19 | publication | Published. |
+| 2026-09-01 | correction | A stability reading of 1.00 that was the parser defect agreeing with itself; finding 01 scoped and finding 04 corrected inline. |
+| 2026-09-01 | scope | Gemini joined the observed set on 2026-09-01, after this run, and the scope sentence under Limitations moved with the shared module. The run compared three systems, Google AI Overviews, ChatGPT, and Perplexity, and nothing from Gemini is reported on this page. |
 
 CTA: Read the corrections policy
 

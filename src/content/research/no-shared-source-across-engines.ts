@@ -73,15 +73,15 @@ import {
  * works. Nobody outside the platforms can observe why an engine retrieved or did
  * not retrieve, and this page offers no account of it.
  *
- * SCOPE. A fourth engine was probed in this run outside the observed-systems
- * boundary, and nothing from it is reported here. CONTENT_VERIFICATION A1 holds
- * the observed set at three systems and `src/content/shared/observed-systems.ts`
- * states in published copy that Hendricks does not measure, test, monitor, or
- * report on Gemini. Publishing a fourth engine's figures would contradict that
- * sentence, and a research page is the worst possible place to quietly widen a
- * capability claim. If the boundary moves, it moves in A1 and in the shared
- * module first, and this study is revised afterwards with a dated correction.
- * Until then every figure on this page counts three engines and 51 cells.
+ * SCOPE. A fourth engine, Gemini, was probed in this run outside the
+ * observed-systems boundary that applied on the run date, and nothing from it
+ * is reported here. CONTENT_VERIFICATION A1 added Gemini to the observed set
+ * on 2026-09-01, in A1 and in `src/content/shared/observed-systems.ts` first,
+ * which is the order this comment always required. Limitation 09
+ * renders the shared sentence as it stands today, and the dated update under
+ * `corrections` records that the sentence moved and that no figure did. Every
+ * figure on this page still counts the three engines the run compared and 51
+ * cells. Nothing from Gemini is added retroactively.
  *
  * SOURCES. No external citation. docs/18-SOURCE-LEDGER.md approves external
  * sources per page and this page reports first-party measurement only, so
@@ -519,7 +519,7 @@ export const sample = {
   note: [
     'The 17-question set and how it was built are published on the self-baseline study, which reports a different run for a different question. This study does not restate the query-set construction and links to it instead.',
     'The six runs behind the cross-run count sit inside a 26-hour window, which is a narrow one. The count says how this engine behaved on this question set inside that window and is not offered as a property of the engine.',
-    'A fourth engine was probed in the run of record and nothing from it is reported on this page. The observed-systems boundary is three systems and is stated under Limitations. Widening it is a scope decision that belongs in CONTENT_VERIFICATION A1 and in the shared observed-systems module, not in a research page.',
+    'A fourth engine was probed in the run of record and nothing from it is reported on this page. Every figure here counts the three engines the run compared, Google AI Overviews, ChatGPT, and Perplexity. The observed-systems boundary that applies today is stated under Limitations, and the date it widened is recorded under Corrections.',
   ],
 } as const
 

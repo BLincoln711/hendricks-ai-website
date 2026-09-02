@@ -1,73 +1,114 @@
-import { readdirSync, readFileSync } from 'node:fs'
+import { readdirSync, readFileSync, statSync } from 'node:fs'
 import path from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
 import { observedSystemsSentence } from '@/content/shared/observed-systems'
 
-/**
- * The observed-systems scope is a published capability claim, approved by
- * Brandon on 2026-08-17: Hendricks observes Google AI Overviews, ChatGPT and
- * Perplexity, and nothing else.
- *
- * The failure mode this guards is drift, not absence. A sentence that says
- * "three systems" without naming them reads as a coverage claim to anyone who
- * lifts it, and it silently becomes wrong the day the scope changes. Banning the
- * phrase outright would be the wrong rule, because naming the count alongside
- * the three products is exactly how the claim should be written. So the rule is:
- * if a visitor-facing string claims a number of observed systems, it must name
- * them in the same string, or it must be describing a run's scope rather than
- * the firm's coverage.
- */
-const CONTENT_DIR = path.join(process.cwd(), 'src/content/pages')
-const SYSTEMS = ['Google AI Overviews', 'ChatGPT', 'Perplexity']
+import {
+  ALLOWLISTED_SENTENCES,
+  OBSERVED_SYSTEMS_MODULE,
+  observedSystemsOffencesInMarkdown,
+  observedSystemsOffencesInSource,
+} from '../../scripts/lib/observed-systems-guard'
 
-/** Strips comments so a note explaining the rule is not itself a hit. */
-function stripComments(source: string): string {
-  return source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '')
+/**
+ * The observed-systems boundary is a published capability claim
+ * (CONTENT_VERIFICATION A1, amended 2026-09-01): Hendricks observes Google AI
+ * Overviews, ChatGPT, Perplexity, and Gemini, and nothing else. The list is
+ * closed and it has already changed once, which is why no page may state it
+ * as a literal. Every visitor string that names the boundary renders
+ * `observedSystemsSentence`; the guard in `scripts/lib/observed-systems-guard.ts`
+ * enforces that over `src/content/` and the approved markdown mirrors, with the
+ * two exceptions its header records. The fixtures under
+ * `tests/fixtures/content/` pin what the guard catches and what it lets through.
+ */
+const ROOT = process.cwd()
+const CONTENT_DIR = path.join(ROOT, 'src/content')
+const MIRROR_DIR = path.join(ROOT, 'content/pages')
+const FIXTURE_DIR = path.join(ROOT, 'tests/fixtures/content')
+
+const CANONICAL_SENTENCE =
+  'Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini.'
+
+function walk(dir: string, match: RegExp): string[] {
+  return readdirSync(dir).flatMap((name) => {
+    const full = path.join(dir, name)
+    if (statSync(full).isDirectory()) return walk(full, match)
+    return match.test(name) ? [full] : []
+  })
 }
 
-function visitorStrings(source: string): string[] {
-  return Array.from(stripComments(source).matchAll(/'((?:[^'\\]|\\.){30,})'/g)).map((m) => m[1])
+function relative(file: string): string {
+  return path.relative(ROOT, file)
+}
+
+function fixture(name: string): string {
+  return readFileSync(path.join(FIXTURE_DIR, name), 'utf8')
 }
 
 describe('Observed-systems boundary', () => {
-  const files = readdirSync(CONTENT_DIR).filter((f) => f.endsWith('.ts'))
+  it('keeps the shared sentence verbatim from CANON section 4', () => {
+    expect(observedSystemsSentence).toBe(CANONICAL_SENTENCE)
+  })
 
-  it('never claims Hendricks observes a count of systems without naming them', () => {
-    const offenders: string[] = []
-    for (const file of files) {
-      const source = readFileSync(path.join(CONTENT_DIR, file), 'utf8')
-      for (const s of visitorStrings(source)) {
-        // Only a claim about what Hendricks observes is in scope. A sentence
-        // describing the scope of a measurement run is not a coverage claim.
-        const claimsCoverage = /Hendricks\s+(observes|measures|tests|monitors)\b[^.]*\bthree systems\b/.test(s)
-        if (!claimsCoverage) continue
-        if (!SYSTEMS.every((sys) => s.includes(sys))) {
-          offenders.push(`${file}: ${s.slice(0, 90)}`)
-        }
-      }
-    }
+  it('renders the boundary from the shared module everywhere under src/content', () => {
+    const offenders = walk(CONTENT_DIR, /\.tsx?$/)
+      .filter((file) => relative(file) !== OBSERVED_SYSTEMS_MODULE)
+      .flatMap((file) =>
+        observedSystemsOffencesInSource(readFileSync(file, 'utf8')).map(
+          (o) => `${relative(file)}:${o.line} ${o.rule}: ${o.excerpt}`,
+        ),
+      )
     expect(offenders).toEqual([])
   })
 
-  it('never names a system outside the approved three as one Hendricks observes', () => {
-    const forbidden = ['Gemini', 'Microsoft Copilot', 'Copilot', 'Google AI Mode']
-    const offenders: string[] = []
-    for (const file of files) {
-      const source = readFileSync(path.join(CONTENT_DIR, file), 'utf8')
-      for (const s of visitorStrings(source)) {
-        const claims = /Hendricks\s+(observes|measures|tests|monitors|reports on)\b/.test(s)
-        const negated = /does not|never|no Hendricks|not among|excluded/i.test(s)
-        if (claims && !negated && forbidden.some((f) => s.includes(f))) {
-          offenders.push(`${file}: ${s.slice(0, 90)}`)
-        }
-      }
-    }
+  it('keeps every approved markdown mirror on the canonical sentence', () => {
+    const offenders = walk(MIRROR_DIR, /\.md$/).flatMap((file) =>
+      observedSystemsOffencesInMarkdown(readFileSync(file, 'utf8'), CANONICAL_SENTENCE).map(
+        (o) => `${relative(file)}:${o.line} ${o.rule}: ${o.excerpt}`,
+      ),
+    )
     expect(offenders).toEqual([])
   })
 
-  it('keeps the shared constant naming all three', () => {
-    for (const sys of SYSTEMS) expect(observedSystemsSentence).toContain(sys)
+  it('still finds every allowlisted sentence where it was allowlisted', () => {
+    const page = readFileSync(
+      path.join(CONTENT_DIR, 'pages/what-is-ai-mediated-search.ts'),
+      'utf8',
+    )
+    const mirror = readFileSync(path.join(MIRROR_DIR, '22-what-is-ai-mediated-search.md'), 'utf8')
+    for (const sentence of ALLOWLISTED_SENTENCES) {
+      expect(page).toContain(sentence)
+      expect(mirror).toContain(sentence)
+    }
+  })
+
+  it('lets the passing fixtures through', () => {
+    expect(observedSystemsOffencesInSource(fixture('observed-systems-passing.ts'))).toEqual([])
+    expect(
+      observedSystemsOffencesInMarkdown(fixture('observed-systems-passing.md'), CANONICAL_SENTENCE),
+    ).toEqual([])
+  })
+
+  it('catches every breach in the failing source fixture', () => {
+    const offences = observedSystemsOffencesInSource(fixture('observed-systems-failing.ts'))
+    expect(offences.map((o) => o.excerpt.slice(0, 24))).toEqual([
+      'Hendricks observes three',
+      'Hendricks observes four ',
+      'Hendricks measures Googl',
+      'The boundary on this pag',
+    ])
+    expect(offences.map((o) => o.rule)).toContain(
+      'names the systems Hendricks observes in a page literal instead of rendering the shared sentence',
+    )
+  })
+
+  it('catches every breach in the failing markdown fixture', () => {
+    const offences = observedSystemsOffencesInMarkdown(
+      fixture('observed-systems-failing.md'),
+      CANONICAL_SENTENCE,
+    )
+    expect(offences.map((o) => o.line)).toEqual([3, 5, 9])
   })
 })

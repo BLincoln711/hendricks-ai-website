@@ -6,6 +6,7 @@ import { evidenceGradeRows } from '@/content/shared/evidence-grades'
 import {
   observedSystemsContext,
   observedSystemsExclusion,
+  observedSystemsSentence,
 } from '@/content/shared/observed-systems'
 
 /**
@@ -203,13 +204,11 @@ export const faq = {
       answer: [
         'No. Google Analytics 4 cannot identify all AI traffic, and Hendricks does not report it as though it can. An analytics tool can only classify a visit from what arrives with it, so a referral from an AI assistant is countable in GA4 only when a referrer arrives and is recognized as one.',
         'Three limits stack on top of each other. Assistant referrals are attributed inconsistently across tools and across time. Some visits arrive with no referrer at all and are recorded as direct. And some AI influence never produces a click, because the buyer reads an answer, forms a preference, and arrives later through a branded search or a direct visit that carries no trace of the original exposure.',
-        'Hendricks bounds that gap rather than filling it with a guess. Exposure is measured where the answer itself can be observed, across the three systems Hendricks observes: Google AI Overviews, ChatGPT, and Perplexity. AI-assistant referrals are then reported as a floor rather than a total. Branded search, direct visits, decision-content engagement, and self-reported source data are tracked as leading indicators, and every conclusion carries the evidence grade that states how much weight it can hold.',
-        // docs/17 3.5. This paragraph previously excluded only Gemini and
-        // Microsoft Copilot, in wording written fresh on this page. It now reads
-        // both sentences out of src/content/shared/observed-systems.ts, which
-        // names all three unobserved surfaces. "either one" became "any of them"
-        // because the list went from two surfaces to three; nothing else in the
-        // paragraph changed.
+        `Hendricks bounds that gap rather than filling it with a guess. Exposure is measured where the answer itself can be observed. ${observedSystemsSentence} AI-assistant referrals are then reported as a floor rather than a total. Branded search, direct visits, decision-content engagement, and self-reported source data are tracked as leading indicators, and every conclusion carries the evidence grade that states how much weight it can hold.`,
+        // docs/17 3.5. The scope sentence above and both sentences below are
+        // read from src/content/shared/observed-systems.ts. The paragraph above
+        // carried its own three-system literal, and the literal did not move
+        // when A1 added Gemini on 2026-09-01.
         `${observedSystemsContext} ${observedSystemsExclusion} No Hendricks deliverable should be read as covering any of them.`,
       ],
     },

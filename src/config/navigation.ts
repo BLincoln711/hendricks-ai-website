@@ -53,32 +53,27 @@ export const primaryNavigation: NavigationItem[] = built([
   { label: 'For Brands', href: routes.forBrands.path },
   { label: 'For Agencies', href: routes.forAgencies.path },
   /*
-    Research is deliberately absent from this list, and its absence is a content
-    rule rather than an oversight.
+    Research is absent from this list because of a content rule whose condition
+    has since been met, not because of an oversight.
 
     content/pages/12-research.md line 88: "Do not launch a research index with no
     meaningful content. Publish at least the three category foundation pages
-    before linking Research in the primary navigation." That sentence carries two
-    separate rules. The first forbids an empty index, which /research is not: it
-    publishes a dated study with a stated method. The second gates this list on
-    three published foundation pages, and one study is not three.
+    before linking Research in the primary navigation." When this entry was
+    removed the hub carried one study; it now carries five, so the gate no
+    longer holds. The entry is restored in this position, between For Agencies
+    and About, with the header rebuild (CANON R6 default, redesign handoff PR
+    3), because the change is visual and belongs with that work. Closing
+    CONTENT_VERIFICATION R6 is Brandon's act, not a build commit.
 
     The entry lived here from Phase 4 and was invisible only because
     `routes.research.built` was false and `built()` filtered it out. Marking the
-    route built would therefore have promoted it into primary navigation as a
-    side effect of shipping the page, which is the opposite of what the approved
-    copy asks for. Removing it makes the rule explicit instead of accidental.
+    route built would have promoted it into primary navigation as a side effect
+    of shipping the page, which is why it was removed rather than left to the
+    flag.
 
-    The hub is not orphaned. It sits at the top of `footerNavigation.research`,
-    which renders on every route, and one body-content link points at it, the
-    related list on `/corrections`. That is thinner than the definition pages
-    get. No commercial or editorial page yet links to the research in body copy;
-    that placement is the answer-architect's call and is recorded as an open item
-    on `routes.research` in ./routes.ts.
-
-    Restore this line, in this position between For Agencies and About, once
-    three category foundation pages are published under /research. Nothing else
-    needs to change.
+    Until it returns, the hub sits at the top of `footerNavigation.research`,
+    which renders on every route, and the related list on `/corrections` points
+    at it. See the matching note on `routes.research` in ./routes.ts.
   */
   { label: 'About', href: routes.about.path },
 ])
