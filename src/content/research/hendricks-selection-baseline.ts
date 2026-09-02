@@ -272,13 +272,13 @@ export const keyFindings = {
       number: '02',
       name: 'Most answers cited nothing at all.',
       description:
-        'Twenty of the 47 measured cells in the 2026-08-19 run contained a citation. The other 27 carried no source at all. The competitive frame this category sells, in which brands contest slots inside AI answers, does not describe most of these answers, because most of them had no slot to contest. The number that matters for whether a brand could have been cited is 20, not 51.',
+        'Twenty of the 47 measured cells in the 2026-08-19 run contained a citation. The other 27 carried no source at all. A correction dated 2026-09-01 narrows this finding: 12 of those 27 were Google AI Overviews reads produced by a parser defect that discarded asynchronously rendered panels, so the headline no longer holds as a property of all three engines. It holds for ChatGPT, where it is real and repeated: 15 of its 17 answers cited nothing while running thousands of characters. The number that matters for whether a brand could have been cited is still the populated count, not the cell count.',
     },
     {
       number: '03',
       name: 'The three engines behaved so differently that averaging them describes nothing.',
       description:
-        'On 2026-08-19, all three engines were sent the same 17 questions. Perplexity cited sources on 17 of them. ChatGPT cited sources on 2. Google AI Overviews returned a measurement on 13, because 4 of its cells errored, and cited sources on 1 of those 13. A single AI visibility score averaged across 17 of 17, 2 of 17, and 1 of 13 describes no system that exists. If a report hands you one number, ask which of the three produced it, what the other two did, and how many cells it is averaging over.',
+        'On 2026-08-19, all three engines were sent the same 17 questions. Perplexity cited sources on 17 of them. ChatGPT cited sources on 2. Google AI Overviews returned a measurement on 13, because 4 of its cells errored, and cited sources on 1 of those 13. A correction dated 2026-09-01 reclassifies that 1 of 13 as an instrument artifact rather than an engine behavior: the probe was discarding asynchronously rendered panels, and the corpus run run-2026-09-01T022903Z, taken after the fix, reads the same engine citing on 93.1 percent of rendered panels. The argument survives on the two engines that were read correctly. A single score averaged across 17 of 17 and 2 of 17 already describes no system that exists, and a reader handed one number should still ask which engine produced it, what the others did, and how many cells it averages.',
     },
     {
       number: '04',
@@ -694,7 +694,7 @@ export const byline = {
   authorRole: 'Search Intelligence Engineer, Hendricks',
   authorHref: routes.about.path,
   published: '2026-08-19',
-  updated: '2026-08-19',
+  updated: '2026-09-01',
   dataThrough: '2026-08-19',
   note: 'The updated date on this page moves when a figure, a method, or a limitation changes. It is not refreshed to signal activity. It moved twice on the day of publication, for the two corrections recorded below. The data-through date is the last run this page reports, run 2026-08-19-110930, and will not advance until a further run is published here.',
 } as const
@@ -713,8 +713,10 @@ export const byline = {
  */
 export const corrections = {
   eyebrow: 'Corrections',
-  title: 'Two corrections to this page, and how the next one gets made',
+  title: 'Three corrections to this page, and how the next one gets made',
   body: [
+    'Correction, 2026-09-01. What was published: the 2026-08-19 run read Google AI Overviews citing a source on 1 of its 13 measured cells, and findings 02 and 03 built on that reading, including the sentence in the first correction below that the reading the page draws from that number is unchanged. That sentence is withdrawn. What was wrong: the probe was bailing out of any overview panel the vendor flagged as asynchronously rendered, discarding usable panels, so this engine read as nearly silent when it was not. This is the second correction to this page involving the same engine and it is the deeper one: the first replaced a destroyed file with an archived run, and the archived run was itself read through the defective parser. The counts stand as a record of what the instrument read; findings 02 and 03 now carry the corrected conclusions inline. Corroboration, not cause: corpus run run-2026-09-01T022903Z, taken after the parser fix, reads Google AI Overviews citing on 430 of 462 rendered panels. The full entry is in the corrections log.',
+    'Update, 2026-09-01. The scope sentence this page renders from the shared observed-systems module changed when Gemini became the fourth observed system, a boundary decision recorded in CONTENT_VERIFICATION A1 on 2026-09-01. The sentence on this page changed with it. No figure on this page changed, and nothing from Gemini is reported here.',
     'Correction, 2026-08-19. What was published: a 2026-08-19 run of 51 cells with all 51 measured, 19 of them citing a source, 248 distinct domains across 305 citation slots, 218 domains cited exactly once, reddit.com in 14 cells, linkedin.com in 10, and Google AI Overviews returning no sourced overview on any of the 17.',
     'What was wrong, in two parts. Those figures came from a real three-engine run at 22:54 on 2026-08-18 that carried the 2026-08-19 date, and its result file no longer exists. Hendricks destroyed it. The probe named each result file from the client and the date alone, so when the scheduled job ran at 06:16 on 2026-08-19 it wrote over the earlier file in place. That scheduled job queries one engine and carries the alternating engine forward from the day before, so the file that survived held 32 records: 17 Perplexity cells from that morning, 15 ChatGPT cells flagged as carried forward from 2026-08-18, and no Google AI Overviews cells at all. None of the published figures could be reproduced from any surviving record. On a page whose entire value is that a reader can check it, that is disqualifying whether or not the figures were right when they were taken.',
     'The second part is a figure that was also wrong on its merits. Google AI Overviews did not return an unsourced answer on all 17 questions. Four of its cells errored, 13 returned a measurement, and one of those 13 carried a sourced overview. The reading the page draws from that number is unchanged: 1 of 13 against 17 of 17 is not a spread any single averaged visibility score describes.',

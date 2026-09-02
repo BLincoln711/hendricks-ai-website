@@ -635,7 +635,7 @@ export const byline = {
   authorRole: 'Search Intelligence Engineer, Hendricks',
   authorHref: routes.about.path,
   published: '2026-08-21',
-  updated: '2026-08-21',
+  updated: '2026-09-01',
   dataThrough: '2026-08-20',
   note: 'The published date is the day this page went live. The data-through date is the day of the run it reports, run 2026-08-20-110653, which is the day before. The two differ on purpose and neither is rounded to match the other. The updated date moves when a figure, a method, or a limitation changes, and is not refreshed to signal activity.',
 } as const
@@ -643,9 +643,12 @@ export const byline = {
 /** Element 14. */
 export const corrections = {
   eyebrow: 'Corrections',
-  title: 'No corrections to this page yet, and one finding that was killed before it reached it',
+  title: 'No corrections to this page, two dated updates, and one finding that was killed before it reached it',
   body: [
-    'This page has been corrected zero times. That is a statement about its age rather than about its accuracy, and it is published as a starting count so a later reader can see whether it moved.',
+    'This page has been corrected zero times. That is a statement about its age rather than about its accuracy, and it is published as a starting count so a later reader can see whether it moved. Two dated updates below add later evidence without changing any figure.',
+    'Update, 2026-09-01. A later Hendricks corpus of 480 questions across eight industries, run run-2026-09-01T022903Z, finds 78 domains cited by all three of the engines compared on this page, and 60 cited by all four once Gemini is included. That does not contradict the zero published here, it explains it. ChatGPT filled 9 citation slots in this run, which caps the all-three count at 9 before any engine disagreement is measured, and in 17-question draws from the larger corpus under that condition a zero occurs in roughly one draw in four, with a single shared domain the most likely outcome. The figure on this page is a reading of what a 9-domain set can overlap with, exactly as Limitation 03 states, and it should not be quoted as a property of the three engines.',
+    'Update, 2026-09-01. The pairwise ChatGPT counts on this page, one domain shared with Perplexity and none with Google AI Overviews, are likewise functions of that 9-domain set. The durable form of the same comparison in the larger corpus is a mean per-question overlap of 0.020 with Perplexity over 480 questions and 0.011 with Google AI Overviews over 430, the lowest of any engine pair measured. The direction this page reported holds. The counts themselves should not travel without their denominator.',
+    'Update, 2026-09-01. The scope sentence this page renders from the shared observed-systems module changed when Gemini became the fourth observed system, a boundary decision recorded in CONTENT_VERIFICATION A1 on 2026-09-01. The sentence on this page changed with it. No figure on this page changed, and nothing from Gemini is reported here.',
     'One finding was discarded during production rather than corrected after it. A draft reading about one engine dropping a high-volume community source did not survive the next run, which gave that engine more citation slots and produced the citation the draft said was absent. It is recorded under Errors Found rather than quietly dropped, because the denominator that made it look real is the same order as one this page still relies on.',
     'If a figure here is wrong, or a third party runs this design and gets a materially different result, the correction is published with its date, the original figure, the contradicting result, and what changed. Nothing on this page is quietly edited, and the updated date above moves with the correction.',
     'A firm selling measurement discipline has to be correctable in public. The corrections log carries every entry for every page in this section.',

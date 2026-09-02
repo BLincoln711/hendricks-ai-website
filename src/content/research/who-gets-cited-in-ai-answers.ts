@@ -197,7 +197,7 @@ export const keyFindings = {
       number: '03',
       name: 'The three engines contributed the set at completely different scales.',
       description:
-        'Perplexity supplied 233 distinct domains across 291 citation slots. ChatGPT supplied 11 domains across 11 slots. Google AI Overviews supplied 6 domains across 6 slots, on a run where 4 of its cells errored and returned no measurement. Almost the entire citation set in this run came from one engine. A figure drawn from this run and presented as what AI answers cite is describing Perplexity unless it says otherwise, and a reader handed any cross-engine figure should ask which engine produced it and how many slots the others contributed.',
+        'Perplexity supplied 233 distinct domains across 291 citation slots. ChatGPT supplied 11 domains across 11 slots. Google AI Overviews supplied 6 domains across 6 slots, on a run where 4 of its cells errored and returned no measurement. Those counts are a correct record of what the instrument read, and a correction dated 2026-09-01 narrows what may be concluded from them: the probe was discarding asynchronously rendered overview panels, so the Google AI Overviews contribution describes a parser defect rather than the engine, and the corpus run run-2026-09-01T022903Z, taken after the fix, reads that engine citing on 430 of 462 rendered panels. What survives is the narrower reading: a figure drawn from this run and presented as what AI answers cite is describing Perplexity unless it says otherwise, and a reader handed any cross-engine figure should still ask which engine produced it and how many slots the others contributed.',
     },
     {
       number: '04',
@@ -587,7 +587,7 @@ export const byline = {
   authorRole: 'Search Intelligence Engineer, Hendricks',
   authorHref: routes.about.path,
   published: '2026-08-19',
-  updated: '2026-08-19',
+  updated: '2026-09-01',
   dataThrough: '2026-08-19',
   note: 'The updated date on this page moves when a figure, a method, or a limitation changes. It is not refreshed to signal activity. The data-through date is the run this page reports, run 2026-08-19-110930, and will not advance until a further run is published here.',
 } as const
@@ -600,9 +600,10 @@ export const byline = {
  */
 export const corrections = {
   eyebrow: 'Corrections',
-  title: 'No corrections to this page yet, and how the first one gets made',
+  title: 'One correction to this page, and how the next one gets made',
   body: [
-    'This page has been corrected zero times. That is a statement about its age rather than about its accuracy, and it is published as a starting count so a later reader can see whether it moved.',
+    'Correction, 2026-09-01. What was published: finding 03 read the Google AI Overviews contribution of 6 domains across 6 slots as that engine contributing almost nothing, and the page concluded that almost the entire citation set came from one engine. What was wrong: the probe was bailing out of any overview panel the vendor flagged as asynchronously rendered, discarding usable panels, so the engine read as nearly absent when it was not. The counts stand as a record of the defective instrument; the conclusion built on them came off. Corroboration, not cause: the 480-question corpus run run-2026-09-01T022903Z, taken after the parser fix, reads Google AI Overviews citing on 430 of 462 rendered panels at 6.8 sources per rendered panel. The full entry is in the corrections log.',
+    'Update, 2026-09-01. The scope sentence this page renders from the shared observed-systems module changed when Gemini became the fourth observed system, a boundary decision recorded in CONTENT_VERIFICATION A1 on 2026-09-01. The sentence on this page changed with it. No figure on this page changed, and nothing from Gemini is reported here.',
     'If a figure here is wrong, or a third party runs this design and gets a materially different result, the correction is published with its date, the original figure, the contradicting result, and what changed. Nothing on this page is quietly edited, and the updated date above moves with the correction.',
     'The run id and the archive filename appear on this page nine times because the companion self-baseline study needed two corrections on its publication day, one of them for a set of figures whose result file a scheduled job had overwritten in place. Those figures could not be reproduced from any surviving record, which is disqualifying on a research page whatever the figures were. Naming the run inside the copy is what that correction bought, and it is the single most useful structural feature of a Hendricks research page.',
     'A firm selling measurement discipline has to be correctable in public. The corrections log carries every entry for every page in this section, including the two that predate this one.',

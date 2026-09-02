@@ -179,7 +179,7 @@ export const keyFindings = {
       number: '01',
       name: 'Whether an engine cited anyone at all did not move.',
       description:
-        'Across all 51 comparable cells, the two runs agreed on whether the cell carried a citation. Zero cells flipped from citing to not citing, and zero flipped the other way. This is the stable half of the result and it is stated before the unstable half deliberately, because a reader who has run the same question twice and seen the same shape has already observed it. On this evidence, one observation of whether an answer carries sources at all is reproduced by a second observation taken the same day.',
+        'Across all 51 comparable cells, the two runs agreed on whether the cell carried a citation. Zero cells flipped from citing to not citing, and zero flipped the other way. This is the stable half of the result and it is stated before the unstable half deliberately, because a reader who has run the same question twice and seen the same shape has already observed it. A scope note recorded on 2026-09-01: 4 of the comparable cells had errored and 12 more were Google AI Overviews reads suppressed in both runs by the parser defect described in the correction below, so the agreement describes the cells the instrument could read, and for that engine it describes the defect agreeing with itself as much as the engine doing so. On this evidence, one observation of whether an answer carries sources at all is reproduced by a second observation taken the same day, with that scope stated.',
     },
     {
       number: '02',
@@ -197,7 +197,7 @@ export const keyFindings = {
       number: '04',
       name: 'The per-engine figures split three ways, and two of them rest on a handful of cells.',
       description:
-        'On the cells that carried citations, Perplexity was compared on 17 cells, returned 1 identical set, and had a mean overlap of 0.72. ChatGPT was compared on 2 cells, returned no identical set, and its two overlap values average 0.22. Google AI Overviews was compared on 1 cell, which returned an identical set, an overlap of 1.00. The ChatGPT and Google AI Overviews figures rest on 2 cells and 1 cell. A mean of two numbers is not a rate, a single cell is not a mean, and neither is published here as one.',
+        'On the cells that carried citations, Perplexity was compared on 17 cells, returned 1 identical set, and had a mean overlap of 0.72. ChatGPT was compared on 2 cells, returned no identical set, and its two overlap values average 0.22. Google AI Overviews was compared on 1 cell, which returned an identical set, an overlap of 1.00. A correction dated 2026-09-01 removes the weight that last row was carrying: the single comparable cell was the one overview that escaped a parser defect suppressing asynchronously rendered panels, read twice, so the 1.00 is a property of the defect\u2019s survivor rather than of the engine, and no Google AI Overviews stability reading exists on this pair of runs. The later corpus rounds, run-2026-09-01T014944Z against run-2026-09-01T022903Z, read that engine\u2019s self-agreement at 0.622 over 201 rendered panels. A mean of two numbers is not a rate, a single cell is not a mean, and neither is published here as one.',
     },
     {
       number: '05',
@@ -565,7 +565,7 @@ export const byline = {
   authorRole: 'Search Intelligence Engineer, Hendricks',
   authorHref: routes.about.path,
   published: '2026-08-19',
-  updated: '2026-08-19',
+  updated: '2026-09-01',
   dataThrough: '2026-08-19',
   note: 'The updated date on this page moves when a figure, a method, or a limitation changes. It is not refreshed to signal activity. The data-through date is the later of the two runs this page reports, run 2026-08-19-181155, and will not advance until a further run pair is published here.',
 } as const
@@ -582,9 +582,10 @@ export const byline = {
  */
 export const corrections = {
   eyebrow: 'Corrections',
-  title: 'Nothing corrected yet, and how the first one gets made',
+  title: 'One correction to this page, and how the next one gets made',
   body: [
-    'Nothing on this page has been corrected. That is a statement about its age rather than about its quality. It was published on the date of the two runs it reports.',
+    'Correction, 2026-09-01. What was published: finding 04 reported a Google AI Overviews overlap of 1.00 on its one comparable cell, and finding 01 reported agreement across all 51 comparable cells without stating how many of those cells that engine actually populated. What was wrong: the probe was discarding asynchronously rendered overview panels in both runs, so 12 Google AI Overviews cells read as empty in both runs by defect, the defect agreed with itself, and the single 1.00 cell was the one panel that escaped it, read twice. The figures stand as records of what the instrument read; the scope note on finding 01 and the corrected reading on finding 04 are now inline. Corroboration, not cause: the corpus rounds run-2026-09-01T014944Z and run-2026-09-01T022903Z, taken after the parser fix, read that engine\u2019s self-agreement at 0.622 over 201 rendered panels. The full entry is in the corrections log.',
+    'Update, 2026-09-01. The scope sentence this page renders from the shared observed-systems module changed when Gemini became the fourth observed system, a boundary decision recorded in CONTENT_VERIFICATION A1 on 2026-09-01. The sentence on this page changed with it. No figure on this page changed, and nothing from Gemini is reported here.',
     'If a figure here is wrong, or a third party runs this design and gets a materially different result, the correction is published with its date, the original figure, the contradicting result, and what changed. Nothing on this page is quietly edited.',
     'The first Hendricks study published under this format needed two corrections on its first day. One of them was necessary because the result file behind a published figure had been overwritten in place by a scheduled job before anyone tried to reproduce it. Both runs on this page were archived under their own run ids, with a manifest beside each, before a word of this page was written. That is the fix for the failure rather than a promise about it.',
     'A firm selling measurement discipline has to be correctable in public, and the record of the correction is the part that makes the discipline checkable.',

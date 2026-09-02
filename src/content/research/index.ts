@@ -1,5 +1,6 @@
 import { routes } from '@/config/routes'
 import * as answerStabilityTwoRuns from '@/content/research/answer-stability-two-runs'
+import * as theAnswerIndex from '@/content/research/the-answer-index'
 import * as noSharedSourceAcrossEngines from '@/content/research/no-shared-source-across-engines'
 import * as hendricksSelectionBaseline from '@/content/research/hendricks-selection-baseline'
 import * as whoGetsCitedInAiAnswers from '@/content/research/who-gets-cited-in-ai-answers'
@@ -57,6 +58,39 @@ export * from '@/content/research/types'
  * introduction the self-baseline provides: the two link to each other.
  */
 export const researchArticles: readonly ResearchArticle[] = [
+  {
+    slug: 'the-answer-index',
+    path: routes.researchTheAnswerIndex.path,
+    /*
+      AI-Mediated Search rather than Measurement and Attribution. The subject is
+      how four answer surfaces retrieve and cite, and the measurement-discipline
+      argument on the page is carried by the evidence rather than being the
+      subject. It takes the head of the array under the newest-first rule:
+      dataThrough 2026-09-01 against 2026-08-20 for the cross-engine study,
+      which stays the natural next read and is first in `related`.
+    */
+    category: 'AI-Mediated Search',
+    title: theAnswerIndex.hero.title,
+    summary: theAnswerIndex.meta.description,
+    publishedDate: theAnswerIndex.byline.published,
+    updatedDate: theAnswerIndex.byline.updated,
+    dataThroughDate: theAnswerIndex.byline.dataThrough,
+    designation: theAnswerIndex.experimentLabel.label,
+    /*
+      Observation, not Result. docs/12 §4 reserves Result for work carrying a
+      baseline, an intervention, a timeframe, a measurement source, and
+      limitations. Nothing was changed and nothing was held back here: the
+      repeat round is repeated measurement of an unchanged condition, and the
+      refutation pass is verification of readings, not an intervention in the
+      thing being read.
+    */
+    claimClass: 'Observation',
+    relatedSolution: {
+      label: routes.selectionIntelligence.label,
+      href: routes.selectionIntelligence.path,
+    },
+    content: theAnswerIndex,
+  },
   {
     slug: 'no-shared-source-across-engines',
     path: routes.researchNoSharedSourceAcrossEngines.path,
