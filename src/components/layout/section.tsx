@@ -22,6 +22,7 @@ export function Section({
   variant = 'field',
   size = 'standard',
   id,
+  tabIndex,
   ariaLabelledBy,
   className,
 }: {
@@ -29,12 +30,15 @@ export function Section({
   variant?: keyof typeof variants
   size?: keyof typeof sizes
   id?: string
+  /** `-1` on an in-page anchor target, so a fragment jump moves focus to it (16 KF-07). */
+  tabIndex?: -1
   ariaLabelledBy?: string
   className?: string
 }) {
   return (
     <section
       id={id}
+      tabIndex={tabIndex}
       aria-labelledby={ariaLabelledBy}
       className={cn(variants[variant], sizes[size], className)}
     >

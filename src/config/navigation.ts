@@ -61,11 +61,13 @@ export function isCurrentRoute(pathname: string, href: string): boolean {
 
 /**
  * The header button's destination (redesign 03 section 2; 14 DX-05; register
- * B1). On /diagnostic it points at the fit tool's anchor so the most
+ * B1). On /diagnostic it points at the fit section's anchor so the most
  * persistent CTA never reloads the page the visitor is converting on. The
- * label never varies by route (WCAG 3.2.4).
+ * label never varies by route (WCAG 3.2.4). The section that owns the id
+ * renders it from `DIAGNOSTIC_FIT_ID` so the two cannot drift (14 DX-25).
  */
-export const DIAGNOSTIC_FIT_ANCHOR = '#fit'
+export const DIAGNOSTIC_FIT_ID = 'fit'
+export const DIAGNOSTIC_FIT_ANCHOR = `#${DIAGNOSTIC_FIT_ID}`
 
 export function headerCtaHref(pathname: string): string {
   return pathname === routes.diagnostic.path ? DIAGNOSTIC_FIT_ANCHOR : routes.diagnostic.path
@@ -146,8 +148,8 @@ export const footerNavigation = {
  * technology is introduced.
  *
  * The Privacy Choices control is not listed here because it is a button that
- * reopens the consent manager, not a route. The footer renders it between
- * Privacy Request and Corrections on every route (09 5.4, SM-07).
+ * reopens the consent manager, not a route. The footer inserts it at
+ * `PRIVACY_CHOICES_POSITION` on every route (09 5.4, SM-07).
  */
 export const legalNavigation = built([
   { label: 'Privacy Notice', href: routes.privacy.path },
@@ -155,3 +157,11 @@ export const legalNavigation = built([
   { label: 'Privacy Request', href: routes.privacyRequest.path },
   { label: 'Corrections', href: routes.corrections.path },
 ])
+
+/**
+ * Index of the Privacy Choices button in the legal row: fourth, after Privacy
+ * Request and before Corrections. A position rather than a neighbour, so the
+ * consent withdrawal path survives a neighbouring route being unbuilt or the
+ * list being reordered.
+ */
+export const PRIVACY_CHOICES_POSITION = 3

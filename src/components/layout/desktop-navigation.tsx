@@ -1,7 +1,7 @@
 'use client'
 
 import { ChevronDown } from 'lucide-react'
-import { useId, useState, type FocusEvent, type KeyboardEvent } from 'react'
+import { useId, useRef, useState, type FocusEvent, type KeyboardEvent } from 'react'
 
 import { NavLink } from '@/components/layout/nav-link'
 import { primaryNavigation, type NavigationItem } from '@/config/navigation'
@@ -13,9 +13,10 @@ import { primaryNavigation, type NavigationItem } from '@/config/navigation'
  * with 8 px clearance. The panel is a plain list of links, not a menu widget,
  * so there are no arrow-key semantics. Because it appears on hover and on
  * focus, 1.4.13 applies and all three conditions hold: dismissible (Escape
- * closes it without moving focus), hoverable (the pointer can travel from the
- * trigger onto the panel) and persistent (it stays open until hover and focus
- * have both left the group or Escape is pressed; no timer closes it).
+ * closes it without moving focus off the group), hoverable (the pointer can
+ * travel from the trigger onto the panel) and persistent (it stays open until
+ * hover and focus have both left the group or Escape is pressed; no timer
+ * closes it).
  */
 
 const LINK_CLASS =
@@ -43,6 +44,8 @@ export function DesktopNavigation() {
 
 function DisclosureGroup({ item, items }: { item: NavigationItem; items: NavigationItem[] }) {
   const panelId = useId()
+  const chevronRef = useRef<HTMLButtonElement>(null)
+  const panelRef = useRef<HTMLUListElement>(null)
   const [pressed, setPressed] = useState(false)
   const [hovered, setHovered] = useState(false)
   const [focused, setFocused] = useState(false)
@@ -62,6 +65,9 @@ function DisclosureGroup({ item, items }: { item: NavigationItem; items: Navigat
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key !== 'Escape' || !open) return
     event.preventDefault()
+    // Hiding the panel while one of its links has focus would drop focus to
+    // body (2.4.3); the chevron is the control that owns the panel.
+    if (panelRef.current?.contains(event.target as Node)) chevronRef.current?.focus()
     setPressed(false)
     setDismissed(true)
   }
@@ -92,6 +98,7 @@ function DisclosureGroup({ item, items }: { item: NavigationItem; items: Navigat
         {item.label}
       </NavLink>
       <button
+        ref={chevronRef}
         type="button"
         aria-expanded={open}
         aria-controls={panelId}
@@ -107,6 +114,7 @@ function DisclosureGroup({ item, items }: { item: NavigationItem; items: Navigat
       </button>
 
       <ul
+        ref={panelRef}
         id={panelId}
         hidden={!open}
         className="nav-panel absolute top-full left-0 z-[var(--z-header)] min-w-[var(--disclosure-width)] rounded-[var(--disclosure-radius)] border border-[var(--disclosure-edge)] bg-[var(--disclosure-bg)] p-2"

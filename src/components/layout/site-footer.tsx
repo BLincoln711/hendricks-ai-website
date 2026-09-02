@@ -2,8 +2,12 @@ import { PrivacyChoicesButton } from '@/components/consent/privacy-choices-butto
 import { Container } from '@/components/layout/container'
 import { NavLink } from '@/components/layout/nav-link'
 import { Wordmark } from '@/components/layout/wordmark'
-import { footerNavigation, legalNavigation } from '@/config/navigation'
-import { routes } from '@/config/routes'
+import {
+  footerNavigation,
+  legalNavigation,
+  PRIVACY_CHOICES_POSITION,
+  type NavigationItem,
+} from '@/config/navigation'
 import { siteConfig } from '@/config/site'
 
 /**
@@ -11,16 +15,23 @@ import { siteConfig } from '@/config/site'
  *
  * Brand block, four labelled `nav` columns and the legal row, rendered on
  * every route so the definition pages and the hub have a sitewide inbound
- * link. Contact keeps its position and Privacy Choices sits between Privacy
- * Request and Corrections on every route (16 SM-07). The Search Economy must
- * never appear here; it belongs only inside Brandon's biography on /about.
+ * link. Contact keeps its position and Privacy Choices sits fourth in the
+ * legal row on every route (16 SM-07), placed by index rather than beside a
+ * named neighbour so no route flag can remove the consent withdrawal path. The
+ * Search Economy must never appear here; it belongs only inside Brandon's
+ * biography on /about.
  */
 
 const LINK_CLASS =
   'target-variance inline-flex min-h-[var(--link-min-height)] min-w-target items-center pr-1 text-small text-link underline decoration-[length:var(--link-underline-width)] underline-offset-[var(--link-underline-offset)] transition-[text-decoration-thickness] duration-[var(--duration-micro)] ease-standard hover:decoration-[length:var(--link-underline-hover-width)] aria-[current=page]:decoration-[length:var(--link-underline-hover-width)]'
 
-/** The Privacy Choices button renders immediately before this legal link. */
-const PRIVACY_CHOICES_BEFORE = routes.corrections.path
+const PRIVACY_CHOICES = Symbol('privacy-choices')
+
+const legalRow: ReadonlyArray<NavigationItem | typeof PRIVACY_CHOICES> = [
+  ...legalNavigation.slice(0, PRIVACY_CHOICES_POSITION),
+  PRIVACY_CHOICES,
+  ...legalNavigation.slice(PRIVACY_CHOICES_POSITION),
+]
 
 export function SiteFooter() {
   // A column whose routes have not been built yet is dropped rather than
@@ -66,17 +77,24 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-10 grid border-t border-rule pt-4 text-small text-ink-2 min-[45rem]:flex min-[45rem]:flex-wrap min-[45rem]:items-center min-[45rem]:gap-x-6">
-          {legalNavigation.map((item) => (
-            <span key={item.href} className="contents">
-              {item.href === PRIVACY_CHOICES_BEFORE ? <PrivacyChoicesButton /> : null}
-              <NavLink href={item.href} className={LINK_CLASS}>
-                {item.label}
-              </NavLink>
-            </span>
-          ))}
-          <span className="inline-flex min-h-[var(--link-min-height)] items-center">
+          <ul className="grid min-[45rem]:flex min-[45rem]:flex-wrap min-[45rem]:items-center min-[45rem]:gap-x-6">
+            {legalRow.map((entry) =>
+              entry === PRIVACY_CHOICES ? (
+                <li key="privacy-choices" className="flex">
+                  <PrivacyChoicesButton />
+                </li>
+              ) : (
+                <li key={entry.href} className="flex">
+                  <NavLink href={entry.href} className={LINK_CLASS}>
+                    {entry.label}
+                  </NavLink>
+                </li>
+              ),
+            )}
+          </ul>
+          <p className="inline-flex min-h-[var(--link-min-height)] items-center">
             &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
-          </span>
+          </p>
         </div>
       </Container>
     </footer>

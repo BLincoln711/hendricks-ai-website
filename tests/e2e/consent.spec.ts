@@ -315,6 +315,35 @@ test.describe('Withdrawing consent', () => {
     expect(update?.state.analytics_storage).toBe('denied')
   })
 
+  for (const route of ['/', '/diagnostic', '/no-such-route']) {
+    test(`${route}: sits fourth in the footer legal list`, async ({ page }) => {
+      // 09 5.4; legal/01 section 11; 16 SM-07. Asserted by position so a
+      // neighbouring route being unbuilt can never remove the control.
+      await page.goto(route)
+
+      const placement = await page
+        .locator('footer button[aria-haspopup="dialog"]')
+        .evaluate((node) => {
+          const item = node.closest('li')
+          const list = item?.parentElement
+          const siblings = Array.from(list?.children ?? [])
+          return {
+            listTag: list?.tagName,
+            index: item ? siblings.indexOf(item) : -1,
+            before: siblings[siblings.indexOf(item!) - 1]?.textContent?.trim(),
+            after: siblings[siblings.indexOf(item!) + 1]?.textContent?.trim(),
+          }
+        })
+
+      expect(placement).toEqual({
+        listTag: 'UL',
+        index: 3,
+        before: 'Privacy Request',
+        after: 'Corrections',
+      })
+    })
+  }
+
   test('opens from a real button that names its dialog and takes focus back', async ({ page }) => {
     // 09 5.59; 16 KF-04.
     await page.goto('/')

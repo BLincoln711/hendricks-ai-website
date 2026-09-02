@@ -31,24 +31,47 @@ export function NavLink({ href, ...props }: NavLinkProps) {
   )
 }
 
+type HeaderCtaLinkProps = Omit<ComponentPropsWithRef<'a'>, 'href' | 'children'>
+
+/**
+ * The header button's link, in the header and at the foot of the mobile sheet
+ * (09 5.2, 5.3). On /diagnostic the destination is a fragment and the element
+ * is a plain anchor: next/link handles a same-page hash itself and leaves
+ * focus on the link, whereas the browser's own fragment navigation moves
+ * focus to the `tabIndex={-1}` target (14 DX-25; 16 KF-07). `ref` and
+ * handlers pass through so a Radix `Slot` can wrap it.
+ */
+export function HeaderCtaLink(props: HeaderCtaLinkProps) {
+  const href = headerCtaHref(usePathname())
+
+  if (href.startsWith('#')) {
+    return (
+      <a href={href} {...props}>
+        {primaryCta.label}
+      </a>
+    )
+  }
+
+  return (
+    <Link href={href} {...props}>
+      {primaryCta.label}
+    </Link>
+  )
+}
+
 /**
  * The header button (09 5.3). The label never varies by route; below 480 px it
  * gives up its width and wraps to two lines inside a 44 px minimum height so
  * the row fits 320 px beside the wordmark and the menu control.
  */
 export function HeaderCta({ className }: { className?: string }) {
-  const pathname = usePathname()
-
   return (
-    <Link
-      href={headerCtaHref(pathname)}
+    <HeaderCtaLink
       className={cn(
         buttonVariants({ size: 'small' }),
         'h-auto min-h-11 max-[29.9375rem]:max-w-[10em] max-[29.9375rem]:px-2.5 max-[29.9375rem]:py-1.5 max-[29.9375rem]:leading-[1.15] min-[30rem]:shrink-0 min-[30rem]:whitespace-nowrap',
         className,
       )}
-    >
-      {primaryCta.label}
-    </Link>
+    />
   )
 }

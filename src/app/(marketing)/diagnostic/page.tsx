@@ -10,6 +10,7 @@ import { RelatedLinks } from '@/components/sections/related-links'
 import { JsonLd } from '@/components/seo/json-ld'
 import { FitList, SignalList } from '@/components/ui/signal-list'
 import { SignalDot } from '@/components/visuals/signal-dot'
+import { DIAGNOSTIC_FIT_ID } from '@/config/navigation'
 import { routes } from '@/config/routes'
 import {
   closing,
@@ -166,7 +167,19 @@ export default function DiagnosticPage() {
         </Container>
       </Section>
 
-      <Section variant="field" size="major" ariaLabelledBy="fit-title">
+      {/*
+        The header button's target on this route (14 DX-05, DX-25). The
+        landing offset comes from `scroll-padding-top` on `html`, which every
+        fragment jump already inherits (16 KF-07); a scroll margin here would
+        add to it, not replace it.
+      */}
+      <Section
+        variant="field"
+        size="major"
+        id={DIAGNOSTIC_FIT_ID}
+        tabIndex={-1}
+        ariaLabelledBy="fit-title"
+      >
         <Container>
           <div className="flex flex-col gap-10">
             <SectionHeading eyebrow={fit.eyebrow} title={fit.title} id="fit-title" maxWidth="wide" />

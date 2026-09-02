@@ -1,15 +1,14 @@
-import { readFileSync, readdirSync } from 'node:fs'
-import path from 'node:path'
-
 import { expect, test, type Locator, type Page } from '@playwright/test'
 
+import { headerCtaHref } from '@/config/navigation'
 import { banner, preferences } from '@/content/consent'
 
 /**
  * Keyboard and focus requirements KF-01 to KF-10 (redesign 16 section 2),
  * measured on the shell: skip link, header, Solutions disclosure, footer,
  * consent sheet and preferences dialog. Everything inside `main` belongs to the
- * page rebuilds and is measured by their own specs.
+ * page rebuilds and is measured by their own specs. The KF-04 modal inventory
+ * is a source check and lives in `tests/unit/modal-inventory.test.ts`.
  */
 
 /** `--focus-ring` on light (`--hx-blue-600`) and under `.on-plate` (`--hx-cyan-500`). */
@@ -204,29 +203,6 @@ test.describe('KF-03 consent sheet', () => {
   })
 })
 
-test.describe('KF-04 modal inventory', () => {
-  test('Dialog.Root appears only in the mobile navigation and the consent manager', () => {
-    const root = path.resolve(__dirname, '../../src')
-    const hits: string[] = []
-
-    const walk = (dir: string) => {
-      for (const entry of readdirSync(dir, { withFileTypes: true })) {
-        const full = path.join(dir, entry.name)
-        if (entry.isDirectory()) walk(full)
-        else if (/\.tsx?$/.test(entry.name) && readFileSync(full, 'utf8').includes('Dialog.Root')) {
-          hits.push(path.relative(root, full))
-        }
-      }
-    }
-    walk(root)
-
-    expect(hits.sort()).toEqual([
-      'components/consent/consent-manager.tsx',
-      'components/layout/mobile-navigation.tsx',
-    ])
-  })
-})
-
 test.describe('KF-05 and KF-06 focus ring', () => {
   test('is Signal Blue on light, Insight Cyan inside .on-plate, and set at rest', async ({
     page,
@@ -339,6 +315,23 @@ test.describe('KF-08 Solutions disclosure', () => {
     await expect(panel.getByRole('link')).toHaveCount(4)
   })
 
+  test('Escape from a panel link returns focus to the chevron', async ({ page }) => {
+    await page.goto('/')
+
+    const trigger = page.getByRole('button', { name: 'Show the four solutions' })
+    const panel = page.locator(`#${await trigger.getAttribute('aria-controls')}`)
+
+    await trigger.focus()
+    await panel.getByRole('link', { name: 'Search Impact Measurement' }).focus()
+    await expect(panel.getByRole('link', { name: 'Search Impact Measurement' })).toBeFocused()
+
+    // Hiding the panel would otherwise drop focus to body (2.4.3).
+    await page.keyboard.press('Escape')
+    await expect(panel).toBeHidden()
+    await expect(trigger).toBeFocused()
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false')
+  })
+
   test('is hoverable and persistent under the pointer', async ({ page }) => {
     await page.goto('/')
     // Dismiss the sheet so the pointer path below is unobstructed.
@@ -411,6 +404,45 @@ test.describe('KF-09 target size', () => {
       expect(undersized(await controlBoxes(dialog))).toEqual([])
     })
   }
+})
+
+test.describe('DX-05 header button on /diagnostic', () => {
+  test.use({ viewport: { width: 390, height: 844 } })
+
+  test('targets an anchor that exists and lands clear of the header with the sheet open', async ({
+    page,
+  }) => {
+    await page.goto('/diagnostic')
+    await expect(sheet(page)).toBeVisible()
+
+    const href = headerCtaHref('/diagnostic')
+    expect(href.startsWith('#')).toBe(true)
+
+    const button = page.locator('header').getByRole('link', { name: 'Start with a Diagnostic' })
+    await expect(button).toHaveAttribute('href', href)
+
+    const target = page.locator(href)
+    await expect(target).toHaveCount(1)
+    await expect(target).toHaveAttribute('tabindex', '-1')
+
+    // The sheet's button carries the same destination (09 5.2).
+    await page.getByRole('button', { name: 'Open menu' }).click()
+    await expect(
+      page.getByRole('dialog').getByRole('link', { name: 'Start with a Diagnostic' }),
+    ).toHaveAttribute('href', href)
+    await page.keyboard.press('Escape')
+
+    await button.click()
+    await expect(target).toBeFocused()
+
+    // KF-07: the jump inherits the header offset from `scroll-padding-top`, so
+    // the focused target starts below the sticky header, not under it.
+    const gap = await target.evaluate((node) => {
+      const header = document.querySelector('header')!.getBoundingClientRect()
+      return node.getBoundingClientRect().top - header.bottom
+    })
+    expect(gap).toBeGreaterThan(0)
+  })
 })
 
 test.describe('KF-10 aria-current', () => {
