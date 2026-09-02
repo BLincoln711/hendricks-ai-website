@@ -82,7 +82,7 @@ export function ConsentManager() {
         <section
           ref={reserveBannerSpace}
           aria-labelledby="consent-banner-title"
-          className="on-navy fixed inset-x-0 bottom-0 z-40 border-t border-[color-mix(in_srgb,var(--color-field)_18%,transparent)] bg-[var(--color-navy)] text-[var(--color-field)] shadow-[0_-8px_32px_rgba(7,26,43,0.24)]"
+          className="on-plate fixed inset-x-0 bottom-0 z-40 border-t border-[color-mix(in_srgb,var(--color-field)_18%,transparent)] bg-[var(--color-navy)] text-[var(--color-field)] shadow-[0_-8px_32px_rgba(7,26,43,0.24)]"
         >
           <Container>
             <div className="flex flex-col gap-5 py-6 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
@@ -154,7 +154,7 @@ export function ConsentManager() {
                 </Dialog.Description>
               </div>
               <Dialog.Close
-                className="inline-flex size-11 shrink-0 items-center justify-center rounded-[var(--radius-control)] text-[var(--color-slate)] transition-colors hover:bg-[var(--color-soft)] hover:text-[var(--color-navy)]"
+                className="inline-flex size-11 shrink-0 items-center justify-center rounded-[var(--radius-small)] text-[var(--color-slate)] transition-colors hover:bg-[var(--color-soft)] hover:text-[var(--color-navy)]"
                 aria-label="Close privacy choices"
               >
                 <X className="size-5" aria-hidden="true" />

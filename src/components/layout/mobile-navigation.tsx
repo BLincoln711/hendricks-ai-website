@@ -26,7 +26,7 @@ export function MobileNavigation() {
   return (
     <Dialog.Root>
       <Dialog.Trigger
-        className="inline-flex size-11 items-center justify-center rounded-[var(--radius-control)] text-[var(--color-navy)] transition-colors hover:bg-[var(--color-soft)] lg:hidden"
+        className="inline-flex size-11 items-center justify-center rounded-[var(--radius-small)] text-[var(--color-navy)] transition-colors hover:bg-[var(--color-soft)] lg:hidden"
         aria-label="Open menu"
       >
         <Menu className="size-6" aria-hidden="true" />
@@ -43,7 +43,7 @@ export function MobileNavigation() {
           <div className="flex h-16 items-center justify-between border-b border-[var(--color-border)] px-5">
             <Wordmark width={124} />
             <Dialog.Close
-              className="inline-flex size-11 items-center justify-center rounded-[var(--radius-control)] text-[var(--color-navy)] transition-colors hover:bg-[var(--color-soft)]"
+              className="inline-flex size-11 items-center justify-center rounded-[var(--radius-small)] text-[var(--color-navy)] transition-colors hover:bg-[var(--color-soft)]"
               aria-label="Close menu"
             >
               <X className="size-6" aria-hidden="true" />
@@ -59,7 +59,7 @@ export function MobileNavigation() {
                       href={item.href}
                       aria-current={pathname === item.href ? 'page' : undefined}
                       className={cn(
-                        'flex min-h-11 items-center rounded-[var(--radius-control)] px-3 text-[1.0625rem] font-medium text-[var(--color-navy)] transition-colors hover:bg-[var(--color-soft)]',
+                        'flex min-h-11 items-center rounded-[var(--radius-small)] px-3 text-[1.0625rem] font-medium text-[var(--color-navy)] transition-colors hover:bg-[var(--color-soft)]',
                         pathname === item.href && 'bg-[var(--color-soft)]',
                       )}
                     >
@@ -75,7 +75,7 @@ export function MobileNavigation() {
                             <Link
                               href={child.href}
                               aria-current={pathname === child.href ? 'page' : undefined}
-                              className="flex min-h-11 items-center rounded-[var(--radius-control)] px-3 text-[0.9375rem] text-[var(--color-slate)] transition-colors hover:bg-[var(--color-soft)] hover:text-[var(--color-navy)]"
+                              className="flex min-h-11 items-center rounded-[var(--radius-small)] px-3 text-[0.9375rem] text-[var(--color-slate)] transition-colors hover:bg-[var(--color-soft)] hover:text-[var(--color-navy)]"
                             >
                               {child.label}
                             </Link>

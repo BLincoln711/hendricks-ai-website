@@ -117,7 +117,7 @@ export default function SearchDemandIntelligencePage() {
               {inputs.items.map((item) => (
                 <li
                   key={item}
-                  className="rounded-[var(--radius-control)] border border-[var(--color-border)] bg-[var(--color-field)] px-3 py-1.5 text-[0.875rem] text-[var(--color-graphite)]"
+                  className="rounded-[var(--radius-small)] border border-[var(--color-border)] bg-[var(--color-field)] px-3 py-1.5 text-[0.875rem] text-[var(--color-graphite)]"
                 >
                   {item}
                 </li>
@@ -180,7 +180,7 @@ export default function SearchDemandIntelligencePage() {
       <Section variant="white" size="standard">
         <Container width="narrow">
           <Callout variant="methodology" title={weighting.title}>
-            <p className="rounded-[var(--radius-control)] bg-white p-4 font-mono text-[0.875rem] leading-relaxed text-[var(--color-navy)]">
+            <p className="rounded-[var(--radius-small)] bg-white p-4 font-mono text-[0.875rem] leading-relaxed text-[var(--color-navy)]">
               {weighting.formula}
             </p>
             <p>{weighting.note}</p>

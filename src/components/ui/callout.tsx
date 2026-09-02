@@ -20,7 +20,7 @@ const variants = {
     label: 'Limitation',
     Icon: CircleAlert,
     container: 'border-[var(--color-amber)] bg-[color-mix(in_srgb,var(--color-amber)_8%,white)]',
-    accent: 'text-[#8A5A00]',
+    accent: 'text-[var(--color-amber)]',
   },
   methodology: {
     label: 'Methodology',

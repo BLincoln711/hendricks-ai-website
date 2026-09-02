@@ -23,7 +23,7 @@ export function SiteFooter() {
   ].filter((column) => column.items.length > 0)
 
   return (
-    <footer className="on-navy bg-[var(--color-navy)] text-[var(--color-field)]">
+    <footer className="on-plate bg-[var(--color-navy)] text-[var(--color-field)]">
       <Container>
         <div className="grid gap-12 py-16 md:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,2.2fr)]">
           <div className="flex flex-col gap-4">

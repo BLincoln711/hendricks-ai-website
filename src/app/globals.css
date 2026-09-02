@@ -1,97 +1,21 @@
 @import 'tailwindcss';
+@import '../styles/tokens.css';
 
 /*
- * Hendricks design tokens — docs/04 §4.
- *
- * The site is a single light-first instrument surface. There is no dark-mode
- * inversion at launch; navy sections are a deliberate compositional device, not
- * a color scheme toggle.
+ * Transitional alias re-scoping, retired with the last `var(--color-*)` call
+ * site (redesign handoff PR 13). The token file maps the legacy `--color-cyan`
+ * and `--color-amber` theme names onto `--focus-ring` and `--ev-gap`, which
+ * `.on-plate` re-scopes. Tailwind emits those aliases on `:root` only, so an
+ * arbitrary `var(--color-cyan)` inside a plate would read the light value.
+ * Declaring the two on `.on-plate` keeps the live navy surfaces at their
+ * measured cyan (8.15:1) and amber (8.68:1) until the call sites are retokened.
  */
-:root {
-  --color-navy: #071a2b;
-  --color-navy-2: #0b253a;
-  --color-blue: #2458e6;
-  --color-blue-hover: #1946c8;
-  --color-cyan: #00c2d8;
-  --color-amber: #f3a712;
-  --color-field: #f7f9fc;
-  --color-white: #ffffff;
-  --color-graphite: #18222d;
-  --color-slate: #5e6c7b;
-  --color-border: #d9e1e8;
-  --color-soft: #edf2f6;
-  --color-positive: #15856a;
-  --color-destructive: #b42318;
-
-  /* Semantic aliases */
-  --background: var(--color-field);
-  --foreground: var(--color-graphite);
-  --muted-foreground: var(--color-slate);
-  --primary: var(--color-blue);
-  --primary-foreground: var(--color-white);
-  --border: var(--color-border);
-
-  /* Radius scale — docs/04 §8 */
-  --radius-control: 8px;
-  --radius-button: 10px;
-  --radius-card: 16px;
-  --radius-panel: 20px;
-
-  /* Motion — docs/04 §14 */
-  --duration-micro: 160ms;
-  --duration-standard: 240ms;
-  --ease-standard: cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-
-@theme inline {
-  --color-navy: var(--color-navy);
-  --color-navy-2: var(--color-navy-2);
-  --color-blue: var(--color-blue);
-  --color-blue-hover: var(--color-blue-hover);
-  --color-cyan: var(--color-cyan);
-  --color-amber: var(--color-amber);
-  --color-field: var(--color-field);
-  --color-graphite: var(--color-graphite);
-  --color-slate: var(--color-slate);
-  --color-border: var(--color-border);
-  --color-soft: var(--color-soft);
-  --color-positive: var(--color-positive);
-  --color-destructive: var(--color-destructive);
-
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-
-  --radius-control: var(--radius-control);
-  --radius-button: var(--radius-button);
-  --radius-card: var(--radius-card);
-  --radius-panel: var(--radius-panel);
-
-  /* Fluid type scale — docs/04 §6 */
-  --text-display: clamp(3rem, 1.6rem + 6vw, 6.5rem);
-  --text-h1: clamp(2.625rem, 1.5rem + 4.9vw, 5.25rem);
-  --text-h2: clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
-  --text-h3: clamp(1.5rem, 1.3rem + 0.9vw, 2.125rem);
-  --text-lead: clamp(1.125rem, 1.05rem + 0.35vw, 1.5rem);
-  --text-body: clamp(1rem, 0.97rem + 0.13vw, 1.125rem);
-  --text-small: clamp(0.875rem, 0.86rem + 0.06vw, 0.9375rem);
-  --text-eyebrow: clamp(0.75rem, 0.74rem + 0.05vw, 0.8125rem);
+.on-plate {
+  --color-cyan: var(--focus-ring);
+  --color-amber: var(--ev-gap);
 }
 
 @layer base {
-  :root {
-    /* Mirrors the sticky header's `h-16 md:h-20` in `site-header.tsx`. */
-    --header-height: 4rem;
-  }
-
-  @media (min-width: 48rem) {
-    :root {
-      --header-height: 5rem;
-    }
-  }
-
   html {
     -webkit-text-size-adjust: 100%;
     /*
@@ -104,11 +28,11 @@
   }
 
   body {
-    background: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    background: var(--page-bg);
+    color: var(--page-fg);
+    font-family: var(--font-sans);
     font-size: var(--text-body);
-    line-height: 1.65;
+    line-height: var(--leading-body);
     text-rendering: optimizeLegibility;
     /*
      * The consent banner is fixed to the bottom of the viewport and sets this
@@ -123,7 +47,7 @@
   h2,
   h3,
   h4 {
-    color: var(--color-navy);
+    color: var(--ink);
     text-wrap: balance;
   }
 
@@ -132,86 +56,112 @@
   }
 
   /*
-   * Single consistent focus treatment. Uses two rings so the indicator stays
-   * visible on both light and navy surfaces without needing per-section
-   * overrides.
+   * One focus treatment for both surfaces. `.on-plate` re-scopes `--focus-ring`
+   * to cyan, so no per-surface override exists (KF-05). The colour is also set
+   * at rest on every element: `transition-colors` animates outline-color, and
+   * without a resting value the ring fades in from currentColor (KF-06).
    */
-  :focus-visible {
-    outline: 2px solid var(--color-blue);
-    outline-offset: 2px;
-    border-radius: 2px;
+  * {
+    outline-color: var(--focus-ring);
   }
 
-  .on-navy :focus-visible {
-    outline-color: var(--color-cyan);
+  :focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring);
+    outline-offset: var(--focus-ring-offset);
+    border-radius: var(--focus-ring-radius);
   }
 
   ::selection {
-    background: color-mix(in srgb, var(--color-blue) 18%, transparent);
+    background: var(--selection-bg);
+    color: var(--selection-fg);
   }
 }
 
 @layer utilities {
   .text-display {
     font-size: var(--text-display);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    font-weight: 600;
+    line-height: var(--leading-h1);
+    letter-spacing: var(--tracking-h1);
+    font-weight: var(--weight-medium);
   }
 
   .text-h1 {
     font-size: var(--text-h1);
-    line-height: 1.04;
-    letter-spacing: -0.028em;
-    font-weight: 600;
+    line-height: var(--leading-h1);
+    letter-spacing: var(--tracking-h1);
+    font-weight: var(--weight-medium);
   }
 
   .text-h2 {
     font-size: var(--text-h2);
-    line-height: 1.1;
-    letter-spacing: -0.022em;
-    font-weight: 600;
+    line-height: var(--leading-h2);
+    letter-spacing: var(--tracking-h2);
+    font-weight: var(--weight-medium);
   }
 
   .text-h3 {
     font-size: var(--text-h3);
-    line-height: 1.2;
-    letter-spacing: -0.015em;
-    font-weight: 600;
+    line-height: var(--leading-h3);
+    letter-spacing: var(--tracking-h3);
+    font-weight: var(--weight-medium);
+  }
+
+  .text-h4 {
+    font-size: var(--text-h4);
+    line-height: var(--leading-h4);
+    letter-spacing: var(--tracking-h4);
+    font-weight: var(--weight-semibold);
   }
 
   /*
-   * Size and rhythm only — no color. This utility sits in the same cascade layer
-   * as Tailwind's color utilities, so declaring a color here silently beat the
-   * per-surface color on navy sections and produced a 3.27:1 contrast failure.
-   * Callers set the color explicitly.
+   * Size and rhythm only, no colour. These utilities sit in the same cascade
+   * layer as Tailwind's colour utilities, so a colour declared here would
+   * silently beat the per-surface colour on a plate. Callers set the colour.
    */
   .text-lead {
     font-size: var(--text-lead);
-    line-height: 1.5;
+    line-height: var(--leading-lead);
   }
 
+  .text-small {
+    font-size: var(--text-small);
+    line-height: var(--leading-small);
+  }
+
+  .text-caption {
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    line-height: var(--leading-small);
+  }
+
+  .text-coordinate,
   .text-eyebrow {
-    font-family: var(--font-geist-mono), ui-monospace, monospace;
-    font-size: var(--text-eyebrow);
-    letter-spacing: 0.14em;
+    font-family: var(--font-mono);
+    font-size: var(--text-coordinate);
+    line-height: var(--leading-small);
+    letter-spacing: var(--tracking-coordinate);
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: var(--weight-medium);
   }
 
-  /* Max measure for readable body copy — docs/04 §6 */
   .measure {
-    max-width: 68ch;
+    max-width: var(--measure-body);
+  }
+
+  .measure-lead {
+    max-width: var(--measure-lead);
   }
 
   .measure-tight {
-    max-width: 52ch;
+    max-width: var(--measure-tight);
   }
 }
 
 /*
- * Reduced motion. Essential content must never depend on animation
- * (docs/08 §2). Diagrams render their final state immediately.
+ * Reduced motion backstop (MO-01). The token file collapses every duration
+ * token under the same query; this blanket catches anything that bypasses
+ * them. Essential content never depends on animation, so diagrams render their
+ * final state immediately.
  */
 @media (prefers-reduced-motion: reduce) {
   *,

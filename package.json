@@ -15,7 +15,9 @@
     "brand:build": "tsx scripts/build-brand-assets.ts",
     "check:links": "tsx scripts/check-links.ts",
     "check:content": "tsx scripts/validate-content.ts",
-    "verify": "pnpm lint && pnpm typecheck && pnpm check:content && pnpm check:links && pnpm test && pnpm build && pnpm test:e2e"
+    "check:tokens": "tsx scripts/check-tokens.ts",
+    "check:contrast": "tsx scripts/check-contrast.ts",
+    "verify": "pnpm lint && pnpm typecheck && pnpm check:content && pnpm check:tokens && pnpm check:contrast && pnpm check:links && pnpm test && pnpm build && pnpm test:e2e"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.16",

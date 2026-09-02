@@ -7,7 +7,7 @@ const variants = {
   field: 'bg-[var(--color-field)] text-[var(--color-graphite)]',
   white: 'bg-white text-[var(--color-graphite)]',
   soft: 'bg-[var(--color-soft)] text-[var(--color-graphite)]',
-  navy: 'on-navy bg-[var(--color-navy)] text-[var(--color-field)]',
+  navy: 'on-plate bg-[var(--color-navy)] text-[var(--color-field)]',
 } as const
 
 /** Vertical rhythm from docs/04 §7. */

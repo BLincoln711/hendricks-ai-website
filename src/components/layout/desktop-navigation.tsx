@@ -31,7 +31,7 @@ export function DesktopNavigation() {
               href={item.href}
               aria-current={isCurrent(item.href) ? 'page' : undefined}
               className={cn(
-                'inline-flex h-10 items-center gap-1 rounded-[var(--radius-control)] px-3 text-[0.9375rem] font-medium transition-colors duration-[var(--duration-micro)]',
+                'inline-flex h-10 items-center gap-1 rounded-[var(--radius-small)] px-3 text-[0.9375rem] font-medium transition-colors duration-[var(--duration-micro)]',
                 isCurrent(item.href)
                   ? 'text-[var(--color-blue)]'
                   : 'text-[var(--color-navy)] hover:text-[var(--color-blue)]',
@@ -59,7 +59,7 @@ export function DesktopNavigation() {
                       <Link
                         href={child.href}
                         aria-current={isCurrent(child.href) ? 'page' : undefined}
-                        className="flex flex-col gap-0.5 rounded-[var(--radius-control)] px-3 py-2.5 transition-colors hover:bg-[var(--color-soft)]"
+                        className="flex flex-col gap-0.5 rounded-[var(--radius-small)] px-3 py-2.5 transition-colors hover:bg-[var(--color-soft)]"
                       >
                         <span className="text-[0.9375rem] font-medium text-[var(--color-navy)]">
                           {child.label}

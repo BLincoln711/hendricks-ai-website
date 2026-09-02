@@ -63,7 +63,7 @@ export function ImpactMeasurementStack({
             {level.signals.map((signal) => (
               <li
                 key={signal}
-                className="rounded-[var(--radius-control)] border border-[var(--color-border)] bg-[var(--color-field)] px-2.5 py-1 text-[0.8125rem] text-[var(--color-graphite)]"
+                className="rounded-[var(--radius-small)] border border-[var(--color-border)] bg-[var(--color-field)] px-2.5 py-1 text-[0.8125rem] text-[var(--color-graphite)]"
               >
                 {signal}
               </li>

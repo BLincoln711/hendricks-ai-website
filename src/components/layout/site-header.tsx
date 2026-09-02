@@ -20,7 +20,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[color-mix(in_srgb,white_88%,transparent)] backdrop-blur-md">
       <Container>
-        <div className="flex h-16 items-center justify-between gap-6 md:h-20">
+        <div className="flex h-16 items-center justify-between gap-6 md:h-[4.75rem]">
           <WordmarkLink priority />
 
           <div className="flex items-center gap-2">
