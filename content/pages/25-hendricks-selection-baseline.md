@@ -28,7 +28,7 @@ Label: Research experiment
 
 Hendricks is both the firm running the measurement and the brand being measured. There is no client here, no intervention, and no outcome anyone can attribute to anything. What follows is a dated baseline of what three AI systems cited when they were asked the questions a buyer in this category types.
 
-It is published under the standard Hendricks applies to client work. The query set, the instrument, the denominators, the failed cells, the cost, the limits, the archived run every figure is read from, and two corrections to this page are all on the page. A firm that will not publish its own zero, or its own mistakes, has no standing to report anybody else’s number.
+It is published under the standard Hendricks applies to client work. The query set, the instrument, the denominators, the failed cells, the cost, the limits, the archived run every figure is read from, and three corrections to this page are all on the page. A firm that will not publish its own zero, or its own mistakes, has no standing to report anybody else’s number.
 
 This label is required and is not decorative. `CONTENT_VERIFICATION.md` holds `showResults` at false until two verified case studies exist, or one verified case study plus one clearly labeled research experiment. This page satisfies the research-experiment half and nothing else. It is not a case study, `showResults` stays false, and `/results` stays dark.
 
@@ -308,7 +308,7 @@ Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and G
 
 **Data through:** 2026-08-19
 
-The updated date on this page moves when a figure, a method, or a limitation changes. It is not refreshed to signal activity. It moved twice on the day of publication, for the two corrections recorded below. The data-through date is the last run this page reports, run 2026-08-19-110930, and will not advance until a further run is published here.
+The updated date on this page moves when a figure, a method, or a limitation changes. It is not refreshed to signal activity. It moved twice on the day of publication, for the first two corrections recorded below, and again on 2026-09-01 for the third. The data-through date is the last run this page reports, run 2026-08-19-110930, and will not advance until a further run is published here.
 
 ## Three corrections to this page, and how the next one gets made
 
@@ -330,7 +330,7 @@ Correction, 2026-08-19, the day this page was published. The first version said 
 
 Hendricks caused that error by running the check against the wrong repository. The firm has two retired sites. The check searched the one with 74 registered insight slugs and a different directory layout, did not find the address there, and stopped. The address was in the other one, which is the retired site belonging to this codebase. One command against the correct site returns the opposite answer. The same published sentence also claimed the address appeared in no list of retired addresses, and it was in that list in this site’s own source at the time.
 
-Both entries, with what was published and what changed, are in the corrections log rather than only here.
+All three entries, with what was published and what changed, are in the corrections log rather than only here.
 
 If a figure here is wrong, or a third party runs this design and gets a materially different result, the correction is published with its date, the original figure, the contradicting result, and what changed. Nothing on this page is quietly edited.
 

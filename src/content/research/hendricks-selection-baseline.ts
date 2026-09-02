@@ -230,7 +230,7 @@ export const experimentLabel = {
   title: 'This is a research experiment, not a case study.',
   body: [
     'Hendricks is both the firm running the measurement and the brand being measured. There is no client here, no intervention, and no outcome anyone can attribute to anything. What follows is a dated baseline of what three AI systems cited when they were asked the questions a buyer in this category types.',
-    'It is published under the standard Hendricks applies to client work. The query set, the instrument, the denominators, the failed cells, the cost, the limits, the archived run every figure is read from, and two corrections to this page are all on the page. A firm that will not publish its own zero, or its own mistakes, has no standing to report anybody else’s number.',
+    'It is published under the standard Hendricks applies to client work. The query set, the instrument, the denominators, the failed cells, the cost, the limits, the archived run every figure is read from, and three corrections to this page are all on the page. A firm that will not publish its own zero, or its own mistakes, has no standing to report anybody else’s number.',
   ],
 } as const
 
@@ -696,7 +696,7 @@ export const byline = {
   published: '2026-08-19',
   updated: '2026-09-01',
   dataThrough: '2026-08-19',
-  note: 'The updated date on this page moves when a figure, a method, or a limitation changes. It is not refreshed to signal activity. It moved twice on the day of publication, for the two corrections recorded below. The data-through date is the last run this page reports, run 2026-08-19-110930, and will not advance until a further run is published here.',
+  note: 'The updated date on this page moves when a figure, a method, or a limitation changes. It is not refreshed to signal activity. It moved twice on the day of publication, for the first two corrections recorded below, and again on 2026-09-01 for the third. The data-through date is the last run this page reports, run 2026-08-19-110930, and will not advance until a further run is published here.',
 } as const
 
 /**
@@ -705,8 +705,9 @@ export const byline = {
  * if the sequencing slips: render it through `ctaHref(corrections.href,
  * corrections.fallbackHref)`.
  *
- * The first six paragraphs are the two corrections described in decisions 0A and
- * 0B. They lead, because a policy stated above the corrections it failed to
+ * The first two paragraphs are the 2026-09-01 correction and the same-day scope
+ * update. The six after them are the two corrections described in decisions 0A
+ * and 0B. Corrections lead, because a policy stated above the corrections it failed to
  * prevent reads as decoration. 0A leads 0B because it governs every 2026-08-19
  * figure on the page. The `href`, `fallbackHref`, and `label` are unchanged and
  * are what make this element 14.
@@ -723,7 +724,7 @@ export const corrections = {
     'What changed. Every 2026-08-19 figure on this page is now read from run 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. That run measured 47 of its 51 cells, 20 of them citing a source, across 247 distinct domains and 308 citation slots, and cited hendricks.ai in none of them. One further item came off the page in the same edit: an answer reported as citing consumer software help pages rested on the destroyed file, cannot be checked against the archive, and is no longer published. Run 1 is untouched and still reproduces from its own file. The instrument changed too. Every run now writes an immutable archive keyed to a run id, and a manifest beside it recording which engines were queried, which were carried forward from an earlier run, and which were not run at all. Those are three different states, and a bare result file cannot tell them apart after the fact.',
     'Correction, 2026-08-19, the day this page was published. The first version said the single hendricks.ai citation in the 2026-08-18 run pointed at a page that had never existed, and it counted both runs as zero on that basis. That was wrong. The page was real. Hendricks published it on 2025-11-25, retired it on 2026-08-17 while replacing the site, and Perplexity cited it on 2026-08-18, the day after it came down. Run 1 records one real citation of a retired page. Run 2 records zero and is unchanged.',
     'Hendricks caused that error by running the check against the wrong repository. The firm has two retired sites. The check searched the one with 74 registered insight slugs and a different directory layout, did not find the address there, and stopped. The address was in the other one, which is the retired site belonging to this codebase. One command against the correct site returns the opposite answer. The same published sentence also claimed the address appeared in no list of retired addresses, and it was in that list in this site’s own source at the time.',
-    'Both entries, with what was published and what changed, are in the corrections log rather than only here.',
+    'All three entries, with what was published and what changed, are in the corrections log rather than only here.',
     'If a figure here is wrong, or a third party runs this design and gets a materially different result, the correction is published with its date, the original figure, the contradicting result, and what changed. Nothing on this page is quietly edited.',
     'That path exists because a firm selling measurement discipline has to be correctable in public. Needing it twice on the first day is not the demonstration anyone would choose. Publishing both anyway is the whole argument for having it.',
   ],

@@ -321,9 +321,9 @@ Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and G
 
 The published date is the day this page went live. The data-through date is the day of the run it reports, run 2026-08-20-110653, which is the day before. The two differ on purpose and neither is rounded to match the other. The updated date moves when a figure, a method, or a limitation changes, and is not refreshed to signal activity.
 
-## No corrections to this page, two dated updates, and one finding that was killed before it reached it
+## No corrections to this page, three dated updates, and one finding that was killed before it reached it
 
-This page has been corrected zero times. That is a statement about its age rather than about its accuracy, and it is published as a starting count so a later reader can see whether it moved. Two dated updates below add later evidence without changing any figure.
+This page has been corrected zero times. That is a statement about its age rather than about its accuracy, and it is published as a starting count so a later reader can see whether it moved. Three dated updates below add later evidence without changing any figure.
 
 Update, 2026-09-01. A later Hendricks corpus of 480 questions across eight industries, run run-2026-09-01T022903Z, finds 78 domains cited by all three of the engines compared on this page, and 60 cited by all four once Gemini is included. That does not contradict the zero published here, it explains it. ChatGPT filled 9 citation slots in this run, which caps the all-three count at 9 before any engine disagreement is measured, and in 17-question draws from the larger corpus under that condition a zero occurs in roughly one draw in four, with a single shared domain the most likely outcome. The figure on this page is a reading of what a 9-domain set can overlap with, exactly as Limitation 03 states, and it should not be quoted as a property of the three engines.
 

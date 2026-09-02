@@ -10,6 +10,11 @@
  * 2026-09-01. So the rule is not "name the systems when you count them", it is
  * "never count or list them outside the shared module".
  *
+ * The same holds for the framing sentence, `observedSystemsContext`, which says
+ * why the unobserved surfaces are named at all. A retyped copy of it drifted the
+ * same way the counts did, grouping an observed system with the unobserved ones,
+ * so a page literal that carries its key phrase is an offence too.
+ *
  * Two exceptions, both narrow. A dated `changes` row of kind `scope` may state
  * the boundary that applied on a study's run date, because that is a record of
  * a past observation rather than a coverage claim. And one sentence on
@@ -48,8 +53,11 @@ const SURFACES = [
 const COUNT_CLAIM = /\b(?:one|two|three|four|five|six|\d+) systems\b/i
 const COVERAGE_CLAIM = /\bHendricks\s+(?:observes|measures|tests|monitors|reports on)\b/
 const NEGATED = /\b(?:does not|never|not among|excluded|outside)\b/i
+const FRAMING = /\bsame information environment\b/
 const SCOPE_ROW_KIND = /\bkind:\s*(['"])scope\1/
+const SCOPE_ROW_DATE = /\bdate:\s*(['"])\d{4}-\d{2}-\d{2}\1/
 const MARKDOWN_SCOPE_ROW = /^\|\s*\d{4}-\d{2}-\d{2}\s*\|\s*scope\s*\|/
+const SENTENCE_BREAK = /(?<=[.!?])\s+/
 
 export type GuardOffence = { line: number; rule: string; excerpt: string }
 
@@ -65,6 +73,22 @@ function lineOf(source: string, index: number): number {
 
 function excerpt(text: string): string {
   return text.length > 90 ? `${text.slice(0, 90)}...` : text
+}
+
+/**
+ * A positive coverage claim that names a surface. Judged sentence by sentence,
+ * because a negation in a later sentence ("Hendricks does not report on AI
+ * Mode.") must not excuse a retyped list in the one before it.
+ */
+function namesObservedSystems(text: string): boolean {
+  return text
+    .split(SENTENCE_BREAK)
+    .some(
+      (sentence) =>
+        COVERAGE_CLAIM.test(sentence) &&
+        !NEGATED.test(sentence) &&
+        SURFACES.some((s) => sentence.includes(s)),
+    )
 }
 
 /**
@@ -93,10 +117,13 @@ function sourceStrings(source: string): SourceString[] {
 
 /**
  * True when the string at `index` sits directly inside an object literal that
- * carries `kind: 'scope'`, which is the shape of a dated scope change row.
+ * carries both `kind: 'scope'` and an ISO `date` at its own level, which is the
+ * shape of a dated scope change row. An undated object is not a change row,
+ * whatever its kind, and a nested object's keys do not count for its parent.
  */
 function insideScopeRow(source: string, index: number): boolean {
-  const flat = stripComments(source).replace(STRING_LITERAL, blank)
+  const stripped = stripComments(source)
+  const flat = stripped.replace(STRING_LITERAL, blank)
 
   let depth = 0
   let open = -1
@@ -113,48 +140,45 @@ function insideScopeRow(source: string, index: number): boolean {
   }
   if (open < 0) return false
 
+  let ownLevel = ''
   depth = 0
   for (let i = open; i < flat.length; i += 1) {
     const ch = flat[i]
     if (ch === '{') depth += 1
-    else if (ch === '}') {
-      depth -= 1
-      if (depth === 0) return SCOPE_ROW_KIND.test(stripComments(source).slice(open, i + 1))
-    }
+    else if (ch === '}') depth -= 1
+    if (depth === 0) break
+    if (depth === 1) ownLevel += stripped[i]
   }
-  return false
+  return SCOPE_ROW_KIND.test(ownLevel) && SCOPE_ROW_DATE.test(ownLevel)
 }
 
 /**
  * Offences in a TypeScript content module. The shared module itself is exempt
- * and must not be passed here.
+ * and must not be passed here. At most one offence per string, in rule order.
  */
 export function observedSystemsOffencesInSource(source: string): GuardOffence[] {
   const offences: GuardOffence[] = []
 
   for (const { text, index } of sourceStrings(source)) {
     const rest = withoutAllowlisted(text)
-    const line = lineOf(source, index)
-
-    if (COUNT_CLAIM.test(rest) && !insideScopeRow(source, index)) {
-      offences.push({
-        line,
-        rule: 'counts the observed systems outside the shared module',
-        excerpt: excerpt(text),
-      })
-      continue
-    }
-
-    if (COVERAGE_CLAIM.test(rest) && !NEGATED.test(rest) && SURFACES.some((s) => rest.includes(s))) {
-      offences.push({
-        line,
-        rule: 'names the systems Hendricks observes in a page literal instead of rendering the shared sentence',
-        excerpt: excerpt(text),
-      })
-    }
+    const rule = ruleBrokenBy(rest, () => insideScopeRow(source, index))
+    if (rule) offences.push({ line: lineOf(source, index), rule, excerpt: excerpt(text) })
   }
 
   return offences
+}
+
+function ruleBrokenBy(text: string, isScopeRow: () => boolean): string | null {
+  if (COUNT_CLAIM.test(text) && !isScopeRow()) {
+    return 'counts the observed systems outside the shared module'
+  }
+  if (namesObservedSystems(text)) {
+    return 'names the systems Hendricks observes in a page literal instead of rendering the shared sentence'
+  }
+  if (FRAMING.test(text)) {
+    return 'retypes the observed-systems framing instead of rendering observedSystemsContext'
+  }
+  return null
 }
 
 /**

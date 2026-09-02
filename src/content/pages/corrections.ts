@@ -161,12 +161,13 @@ export const recording = {
 } as const
 
 /**
- * The log. Three entries, newest first. The seed entry is per decision 1 above.
+ * The log. Six entries, newest first. The seed entry is per decision 1 above.
  *
  * `published` and `corrected` are ISO dates so the page can render machine
- * readable <time> elements. They are the same date in all three entries, which
- * is a fact about these corrections rather than a placeholder: each wrong claim
- * shipped and was corrected on the same day.
+ * readable <time> elements. They are the same date in the three August entries,
+ * which is a fact about those corrections rather than a placeholder: each wrong
+ * claim shipped and was corrected on the same day. The three 2026-09-01 entries
+ * correct claims published on 2026-08-19, so their two dates differ.
  *
  * The two 2026-08-19 entries are separate corrections to the same page with
  * separate causes, and neither may be folded into the other. The first is a

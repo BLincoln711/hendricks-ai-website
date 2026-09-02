@@ -30,6 +30,8 @@ const FIXTURE_DIR = path.join(ROOT, 'tests/fixtures/content')
 
 const CANONICAL_SENTENCE =
   'Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini.'
+const NAMES_RULE =
+  'names the systems Hendricks observes in a page literal instead of rendering the shared sentence'
 
 function walk(dir: string, match: RegExp): string[] {
   return readdirSync(dir).flatMap((name) => {
@@ -93,15 +95,15 @@ describe('Observed-systems boundary', () => {
 
   it('catches every breach in the failing source fixture', () => {
     const offences = observedSystemsOffencesInSource(fixture('observed-systems-failing.ts'))
-    expect(offences.map((o) => o.excerpt.slice(0, 24))).toEqual([
-      'Hendricks observes three',
-      'Hendricks observes four ',
-      'Hendricks measures Googl',
-      'The boundary on this pag',
+    expect(offences.map((o) => [o.excerpt.slice(0, 24), o.rule])).toEqual([
+      ['Hendricks observes three', 'counts the observed systems outside the shared module'],
+      ['Hendricks observes four ', 'counts the observed systems outside the shared module'],
+      ['Hendricks measures Googl', NAMES_RULE],
+      ['Hendricks observes Gemin', NAMES_RULE],
+      ['Google AI Mode, Gemini, ', 'retypes the observed-systems framing instead of rendering observedSystemsContext'],
+      ['The boundary on this pag', 'counts the observed systems outside the shared module'],
+      ['The boundary on this pag', 'counts the observed systems outside the shared module'],
     ])
-    expect(offences.map((o) => o.rule)).toContain(
-      'names the systems Hendricks observes in a page literal instead of rendering the shared sentence',
-    )
   })
 
   it('catches every breach in the failing markdown fixture', () => {

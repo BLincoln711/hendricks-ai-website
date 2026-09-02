@@ -3,6 +3,7 @@ import type { Cta } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 import {
   observedSystemRows,
+  observedSystemsContext,
   observedSystemsExclusion,
   observedSystemsSentence,
 } from '@/content/shared/observed-systems'
@@ -106,7 +107,7 @@ export const surfaces = {
     title: 'Which surfaces does Hendricks observe?',
     body: [
       observedSystemsSentence,
-      `Google AI Mode, Gemini, and Microsoft Copilot are named on this page because they exist in the same information environment. ${observedSystemsExclusion}`,
+      `${observedSystemsContext} ${observedSystemsExclusion}`,
     ],
   },
 } as const
@@ -405,10 +406,10 @@ export const limitation = {
  *
  * The list carries a citation only where the page makes a claim that needs one.
  * Naming a public product as part of the environment is not such a claim, which
- * is why Gemini and Microsoft Copilot are both named on the page without a
- * citation of their own: nothing here describes what either one does. A source
- * for a surface Hendricks does not observe would also read, in a reference list,
- * as evidence of an engagement that does not exist.
+ * is why Gemini, Google AI Mode, and Microsoft Copilot are named on the page
+ * without a citation of their own: nothing here describes what any of them does.
+ * A source for a surface Hendricks does not observe would also read, in a
+ * reference list, as evidence of an engagement that does not exist.
  *
  * Every URL below was fetched and confirmed to resolve to the first-party
  * document it names on the review date, and each is the address the document
