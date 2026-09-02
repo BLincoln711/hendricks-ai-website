@@ -60,23 +60,32 @@ export function PrimaryCta({
         {...(cta.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       >
         {cta.label}
-        <Icon className="size-4" aria-hidden="true" />
+        <Icon className="size-4" aria-hidden="true" focusable="false" />
         {cta.external ? <span className="sr-only">(opens in a new tab)</span> : null}
       </Link>
     </Button>
   )
 }
 
-/** Tertiary text link. Never relies on the arrow alone (docs/04 §10). */
+/**
+ * Standalone tertiary link (09 5.11): text plus arrow in a 44 px box, ink
+ * with the 1 px underline, never the arrow alone. An external destination
+ * takes the arrow-up-right glyph and the sr-only note.
+ *
+ * `onNavy` is a no-op kept for the call sites the page PRs close (handoff
+ * 5.3): `--link` re-scopes to field under `.on-plate`.
+ */
 export function TextCta({
   cta,
-  onNavy = false,
   className,
 }: {
   cta: Cta
+  /** @deprecated No-op. `.on-plate` re-scopes `--link`. */
   onNavy?: boolean
   className?: string
 }) {
+  const Icon = cta.external ? ArrowUpRight : ArrowRight
+
   const handleClick = () => {
     if (typeof window !== 'undefined' && isDiagnosticDestination(cta.href, window.location.origin)) {
       trackDiagnosticCtaClick(window.location.pathname)
@@ -94,19 +103,12 @@ export function TextCta({
       href={cta.href}
       onClick={handleClick}
       data-hendricks-cta=""
-      className={cn(
-        'group inline-flex items-center gap-1.5 font-medium underline decoration-1 underline-offset-4 transition-colors duration-[var(--duration-micro)]',
-        onNavy
-          ? 'text-[var(--color-cyan)] hover:text-[var(--color-field)]'
-          : 'text-[var(--color-blue)] hover:text-[var(--color-blue-hover)]',
-        className,
-      )}
+      className={cn('link link-standalone', className)}
+      {...(cta.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
     >
       {cta.label}
-      <ArrowRight
-        className="size-4 transition-transform duration-[var(--duration-micro)] group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
-        aria-hidden="true"
-      />
+      <Icon className="link-arrow size-4 motion-reduce:transition-none" aria-hidden="true" focusable="false" />
+      {cta.external ? <span className="sr-only">(opens in a new tab)</span> : null}
     </Link>
   )
 }
@@ -116,7 +118,7 @@ export function TextCta({
  *
  * Buttons wrap onto their own row rather than shrinking, because the Diagnostic
  * label is long by design and compressing it breaks the phrase mid-line. They
- * must not be `whitespace-nowrap` — that sets a min-content width wider than a
+ * must not be `whitespace-nowrap`: that sets a min-content width wider than a
  * 320px viewport and pushes the whole column into horizontal overflow.
  */
 export function CtaGroup({ children, className }: { children: ReactNode; className?: string }) {

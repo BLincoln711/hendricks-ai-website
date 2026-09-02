@@ -8,12 +8,12 @@ export type EngineeringLayer = {
 }
 
 /**
- * The seven Search Presence Engineering layers (docs/13 §7).
+ * The seven Search Presence Engineering layers as a stacked ledger (09 5.55;
+ * the 5.14 tokens).
  *
- * Rendered as a stacked ledger rather than seven cards: the layers are a single
- * ordered surface, and a card grid would imply they are interchangeable
- * packages. content/pages/05 is explicit that not every problem needs every
- * layer.
+ * Rendered as one ordered surface rather than seven cards: a card grid would
+ * imply the layers are interchangeable packages, and content/pages/05 is
+ * explicit that not every problem needs every layer.
  */
 export function EngineeringLayers({
   layers,
@@ -23,25 +23,22 @@ export function EngineeringLayers({
   className?: string
 }) {
   return (
-    <ol className={cn('flex flex-col', className)}>
-      {layers.map((layer) => (
+    <ol className={cn('flex flex-col border-t-2 border-[var(--ledger-rule-top)]', className)}>
+      {layers.map((layer, index) => (
         <li
           key={layer.number}
-          className="grid gap-4 border-t border-[var(--color-border)] py-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12"
+          className={cn(
+            'grid gap-4 py-[var(--ledger-row-pad)] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-[var(--ledger-gap)]',
+            index > 0 && 'border-t border-[var(--ledger-rule)]',
+          )}
         >
-          <div className="flex gap-4">
-            <span className="font-mono text-[0.875rem] text-[var(--color-blue)] tabular-nums">
+          <div className="grid grid-cols-[var(--ledger-index-col)_minmax(0,1fr)]">
+            <span className="text-small font-mono text-[var(--ledger-index-fg)] tabular-nums">
               {layer.number}
             </span>
             <div className="flex flex-col gap-2">
-              {layer.title ? (
-                <h3 className="text-[1.375rem] leading-snug font-medium text-[var(--color-navy)]">
-                  {layer.title}
-                </h3>
-              ) : null}
-              <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
-                {layer.description}
-              </p>
+              {layer.title ? <h3 className="text-h4 text-ink">{layer.title}</h3> : null}
+              <p className="max-w-[var(--ledger-desc-measure)] text-ink-body">{layer.description}</p>
             </div>
           </div>
 
@@ -54,15 +51,13 @@ export function EngineeringLayers({
               with no title omits the heading rather than inventing a replacement.
             */}
             {layer.title ? (
-              <h4 className="text-eyebrow text-[var(--color-slate)]">
-                Work on {layer.title} can include
-              </h4>
+              <h4 className="text-coordinate text-ink-2">Work on {layer.title} can include</h4>
             ) : null}
             <ul className="flex flex-wrap gap-1.5">
               {layer.workItems.map((item) => (
                 <li
                   key={item}
-                  className="rounded-[var(--radius-small)] border border-[var(--color-border)] bg-white px-2.5 py-1 text-[0.8125rem] text-[var(--color-graphite)]"
+                  className="text-small rounded-[var(--radius-small)] border border-rule bg-surface-raised px-2.5 py-1 text-ink-body"
                 >
                   {item}
                 </li>

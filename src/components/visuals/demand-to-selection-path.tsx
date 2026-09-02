@@ -1,17 +1,20 @@
 import { cn } from '@/lib/utils/cn'
 
 /**
- * The Demand-to-Selection System (docs/13 §6).
+ * The Demand-to-Selection System on /how-it-works (09 5.55; kept per section
+ * 8). One ordered list, horizontal from 1024 px and vertical below, so the
+ * four stages are a list in the DOM at every width (16 SM-06). The rail reads
+ * `--ev-observed` and the connector `--guide`; the numeral is a coordinate.
  *
- * Horizontal path on desktop, vertical stack on mobile (docs/04 §13) — one
- * ordered list, two layouts, no duplicated content.
+ * `onNavy` is a no-op kept for the homepage call site PR 7 closes (handoff
+ * 5.3): every token here re-scopes under `.on-plate`.
  */
 export function DemandToSelectionPath({
   steps,
-  onNavy = false,
   className,
 }: {
   steps: readonly { number: string; name: string; description: string }[]
+  /** @deprecated No-op. `.on-plate` re-scopes every token this path reads. */
   onNavy?: boolean
   className?: string
 }) {
@@ -27,34 +30,16 @@ export function DemandToSelectionPath({
             */}
             <span
               aria-hidden="true"
-              className={cn(
-                'inline-flex size-9 shrink-0 items-center justify-center rounded-full border font-mono text-[0.875rem] font-medium',
-                onNavy
-                  ? 'border-[var(--color-cyan)] text-[var(--color-cyan)]'
-                  : 'border-[var(--color-blue)] bg-[color-mix(in_srgb,var(--color-blue)_10%,white)] text-[var(--color-blue)]',
-              )}
+              className="text-coordinate inline-flex size-9 shrink-0 items-center justify-center rounded-full border-2 border-ev-observed text-ink"
             >
               {step.number}
             </span>
-            {/* Connector, desktop only. Decorative — sequence is in the list. */}
+            {/* Connector, desktop only. Decorative: the sequence is in the list. */}
             {index < steps.length - 1 ? (
-              <span
-                aria-hidden="true"
-                className={cn(
-                  'hidden h-px flex-1 lg:block',
-                  onNavy
-                    ? 'bg-[color-mix(in_srgb,var(--color-field)_22%,transparent)]'
-                    : 'bg-[var(--color-border)]',
-                )}
-              />
+              <span aria-hidden="true" className="hidden h-px flex-1 bg-guide lg:block" />
             ) : null}
           </div>
-          <h3
-            className={cn(
-              'text-[1.125rem] font-medium',
-              onNavy ? 'text-[var(--color-field)]' : 'text-[var(--color-navy)]',
-            )}
-          >
+          <h3 className="text-h4 text-ink">
             {/*
               Carries the step number into the heading text, so the four headings
               read as an ordered path rather than four unrelated verbs once the
@@ -64,16 +49,7 @@ export function DemandToSelectionPath({
             <span className="sr-only">Step {step.number}. </span>
             {step.name}
           </h3>
-          <p
-            className={cn(
-              'text-[0.9375rem] leading-relaxed',
-              onNavy
-                ? 'text-[color-mix(in_srgb,var(--color-field)_70%,transparent)]'
-                : 'text-[var(--color-slate)]',
-            )}
-          >
-            {step.description}
-          </p>
+          <p className="text-small text-ink-body">{step.description}</p>
         </li>
       ))}
     </ol>

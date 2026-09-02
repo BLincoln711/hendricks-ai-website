@@ -7,10 +7,12 @@ export type ContextPanel = {
 }
 
 /**
- * Four context quadrants used on Selection Intelligence (docs/13 §6).
+ * Four context quadrants on Selection Intelligence (09 5.55).
  *
  * Each quadrant states the question it answers, which is the point of the
- * diagram: the panels are a research design, not decoration.
+ * diagram: the panels are a research design, not decoration. A quadrant grid
+ * is not a plate, so it reads `--radius-tile` and the raised surface with a 1
+ * px `--rule` gap.
  */
 export function ContextPanelDiagram({
   panels,
@@ -20,25 +22,24 @@ export function ContextPanelDiagram({
   className?: string
 }) {
   return (
-    <ul className={cn('grid gap-px overflow-hidden rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[var(--color-border)] sm:grid-cols-2', className)}>
+    <ul
+      className={cn(
+        'grid gap-px overflow-hidden rounded-[var(--radius-tile)] border border-rule bg-rule sm:grid-cols-2',
+        className,
+      )}
+    >
       {panels.map((panel, index) => (
-        <li key={panel.name} className="flex flex-col gap-3 bg-white p-6 md:p-8">
-          <span className="font-mono text-[0.75rem] text-[var(--color-blue)]">
+        <li key={panel.name} className="flex flex-col gap-3 bg-surface-raised p-6 md:p-8">
+          <span aria-hidden="true" className="text-coordinate text-ink-2">
             {String(index + 1).padStart(2, '0')}
           </span>
 
-          <h3 className="text-[1.25rem] leading-snug font-medium text-[var(--color-navy)]">
-            {panel.name}
-          </h3>
+          <h3 className="text-h4 text-ink">{panel.name}</h3>
 
-          <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
-            {panel.description}
-          </p>
+          <p className="text-ink-body">{panel.description}</p>
 
-          <p className="mt-auto border-t border-[var(--color-border)] pt-3 text-[0.875rem] leading-relaxed text-[var(--color-graphite)]">
-            <span className="text-eyebrow block pb-1 text-[var(--color-slate)]">
-              Question answered
-            </span>
+          <p className="text-small mt-auto border-t border-rule pt-3 text-ink-body">
+            <span className="text-coordinate block pb-1 text-ink-2">Question answered</span>
             {panel.question}
           </p>
         </li>

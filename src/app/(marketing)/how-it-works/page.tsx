@@ -89,20 +89,17 @@ export default function HowItWorksPage() {
                   key={stage}
                   className={
                     isLast
-                      ? 'flex items-center gap-1.5 rounded-full border border-[var(--color-amber)] bg-[color-mix(in_srgb,var(--color-amber)_18%,transparent)] px-3 py-1.5 text-[0.8125rem] font-medium text-[var(--color-field)]'
-                      : 'rounded-full border border-[color-mix(in_srgb,var(--color-field)_24%,transparent)] px-3 py-1.5 text-[0.8125rem] text-[color-mix(in_srgb,var(--color-field)_80%,transparent)]'
+                      ? 'text-small flex items-center gap-1.5 rounded-[var(--chip-radius)] border border-rule-strong bg-[var(--chip-bg)] px-3 py-1.5 font-medium text-[var(--chip-fg)]'
+                      : 'text-small rounded-[var(--chip-radius)] border border-[var(--chip-edge)] bg-[var(--chip-bg)] px-3 py-1.5 text-[var(--chip-fg)]'
                   }
                 >
                   {/*
-                    The terminal node is the commercial outcome, and amber was
-                    the only thing saying so. That is nothing to a reader who
-                    cannot separate the amber border from the grey one. The
-                    signal dot restates the marker as a shape, which survives
-                    without color. Amber rather than the default blue because
-                    this chip sits on the navy hero, where the blue is close to
-                    invisible.
+                    The terminal node is the commercial outcome. The stronger
+                    edge alone would say so only to a reader who can separate
+                    it from the hairline, so the signal dot restates the marker
+                    as a shape, which survives without colour.
                   */}
-                  {isLast ? <SignalDot size={6} tone="amber" /> : null}
+                  {isLast ? <SignalDot size={6} /> : null}
                   {stage}
                 </li>
               )
@@ -111,10 +108,7 @@ export default function HowItWorksPage() {
 
           <div className="flex flex-col gap-2">
             {hero.closing.map((paragraph) => (
-              <p
-                key={paragraph}
-                className="text-[1.0625rem] leading-relaxed text-[color-mix(in_srgb,var(--color-field)_74%,transparent)]"
-              >
+              <p key={paragraph} className="text-ink-body">
                 {paragraph}
               </p>
             ))}

@@ -7,14 +7,16 @@ import { cn } from '@/lib/utils/cn'
 /**
  * Editorial list marked with the signal dot rather than a browser bullet.
  *
- * The dot is decorative, so the list keeps its `<ul>` semantics and the item
- * text is the only thing announced.
+ * Retired by 09 section 8 (lists take index numerals or hairlines, 5.14) and
+ * deleted with its last consumer in PR 13; retokened until then. The dot is
+ * decorative, so the list keeps its `<ul>` semantics and the item text is the
+ * only thing announced. `onNavy` is a no-op: every token re-scopes under
+ * `.on-plate` (handoff 5.3).
  */
 export function SignalList({
   items,
   columns = 1,
   hrefs,
-  onNavy = false,
   className,
 }: {
   items: readonly string[]
@@ -26,47 +28,26 @@ export function SignalList({
    * than by index so reordering the list cannot silently repoint a link.
    */
   hrefs?: Record<string, string>
+  /** @deprecated No-op. `.on-plate` re-scopes every token this list reads. */
   onNavy?: boolean
   className?: string
 }) {
   return (
     <ul
-      className={cn(
-        'grid gap-x-8 gap-y-3',
-        columns === 2 ? 'sm:grid-cols-2' : '',
-        className,
-      )}
+      className={cn('grid gap-x-8 gap-y-3', columns === 2 ? 'sm:grid-cols-2' : '', className)}
     >
       {items.map((item) => {
         const href = hrefs?.[item]
 
-        const textClassName = cn(
-          'text-[0.9375rem] leading-relaxed',
-          onNavy
-            ? 'text-[color-mix(in_srgb,var(--color-field)_82%,transparent)]'
-            : 'text-[var(--color-graphite)]',
-        )
-
         return (
-          <li key={item} className="flex items-start gap-2.5">
-            <SignalDot size={6} tone={onNavy ? 'cyan' : 'blue'} className="mt-2 shrink-0" />
+          <li key={item} className="flex items-start gap-2.5 text-ink-body">
+            <SignalDot size={6} className="mt-2.5 shrink-0" />
             {href ? (
-              // Underlined rather than coloured alone, so the link is
-              // distinguishable without relying on colour (WCAG 1.4.1).
-              <Link
-                href={href}
-                className={cn(
-                  textClassName,
-                  'underline underline-offset-4 transition-colors',
-                  onNavy
-                    ? 'decoration-[color-mix(in_srgb,var(--color-cyan)_40%,transparent)] hover:text-[var(--color-cyan)] hover:decoration-[var(--color-cyan)]'
-                    : 'decoration-[color-mix(in_srgb,var(--color-blue)_40%,transparent)] hover:text-[var(--color-blue)] hover:decoration-[var(--color-blue)]',
-                )}
-              >
+              <Link href={href} className="link">
                 {item}
               </Link>
             ) : (
-              <span className={textClassName}>{item}</span>
+              <span>{item}</span>
             )}
           </li>
         )
@@ -93,17 +74,13 @@ export function FitList({
   return (
     <ul className={cn('flex flex-col gap-3', className)}>
       {items.map((item) => (
-        <li key={item} className="flex items-start gap-2.5">
+        <li key={item} className="flex items-start gap-2.5 text-ink-body">
           <Icon
             aria-hidden="true"
-            className={cn(
-              'mt-0.5 size-4 shrink-0',
-              tone === 'fit' ? 'text-[var(--color-positive)]' : 'text-[var(--color-slate)]',
-            )}
+            focusable="false"
+            className={cn('mt-1.5 size-4 shrink-0', tone === 'fit' ? 'text-positive' : 'text-ink-2')}
           />
-          <span className="text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">
-            {item}
-          </span>
+          <span>{item}</span>
         </li>
       ))}
     </ul>

@@ -8,12 +8,15 @@ export type MeasurementLevel = {
 }
 
 /**
- * The four levels of measurement on Search Impact Measurement (docs/13 §6).
+ * The four levels of measurement on Search Impact Measurement (09 5.55).
  *
- * Each level widens the left rule as the evidence gets closer to revenue, so the
- * stack reads as a progression. The rule is decorative; the ordered list and the
- * numbers carry the sequence for assistive technology.
+ * Each level widens the left rule as the evidence gets closer to revenue, so
+ * the stack reads as a progression: width carries it, never colour. The rule
+ * is decorative; the ordered list and the numbers carry the sequence for
+ * assistive technology.
  */
+const ruleWidths = ['border-l-2', 'border-l-4', 'border-l-[6px]', 'border-l-8'] as const
+
 export function ImpactMeasurementStack({
   levels,
   className,
@@ -21,25 +24,18 @@ export function ImpactMeasurementStack({
   levels: readonly MeasurementLevel[]
   className?: string
 }) {
-  const accents = [
-    'border-l-[color-mix(in_srgb,var(--color-cyan)_60%,white)]',
-    'border-l-[var(--color-cyan)]',
-    'border-l-[var(--color-blue)]',
-    'border-l-[var(--color-amber)]',
-  ]
-
   return (
     <ol className={cn('flex flex-col gap-4', className)}>
       {levels.map((level, index) => (
         <li
           key={level.number}
           className={cn(
-            'flex flex-col gap-4 rounded-r-[var(--radius-card)] border border-l-4 border-[var(--color-border)] bg-white p-6 md:flex-row md:items-start md:gap-10 md:p-8',
-            accents[index] ?? accents[0],
+            'flex flex-col gap-4 rounded-r-[var(--radius-small)] border border-l-rule-strong border-rule bg-surface-raised p-6 md:flex-row md:items-start md:gap-[var(--ledger-gap)] md:p-8',
+            ruleWidths[index] ?? ruleWidths[0],
           )}
         >
           <div className="flex flex-col gap-2 md:w-[19rem] md:shrink-0">
-            <span className="font-mono text-[0.875rem] text-[var(--color-blue)] tabular-nums">
+            <span className="text-small font-mono text-[var(--ledger-index-fg)] tabular-nums">
               {level.number}
             </span>
             {/*
@@ -47,13 +43,11 @@ export function ImpactMeasurementStack({
               On its own, `{level.name}` reads as a bare noun (Exposure, Behavior)
               once the surrounding markup is stripped; the question is what makes
               the level self-describing. Both strings are approved verbatim, so
-              only their DOM position changes. `mt-2` reproduces the parent's
-              `gap-2`, and `font-normal` undoes the heading's `font-medium`, so
-              the rendered result is unchanged.
+              only their DOM position changes.
             */}
-            <h3 className="text-[1.375rem] leading-snug font-medium text-[var(--color-navy)]">
+            <h3 className="text-h4 text-ink">
               {level.name}{' '}
-              <span className="mt-2 block text-[0.9375rem] leading-relaxed font-normal text-[var(--color-slate)]">
+              <span className="text-small mt-2 block font-normal tracking-normal text-ink-body">
                 {level.question}
               </span>
             </h3>
@@ -63,7 +57,7 @@ export function ImpactMeasurementStack({
             {level.signals.map((signal) => (
               <li
                 key={signal}
-                className="rounded-[var(--radius-small)] border border-[var(--color-border)] bg-[var(--color-field)] px-2.5 py-1 text-[0.8125rem] text-[var(--color-graphite)]"
+                className="text-small rounded-[var(--radius-small)] border border-rule bg-surface px-2.5 py-1 text-ink-body"
               >
                 {signal}
               </li>

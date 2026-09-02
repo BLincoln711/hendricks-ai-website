@@ -7,10 +7,10 @@ import { formatLongDate } from '@/lib/utils/format-date'
 
 /**
  * "Sources and update information" block required on definition pages
- * (docs/03 §"Definition pages").
+ * (09 5.55; docs/03 §"Definition pages").
  *
  * Definition pages state a position rather than reporting external findings, so
- * there is no citation list to render — claiming sources these pages do not draw
+ * there is no citation list to render: claiming sources these pages do not draw
  * on would be worse than stating none. What the block does carry is the review
  * date and where the definition is operationalised, which is what a reader needs
  * in order to judge whether it is current.
@@ -34,29 +34,26 @@ export function SourcesNote({
   return (
     <Section variant="soft" size="small" ariaLabelledBy="sources-heading">
       <Container width="narrow">
-        <div className="flex flex-col gap-4">
-          <h2 id="sources-heading" className="text-eyebrow text-[var(--color-slate)]">
+        <div className="text-small flex flex-col gap-4 border-t border-rule pt-4 text-ink-2">
+          <h2 id="sources-heading" className="text-coordinate text-ink-2">
             Sources and updates
           </h2>
 
-          <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+          <p>
             {basis} Last reviewed{' '}
-            <time dateTime={reviewed} className="text-[var(--color-graphite)]">
+            <time dateTime={reviewed} className="text-ink-body">
               {formatted}
             </time>
             .
           </p>
 
           {available.length > 0 ? (
-            <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+            <p>
               This definition is applied in{' '}
               {available.map((item, index) => (
                 <span key={item.href}>
                   {index > 0 ? (index === available.length - 1 ? ' and ' : ', ') : ''}
-                  <Link
-                    href={item.href}
-                    className="text-[var(--color-blue)] underline decoration-[color-mix(in_srgb,var(--color-blue)_40%,transparent)] underline-offset-4 hover:decoration-[var(--color-blue)]"
-                  >
+                  <Link href={item.href} className="link">
                     {item.label}
                   </Link>
                 </span>

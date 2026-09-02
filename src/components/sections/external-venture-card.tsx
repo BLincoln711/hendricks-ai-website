@@ -1,13 +1,15 @@
+import { Eyebrow } from '@/components/layout/eyebrow'
 import { PrimaryCta } from '@/components/ui/cta'
 import type { Cta } from '@/components/ui/cta'
 
 /**
- * The Search Economy card (docs/13 §9). **About page only.**
+ * The Search Economy aside (09 5.55). About page only.
  *
- * Constraints from docs/12 §8 and docs/10 §2: it is an independent publication
- * Brandon also founded, never a Hendricks solution, research arm, or product.
- * Styled as a secondary editorial aside — explicitly not the solution-card
- * treatment — and it links out rather than to any Hendricks route.
+ * Constraints from CANON section 5: it is an independent publication Brandon
+ * also founded, never a Hendricks solution, research arm, or product. Styled
+ * as a secondary editorial aside on the raised surface, never a solution
+ * card and never navigation, and it links out rather than to any Hendricks
+ * route.
  */
 export function ExternalVentureCard({
   label,
@@ -23,20 +25,15 @@ export function ExternalVentureCard({
   return (
     <aside
       aria-labelledby="external-venture-name"
-      className="flex flex-col gap-4 border-t border-[var(--color-border)] pt-8"
+      className="flex flex-col gap-4 rounded-[var(--radius-tile)] border border-rule bg-surface-raised p-6"
     >
-      <p className="text-eyebrow text-[var(--color-slate)]">{label}</p>
+      <Eyebrow>{label}</Eyebrow>
 
-      <h3
-        id="external-venture-name"
-        className="text-[1.375rem] leading-snug font-medium text-[var(--color-navy)]"
-      >
+      <h3 id="external-venture-name" className="text-h4 text-ink">
         {name}
       </h3>
 
-      <p className="measure text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
-        {description}
-      </p>
+      <p className="text-small measure text-ink-body">{description}</p>
 
       <div>
         <PrimaryCta cta={cta} variant="secondary" size="small" />

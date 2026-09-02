@@ -20,8 +20,8 @@ const questionTags = {
 } as const
 
 /**
- * Visible question and answer block for solution pages (docs/14 §3, "Relevant
- * FAQ"; docs/06 §11, which requires a logical H2/H3 hierarchy).
+ * FAQ section (09 5.51): visible questions and answers on the solution pages
+ * that carry them and on /for-agencies.
  *
  * Four properties of this component are load-bearing, and each one is easy to
  * undo by accident.
@@ -40,9 +40,12 @@ const questionTags = {
  *    who never clicks, must both get the whole answer. Collapsing this block to
  *    save vertical space would remove the only thing it exists to publish. Do
  *    not "improve" it into a disclosure widget.
- * 4. It emits no structured data of any kind. docs/06 §10 allows visible FAQs
- *    and forbids adding FAQPage markup automatically, so schema for these
- *    questions stays a per-page decision and never a side effect of rendering.
+ * 4. It emits no structured data of any kind. 17 never emits FAQPage on any
+ *    route, so schema for these questions stays a per-page decision and never
+ *    a side effect of rendering.
+ *
+ * The block sits on `--surface`; `variant` is a no-op kept for the
+ * /for-agencies call site PR 10 closes.
  */
 export function FaqSection({
   title,
@@ -50,7 +53,6 @@ export function FaqSection({
   items,
   id = 'faq',
   headingLevel = 3,
-  variant = 'white',
 }: {
   title: string
   /**
@@ -71,18 +73,14 @@ export function FaqSection({
    * own right, or push them to h4 when the block sits under an existing h3.
    */
   headingLevel?: 2 | 3 | 4
-  /**
-   * Light surfaces only, so a caller can alternate bands instead of stacking two
-   * of the same colour. Navy is excluded deliberately: the text colours below
-   * are the light-surface pair and would not hold contrast on it.
-   */
+  /** @deprecated No-op. The block sits on `--surface` (09 5.51). */
   variant?: 'white' | 'field' | 'soft'
 }) {
   const titleId = `${id}-title`
   const Question = questionTags[headingLevel]
 
   return (
-    <Section variant={variant} size="major" id={id} ariaLabelledBy={titleId}>
+    <Section variant="field" size="major" id={id} ariaLabelledBy={titleId}>
       <Container>
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1fr)] lg:gap-16">
           <SectionHeading eyebrow={eyebrow} title={title} id={titleId} level={2} />
@@ -95,19 +93,11 @@ export function FaqSection({
           */}
           <div className="flex flex-col gap-10">
             {items.map((item) => (
-              <div
-                key={item.question}
-                className="flex flex-col gap-3 border-t border-[var(--color-border)] pt-6"
-              >
-                <Question className="text-[1.25rem] leading-snug font-medium text-[var(--color-navy)]">
-                  {item.question}
-                </Question>
+              <div key={item.question} className="flex flex-col gap-3 border-t border-rule pt-6">
+                <Question className="text-h3 text-ink">{item.question}</Question>
 
                 {item.answer.map((paragraph) => (
-                  <p
-                    key={paragraph}
-                    className="measure text-[1.0625rem] leading-relaxed text-[var(--color-slate)]"
-                  >
+                  <p key={paragraph} className="measure text-ink-body">
                     {paragraph}
                   </p>
                 ))}

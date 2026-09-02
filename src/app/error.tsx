@@ -4,18 +4,18 @@ import { useEffect } from 'react'
 
 import { Container } from '@/components/layout/container'
 import { Button } from '@/components/ui/button'
-import { SignalDot } from '@/components/visuals/signal-dot'
 
 /**
- * Segment error boundary. Never renders a stack trace or provider detail to the
- * visitor (docs/02 §11).
+ * Segment error boundary (09 5.45). Never renders a stack trace or provider
+ * detail to the visitor; the digest is the one reference shown, for support
+ * correlation. Error boundaries must be client components.
  */
 export default function Error({
   error,
-  reset,
+  retry,
 }: {
   error: Error & { digest?: string }
-  reset: () => void
+  retry: () => void
 }) {
   useEffect(() => {
     // Server-side telemetry is wired in Phase 7. The digest is safe to surface
@@ -25,23 +25,18 @@ export default function Error({
 
   return (
     <Container>
-      <div className="flex flex-col gap-6 py-24 md:py-36">
-        <p className="text-eyebrow flex items-center gap-2 text-[var(--color-amber)]">
-          <SignalDot size={6} tone="amber" />
-          Status 500, request failed
-        </p>
-        <h1 className="text-h1 measure-tight">Something went wrong on our side.</h1>
-        <p className="text-lead measure">
+      <div className="flex flex-col gap-6 py-section">
+        <p className="text-coordinate text-ink-2">Status 500, request failed</p>
+        <h1 className="text-h1 max-w-[var(--measure-h1)] text-ink">Something went wrong on our side.</h1>
+        <p className="text-lead measure-lead text-ink-body">
           This page could not be rendered. Trying again usually resolves it. If it keeps happening,
           the reference below helps us trace it.
         </p>
         {error.digest ? (
-          <p className="font-mono text-[0.8125rem] text-[var(--color-slate)]">
-            Reference: {error.digest}
-          </p>
+          <p className="text-caption text-ink-2">Reference: {error.digest}</p>
         ) : null}
         <div>
-          <Button onClick={reset}>Try again</Button>
+          <Button onClick={() => retry()}>Try again</Button>
         </div>
       </div>
     </Container>

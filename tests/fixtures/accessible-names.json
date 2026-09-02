@@ -1,0 +1,9 @@
+{
+  "shell": {
+    "img": ["", "Hendricks"]
+  },
+  "routes": {
+    "/": { "img": ["Brandon Lincoln Hendricks, founder of Hendricks"] },
+    "/about": { "img": ["Brandon Lincoln Hendricks, founder of Hendricks"] }
+  }
+}

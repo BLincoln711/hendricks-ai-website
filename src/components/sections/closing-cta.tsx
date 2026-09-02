@@ -4,7 +4,12 @@ import { SectionHeading } from '@/components/layout/section-heading'
 import { CtaGroup, PrimaryCta } from '@/components/ui/cta'
 import type { Cta } from '@/components/ui/cta'
 
-/** Final CTA band used by every commercial page (docs/14 §3). */
+/**
+ * The navy closing band the live pages still render. Replaced by the light
+ * `sections/closing-band.tsx` (09 5.43) and deleted with its last consumer in
+ * PR 13; until then it keeps its navy `Section`, whose `.on-plate` re-scopes
+ * every token the heading and the secondary button read.
+ */
 export function ClosingCta({
   eyebrow,
   title,
@@ -22,21 +27,12 @@ export function ClosingCta({
     <Section variant="navy" size="major" ariaLabelledBy="closing-cta-title">
       <Container>
         <div className="flex flex-col items-start gap-6">
-          <SectionHeading
-            eyebrow={eyebrow}
-            title={title}
-            id="closing-cta-title"
-            maxWidth="wide"
-            onNavy
-          />
+          <SectionHeading eyebrow={eyebrow} title={title} id="closing-cta-title" maxWidth="wide" />
 
           {body ? (
-            <div className="flex flex-col gap-4 measure">
+            <div className="measure-lead flex flex-col gap-4">
               {body.map((paragraph) => (
-                <p
-                  key={paragraph}
-                  className="text-lead text-[color-mix(in_srgb,var(--color-field)_74%,transparent)]"
-                >
+                <p key={paragraph} className="text-lead text-ink-body">
                   {paragraph}
                 </p>
               ))}
@@ -45,7 +41,7 @@ export function ClosingCta({
 
           <CtaGroup className="mt-2">
             <PrimaryCta cta={primaryCta} />
-            {secondaryCta ? <PrimaryCta cta={secondaryCta} variant="outlineOnNavy" /> : null}
+            {secondaryCta ? <PrimaryCta cta={secondaryCta} variant="secondary" /> : null}
           </CtaGroup>
         </div>
       </Container>

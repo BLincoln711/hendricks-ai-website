@@ -161,9 +161,14 @@ test.describe('Before a decision', () => {
   test('keeps every decision button visible before anything is scrolled', async ({ page }) => {
     // 16 MG-03 at the desktop viewport; layout.spec.ts covers the narrow ones.
     await page.goto('/')
+
+    // The sheet mounts after hydration, so wait for it before waiting for its
+    // entry transition; otherwise `settled` sees no animation yet and the
+    // geometry is read mid-slide.
+    const region = sheet(page)
+    await expect(region).toBeVisible()
     await settled(page)
 
-    const region = sheet(page)
     const sheetBox = (await region.boundingBox())!
     const viewport = page.viewportSize()!
 

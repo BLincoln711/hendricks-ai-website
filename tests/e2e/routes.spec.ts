@@ -1,4 +1,3 @@
-import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
 import { indexableBuiltRoutes, routes } from '@/config/routes'
@@ -29,29 +28,17 @@ import * as researchHub from '@/content/research/hub'
  *
  * Titles and H1s are read from the content objects rather than duplicated here,
  * so this suite verifies that the approved copy actually reaches the rendered
- * document. The unit suite is what pins the copy itself.
+ * document. The unit suite is what pins the copy itself. axe runs over the
+ * whole registry in `axe.spec.ts`.
  */
 
 /**
- * The text a page's H1 actually renders.
- *
- * `PageHero` nests the eyebrow inside the h1 as its first span, so the heading
- * reads as the eyebrow followed by the title rather than the title alone. That
- * is deliberate (see the comment in `page-hero.tsx`): the eyebrow carries the
- * page's proper noun, "Selection Intelligence", while the title is a sentence
- * that does not repeat it, and as a sibling `<p>` the page's own subject was
- * absent from its only h1. Asserting `hero.title` alone would therefore pass
- * only against a shape the site no longer renders.
- *
- * CSS uppercases the eyebrow, which does not change `textContent`, so the
- * expected string uses the approved source casing.
- *
- * `/about` is the single exception and is spelled out below: it builds its own
- * hero because the portrait sits in the primary column, and there the eyebrow
- * stays a sibling `<p>`.
+ * The text a page's H1 renders: the title alone. The eyebrow is a `p` sibling
+ * of the heading, outside its accessible name (16 SM-02; `PageHero`), so the
+ * approved title is what the only level-1 heading says.
  */
-function headingText(hero: { readonly eyebrow: string; readonly title: string }): string {
-  return `${hero.eyebrow} ${hero.title}`
+function headingText(hero: { readonly title: string }): string {
+  return hero.title
 }
 
 const commercialRoutes = [
@@ -63,8 +50,7 @@ const commercialRoutes = [
   { path: '/how-it-works', meta: howItWorks.meta, h1: headingText(howItWorks.hero) },
   { path: '/for-brands', meta: forBrands.meta, h1: headingText(forBrands.hero) },
   { path: '/for-agencies', meta: forAgencies.meta, h1: headingText(forAgencies.hero) },
-  // Own hero, eyebrow outside the h1.
-  { path: '/about', meta: about.meta, h1: about.hero.title },
+  { path: '/about', meta: about.meta, h1: headingText(about.hero) },
   { path: '/diagnostic', meta: diagnostic.meta, h1: headingText(diagnostic.hero) },
   { path: '/contact', meta: contact.meta, h1: headingText(contact.hero) },
 ] as const
@@ -112,7 +98,7 @@ const researchRoutes = [
   ...researchArticles.map((article) => ({
     path: article.path,
     meta: article.content.meta,
-    h1: headingText({ eyebrow: article.content.hero.eyebrow, title: article.content.hero.title }),
+    h1: headingText(article.content.hero),
   })),
 ]
 
@@ -171,23 +157,6 @@ for (const route of builtRoutes) {
 
       await expect(page.getByRole('main')).toHaveCount(1)
       await expect(page.getByRole('navigation', { name: 'Breadcrumb' })).toBeVisible()
-    })
-
-    test('has no serious or critical accessibility violations', async ({ page }) => {
-      await page.goto(route.path)
-
-      const results = await new AxeBuilder({ page })
-        .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
-        .analyze()
-
-      const blocking = results.violations.filter(
-        (violation) => violation.impact === 'serious' || violation.impact === 'critical',
-      )
-
-      expect(
-        blocking,
-        blocking.map((v) => `${v.id}: ${v.help} (${v.nodes.length} nodes)`).join('\n'),
-      ).toEqual([])
     })
 
     test('mentions The Search Economy only on /about', async ({ page }) => {

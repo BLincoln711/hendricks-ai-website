@@ -55,6 +55,8 @@ export const metadata: Metadata = buildMetadata({
  * counts the words of a rendered page. No popularity metric appears at all.
  */
 function ArticleCard({ article, featured = false }: { article: ResearchArticle; featured?: boolean }) {
+  const titleId = `research-${article.slug}-title`
+
   return (
     <article
       className={
@@ -75,6 +77,7 @@ function ArticleCard({ article, featured = false }: { article: ResearchArticle; 
       </div>
 
       <h3
+        id={titleId}
         className={
           featured
             ? 'text-h3 max-w-[26ch] text-[var(--color-navy)]'
@@ -122,8 +125,15 @@ function ArticleCard({ article, featured = false }: { article: ResearchArticle; 
         </div>
       </dl>
 
+      {/*
+        The card title above is already the link to the study, so this repeated
+        label is qualified by the title through `aria-describedby`; otherwise
+        five links would share one accessible name for five destinations
+        (16 SM-10).
+      */}
       <Link
         href={article.path}
+        aria-describedby={titleId}
         className="group inline-flex items-center gap-1.5 font-medium text-[var(--color-blue)] underline decoration-1 underline-offset-4 transition-colors hover:text-[var(--color-blue-hover)]"
       >
         Read the study

@@ -6,6 +6,7 @@ import { Section } from '@/components/layout/section'
 import { SectionHeading } from '@/components/layout/section-heading'
 import { JsonLd } from '@/components/seo/json-ld'
 import { CtaGroup, PrimaryCta, TextCta } from '@/components/ui/cta'
+import { DataTable } from '@/components/ui/data-table'
 import { DemandToSelectionPath } from '@/components/visuals/demand-to-selection-path'
 import { SelectionMap } from '@/components/visuals/selection-map'
 import { SignalDot } from '@/components/visuals/signal-dot'
@@ -274,45 +275,14 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border)]">
-              <table className="w-full border-collapse text-left">
-                <caption className="sr-only">{distinction.tableCaption}</caption>
-                <thead>
-                  <tr className="bg-[var(--color-soft)]">
-                    <th
-                      scope="col"
-                      className="px-4 py-3 text-[0.8125rem] font-medium tracking-wide text-[var(--color-navy)] uppercase md:px-6"
-                    >
-                      Stage
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-4 py-3 text-[0.8125rem] font-medium tracking-wide text-[var(--color-navy)] uppercase md:px-6"
-                    >
-                      Business question
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {distinction.stages.map((row, index) => (
-                    <tr
-                      key={row.stage}
-                      className={index > 0 ? 'border-t border-[var(--color-border)]' : ''}
-                    >
-                      <th
-                        scope="row"
-                        className="px-4 py-3.5 align-top text-[0.9375rem] font-medium whitespace-nowrap text-[var(--color-navy)] md:px-6"
-                      >
-                        {row.stage}
-                      </th>
-                      <td className="px-4 py-3.5 align-top text-[0.9375rem] text-[var(--color-slate)] md:px-6">
-                        {row.question}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <DataTable
+              caption={distinction.tableCaption}
+              columns={[
+                { key: 'stage', header: 'Stage', rowHeader: true },
+                { key: 'question', header: 'Business question' },
+              ]}
+              rows={distinction.stages.map((row) => ({ stage: row.stage, question: row.question }))}
+            />
           </div>
         </Container>
       </Section>

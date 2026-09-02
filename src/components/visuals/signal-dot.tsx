@@ -1,32 +1,28 @@
 import { cn } from '@/lib/utils/cn'
 
-const tones = {
-  blue: 'bg-[var(--color-blue)]',
-  cyan: 'bg-[var(--color-cyan)]',
-  amber: 'bg-[var(--color-amber)]',
-  slate: 'bg-[var(--color-slate)]',
-} as const
-
 /**
- * The signal dot — the period in the wordmark, reused as a data point, a
- * checkpoint, and a resolved recommendation (docs/04 §3).
+ * The signal dot (09 5.46): the period in the wordmark, a resolved node, a
+ * status indicator. One colour, `--signal-dot`, which `.on-plate` re-scopes;
+ * the field ring is drawn only in SVG where the dot crosses a track, so the
+ * HTML dot takes none.
  *
- * Decorative by default. It carries no meaning that is not also stated in
- * adjacent text, so it stays hidden from assistive technology.
+ * Decorative: it carries no meaning that is not also stated in adjacent text,
+ * so it stays hidden from assistive technology. Never a bullet or an eyebrow
+ * prefix. `tone` is a no-op kept for the call sites the page PRs close.
  */
 export function SignalDot({
   size = 8,
-  tone = 'blue',
   className,
 }: {
   size?: number
-  tone?: keyof typeof tones
+  /** @deprecated No-op. The dot has one colour; other tones were removed (09 5.46). */
+  tone?: 'blue' | 'cyan' | 'amber' | 'slate'
   className?: string
 }) {
   return (
     <span
       aria-hidden="true"
-      className={cn('inline-block shrink-0 rounded-full', tones[tone], className)}
+      className={cn('inline-block shrink-0 rounded-full bg-signal-dot', className)}
       style={{ width: size, height: size }}
     />
   )

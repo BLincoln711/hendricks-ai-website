@@ -159,6 +159,42 @@
 
 @layer components {
   /*
+   * Link styles (09 5.11). `.link` is the in-copy form: ink, a 1 px underline
+   * at 3 px offset that thickens on hover, colour unchanged; `.on-plate`
+   * re-scopes `--link` to field. `.link-standalone` adds the 44 px inline-flex
+   * box a tertiary, ledger or breadcrumb link is at every width (KF-09); prose
+   * links take the 2.5.8 inline exception and no padding.
+   */
+  .link {
+    color: var(--link);
+    text-decoration-line: underline;
+    text-decoration-thickness: var(--link-underline-width);
+    text-underline-offset: var(--link-underline-offset);
+    transition: text-decoration-thickness var(--duration-micro) var(--ease-standard);
+  }
+
+  .link:hover {
+    color: var(--link-hover);
+    text-decoration-thickness: var(--link-underline-hover-width);
+  }
+
+  .link-standalone {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--hx-space-2);
+    min-height: var(--link-min-height);
+    font-weight: var(--link-font-weight);
+  }
+
+  .link-standalone .link-arrow {
+    transition: transform var(--duration-micro) var(--ease-standard);
+  }
+
+  .link-standalone:hover .link-arrow {
+    transform: translateX(var(--link-arrow-shift));
+  }
+
+  /*
    * Mount-time entries (11 section 4). These are the four @starting-style
    * sites the 11 section 8 grep gate counts: the Solutions panel, the mobile
    * sheet with its overlay, the consent sheet and the preferences dialog. Each

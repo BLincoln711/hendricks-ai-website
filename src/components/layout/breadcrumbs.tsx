@@ -3,20 +3,25 @@ import { ChevronRight } from 'lucide-react'
 
 import { JsonLd } from '@/components/seo/json-ld'
 import { breadcrumbSchema, jsonLdGraph, type BreadcrumbEntry } from '@/lib/seo/json-ld'
-import { cn } from '@/lib/utils/cn'
 
 /**
- * Visible breadcrumbs and their BreadcrumbList schema render from one data
- * source, so the two can never drift (docs/13 §2).
+ * Breadcrumbs (09 5.41): location on every route but the homepage, with the
+ * BreadcrumbList schema rendered from the same data so the two cannot drift.
  *
- * Not used on the homepage (docs/03 §7).
+ * Every link is a 44 px box (`--link-min-height`) with 8 px clearance from its
+ * neighbours at every width; the decision 5 variance does not name
+ * breadcrumbs, so 24 px never applies here (16 KF-09). Separators are
+ * decorative; the last item carries `aria-current`.
+ *
+ * `onNavy` is a no-op kept for the /about call site PR 11 closes (handoff
+ * 5.3): `--link` and `--ink-2` re-scope under `.on-plate` on their own.
  */
 export function Breadcrumbs({
   items,
-  onNavy = false,
   path,
 }: {
   items: BreadcrumbEntry[]
+  /** @deprecated No-op. `.on-plate` re-scopes the link and ink tokens. */
   onNavy?: boolean
   /** Current route path. Gives the emitted list a stable `@id` so the page's
    *  WebPage node can reference it through `breadcrumb`. */
@@ -25,41 +30,25 @@ export function Breadcrumbs({
   return (
     <>
       <nav aria-label="Breadcrumb">
-        <ol className="flex flex-wrap items-center gap-1.5 text-[0.8125rem]">
+        <ol className="text-small flex flex-wrap items-center gap-x-2 gap-y-1 text-ink-2">
           {items.map((item, index) => {
             const isLast = index === items.length - 1
             return (
-              <li key={item.label} className="flex items-center gap-1.5">
+              <li key={item.label} className="flex items-center gap-2">
                 {item.href && !isLast ? (
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      'transition-colors',
-                      onNavy
-                        ? 'text-[color-mix(in_srgb,var(--color-field)_66%,transparent)] hover:text-[var(--color-cyan)]'
-                        : 'text-[var(--color-slate)] hover:text-[var(--color-blue)]',
-                    )}
-                  >
+                  <Link href={item.href} className="link link-standalone">
                     {item.label}
                   </Link>
                 ) : (
                   <span
                     aria-current={isLast ? 'page' : undefined}
-                    className={onNavy ? 'text-[var(--color-field)]' : 'text-[var(--color-navy)]'}
+                    className="inline-flex min-h-[var(--link-min-height)] items-center text-ink"
                   >
                     {item.label}
                   </span>
                 )}
                 {!isLast ? (
-                  <ChevronRight
-                    className={cn(
-                      'size-3.5',
-                      onNavy
-                        ? 'text-[color-mix(in_srgb,var(--color-field)_34%,transparent)]'
-                        : 'text-[var(--color-border)]',
-                    )}
-                    aria-hidden="true"
-                  />
+                  <ChevronRight className="size-3.5 text-rule-strong" aria-hidden="true" focusable="false" />
                 ) : null}
               </li>
             )

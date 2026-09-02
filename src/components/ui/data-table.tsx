@@ -11,11 +11,11 @@ export type DataTableColumn = {
 export type DataTableRow = Record<string, string>
 
 /**
- * Server-rendered table with a required caption (docs/13 §3).
- *
- * Narrow viewports get a focusable scroll region with a visible hint rather than
- * a silently clipped table. `tabIndex={0}` makes the region reachable so a
- * keyboard user can scroll it (WCAG 2.1.1).
+ * Data table (09 5.35): a required caption, `th scope` on every header, and a
+ * labelled scroll region so a narrow viewport gets a focusable region rather
+ * than a silently clipped table (16 SM-08; WCAG 2.1.1). The region's name is
+ * the caption, the head reads the tint ground with mono coordinate labels,
+ * and numerals are tabular.
  */
 export function DataTable({
   caption,
@@ -25,6 +25,7 @@ export function DataTable({
   className,
 }: {
   caption: string
+  /** Visible on research and methodology pages; sr-only elsewhere. */
   captionVisible?: boolean
   columns: readonly DataTableColumn[]
   rows: readonly DataTableRow[]
@@ -39,26 +40,20 @@ export function DataTable({
         tabIndex={0}
         role="region"
         aria-label={caption}
-        className="min-w-0 overflow-x-auto rounded-[var(--radius-card)] border border-[var(--color-border)]"
+        className="min-w-0 overflow-x-auto rounded-[var(--radius-small)] border border-rule-strong"
       >
-        <table className="w-full min-w-[34rem] border-collapse text-left">
-          <caption
-            className={
-              captionVisible
-                ? 'px-4 py-3 text-left text-[0.875rem] text-[var(--color-slate)] md:px-6'
-                : 'sr-only'
-            }
-          >
+        <table className="text-small w-full min-w-[34rem] border-collapse text-left tabular-nums">
+          <caption className={captionVisible ? 'px-4 py-3 text-left text-ink-2 md:px-6' : 'sr-only'}>
             {caption}
           </caption>
           <thead>
-            <tr className="bg-[var(--color-soft)]">
+            <tr className="bg-surface-tint">
               {columns.map((column) => (
                 <th
                   key={column.key}
                   scope="col"
                   style={column.width ? { width: column.width } : undefined}
-                  className="px-4 py-3 text-[0.8125rem] font-medium tracking-wide text-[var(--color-navy)] uppercase md:px-6"
+                  className="text-coordinate px-4 py-3 text-ink-2 md:px-6"
                 >
                   {column.header}
                 </th>
@@ -67,24 +62,14 @@ export function DataTable({
           </thead>
           <tbody>
             {rows.map((row, rowIndex) => (
-              <tr
-                key={columns[0] ? row[columns[0].key] : rowIndex}
-                className={rowIndex > 0 ? 'border-t border-[var(--color-border)]' : ''}
-              >
+              <tr key={columns[0] ? row[columns[0].key] : rowIndex} className={rowIndex > 0 ? 'border-t border-rule' : ''}>
                 {columns.map((column) =>
                   column.rowHeader ? (
-                    <th
-                      key={column.key}
-                      scope="row"
-                      className="px-4 py-3.5 align-top text-[0.9375rem] font-medium text-[var(--color-navy)] md:px-6"
-                    >
+                    <th key={column.key} scope="row" className="px-4 py-3.5 align-top font-medium text-ink md:px-6">
                       {row[column.key]}
                     </th>
                   ) : (
-                    <td
-                      key={column.key}
-                      className="px-4 py-3.5 align-top text-[0.9375rem] leading-relaxed text-[var(--color-slate)] md:px-6"
-                    >
+                    <td key={column.key} className="px-4 py-3.5 align-top text-ink-body md:px-6">
                       {row[column.key]}
                     </td>
                   ),
@@ -95,7 +80,7 @@ export function DataTable({
         </table>
       </div>
 
-      <p aria-hidden="true" className="text-[0.75rem] text-[var(--color-slate)] sm:hidden">
+      <p aria-hidden="true" className="text-caption text-ink-2 sm:hidden">
         Scroll horizontally to see the full table.
       </p>
     </div>

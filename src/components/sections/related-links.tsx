@@ -13,11 +13,12 @@ export type RelatedLink = {
 }
 
 /**
- * "Related" block that satisfies the internal-linking rules in docs/03 §6.
+ * Internal links block (09 5.55; docs/03 §6) in the ledger grammar: ruled rows
+ * rather than card boxes, each link a 44 px standalone link (KF-09).
  *
- * Unbuilt routes are filtered out rather than rendered as dead links, so the
- * editorial pages listed for Phase 6 can be added to a page's `related` array
- * now and will appear automatically once those routes exist.
+ * Unbuilt routes are filtered out rather than rendered as dead links, so a
+ * route can be added to a page's `related` array before it exists and will
+ * appear automatically once it does.
  */
 export function RelatedLinks({
   eyebrow = 'Keep Reading',
@@ -37,24 +38,14 @@ export function RelatedLinks({
         <div className="flex flex-col gap-10">
           <SectionHeading eyebrow={eyebrow} title={title} id="related-title" level={2} />
 
-          <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid gap-x-[var(--ledger-gap)] md:grid-cols-2 lg:grid-cols-3">
             {available.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="group flex h-full flex-col gap-2 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white p-5 transition-colors hover:border-[var(--color-blue)]"
-                >
-                  <span className="flex items-center gap-1.5 text-[1.0625rem] font-medium text-[var(--color-navy)]">
-                    {link.label}
-                    <ArrowRight
-                      aria-hidden="true"
-                      className="size-4 text-[var(--color-blue)] transition-transform duration-[var(--duration-micro)] group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
-                    />
-                  </span>
-                  <span className="text-[0.875rem] leading-relaxed text-[var(--color-slate)]">
-                    {link.description}
-                  </span>
+              <li key={link.href} className="flex flex-col gap-1 border-t border-rule py-4">
+                <Link href={link.href} className="link link-standalone self-start">
+                  {link.label}
+                  <ArrowRight aria-hidden="true" focusable="false" className="link-arrow size-4 motion-reduce:transition-none" />
                 </Link>
+                <span className="text-small text-ink-2">{link.description}</span>
               </li>
             ))}
           </ul>

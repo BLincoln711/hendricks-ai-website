@@ -5,24 +5,36 @@ import type { ComponentProps } from 'react'
 import { cn } from '@/lib/utils/cn'
 
 /**
- * Button treatments from docs/04 §10. Height 48–52px on the default size to meet
- * the 44px minimum touch target with room to spare.
+ * Buttons (09 5.10). Every part reads a `--button-*` token, so the same two
+ * variants render on light and inside `.on-plate`, where the primary becomes
+ * field ground with an ink label (D13) without a prop.
+ *
+ * The focus ring is the global `:focus-visible` rule (KF-06). Active adds a
+ * 1 px inset ring to the hover ground. Disabled is a real `disabled`
+ * attribute, never opacity.
+ *
+ * `outlineOnNavy` is deprecated: it renders the secondary variant, which is
+ * what a plate needs, and is deleted with its last call site (handoff 5.3).
  */
+const secondary =
+  'border-[var(--button-secondary-edge)] bg-[var(--button-secondary-bg)] text-[var(--button-secondary-fg)] hover:border-[var(--button-secondary-hover-edge)] hover:bg-[var(--button-secondary-hover-bg)] active:bg-[var(--button-secondary-active-bg)]'
+
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 rounded-[var(--radius-button)] text-center font-medium transition-colors duration-[var(--duration-micro)] ease-[var(--ease-standard)] disabled:pointer-events-none disabled:opacity-60',
+  'inline-flex items-center justify-center gap-[var(--button-gap)] rounded-[var(--button-radius)] border border-[length:var(--button-edge-width)] text-center text-[length:var(--button-font-size)] leading-[var(--leading-small)] [font-weight:var(--button-font-weight)] [transition:var(--button-transition)] disabled:pointer-events-none disabled:border-[var(--button-disabled-edge)] disabled:bg-[var(--button-disabled-bg)] disabled:text-[var(--button-disabled-fg)]',
   {
     variants: {
       variant: {
         primary:
-          'bg-[var(--color-blue)] text-white hover:bg-[var(--color-blue-hover)]',
-        secondary:
-          'border border-[var(--color-border)] bg-white text-[var(--color-navy)] hover:border-[var(--color-slate)] hover:bg-[var(--color-soft)]',
-        outlineOnNavy:
-          'border border-[color-mix(in_srgb,var(--color-field)_35%,transparent)] bg-transparent text-[var(--color-field)] hover:border-[var(--color-field)] hover:bg-[color-mix(in_srgb,var(--color-field)_10%,transparent)]',
+          'border-transparent bg-[var(--button-primary-bg)] text-[var(--button-primary-fg)] hover:bg-[var(--button-primary-hover-bg)] active:bg-[var(--button-primary-active-bg)] active:shadow-[inset_0_0_0_1px_var(--button-primary-active-inset)]',
+        secondary,
+        /** @deprecated Renders `secondary`; retired with the last call site. */
+        outlineOnNavy: secondary,
       },
       size: {
-        default: 'h-12 px-6 text-[1rem] md:h-[52px] md:px-7',
-        small: 'h-11 px-5 text-[0.9375rem]',
+        /** 48 px, the default control height. */
+        default: 'min-h-[var(--button-height)] px-[var(--button-pad-x)]',
+        /** 44 px compact: the header button and controls beside text. */
+        small: 'min-h-[var(--button-height-compact)] px-[var(--button-pad-x-compact)]',
       },
     },
     defaultVariants: { variant: 'primary', size: 'default' },
