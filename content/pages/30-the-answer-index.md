@@ -315,7 +315,7 @@ CTAs: See what a Selection Intelligence baseline covers. Read the Methodology.
 
 Reviewed 2026-09-01.
 
-This page reports first-party measurement produced by Hendricks. Every figure is read from run-2026-09-01T022903Z or, for the two self-agreement figures, run-2026-09-01T014944Z, both taken against panel v2.0, sha 7a15060d8b5ec5f6, with immutable run files keyed by run id. The full corpus is published as an open data package carrying one row per cite event, the complete panel, every domain's classification with how it was assigned, the 60-domain blind audit, and per-file digests, so every figure on this page can be recomputed without re-running the panel. The page reports no third-party research, no vendor study, and no statistic from anyone else, and therefore cites none.
+This page reports first-party measurement produced by Hendricks. Every figure is read from run-2026-09-01T022903Z or, for the two self-agreement figures, run-2026-09-01T014944Z, both taken against panel v2.0, sha 7a15060d8b5ec5f6, with immutable run files keyed by run id. The full corpus is published as an open data package carrying one row per cite event, the complete panel, every domain's classification with how it was assigned, the 60-domain blind audit, and per-file digests, so every figure on this page can be recomputed without re-running the panel. The package is archived at Zenodo under DOI 10.5281/zenodo.22242103, and DOI 10.5281/zenodo.22242102 always resolves to its latest version. The page reports no third-party research, no vendor study, and no statistic from anyone else, and therefore cites none.
 
 Applied in: the Selection Intelligence solution, the Methodology, the Search Intelligence Diagnostic.
 
