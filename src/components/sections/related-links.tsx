@@ -38,7 +38,7 @@ export function RelatedLinks({
         <div className="flex flex-col gap-10">
           <SectionHeading eyebrow={eyebrow} title={title} id="related-title" level={2} />
 
-          <ul className="grid gap-x-[var(--ledger-gap)] md:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid gap-x-[var(--ledger-gap)] border-b border-rule md:grid-cols-2 lg:grid-cols-3">
             {available.map((link) => (
               <li key={link.href} className="flex flex-col gap-1 border-t border-rule py-4">
                 <Link href={link.href} className="link link-standalone self-start">

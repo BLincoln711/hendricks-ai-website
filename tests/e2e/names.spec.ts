@@ -17,9 +17,12 @@ import { sweepRoutes } from './lib/routes'
  * Inline SVG: every `svg` is either decorative (`aria-hidden="true"`) or
  * exposed with `role="img"` and a name; the named ones are listed per route.
  *
- * Links: no name maps to two destinations on one page unless
- * `aria-describedby` qualifies it, and "Read more", "Learn more" and
- * "Click here" never appear.
+ * Links: no accessible name maps to two destinations on one page unless the
+ * text `aria-describedby` resolves to differs between them (the same
+ * description on both does not qualify either), and "Read more", "Learn
+ * more" and "Click here" never appear. The name follows the accname
+ * precedence the site uses: `aria-labelledby`, then `aria-label`, then the
+ * text content with any image alt inside it.
  */
 
 type Names = { img?: string[]; svg?: string[] }
@@ -74,13 +77,29 @@ for (const path of sweepRoutes) {
     })
 
     test('SM-10: every link name states one destination', async ({ page }) => {
-      const links = await page.locator('a[href]').evaluateAll((anchors) =>
-        anchors.map((anchor) => ({
-          name: (anchor.getAttribute('aria-label') ?? anchor.textContent ?? '').replace(/\s+/g, ' ').trim(),
-          href: anchor.getAttribute('href') ?? '',
-          qualified: Boolean(anchor.getAttribute('aria-describedby')),
-        })),
-      )
+      const links = await page.locator('a[href]').evaluateAll((anchors) => {
+        const collapse = (text: string | null | undefined) => (text ?? '').replace(/\s+/g, ' ').trim()
+        const referenced = (ids: string | null) =>
+          collapse(
+            (ids ?? '')
+              .split(/\s+/)
+              .filter(Boolean)
+              .map((id) => document.getElementById(id)?.textContent ?? '')
+              .join(' '),
+          )
+        return anchors.map((anchor) => {
+          const clone = anchor.cloneNode(true) as HTMLElement
+          for (const img of clone.querySelectorAll('img')) img.replaceWith(img.getAttribute('alt') ?? '')
+          return {
+            name:
+              referenced(anchor.getAttribute('aria-labelledby')) ||
+              collapse(anchor.getAttribute('aria-label')) ||
+              collapse(clone.textContent),
+            href: anchor.getAttribute('href') ?? '',
+            description: referenced(anchor.getAttribute('aria-describedby')),
+          }
+        })
+      })
 
       const banned = links.filter((link) => BANNED_LINK_TEXT.test(link.name))
       expect(banned, banned.map((link) => `${link.name} -> ${link.href}`).join('\n')).toEqual([])
@@ -88,14 +107,16 @@ for (const path of sweepRoutes) {
       const empty = links.filter((link) => link.name === '')
       expect(empty, empty.map((link) => link.href).join('\n')).toEqual([])
 
+      // Two links share a key when both their name and their description
+      // match; a key that reaches two hrefs is ambiguous in context.
       const destinations = new Map<string, Set<string>>()
       for (const link of links) {
-        if (link.qualified) continue
-        destinations.set(link.name, (destinations.get(link.name) ?? new Set()).add(link.href))
+        const key = link.description ? `${link.name} (${link.description})` : link.name
+        destinations.set(key, (destinations.get(key) ?? new Set()).add(link.href))
       }
       const ambiguous = [...destinations]
         .filter(([, hrefs]) => hrefs.size > 1)
-        .map(([name, hrefs]) => `${name} -> ${[...hrefs].join(' | ')}`)
+        .map(([key, hrefs]) => `${key} -> ${[...hrefs].join(' | ')}`)
 
       expect(ambiguous, ambiguous.join('\n')).toEqual([])
     })

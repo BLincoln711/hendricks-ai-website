@@ -7,11 +7,13 @@ import { cn } from '@/lib/utils/cn'
  *
  * A tint head row with mono column labels, rows with a 44 px index column, a
  * name at the H4 role, a description at 52ch, an optional link and a mono
- * output column; hairline separators; an optional 2 px ink top rule. Below
- * 768 px the head hides and each cell carries its label inline, so no column
- * meaning is lost when the row stacks (16 TY-03). Order that carries meaning
- * is an `ol` (SM-06); never `table` semantics unless the data is tabular
- * (5.35).
+ * output column; hairline separators; an optional 2 px ink top rule. Each
+ * cell carries its column label: visible below 768 px, where the head row
+ * hides and the row stacks, and screen-reader only from 768 px, so the label
+ * reaches assistive technology at every width (16 TY-03). The head row is
+ * decorative because the cells already name their columns. Order that
+ * carries meaning is an `ol` (SM-06); never `table` semantics unless the data
+ * is tabular (5.35).
  *
  * Content comes from the typed content objects; the fact strip carries the
  * three approved cells and no fee figure.
@@ -37,12 +39,11 @@ export type LedgerRowData = {
 }
 
 const cell = 'flex flex-col gap-1 md:contents'
-const inlineLabel = 'text-coordinate text-ink-2 md:hidden'
+const inlineLabel = 'text-coordinate text-ink-2 md:sr-only'
 
-function LedgerHead({ columns, id }: { columns: LedgerColumns; id: string }) {
+function LedgerHead({ columns }: { columns: LedgerColumns }) {
   return (
     <div
-      id={id}
       aria-hidden="true"
       className="text-coordinate hidden grid-cols-[var(--ledger-index-col)_minmax(0,1.2fr)_minmax(0,1.6fr)_auto_auto] items-center gap-x-[var(--ledger-gap)] bg-[var(--ledger-head-bg)] px-3 py-2 tracking-[var(--ledger-head-tracking)] text-[var(--ledger-head-fg)] md:grid"
     >
@@ -133,11 +134,10 @@ export function LedgerList({
   className?: string
 }) {
   const List = ordered ? 'ol' : 'ul'
-  const headId = `${ariaLabelledBy ?? 'ledger'}-head`
 
   return (
     <div className={cn(topRule && 'border-t-2 border-[var(--ledger-rule-top)]', className)}>
-      <LedgerHead columns={columns} id={headId} />
+      <LedgerHead columns={columns} />
       <List aria-labelledby={ariaLabelledBy} className="border-b border-[var(--ledger-rule)]">
         {rows.map((row, index) => (
           <LedgerRow

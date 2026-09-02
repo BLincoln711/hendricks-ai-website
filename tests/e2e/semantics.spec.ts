@@ -6,7 +6,10 @@ import { NOT_FOUND_PATH, sweepRoutes } from './lib/routes'
  * Semantics and landmarks SM-01 to SM-08 (redesign 16 section 3) on every
  * built route and the not-found state. SM-03 (heading order) is the elevated
  * axe rule in `axe.spec.ts`; SM-06 (ordered stages as `ol`) is asserted on
- * the components that draw them in the unit suites.
+ * the components that draw them in the unit suites; SM-04's "real buttons for
+ * actions" rule is the source grep in `tests/unit/interactive-elements.test.ts`
+ * (React never serialises `onClick`, so the DOM cannot show it) and the
+ * role-without-element check below.
  */
 
 /**
@@ -118,12 +121,24 @@ for (const path of sweepRoutes) {
         )
       expect(unlabelled).toBe(0)
 
-      // Real buttons for actions, real links for navigation: nothing else
-      // carries a click handler.
-      const clickable = await page
-        .locator('[onclick]')
-        .evaluateAll((nodes) => nodes.filter((node) => !node.matches('a, button, input, select')).length)
-      expect(clickable).toBe(0)
+      // Real buttons for actions, real links for navigation: no element
+      // borrows the button or link role, and nothing joins the tab order by
+      // `tabindex` unless it is a native control or a labelled scroll region.
+      const borrowed = await page.evaluate(() => {
+        const native = 'a, button, input, select, textarea, summary'
+        const offenders: string[] = []
+        for (const node of document.querySelectorAll<HTMLElement>('[role="button"], [role="link"]')) {
+          if (!node.matches(native)) offenders.push(`<${node.tagName.toLowerCase()} role="${node.getAttribute('role')}">`)
+        }
+        for (const node of document.querySelectorAll<HTMLElement>('[tabindex]')) {
+          const tabIndex = Number(node.getAttribute('tabindex'))
+          if (tabIndex < 0 || node.matches(native)) continue
+          if (node.getAttribute('role') === 'region' && node.getAttribute('aria-label')) continue
+          offenders.push(`<${node.tagName.toLowerCase()} tabindex="${tabIndex}">`)
+        }
+        return offenders
+      })
+      expect(borrowed, borrowed.join('\n')).toEqual([])
     })
 
     test('SM-08: every table is captioned, scoped and inside a labelled scroll region', async ({ page }) => {

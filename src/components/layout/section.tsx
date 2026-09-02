@@ -22,10 +22,12 @@ const variants = {
 /**
  * Vertical rhythm. `--space-section` is the distance between two sections (72
  * px; 112 from 1024), so `standard` takes half on each side. `major` keeps a
- * full step for heroes and closing bands.
+ * full step for heroes and closing bands. `small` (32 px; 40 from 768) is the
+ * notes and references band; it reads the space primitives directly because
+ * the token file names no semantic step below `--space-section`.
  */
 const sizes = {
-  small: 'py-8 md:py-10',
+  small: 'py-[var(--hx-space-8)] md:py-[var(--hx-space-10)]',
   standard: 'py-[calc(var(--space-section)/2)]',
   major: 'py-section',
 } as const

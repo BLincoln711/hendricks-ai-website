@@ -51,11 +51,19 @@ describe('LedgerList', () => {
     expect(screen.getByText('Demand Map')).toHaveClass('font-mono')
   })
 
-  it('keeps the column heads out of the accessibility tree and labels cells inline instead', () => {
+  it('labels every described cell in the accessibility tree at every width', () => {
     render(<LedgerList rows={phases} columns={columns} />)
 
     const [row] = screen.getAllByRole('listitem')
-    expect(within(row).getByText('Question')).toHaveClass('md:hidden')
+    for (const label of ['Question', 'Output']) {
+      const inline = within(row).getByText(label)
+      // Visible below 768 px, screen-reader only from 768 px; never display:none.
+      expect(inline).toHaveClass('md:sr-only')
+      expect(inline).not.toHaveClass('md:hidden')
+      expect(inline.closest('[aria-hidden="true"]')).toBeNull()
+    }
+
+    // The head row duplicates those labels, so it is decorative.
     expect(screen.getByText('Phase').closest('[aria-hidden="true"]')).not.toBeNull()
   })
 })
