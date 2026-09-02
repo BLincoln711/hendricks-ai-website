@@ -350,6 +350,34 @@ export default async function ResearchArticlePage({
       </Section>
 
       {/* Item 4, the checked half. Rendered only when the study ran checks. */}
+      {/* Optional downloads: the artifacts that travel with the study. */}
+      {content.downloads ? (
+        <Section variant="field" size="standard" ariaLabelledBy="downloads-title">
+          <Container>
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1fr)] lg:gap-16">
+              <SectionHeading
+                eyebrow={content.downloads.eyebrow}
+                title={content.downloads.title}
+                description={content.downloads.lead}
+                id="downloads-title"
+                level={2}
+              />
+
+              <div className="flex flex-col gap-6">
+                {content.downloads.items.map((item) => (
+                  <div key={item.cta.href} className="flex flex-col gap-2">
+                    <TextCta cta={item.cta} />
+                    <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                      {item.note}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Container>
+        </Section>
+      ) : null}
+
       {content.errorsFound ? (
         <Section variant="soft" size="major" ariaLabelledBy="errors-title">
           <Container>
