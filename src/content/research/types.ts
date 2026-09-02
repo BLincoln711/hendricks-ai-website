@@ -152,6 +152,18 @@ export type ResearchArticleContent = {
     note?: readonly string[]
   }
   /**
+   * Optional downloads, for a study that ships artifacts beside the page: a
+   * print rendering, a data package, an archived identifier. The page stays
+   * canonical; these are the same figures in forwardable and recomputable form.
+   * Not one of the fifteen required items, and rendered only when carried.
+   */
+  downloads?: {
+    eyebrow: string
+    title: string
+    lead?: string
+    items: readonly { cta: Cta; note: string }[]
+  }
+  /**
    * Item 4, the checked half. Optional: a study that only counts has nothing to
    * put here. Where it is used, every entry states the verification method and
    * the date, because a defect reported without a method a reader can repeat is

@@ -188,6 +188,16 @@ A domain is counted once per answer, never once per link, and every share on thi
 
 Every figure is read from run-2026-09-01T022903Z against panel v2.0, sha 7a15060d8b5ec5f6, with the self-agreement figures read against run-2026-09-01T014944Z. The full corpus ships as an open data package under this report's name, including one row per cite event, the complete panel, the classification of every domain with how it was assigned, and the 60-domain blind audit, so every figure on this page can be recomputed without re-running the panel.
 
+## Downloads
+
+### Take the report and the data with you
+
+This page is the canonical version of the study. These are the same figures in forwardable and recomputable form, and the data package here is byte-identical to the copy archived at Zenodo.
+
+- Download the report (PDF, 13 pages): /research/the-answer-index/the-answer-index-2026-09.pdf. 917 KB. The six findings with their denominators, the limits, and the citation block, composed for print and forwarding.
+- Download the data package (ZIP, 19 files): /research/the-answer-index/the-answer-index-2026-09-v2026.09.1.zip. 333 KB. The full 480-question panel, one row per citation event, every domain's classification with how it was assigned, the 60-domain blind audit, the methodology, and per-file SHA-256 digests. md5 9a0a18ef97e7dcafe41e07c2ce19d804, matching the Zenodo copy exactly.
+- Cite the dataset at its DOI: https://doi.org/10.5281/zenodo.22242103. The permanent identifier for this data release. DOI 10.5281/zenodo.22242102 always resolves to the latest version.
+
 ## Errors found
 
 ### A classifier that failed its audit, a vendor payload with a known defect, and forty findings that did not survive

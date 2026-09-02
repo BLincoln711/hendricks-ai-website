@@ -384,6 +384,42 @@ export const data = {
   ],
 } as const
 
+/** Optional downloads. The page is canonical; these travel. */
+export const downloads = {
+  eyebrow: 'Downloads',
+  title: 'Take the report and the data with you',
+  lead: 'This page is the canonical version of the study. These are the same figures in forwardable and recomputable form, and the data package here is byte-identical to the copy archived at Zenodo.',
+  items: [
+    {
+      cta: {
+        label: 'Download the report (PDF, 13 pages)',
+        href: '/research/the-answer-index/the-answer-index-2026-09.pdf',
+        external: true,
+        analytics: { location: 'tai_download_pdf' },
+      } satisfies Cta,
+      note: '917 KB. The six findings with their denominators, the limits, and the citation block, composed for print and forwarding.',
+    },
+    {
+      cta: {
+        label: 'Download the data package (ZIP, 19 files)',
+        href: '/research/the-answer-index/the-answer-index-2026-09-v2026.09.1.zip',
+        external: true,
+        analytics: { location: 'tai_download_data' },
+      } satisfies Cta,
+      note: '333 KB. The full 480-question panel, one row per citation event, every domain\u2019s classification with how it was assigned, the 60-domain blind audit, the methodology, and per-file SHA-256 digests. md5 9a0a18ef97e7dcafe41e07c2ce19d804, matching the Zenodo copy exactly.',
+    },
+    {
+      cta: {
+        label: 'Cite the dataset at its DOI',
+        href: 'https://doi.org/10.5281/zenodo.22242103',
+        external: true,
+        analytics: { location: 'tai_download_doi' },
+      } satisfies Cta,
+      note: 'The permanent identifier for this data release. DOI 10.5281/zenodo.22242102 always resolves to the latest version.',
+    },
+  ],
+} as const
+
 /**
  * Element 4, the checked half. Every entry states the verification method and
  * the date.
