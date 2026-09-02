@@ -2,12 +2,19 @@ import type { ReactNode } from 'react'
 
 import { cn } from '@/lib/utils/cn'
 
-/** Container widths from docs/04 §7. */
+/**
+ * Container widths (09 5.58). The four names resolve through the theme's
+ * `--container-*` keys to the layout tokens; the outer padding is `--gutter`.
+ */
 const widths = {
-  site: 'max-w-[1440px]',
-  standard: 'max-w-[1280px]',
-  wide: 'max-w-[1200px]',
-  narrow: 'max-w-[760px]',
+  /** 1440, header and footer. */
+  site: 'max-w-site',
+  /** 1280, content. */
+  standard: 'max-w-standard',
+  /** 1200, data tables. */
+  wide: 'max-w-wide',
+  /** 760, legal and editorial reading column. */
+  narrow: 'max-w-narrow',
 } as const
 
 export function Container({
@@ -20,8 +27,6 @@ export function Container({
   className?: string
 }) {
   return (
-    <div className={cn('mx-auto w-full px-5 sm:px-8 lg:px-12', widths[width], className)}>
-      {children}
-    </div>
+    <div className={cn('mx-auto w-full px-gutter', widths[width], className)}>{children}</div>
   )
 }

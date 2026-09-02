@@ -3,7 +3,6 @@ import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import Script from 'next/script'
 
-import { ConsentManager } from '@/components/consent/consent-manager'
 import { ConsentProvider } from '@/components/consent/consent-provider'
 import { ConsentedTags } from '@/components/consent/consented-tags'
 import { OptionalAnalytics } from '@/components/consent/optional-analytics'
@@ -50,7 +49,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="antialiased">
         <ConsentProvider>
           {children}
-          <ConsentManager />
           <OptionalAnalytics onVercel={onVercel} />
           <ConsentedTags
             gaMeasurementId={gaMeasurementId}

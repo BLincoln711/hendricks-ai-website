@@ -41,6 +41,16 @@ function recordAnalyticsRequests(page: Page): string[] {
   return seen
 }
 
+/** The consent sheet: a region labelled by its title (16 KF-03). */
+const sheet = (page: Page) => page.getByRole('region', { name: banner.title })
+
+/** Waits for the sheet's entry transition (11 section 4) before geometry is read. */
+function settled(page: Page) {
+  return page.waitForFunction(() =>
+    document.getAnimations().every((animation) => animation.playState !== 'running'),
+  )
+}
+
 function readConsent(page: Page) {
   return page.evaluate((key) => {
     const raw = window.localStorage.getItem(key)
@@ -77,7 +87,7 @@ test.describe('Before a decision', () => {
     const requests = recordAnalyticsRequests(page)
 
     await page.goto('/')
-    await expect(page.getByRole('heading', { name: banner.title })).toBeVisible()
+    await expect(sheet(page)).toBeVisible()
 
     expect(requests, `optional analytics fired before consent:\n${requests.join('\n')}`).toEqual([])
   })
@@ -101,27 +111,38 @@ test.describe('Before a decision', () => {
     // legal/01 §8 — only the consent choice itself may be stored before consent,
     // and no choice has been made yet.
     await page.goto('/')
-    await expect(page.getByRole('heading', { name: banner.title })).toBeVisible()
+    await expect(sheet(page)).toBeVisible()
 
     expect(await readConsent(page)).toBeNull()
   })
 
-  test('offers reject and accept with equal prominence and one action each', async ({ page }) => {
-    // docs/16 §6. Compared as rendered geometry and computed style, because this
-    // is a rule about what the visitor sees, not about markup.
+  test('offers reject, manage and accept with equal prominence and one action each', async ({
+    page,
+  }) => {
+    // docs/16 section 6; legal/01 section 9; 16 KF-03. Compared as rendered
+    // geometry and computed style, because this is a rule about what the
+    // visitor sees, not about markup.
     await page.goto('/')
 
-    const reject = page.getByRole('button', { name: banner.reject })
-    const accept = page.getByRole('button', { name: banner.accept })
+    const region = sheet(page)
+    const reject = region.getByRole('button', { name: banner.reject })
+    const manage = region.getByRole('button', { name: banner.manage })
+    const accept = region.getByRole('button', { name: banner.accept })
 
     await expect(reject).toBeVisible()
+    await expect(manage).toBeVisible()
     await expect(accept).toBeVisible()
 
-    const [rejectBox, acceptBox] = await Promise.all([reject.boundingBox(), accept.boundingBox()])
+    const [rejectBox, manageBox, acceptBox] = await Promise.all([
+      reject.boundingBox(),
+      manage.boundingBox(),
+      accept.boundingBox(),
+    ])
     expect(rejectBox?.height).toBe(acceptBox?.height)
+    expect(manageBox?.height).toBe(acceptBox?.height)
 
     const styleOf = (name: string) =>
-      page.getByRole('button', { name }).evaluate((node) => {
+      region.getByRole('button', { name }).evaluate((node) => {
         const style = getComputedStyle(node)
         return {
           background: style.backgroundColor,
@@ -132,7 +153,34 @@ test.describe('Before a decision', () => {
         }
       })
 
-    expect(await styleOf(banner.reject)).toEqual(await styleOf(banner.accept))
+    const acceptStyle = await styleOf(banner.accept)
+    expect(await styleOf(banner.reject)).toEqual(acceptStyle)
+    expect(await styleOf(banner.manage)).toEqual(acceptStyle)
+  })
+
+  test('keeps every decision button visible before anything is scrolled', async ({ page }) => {
+    // 16 MG-03 at the desktop viewport; layout.spec.ts covers the narrow ones.
+    await page.goto('/')
+    await settled(page)
+
+    const region = sheet(page)
+    const sheetBox = (await region.boundingBox())!
+    const viewport = page.viewportSize()!
+
+    for (const name of [banner.reject, banner.manage, banner.accept]) {
+      const box = (await region.getByRole('button', { name }).boundingBox())!
+      expect(box.y).toBeGreaterThanOrEqual(sheetBox.y)
+      expect(box.y + box.height).toBeLessThanOrEqual(sheetBox.y + sheetBox.height + 0.5)
+      expect(box.y + box.height).toBeLessThanOrEqual(viewport.height + 0.5)
+    }
+  })
+
+  test('does not take focus when it appears', async ({ page }) => {
+    // 16 KF-02: the sheet follows the footer and nothing steals focus on load.
+    await page.goto('/')
+    await expect(sheet(page)).toBeVisible()
+
+    expect(await page.evaluate(() => document.activeElement?.tagName)).toBe('BODY')
   })
 
   test('never offers a control that treats dismissal as consent', async ({ page }) => {
@@ -146,7 +194,7 @@ test.describe('Before a decision', () => {
 
   test('has no serious or critical accessibility violations', async ({ page }) => {
     await page.goto('/')
-    await expect(page.getByRole('heading', { name: banner.title })).toBeVisible()
+    await expect(sheet(page)).toBeVisible()
 
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
@@ -182,10 +230,10 @@ test.describe('Accepting analytics', () => {
   test('dismisses the banner and does not ask again on the next page', async ({ page }) => {
     await page.goto('/')
     await page.getByRole('button', { name: banner.accept }).click()
-    await expect(page.getByRole('heading', { name: banner.title })).toBeHidden()
+    await expect(sheet(page)).toBeHidden()
 
     await page.goto('/about')
-    await expect(page.getByRole('heading', { name: banner.title })).toBeHidden()
+    await expect(sheet(page)).toBeHidden()
   })
 
   test('announces the outcome to assistive technology', async ({ page }) => {
@@ -193,7 +241,19 @@ test.describe('Accepting analytics', () => {
     await page.goto('/')
     await page.getByRole('button', { name: banner.accept }).click()
 
-    await expect(page.locator('[aria-live="polite"]')).toHaveText('Optional analytics accepted.')
+    // Through the shared announcer (09 5.60): one polite status region.
+    await expect(page.getByRole('status')).toHaveText('Optional analytics accepted.')
+  })
+
+  test('moves focus to main without scrolling once the sheet is gone', async ({ page }) => {
+    // 11 section 4: the decision button unmounts with the sheet, so focus goes
+    // somewhere deliberate rather than to body.
+    await page.goto('/')
+    await page.getByRole('button', { name: banner.accept }).click()
+
+    await expect(sheet(page)).toBeHidden()
+    await expect(page.locator('main#main')).toBeFocused()
+    expect(await page.evaluate(() => window.scrollY)).toBe(0)
   })
 
   test('loads no GA4 or LinkedIn tag when measurement env IDs are empty', async ({ page }) => {
@@ -201,7 +261,7 @@ test.describe('Accepting analytics', () => {
 
     await page.goto('/')
     await page.getByRole('button', { name: banner.accept }).click()
-    await expect(page.getByRole('heading', { name: banner.title })).toBeHidden()
+    await expect(sheet(page)).toBeHidden()
     await page.goto('/about')
 
     expect(requests, `vendor tag fired with empty env:\n${requests.join('\n')}`).toEqual([])
@@ -254,6 +314,28 @@ test.describe('Withdrawing consent', () => {
       .at(-1)
     expect(update?.state.analytics_storage).toBe('denied')
   })
+
+  test('opens from a real button that names its dialog and takes focus back', async ({ page }) => {
+    // 09 5.59; 16 KF-04.
+    await page.goto('/')
+    await page.getByRole('button', { name: banner.reject }).click()
+
+    // Located structurally: while the dialog is open Radix hides the footer
+    // from the accessibility tree, and the role query would resolve to the
+    // dialog's own "Close privacy choices" control instead.
+    const control = page.locator('footer button[aria-haspopup="dialog"]')
+    await expect(control).toHaveText('Privacy Choices')
+    await expect(control).toHaveAttribute('aria-haspopup', 'dialog')
+    await expect(control).toHaveAttribute('aria-expanded', 'false')
+
+    await control.click()
+    await expect(page.getByRole('dialog')).toBeVisible()
+    await expect(control).toHaveAttribute('aria-expanded', 'true')
+
+    await page.keyboard.press('Escape')
+    await expect(page.getByRole('dialog')).toBeHidden()
+    await expect(control).toBeFocused()
+  })
 })
 
 test.describe('Privacy Choices modal', () => {
@@ -281,7 +363,7 @@ test.describe('Privacy Choices modal', () => {
 
     await expect(page.getByRole('dialog')).toBeHidden()
     expect(await readConsent(page)).toBeNull()
-    await expect(page.getByRole('heading', { name: banner.title })).toBeVisible()
+    await expect(sheet(page)).toBeVisible()
   })
 
   test('traps focus inside the dialog', async ({ page }) => {
@@ -303,6 +385,9 @@ test.describe('Privacy Choices modal', () => {
 
   test('has no serious or critical accessibility violations', async ({ page }) => {
     await expect(page.getByRole('dialog')).toBeVisible()
+    // The dialog enters from @starting-style; audit the resting frame, not a
+    // blended one.
+    await settled(page)
 
     const results = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
@@ -346,7 +431,7 @@ test.describe('Global Privacy Control', () => {
     // docs/16 §5 — the interface must not pressure the visitor to override it,
     // which starts with not putting the question in front of them. Asserted
     // after the record lands, so an unhydrated page cannot pass this by default.
-    await expect(page.getByRole('heading', { name: banner.title })).toBeHidden()
+    await expect(sheet(page)).toBeHidden()
   })
 
   test('explains the signal in the modal and offers no way to accept', async ({ page }) => {
@@ -383,6 +468,6 @@ test.describe('Global Privacy Control', () => {
 
     const state = await waitForConsentSource(page, 'gpc')
     expect(state?.analytics).toBe('denied')
-    await expect(page.getByRole('heading', { name: banner.title })).toBeHidden()
+    await expect(sheet(page)).toBeHidden()
   })
 })

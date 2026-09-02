@@ -117,23 +117,22 @@ export const routes = {
    * Research hub, shipped from `src/content/research/` rather than from Sanity.
    *
    * CONTENT_VERIFICATION.md R5 records this route as blocked on Sanity
-   * credentials. docs/17 §7 wave 2.1 reverses that: the block was a sequencing
-   * assumption rather than a credential, and the definition pages above had
-   * already proved that version-controlled editorial content ships fine. A dated
-   * measurement with a stated method is, if anything, the content that least
-   * belongs behind an editor with no diff.
+   * credentials. docs/17 section 7 wave 2.1 reverses that: the block was a
+   * sequencing assumption rather than a credential, and the definition pages
+   * above had already proved that version-controlled editorial content ships
+   * fine. A dated measurement with a stated method is, if anything, the content
+   * that least belongs behind an editor with no diff.
    *
-   * The hub is absent from primary navigation today, and the condition that
-   * kept it out no longer holds. `content/pages/12-research.md` gates the link
-   * on publishing three category foundation pages; five studies are published
-   * under this route. Research returns to primary navigation between For
-   * Agencies and About with the header rebuild (CANON R6 default, redesign
-   * handoff PR 3), and closing CONTENT_VERIFICATION R6 is Brandon's act, not a
-   * build commit. Until then the hub is reachable from the persistent footer
-   * research column, which renders on every route, and from the related list
-   * on `/corrections`. No commercial page yet links to the research in body
-   * copy; that placement lands with the page rebuilds. The matching note sits
-   * on `primaryNavigation` in `src/config/navigation.ts`.
+   * The hub sits in primary navigation between For Agencies and About (CANON
+   * R6 default; redesign 03 section 2), restored with the header rebuild.
+   * `content/pages/12-research.md` gated that link on publishing three category
+   * foundation pages; the four definition pages are built and five studies are
+   * published under this route, so the gate is met. Closing CONTENT_VERIFICATION
+   * R6 is Brandon's act, not a build commit. The hub is also reachable from the
+   * persistent footer research column and from the related list on
+   * `/corrections`. No commercial page yet links to the research in body copy;
+   * that placement lands with the page rebuilds. The matching note sits on
+   * `primaryNavigation` in `src/config/navigation.ts`.
    */
   research: { path: '/research', label: 'Research Hub', indexable: true, built: true },
 
@@ -167,12 +166,12 @@ export const routes = {
    * `check:links`, and every `isBuilt`-filtered link list read, and a dynamic
    * pattern here would advertise a literal `[slug]` URL to crawlers.
    *
-   * Publishing this article and the citation-structure study alongside it brings
-   * the section to three published assets. `content/pages/12-research.md` line
-   * 88 gates primary navigation on three category FOUNDATION pages, which is a
-   * different count from three studies, so `src/config/navigation.ts` is
-   * deliberately untouched. Moving that gate is Brandon's decision, not a side
-   * effect of shipping research.
+   * Publishing this article and the citation-structure study alongside it
+   * brought the section to three published assets. `content/pages/12-research.md`
+   * line 88 gates primary navigation on three category FOUNDATION pages, a
+   * different count from three studies, so this article did not move the link
+   * on its own; the foundation pages did, and `src/config/navigation.ts` carries
+   * the entry with the note on `research` above.
    */
   researchAnswerStabilityTwoRuns: {
     path: '/research/answer-stability-two-runs',

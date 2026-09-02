@@ -4,47 +4,31 @@ import { isBuilt, routes } from './routes'
 export type NavigationItem = {
   label: string
   href: string
-  description?: string
   children?: NavigationItem[]
 }
 
 /**
- * Primary navigation (docs/03 §2).
+ * Primary navigation (redesign 03 section 2; docs/03 section 2).
  *
- * Deliberately excluded: The Search Economy, Platform, and Pricing. The Search
- * Economy is an external publication and may appear only inside Brandon's
- * biography on /about.
+ * Deliberately excluded: The Search Economy, Platform, Pricing, Methodology,
+ * Contact and the definition pages. The Search Economy is an external
+ * publication and may appear only inside Brandon's biography on /about; the
+ * rest are reachable from the footer on every route.
  *
  * Every list is filtered through `isBuilt` so navigation never advertises a
  * route that does not exist yet. Without this, Next.js prefetches the link on
  * hover and the browser records a 404. Entries defined here reappear
- * automatically when their route lands — the editorial routes arrive in Phase 6.
+ * automatically when their route lands.
  */
 function built(items: NavigationItem[]): NavigationItem[] {
   return items.filter((item) => isBuilt(item.href))
 }
 
 export const solutionsNavigation: NavigationItem[] = built([
-  {
-    label: 'Search Demand Intelligence',
-    href: routes.searchDemandIntelligence.path,
-    description: 'Know which customer decisions are worth winning.',
-  },
-  {
-    label: 'Selection Intelligence',
-    href: routes.selectionIntelligence.path,
-    description: 'Know when your brand enters the shortlist.',
-  },
-  {
-    label: 'Search Presence Engineering',
-    href: routes.searchPresenceEngineering.path,
-    description: 'Build the conditions that make your brand easier to recommend.',
-  },
-  {
-    label: 'Search Impact Measurement',
-    href: routes.searchImpactMeasurement.path,
-    description: 'Connect visibility with outcomes the business can defend.',
-  },
+  { label: 'Search Demand Intelligence', href: routes.searchDemandIntelligence.path },
+  { label: 'Selection Intelligence', href: routes.selectionIntelligence.path },
+  { label: 'Search Presence Engineering', href: routes.searchPresenceEngineering.path },
+  { label: 'Search Impact Measurement', href: routes.searchImpactMeasurement.path },
 ])
 
 export const primaryNavigation: NavigationItem[] = built([
@@ -53,37 +37,46 @@ export const primaryNavigation: NavigationItem[] = built([
   { label: 'For Brands', href: routes.forBrands.path },
   { label: 'For Agencies', href: routes.forAgencies.path },
   /*
-    Research is absent from this list because of a content rule whose condition
-    has since been met, not because of an oversight.
+    Restored with the header rebuild (CANON R6 default; redesign 03 section 2).
 
-    content/pages/12-research.md line 88: "Do not launch a research index with no
-    meaningful content. Publish at least the three category foundation pages
-    before linking Research in the primary navigation." When this entry was
-    removed the hub carried one study; it now carries five, so the gate no
-    longer holds. The entry is restored in this position, between For Agencies
-    and About, with the header rebuild (CANON R6 default, redesign handoff PR
-    3), because the change is visual and belongs with that work. Closing
-    CONTENT_VERIFICATION R6 is Brandon's act, not a build commit.
-
-    The entry lived here from Phase 4 and was invisible only because
-    `routes.research.built` was false and `built()` filtered it out. Marking the
-    route built would have promoted it into primary navigation as a side effect
-    of shipping the page, which is why it was removed rather than left to the
-    flag.
-
-    Until it returns, the hub sits at the top of `footerNavigation.research`,
-    which renders on every route, and the related list on `/corrections` points
-    at it. See the matching note on `routes.research` in ./routes.ts.
+    content/pages/12-research.md line 88 gated this link on publishing at
+    least three category foundation pages. The four definition pages are
+    built and indexed and five studies are registered under /research, so the
+    gate is met under both readings. Closing CONTENT_VERIFICATION R6 is
+    Brandon's act, not a build commit. See the matching note on
+    `routes.research` in ./routes.ts.
   */
+  { label: 'Research', href: routes.research.path },
   { label: 'About', href: routes.about.path },
 ])
 
-/** Footer architecture (docs/03 §8). Results appears only when enabled. */
+/**
+ * Whether `href` is the current route or an ancestor of it, for
+ * `aria-current="page"` (16 KF-10). The homepage matches only itself, so the
+ * wordmark link and a `/` entry never light up on every route.
+ */
+export function isCurrentRoute(pathname: string, href: string): boolean {
+  return pathname === href || (href !== '/' && pathname.startsWith(`${href}/`))
+}
+
+/**
+ * The header button's destination (redesign 03 section 2; 14 DX-05; register
+ * B1). On /diagnostic it points at the fit tool's anchor so the most
+ * persistent CTA never reloads the page the visitor is converting on. The
+ * label never varies by route (WCAG 3.2.4).
+ */
+export const DIAGNOSTIC_FIT_ANCHOR = '#fit'
+
+export function headerCtaHref(pathname: string): string {
+  return pathname === routes.diagnostic.path ? DIAGNOSTIC_FIT_ANCHOR : routes.diagnostic.path
+}
+
+/** Footer architecture (redesign 03 section 3). Results appears only when enabled. */
 export const footerNavigation = {
   solutions: {
     heading: 'Solutions',
     items: built([
-      ...solutionsNavigation.map(({ label, href }) => ({ label, href })),
+      ...solutionsNavigation,
       { label: 'Search Intelligence Diagnostic', href: routes.diagnostic.path },
     ]),
   },
@@ -144,7 +137,7 @@ export const footerNavigation = {
 } as const
 
 /**
- * Footer legal row (legal/01 §11).
+ * Footer legal row (legal/01 section 11).
  *
  * Deliberately omits a "Do Not Sell or Share My Personal Information" link:
  * Hendricks neither sells personal information nor shares it for cross-context
@@ -153,7 +146,8 @@ export const footerNavigation = {
  * technology is introduced.
  *
  * The Privacy Choices control is not listed here because it is a button that
- * reopens the consent manager, not a route.
+ * reopens the consent manager, not a route. The footer renders it between
+ * Privacy Request and Corrections on every route (09 5.4, SM-07).
  */
 export const legalNavigation = built([
   { label: 'Privacy Notice', href: routes.privacy.path },

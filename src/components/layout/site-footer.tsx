@@ -1,20 +1,30 @@
-import Link from 'next/link'
-
 import { PrivacyChoicesButton } from '@/components/consent/privacy-choices-button'
 import { Container } from '@/components/layout/container'
+import { NavLink } from '@/components/layout/nav-link'
 import { Wordmark } from '@/components/layout/wordmark'
 import { footerNavigation, legalNavigation } from '@/config/navigation'
+import { routes } from '@/config/routes'
 import { siteConfig } from '@/config/site'
 
 /**
- * Site footer (docs/03 §8).
+ * Site footer (09 5.4; redesign 03 section 3). Light, on the tint ground.
  *
- * Four columns plus a legal row. The Search Economy must never appear here —
- * it belongs only inside Brandon's biography on /about.
+ * Brand block, four labelled `nav` columns and the legal row, rendered on
+ * every route so the definition pages and the hub have a sitewide inbound
+ * link. Contact keeps its position and Privacy Choices sits between Privacy
+ * Request and Corrections on every route (16 SM-07). The Search Economy must
+ * never appear here; it belongs only inside Brandon's biography on /about.
  */
+
+const LINK_CLASS =
+  'target-variance inline-flex min-h-[var(--link-min-height)] min-w-target items-center pr-1 text-small text-link underline decoration-[length:var(--link-underline-width)] underline-offset-[var(--link-underline-offset)] transition-[text-decoration-thickness] duration-[var(--duration-micro)] ease-standard hover:decoration-[length:var(--link-underline-hover-width)] aria-[current=page]:decoration-[length:var(--link-underline-hover-width)]'
+
+/** The Privacy Choices button renders immediately before this legal link. */
+const PRIVACY_CHOICES_BEFORE = routes.corrections.path
+
 export function SiteFooter() {
   // A column whose routes have not been built yet is dropped rather than
-  // rendered as an empty heading. The Research column returns in Phase 6.
+  // rendered as an empty heading.
   const columns = [
     footerNavigation.solutions,
     footerNavigation.audiences,
@@ -23,61 +33,50 @@ export function SiteFooter() {
   ].filter((column) => column.items.length > 0)
 
   return (
-    <footer className="on-plate bg-[var(--color-navy)] text-[var(--color-field)]">
-      <Container>
-        <div className="grid gap-12 py-16 md:py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,2.2fr)]">
-          <div className="flex flex-col gap-4">
-            <Wordmark tone="dark" width={148} />
-            <p className="text-[0.9375rem] leading-relaxed text-[color-mix(in_srgb,var(--color-field)_72%,transparent)] max-w-xs">
-              {siteConfig.categoryLine}
-            </p>
-            <p className="text-[0.8125rem] leading-relaxed text-[color-mix(in_srgb,var(--color-field)_58%,transparent)] max-w-xs">
-              {siteConfig.operatingLine}
-            </p>
+    <footer className="mt-section border-t border-rule bg-surface-tint pt-10 pb-8 min-[45rem]:pt-14">
+      <Container width="site">
+        <div className="grid gap-x-[var(--grid-gap)] gap-y-10 md:grid-cols-2 lg:grid-cols-[minmax(0,3fr)_repeat(4,minmax(0,2fr))]">
+          <div className="grid content-start gap-3 md:col-span-2 lg:col-span-1">
+            <Wordmark />
+            <p className="text-small max-w-[30ch] text-ink-2">{siteConfig.categoryLine}</p>
+            <p className="text-small max-w-[30ch] text-ink-2">{siteConfig.operatingLine}</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4">
-            {columns.map((column) => (
-              <nav key={column.heading} aria-label={column.heading}>
-                <h2 className="text-eyebrow mb-4 text-[color-mix(in_srgb,var(--color-field)_60%,transparent)]">
+          {columns.map((column) => {
+            const headingId = `footer-${column.heading.toLowerCase().replace(/\W+/g, '-')}`
+
+            return (
+              <nav key={column.heading} aria-labelledby={headingId} className="min-w-0">
+                {/* A coordinate paragraph, not a heading, so the footer adds nothing to the outline. */}
+                <p id={headingId} className="text-coordinate mb-3 text-ink-2">
                   {column.heading}
-                </h2>
-                <ul className="flex flex-col gap-3">
+                </p>
+                <ul className="grid">
                   {column.items.map((item) => (
                     <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        className="text-[0.875rem] leading-snug text-[color-mix(in_srgb,var(--color-field)_82%,transparent)] transition-colors hover:text-[var(--color-cyan)]"
-                      >
+                      <NavLink href={item.href} className={LINK_CLASS}>
                         {item.label}
-                      </Link>
+                      </NavLink>
                     </li>
                   ))}
                 </ul>
               </nav>
-            ))}
-          </div>
+            )
+          })}
         </div>
 
-        <div className="flex flex-col gap-4 border-t border-[color-mix(in_srgb,var(--color-field)_16%,transparent)] py-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[0.8125rem] text-[color-mix(in_srgb,var(--color-field)_58%,transparent)]">
-            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
-          </p>
-          <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            {legalNavigation.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="text-[0.8125rem] text-[color-mix(in_srgb,var(--color-field)_70%,transparent)] transition-colors hover:text-[var(--color-cyan)]"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <PrivacyChoicesButton />
-            </li>
-          </ul>
+        <div className="mt-10 grid border-t border-rule pt-4 text-small text-ink-2 min-[45rem]:flex min-[45rem]:flex-wrap min-[45rem]:items-center min-[45rem]:gap-x-6">
+          {legalNavigation.map((item) => (
+            <span key={item.href} className="contents">
+              {item.href === PRIVACY_CHOICES_BEFORE ? <PrivacyChoicesButton /> : null}
+              <NavLink href={item.href} className={LINK_CLASS}>
+                {item.label}
+              </NavLink>
+            </span>
+          ))}
+          <span className="inline-flex min-h-[var(--link-min-height)] items-center">
+            &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+          </span>
         </div>
       </Container>
     </footer>

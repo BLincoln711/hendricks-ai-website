@@ -1,65 +1,51 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { cn } from '@/lib/utils/cn'
-
 /**
- * The wordmark ships as artwork, not live text — it is a heavy geometric sans
- * that is not Geist, and the signal-dot period is part of the mark (docs/04 §3).
+ * The wordmark "Hendricks." with the signal dot as its period (09 5.54).
  *
- * The accessible name is "Hendricks" without the period: the period belongs to
- * the visual wordmark only and must not leak into prose, metadata, or
- * accessibility labels (docs/01 §4).
+ * This is the PNG placeholder handoff 5.8 allows: the repo holds no vector
+ * source, so the outlined SVG with its addressable `circle[data-part="dot"]`
+ * lands in a follow-up commit once the licensed artwork is in `assets/source/`.
+ * The accessible name is "Hendricks" without the period, which belongs to the
+ * visual mark only (CANON section 2). Never `priority` (16 PF-05).
+ *
+ * Height reads `--header-wordmark-height` (28 px; 24 below 720, 20 below 360)
+ * and width follows the file's own ratio. No `sizes`: the mark has fixed
+ * dimensions, so `next/image` emits its 1x and 2x candidates instead of the
+ * full device-width srcset a `sizes` value would request.
  */
 const INTRINSIC_WIDTH = 2346
 const INTRINSIC_HEIGHT = 507
+const REST_HEIGHT = 28
+const REST_WIDTH = Math.round((REST_HEIGHT / INTRINSIC_HEIGHT) * INTRINSIC_WIDTH)
 
-export function Wordmark({
-  tone = 'light',
-  width = 148,
-  className,
-  priority = false,
-}: {
-  /** `light` for light surfaces, `dark` for navy surfaces. */
-  tone?: 'light' | 'dark'
-  width?: number
-  className?: string
-  priority?: boolean
-}) {
-  const height = Math.round((width / INTRINSIC_WIDTH) * INTRINSIC_HEIGHT)
-
+/**
+ * The image variant, named "Hendricks" (16 SM-09). `decorative` drops the
+ * name where a named link or a dialog title already carries it.
+ */
+export function Wordmark({ decorative = false }: { decorative?: boolean }) {
   return (
     <Image
-      src={`/brand/hendricks-wordmark-${tone}.png`}
-      alt="Hendricks"
-      width={width}
-      height={height}
-      priority={priority}
-      className={cn('h-auto w-auto', className)}
-      style={{ width, height }}
-      sizes={`${width}px`}
+      src="/brand/hendricks-wordmark-light.png"
+      alt={decorative ? '' : 'Hendricks'}
+      aria-hidden={decorative || undefined}
+      width={REST_WIDTH}
+      height={REST_HEIGHT}
+      className="h-[var(--header-wordmark-height)] w-auto"
     />
   )
 }
 
-export function WordmarkLink({
-  tone = 'light',
-  width,
-  className,
-  priority,
-}: {
-  tone?: 'light' | 'dark'
-  width?: number
-  className?: string
-  priority?: boolean
-}) {
+/** The link variant for the header, named "Hendricks, home" (16 SM-09). */
+export function WordmarkLink() {
   return (
     <Link
       href="/"
-      className={cn('inline-flex items-center rounded-sm', className)}
       aria-label="Hendricks, home"
+      className="inline-flex min-h-target shrink-0 items-center rounded-[var(--focus-ring-radius)]"
     >
-      <Wordmark tone={tone} width={width} priority={priority} />
+      <Wordmark decorative />
     </Link>
   )
 }

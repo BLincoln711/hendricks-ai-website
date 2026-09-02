@@ -157,6 +157,88 @@
   }
 }
 
+@layer components {
+  /*
+   * Mount-time entries (11 section 4). These are the four @starting-style
+   * sites the 11 section 8 grep gate counts: the Solutions panel, the mobile
+   * sheet with its overlay, the consent sheet and the preferences dialog. Each
+   * transitions from its starting frame to rest when the element mounts or
+   * leaves `hidden`; close is immediate, since nothing animates on exit, and
+   * under reduced motion the duration tokens collapse to 0.01 ms.
+   */
+  .nav-panel {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity var(--duration-micro) var(--ease-standard),
+      transform var(--duration-micro) var(--ease-standard);
+  }
+
+  @starting-style {
+    .nav-panel {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+  }
+
+  .mobile-sheet-overlay {
+    opacity: 1;
+    transition: opacity var(--duration-micro) var(--ease-standard);
+  }
+
+  @starting-style {
+    .mobile-sheet-overlay {
+      opacity: 0;
+    }
+  }
+
+  .mobile-sheet {
+    transform: translateX(0);
+    transition: transform var(--duration-standard) var(--ease-standard);
+  }
+
+  @starting-style {
+    .mobile-sheet {
+      transform: translateX(100%);
+    }
+  }
+
+  .consent-sheet {
+    transform: translateY(0);
+    transition: transform var(--duration-standard) var(--ease-standard);
+  }
+
+  @starting-style {
+    .consent-sheet {
+      transform: translateY(100%);
+    }
+  }
+
+  /* Sheet-slide below 768 px, disclosure-open above (09 5.48). */
+  .consent-dialog {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity var(--duration-standard) var(--ease-standard),
+      transform var(--duration-standard) var(--ease-standard);
+  }
+
+  @starting-style {
+    .consent-dialog {
+      transform: translateY(100%);
+    }
+  }
+
+  @media (min-width: 48rem) {
+    @starting-style {
+      .consent-dialog {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+    }
+  }
+}
+
 /*
  * Reduced motion backstop (MO-01). The token file collapses every duration
  * token under the same query; this blanket catches anything that bypasses

@@ -633,20 +633,25 @@
 /*    44.9375 = 719, 48 = 768, 64 = 1024, 80 = 1280.                          */
 /* ========================================================================== */
 
-@media (max-width: 22.4375rem) {
-  :root {
-    --text-h1: var(--hx-text-h1-floor);   /* 34 px keeps the primary CTA inside 320 by 568 (B7) */
-    --header-wordmark-height: 20px;
-    --header-gap: var(--hx-space-2);
-  }
-}
-
 @media (max-width: 44.9375rem) {
   :root {
     --grid-gap: var(--hx-space-5);        /* 20 px */
     --plate-pad: var(--hx-space-4);       /* 16 px; plates run edge to edge */
     --header-wordmark-height: 24px;
     --header-gap: var(--hx-space-3);
+  }
+}
+
+/* Declared after the 44.9375rem step on purpose: both blocks match at 320 px
+ * and set the same two header tokens, so in 09-tokens.css source order the
+ * later 24 px and 12 px won and the 20 px wordmark and 8 px gap never applied
+ * (repo correction to deliverable 09 section 5; the source file still carries
+ * the shadowed order). */
+@media (max-width: 22.4375rem) {
+  :root {
+    --text-h1: var(--hx-text-h1-floor);   /* 34 px keeps the primary CTA inside 320 by 568 (B7) */
+    --header-wordmark-height: 20px;
+    --header-gap: var(--hx-space-2);
   }
 }
 

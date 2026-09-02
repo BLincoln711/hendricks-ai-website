@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
-import { footerNavigation, primaryNavigation } from '@/config/navigation'
+import {
+  footerNavigation,
+  headerCtaHref,
+  isCurrentRoute,
+  primaryNavigation,
+} from '@/config/navigation'
 import { features } from '@/config/feature-flags'
 import * as home from '@/content/pages/home'
 
@@ -84,6 +89,36 @@ describe('Navigation', () => {
   it('exposes the four solutions under Solutions', () => {
     const solutions = primaryNavigation.find((item) => item.label === 'Solutions')
     expect(solutions?.children).toHaveLength(4)
+  })
+
+  it('carries the six links in header order with Research restored', () => {
+    // Redesign 03 section 2; CANON R6 default. Methodology, Contact and the
+    // definition pages stay footer links.
+    expect(primaryNavigation.map((item) => item.label)).toEqual([
+      'Solutions',
+      'How It Works',
+      'For Brands',
+      'For Agencies',
+      'Research',
+      'About',
+    ])
+  })
+
+  it('marks a route current for itself and its descendants, never the homepage for all', () => {
+    // 16 KF-10.
+    expect(isCurrentRoute('/about', '/about')).toBe(true)
+    expect(isCurrentRoute('/solutions/selection-intelligence', '/solutions')).toBe(true)
+    expect(isCurrentRoute('/solutions', '/solutions/selection-intelligence')).toBe(false)
+    expect(isCurrentRoute('/solutions-archive', '/solutions')).toBe(false)
+    expect(isCurrentRoute('/about', '/')).toBe(false)
+    expect(isCurrentRoute('/', '/')).toBe(true)
+  })
+
+  it('points the header button at the fit anchor on /diagnostic and nowhere else', () => {
+    // Redesign 03 section 2; 14 DX-05; register B1.
+    expect(headerCtaHref('/diagnostic')).toBe('#fit')
+    expect(headerCtaHref('/')).toBe('/diagnostic')
+    expect(headerCtaHref('/for-agencies')).toBe('/diagnostic')
   })
 
   it('omits Results from the footer while the flag is off', () => {
