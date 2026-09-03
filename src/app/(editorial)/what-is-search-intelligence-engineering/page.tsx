@@ -61,6 +61,7 @@ export const metadata: Metadata = buildMetadata({
   title: meta.title,
   description: meta.description,
   path: routes.whatIsSearchIntelligenceEngineering.path,
+  maxImagePreview: true,
 })
 
 const relatedTerms = related.filter((entry) => isDefinitionRoute(entry.href))

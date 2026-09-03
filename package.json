@@ -17,7 +17,8 @@
     "check:content": "tsx scripts/validate-content.ts",
     "check:tokens": "tsx scripts/check-tokens.ts",
     "check:contrast": "tsx scripts/check-contrast.ts",
-    "verify": "pnpm lint && pnpm typecheck && pnpm check:content && pnpm check:tokens && pnpm check:contrast && pnpm check:links && pnpm test && pnpm build && pnpm test:e2e"
+    "check:jsonld": "tsx scripts/check-jsonld.ts",
+    "verify": "pnpm lint && pnpm typecheck && pnpm check:content && pnpm check:tokens && pnpm check:contrast && pnpm check:links && pnpm check:jsonld && pnpm test && pnpm build && pnpm test:e2e"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.16",

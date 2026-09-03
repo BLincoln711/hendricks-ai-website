@@ -15,6 +15,15 @@ type BuildMetadataInput = {
   publishedTime?: string
   modifiedTime?: string
   authors?: string[]
+  /**
+   * Adds `max-image-preview:large` to the robots directive.
+   *
+   * Restricted to research and definition pages, where the OG image is a
+   * generated reading that a search engine may usefully show. Absent on
+   * commercial routes so image-heavy previews cannot be mistaken for a product
+   * claim or a result the page does not make.
+   */
+  maxImagePreview?: boolean
 }
 
 /**
@@ -76,6 +85,7 @@ export function buildMetadata({
   publishedTime,
   modifiedTime,
   authors,
+  maxImagePreview = false,
 }: BuildMetadataInput): Metadata {
   const canonical = new URL(path, siteConfig.url).toString()
   const isProductionEnv = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production'
@@ -98,6 +108,7 @@ export function buildMetadata({
     robots: {
       index: shouldIndex,
       follow: shouldFollow,
+      ...(maxImagePreview ? { 'max-image-preview': 'large' as const } : {}),
       googleBot: { index: shouldIndex, follow: shouldFollow },
     },
     openGraph: {

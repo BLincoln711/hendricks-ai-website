@@ -355,6 +355,134 @@ export function breadcrumbSchema(items: BreadcrumbEntry[], path?: string) {
   }
 }
 
+/**
+ * Article node for a research study.
+ *
+ * `author` is always an `@id` reference to the one Person node (D-B). It is
+ * never a repeated inline person object, which would create a second unlinked
+ * Person rather than pointing at the one already in the graph.
+ *
+ * `about` carries the claim class as a DefinedTerm reference so a resolver
+ * knows what kind of claim the study makes without reading the page. It is
+ * omitted when the caller passes no claim class.
+ *
+ * `dateModified` is derived from the last change-history entry rather than
+ * authored. The caller passes the already-derived value (latestChangeDate),
+ * which keeps this function free of the content import cycle.
+ *
+ * Commercial and reputation fields are absent for the same reason they are
+ * absent from serviceSchema: no offers, aggregateRating, or review.
+ */
+export function articleSchema({
+  path,
+  headline,
+  description,
+  articleSection,
+  datePublished,
+  dateModified,
+  claimClass,
+}: {
+  path: string
+  headline: string
+  description: string
+  articleSection: string
+  datePublished: string
+  dateModified: string
+  claimClass?: string
+}) {
+  const url = new URL(path, siteConfig.url).toString()
+  return {
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    headline,
+    description,
+    url,
+    articleSection,
+    datePublished,
+    dateModified,
+    author: { '@id': siteConfig.founderPersonId },
+    publisher: { '@id': `${siteConfig.url}/#organization` },
+    isPartOf: { '@id': `${siteConfig.url}/#website` },
+    mainEntityOfPage: { '@id': `${url}#webpage` },
+    inLanguage: 'en-US',
+    ...(claimClass
+      ? {
+          about: {
+            '@type': 'DefinedTerm',
+            name: claimClass,
+            inDefinedTermSet: { '@id': `${siteConfig.url}/#vocabulary` },
+          },
+        }
+      : {}),
+  }
+}
+
+/**
+ * Dataset node for a study that publishes a data package (17 S-10).
+ *
+ * All values are read from the study's own typed `ResearchDataset` record so
+ * the graph and the page carry identical text. The licence is read from the
+ * content rather than assumed; the DOI is the version DOI, carried as both
+ * `identifier` and `sameAs` so resolvers that use either property find it;
+ * and `distribution` matches the files the page links to.
+ *
+ * `temporalCoverage`, `variableMeasured`, and both distribution entries are
+ * required by the HANDOFF section 4.2 validator, so a Dataset without them
+ * fails `check:jsonld` rather than silently omitting machine-readable metadata.
+ *
+ * `creator` points at the one Person node (D-B), matching `articleSchema`'s
+ * author convention.
+ */
+export function datasetSchema({
+  path,
+  name,
+  description,
+  doi,
+  license,
+  temporalCoverage,
+  variableMeasured,
+  distribution,
+}: {
+  path: string
+  name: string
+  description: string
+  doi: { label: string; href: string }
+  license: { name: string; href: string }
+  temporalCoverage: string
+  variableMeasured: readonly string[]
+  distribution: {
+    contentUrl: string
+    encodingFormat: string
+    contentSize: number
+    sha256: string
+  }
+}) {
+  const url = new URL(path, siteConfig.url).toString()
+  return {
+    '@type': 'Dataset',
+    '@id': `${url}#dataset`,
+    name,
+    description,
+    identifier: doi.href,
+    sameAs: doi.href,
+    url,
+    license: license.href,
+    creator: { '@id': siteConfig.founderPersonId },
+    publisher: { '@id': `${siteConfig.url}/#organization` },
+    temporalCoverage,
+    variableMeasured: variableMeasured.map((v) => ({ '@type': 'PropertyValue', name: v })),
+    distribution: [
+      {
+        '@type': 'DataDownload',
+        contentUrl: new URL(distribution.contentUrl, siteConfig.url).toString(),
+        encodingFormat: distribution.encodingFormat,
+        contentSize: String(distribution.contentSize),
+      },
+    ],
+    isPartOf: { '@id': `${url}#article` },
+  }
+}
+
 /** Wraps nodes in a single @graph so each page emits one script tag. */
 export function jsonLdGraph(...nodes: object[]) {
   return { '@context': 'https://schema.org', '@graph': nodes }

@@ -54,6 +54,7 @@ export const metadata: Metadata = buildMetadata({
   title: meta.title,
   description: meta.description,
   path: routes.aiSelectionProblem.path,
+  maxImagePreview: true,
 })
 
 const relatedTerms = related.filter((entry) => isDefinitionRoute(entry.href))

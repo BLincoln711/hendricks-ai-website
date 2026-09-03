@@ -28,7 +28,7 @@ import {
 } from '@/content/research'
 import { series } from '@/content/research/the-answer-index'
 import { publicationChrome } from '@/content/shared/publication-record'
-import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
+import { articleSchema, datasetSchema, jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 import { formatLongDate } from '@/lib/utils/format-date'
 
@@ -71,33 +71,25 @@ export async function generateMetadata({
     title: article.content.meta.title,
     description: article.content.meta.description,
     path: article.path,
+    maxImagePreview: true,
   })
 }
 
 /**
- * The `Article` node for a published study.
- *
- * `author` points at the one Person node (D-B), so a machine reading a study
- * byline and a machine reading the biography resolve to the same entity.
+ * The `Article` node for a published study. Delegates to the shared builder in
+ * `src/lib/seo/json-ld.ts` so all Article nodes across the site share one
+ * definition and one test.
  */
 function researchArticleSchema(article: ResearchArticle) {
-  const url = new URL(article.path, siteConfig.url).toString()
-
-  return {
-    '@type': 'Article',
-    '@id': `${url}#article`,
+  return articleSchema({
+    path: article.path,
     headline: article.title,
     description: article.summary,
-    url,
     articleSection: article.category,
     datePublished: article.publishedDate,
     dateModified: article.updatedDate,
-    author: { '@id': siteConfig.founderPersonId },
-    publisher: { '@id': `${siteConfig.url}/#organization` },
-    isPartOf: { '@id': `${siteConfig.url}/#website` },
-    mainEntityOfPage: { '@id': `${url}#webpage` },
-    inLanguage: 'en-US',
-  }
+    claimClass: article.claimClass,
+  })
 }
 
 /** Findings, checks, method steps and limits all render as the method list. */
@@ -192,6 +184,20 @@ export default async function ResearchArticlePage({
       <JsonLd
         data={jsonLdGraph(
           researchArticleSchema(article),
+          ...(content.dataset
+            ? [
+                datasetSchema({
+                  path: article.path,
+                  name: content.dataset.name,
+                  description: content.dataset.description,
+                  doi: content.dataset.doi,
+                  license: content.dataset.license,
+                  temporalCoverage: content.dataset.temporalCoverage,
+                  variableMeasured: content.dataset.variableMeasured,
+                  distribution: content.dataset.distribution,
+                }),
+              ]
+            : []),
           webPageSchema({
             path: article.path,
             title: content.meta.title,

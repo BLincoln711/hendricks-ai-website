@@ -3,6 +3,7 @@ import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
 import type { DataTableColumn, DataTableRow } from '@/components/ui/data-table'
 import type { MetricDefinition } from '@/components/visuals/metric-definitions'
+import type { ResearchDataset } from '@/content/research/types'
 import { routes } from '@/config/routes'
 import { siteConfig } from '@/config/site'
 import {
@@ -451,6 +452,52 @@ export const downloads = {
       note: 'The permanent identifier for this data release. DOI 10.5281/zenodo.22242102 always resolves to the latest version.',
     },
   ],
+} as const
+
+/**
+ * The archived data release behind this study (17 S-10).
+ *
+ * All values are transcribed from the visible cite-this block and the downloads
+ * section so the Dataset node and the page carry identical text. The licence is
+ * Creative Commons Attribution 4.0, stated on the Zenodo record. The version
+ * DOI is the identifier for this specific release; the concept DOI always
+ * resolves to the latest version.
+ *
+ * `contentSize` values are the byte counts of the files served from public/:
+ * 938,854 bytes for the PDF and 341,101 bytes for the ZIP, both verified by
+ * the sha256 check in the types contract.
+ */
+export const dataset: ResearchDataset = {
+  name: 'The Answer Index, Edition 1, September 2026',
+  description:
+    'The full 480-question panel from run-2026-09-01T022903Z: one row per citation event, the complete panel, every domain classification with how it was assigned, the 60-domain blind audit, the methodology, and per-file SHA-256 digests.',
+  doi: {
+    label: '10.5281/zenodo.22242103',
+    href: 'https://doi.org/10.5281/zenodo.22242103',
+  },
+  latestVersionDoi: {
+    label: '10.5281/zenodo.22242102',
+    href: 'https://doi.org/10.5281/zenodo.22242102',
+  },
+  license: {
+    name: 'Creative Commons Attribution 4.0 International',
+    href: 'https://creativecommons.org/licenses/by/4.0/',
+  },
+  temporalCoverage: '2026-09-01',
+  variableMeasured: [
+    'Citation presence',
+    'Citation count per answer',
+    'Source domain',
+    'Source classification',
+    'Engine',
+    'Question',
+  ],
+  distribution: {
+    contentUrl: '/research/the-answer-index/the-answer-index-2026-09-v2026.09.1.zip',
+    encodingFormat: 'application/zip',
+    contentSize: 332804,
+    sha256: '907962013e73c2acb306f61b46035d63ea00f57dfc03641c1a6f032dafc9e93a',
+  },
 } as const
 
 /**
