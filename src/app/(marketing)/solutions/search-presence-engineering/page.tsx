@@ -70,7 +70,7 @@ export default function SearchPresenceEngineeringPage() {
           { label: routes.searchPresenceEngineering.label },
         ]}
         visual={
-          <div className="rounded-[var(--radius-panel)] border border-[color-mix(in_srgb,var(--color-field)_20%,transparent)] bg-[var(--color-navy-2)] p-8">
+          <div className=" border border-rule-2 p-8">
             <SolutionMotif motif="presence" />
           </div>
         }

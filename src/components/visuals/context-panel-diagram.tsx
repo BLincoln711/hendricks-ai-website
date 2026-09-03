@@ -24,21 +24,21 @@ export function ContextPanelDiagram({
   return (
     <ul
       className={cn(
-        'grid gap-px overflow-hidden rounded-[var(--radius-tile)] border border-rule bg-rule sm:grid-cols-2',
+        'grid gap-px overflow-hidden border border-rule bg-rule sm:grid-cols-2',
         className,
       )}
     >
       {panels.map((panel, index) => (
-        <li key={panel.name} className="flex flex-col gap-3 bg-surface-raised p-6 md:p-8">
+        <li key={panel.name} className="flex flex-col gap-3 p-6 md:p-8">
           <span aria-hidden="true" className="text-coordinate text-ink-2">
             {String(index + 1).padStart(2, '0')}
           </span>
 
           <h3 className="text-h4 text-ink">{panel.name}</h3>
 
-          <p className="text-ink-body">{panel.description}</p>
+          <p className="text-ink">{panel.description}</p>
 
-          <p className="text-small mt-auto border-t border-rule pt-3 text-ink-body">
+          <p className="text-small mt-auto border-t border-rule pt-3 text-ink">
             <span className="text-coordinate block pb-1 text-ink-2">Question answered</span>
             {panel.question}
           </p>

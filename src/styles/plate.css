@@ -1,0 +1,695 @@
+/*
+ * Plate styles: the instrument. Every colour, size and duration reads a token.
+ *
+ * Retokened to the canvas (2026-09-02). The instrument no longer sits on a
+ * lifted navy surface: its ground is the page ground, so the plate frame has
+ * lost its fill, its radius, its registration line and its right bleed, and the
+ * inner panel has become a single top hairline. What remains of the boxed
+ * structure below (the label grid's cell borders, the lane rows) is noted where
+ * it stands and belongs to the instrument rebuild, not to the token layer.
+ *
+ * The label layer is the load-bearing part: an HTML grid over the SVG whose
+ * tracks are the drawing's own units, so labels stay at token size while the
+ * drawing scales and every label belongs to a grid cell (10 section 4). The
+ * percentages are offsets inside a cell in drawing units (a 72-unit desktop
+ * cell, a 52-unit mobile cell, the 270-unit mobile drawing).
+ */
+
+@layer components {
+  /* ---- Frame -------------------------------------------------------------- */
+  .plate {
+    margin: 0;
+    min-width: 0;
+  }
+
+  /*
+   * The instrument surface is the page ground, so the frame carries no fill and
+   * no radius. The registration line that used to sit under a lifted plate is
+   * gone with the lift: a hairline drawn on the same colour it separates from
+   * is decoration, which is the thing the canvas removed.
+   */
+  .plate-body {
+    position: relative;
+    background: var(--plate-bg);
+    padding: var(--plate-pad) 0 calc(var(--plate-pad) - 2px);
+  }
+
+  .plate-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--hx-space-2) var(--hx-space-4);
+    margin-bottom: var(--hx-space-2);
+  }
+
+  .plate-title {
+    font-family: var(--font-mono);
+    font-size: var(--plate-annotation-size);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: var(--weight-medium);
+  }
+
+  .plate-gloss {
+    margin: 0 0 var(--hx-space-3);
+    font-size: var(--text-small);
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+    max-width: var(--measure);
+  }
+
+  .plate-caption {
+    margin: var(--hx-space-4) 0 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+  }
+
+  .plate-section {
+    margin-top: var(--hx-space-3);
+    padding-top: var(--hx-space-3);
+    border-top: 1px solid var(--plate-rule);
+  }
+
+  /* Was an inner panel with its own ground, edge and radius. On one ground a
+   * panel is a box, so the grouping is carried by one hairline and space. */
+  .plate-inner {
+    border-top: 1px solid var(--plate-rule);
+    padding-top: var(--plate-pad);
+  }
+
+  /* ---- Picker, question, intervention note --------------------------------- */
+  .picker {
+    border: 0;
+    margin: 0 0 var(--hx-space-3);
+    padding: 0;
+    min-width: 0;
+  }
+
+  .picker legend {
+    padding: 0;
+    margin: 0 0 var(--hx-space-2);
+    font-size: var(--text-small);
+    line-height: var(--leading-small);
+    font-weight: var(--weight-medium);
+    color: var(--ink);
+  }
+
+  .picker-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--target-clearance);
+  }
+
+  .pick {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: var(--target);
+    padding: 0 14px 0 12px;
+    border: 1px solid var(--chip-edge);
+    border-radius: var(--radius-control);
+    cursor: pointer;
+    color: var(--ink);
+    font-size: var(--text-small);
+    font-weight: var(--weight-medium);
+    line-height: 1.2;
+  }
+
+  .pick:hover {
+    border-color: var(--chip-hover-edge);
+  }
+
+  /* Selected is the path colour on the boundary plus full ink on the label, so
+   * the state is carried by two channels and never by a fill. */
+  .pick:has(input:checked) {
+    border-color: var(--path);
+    color: var(--ink);
+  }
+
+  .pick:has(input:focus-visible) {
+    outline: var(--focus-ring-width) solid var(--focus);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  .pick input {
+    width: var(--input-check-size);
+    height: var(--input-check-size);
+    margin: 0;
+    accent-color: var(--input-check-checked-bg);
+  }
+
+  .pick input:focus-visible {
+    outline: none;
+  }
+
+  .plate-question {
+    margin: 0 0 var(--plate-head-gap);
+    display: grid;
+    gap: 2px;
+    max-width: var(--measure);
+    font-size: var(--text-small);
+    line-height: var(--leading-small);
+    color: var(--ink);
+  }
+
+  .plate-question-text {
+    font-weight: var(--weight-medium);
+  }
+
+  .plate-question-context {
+    color: var(--ink-2);
+  }
+
+  /* Reserved while off (11 rule 11), so switching the intervention on shifts nothing. */
+  .intervention-note {
+    margin: 0 0 var(--hx-space-3);
+    padding: var(--hx-space-3) var(--hx-space-4);
+    border-left: var(--ev-accent-width) solid var(--rule-strong);
+    font-size: var(--text-small);
+    line-height: var(--leading-small);
+    color: var(--ink);
+  }
+
+  .intervention-note[data-visible='false'],
+  .plate-after-note[data-visible='false'] {
+    visibility: hidden;
+  }
+
+  /* ---- Drawing and label layer --------------------------------------------- */
+  .plate-drawing {
+    position: relative;
+    width: 100%;
+  }
+
+  .plate-drawing-desktop {
+    max-width: var(--plate-svg-max);
+  }
+
+  .plate-drawing-mobile {
+    max-width: var(--plate-svg-mobile-max);
+    display: none;
+  }
+
+  .plate-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .plate-labels {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    pointer-events: none;
+  }
+
+  .plate-label {
+    min-width: 0;
+    white-space: nowrap;
+    line-height: 1.15;
+  }
+
+  .lbl-stage,
+  .lbl-stage-m {
+    font-family: var(--font-mono);
+    font-size: var(--plate-annotation-size);
+    letter-spacing: var(--tracking-coordinate);
+    text-transform: uppercase;
+    color: var(--ink-2);
+    font-weight: var(--weight-medium);
+  }
+
+  .lbl-stage {
+    justify-self: center;
+    align-self: center;
+    width: max-content;
+  }
+
+  .lbl-stage.lbl-start {
+    justify-self: start;
+  }
+
+  .lbl-stage.lbl-end {
+    justify-self: end;
+  }
+
+  /* Right-aligned 20 units inside the Context cell (10 section 4), clear of the fan. */
+  .lbl-brand {
+    font-size: var(--plate-label-size);
+    font-weight: var(--weight-medium);
+    color: var(--ink-2);
+    justify-self: end;
+    align-self: center;
+    margin-right: 27.78%;
+    width: max-content;
+  }
+
+  .lbl-brand.lbl-your {
+    color: var(--ink);
+  }
+
+  .lbl-state {
+    font-size: var(--plate-annotation-size);
+    color: var(--ink-2);
+    width: max-content;
+    align-self: center;
+    justify-self: start;
+    margin-left: 5.56%;
+  }
+
+  /* The Discovery word starts 4 units right of its node, clear of the fan below it. */
+  .lbl-state.lbl-disc {
+    margin-left: 55.56%;
+  }
+
+  /* The Consideration exit word ends 4 units left of its node, so it never reaches the bracket. */
+  .lbl-state.lbl-before {
+    justify-self: end;
+    margin-left: 0;
+    margin-right: 55.56%;
+  }
+
+  .lbl-state.lbl-gap {
+    color: var(--ev-gap);
+  }
+
+  .lbl-outcome {
+    font-size: var(--plate-annotation-size);
+    color: var(--ev-measured);
+    justify-self: end;
+    align-self: center;
+    width: max-content;
+  }
+
+  .lbl-tick,
+  .lbl-tick-m {
+    font-family: var(--font-mono);
+    font-size: var(--plate-coordinate-size);
+    letter-spacing: 0.05em;
+    color: var(--ink-2);
+    width: max-content;
+  }
+
+  .lbl-tick {
+    justify-self: center;
+    align-self: center;
+  }
+
+  /* Mobile labels: right-aligned to the guide end at x 266 on a knockout that covers segments only. */
+  .lbl-brand-m {
+    justify-self: center;
+    margin-right: 0;
+  }
+
+  .lbl-band {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1.48%;
+  }
+
+  /* Knockout marks: a label that punches a hole in the line it crosses. The
+   * fill is the ground it stands on, so it is a hole, not a surface. */
+  .lbl-stage-m,
+  .lbl-tick-m,
+  .lbl-fn {
+    background: var(--surface);
+  }
+
+  .lbl-stage-m {
+    padding: 0 4px;
+  }
+
+  .lbl-tick-m {
+    padding: 0 4px;
+    justify-self: end;
+    align-self: center;
+    margin-right: 1.48%;
+  }
+
+  .lbl-fn {
+    font-family: var(--font-mono);
+    font-size: var(--plate-coordinate-size);
+    font-weight: var(--weight-medium);
+    color: var(--ink);
+    padding: 0 3px;
+    line-height: 12px;
+    justify-self: start;
+    align-self: center;
+  }
+
+  /* ---- Footnote key, outcome link ----------------------------------------- */
+  .plate-foot {
+    display: none;
+    list-style: none;
+    margin: var(--hx-space-3) 0 0;
+    padding: 0;
+    gap: var(--hx-space-1) var(--hx-space-5);
+    flex-wrap: wrap;
+    font-size: var(--plate-annotation-size);
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+  }
+
+  .plate-foot li {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .plate-foot-index {
+    font-family: var(--font-mono);
+    font-weight: var(--weight-medium);
+    color: var(--ink);
+  }
+
+  .plate-outcome {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    padding: var(--hx-space-1) 0 0;
+    font-size: var(--text-small);
+    line-height: var(--leading-small);
+  }
+
+  .plate-outcome-lead {
+    color: var(--ink-2);
+  }
+
+  /* ---- Sources ledger (mark 16) ------------------------------------------- */
+  .plate-sources {
+    margin-top: var(--hx-space-4);
+    padding-top: var(--hx-space-3);
+    border-top: 1px solid var(--plate-rule);
+  }
+
+  /* A label, not a coordinate: 14 px (VZ-11). */
+  .plate-subhead {
+    margin: 0 0 var(--hx-space-1);
+    font-family: var(--font-mono);
+    font-size: var(--plate-annotation-size);
+    letter-spacing: var(--tracking-coordinate);
+    text-transform: uppercase;
+    color: var(--ink-2);
+    font-weight: var(--weight-medium);
+  }
+
+  .src-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--hx-space-6);
+    row-gap: var(--target-clearance);
+  }
+
+  .src-row {
+    border-bottom: 1px solid var(--plate-rule);
+  }
+
+  .lane {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 10px;
+    width: 100%;
+    min-height: var(--target);
+    padding: 6px 8px 6px 4px;
+    margin: 0;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    border-left: 2px solid transparent;
+    border-radius: var(--radius-mark);
+    color: var(--ink);
+    font: inherit;
+    font-size: var(--text-small);
+    line-height: var(--leading-small);
+  }
+
+  button.lane {
+    cursor: pointer;
+  }
+
+  button.lane:hover {
+    border-left-color: var(--rule-strong);
+  }
+
+  button.lane[aria-pressed='true'] {
+    border-left-color: var(--ink);
+  }
+
+  .lane-mark {
+    display: inline-flex;
+    flex: 0 0 12px;
+    width: 12px;
+    height: 12px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lane-type {
+    font-weight: var(--weight-medium);
+  }
+
+  .lane-brands {
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    color: var(--ink-2);
+  }
+
+  .lane-none {
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+  }
+
+  .lane-missing {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--text-small);
+    color: var(--ev-gap);
+  }
+
+  /* ---- Key row and controls (09 5.13) ------------------------------------- */
+  .plate-key-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--hx-space-2) var(--plate-key-gap);
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+  }
+
+  .plate-key-list li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .plate-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--hx-space-2) var(--hx-space-3);
+    margin-top: var(--hx-space-4);
+  }
+
+  .plate-after-note {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-2);
+  }
+
+  /* ---- List view (09 5.56) -------------------------------------------------- */
+  .plate-list {
+    padding: var(--hx-space-2) var(--hx-space-1) 0;
+  }
+
+  .list-alt {
+    margin: 0 0 var(--hx-space-4);
+    max-width: var(--measure-wide);
+    font-size: var(--text-small);
+    line-height: var(--leading-small);
+    color: var(--ink);
+  }
+
+  .list-need {
+    margin: 0 0 var(--hx-space-4);
+    display: grid;
+    gap: var(--hx-space-2);
+    font-size: var(--text-small);
+    line-height: var(--leading-small);
+  }
+
+  .list-need div {
+    display: grid;
+    grid-template-columns: 9em minmax(0, 1fr);
+    gap: var(--hx-space-3);
+  }
+
+  .list-need dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    color: var(--ink-2);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .list-need dd {
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  .table-scroll:focus-visible {
+    outline-offset: -2px;
+  }
+
+  .plate-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: var(--text-small);
+    line-height: var(--leading-small);
+  }
+
+  .plate-table caption {
+    text-align: left;
+    font-weight: var(--weight-medium);
+    color: var(--ink);
+    padding: 0 0 var(--hx-space-2);
+  }
+
+  .plate-table th,
+  .plate-table td {
+    text-align: left;
+    vertical-align: top;
+    padding: 8px 10px;
+    border-top: 1px solid var(--plate-rule);
+  }
+
+  .plate-table thead th {
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-2);
+    font-weight: var(--weight-medium);
+    border-top: 0;
+    border-bottom: 2px solid var(--ledger-rule-top);
+  }
+
+  .plate-table tbody th {
+    font-weight: var(--weight-medium);
+    white-space: nowrap;
+  }
+
+  .plate-table td {
+    color: var(--ink);
+    min-width: 9em;
+  }
+
+  /* ---- Responsive ----------------------------------------------------------- */
+  @media (max-width: 56.1875rem) {
+    .src-list {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 47.4375rem) {
+    .plate-drawing-desktop {
+      display: none;
+    }
+
+    .plate-drawing-mobile {
+      display: block;
+    }
+
+    .plate-foot {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 44.9375rem) {
+    .plate-body {
+      margin-left: calc(-1 * var(--gutter));
+      margin-right: calc(-1 * var(--gutter));
+      border-radius: 0;
+    }
+
+    .plate-body::after {
+      left: 0;
+      right: 0;
+    }
+  }
+
+  @media (max-width: 39.9375rem) {
+    .plate-table thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+
+    .plate-table,
+    .plate-table tbody,
+    .plate-table tr,
+    .plate-table th,
+    .plate-table td {
+      display: block;
+    }
+
+    .plate-table tr {
+      border-top: 2px solid var(--ledger-rule-top);
+      padding: 6px 0 10px;
+    }
+
+    .plate-table tbody th {
+      border: 0;
+      padding: 6px 0;
+    }
+
+    .plate-table td {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2px;
+      min-width: 0;
+      padding: 6px 0;
+      border-top: 1px solid var(--plate-rule);
+    }
+
+    .plate-table td::before {
+      content: attr(data-label);
+      font-family: var(--font-mono);
+      font-size: var(--text-caption);
+      color: var(--ink-2);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* The stacked list keeps one block per brand; the exit word already says "exits". */
+    .plate-table td[data-exited] {
+      display: none;
+    }
+
+    .list-need div {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2px;
+    }
+  }
+}

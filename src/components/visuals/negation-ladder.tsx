@@ -33,15 +33,15 @@ export function NegationLadder({
               // Amber marks the final rung, matching how CompletePath marks the
               // commercial outcome at the end of a sequence.
               index === steps.length - 1
-                ? 'border-[var(--color-amber)]'
-                : 'border-[var(--color-border)]',
+                ? 'border-ev-gap'
+                : 'border-rule',
             )}
           >
-            <span className="text-[var(--color-navy)]">{before}</span>
+            <span className="text-ink">{before}</span>
             {after ? (
               <>
-                <span className="text-[var(--color-slate)]">{CONNECTIVE}</span>
-                <span className="text-[var(--color-navy)]">{after}</span>
+                <span className="text-ink-2">{CONNECTIVE}</span>
+                <span className="text-ink">{after}</span>
               </>
             ) : null}
           </li>

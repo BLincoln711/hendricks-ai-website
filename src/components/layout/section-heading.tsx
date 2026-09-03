@@ -8,8 +8,8 @@ import { cn } from '@/lib/utils/cn'
  */
 const measures = {
   narrow: 'max-w-[var(--measure-h2)]',
-  standard: 'max-w-[var(--measure-tight)]',
-  wide: 'max-w-[var(--measure-lead)]',
+  standard: 'max-w-[var(--measure)]',
+  wide: 'max-w-[var(--measure-wide)]',
 } as const
 
 /**
@@ -62,7 +62,7 @@ export function SectionHeading({
       >
         {title}
       </Heading>
-      {description ? <p className="text-lead measure-lead text-ink-body">{description}</p> : null}
+      {description ? <p className="text-lead measure-wide text-ink">{description}</p> : null}
     </div>
   )
 

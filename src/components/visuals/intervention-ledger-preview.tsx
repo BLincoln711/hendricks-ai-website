@@ -20,22 +20,22 @@ export function InterventionLedgerPreview({
   return (
     <figure
       className={cn(
-        'flex flex-col gap-5 rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-white p-6 md:p-8',
+        'flex flex-col gap-5 border border-rule p-6 md:p-8',
         className,
       )}
     >
-      <ol className="grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-3">
+      <ol className="grid gap-px overflow-hidden border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-3">
         {fields.map((field, index) => (
-          <li key={field} className="flex items-baseline gap-3 bg-[var(--color-field)] px-4 py-3">
-            <span className="font-mono text-[0.75rem] text-[var(--color-slate)] tabular-nums">
+          <li key={field} className="flex items-baseline gap-3 px-4 py-3">
+            <span className="font-mono text-[0.75rem] text-ink-2 tabular-nums">
               {String(index + 1).padStart(2, '0')}
             </span>
-            <span className="text-[0.9375rem] text-[var(--color-graphite)]">{field}</span>
+            <span className="text-[0.9375rem] text-ink-3">{field}</span>
           </li>
         ))}
       </ol>
 
-      <figcaption className="text-[0.875rem] leading-relaxed text-[var(--color-slate)]">
+      <figcaption className="text-[0.875rem] leading-relaxed text-ink-2">
         {caption}
       </figcaption>
     </figure>

@@ -46,7 +46,7 @@ export function SelectionMap({ className }: { className?: string }) {
 
   return (
     <figure className={cn('flex flex-col gap-4', className)}>
-      <div className="rounded-[var(--radius-panel)] border border-[color-mix(in_srgb,var(--color-field)_18%,transparent)] bg-[color-mix(in_srgb,var(--color-navy-2)_70%,transparent)] p-4 sm:p-6">
+      <div className=" border border-rule-2 bg-bg p-4 sm:p-6">
         {/* Desktop and tablet: horizontal flow */}
         <svg
           viewBox="0 0 1000 400"
@@ -63,7 +63,7 @@ export function SelectionMap({ className }: { className?: string }) {
                 x2={STAGE_X[index]}
                 y2={378}
                 stroke="currentColor"
-                className="text-[color-mix(in_srgb,var(--color-field)_12%,transparent)]"
+                className="text-ink-2"
                 strokeWidth={1}
                 strokeDasharray="3 6"
               />
@@ -71,8 +71,8 @@ export function SelectionMap({ className }: { className?: string }) {
                 x={STAGE_X[index]}
                 y={34}
                 textAnchor="middle"
-                className="fill-[color-mix(in_srgb,var(--color-field)_62%,transparent)] text-[19px] tracking-[0.06em] uppercase"
-                style={{ fontFamily: 'var(--font-geist-mono), monospace' }}
+                className="fill-ink-2 text-[19px] tracking-[0.06em] uppercase"
+                style={{ fontFamily: 'var(--font-mono)' }}
               >
                 {stage}
               </text>
@@ -85,16 +85,16 @@ export function SelectionMap({ className }: { className?: string }) {
             y1={NEED_Y}
             x2={FAN_X}
             y2={NEED_Y}
-            stroke="var(--color-cyan)"
+            stroke="var(--focus)"
             strokeWidth={2}
           />
-          <circle cx={STAGE_X[0]} cy={NEED_Y} r={6} fill="var(--color-cyan)" />
-          <circle cx={STAGE_X[1]} cy={NEED_Y} r={6} fill="var(--color-cyan)" />
+          <circle cx={STAGE_X[0]} cy={NEED_Y} r={6} fill="var(--focus)" />
+          <circle cx={STAGE_X[1]} cy={NEED_Y} r={6} fill="var(--focus)" />
           <text
             x={30}
             y={NEED_Y - 20}
-            className="fill-[var(--color-cyan)] text-[22px]"
-            style={{ fontFamily: 'var(--font-geist-sans), sans-serif' }}
+            className="fill-signal-dot text-[22px]"
+            style={{ fontFamily: 'var(--font-sans)' }}
           >
             Customer need
           </text>
@@ -106,21 +106,21 @@ export function SelectionMap({ className }: { className?: string }) {
               d={`M ${FAN_X} ${NEED_Y} C ${FAN_X + 40} ${NEED_Y}, ${FAN_X + 10} ${candidate.y}, ${FAN_X + 56} ${candidate.y}`}
               fill="none"
               stroke="currentColor"
-              className="text-[color-mix(in_srgb,var(--color-field)_28%,transparent)]"
+              className="text-ink-2"
               strokeWidth={1.5}
             />
           ))}
-          <circle cx={FAN_X} cy={NEED_Y} r={7} fill="var(--color-cyan)" />
+          <circle cx={FAN_X} cy={NEED_Y} r={7} fill="var(--focus)" />
 
           {/* Candidate tracks */}
           {CANDIDATES.map((candidate) => {
             const endX =
               candidate.eliminatedAt === null ? SHORTLIST_X - 44 : STAGE_X[candidate.eliminatedAt]
             const stroke = candidate.highlighted
-              ? 'var(--color-blue)'
+              ? 'var(--ev-measured)'
               : candidate.eliminatedAt === null
-                ? 'color-mix(in srgb, var(--color-field) 55%, transparent)'
-                : 'color-mix(in srgb, var(--color-field) 28%, transparent)'
+                ? 'color-mix(in srgb, var(--bg) 55%, transparent)'
+                : 'color-mix(in srgb, var(--bg) 28%, transparent)'
 
             return (
               <g key={candidate.label}>
@@ -138,10 +138,10 @@ export function SelectionMap({ className }: { className?: string }) {
                   className={cn(
                     'text-[20px]',
                     candidate.highlighted
-                      ? 'fill-[var(--color-field)]'
-                      : 'fill-[color-mix(in_srgb,var(--color-field)_52%,transparent)]',
+                      ? 'fill-ink'
+                      : 'fill-ink-2',
                   )}
-                  style={{ fontFamily: 'var(--font-geist-sans), sans-serif' }}
+                  style={{ fontFamily: 'var(--font-sans)' }}
                 >
                   {candidate.label}
                 </text>
@@ -153,7 +153,7 @@ export function SelectionMap({ className }: { className?: string }) {
                       y1={candidate.y - 7}
                       x2={endX + 7}
                       y2={candidate.y + 7}
-                      stroke="var(--color-amber)"
+                      stroke="var(--ev-gap)"
                       strokeWidth={2}
                       strokeLinecap="round"
                     />
@@ -162,7 +162,7 @@ export function SelectionMap({ className }: { className?: string }) {
                       y1={candidate.y - 7}
                       x2={endX - 7}
                       y2={candidate.y + 7}
-                      stroke="var(--color-amber)"
+                      stroke="var(--ev-gap)"
                       strokeWidth={2}
                       strokeLinecap="round"
                     />
@@ -177,8 +177,8 @@ export function SelectionMap({ className }: { className?: string }) {
             x={STAGE_X[3]}
             y={372}
             textAnchor="middle"
-            className="fill-[var(--color-amber)] text-[19px]"
-            style={{ fontFamily: 'var(--font-geist-sans), sans-serif' }}
+            className="fill-ev-gap text-[19px]"
+            style={{ fontFamily: 'var(--font-sans)' }}
           >
             Evidence gaps remove candidates
           </text>
@@ -191,8 +191,8 @@ export function SelectionMap({ className }: { className?: string }) {
               fill="none"
               stroke={
                 candidate.highlighted
-                  ? 'var(--color-blue)'
-                  : 'color-mix(in srgb, var(--color-field) 55%, transparent)'
+                  ? 'var(--ev-measured)'
+                  : 'color-mix(in srgb, var(--bg) 55%, transparent)'
               }
               strokeWidth={candidate.highlighted ? 3 : 1.5}
             />
@@ -204,25 +204,25 @@ export function SelectionMap({ className }: { className?: string }) {
             width={108}
             height={56}
             rx={12}
-            fill="color-mix(in srgb, var(--color-blue) 18%, transparent)"
-            stroke="var(--color-blue)"
+            fill="color-mix(in srgb, var(--ev-measured) 18%, transparent)"
+            stroke="var(--ev-measured)"
             strokeWidth={1.5}
           />
           <text
             x={SHORTLIST_X + 48}
             y={252}
             textAnchor="middle"
-            className="fill-[var(--color-field)] text-[20px] font-medium"
-            style={{ fontFamily: 'var(--font-geist-sans), sans-serif' }}
+            className="fill-ink text-[20px] font-medium"
+            style={{ fontFamily: 'var(--font-sans)' }}
           >
             Shortlist
           </text>
-          <circle cx={SHORTLIST_X + 34} cy={268} r={5} fill="var(--color-blue)" />
+          <circle cx={SHORTLIST_X + 34} cy={268} r={5} fill="var(--ev-measured)" />
           <circle
             cx={SHORTLIST_X + 62}
             cy={268}
             r={5}
-            fill="color-mix(in srgb, var(--color-field) 55%, transparent)"
+            fill="color-mix(in srgb, var(--bg) 55%, transparent)"
           />
 
           {/* Shortlist to impact */}
@@ -231,16 +231,16 @@ export function SelectionMap({ className }: { className?: string }) {
             y1={256}
             x2={STAGE_X[5] - 14}
             y2={256}
-            stroke="var(--color-blue)"
+            stroke="var(--ev-measured)"
             strokeWidth={3}
           />
-          <circle cx={STAGE_X[5]} cy={256} r={10} fill="var(--color-blue)" />
+          <circle cx={STAGE_X[5]} cy={256} r={10} fill="var(--ev-measured)" />
           <text
             x={STAGE_X[5]}
             y={298}
             textAnchor="middle"
-            className="fill-[var(--color-field)] text-[20px]"
-            style={{ fontFamily: 'var(--font-geist-sans), sans-serif' }}
+            className="fill-ink text-[20px]"
+            style={{ fontFamily: 'var(--font-sans)' }}
           >
             Pipeline
           </text>
@@ -261,18 +261,18 @@ export function SelectionMap({ className }: { className?: string }) {
                 <span
                   className={cn(
                     'mt-1.5 size-2.5 shrink-0 rounded-full',
-                    index === array.length - 1 ? 'bg-[var(--color-blue)]' : 'bg-[var(--color-cyan)]',
+                    index === array.length - 1 ? 'bg-btn' : 'bg-signal-dot',
                   )}
                 />
                 {index < array.length - 1 ? (
-                  <span className="my-1 w-px flex-1 bg-[color-mix(in_srgb,var(--color-field)_22%,transparent)]" />
+                  <span className="my-1 w-px flex-1 bg-rule-2" />
                 ) : null}
               </div>
               <div className="pb-5">
-                <p className="text-eyebrow text-[color-mix(in_srgb,var(--color-field)_62%,transparent)]">
+                <p className="text-eyebrow text-ink-2">
                   {item.stage}
                 </p>
-                <p className="mt-1 text-[0.9375rem] leading-snug text-[color-mix(in_srgb,var(--color-field)_86%,transparent)]">
+                <p className="mt-1 text-[0.9375rem] leading-snug text-ink">
                   {item.detail}
                 </p>
               </div>
@@ -292,7 +292,7 @@ export function SelectionMap({ className }: { className?: string }) {
         </p>
       </div>
 
-      <figcaption className="text-[0.8125rem] text-[color-mix(in_srgb,var(--color-field)_58%,transparent)]">
+      <figcaption className="text-[0.8125rem] text-ink-2">
         Illustrative interface. Not a client result.
       </figcaption>
     </figure>

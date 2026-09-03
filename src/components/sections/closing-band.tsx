@@ -42,7 +42,7 @@ export function ClosingBand({
                 {title}
               </h2>
               {body?.map((paragraph) => (
-                <p key={paragraph} className="text-lead measure-lead text-ink-body">
+                <p key={paragraph} className="text-lead measure-wide text-ink">
                   {paragraph}
                 </p>
               ))}

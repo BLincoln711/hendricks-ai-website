@@ -1,41 +1,47 @@
 /*
- * Hendricks design tokens (redesign package deliverable 09, 2026-09-02).
+ * Hendricks design tokens. The canvas system, 2026-09-02.
  *
- * The body of this file is `09-tokens.css` from the design package, imported
- * verbatim; only this header was written for the repo. Do not edit values here
- * without changing the package copy in the same pass, or the two drift.
+ * Source of truth: `07-hifi/_canvas.css` in the redesign package, extracted
+ * from `07-hifi/home-v3.html`, the page Brandon Lincoln Hendricks approved on
+ * 2026-09-02 (decision D-A). Every colour, measure and rhythm value below is
+ * verbatim from that file. What the application needs and the canvas does not
+ * name is marked ADDED and obeys the same rules.
  *
- * `globals.css` imports this file directly after `@import 'tailwindcss';`. Its
- * `@layer base` and `@layer utilities` blocks read these tokens and hold no
- * literal colour, size, leading, tracking or weight. The header height has one
- * source, the `--header-height` token below (64 px; 76 px from 48rem), which
- * `scroll-padding-top` in `globals.css` and `site-header.tsx` both follow.
+ * Departure recorded, on the client's instruction (2026-09-02): CANON section 8
+ * binds a light-first system with navy sections used as composition. This
+ * system inverts that. The whole document is one near-black ground drawn from
+ * the Hendricks palette (Intelligence Navy #071A2B deepened to #060E16). No
+ * section carries a background of its own. Separation is space and hairline
+ * rules. Where the package and CANON section 8 disagree, the canvas files win;
+ * the conflict is recorded here rather than reconciled silently.
+ *
+ * THE RULE THAT OUTRANKS EVERY OTHER RULE IN THIS FILE.
+ * If an element has a background, a border that is not a single hairline, or a
+ * border-radius, it is either a control, an instrument surface, or a defect.
+ * There is no card, no panel, no boxed callout and no bordered text block in
+ * this system. Do not add one, and do not add a token that invites one.
+ *
+ * D-E: on every interior route the text that answers a question stays. Nothing
+ * in this file caps a page length.
  *
  * Three layers, in order:
- *   1. Primitive  (--hx-*)   raw values. The only place a hex value may appear.
- *   2. Semantic   (roles)    page, surface, ink, action, link, rule, plate,
- *                            evidence classes, signal, type, layout, motion.
- *   3. Component  (parts)    button, input, plate, ledger, tile, chip, focus,
- *                            header, evidence marks.
+ *   1. Primitive  (--hx-*)   raw values. The only place a literal colour lives.
+ *   2. Semantic   (roles)    ground, ink, hairline, evidence class, path,
+ *                            link, control, state, type, layout, motion.
+ *   3. Component  (parts)    button, input, plate, ledger, tile, chip, header,
+ *                            consent, evidence marks.
  *
- * Direction B convention (05-visual-directions/recommendation.md, D1):
- *   light reading surface in navy ink; navy spent only on plates; blue rationed
- *   to measured values and the customer's path; amber means a gap in the
- *   evidence and always travels with words (D5); one token name per role, with
- *   the on-light and on-plate values swapped by `.on-plate` (graft G6), so no
- *   component branches on surface.
- *
- * Contrast figures are WCAG 2.x relative-luminance ratios against the surface
- * named. Thresholds: 4.5:1 text under 24 px regular, 3:1 large text,
- * meaning-bearing graphics and control edges (1.4.11). "page" is Field White,
- * "sheet" is white, "tint" is Soft Gray, "plate" is Intelligence Navy,
- * "plate-2" is Deep Navy.
+ * Contrast: every text colour and every meaning-bearing mark carries its
+ * measured ratio against its true composited ground, computed against #060E16.
+ * AA body text needs 4.5:1. A meaning-bearing mark or a control boundary needs
+ * 3:1. Decorative hairlines carry no meaning, are exempt, and say so.
  *
  * Gates: `pnpm check:tokens` (scripts/check-tokens.ts) enforces the layer
  * boundary, the `:root, .on-plate` rule on the component layer, and that every
- * reference resolves; `pnpm check:contrast` (scripts/check-contrast.ts) recomputes
- * every ratio in scripts/contrast-pairs.json and fails `pnpm verify` below the
- * role's threshold. Both parse this file, so its section banners are load-bearing.
+ * reference resolves; `pnpm check:contrast` (scripts/check-contrast.ts)
+ * recomputes every ratio in scripts/contrast-pairs.json, compositing each alpha
+ * value over its true ground, and fails below the role's threshold. Both parse
+ * this file, so its numbered section banners are load-bearing.
  */
 
 /* ========================================================================== */
@@ -46,84 +52,76 @@
 /* ========================================================================== */
 
 :root {
-  /* --- Color: navy and ink ------------------------------------------------ */
-  --hx-navy-900: #071A2B; /* Intelligence Navy. Plate ground, headings, observed marks on light */
-  --hx-navy-800: #0B253A; /* Deep Navy. Body ink on light, inner panel on plates */
-  --hx-navy-700: #143552; /* Ink-variant action hover (D2 alternative) */
-  --hx-navy-600: #243544; /* Decorative rules inside plates. 1.40:1 on plate, decorative only */
+  /* --- Colour: the ground -------------------------------------------------- */
+  --hx-canvas-950: #060E16; /* Intelligence Navy deepened. The one ground */
 
-  /* --- Color: slate and steel ---------------------------------------------- */
-  --hx-steel-500: #6483AB; /* Control edges and the plate registration line. 3.70:1 on page */
-  --hx-slate-500: #5E6C7B; /* Slate. Secondary text, inferred marks on light */
-  --hx-slate-400: #6B7C8C; /* Muted tracks and stage guides on light. 4.07:1 on page, graphic only */
-  --hx-slate-300: #7A8FA3; /* Stage guides, muted tracks, secondary edges on plates. 5.27:1 on plate */
-  --hx-slate-200: #9AA9B8; /* Secondary text and inferred marks on plates. 7.34:1 on plate */
+  /* Deep Navy #0B253A is the only other value --plate may ever take, and only
+   * underneath an instrument. It is not declared as a primitive because no role
+   * reads it: the approved page has no lifted surface, and a token nothing
+   * reads is dead weight the contrast gate would have to be told to ignore. */
 
-  /* --- Color: grays and grounds -------------------------------------------- */
-  --hx-gray-200: #D9E1E8; /* Instrument Gray. Decorative hairlines only. 1.25:1 on page */
-  --hx-gray-150: #E3E9F0; /* Plate primary-button hover ground */
-  --hx-gray-100: #EDF2F6; /* Soft Gray. Ledger heads, stripes, disabled grounds */
-  --hx-gray-50:  #F7F9FC; /* Field White. Page ground; observed marks and text on plates */
-  --hx-white:    #FFFFFF; /* Sheet. Tiles, inputs, reading panels */
+  /* --- Colour: ink, Field White and its alpha tiers ------------------------ */
+  --hx-white: #F7F9FC;                 /* Field White */
+  --hx-white-74: rgba(247, 249, 252, 0.74);
+  --hx-white-62: rgba(247, 249, 252, 0.62);
+  --hx-white-38: rgba(247, 249, 252, 0.38);
+  --hx-white-16: rgba(247, 249, 252, 0.16);
+  --hx-white-09: rgba(247, 249, 252, 0.09);
 
-  /* --- Color: blue (measured values and the customer's path) --------------- */
-  --hx-blue-700: #1946C8; /* Signal Blue hover. 7.24:1 on page */
-  --hx-blue-600: #2458E6; /* Signal Blue. Measured class on light, focus ring on light, default action (D2) */
-  --hx-blue-400: #6E92F0; /* Measured class on plates. 5.90:1 on plate, 5.25:1 on plate-2 */
-  --hx-blue-300: #8AA8F4; /* Measured hover on plates. 7.54:1 on plate, 6.71:1 on plate-2 */
-  --hx-blue-100: #D3DDF7; /* Text selection ground on light. Ink-body on it 11.53:1 */
+  /* --- Colour: slate and steel --------------------------------------------- */
+  --hx-slate-200: #9AA9B8; /* Inferred marks */
+  --hx-slate-300: #7A8FA3; /* Quiet line, axis and baseline */
+  --hx-slate-400: #5C7386; /* Gridline */
 
-  /* --- Color: cyan (plate focus only) -------------------------------------- */
-  --hx-cyan-500: #00C2D8; /* Insight Cyan. Focus ring on plates only. 8.15:1 on plate. Fails on light (2.05:1) */
-  --hx-cyan-700: #007785; /* Light-ground cyan (CANON 11), 5.01:1 on page. Held only as the 09 D8 alternative (agency spine). Unreferenced until D8 is decided; no component may read it directly */
+  /* --- Colour: blue (measured values and the customer's path) -------------- */
+  --hx-blue-300: #8FB0F5; /* Link ink, and the measured hover */
+  --hx-blue-400: #6E92F0; /* Measured class, the customer path, the signal dot */
+  --hx-blue-600: #2458E6; /* Button fill */
+  --hx-blue-700: #1946C8; /* Button hover fill */
 
-  /* --- Color: amber (a gap in the evidence, always with words) ------------- */
-  --hx-amber-800: #8A5A06; /* Gap mark and its words on light. 5.62:1 on page, 5.92:1 on sheet, 5.25:1 on tint */
-  --hx-amber-500: #F3A712; /* Decision Amber. Gap mark on plates only. 8.68:1 on plate. Fails on light (1.92:1) */
-
-  /* --- Color: green (tested class, success) -------------------------------- */
-  --hx-green-700: #116E58; /* Tested class and success text on light. 5.86:1 on page, 6.19:1 on sheet, 5.49:1 on tint */
-  --hx-green-300: #4FC39F; /* Tested class and success on plates. 8.09:1 on plate, 7.19:1 on plate-2 */
-
-  /* --- Color: red (errors only) -------------------------------------------- */
-  --hx-red-700: #B42318; /* Destructive. Error text and invalid edges on light. 6.23:1 on page, 6.57:1 on sheet */
-  --hx-red-300: #F28B7E; /* Destructive on plates. 7.36:1 on plate, 6.54:1 on plate-2 */
+  /* --- Colour: the remaining classes and states ---------------------------- */
+  --hx-cyan-500: #00C2D8;  /* Focus ring */
+  --hx-amber-500: #F3A712; /* Evidence gap, advisory */
+  --hx-green-300: #4FC39F; /* Tested class, success */
+  --hx-red-300: #F6928A;   /* Error */
 
   /* --- Type: families (next/font sets the two --font-geist-* variables) ---- */
   --hx-font-sans: var(--font-geist-sans, "Geist"), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   --hx-font-mono: var(--font-geist-mono, "Geist Mono"), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* --- Type: fluid sizes. Inside the docs/04 ranges at their lower bounds --- */
-  --hx-text-display: clamp(3rem, 2rem + 4vw, 5rem);                 /* 48 to 80 px. Rare; no homepage consumer */
-  --hx-text-h1:      clamp(2.625rem, 1.9rem + 2.6vw, 4rem);          /* 42 to 64 px */
-  --hx-text-h1-floor: 2.125rem;                                       /* 34 px below 360 px (B fix B7) */
-  --hx-text-h2:      clamp(2rem, 1.6rem + 1.5vw, 2.75rem);            /* 32 to 44 px */
-  --hx-text-h3:      clamp(1.5rem, 1.4rem + 0.5vw, 1.75rem);          /* 24 to 28 px */
-  --hx-text-h4:      clamp(1.25rem, 1.2rem + 0.2vw, 1.375rem);        /* 20 to 22 px */
-  --hx-text-lead:    clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem);      /* 19 to 22 px */
-  --hx-text-body:    clamp(1.0625rem, 1.04rem + 0.1vw, 1.125rem);     /* 17 to 18 px; never under 16 (TY-01, iOS zoom) */
-  --hx-text-small:   clamp(0.875rem, 0.86rem + 0.1vw, 0.9375rem);     /* 14 to 15 px; the floor for readable sentences */
-  --hx-text-caption: 0.875rem;                                        /* 14 px mono; the illustrative caption and figure notes. Sentences, so the TY-01 content floor applies (audit A9) */
-  --hx-text-coordinate: 0.8125rem;                                    /* 13 px mono uppercase only; eyebrows, indices, plate numbers, axis ticks. The one size below 14 px (TY-01, VZ-11) */
-  --hx-text-nav-laptop: 0.875rem;                                     /* 14 px; header links from 1024 to 1279 px (graft G7) */
+  /* --- Type: sizes. Verbatim from the canvas. ------------------------------ */
+  /* Measured against linear.app 2026-09-02: 64 px, weight 510, line-height
+   * exactly 1.0, letter-spacing -1.408px, which is -0.022em at 64 px. */
+  --hx-text-h1: clamp(40px, 4.6vw, 64px);
+  --hx-text-h2: clamp(27px, 2.9vw, 40px);
+  --hx-text-h3: clamp(19px, 1.5vw, 22px);
+  --hx-text-h4: 16px;
+  --hx-text-lead: clamp(17px, 1.35vw, 19px);
+  --hx-text-body: 17px;
+  --hx-text-small: 15px;      /* Figure titles, dense rows */
+  --hx-text-caption: 13px;    /* Captions and figure notes; sentences */
+  --hx-text-coordinate: 12px; /* Uppercase mono only: eyebrows, plate numbers, axis ticks */
+  --hx-text-illus: 11px;      /* Uppercase-free mono: the illustrative caption and the source line */
 
   /* --- Type: weights, leading, tracking ------------------------------------ */
   --hx-weight-400: 400;
-  --hx-weight-500: 500;
-  --hx-weight-600: 600; /* The only weight above 500; ledger names and H4. Nothing is 700 */
+  --hx-weight-500: 500; /* Mono labels, buttons */
+  --hx-weight-510: 510; /* H1 and H2, measured from the reference */
+  --hx-weight-530: 530; /* H3 and figure titles */
+  --hx-weight-560: 560; /* H4, the label level */
+  --hx-leading-100: 1;
   --hx-leading-102: 1.02;
-  --hx-leading-108: 1.08;
-  --hx-leading-120: 1.2;
+  --hx-leading-125: 1.25;
   --hx-leading-130: 1.3;
   --hx-leading-145: 1.45;
   --hx-leading-150: 1.5;
-  --hx-leading-165: 1.65;
-  --hx-tracking-h1: -0.03em;
-  --hx-tracking-h2: -0.024em;
-  --hx-tracking-h3: -0.015em;
-  --hx-tracking-h4: -0.01em;
-  --hx-tracking-coordinate: 0.1em;
-  --hx-tracking-ledger-head: 0.08em;
+  --hx-leading-155: 1.55;
+  --hx-tracking-h1: -0.022em;
+  --hx-tracking-h3: -0.012em;
+  --hx-tracking-h4: -0.005em;
+  --hx-tracking-eyebrow: 0.12em;
+  --hx-tracking-mono: 0.1em;
+  --hx-tracking-illus: 0.07em;
 
   /* --- Space: 4 px base ---------------------------------------------------- */
   --hx-space-1: 0.25rem;  /* 4 */
@@ -134,34 +132,28 @@
   --hx-space-6: 1.5rem;   /* 24 */
   --hx-space-8: 2rem;     /* 32 */
   --hx-space-10: 2.5rem;  /* 40 */
+  --hx-space-11: 2.75rem; /* 44, the block break */
   --hx-space-12: 3rem;    /* 48 */
-  --hx-space-14: 3.5rem;  /* 56 */
-  --hx-space-16: 4rem;    /* 64 */
-  --hx-space-18: 4.5rem;  /* 72 */
-  --hx-space-24: 6rem;    /* 96 */
-  --hx-space-28: 7rem;    /* 112 */
-  --hx-space-36: 9rem;    /* 144 */
 
-  /* --- Radii (docs/04 section 8 set; B's sharper 6/8/8/12 set is 09 D9) --- */
-  --hx-radius-2: 2px;
-  --hx-radius-4: 4px;
-  --hx-radius-8: 8px;
-  --hx-radius-10: 10px;
-  --hx-radius-16: 16px;
-  --hx-radius-20: 20px;
-  --hx-radius-full: 9999px;
+  /* --- Radii. Controls, the focus ring, and round marks. Nothing else. ----- */
+  --hx-radius-2: 2px;   /* Focus ring corners */
+  --hx-radius-4: 4px;   /* Skip link */
+  --hx-radius-6: 6px;   /* Every control */
+  --hx-radius-round: 50%;
 
   /* --- Sizes --------------------------------------------------------------- */
-  --hx-size-24: 24px;   /* WCAG 2.5.8 minimum target */
-  --hx-size-44: 44px;   /* Site target rule (docs/08 section 2) */
-  --hx-size-48: 48px;   /* Default control height */
-  --hx-size-64: 4rem;   /* Header height below 48rem */
-  --hx-size-76: 4.75rem; /* Header height from 48rem */
+  --hx-size-24: 24px;  /* WCAG 2.5.8 minimum target */
+  --hx-size-38: 38px;  /* Masthead button */
+  --hx-size-40: 40px;  /* Compact control */
+  --hx-size-44: 44px;  /* Site target rule */
+  --hx-size-48: 48px;  /* Default control height */
+  --hx-size-62: 62px;  /* Masthead */
+  --hx-size-78: 78px;  /* Sticky offset, clears the masthead */
 
   /* --- Strokes ------------------------------------------------------------- */
   --hx-stroke-1: 1px;
   --hx-stroke-1-25: 1.25px; /* Muted tracks; the floor for a meaning-bearing stroke */
-  --hx-stroke-1-5: 1.5px;
+  --hx-stroke-1-5: 1.5px;   /* The one accent border: a left rule */
   --hx-stroke-2: 2px;
   --hx-stroke-2-5: 2.5px;
 
@@ -177,516 +169,431 @@
   --hx-time-1000: 1000ms;
 
   /* --- Easing: one pair ---------------------------------------------------- */
-  --hx-ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);  /* Things arriving: hover, focus, node-activate, dot arrival */
-  --hx-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);  /* Things travelling: path-draw, dot-along-path */
-
-  /* --- Elevation: the only shadow on the site ------------------------------ */
-  --hx-shadow-dialog: 0 24px 48px -16px rgb(7 26 43 / 0.32); /* Mobile sheet and dialogs */
+  --hx-ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);  /* Things arriving: hover, focus, node arrival */
+  --hx-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);  /* Things travelling: path draw, dot along a path */
 }
 
 /* ========================================================================== */
-/* 2. SEMANTIC LAYER. One token per role. Light values here; `.on-plate`      */
-/*    swaps them. Components read only these and the component layer.         */
+/* 2. SEMANTIC LAYER. One token per role, named as the canvas names it.       */
+/*    `.on-plate` swaps the ground; every ink and mark colour is measured     */
+/*    against that ground. Components read only these and the component layer. */
 /* ========================================================================== */
 
 :root {
-  /* --- Page ---------------------------------------------------------------- */
-  --page-bg: var(--hx-gray-50);   /* Body ground. Set explicitly on body */
-  --page-fg: var(--hx-navy-800);  /* Body ink. 14.86:1 on page */
+  /* --- Ground and lifted surface ------------------------------------------ */
+  --bg: var(--hx-canvas-950);      /* The one ground, for the whole document */
+  --plate: var(--hx-canvas-950);   /* The only legal lifted surface. It resolves
+                                    * to the ground: the approved page lifts
+                                    * nothing, and a knockout mark punching a
+                                    * hole in a line must land on one colour.
+                                    * Deep Navy #0B253A is the ONLY other value
+                                    * this may ever take, and only underneath an
+                                    * instrument. Revised 2026-09-03. */
+  --surface: var(--bg);            /* ADDED. The ground the current subtree sits
+                                    * on. `.on-plate` re-scopes it to --plate, so
+                                    * no component branches on surface and the
+                                    * contrast gate can recompute both grounds. */
 
-  /* --- Surfaces (current-ground set; re-scoped by .on-plate) --------------- */
-  --surface: var(--hx-gray-50);          /* The ground a component sits on. On plate: navy-900 */
-  --surface-raised: var(--hx-white);     /* Sheet: tiles, inputs, reading panels. On plate: navy-800 */
-  --surface-tint: var(--hx-gray-100);    /* Ledger heads, table stripes, disabled grounds. On plate: navy-800 */
-  --surface-plate: var(--hx-navy-900);   /* Plate ground. Fixed; never a section background */
-  --surface-plate-2: var(--hx-navy-800); /* Inner instrument panel. Fixed */
+  /* --- Ink tiers ----------------------------------------------------------- */
+  --ink: var(--hx-white);      /* Field White.        18.40:1 on bg */
+  --ink-2: var(--hx-white-62); /* composites to 7.35:1 on bg. AA body */
+  --ink-3: var(--hx-white-74); /* composites to 10.16:1 on bg */
 
-  /* --- Ink ----------------------------------------------------------------- */
-  --ink: var(--hx-navy-900);       /* Headings, strong labels, observed marks. 16.71:1 on page, 15.64:1 on tint */
-  --ink-body: var(--hx-navy-800);  /* Running copy. 14.86:1 on page, 15.67:1 on sheet, 13.91:1 on tint */
-  --ink-2: var(--hx-slate-500);    /* Secondary text, coordinates, captions. 5.10:1 on page, 5.38:1 on sheet, 4.77:1 on tint */
+  /* --- Hairlines. Decorative separation only, never meaning bearing. ------- */
+  --rule: var(--hx-white-09);   /* 1.22:1. Decorative divider only. */
+  --rule-2: var(--hx-white-16); /* 1.53:1. Decorative divider only. */
+  /* An interactive control's boundary is a graphical object under WCAG 1.4.11
+     and must clear 3:1, which --rule-2 never did. Measured 3.41:1 on #060E16. */
+  --edge: var(--hx-white-38);   /* 3.41:1 on bg. Control boundaries. */
 
-  /* --- Rules --------------------------------------------------------------- */
-  --rule: var(--hx-gray-200);          /* Decorative hairlines. 1.25:1 on page. Never a control edge, never meaning-bearing */
-  --rule-strong: var(--hx-steel-500);  /* Control edges, registration line, meaning-bearing rules. 3.70:1 on page, 3.91:1 on sheet, 3.47:1 on tint */
-  --guide: var(--hx-slate-400);        /* Stage guides on light. 4.07:1 on page, 3.81:1 on tint. Graphic only */
-  --row-highlight: var(--guide);       /* The sources-ledger row highlight disc behind an Evidence node (10 section 2 overlay). Same value as --guide on both surfaces; a separate role because forced colors map --guide to CanvasText, which would swallow the CanvasText node above the disc (10 seventh pass, 2026-09-02). 4.07:1 on page; the node 4.10:1 against it */
-  --rule-registration: var(--hx-steel-500); /* The plate registration line. Drawn on the page ground below the plate, so it is fixed and .on-plate does not re-scope it. Decorative; 3.70:1 on page, 3.91:1 on sheet */
+  /* --- Evidence classes and path -------------------------------------------
+     Every value is a measured pass at 3:1 or better against the ground it sits
+     on. Class is never carried by hue alone: line style, marker shape and a
+     text label carry it first. */
+  --ev-observed: var(--hx-white);      /* 18.40:1 on bg */
+  --ev-inferred: var(--hx-slate-200);  /*  8.08:1 on bg */
+  --ev-measured: var(--hx-blue-400);   /*  6.50:1 on bg */
+  --ev-tested: var(--hx-green-300);    /*  8.91:1 on bg */
+  --ev-muted: var(--hx-slate-300);     /*  5.81:1 on bg */
+  --ev-gap: var(--hx-amber-500);       /*  9.56:1 on bg */
+  --path: var(--hx-blue-400);          /*  6.50:1 on bg. The customer path blue. */
+  --signal-dot: var(--hx-blue-400);    /*  6.50:1 on bg */
+  --rule-strong: var(--hx-slate-300);  /*  5.81:1 on bg. Axis and baseline, meaning bearing. */
+  --guide: var(--hx-slate-400);        /*  3.93:1 on bg. Gridline, meaning bearing at 3:1. */
 
-  /* --- Action (D2: Signal Blue default; ink variant is a two-token switch) - */
-  --action: var(--hx-blue-600);         /* Primary button ground. White label 5.81:1 */
-  --action-hover: var(--hx-blue-700);   /* Primary hover and active ground. White label 7.63:1 */
-  --action-fg: var(--hx-white);         /* Primary label */
-  --action-secondary-fg: var(--hx-navy-900);       /* Secondary label. 16.71:1 on page */
-  --action-secondary-edge: var(--hx-steel-500);    /* Secondary edge. 3.70:1 on page */
-  --action-secondary-hover-bg: var(--hx-gray-100); /* Secondary hover ground */
-  --action-secondary-hover-edge: var(--hx-navy-900);
-  --action-secondary-active-bg: var(--hx-gray-200);
-  --action-disabled-bg: var(--hx-gray-100);
-  --action-disabled-fg: var(--hx-slate-500);       /* 4.77:1 on tint; disabled is exempt from 1.4.3 but passes anyway */
-  --action-disabled-edge: var(--hx-gray-200);
+  --link: var(--hx-blue-300);      /*  8.96:1 on bg */
+  --btn: var(--hx-blue-600);       /*  3.34:1 edge on bg; --ink on it is 5.51:1 */
+  --btn-hover: var(--hx-blue-700); /*  2.54:1 edge on bg, so it is a hover state only
+                                    * and never the resting boundary; --ink on it is
+                                    * 7.24:1, so the label stays AA through hover. */
+  --focus: var(--hx-cyan-500);     /*  8.97:1 on bg */
 
-  /* --- Link ---------------------------------------------------------------- */
-  --link: var(--hx-navy-900);  /* Links in copy are ink with a 1 px underline; never blue. 16.71:1 on page */
-  --link-hover: var(--hx-navy-900); /* Hover thickens the underline; color does not change */
+  /* --- The three states the homepage never needed. Each is a text colour and
+     a hairline colour, never a fill. ---------------------------------------- */
+  --alert: var(--hx-red-300);      /*  8.68:1 on bg. Error text and the error hairline. */
+  --ok: var(--hx-green-300);       /*  8.91:1 on bg. Same value as --ev-tested. */
+  --caution: var(--hx-amber-500);  /*  9.56:1 on bg. Same value as --ev-gap. */
 
-  /* --- Focus (system state, exempt from blue rationing) -------------------- */
-  --focus-ring: var(--hx-blue-600); /* 5.51:1 on page, 5.81:1 on sheet, 5.16:1 on tint. On plate: cyan 8.15:1. Consumer: globals.css `:focus-visible` (09 section 10.2); the legacy `--color-cyan` theme alias also resolves here */
-
-  /* --- Evidence classes (line style and marker first, color second) -------- */
-  --ev-observed: var(--hx-navy-900);      /* Solid line, filled circle. 16.71:1 on page */
-  --ev-inferred: var(--hx-slate-500);     /* Dashed 4/4, hollow dashed circle. 5.10:1 on page, 4.77:1 on tint */
-  --ev-measured: var(--hx-blue-600);      /* Ruled line with ticks, filled square. 5.51:1 on page, 5.16:1 on tint */
-  --ev-measured-hover: var(--hx-blue-700);/* 7.24:1 on page */
-  --ev-tested: var(--hx-green-700);       /* Boxed segment, outlined square. 5.86:1 on page, 5.49:1 on tint, 6.19:1 on sheet */
-  --ev-gap: var(--hx-amber-800);          /* Cross mark plus the words. 5.62:1 on page, 5.25:1 on tint, 5.92:1 on sheet */
-  --ev-muted: var(--hx-slate-400);        /* Other brands' tracks, 1.25 px. 4.07:1 on page, graphic only, never text */
-  --path: var(--hx-blue-600);             /* The customer's path: the need path, Your Brand's track, the solution model handoff, the comparison plate's AI-mediated connector. The chosen brand's Selection-to-Impact segment is NOT this role: it is mark 8 in --ev-measured (10 seventh pass, 2026-09-02). Same value as --ev-measured so blue stays one hue; a separate role so code never calls the path a measured value (10 decision 10.3, applied 2026-09-02). 5.51:1 on page, 5.16:1 on tint */
-
-  /* --- Signals ------------------------------------------------------------- */
-  --signal-positive: var(--hx-green-700);   /* Success text and icon. 5.86:1 on page, 6.19:1 on sheet (09 D10) */
-  --signal-destructive: var(--hx-red-700);  /* Error text, invalid edges, icon plus text. 6.23:1 on page, 6.57:1 on sheet */
-  --signal-dot: var(--hx-blue-600);         /* The signal dot: wordmark period, resolved node, status indicator */
-  --signal-dot-ring: var(--hx-gray-50);     /* 2 px ring separating the dot from the tracks it crosses. Not re-scoped: on plates it is a field halo (16.71:1 on plate, 14.86:1 on plate-2); on the light page it equals the ground (1.00:1) and is meaningful only where the dot overlaps a drawn track. The wordmark period and a status indicator on the page ground take no ring (09 5.46, 5.54) */
-  --selection-bg: var(--hx-blue-100);       /* ::selection ground. Ink-body on it 11.53:1. Consumer: globals.css `::selection` (09 section 10.2), replacing the color-mix on --color-blue */
-  --selection-fg: var(--hx-navy-800);
+  /* --- ADDED roles. Four the application needs and the canvas does not name.
+     Each reads a canvas value; none introduces a colour. -------------------- */
+  --ev-measured-hover: var(--hx-blue-300); /* 8.96:1 on bg. The link blue, so blue
+                                            * stays one hue and hover only brightens. */
+  --signal-dot-ring: var(--surface);       /* The 2 px knockout ring that separates the
+                                            * dot from a track it crosses. It is the
+                                            * ground, so it is a hole, not a colour. */
+  --row-highlight: var(--guide);           /* 3.93:1 on bg. The sources-ledger row disc,
+                                            * drawn inside an instrument. A separate role
+                                            * because forced colours map --guide to
+                                            * CanvasText, which would swallow the node
+                                            * standing on the disc. */
+  --selection-bg: var(--btn);              /* ::selection ground. --ink on it 5.51:1. */
+  --selection-fg: var(--ink);
 
   /* --- Typography roles ---------------------------------------------------- */
   --font-sans: var(--hx-font-sans);
   --font-mono: var(--hx-font-mono);
-  --text-display: var(--hx-text-display);
-  --text-h1: var(--hx-text-h1);            /* Weight 500, tracking -0.03em, leading 1.02, 20ch */
-  --text-h2: var(--hx-text-h2);            /* Weight 500, tracking -0.024em, leading 1.08, 24ch */
-  --text-h3: var(--hx-text-h3);            /* Weight 500, tracking -0.015em, leading 1.2 */
-  --text-h4: var(--hx-text-h4);            /* Weight 600, tracking -0.01em, leading 1.3. Ledger names, model names */
-  --text-lead: var(--hx-text-lead);        /* Weight 400, leading 1.45, 60ch, one per section */
-  --text-body: var(--hx-text-body);        /* Weight 400, leading 1.65, 66ch */
-  --text-small: var(--hx-text-small);      /* Proof line, definer, table cells, source labels */
-  --text-caption: var(--hx-text-caption);  /* 14 px mono. The illustrative caption and figure notes; never a key label */
-  --text-coordinate: var(--hx-text-coordinate); /* Mono uppercase tracked. Eyebrows, indices, plate numbers, stage labels */
-  --text-eyebrow: var(--hx-text-coordinate);    /* Alias kept for the live .text-eyebrow utility */
-  --leading-h1: var(--hx-leading-102);
-  --leading-h2: var(--hx-leading-108);
-  --leading-h3: var(--hx-leading-120);
+  --text-h1: var(--hx-text-h1);
+  --text-h2: var(--hx-text-h2);
+  --text-h3: var(--hx-text-h3);
+  --text-h4: var(--hx-text-h4);
+  --text-lead: var(--hx-text-lead);
+  --text-body: var(--hx-text-body);
+  --text-small: var(--hx-text-small);
+  --text-caption: var(--hx-text-caption);
+  --text-coordinate: var(--hx-text-coordinate); /* Uppercase mono only */
+  --text-eyebrow: var(--hx-text-coordinate);
+  --text-illus: var(--hx-text-illus);
+  --leading-h1: var(--hx-leading-100);
+  --leading-h2: var(--hx-leading-102);
+  --leading-h3: var(--hx-leading-125);
   --leading-h4: var(--hx-leading-130);
-  --leading-lead: var(--hx-leading-145);
-  --leading-body: var(--hx-leading-165);
-  --leading-small: var(--hx-leading-150);
+  --leading-lead: var(--hx-leading-150);
+  --leading-body: var(--hx-leading-155);
+  --leading-small: var(--hx-leading-145);
   --tracking-h1: var(--hx-tracking-h1);
-  --tracking-h2: var(--hx-tracking-h2);
+  --tracking-h2: var(--hx-tracking-h1);
   --tracking-h3: var(--hx-tracking-h3);
   --tracking-h4: var(--hx-tracking-h4);
-  --tracking-coordinate: var(--hx-tracking-coordinate);
+  --tracking-coordinate: var(--hx-tracking-eyebrow);
+  --tracking-mono: var(--hx-tracking-mono);
+  --tracking-illus: var(--hx-tracking-illus);
   --weight-regular: var(--hx-weight-400);
-  --weight-medium: var(--hx-weight-500);
-  --weight-semibold: var(--hx-weight-600);
-  --measure-body: 66ch;   /* TY-02 ceiling is 68ch */
-  --measure-lead: 60ch;
-  --measure-tight: 52ch;
-  --measure-h1: 20ch;
-  --measure-h2: 24ch;
+  --weight-mono: var(--hx-weight-500);
+  --weight-medium: var(--hx-weight-510);   /* H1 and H2 */
+  --weight-sub: var(--hx-weight-530);      /* H3 and figure titles */
+  --weight-semibold: var(--hx-weight-560); /* H4, the label level */
+
+  /* --- Measures. No text block is wider than --measure. -------------------- */
+  --measure: 46ch;
+  --measure-wide: 62ch;   /* Answer-first blocks and long-form prose */
+  --measure-narrow: 34ch; /* Figure notes and side rails */
+  --measure-h1: 21ch;
+  --measure-h2: 21ch;
+  --measure-h3: 26ch;
+  --measure-caption: 44ch;
 
   /* --- Layout -------------------------------------------------------------- */
-  --container-site: 1440px;    /* Site maximum */
-  --container: 1280px;         /* Content container */
-  --container-wide: 1200px;    /* Wide data and tables */
-  --container-narrow: 760px;   /* Legal and editorial reading column */
-  --gutter: clamp(20px, 4vw, 48px);
+  --container-site: 1440px; /* The .wrap container */
+  --container: 1440px;
+  --container-wide: 1440px;
+  --container-narrow: 62ch; /* Long-form reading column */
+  --rail: 76px;             /* The spine column, left page margin */
+  --pad: 40px;              /* Right and inner padding for text */
+  --gutter: var(--pad);
+  --station: 80px;          /* Vertical rhythm between sections */
+  --stick: var(--hx-size-78); /* Sticky offset, clears the 62 px masthead */
   --grid-columns: 12;
-  --grid-gap: var(--hx-space-6);       /* 24 px; 20 px below 720 px */
-  --margin-col-end: 3;                 /* Content begins at column 3; columns 1 to 2 carry the section index */
-  --space-section: var(--hx-space-18); /* 72 px between sections below 1024 px; 112 px above */
-  --space-section-to-heading: var(--hx-space-12); /* 48 px from the index row to the heading group */
-  --space-heading-to-body: var(--hx-space-10);    /* 40 px from the heading group to the ledger or plate */
-  --space-row: var(--hx-space-6);                 /* 24 px between ledger rows */
-  --space-index-top: var(--hx-space-5);           /* 20 px from the section rule to the index */
-  --plate-bleed-max: var(--hx-space-36);          /* 144 px cap on the tipped-in plate's right bleed (B9) */
-  --plate-bleed-inset: var(--hx-space-4);         /* Plate always stops 16 px inside the viewport */
+  --grid-gap: var(--hx-space-6);
+  --space-section: var(--station);
+  --space-section-to-heading: var(--hx-space-6);
+  --space-heading-to-body: 30px;  /* A heading is followed by 30 px; 20 px read as a
+                                   * collision at line-height 1.02 (canvas defect 9) */
+  --space-block: var(--hx-space-11); /* 44 px, the group break inside a station */
+  --space-row: var(--hx-space-5);
+  --space-index-top: var(--hx-space-5);
 
   /* --- Sizes and targets --------------------------------------------------- */
-  --target: var(--hx-size-44);          /* 44 by 44 at every width below 1024 (KF-09) */
-  --target-min: var(--hx-size-24);      /* 2.5.8 minimum; text links in header, footer, legal row at 1024 and above, pending decision 5 in 16 */
-  --target-clearance: var(--hx-space-2);/* 8 px house rule between adjacent targets */
-  --control-height: var(--hx-size-48);  /* Buttons and inputs */
-  --control-height-compact: var(--hx-size-44); /* Header button, replay control, chips that act */
-  --header-height: var(--hx-size-64);   /* 64 px; 76 px from 48rem. The single source; globals.css @layer base no longer defines it. Feeds scroll-padding-top */
-  --consent-banner-height: 0px;         /* Published by the consent sheet's ResizeObserver while on screen */
-  --consent-sheet-max: min(360px, 40vh);/* Content-fit cap below 1024 px (KF-07, 15 section 8) */
+  --target: var(--hx-size-44);           /* 44 by 44 at every width */
+  --target-min: var(--hx-size-24);       /* 2.5.8 minimum */
+  --target-clearance: var(--hx-space-2); /* 8 px house rule between adjacent targets */
+  --control-height: var(--hx-size-48);
+  --control-height-compact: var(--hx-size-44);
+  --header-height: var(--hx-size-62);    /* The single source; globals.css reads it for
+                                          * scroll-padding-top and site-header.tsx for its box */
+  --consent-banner-height: 0px;          /* Published by the consent sheet's ResizeObserver */
+  --consent-sheet-max: min(360px, 40vh);
 
-  /* --- Motion (names deliverable 11 references). The -min and -max tokens
-   *     document the range 11 may tune within; they collapse with the nominal
-   *     value under reduced motion (section 6). A component reads the nominal
-   *     token, never a bound. ------------------------------------------------ */
-  --duration-micro: var(--hx-time-160);      /* Hover, focus, underline, arrow. Range 140 to 200 */
+  /* --- Motion. A component reads the nominal token, never a bound. --------- */
+  --duration-micro: var(--hx-time-160);
   --duration-micro-min: var(--hx-time-140);
   --duration-micro-max: var(--hx-time-200);
-  --duration-standard: var(--hx-time-240);   /* Disclosure, sheet, tile state. Range 200 to 280 */
+  --duration-standard: var(--hx-time-240);
   --duration-standard-min: var(--hx-time-200);
   --duration-standard-max: var(--hx-time-280);
-  --duration-diagram: var(--hx-time-800);    /* A full plate sequence. Range 600 to 1000, final state within 1000 (MO-02) */
+  --duration-diagram: var(--hx-time-800);
   --duration-diagram-min: var(--hx-time-600);
   --duration-diagram-max: var(--hx-time-1000);
-  --duration-stagger: var(--hx-time-80);     /* Between marks in a sequence */
-  --ease-standard: var(--hx-ease-out);       /* Arrivals */
-  --ease-draw: var(--hx-ease-in-out);        /* Travel along a path */
+  --duration-stagger: var(--hx-time-80);
+  --ease-standard: var(--hx-ease-out);
+  --ease-draw: var(--hx-ease-in-out);
 
-  /* --- Elevation and stacking ---------------------------------------------- */
-  --shadow-dialog: var(--hx-shadow-dialog);  /* Mobile sheet, preferences dialog. Nothing else casts a shadow */
+  /* --- Stacking ------------------------------------------------------------ */
   --z-header: 40;
-  --z-consent: 45;   /* Above the header, below dialogs */
+  --z-consent: 45; /* Above the header, below dialogs */
   --z-dialog: 50;
-  --z-skip: 60;      /* Skip link on focus */
-
-  /* --- shadcn aliases (kept so existing ui/* components resolve) ----------- */
-  --background: var(--page-bg);
-  --foreground: var(--page-fg);
-  --muted-foreground: var(--ink-2);
-  --primary: var(--action);
-  --primary-foreground: var(--action-fg);
-  --border: var(--rule);
-  --destructive: var(--signal-destructive);
-}
-
-/* D2 ink variant. A measured experiment on the live Diagnostic CTA flips the
- * two tokens by stamping data-action="ink" on <html>. Nothing else changes.
- * White label on ink 17.62:1, on ink hover 12.64:1. */
-:root[data-action="ink"] {
-  --action: var(--hx-navy-900);
-  --action-hover: var(--hx-navy-700);
+  --z-skip: 60;
 }
 
 /* ========================================================================== */
 /* 3. COMPONENT LAYER. Colour parts read semantic roles, never --hx- colours. */
 /*    Geometry parts (radius, stroke, space, size, time) may read --hx-        */
-/*    primitives, which have no semantic equivalent. The 18 lint enforces      */
+/*    primitives, which have no semantic equivalent. The token lint enforces   */
 /*    exactly that boundary.                                                   */
 /* ========================================================================== */
 
 :root,
-.on-plate { /* Declared on both selectors (08 prototype-spec section 8 item 7, decision 12; 07 shell repair; reconciliation register RX-11): a component token declared on :root as var(--role) is substituted on :root, so it would keep its light value inside .on-plate. Declaring the component layer on both lets the same names resolve against the re-scoped roles. Names and values are unchanged. */
-  /* --- Radius roles (docs/04 section 8; pills only for chips) -------------- */
-  --radius-plate: var(--hx-radius-20);     /* Plates, the mobile sheet */
-  --radius-tile: var(--hx-radius-16);      /* Output tiles, partnership rows when boxed, portrait frame */
-  --radius-control: var(--hx-radius-10);   /* Buttons and inputs (docs/04 section 8 "button/input"). The live --radius-control was the 8 px small-control radius; its call sites move to --radius-small (09 section 10.2) */
-  --radius-small: var(--hx-radius-8);      /* Menu button, navigation items, disclosure rows, replay control, plate inner panel (docs/04 "small control") */
-  --radius-mark: var(--hx-radius-2);       /* Tested frame, measured square, focus ring corners */
-  --radius-pill: var(--hx-radius-full);    /* Chips only */
+.on-plate { /* Declared on both selectors: a component token written as var(--role) is substituted where it is declared, so on :root alone it would keep the page ground's value inside .on-plate. Declaring the component layer on both lets the same names resolve against the re-scoped ground. */
+  /* --- Radius roles. Controls, the focus ring and round marks. Nothing else
+   * carries a radius in this system; a radius on anything else is a defect. -- */
+  --radius-control: var(--hx-radius-6);
+  --radius-mark: var(--hx-radius-2);
+  --radius-skip: var(--hx-radius-4);
+  --radius-round: var(--hx-radius-round);
 
   /* --- Focus ---------------------------------------------------------------- */
   --focus-ring-width: var(--hx-stroke-2);
-  --focus-ring-offset: 2px;
+  --focus-ring-offset: 3px;
   --focus-ring-radius: var(--radius-mark);
-  /* Outline color is --focus-ring; set at rest so it never fades in from currentColor (KF-06) */
 
-  /* --- Button --------------------------------------------------------------- */
-  --button-height: var(--control-height);              /* 48 */
-  --button-height-compact: var(--control-height-compact); /* 44: header button */
-  --button-pad-x: 22px;
-  --button-pad-x-compact: 16px;
-  --button-gap: 10px;
+  /* --- Button. Filled primary, hairline secondary. No third variant. ------- */
+  --button-height: var(--control-height);
+  --button-height-compact: var(--hx-size-38); /* The masthead button */
+  --button-pad-x: 18px;
+  --button-pad-x-compact: 15px;
+  --button-gap: var(--hx-space-2);
   --button-radius: var(--radius-control);
-  --button-font-size: var(--text-small);
-  --button-font-weight: var(--weight-medium);
+  --button-font-size: 14px;
+  --button-font-weight: var(--weight-mono);
   --button-edge-width: var(--hx-stroke-1);
-  --button-primary-bg: var(--action);
-  --button-primary-fg: var(--action-fg);
-  --button-primary-hover-bg: var(--action-hover);
-  --button-primary-active-bg: var(--action-hover);
-  --button-primary-active-inset: var(--action-fg);     /* 1 px inset ring on active */
+  --button-primary-bg: var(--btn);
+  --button-primary-fg: var(--ink);            /* 5.51:1 on --btn */
+  --button-primary-hover-bg: var(--btn-hover); /* Label 7.24:1 through hover */
+  --button-primary-active-bg: var(--btn-hover);
+  --button-primary-active-inset: var(--ink);
   --button-secondary-bg: transparent;
-  --button-secondary-fg: var(--action-secondary-fg);
-  --button-secondary-edge: var(--action-secondary-edge);
-  --button-secondary-hover-bg: var(--action-secondary-hover-bg);
-  --button-secondary-hover-edge: var(--action-secondary-hover-edge);
-  --button-secondary-active-bg: var(--action-secondary-active-bg);
-  --button-disabled-bg: var(--action-disabled-bg);
-  --button-disabled-fg: var(--action-disabled-fg);
-  --button-disabled-edge: var(--action-disabled-edge);
+  --button-secondary-fg: var(--ink);
+  --button-secondary-edge: var(--edge);       /* 3.41:1 boundary */
+  --button-secondary-hover-bg: transparent;   /* Hover brightens the edge; nothing fills */
+  --button-secondary-hover-edge: var(--ink);
+  --button-secondary-active-bg: transparent;
+  --button-disabled-bg: transparent;
+  --button-disabled-fg: var(--ink-2);         /* 7.35:1; disabled is exempt from 1.4.3 and passes anyway */
+  --button-disabled-edge: var(--rule-2);
   --button-transition: background-color var(--duration-micro) var(--ease-standard), border-color var(--duration-micro) var(--ease-standard), color var(--duration-micro) var(--ease-standard);
 
   /* --- Tertiary link (text plus arrow) ------------------------------------- */
   --link-underline-width: var(--hx-stroke-1);
   --link-underline-hover-width: var(--hx-stroke-2);
   --link-underline-offset: 3px;
-  --link-min-height: var(--target); /* Standalone tertiary, ledger and breadcrumb links are 44 px controls at every width (KF-09): an inline-flex box, never a 4 px pad. B10's 24 px is superseded */
-  --link-pad-y: calc((var(--link-min-height) - 1lh) / 2); /* Derived only where a link cannot be inline-flex; reaches --link-min-height on one line of text. Prose links take no padding (2.5.8 inline exception) */
-  --link-arrow-shift: 3px;        /* Arrow travel on hover */
-  --link-font-weight: var(--weight-medium);
+  --link-min-height: var(--target); /* Standalone tertiary, ledger and breadcrumb links are 44 px controls at every width */
+  --link-arrow-shift: 3px;
+  --link-font-weight: var(--weight-mono);
 
   /* --- Input (text, email, url, select, textarea) -------------------------- */
-  --input-height: var(--control-height);       /* 48; 44 minimum (FM-09) */
+  --input-height: var(--control-height);
   --input-pad-x: 14px;
   --input-radius: var(--radius-control);
-  --input-bg: var(--surface-raised);
-  --input-fg: var(--ink-body);
-  --input-edge: var(--rule-strong);            /* 3.91:1 on sheet, 3.70:1 on page (CC-04) */
+  --input-bg: transparent;      /* A control's boundary carries it, not a fill */
+  --input-fg: var(--ink);
+  --input-edge: var(--edge);    /* 3.41:1 boundary */
   --input-edge-width: var(--hx-stroke-1);
   --input-edge-hover: var(--ink);
-  --input-edge-invalid: var(--signal-destructive);
+  --input-edge-focus: var(--path);
+  --input-edge-invalid: var(--alert);
   --input-edge-invalid-width: var(--hx-stroke-2);
-  --input-font-size: var(--text-body);         /* 17 px minimum, so iOS does not zoom */
+  --input-font-size: var(--text-body); /* 17 px, so iOS does not zoom */
   --input-label-fg: var(--ink);
   --input-label-size: var(--text-small);
   --input-hint-fg: var(--ink-2);
-  --input-hint-size: var(--text-small);
-  --input-placeholder-fg: var(--ink-2);        /* 5.38:1 on sheet; placeholders never carry the label */
-  --input-error-fg: var(--signal-destructive);
-  --input-success-fg: var(--signal-positive);
-  --input-check-size: var(--hx-size-24);       /* Checkbox and radio mark */
-  --input-check-target: var(--target);         /* 44 px hit area around the mark */
-  --input-check-edge: var(--rule-strong);
-  --input-check-checked-bg: var(--ink);        /* Checked mark is ink, not blue: a form state is not a measured value */
-  --input-check-checked-fg: var(--surface-raised);
-  --input-gap: var(--hx-space-2);              /* Label to control */
-  --input-stack-gap: var(--hx-space-6);        /* Between fields */
+  --input-hint-size: var(--text-caption);
+  --input-placeholder-fg: var(--ink-2); /* 7.35:1; a placeholder never carries the label */
+  --input-error-fg: var(--alert);
+  --input-success-fg: var(--ok);
+  --input-check-size: var(--hx-size-24);
+  --input-check-target: var(--target);
+  --input-check-edge: var(--edge);
+  --input-check-checked-bg: var(--ink); /* A form state is not a measured value, so it is ink, not blue */
+  --input-check-checked-fg: var(--bg);
+  --input-gap: var(--hx-space-2);
+  --input-stack-gap: var(--hx-space-6);
 
-  /* --- Plate ---------------------------------------------------------------- */
-  --plate-bg: var(--surface-plate);
-  /* Plate text reads --ink and --ink-2 under .on-plate (field 16.71:1, slate-200 7.34:1). There is no plate-fixed text token, so no component branches on surface (G6) */
-  --plate-inner-bg: var(--surface-plate-2);
-  --plate-inner-edge: var(--rule);             /* Resolves to navy-600 under .on-plate. Decorative, 1.24:1 on plate-2 */
-  --plate-inner-radius: var(--radius-small);
-  --plate-rule: var(--rule);                   /* Decorative rules inside plates; navy-600 under .on-plate */
-  --plate-guide: var(--guide);                 /* Stage guides; slate-300 under .on-plate, 5.27:1 on plate, 4.69:1 on plate-2 */
-  --plate-radius: var(--radius-plate);
-  --plate-pad: var(--hx-space-5);              /* 20; 16 below 720 px */
-  --plate-inner-inset: var(--hx-space-2);      /* 8 */
-  --plate-registration: var(--rule-registration); /* 1 px line 5 px below the plate, inset 12 px, on the page ground. Decorative, 3.70:1 on page (steel-500). Drawn from a pseudo-element of the .on-plate element it must read this fixed token: --rule-strong would resolve to slate-300 at 3.17:1 on page. The only shadow-like device */
-  --plate-registration-offset: 5px;
-  --plate-registration-inset: var(--hx-space-3);
-  --plate-svg-max: 740px;                      /* Desktop drawing renders 0.95 to 1.11 of design size */
-  --plate-svg-mobile-max: 400px;               /* Mobile drawing is 1:1 at 320 px, capped at 400 */
-  --plate-label-size: 15px;                    /* Brand and node labels, HTML text on the coordinate grid; never under 14 px rendered (VZ-11) */
-  --plate-annotation-size: 14px;               /* Annotations and stage labels: content text, 14 px floor at every width (TY-01, VZ-11) */
-  --plate-coordinate-size: 14px;               /* Uppercase mono coordinate marks (axis ticks, grid references) */
-  --plate-coordinate-size-mobile: 13px;        /* Coordinate marks only, below 720 px; they carry the eyebrow class and count as eyebrows in the census (VZ-11). Never a stage, brand, node or source-type label */
+  /* --- Plate: the instrument. Its surface is the ground. ------------------- */
+  --plate-bg: var(--plate);
+  --plate-rule: var(--rule);   /* Decorative hairlines inside an instrument */
+  --plate-guide: var(--guide); /* Stage guides, 3.93:1, meaning bearing */
+  --plate-pad: var(--hx-space-5);
+  --plate-svg-max: 740px;
+  --plate-svg-mobile-max: 400px;
+  --plate-label-size: 15px;             /* Brand and node labels; never under 14 px rendered */
+  --plate-annotation-size: 14px;        /* Annotations and stage labels: content text, 14 px floor */
+  --plate-coordinate-size: 14px;        /* Uppercase mono coordinate marks */
+  --plate-coordinate-size-mobile: 13px; /* Coordinate marks only, below 720 px */
   --plate-head-gap: var(--hx-space-4);
-  --plate-key-gap: 24px;                       /* Between key items */
+  --plate-key-gap: var(--hx-space-6);
 
-  /* --- Ledger --------------------------------------------------------------- */
-  --ledger-rule: var(--rule);                  /* Row separators, decorative */
-  --ledger-rule-top: var(--ink);               /* 2 px top rule on the evidence ledger */
-  --ledger-rule-total: var(--ink);             /* 5 px double rule above and below the closing band */
-  --ledger-head-bg: var(--surface-tint);
-  --ledger-head-fg: var(--ink-2);              /* 4.77:1 on tint */
-  --ledger-head-size: var(--text-coordinate);  /* 13 px only because head labels are uppercase mono coordinates (TY-01 eyebrow range); a sentence-case head label must use --text-small */
-  --ledger-head-tracking: var(--hx-tracking-ledger-head);
-  --ledger-index-fg: var(--ink-2);
-  --ledger-index-col: 44px;
-  --ledger-name-size: var(--text-h4);
-  --ledger-name-weight: var(--weight-semibold);
-  --ledger-desc-measure: var(--measure-tight);
-  --ledger-row-pad: var(--space-row);          /* 24 above and below each row */
-  --ledger-gap: var(--grid-gap);
-  --ledger-head-tick-width: 8px;               /* The 2 px by 8 px head tick at the left margin of a section rule */
+  /* --- Ledger: hairline rows, no head fill -------------------------------- */
+  --ledger-rule: var(--rule);
+  --ledger-rule-top: var(--rule-2);
+  --ledger-rule-total: var(--ink-2);
+  --ledger-head-bg: transparent; /* The head is a mono label over a hairline */
+  --ledger-head-fg: var(--ink-2);
+  --ledger-head-size: var(--text-coordinate); /* 12 px only because head labels are uppercase mono coordinates */
+  --ledger-head-tracking: var(--tracking-coordinate);
+  --ledger-head-tick-width: 8px;
   --ledger-head-tick-height: var(--hx-stroke-2);
+  --ledger-index-fg: var(--ink-2);
+  --ledger-index-col: var(--hx-size-44);
+  --ledger-name-size: var(--text-body);
+  --ledger-name-weight: var(--weight-sub);
+  --ledger-desc-measure: var(--measure);
+  --ledger-row-pad: var(--space-row);
+  --ledger-gap: var(--grid-gap);
 
-  /* --- Tile (output previews) ----------------------------------------------- */
-  --tile-bg: var(--surface-raised);
-  --tile-fg: var(--ink-body);
+  /* --- Tile: a hairline group, never a box -------------------------------- */
+  --tile-fg: var(--ink);
   --tile-edge: var(--rule);
-  --tile-edge-hover: var(--rule-strong);       /* Hover shifts the edge; no shadow, no lift */
-  --tile-radius: var(--radius-tile);
-  --tile-head-bg: var(--surface-tint);
+  --tile-edge-hover: var(--rule-2);
   --tile-head-fg: var(--ink-2);
-  --tile-head-pad-y: 12px;
-  --tile-head-pad-x: 20px;
-  --tile-body-pad: 20px;
-  --tile-gap: var(--hx-space-8);               /* Between tiles */
+  --tile-head-pad-y: var(--hx-space-3);
+  --tile-head-pad-x: var(--hx-space-5);
+  --tile-body-pad: var(--hx-space-5);
+  --tile-gap: var(--hx-space-8);
   --tile-min-width: 280px;
 
-  /* --- Chip (evidence class, taxonomy labels) ------------------------------- */
-  --chip-bg: var(--surface-raised);
+  /* --- Chip: the picker chip and the key toggle are controls -------------- */
+  --chip-bg: transparent; /* A chip is a boundary and a label, never a fill */
   --chip-fg: var(--ink);
-  --chip-edge: var(--rule);
-  --chip-radius: var(--radius-pill);
+  --chip-edge: var(--edge); /* 3.41:1; a chip is a control */
+  --chip-radius: var(--radius-control);
   --chip-pad-y: 6px;
-  --chip-pad-x: 12px;
-  --chip-gap: 8px;                             /* Mark to label */
-  --chip-font-size: var(--text-small);         /* 14 px floor (TY-01) */
-  --chip-font-weight: var(--weight-medium);
+  --chip-pad-x: var(--hx-space-3);
+  --chip-gap: var(--hx-space-2);
+  --chip-font-size: 13px;
+  --chip-font-weight: var(--weight-mono);
   --chip-mark-size: 10px;
-  --chip-min-height-static: calc(var(--chip-font-size) * var(--leading-small) + 2 * var(--chip-pad-y)); /* About 33 to 35 px; a static label is not a target */
-  --chip-min-height: var(--control-height-compact); /* Chips that act (a filter `button` with aria-pressed): 44 px at every width (KF-09), the same box as the replay control */
-  --chip-edge-acting: var(--rule-strong);      /* A chip that acts is a control, so its edge is 3.91:1 on sheet, 3.70:1 on page (1.4.11); --chip-edge (--rule) stays on static chips */
-  --chip-hover-bg: var(--surface-tint);        /* Acting chip hover ground; --chip-fg on it 15.64:1 */
+  --chip-min-height-static: calc(var(--chip-font-size) * var(--leading-small) + 2 * var(--chip-pad-y));
+  --chip-min-height: var(--control-height-compact); /* A chip that acts is 44 px */
+  --chip-edge-acting: var(--edge);
   --chip-hover-edge: var(--ink);
-  --chip-pressed-bg: var(--ink);               /* aria-pressed="true": ink ground plus the mark, never hue alone. Label 17.62:1 */
-  --chip-pressed-fg: var(--surface-raised);
+  --chip-pressed-bg: var(--ink); /* aria-pressed="true": ink ground plus the mark, never hue alone. Label 18.40:1 */
+  --chip-pressed-fg: var(--bg);
   --chip-pressed-edge: var(--ink);
-  /* The acting-chip tokens read roles .on-plate already re-scopes, so none is repeated in the .on-plate block: pressed becomes field ground with a navy-800 label (14.86:1), hover ground navy-800 with a field edge, the acting edge slate-300 (5.27:1) */
 
-  /* --- Evidence marks and lines (drawing grammar; deliverable 10 draws) ---- */
-  --ev-mark-size: 10px;                        /* HTML key mark */
-  --ev-node-r: 5px;                            /* Path node radius in SVG */
-  --ev-dot-r: 7px;                             /* Signal dot radius */
+  /* --- Evidence marks and lines (the drawing grammar) --------------------- */
+  --ev-mark-size: 10px;
+  --ev-node-r: 5px;
+  --ev-dot-r: 7px;
   --ev-dot-ring: var(--hx-stroke-2);
-  --ev-line-observed: var(--hx-stroke-2);      /* Solid */
-  --ev-line-need: var(--hx-stroke-2);          /* Customer need path, blue */
-  --ev-line-your: var(--hx-stroke-2-5);        /* Your Brand's track, blue up to where it stops */
-  --ev-line-muted: var(--hx-stroke-1-25);      /* Other brands */
+  --ev-line-observed: var(--hx-stroke-2);
+  --ev-line-need: var(--hx-stroke-2);
+  --ev-line-your: var(--hx-stroke-2-5);
+  --ev-line-muted: var(--hx-stroke-1-25);
   --ev-dash-inferred: 4 4;
-  --ev-dash-guide: 2 6;                        /* Stage guides, 1 px */
-  --ev-tick-width: var(--hx-stroke-2);         /* Measured: 2 px tick every 8 px, integer pitch (B15) */
+  --ev-dash-guide: 2 6;
+  --ev-tick-width: var(--hx-stroke-2);
   --ev-tick-pitch: 8px;
   --ev-tick-length: 6px;
-  --ev-frame-width: var(--hx-stroke-1-5);      /* Tested: the boxed segment's frame */
+  --ev-frame-width: var(--hx-stroke-1-5);
   --ev-frame-radius: var(--radius-mark);
-  --ev-strike-width: var(--hx-stroke-1-5);     /* Leaves-the-path: hollow node with a 45 degree strike (G3) */
-  --ev-gap-cross: 12px;                        /* Gap mark cross length */
-  --ev-grade-size: var(--hx-size-24);          /* Evidence grade mark square (5.53); not a control */
+  --ev-strike-width: var(--hx-stroke-1-5);
+  --ev-gap-cross: 12px;
+  --ev-grade-size: var(--hx-size-24);
+  --ev-accent-width: var(--hx-stroke-1-5); /* The one accent border in the system: a left rule */
 
-  /* --- Header --------------------------------------------------------------- */
-  --header-bg: var(--surface);
-  --header-edge: var(--rule);
+  /* --- Header -------------------------------------------------------------- */
+  --header-bg: var(--bg);
+  --header-edge: var(--rule-2);
   --header-nav-fg: var(--ink);
-  --header-nav-size: var(--text-small);
-  --header-nav-size-laptop: var(--hx-text-nav-laptop); /* 1024 to 1279 px (G7) */
-  --header-nav-pad-x: 12px;
-  --header-nav-pad-x-laptop: 8px;
-  --header-nav-current-edge: var(--ink);       /* 2 px underline marks the current page with aria-current */
+  --header-nav-size: 14px;
+  --header-nav-size-laptop: 13.5px;
+  --header-nav-pad-x: var(--hx-space-3);
+  --header-nav-pad-x-laptop: var(--hx-space-2);
+  --header-nav-current-edge: var(--ink); /* A 2 px underline marks the current page with aria-current */
   --header-gap: var(--hx-space-6);
-  --header-wordmark-height: 28px;              /* 24 below 720, 20 below 360 */
-  --disclosure-bg: var(--surface-raised);
-  --disclosure-edge: var(--rule);
-  --disclosure-radius: var(--radius-tile);
+  --header-wordmark-height: 28px;
+  --disclosure-bg: var(--bg);  /* A floating panel is opaque so the page behind it
+                                * does not read through the routes; it is the
+                                * ground, not a lifted surface */
+  --disclosure-edge: var(--rule-2);
+  --disclosure-radius: var(--radius-control); /* A disclosure is a control */
   --disclosure-width: 320px;
 
   /* --- Consent sheet ------------------------------------------------------- */
-  --consent-bg: var(--surface-raised);
-  --consent-edge: var(--rule-strong);
-  --consent-fg: var(--ink-body);
+  --consent-bg: var(--bg);
+  --consent-edge: var(--edge);
+  --consent-fg: var(--ink);
   --consent-button-height: var(--target);
 }
 
 /* ========================================================================== */
-/* 4. SURFACE RE-SCOPING (graft G6). Apply `.on-plate` to a plate or to any    */
-/*    subtree drawn on navy. Components keep the same token names.            */
+/* 4. SURFACE RE-SCOPING. Apply `.on-plate` to an instrument surface or to any */
+/*    subtree drawn on one. Components keep the same token names.             */
+/*                                                                            */
+/*    On the approved page --plate resolves to the ground, so this swap is a   */
+/*    no-op in value today. It is not decoration: it is the single point where */
+/*    a lifted instrument surface would enter, and the contrast gate resolves  */
+/*    every pair twice, once against --bg and once against --plate, so the day */
+/*    --plate takes Deep Navy the gate recomputes rather than assumes.         */
 /* ========================================================================== */
 
 .on-plate {
-  --surface: var(--hx-navy-900);
-  --surface-raised: var(--hx-navy-800);
-  --surface-tint: var(--hx-navy-800);
+  --surface: var(--plate);
 
-  --ink: var(--hx-gray-50);         /* 16.71:1 on plate, 14.86:1 on plate-2 */
-  --ink-body: var(--hx-gray-50);
-  --ink-2: var(--hx-slate-200);     /* 7.34:1 on plate, 6.52:1 on plate-2 */
-
-  --rule: var(--hx-navy-600);       /* 1.40:1, decorative only */
-  --rule-strong: var(--hx-slate-300); /* 5.27:1 on plate, 4.69:1 on plate-2 */
-  --guide: var(--hx-slate-300);
-  --row-highlight: var(--guide);    /* slate-300, 4.69:1 on plate-2; the node 3.17:1 against it */
-
-  --action: var(--hx-gray-50);      /* Primary on a plate is field with an ink label, 16.71:1 (B). Overrides D2 on plates */
-  --action-hover: var(--hx-gray-150); /* Ink label 14.42:1 */
-  --action-fg: var(--hx-navy-900);
-  --action-secondary-fg: var(--hx-gray-50);
-  --action-secondary-edge: var(--hx-slate-300);
-  --action-secondary-hover-bg: var(--hx-navy-800);
-  --action-secondary-hover-edge: var(--hx-gray-50);
-  --action-secondary-active-bg: var(--hx-navy-600);
-  --action-disabled-bg: var(--hx-navy-800);
-  --action-disabled-fg: var(--hx-slate-200);
-  --action-disabled-edge: var(--hx-navy-600);
-
-  --link: var(--hx-gray-50);
-  --link-hover: var(--hx-gray-50);
-  --focus-ring: var(--hx-cyan-500); /* 8.15:1 on plate, 7.25:1 on plate-2 */
-
-  --ev-observed: var(--hx-gray-50);     /* 16.71:1 on plate, 14.86:1 on plate-2 */
-  --ev-inferred: var(--hx-slate-200);   /* 7.34:1 on plate, 6.52:1 on plate-2 */
-  --ev-measured: var(--hx-blue-400);    /* 5.90:1 on plate, 5.25:1 on plate-2 */
-  --ev-measured-hover: var(--hx-blue-300); /* 7.54:1 on plate, 6.71:1 on plate-2 */
-  --ev-tested: var(--hx-green-300);     /* 8.09:1 on plate, 7.19:1 on plate-2 */
-  --ev-gap: var(--hx-amber-500);        /* 8.68:1 on plate, 7.72:1 on plate-2 */
-  --ev-muted: var(--hx-slate-300);      /* 5.27:1 on plate, 4.69:1 on plate-2 */
-  --path: var(--hx-blue-400);           /* 5.90:1 on plate, 5.25:1 on plate-2 */
-
-  --signal-positive: var(--hx-green-300);   /* 8.09:1 on plate */
-  --signal-destructive: var(--hx-red-300);  /* 7.36:1 on plate, 6.54:1 on plate-2 */
-  --signal-dot: var(--hx-blue-400);
-  --selection-bg: var(--hx-blue-700);       /* White text on it 7.63:1 */
-  --selection-fg: var(--hx-white);
-
-  --input-bg: var(--hx-navy-800);
-  --input-fg: var(--hx-gray-50);
-  --input-edge: var(--hx-slate-300);
-  --input-edge-hover: var(--hx-gray-50);
-  --input-check-checked-bg: var(--hx-gray-50);
-  --input-check-checked-fg: var(--hx-navy-900);
-  --chip-bg: var(--hx-navy-800);
-  --chip-fg: var(--hx-gray-50);
-  --chip-edge: var(--hx-slate-300);
-  --tile-bg: var(--hx-navy-800);
-  --tile-edge: var(--hx-navy-600);
-  --tile-edge-hover: var(--hx-slate-300);
-  --tile-head-bg: var(--hx-navy-900);
-  --ledger-rule-top: var(--hx-gray-50);
-  --ledger-rule-total: var(--hx-gray-50);
-
-  color: var(--ink-body);
+  color: var(--ink);
 }
 
 /* ========================================================================== */
 /* 5. RESPONSIVE TOKEN STEPS. Breakpoints in rem at 16 px: 22.4375 = 359,     */
-/*    44.9375 = 719, 48 = 768, 64 = 1024, 80 = 1280.                          */
+/*    37.4375 = 599, 56.1875 = 899, 64 = 1024, 80 = 1280.                     */
 /* ========================================================================== */
 
-@media (max-width: 44.9375rem) {
+/* Station rhythm tightened from 80 to 46 at mobile, and the rail and padding
+ * with it, so the enlarged figures stay inside the document height gate. */
+@media (max-width: 56.1875rem) {
   :root {
-    --grid-gap: var(--hx-space-5);        /* 20 px */
-    --plate-pad: var(--hx-space-4);       /* 16 px; plates run edge to edge */
-    --header-wordmark-height: 24px;
+    --rail: 34px;
+    --pad: 20px;
+    --station: 46px;
     --header-gap: var(--hx-space-3);
   }
 }
 
-/* Declared after the 44.9375rem step on purpose: both blocks match at 320 px
- * and set the same two header tokens, so in 09-tokens.css source order the
- * later 24 px and 12 px won and the 20 px wordmark and 8 px gap never applied
- * (repo correction to deliverable 09 section 5; the source file still carries
- * the shadowed order). */
+/* The locked D-F CTA label needs three lines at 320 px. The label may not change
+ * and the link may not be hidden, so the masthead grows below 360 px: it keeps
+ * --header-height as its minimum and lets its own content set the box. The
+ * sticky offset grows with it, which is why --stick is a step above the height
+ * rather than equal to it. */
 @media (max-width: 22.4375rem) {
   :root {
-    --text-h1: var(--hx-text-h1-floor);   /* 34 px keeps the primary CTA inside 320 by 568 (B7) */
-    --header-wordmark-height: 20px;
+    --header-wordmark-height: 24px;
     --header-gap: var(--hx-space-2);
-  }
-}
-
-@media (min-width: 48rem) {
-  :root {
-    --header-height: var(--hx-size-76);   /* 76 px. Requires site-header.tsx `md:h-20` to become `md:h-[4.75rem]` and the `--header-height` lines removed from globals.css `@layer base` (09 section 10.2); 16 KF-07's anchor offsets become 5rem and 5.75rem */
-  }
-}
-
-@media (min-width: 64rem) {
-  :root {
-    --space-section: var(--hx-space-28);  /* 112 px */
-  }
-
-  /* Target-size variance (16 KF-09, decision 5). Off until Brandon approves:
-   * the stamp goes on <html> and only the header, footer and legal-row text
-   * links opt in with .target-variance. Standalone tertiary, ledger and
-   * breadcrumb links are not named by the variance and keep --target. */
-  html[data-target-variance="approved"] .target-variance {
-    --link-min-height: var(--target-min);   /* 24 px with --target-clearance between neighbours */
+    --button-height-compact: var(--hx-size-40);
+    --button-pad-x-compact: var(--hx-space-3);
   }
 }
 
 @media (min-width: 64rem) and (max-width: 79.9375rem) {
   :root {
-    --header-nav-size: var(--header-nav-size-laptop);  /* 14 px, 8 px padding, nowrap (G7) */
+    --header-nav-size: var(--header-nav-size-laptop);
     --header-nav-pad-x: var(--header-nav-pad-x-laptop);
     --header-gap: var(--hx-space-4);
   }
 }
 
 /* ========================================================================== */
-/* 6. REDUCED MOTION. The globals.css blanket stays as the backstop (MO-01);   */
-/*    collapsing the tokens here means any consumer reads zero without a      */
-/*    second override, and the JS primitives read data-motion, not the tokens.*/
+/* 6. REDUCED MOTION. The globals.css blanket stays as the backstop; collapsing */
+/*    the tokens here means any consumer reads zero without a second override,  */
+/*    and the JS primitives read data-motion, not the tokens.                   */
 /* ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
@@ -705,133 +612,126 @@
 }
 
 /* ========================================================================== */
-/* 7. FORCED COLORS. Every mark references a token, so the palette maps to     */
-/*    system colors on both surfaces and nothing keeps a brand color (16      */
-/*    VZ-07). No `forced-color-adjust: none` on any element that carries       */
-/*    meaning; line style and marker shape carry the evidence classes.        */
+/* 7. FORCED COLORS. In a forced colour mode the hairlines and the drawn marks  */
+/*    disappear, because the system repaints backgrounds and borders. Every     */
+/*    mark references a token, so the palette maps to system colours and        */
+/*    nothing keeps a brand colour. No `forced-color-adjust: none` on any        */
+/*    element that carries meaning; line style and marker shape carry the        */
+/*    evidence classes.                                                          */
 /* ========================================================================== */
 
 @media (forced-colors: active) {
   :root,
   .on-plate {
-    --page-bg: Canvas;
-    --page-fg: CanvasText;
+    --bg: Canvas;
+    --plate: Canvas;
     --surface: Canvas;
-    --surface-raised: Canvas;
-    --surface-tint: Canvas;
-    --surface-plate: Canvas;
-    --surface-plate-2: Canvas;
     --ink: CanvasText;
-    --ink-body: CanvasText;
     --ink-2: CanvasText;
+    --ink-3: CanvasText;
     --rule: CanvasText;
-    --rule-strong: CanvasText;
-    --guide: CanvasText;
-    --row-highlight: GrayText;       /* The disc recedes; the Evidence node and the gap cross stay CanvasText over it */
-    --rule-registration: CanvasText;
-    --action: ButtonFace;
-    --action-hover: ButtonFace;
-    --action-fg: ButtonText;
-    --action-secondary-fg: ButtonText;
-    --action-secondary-edge: ButtonText;
-    --action-secondary-hover-bg: ButtonFace;
-    --action-secondary-hover-edge: ButtonText;
-    --action-disabled-bg: ButtonFace;
-    --action-disabled-fg: GrayText;
-    --action-disabled-edge: GrayText;
-    --link: LinkText;
-    --link-hover: LinkText;
-    --focus-ring: Highlight;
+    --rule-2: CanvasText;
+    --edge: CanvasText;
     --ev-observed: CanvasText;
     --ev-inferred: CanvasText;
-    --ev-measured: Highlight;        /* The customer's path and measured values take the system accent */
+    --ev-measured: Highlight; /* The customer's path and measured values take the system accent */
     --ev-measured-hover: Highlight;
     --ev-tested: CanvasText;
-    --ev-gap: CanvasText;            /* The cross and its words survive; the amber does not need to */
+    --ev-gap: CanvasText;     /* The cross and its words survive; the amber does not need to */
     --ev-muted: GrayText;
-    --path: Highlight;               /* The customer's path takes the system accent with the measured class */
-    --signal-positive: CanvasText;
-    --signal-destructive: CanvasText;
+    --path: Highlight;
     --signal-dot: Highlight;
     --signal-dot-ring: Canvas;
-    --plate-bg: Canvas;
-    --plate-inner-bg: Canvas;
-    --plate-inner-edge: CanvasText;
-    --plate-rule: CanvasText;
-    --plate-guide: CanvasText;
-    --plate-registration: CanvasText;
+    --rule-strong: CanvasText;
+    --guide: CanvasText;
+    --row-highlight: GrayText; /* The disc recedes; the node and the gap cross stay CanvasText over it */
+    --link: LinkText;
+    --btn: ButtonFace;
+    --btn-hover: ButtonFace;
+    --focus: Highlight;
+    --alert: CanvasText;
+    --ok: CanvasText;
+    --caution: CanvasText;
+    --selection-bg: Highlight;
+    --selection-fg: HighlightText;
+    --button-primary-fg: ButtonText;
+    --button-secondary-fg: ButtonText;
+    --button-secondary-edge: ButtonText;
+    --button-secondary-hover-edge: ButtonText;
+    --button-disabled-bg: ButtonFace;
+    --button-disabled-fg: GrayText;
+    --button-disabled-edge: GrayText;
     --input-bg: Field;
     --input-fg: FieldText;
     --input-edge: FieldText;
+    --input-edge-hover: FieldText;
+    --input-edge-focus: Highlight;
     --input-edge-invalid: FieldText;
     --input-check-checked-bg: Highlight;
     --input-check-checked-fg: HighlightText;
-    --tile-bg: Canvas;
+    --plate-bg: Canvas;
+    --plate-rule: CanvasText;
+    --plate-guide: CanvasText;
+    --ledger-rule: CanvasText;
+    --ledger-rule-top: CanvasText;
+    --ledger-rule-total: CanvasText;
     --tile-edge: CanvasText;
     --tile-edge-hover: Highlight;
-    --tile-head-bg: Canvas;
-    --chip-bg: Canvas;
-    --chip-fg: CanvasText;
-    --chip-edge: CanvasText;
+    --chip-edge: ButtonText;
     --chip-edge-acting: ButtonText;
-    --chip-hover-bg: Canvas;
     --chip-hover-edge: Highlight;
     --chip-pressed-bg: Highlight;
     --chip-pressed-fg: HighlightText;
     --chip-pressed-edge: Highlight;
-    --ledger-head-bg: Canvas;
-    --ledger-rule-top: CanvasText;
-    --ledger-rule-total: CanvasText;
     --header-bg: Canvas;
     --header-edge: CanvasText;
+    --disclosure-edge: CanvasText;
     --consent-bg: Canvas;
     --consent-edge: CanvasText;
-    --shadow-dialog: none;
   }
 }
 
 /* ========================================================================== */
 /* 8. TAILWIND 4 THEME MAPPING. Generates bg-*, text-*, border-*, stroke-*,    */
-/*    fill-*, font-*, text-size, rounded-*, ease-*, shadow-* utilities that   */
-/*    resolve through the semantic layer, so `bg-surface` re-scopes on plates.*/
+/*    fill-*, font-*, text-size, rounded-*, ease-* utilities that resolve      */
+/*    through the semantic layer, so `bg-surface` re-scopes on an instrument.  */
 /* ========================================================================== */
 
 /* Unlayered requirement. Several theme names below (--text-*, --leading-*,
- * --tracking-*, --radius-*, --container-*, --ease-*, --font-*, --shadow-dialog) reference a same-named
- * custom property, so Tailwind emits `:root, :host { --text-h1: var(--text-h1) }`
- * inside @layer theme. That declaration is cyclic and is valid only because the
- * unlayered :root blocks above outrank @layer theme in the cascade. Never import
- * this file with `@import ... layer(...)` and never move the semantic block into
- * a layer; either change makes every type size, radius, container, easing and
- * font token guaranteed-invalid at once. If the names must be layered, rename
- * the theme side (for example --text-role-h1) so no theme variable references a
+ * --tracking-*, --radius-*, --container-*, --ease-*, --font-*) reference a
+ * same-named custom property, so Tailwind emits
+ * `:root, :host { --text-h1: var(--text-h1) }` inside @layer theme. That
+ * declaration is cyclic and is valid only because the unlayered :root blocks
+ * above outrank @layer theme in the cascade. Never import this file with
+ * `@import ... layer(...)` and never move the semantic block into a layer;
+ * either change makes every type size, radius, container, easing and font
+ * token guaranteed-invalid at once. If the names must be layered, rename the
+ * theme side (for example --text-role-h1) so no theme variable references a
  * same-named property. */
 @theme inline {
-  /* Surfaces and ink */
-  --color-page: var(--page-bg);
+  /* Ground and ink */
+  --color-bg: var(--bg);
+  --color-plate: var(--plate);
   --color-surface: var(--surface);
-  --color-surface-raised: var(--surface-raised);
-  --color-surface-tint: var(--surface-tint);
-  --color-plate: var(--surface-plate);
-  --color-plate-2: var(--surface-plate-2);
   --color-ink: var(--ink);
-  --color-ink-body: var(--ink-body);
   --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+
+  /* Hairlines and boundaries */
   --color-rule: var(--rule);
+  --color-rule-2: var(--rule-2);
+  --color-edge: var(--edge);
   --color-rule-strong: var(--rule-strong);
   --color-guide: var(--guide);
   --color-row-highlight: var(--row-highlight);
 
-  /* Action, link, focus */
-  --color-action: var(--action);
-  --color-action-hover: var(--action-hover);
-  --color-action-fg: var(--action-fg);
-  --color-action-secondary-fg: var(--action-secondary-fg);
-  --color-action-secondary-edge: var(--action-secondary-edge);
+  /* Controls, link, focus */
+  --color-btn: var(--btn);
+  --color-btn-hover: var(--btn-hover);
   --color-link: var(--link);
-  --color-focus: var(--focus-ring);
+  --color-focus: var(--focus);
 
-  /* Evidence classes and signals */
+  /* Evidence classes, the path, and the three states */
   --color-ev-observed: var(--ev-observed);
   --color-ev-inferred: var(--ev-inferred);
   --color-ev-measured: var(--ev-measured);
@@ -840,42 +740,18 @@
   --color-ev-gap: var(--ev-gap);
   --color-ev-muted: var(--ev-muted);
   --color-path: var(--path);
-  --color-positive: var(--signal-positive);
-  --color-destructive: var(--signal-destructive);
   --color-signal-dot: var(--signal-dot);
+  --color-alert: var(--alert);
+  --color-ok: var(--ok);
+  --color-caution: var(--caution);
 
-  /* Plate chrome roles (no plate-fixed text token; text reads ink under .on-plate) */
+  /* Instrument chrome */
   --color-plate-rule: var(--plate-rule);
   --color-plate-guide: var(--plate-guide);
-  --color-rule-registration: var(--rule-registration);
-
-  /* Legacy names kept so existing utilities resolve for one release. Graphite
-   * maps to body ink and Slate to ink-2. Cyan and amber map to the two roles
-   * that carry their meaning and re-scope: --color-cyan is the focus ring
-   * (blue-600 on light, 5.51:1 on page; cyan-500 under .on-plate, 8.15:1) and
-   * --color-amber is the evidence gap (amber-800 on light, 5.62:1 on page;
-   * amber-500 under .on-plate, 8.68:1), so text-cyan, bg-amber and
-   * border-amber pass on both surfaces with or without the 18 lint, which
-   * still flags the legacy names for migration. No --hx- colour is read
-   * outside the primitive layer. */
-  --color-navy: var(--surface-plate);
-  --color-navy-2: var(--surface-plate-2);
-  --color-blue: var(--ev-measured);
-  --color-blue-hover: var(--ev-measured-hover);
-  --color-field: var(--page-bg);
-  --color-graphite: var(--ink-body);
-  --color-slate: var(--ink-2);
-  --color-border: var(--rule);
-  --color-soft: var(--surface-tint);
-  --color-cyan: var(--focus-ring);
-  --color-amber: var(--ev-gap);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
 
   /* Type */
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
-  --text-display: var(--text-display);
   --text-h1: var(--text-h1);
   --text-h2: var(--text-h2);
   --text-h3: var(--text-h3);
@@ -886,10 +762,7 @@
   --text-caption: var(--text-caption);
   --text-coordinate: var(--text-coordinate);
   --text-eyebrow: var(--text-eyebrow);
-
-  /* Leading, tracking and weight, so leading-h1, tracking-h1 and font-semibold
-   * utilities generate from the same roles the globals.css type utilities read
-   * (09 section 10.2). Same-name rule as above: unlayered only. */
+  --text-illus: var(--text-illus);
   --leading-h1: var(--leading-h1);
   --leading-h2: var(--leading-h2);
   --leading-h3: var(--leading-h3);
@@ -902,27 +775,29 @@
   --tracking-h3: var(--tracking-h3);
   --tracking-h4: var(--tracking-h4);
   --tracking-coordinate: var(--tracking-coordinate);
+  --tracking-mono: var(--tracking-mono);
+  --tracking-illus: var(--tracking-illus);
   --font-weight-regular: var(--weight-regular);
+  --font-weight-mono: var(--weight-mono);
   --font-weight-medium: var(--weight-medium);
+  --font-weight-sub: var(--weight-sub);
   --font-weight-semibold: var(--weight-semibold);
 
-  /* Radii */
-  --radius-plate: var(--radius-plate);
-  --radius-tile: var(--radius-tile);
+  /* Radii. Controls, the focus ring and round marks. Nothing else. */
   --radius-control: var(--radius-control);
-  --radius-small: var(--radius-small);
   --radius-mark: var(--radius-mark);
-  --radius-pill: var(--radius-pill);
-  /* Legacy radius names */
-  --radius-button: var(--radius-control);
-  --radius-card: var(--radius-tile);
-  --radius-panel: var(--radius-plate);
+  --radius-skip: var(--radius-skip);
+  --radius-round: var(--radius-round);
 
   /* Named spacing (numeric spacing keeps Tailwind's default 0.25rem base) */
+  --spacing-rail: var(--rail);
+  --spacing-pad: var(--pad);
   --spacing-gutter: var(--gutter);
+  --spacing-station: var(--station);
   --spacing-section: var(--space-section);
   --spacing-section-to-heading: var(--space-section-to-heading);
   --spacing-heading-to-body: var(--space-heading-to-body);
+  --spacing-block: var(--space-block);
   --spacing-row: var(--space-row);
   --spacing-target: var(--target);
   --spacing-control: var(--control-height);
@@ -937,5 +812,4 @@
   /* Motion */
   --ease-standard: var(--ease-standard);
   --ease-draw: var(--ease-draw);
-  --shadow-dialog: var(--shadow-dialog);
 }

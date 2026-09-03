@@ -12,11 +12,11 @@ import { cn } from '@/lib/utils/cn'
  * variant is deleted with its last call site (handoff 5.3; PR 13).
  */
 const variants = {
-  field: 'bg-surface text-ink-body',
-  white: 'bg-surface-raised text-ink-body',
-  soft: 'bg-surface-tint text-ink-body',
+  field: ' text-ink',
+  white: ' text-ink',
+  soft: ' text-ink',
   /** @deprecated Plates are drawn by `visuals/plate.tsx`; retired with the last consumer. */
-  navy: 'on-plate bg-plate text-ink-body',
+  navy: 'on-plate bg-plate text-ink',
 } as const
 
 /**

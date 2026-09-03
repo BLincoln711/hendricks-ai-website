@@ -24,7 +24,7 @@ import { cn } from '@/lib/utils/cn'
  */
 
 const CONTROL_CLASS =
-  'inline-flex size-11 shrink-0 items-center justify-center rounded-small border border-rule-strong bg-surface-raised text-ink'
+  'inline-flex size-11 shrink-0 items-center justify-center rounded-small border border-rule-strong text-ink'
 
 const ITEM_CLASS =
   'flex min-h-control w-full items-center rounded-small px-1 font-medium text-link aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-[6px]'
@@ -37,8 +37,8 @@ export function MobileNavigation() {
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="mobile-sheet-overlay fixed inset-0 z-[var(--z-dialog)] bg-[color-mix(in_srgb,var(--surface-plate)_55%,transparent)] lg:hidden" />
-        <Dialog.Content className="mobile-sheet fixed inset-y-0 right-0 z-[var(--z-dialog)] flex w-full flex-col overflow-y-auto bg-surface-raised px-gutter pt-3 pb-6 shadow-dialog min-[30rem]:max-w-96 lg:hidden">
+        <Dialog.Overlay className="mobile-sheet-overlay fixed inset-0 z-[var(--z-dialog)] bg-[color-mix(in_srgb,var(--bg)_72%,transparent)] lg:hidden" />
+        <Dialog.Content className="mobile-sheet fixed inset-y-0 right-0 z-[var(--z-dialog)] flex w-full flex-col overflow-y-auto px-gutter pt-3 pb-6 shadow-dialog min-[30rem]:max-w-96 lg:hidden">
           <Dialog.Title className="sr-only">Site navigation</Dialog.Title>
           <Dialog.Description className="sr-only">
             Primary navigation for the Hendricks website.

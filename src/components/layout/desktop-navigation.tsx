@@ -104,7 +104,7 @@ function DisclosureGroup({ item, items }: { item: NavigationItem; items: Navigat
         aria-controls={panelId}
         aria-label="Show the four solutions"
         onClick={handleToggle}
-        className="group inline-flex size-11 shrink-0 items-center justify-center rounded-small text-ink hover:bg-surface-tint"
+        className="group inline-flex size-11 shrink-0 items-center justify-center rounded-small text-ink hover:"
       >
         <ChevronDown
           className="size-3.5 transition-transform duration-[var(--duration-micro)] ease-standard group-aria-expanded:rotate-180"
@@ -123,7 +123,7 @@ function DisclosureGroup({ item, items }: { item: NavigationItem; items: Navigat
           <li key={child.href}>
             <NavLink
               href={child.href}
-              className="flex min-h-target items-center rounded-small px-3 text-small font-medium whitespace-nowrap text-link hover:bg-surface-tint"
+              className="flex min-h-target items-center rounded-small px-3 text-small font-medium whitespace-nowrap text-link hover:"
             >
               {child.label}
             </NavLink>

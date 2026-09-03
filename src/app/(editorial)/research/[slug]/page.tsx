@@ -124,11 +124,11 @@ function NumberedList({ items }: { items: readonly ResearchNumberedItem[] }) {
     <ol className="flex flex-col gap-10">
       {items.map((item) => (
         <li key={item.number} className="flex flex-col gap-2">
-          <span className="font-mono text-[0.75rem] text-[var(--color-blue)]">{item.number}</span>
-          <h3 className="text-[1.25rem] leading-snug font-medium text-[var(--color-navy)]">
+          <span className="font-mono text-[0.75rem] text-ink-2">{item.number}</span>
+          <h3 className="text-[1.25rem] leading-snug font-medium text-ink">
             {item.name}
           </h3>
-          <p className="measure text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+          <p className="measure text-[0.9375rem] leading-relaxed text-ink-2">
             {item.description}
           </p>
         </li>
@@ -139,15 +139,15 @@ function NumberedList({ items }: { items: readonly ResearchNumberedItem[] }) {
 
 function RecordRow({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="flex flex-col gap-1 border-t border-[var(--color-border)] pt-3">
-      <dt className="text-eyebrow text-[var(--color-slate)]">{label}</dt>
-      <dd className="text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">{children}</dd>
+    <div className="flex flex-col gap-1 border-t border-rule pt-3">
+      <dt className="text-eyebrow text-ink-2">{label}</dt>
+      <dd className="text-[0.9375rem] leading-relaxed text-ink-3">{children}</dd>
     </div>
   )
 }
 
 const inlineLinkClassName =
-  'text-[var(--color-blue)] underline decoration-[color-mix(in_srgb,var(--color-blue)_40%,transparent)] underline-offset-4 hover:decoration-[var(--color-blue)]'
+  'text-link underline decoration-link underline-offset-4 hover:decoration-link'
 
 export default async function ResearchArticlePage({
   params,
@@ -250,7 +250,7 @@ export default async function ResearchArticlePage({
               {content.executiveSummary.body.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]"
+                  className="text-[1.0625rem] leading-relaxed text-ink-3"
                 >
                   {paragraph}
                 </p>
@@ -277,7 +277,7 @@ export default async function ResearchArticlePage({
             {content.keyFindings.closing ? (
               <div className="flex flex-col gap-3">
                 {content.keyFindings.closing.map((line) => (
-                  <p key={line} className="text-lead measure text-[var(--color-graphite)]">
+                  <p key={line} className="text-lead measure text-ink-3">
                     {line}
                   </p>
                 ))}
@@ -325,7 +325,7 @@ export default async function ResearchArticlePage({
                     rows={table.rows}
                   />
                   {table.summary ? (
-                    <p className="measure text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                    <p className="measure text-[0.9375rem] leading-relaxed text-ink-2">
                       {table.summary}
                     </p>
                   ) : null}
@@ -334,11 +334,11 @@ export default async function ResearchArticlePage({
             </div>
 
             {content.data.note ? (
-              <div className="flex flex-col gap-3 border-t border-[var(--color-border)] pt-6">
+              <div className="flex flex-col gap-3 border-t border-rule pt-6">
                 {content.data.note.map((line) => (
                   <p
                     key={line}
-                    className="measure text-[0.9375rem] leading-relaxed text-[var(--color-slate)]"
+                    className="measure text-[0.9375rem] leading-relaxed text-ink-2"
                   >
                     {line}
                   </p>
@@ -367,7 +367,7 @@ export default async function ResearchArticlePage({
                 {content.downloads.items.map((item) => (
                   <div key={item.cta.href} className="flex flex-col gap-2">
                     <TextCta cta={item.cta} />
-                    <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                    <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                       {item.note}
                     </p>
                   </div>
@@ -395,7 +395,7 @@ export default async function ResearchArticlePage({
               {content.errorsFound.closing ? (
                 <div className="flex flex-col gap-3">
                   {content.errorsFound.closing.map((line) => (
-                    <p key={line} className="text-lead measure text-[var(--color-graphite)]">
+                    <p key={line} className="text-lead measure text-ink-3">
                       {line}
                     </p>
                   ))}
@@ -428,7 +428,7 @@ export default async function ResearchArticlePage({
                   {content.methodology.closing.map((line) => (
                     <p
                       key={line}
-                      className="measure text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]"
+                      className="measure text-[1.0625rem] leading-relaxed text-ink-3"
                     >
                       {line}
                     </p>
@@ -460,7 +460,7 @@ export default async function ResearchArticlePage({
                 ? content.sample.note.map((line) => (
                     <p
                       key={line}
-                      className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]"
+                      className="text-[0.9375rem] leading-relaxed text-ink-2"
                     >
                       {line}
                     </p>
@@ -519,7 +519,7 @@ export default async function ResearchArticlePage({
       <Section variant="field" size="standard" ariaLabelledBy="record-title">
         <Container>
           <div className="flex flex-col gap-6">
-            <h2 id="record-title" className="text-eyebrow text-[var(--color-slate)]">
+            <h2 id="record-title" className="text-eyebrow text-ink-2">
               Publication record
             </h2>
 
@@ -559,7 +559,7 @@ export default async function ResearchArticlePage({
             </dl>
 
             {content.byline.note ? (
-              <p className="measure text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+              <p className="measure text-[0.9375rem] leading-relaxed text-ink-2">
                 {content.byline.note}
               </p>
             ) : null}
@@ -582,7 +582,7 @@ export default async function ResearchArticlePage({
               {content.corrections.body.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]"
+                  className="text-[1.0625rem] leading-relaxed text-ink-3"
                 >
                   {paragraph}
                 </p>
@@ -610,7 +610,7 @@ export default async function ResearchArticlePage({
               {content.relatedSolution.body.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="measure text-[1.0625rem] leading-relaxed text-[color-mix(in_srgb,var(--color-field)_78%,transparent)]"
+                  className="measure text-[1.0625rem] leading-relaxed text-ink-3"
                 >
                   {paragraph}
                 </p>
@@ -640,20 +640,20 @@ export default async function ResearchArticlePage({
       <Section variant="field" size="small" ariaLabelledBy="sources-heading">
         <Container width="narrow">
           <div className="flex flex-col gap-4">
-            <h2 id="sources-heading" className="text-eyebrow text-[var(--color-slate)]">
+            <h2 id="sources-heading" className="text-eyebrow text-ink-2">
               Sources and updates
             </h2>
 
-            <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+            <p className="text-[0.9375rem] leading-relaxed text-ink-2">
               {content.sources.basis} Last reviewed{' '}
-              <time dateTime={content.sources.reviewed} className="text-[var(--color-graphite)]">
+              <time dateTime={content.sources.reviewed} className="text-ink-3">
                 {formatLongDate(content.sources.reviewed)}
               </time>
               .
             </p>
 
             {appliedIn.length > 0 ? (
-              <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+              <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                 This measurement is applied in{' '}
                 {appliedIn.map((item, index) => (
                   <span key={item.href}>

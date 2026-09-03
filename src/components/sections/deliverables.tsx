@@ -44,12 +44,12 @@ export function Deliverables({
               {detailed.map((item) => (
                 <div
                   key={item.name}
-                  className="flex flex-col gap-2 border-t-2 border-[var(--color-blue)] pt-5"
+                  className="flex flex-col gap-2 border-t-2 border-path pt-5"
                 >
-                  <dt className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+                  <dt className="text-[1.0625rem] font-medium text-ink">
                     {item.name}
                   </dt>
-                  <dd className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                  <dd className="text-[0.9375rem] leading-relaxed text-ink-2">
                     {item.description}
                   </dd>
                 </div>

@@ -74,18 +74,18 @@ export default function SelectionIntelligencePage() {
           { label: routes.selectionIntelligence.label },
         ]}
       >
-        <dl className="flex flex-col gap-5 border-l-2 border-[var(--color-cyan)] pl-6">
+        <dl className="flex flex-col gap-5 border-l-2 border-path pl-6">
           <div className="flex flex-col gap-1">
-            <dt className="text-eyebrow text-[color-mix(in_srgb,var(--color-field)_60%,transparent)]">
+            <dt className="text-eyebrow text-ink-2">
               It moves beyond
             </dt>
-            <dd className="text-[1.25rem] leading-snug text-[color-mix(in_srgb,var(--color-field)_70%,transparent)] line-through decoration-1">
+            <dd className="text-[1.25rem] leading-snug text-ink-3 line-through decoration-1">
               {hero.movesBeyond}
             </dd>
           </div>
           <div className="flex flex-col gap-1">
-            <dt className="text-eyebrow text-[var(--color-cyan)]">And answers</dt>
-            <dd className="text-[1.25rem] leading-snug font-medium text-[var(--color-field)]">
+            <dt className="text-eyebrow text-ink-2">And answers</dt>
+            <dd className="text-[1.25rem] leading-snug font-medium text-ink">
               {hero.andAnswers}
             </dd>
           </div>
@@ -102,7 +102,7 @@ export default function SelectionIntelligencePage() {
                 description={firstStage.lead}
                 id="first-stage-title"
               />
-              <p className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+              <p className="text-[1.0625rem] font-medium text-ink">
                 {firstStage.closing}
               </p>
             </div>
@@ -140,12 +140,12 @@ export default function SelectionIntelligencePage() {
               {measures.items.map((item) => (
                 <div
                   key={item.name}
-                  className="flex flex-col gap-2 border-t-2 border-[var(--color-blue)] pt-5"
+                  className="flex flex-col gap-2 border-t-2 border-path pt-5"
                 >
-                  <dt className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+                  <dt className="text-[1.0625rem] font-medium text-ink">
                     {item.name}
                   </dt>
-                  <dd className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                  <dd className="text-[0.9375rem] leading-relaxed text-ink-2">
                     {item.description}
                   </dd>
                 </div>
@@ -177,7 +177,7 @@ export default function SelectionIntelligencePage() {
             {limitation.body.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
-            <p className="font-medium text-[var(--color-navy)]">{limitation.observeLead}</p>
+            <p className="font-medium text-ink">{limitation.observeLead}</p>
             <CompletePath steps={limitation.chain} />
             <p>{limitation.closing}</p>
           </Callout>

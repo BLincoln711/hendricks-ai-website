@@ -1,18 +1,26 @@
 /**
- * Contrast gate (16 CC-06; 09 section 10.3; redesign handoff 5.5).
+ * Contrast gate for the canvas system.
  *
  * Reads `src/styles/tokens.css` and `scripts/contrast-pairs.json`, resolves
  * each row's foreground and background through the three token layers on the
- * surface the row names (the `.on-plate` values when `scope` is `on-plate`),
- * computes the WCAG 2.x ratio, prints one table, and exits non-zero when:
+ * ground the row names (`page` is the document ground, `plate` applies the
+ * `.on-plate` re-scope), composites the foreground over that ground when it
+ * carries alpha, computes the WCAG 2.x ratio, prints one table, and exits
+ * non-zero when:
  *
  * - a row is under its threshold;
- * - a row names a token that does not resolve to a colour on its surface;
+ * - a row names a token that does not resolve to a colour on its ground;
+ * - a row's background is not opaque, since a ratio needs a painted ground;
  * - a row's threshold does not match its role (text 4.5, large-text, graphic
  *   and control-edge 3, decorative none), so a text pair cannot be relaxed by
  *   editing the number;
  * - a colour token in the file has no row, so a new colour ships with a ratio;
  * - a colour primitive is reachable from no row, so a dead primitive is noticed.
+ *
+ * Compositing is the reason this gate exists in the shape it does. The canvas
+ * states its ink tiers, its hairlines and its control boundary as Field White
+ * at an alpha over `#060E16`. Read as literals those five values are
+ * meaningless; painted, they are the colours most of the site's text is set in.
  *
  * Decorative rows print without a threshold and never fail.
  */
@@ -23,8 +31,9 @@ import {
   buildScope,
   colourPrimitives,
   colourTokens,
+  composite,
   contrastRatio,
-  parseHex,
+  parseColor,
   parseTokenFile,
   resolveToken,
   TOKEN_FILE,
@@ -58,9 +67,7 @@ interface Pair {
  * Primitives that are declared but deliberately unreferenced. Each entry names
  * the decision that keeps it, so the gate is not silenced by a growing list.
  */
-const UNREFERENCED_PRIMITIVES: Record<string, string> = {
-  '--hx-cyan-700': 'held as the 09 D8 alternative (agency spine); unreferenced until decided',
-}
+const UNREFERENCED_PRIMITIVES: Record<string, string> = {}
 
 function isPair(value: unknown): value is Pair {
   if (typeof value !== 'object' || value === null) return false
@@ -68,7 +75,7 @@ function isPair(value: unknown): value is Pair {
   return (
     typeof row.fg === 'string' &&
     typeof row.bg === 'string' &&
-    (row.scope === 'light' || row.scope === 'on-plate') &&
+    (row.scope === 'page' || row.scope === 'plate') &&
     typeof row.role === 'string' &&
     row.role in ROLES &&
     (row.threshold === null || typeof row.threshold === 'number')
@@ -96,8 +103,8 @@ async function main() {
   }
 
   const scopes: Record<Scope, Map<string, string>> = {
-    light: buildScope(parsed, 'light'),
-    'on-plate': buildScope(parsed, 'on-plate'),
+    page: buildScope(parsed, 'page'),
+    plate: buildScope(parsed, 'plate'),
   }
 
   const failures: string[] = []
@@ -114,14 +121,18 @@ async function main() {
 
     const colours = [pair.fg, pair.bg].map((name) => {
       const resolved = resolveToken(name, scope)
-      const rgb = resolved.ok ? parseHex(resolved.value) : null
-      if (!rgb) {
-        failures.push(`${name} does not resolve to a colour on the ${pair.scope} surface${resolved.ok ? ` (${resolved.value})` : ` (${resolved.reason} ${resolved.token})`}`)
+      const rgba = resolved.ok ? parseColor(resolved.value) : null
+      if (!rgba) {
+        failures.push(`${name} does not resolve to a colour on the ${pair.scope} ground${resolved.ok ? ` (${resolved.value})` : ` (${resolved.reason} ${resolved.token})`}`)
       }
-      return rgb
+      return rgba
     })
     const [fg, bg] = colours
     if (!fg || !bg) continue
+    if (bg.a !== 1) {
+      failures.push(`${pair.bg} is not opaque on the ${pair.scope} ground; a ratio needs the colour actually painted behind the text`)
+      continue
+    }
 
     covered.add(pair.fg)
     covered.add(pair.bg)
@@ -129,7 +140,7 @@ async function main() {
       for (const primitive of primitivesBehind(name, scope)) reached.add(primitive)
     }
 
-    const ratio = contrastRatio(fg, bg)
+    const ratio = contrastRatio(composite(fg, bg), bg)
     const under = pair.threshold !== null && ratio < pair.threshold
     if (under) {
       failures.push(`${pair.fg} on ${pair.bg} (${pair.scope}, ${pair.role}): ${ratio.toFixed(2)}:1 is under ${pair.threshold}:1`)
@@ -142,6 +153,7 @@ async function main() {
       pair.bg,
       `${ratio.toFixed(2)}:1`,
       pair.threshold === null ? '' : `>= ${pair.threshold}`,
+      fg.a === 1 ? '' : `alpha ${fg.a}`,
       pair.note ?? '',
     ])
   }

@@ -21,8 +21,8 @@ const variants = {
   warning: {
     label: 'Warning',
     Icon: TriangleAlert,
-    rule: 'border-destructive',
-    accent: 'text-destructive',
+    rule: 'border-alert',
+    accent: 'text-alert',
   },
 } as const
 
@@ -66,7 +66,7 @@ export function Callout({
     <div
       role="note"
       className={cn(
-        'flex flex-col gap-3 rounded-r-[var(--radius-small)] border-l-2 bg-surface-tint p-6 md:p-8',
+        'flex flex-col gap-3 border-l-2 p-6 md:p-8',
         rule,
         className,
       )}
@@ -85,7 +85,7 @@ export function Callout({
         </Heading>
       ) : null}
 
-      <div className="flex flex-col gap-3 text-ink-body">{children}</div>
+      <div className="flex flex-col gap-3 text-ink">{children}</div>
     </div>
   )
 }

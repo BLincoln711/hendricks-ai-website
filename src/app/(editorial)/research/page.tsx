@@ -61,17 +61,17 @@ function ArticleCard({ article, featured = false }: { article: ResearchArticle; 
     <article
       className={
         featured
-          ? 'flex flex-col gap-6 rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-white p-6 md:p-10'
-          : 'flex h-full flex-col gap-4 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white p-5'
+          ? 'flex flex-col gap-6 border border-rule p-6 md:p-10'
+          : 'flex h-full flex-col gap-4 border border-rule p-5'
       }
     >
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <span className="text-eyebrow flex items-center gap-2 text-[var(--color-blue)]">
+        <span className="text-eyebrow flex items-center gap-2 text-ink-2">
           <SignalDot size={6} tone="blue" />
           {article.category}
         </span>
         {/* The Results-gate label, on the card as well as on the article. */}
-        <span className="text-eyebrow rounded-full border border-[var(--color-border)] bg-[var(--color-soft)] px-3 py-1 text-[var(--color-slate)]">
+        <span className="text-eyebrow rounded-full border border-rule px-3 py-1 text-ink-2">
           {article.designation}
         </span>
       </div>
@@ -80,13 +80,13 @@ function ArticleCard({ article, featured = false }: { article: ResearchArticle; 
         id={titleId}
         className={
           featured
-            ? 'text-h3 max-w-[26ch] text-[var(--color-navy)]'
-            : 'text-[1.125rem] leading-snug font-medium text-[var(--color-navy)]'
+            ? 'text-h3 max-w-[26ch] text-ink'
+            : 'text-[1.125rem] leading-snug font-medium text-ink'
         }
       >
         <Link
           href={article.path}
-          className="underline decoration-[color-mix(in_srgb,var(--color-navy)_25%,transparent)] underline-offset-4 transition-colors hover:text-[var(--color-blue)] hover:decoration-[var(--color-blue)]"
+          className="underline decoration-ink-2 underline-offset-4 transition-colors hover:text-link hover:decoration-link"
         >
           {article.title}
         </Link>
@@ -95,29 +95,29 @@ function ArticleCard({ article, featured = false }: { article: ResearchArticle; 
       <p
         className={
           featured
-            ? 'text-lead measure text-[var(--color-graphite)]'
-            : 'text-[0.9375rem] leading-relaxed text-[var(--color-slate)]'
+            ? 'text-lead measure text-ink-3'
+            : 'text-[0.9375rem] leading-relaxed text-ink-2'
         }
       >
         {article.summary}
       </p>
 
-      <dl className="flex flex-col gap-2 border-t border-[var(--color-border)] pt-4 text-[0.875rem] text-[var(--color-slate)] sm:flex-row sm:flex-wrap sm:gap-x-8">
+      <dl className="flex flex-col gap-2 border-t border-rule pt-4 text-[0.875rem] text-ink-2 sm:flex-row sm:flex-wrap sm:gap-x-8">
         <div className="flex gap-2">
-          <dt className="text-[var(--color-slate)]">Author</dt>
+          <dt className="text-ink-2">Author</dt>
           {/* Read from the article's own byline, so the card and the page cannot
               credit the study to two differently worded authors. */}
-          <dd className="text-[var(--color-graphite)]">{article.content.byline.author}</dd>
+          <dd className="text-ink-3">{article.content.byline.author}</dd>
         </div>
         <div className="flex gap-2">
-          <dt className="text-[var(--color-slate)]">Published</dt>
-          <dd className="text-[var(--color-graphite)]">
+          <dt className="text-ink-2">Published</dt>
+          <dd className="text-ink-3">
             <time dateTime={article.publishedDate}>{formatLongDate(article.publishedDate)}</time>
           </dd>
         </div>
         <div className="flex gap-2">
-          <dt className="text-[var(--color-slate)]">Data through</dt>
-          <dd className="text-[var(--color-graphite)]">
+          <dt className="text-ink-2">Data through</dt>
+          <dd className="text-ink-3">
             <time dateTime={article.dataThroughDate}>
               {formatLongDate(article.dataThroughDate)}
             </time>
@@ -134,7 +134,7 @@ function ArticleCard({ article, featured = false }: { article: ResearchArticle; 
       <Link
         href={article.path}
         aria-describedby={titleId}
-        className="group inline-flex items-center gap-1.5 font-medium text-[var(--color-blue)] underline decoration-1 underline-offset-4 transition-colors hover:text-[var(--color-blue-hover)]"
+        className="group inline-flex items-center gap-1.5 font-medium text-link underline decoration-1 underline-offset-4 transition-colors hover:text-link"
       >
         Read the study
         <ArrowRight
@@ -262,16 +262,16 @@ export default function ResearchHubPage() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="group flex h-full flex-col gap-2 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-field)] p-5 transition-colors hover:border-[var(--color-blue)]"
+                      className="group flex h-full flex-col gap-2 border border-rule p-5 transition-colors hover:border-path"
                     >
-                      <span className="flex items-center gap-1.5 text-[1.0625rem] font-medium text-[var(--color-navy)]">
+                      <span className="flex items-center gap-1.5 text-[1.0625rem] font-medium text-ink">
                         {link.label}
                         <ArrowRight
                           aria-hidden="true"
-                          className="size-4 shrink-0 text-[var(--color-blue)] transition-transform duration-[var(--duration-micro)] group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+                          className="size-4 shrink-0 text-link transition-transform duration-[var(--duration-micro)] group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
                         />
                       </span>
-                      <span className="text-[0.875rem] leading-relaxed text-[var(--color-slate)]">
+                      <span className="text-[0.875rem] leading-relaxed text-ink-2">
                         {link.description}
                       </span>
                     </Link>

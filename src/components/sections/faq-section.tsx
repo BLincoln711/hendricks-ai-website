@@ -97,7 +97,7 @@ export function FaqSection({
                 <Question className="text-h3 text-ink">{item.question}</Question>
 
                 {item.answer.map((paragraph) => (
-                  <p key={paragraph} className="measure text-ink-body">
+                  <p key={paragraph} className="measure text-ink">
                     {paragraph}
                   </p>
                 ))}

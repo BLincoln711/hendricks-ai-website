@@ -82,7 +82,7 @@ export function LedgerRow({
       {row.description ? (
         <div className={cn(cell, 'col-start-2')}>
           <span className={inlineLabel}>{columns.description}</span>
-          <p className="max-w-[var(--ledger-desc-measure)] text-ink-body">{row.description}</p>
+          <p className="max-w-[var(--ledger-desc-measure)] text-ink">{row.description}</p>
         </div>
       ) : (
         <span className="hidden md:block" />

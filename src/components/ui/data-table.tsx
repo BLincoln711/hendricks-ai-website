@@ -40,14 +40,14 @@ export function DataTable({
         tabIndex={0}
         role="region"
         aria-label={caption}
-        className="min-w-0 overflow-x-auto rounded-[var(--radius-small)] border border-rule-strong"
+        className="min-w-0 overflow-x-auto rounded-[var(--radius-control)] border border-rule-strong"
       >
         <table className="text-small w-full min-w-[34rem] border-collapse text-left tabular-nums">
           <caption className={captionVisible ? 'px-4 py-3 text-left text-ink-2 md:px-6' : 'sr-only'}>
             {caption}
           </caption>
           <thead>
-            <tr className="bg-surface-tint">
+            <tr className="">
               {columns.map((column) => (
                 <th
                   key={column.key}
@@ -69,7 +69,7 @@ export function DataTable({
                       {row[column.key]}
                     </th>
                   ) : (
-                    <td key={column.key} className="px-4 py-3.5 align-top text-ink-body md:px-6">
+                    <td key={column.key} className="px-4 py-3.5 align-top text-ink md:px-6">
                       {row[column.key]}
                     </td>
                   ),

@@ -27,15 +27,15 @@ export default async function PrivacyRequestPage() {
       <Section variant="field" size="standard" ariaLabelledBy="privacy-request-title">
         <Container width="narrow">
           <div className="flex flex-col gap-6">
-            <p className="text-eyebrow text-[var(--color-slate)]">{hero.eyebrow}</p>
-            <h1 id="privacy-request-title" className="text-h1 text-[var(--color-navy)]">
+            <p className="text-eyebrow text-ink-2">{hero.eyebrow}</p>
+            <h1 id="privacy-request-title" className="text-h1 text-ink">
               {hero.title}
             </h1>
             <div className="flex flex-col gap-4">
               {hero.lead.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]"
+                  className="text-[1.0625rem] leading-relaxed text-ink-3"
                 >
                   <InlineText text={paragraph} />
                 </p>
@@ -62,11 +62,11 @@ export default async function PrivacyRequestPage() {
           <div className="flex flex-col gap-3">
             <h2
               id="privacy-appeal-title"
-              className="text-[1.0625rem] font-medium text-[var(--color-navy)]"
+              className="text-[1.0625rem] font-medium text-ink"
             >
               {appeal.title}
             </h2>
-            <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+            <p className="text-[0.9375rem] leading-relaxed text-ink-2">
               {appeal.body}
             </p>
           </div>

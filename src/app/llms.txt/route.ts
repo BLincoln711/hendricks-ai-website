@@ -118,7 +118,7 @@ function notesSection(): string {
     `- Canonical host: ${siteConfig.url}`,
     `- Sitemap: ${siteConfig.url}/sitemap.xml`,
     '- Every figure and credential on this site is held to a verification register.',
-    '  Claims that are not yet verified are withheld rather than estimated.',
+    'Claims that are not yet verified are withheld rather than estimated.',
   ].join('\n')
 }
 

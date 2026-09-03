@@ -114,7 +114,7 @@ export default function CorrectionsPage() {
               {reporting.closing.map((line) => (
                 <p
                   key={line}
-                  className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]"
+                  className="text-[1.0625rem] leading-relaxed text-ink-3"
                 >
                   {line}
                 </p>
@@ -140,7 +140,7 @@ export default function CorrectionsPage() {
               {recording.body.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]"
+                  className="text-[1.0625rem] leading-relaxed text-ink-3"
                 >
                   {paragraph}
                 </p>
@@ -172,20 +172,20 @@ export default function CorrectionsPage() {
                 <li
                   key={entry.id}
                   id={entry.id}
-                  className="flex flex-col gap-4 rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[var(--color-field)] p-6 md:p-8"
+                  className="flex flex-col gap-4 border border-rule p-6 md:p-8"
                 >
-                  <h3 className="text-[1.25rem] leading-snug font-medium text-[var(--color-navy)]">
+                  <h3 className="text-[1.25rem] leading-snug font-medium text-ink">
                     {entry.title}
                   </h3>
 
-                  <p className="text-[0.875rem] text-[var(--color-slate)]">
+                  <p className="text-[0.875rem] text-ink-2">
                     Published{' '}
                     <time dateTime={entry.published}>{formatLongDate(entry.published)}</time>.
                     Corrected{' '}
                     <time dateTime={entry.corrected}>{formatLongDate(entry.corrected)}</time>. Page:{' '}
                     <Link
                       href={entry.page.href}
-                      className="text-[var(--color-blue)] underline decoration-[color-mix(in_srgb,var(--color-blue)_40%,transparent)] underline-offset-4 hover:decoration-[var(--color-blue)]"
+                      className="text-link underline decoration-link underline-offset-4 hover:decoration-link"
                     >
                       {entry.page.label}
                     </Link>
@@ -201,8 +201,8 @@ export default function CorrectionsPage() {
                       ] as const
                     ).map(([label, text]) => (
                       <div key={label} className="flex flex-col gap-1">
-                        <dt className="text-eyebrow text-[var(--color-slate)]">{label}</dt>
-                        <dd className="measure text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">
+                        <dt className="text-eyebrow text-ink-2">{label}</dt>
+                        <dd className="measure text-[0.9375rem] leading-relaxed text-ink-3">
                           {text}
                         </dd>
                       </div>

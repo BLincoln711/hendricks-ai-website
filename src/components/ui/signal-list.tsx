@@ -40,7 +40,7 @@ export function SignalList({
         const href = hrefs?.[item]
 
         return (
-          <li key={item} className="flex items-start gap-2.5 text-ink-body">
+          <li key={item} className="flex items-start gap-2.5 text-ink">
             <SignalDot size={6} className="mt-2.5 shrink-0" />
             {href ? (
               <Link href={href} className="link">
@@ -74,11 +74,11 @@ export function FitList({
   return (
     <ul className={cn('flex flex-col gap-3', className)}>
       {items.map((item) => (
-        <li key={item} className="flex items-start gap-2.5 text-ink-body">
+        <li key={item} className="flex items-start gap-2.5 text-ink">
           <Icon
             aria-hidden="true"
             focusable="false"
-            className={cn('mt-1.5 size-4 shrink-0', tone === 'fit' ? 'text-positive' : 'text-ink-2')}
+            className={cn('mt-1.5 size-4 shrink-0', tone === 'fit' ? 'text-ok' : 'text-ink-2')}
           />
           <span>{item}</span>
         </li>

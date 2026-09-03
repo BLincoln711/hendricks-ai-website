@@ -27,7 +27,7 @@ function Block({ block, index }: { block: LegalBlock; index: number }) {
   switch (block.type) {
     case 'paragraph':
       return (
-        <p className="text-ink-body">
+        <p className="text-ink">
           <InlineText text={block.text} />
         </p>
       )
@@ -39,7 +39,7 @@ function Block({ block, index }: { block: LegalBlock; index: number }) {
       return (
         <ul className="flex flex-col gap-2.5">
           {block.items.map((item) => (
-            <li key={item} className="flex gap-3 text-ink-body">
+            <li key={item} className="flex gap-3 text-ink">
               <span aria-hidden="true" className="mt-[0.65em] size-1.5 shrink-0 rounded-full bg-rule-strong" />
               <span>
                 <InlineText text={item} />
@@ -97,13 +97,13 @@ export function LegalDocument({
             <dl className="text-small flex flex-wrap gap-x-8 gap-y-2 text-ink-2">
               <div className="flex gap-2">
                 <dt>Effective</dt>
-                <dd className="font-medium text-ink-body">
+                <dd className="font-medium text-ink">
                   <time dateTime={document.effectiveDate}>{formatLongDate(document.effectiveDate)}</time>
                 </dd>
               </div>
               <div className="flex gap-2">
                 <dt>Last updated</dt>
-                <dd className="font-medium text-ink-body">
+                <dd className="font-medium text-ink">
                   <time dateTime={document.lastUpdated}>{formatLongDate(document.lastUpdated)}</time>
                 </dd>
               </div>
@@ -111,7 +111,7 @@ export function LegalDocument({
 
             <div className="flex flex-col gap-4 border-t border-rule pt-6">
               {document.intro.map((paragraph) => (
-                <p key={paragraph} className="text-ink-body">
+                <p key={paragraph} className="text-ink">
                   <InlineText text={paragraph} />
                 </p>
               ))}

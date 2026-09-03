@@ -100,7 +100,7 @@ export default function AiVisibilityToolOrPartnerPage() {
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 {produces.closing.map((line) => (
-                  <p key={line} className="text-lead measure text-[var(--color-graphite)]">
+                  <p key={line} className="text-lead measure text-ink-3">
                     {line}
                   </p>
                 ))}
@@ -132,13 +132,13 @@ export default function AiVisibilityToolOrPartnerPage() {
             <ol className="flex flex-col gap-10">
               {gap.items.map((item) => (
                 <li key={item.name} className="flex flex-col gap-2">
-                  <span className="font-mono text-[0.75rem] text-[var(--color-blue)]">
+                  <span className="font-mono text-[0.75rem] text-ink-2">
                     {item.number}
                   </span>
-                  <h3 className="text-[1.25rem] leading-snug font-medium text-[var(--color-navy)]">
+                  <h3 className="text-[1.25rem] leading-snug font-medium text-ink">
                     {item.name}
                   </h3>
-                  <p className="measure text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                  <p className="measure text-[0.9375rem] leading-relaxed text-ink-2">
                     {item.description}
                   </p>
                 </li>
@@ -146,7 +146,7 @@ export default function AiVisibilityToolOrPartnerPage() {
             </ol>
 
             <div className="flex flex-col gap-4">
-              <p className="text-lead measure text-[var(--color-graphite)]">{gap.closing}</p>
+              <p className="text-lead measure text-ink-3">{gap.closing}</p>
 
               <TextCta cta={gap.cta} />
             </div>
@@ -174,7 +174,7 @@ export default function AiVisibilityToolOrPartnerPage() {
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 {monitoringVsMeasurement.closing.map((line) => (
-                  <p key={line} className="text-lead measure text-[var(--color-graphite)]">
+                  <p key={line} className="text-lead measure text-ink-3">
                     {line}
                   </p>
                 ))}
@@ -206,7 +206,7 @@ export default function AiVisibilityToolOrPartnerPage() {
               level={2}
             />
 
-            <p className="text-lead measure text-[var(--color-graphite)]">
+            <p className="text-lead measure text-ink-3">
               {buildOrBuy.concession}
             </p>
 
@@ -219,7 +219,7 @@ export default function AiVisibilityToolOrPartnerPage() {
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 {buildOrBuy.closing.map((line) => (
-                  <p key={line} className="measure text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]">
+                  <p key={line} className="measure text-[1.0625rem] leading-relaxed text-ink-3">
                     {line}
                   </p>
                 ))}
@@ -245,13 +245,13 @@ export default function AiVisibilityToolOrPartnerPage() {
             <ol className="grid gap-x-10 gap-y-10 md:grid-cols-2">
               {afterDashboard.items.map((item) => (
                 <li key={item.name} className="flex flex-col gap-2">
-                  <span className="font-mono text-[0.75rem] text-[var(--color-blue)]">
+                  <span className="font-mono text-[0.75rem] text-ink-2">
                     {item.number}
                   </span>
-                  <h3 className="text-[1.25rem] leading-snug font-medium text-[var(--color-navy)]">
+                  <h3 className="text-[1.25rem] leading-snug font-medium text-ink">
                     {item.name}
                   </h3>
-                  <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                  <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                     {item.description}
                   </p>
                 </li>
@@ -261,7 +261,7 @@ export default function AiVisibilityToolOrPartnerPage() {
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 {afterDashboard.closing.map((line) => (
-                  <p key={line} className="measure text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]">
+                  <p key={line} className="measure text-[1.0625rem] leading-relaxed text-ink-3">
                     {line}
                   </p>
                 ))}
@@ -291,7 +291,7 @@ export default function AiVisibilityToolOrPartnerPage() {
               {position.body.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]"
+                  className="text-[1.0625rem] leading-relaxed text-ink-3"
                 >
                   {paragraph}
                 </p>

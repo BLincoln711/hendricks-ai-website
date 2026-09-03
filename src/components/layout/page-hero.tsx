@@ -64,7 +64,7 @@ export function PageHero({
 
               <div className="flex flex-col gap-4">
                 {lead.map((paragraph) => (
-                  <p key={paragraph} className="text-lead measure-lead text-ink-body">
+                  <p key={paragraph} className="text-lead measure-wide text-ink">
                     {paragraph}
                   </p>
                 ))}

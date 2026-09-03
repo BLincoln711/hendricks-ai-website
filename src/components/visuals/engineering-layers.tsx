@@ -38,7 +38,7 @@ export function EngineeringLayers({
             </span>
             <div className="flex flex-col gap-2">
               {layer.title ? <h3 className="text-h4 text-ink">{layer.title}</h3> : null}
-              <p className="max-w-[var(--ledger-desc-measure)] text-ink-body">{layer.description}</p>
+              <p className="max-w-[var(--ledger-desc-measure)] text-ink">{layer.description}</p>
             </div>
           </div>
 
@@ -57,7 +57,7 @@ export function EngineeringLayers({
               {layer.workItems.map((item) => (
                 <li
                   key={item}
-                  className="text-small rounded-[var(--radius-small)] border border-rule bg-surface-raised px-2.5 py-1 text-ink-body"
+                  className="text-small rounded-[var(--radius-control)] border border-rule px-2.5 py-1 text-ink"
                 >
                   {item}
                 </li>

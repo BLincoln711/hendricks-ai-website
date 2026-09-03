@@ -56,17 +56,17 @@ function Field({
     // min-content width is its longest option, and "Opt out of sale, sharing, or
     // targeted advertising" is wider than a 320px viewport.
     <div className="flex min-w-0 flex-col gap-2">
-      <label htmlFor={htmlFor} className="text-[0.9375rem] font-medium text-[var(--color-navy)]">
+      <label htmlFor={htmlFor} className="text-[0.9375rem] font-medium text-ink">
         {label}
         {required ? (
-          <span className="ml-1 text-[var(--color-slate)]" aria-hidden="true">
+          <span className="ml-1 text-ink-2" aria-hidden="true">
             *
           </span>
         ) : null}
       </label>
 
       {hint ? (
-        <p id={`${htmlFor}-hint`} className="text-[0.875rem] leading-relaxed text-[var(--color-slate)]">
+        <p id={`${htmlFor}-hint`} className="text-[0.875rem] leading-relaxed text-ink-2">
           {hint}
         </p>
       ) : null}
@@ -74,7 +74,7 @@ function Field({
       {children}
 
       {error ? (
-        <p id={`${htmlFor}-error`} className="text-[0.875rem] font-medium text-[var(--color-amber)]">
+        <p id={`${htmlFor}-error`} className="text-[0.875rem] font-medium text-ev-gap">
           {error}
         </p>
       ) : null}
@@ -83,7 +83,7 @@ function Field({
 }
 
 const controlClass =
-  'min-h-11 w-full min-w-0 rounded-[var(--radius-control)] border border-[var(--color-border)] bg-white px-3.5 py-2.5 text-[1rem] text-[var(--color-graphite)] transition-colors focus:border-[var(--color-blue)]'
+  'min-h-11 w-full min-w-0 rounded-[var(--radius-control)] border border-rule px-3.5 py-2.5 text-[1rem] text-ink-3 transition-colors focus:border-path'
 
 function describedBy(id: string, hint: boolean, error: boolean): string | undefined {
   const parts = [hint ? `${id}-hint` : null, error ? `${id}-error` : null].filter(Boolean)
@@ -120,17 +120,17 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
     return (
       <div
         role="status"
-        className="flex flex-col gap-4 rounded-[var(--radius-panel)] border-l-2 border-[var(--color-blue)] bg-[var(--color-soft)] p-6 md:p-8"
+        className="flex flex-col gap-4 border-l-2 border-path p-6 md:p-8"
       >
-        <h2 className="text-h3 text-[var(--color-navy)]">{confirmation.title}</h2>
-        <p className="text-[1rem] leading-relaxed text-[var(--color-graphite)]">
+        <h2 className="text-h3 text-ink">{confirmation.title}</h2>
+        <p className="text-[1rem] leading-relaxed text-ink-3">
           {confirmation.body}
         </p>
-        <p className="flex flex-wrap items-baseline gap-2 border-t border-[var(--color-border)] pt-4">
-          <span className="text-eyebrow text-[var(--color-slate)]">
+        <p className="flex flex-wrap items-baseline gap-2 border-t border-rule pt-4">
+          <span className="text-eyebrow text-ink-2">
             {confirmation.referenceLabel}
           </span>
-          <span className="font-mono text-[1.0625rem] text-[var(--color-navy)]">
+          <span className="font-mono text-[1.0625rem] text-ink">
             {state.requestId}
           </span>
         </p>
@@ -162,9 +162,9 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
           ref={summaryRef}
           tabIndex={-1}
           role="alert"
-          className="flex flex-col gap-3 rounded-[var(--radius-card)] border-l-2 border-[var(--color-amber)] bg-[var(--color-soft)] p-5"
+          className="flex flex-col gap-3 border-l-2 border-ev-gap p-5"
         >
-          <h2 className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+          <h2 className="text-[1.0625rem] font-medium text-ink">
             {errors.summaryTitle}
           </h2>
 
@@ -174,7 +174,7 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
                 <li key={field} className="text-[0.9375rem]">
                   <a
                     href={`#${fieldId(field)}`}
-                    className="text-[var(--color-blue)] underline underline-offset-4"
+                    className="text-link underline underline-offset-4"
                   >
                     {message}
                   </a>
@@ -182,7 +182,7 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
               ))}
             </ul>
           ) : (
-            <p className="text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">
+            <p className="text-[0.9375rem] leading-relaxed text-ink-3">
               {state.status === 'rate-limited' ? errors.rateLimited : errors.server}
             </p>
           )}
@@ -190,7 +190,7 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
       ) : null}
 
       <fieldset className="flex flex-col gap-6 border-0 p-0">
-        <legend className="text-eyebrow mb-2 text-[var(--color-slate)]">
+        <legend className="text-eyebrow mb-2 text-ink-2">
           {form.legends.about}
         </legend>
 
@@ -288,7 +288,7 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
             defaultValue={valueFor('relationship')}
             aria-invalid={Boolean(errorFor('relationship'))}
             aria-describedby={describedBy(fieldId('relationship'), false, Boolean(errorFor('relationship')))}
-            className={cn(controlClass, 'appearance-none bg-white')}
+            className={cn(controlClass, 'appearance-none')}
           >
             <option value="">Select one</option>
             {relationshipOptions.map((option) => (
@@ -301,7 +301,7 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
       </fieldset>
 
       <fieldset className="flex flex-col gap-6 border-0 p-0">
-        <legend className="text-eyebrow mb-2 text-[var(--color-slate)]">
+        <legend className="text-eyebrow mb-2 text-ink-2">
           {form.legends.request}
         </legend>
 
@@ -318,7 +318,7 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
             defaultValue={valueFor('requestType')}
             aria-invalid={Boolean(errorFor('requestType'))}
             aria-describedby={describedBy(fieldId('requestType'), false, Boolean(errorFor('requestType')))}
-            className={cn(controlClass, 'appearance-none bg-white')}
+            className={cn(controlClass, 'appearance-none')}
           >
             <option value="">Select one</option>
             {requestTypeOptions.map((option) => (
@@ -350,7 +350,7 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
           />
         </Field>
 
-        <p className="rounded-[var(--radius-card)] border-l-2 border-[var(--color-amber)] bg-[var(--color-soft)] p-4 text-[0.875rem] leading-relaxed text-[var(--color-graphite)]">
+        <p className=" border-l-2 border-ev-gap p-4 text-[0.875rem] leading-relaxed text-ink-3">
           {form.sensitiveWarning}
         </p>
 
@@ -376,23 +376,23 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
 
         <label
           htmlFor={fieldId('isAuthorizedAgent')}
-          className="flex min-h-11 cursor-pointer items-start gap-3 text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]"
+          className="flex min-h-11 cursor-pointer items-start gap-3 text-[0.9375rem] leading-relaxed text-ink-3"
         >
           <input
             id={fieldId('isAuthorizedAgent')}
             name="isAuthorizedAgent"
             type="checkbox"
             defaultChecked={valueFor('isAuthorizedAgent') === 'on'}
-            className="mt-0.5 size-5 shrink-0 accent-[var(--color-blue)]"
+            className="mt-0.5 size-5 shrink-0 accent-ink"
           />
           {form.labels.isAuthorizedAgent}
         </label>
       </fieldset>
 
-      <div className="flex flex-col gap-6 border-t border-[var(--color-border)] pt-8">
+      <div className="flex flex-col gap-6 border-t border-rule pt-8">
         <label
           htmlFor={fieldId('attestation')}
-          className="flex min-h-11 cursor-pointer items-start gap-3 text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]"
+          className="flex min-h-11 cursor-pointer items-start gap-3 text-[0.9375rem] leading-relaxed text-ink-3"
         >
           <input
             id={fieldId('attestation')}
@@ -402,19 +402,19 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
             defaultChecked={valueFor('attestation') === 'on'}
             aria-invalid={Boolean(errorFor('attestation'))}
             aria-describedby={describedBy(fieldId('attestation'), false, Boolean(errorFor('attestation')))}
-            className="mt-0.5 size-5 shrink-0 accent-[var(--color-blue)]"
+            className="mt-0.5 size-5 shrink-0 accent-ink"
           />
           {form.labels.attestation}
         </label>
 
         {errorFor('attestation') ? (
-          <p id={`${fieldId('attestation')}-error`} className="text-[0.875rem] font-medium text-[var(--color-amber)]">
+          <p id={`${fieldId('attestation')}-error`} className="text-[0.875rem] font-medium text-ev-gap">
             {errorFor('attestation')}
           </p>
         ) : null}
 
         {/* Notice at collection. Readable without opening anything (legal/01 §1). */}
-        <p className="text-[0.875rem] leading-relaxed text-[var(--color-slate)]">
+        <p className="text-[0.875rem] leading-relaxed text-ink-2">
           <InlineText text={form.notice} />
         </p>
 

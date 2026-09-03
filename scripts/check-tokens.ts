@@ -23,16 +23,16 @@
  *    read, since they have no semantic equivalent.
  * 6. A hex literal in a component, page or stylesheet fails, with a short
  *    allowlist for the surfaces that cannot read a stylesheet at all.
- * 7. Legacy alias names warn with the replacement named. They resolve for one
- *    release through the token file's theme mapping and are retired call site
- *    by call site (handoff 5.3, 5.4).
+ * 7. A name the canvas retires fails with its replacement named. These no
+ *    longer resolve to anything, so a surviving call site renders a fragment of
+ *    the light system on the dark ground.
  * 8. The motion grep gates: `@keyframes`, `requestAnimationFrame`,
  *    `animation-timeline`, `infinite` and `autoplay` return zero outside
  *    `node_modules` and outside the copy under `src/content`; `src/lib/motion.ts`,
  *    once it exists, stays under 3 KB compressed. The `@starting-style`
  *    presence check joins when the four mount-time entries land (PR 3, PR 6).
  *
- * Warnings print and do not fail. Any failure exits non-zero.
+ * Any failure exits non-zero.
  */
 import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
@@ -71,27 +71,50 @@ const HEX_ALLOWLIST = new Set([
   'src/lib/seo/og-image.tsx',
 ])
 
-/** Legacy names the theme mapping keeps for one release, with their replacement. */
-const LEGACY_ALIASES: Record<string, string> = {
-  '--color-navy': '--surface-plate (a plate ground) or bg-plate',
-  '--color-navy-2': '--surface-plate-2',
-  '--color-blue': '--ev-measured, --path or --action, by meaning',
-  '--color-blue-hover': '--ev-measured-hover or --action-hover',
-  '--color-field': '--page-bg or --surface',
-  '--color-graphite': '--ink-body',
+/**
+ * Names the light system used that the canvas retires. They are not aliased any
+ * more: the design is one dark ground, and a call site that still reads
+ * `--color-field` as a page ground or `--color-navy` as heading ink renders a
+ * light-system fragment on a dark page. The sweep took every one of these to
+ * zero, so a reappearance is a regression and fails rather than warns.
+ */
+const RETIRED_NAMES: Record<string, string> = {
+  '--color-navy': '--bg (a ground) or --ink (heading ink)',
+  '--color-navy-2': '--plate, the one legal lifted surface',
+  '--color-blue': '--ev-measured, --path, --link or --btn, by meaning',
+  '--color-blue-hover': '--ev-measured-hover or --btn-hover',
+  '--color-field': '--bg (a ground) or --ink (Field White as ink)',
+  '--color-graphite': '--ink-3',
   '--color-slate': '--ink-2',
-  '--color-border': '--rule (decorative) or --rule-strong (control edge)',
-  '--color-soft': '--surface-tint',
-  '--color-cyan': '--focus-ring',
-  '--color-amber': '--ev-gap',
-  '--color-positive': '--signal-positive',
-  '--color-destructive': '--signal-destructive',
-  '--color-white': '--surface-raised',
+  '--color-border': '--rule (decorative) or --edge (a control boundary)',
+  '--color-soft': 'nothing; the canvas has no tinted ground',
+  '--color-cyan': '--focus',
+  '--color-amber': '--ev-gap or --caution',
+  '--color-positive': '--ok',
+  '--color-destructive': '--alert',
+  '--color-white': '--ink',
+  '--page-bg': '--bg',
+  '--page-fg': '--ink',
+  '--surface-raised': '--plate',
+  '--surface-tint': 'nothing; the canvas has no tinted ground',
+  '--surface-plate': '--plate',
+  '--surface-plate-2': '--plate',
+  '--ink-body': '--ink',
+  '--action': '--btn',
+  '--action-hover': '--btn-hover',
+  '--action-fg': '--ink',
+  '--focus-ring': '--focus',
+  '--signal-positive': '--ok',
+  '--signal-destructive': '--alert',
+  '--link-hover': 'nothing; a link hover thickens the underline and keeps its colour',
+  '--rule-registration': '--rule',
   '--radius-button': '--radius-control',
-  '--radius-card': '--radius-tile',
-  '--radius-panel': '--radius-plate',
-  '--font-geist-sans': '--font-sans',
-  '--font-geist-mono': '--font-mono',
+  '--radius-card': 'nothing; there is no card in this system',
+  '--radius-panel': 'nothing; there is no panel in this system',
+  '--radius-tile': 'nothing; a tile is a hairline group, not a box',
+  '--radius-plate': 'nothing; an instrument surface is the ground',
+  '--radius-small': '--radius-control',
+  '--radius-pill': '--radius-control',
 }
 
 /** 11 section 8 item 6. Each pattern must return zero matches in shipped code. */
@@ -108,20 +131,25 @@ const CONTENT_DIR = 'src/content'
 
 const HEX = /#[0-9a-fA-F]{3,8}\b/g
 const HX_REFERENCE = /--hx-[\w-]+/g
-const LEGACY_REFERENCE = /--(?:color-[\w-]+|radius-(?:button|card|panel)|font-geist-(?:sans|mono))\b/g
+/**
+ * Longest first, so `--action-hover` is not matched as `--action` plus a
+ * suffix, and the boundary rejects a longer name outright, so the component
+ * tokens `--focus-ring-width`, `--focus-ring-offset` and `--focus-ring-radius`
+ * are not read as the retired colour `--focus-ring`.
+ */
+const RETIRED_REFERENCE = new RegExp(
+  `(?:${Object.keys(RETIRED_NAMES)
+    .sort((a, b) => b.length - a.length)
+    .join('|')})(?![-\\w])`,
+  'g',
+)
 
 type Failure = { where: string; message: string }
-type Warning = Failure
 
 const failures: Failure[] = []
-const warnings: Warning[] = []
 
 function fail(where: string, message: string) {
   failures.push({ where, message })
-}
-
-function warn(where: string, message: string) {
-  warnings.push({ where, message })
 }
 
 async function sourceFiles(dir: string): Promise<string[]> {
@@ -168,12 +196,12 @@ function checkTokenFile(parsed: ParsedTokens) {
     if (EXTERNAL_VARIABLES.has(reference.name) && reference.fallback) continue
     fail(`${where}:${reference.line}`, `var(${reference.name}) is not declared in the token file${EXTERNAL_VARIABLES.has(reference.name) ? ' and carries no fallback' : ''}`)
   }
-  for (const scope of ['light', 'on-plate'] as const) {
+  for (const scope of ['page', 'plate'] as const) {
     const values = buildScope(parsed, scope)
     for (const name of values.keys()) {
       const resolved = resolveToken(name, values)
       if (!resolved.ok) {
-        fail(`${where} ${name}`, `${resolved.reason === 'cycle' ? 'cycles through' : 'reads undeclared'} ${resolved.token} on the ${scope} surface`)
+        fail(`${where} ${name}`, `${resolved.reason === 'cycle' ? 'cycles through' : 'reads undeclared'} ${resolved.token} on the ${scope} ground`)
       }
     }
     // Theme keys are not tokens but their values must resolve on the page.
@@ -208,7 +236,7 @@ async function checkSourceTree(parsed: ParsedTokens) {
   const primitives = colourPrimitives(parsed)
   const tokenFilePath = path.join(ROOT, TOKEN_FILE)
   const files = (await sourceFiles(SRC)).filter((file) => file !== tokenFilePath)
-  const legacyHits = new Map<string, Map<string, number>>()
+  const retiredHits = new Map<string, Map<string, number>>()
 
   for (const file of files) {
     const relative = path.relative(ROOT, file)
@@ -229,12 +257,12 @@ async function checkSourceTree(parsed: ParsedTokens) {
       }
     }
 
-    // 7. Legacy alias names.
-    for (const match of source.matchAll(LEGACY_REFERENCE)) {
-      if (!(match[0] in LEGACY_ALIASES)) continue
-      const perFile = legacyHits.get(match[0]) ?? new Map<string, number>()
+    // 7. Names the canvas retires.
+    for (const match of source.matchAll(RETIRED_REFERENCE)) {
+      if (!(match[0] in RETIRED_NAMES)) continue
+      const perFile = retiredHits.get(match[0]) ?? new Map<string, number>()
       perFile.set(relative, (perFile.get(relative) ?? 0) + 1)
-      legacyHits.set(match[0], perFile)
+      retiredHits.set(match[0], perFile)
     }
 
     // 8. Motion grep gates, outside the copy.
@@ -248,9 +276,10 @@ async function checkSourceTree(parsed: ParsedTokens) {
     }
   }
 
-  for (const [alias, perFile] of [...legacyHits].sort()) {
-    const total = [...perFile.values()].reduce((sum, count) => sum + count, 0)
-    warn(alias, `${total} reference${total === 1 ? '' : 's'} across ${perFile.size} file${perFile.size === 1 ? '' : 's'}; migrate to ${LEGACY_ALIASES[alias]}`)
+  for (const [name, perFile] of [...retiredHits].sort()) {
+    for (const [file, count] of [...perFile].sort()) {
+      fail(file, `${count} reference${count === 1 ? '' : 's'} to ${name}, retired by the canvas; use ${RETIRED_NAMES[name]}`)
+    }
   }
 
   const motionModule = files.find((file) => path.relative(ROOT, file) === MOTION_MODULE)
@@ -278,9 +307,6 @@ async function main() {
   }, {})
   console.log(`check:tokens over ${TOKEN_FILE}: ${Object.entries(counts).map(([name, count]) => `${count} ${name}`).join(', ')}`)
 
-  for (const warning of warnings) {
-    console.log(`  warn  ${warning.where}: ${warning.message}`)
-  }
   for (const failure of failures) {
     console.error(`  FAIL  ${failure.where}: ${failure.message}`)
   }
@@ -289,7 +315,7 @@ async function main() {
     console.error(`\ncheck:tokens failed with ${failures.length} problem${failures.length === 1 ? '' : 's'}.`)
     process.exit(1)
   }
-  console.log(`check:tokens passed${warnings.length ? ` with ${warnings.length} legacy alias warning${warnings.length === 1 ? '' : 's'}` : ''}.`)
+  console.log('check:tokens passed.')
 }
 
 main().catch((error: unknown) => {

@@ -23,7 +23,7 @@ function Flow({
       <h3
         className={cn(
           'text-[1.0625rem] font-medium',
-          tone === 'active' ? 'text-[var(--color-navy)]' : 'text-[var(--color-slate)]',
+          tone === 'active' ? 'text-ink' : 'text-ink-2',
         )}
       >
         {label}
@@ -35,8 +35,8 @@ function Flow({
               className={cn(
                 'inline-flex items-center rounded-[var(--radius-control)] border px-2.5 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap',
                 tone === 'active'
-                  ? 'border-[var(--color-blue)] bg-[color-mix(in_srgb,var(--color-blue)_8%,white)] text-[var(--color-navy)]'
-                  : 'border-[var(--color-border)] bg-white text-[var(--color-slate)]',
+                  ? 'border-path text-ink'
+                  : 'border-rule text-ink-2',
               )}
             >
               {step}
@@ -53,7 +53,7 @@ function Flow({
                 <ChevronRight
                   className={cn(
                     'size-3.5 shrink-0',
-                    tone === 'active' ? 'text-[var(--color-blue)]' : 'text-[var(--color-border)]',
+                    tone === 'active' ? 'text-link' : 'text-ink-2',
                   )}
                   aria-hidden="true"
                 />
@@ -98,8 +98,8 @@ export function CompletePath({ steps, className }: { steps: readonly string[]; c
               className={cn(
                 'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap',
                 isLast
-                  ? 'border-[var(--color-amber)] bg-[color-mix(in_srgb,var(--color-amber)_14%,white)] text-[var(--color-navy)]'
-                  : 'border-[var(--color-border)] bg-white text-[var(--color-graphite)]',
+                  ? 'border-ev-gap text-ink'
+                  : 'border-rule text-ink-3',
               )}
             >
               {step}
@@ -108,7 +108,7 @@ export function CompletePath({ steps, className }: { steps: readonly string[]; c
               <>
                 {/* Same separator as `Flow` above, for the same reason. */}
                 <span className="sr-only">, </span>
-                <ChevronRight className="size-3.5 shrink-0 text-[var(--color-border)]" aria-hidden="true" />
+                <ChevronRight className="size-3.5 shrink-0 text-ink-2" aria-hidden="true" />
               </>
             ) : null}
           </li>

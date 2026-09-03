@@ -29,7 +29,7 @@ export type Role = {
  */
 export function RoleTimeline({ roles }: { roles: readonly Role[] }) {
   return (
-    <ol className="flex flex-col gap-10 border-l border-[color-mix(in_srgb,var(--color-slate)_28%,transparent)] pl-8">
+    <ol className="flex flex-col gap-10 border-l border-rule-2 pl-8">
       {roles.map((role) => {
         /*
          * The `<time>` pair is opt-in and never reformats the approved string:
@@ -58,12 +58,12 @@ export function RoleTimeline({ roles }: { roles: readonly Role[] }) {
               happened. Both strings are approved copy; the meta line below drops
               its duplicate rather than repeating the organization twice.
             */}
-            <h3 className="text-lg font-semibold text-[var(--color-navy)]">
+            <h3 className="text-lg font-semibold text-ink">
               {role.title}, {role.organization}
             </h3>
 
-            <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.9375rem] text-[var(--color-graphite)]">
-              <span className="text-[var(--color-slate)]">
+            <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.9375rem] text-ink-3">
+              <span className="text-ink-2">
                 {hasMachineReadableDates ? (
                   <>
                     <time dateTime={role.startDate}>{periodStart}</time> to{' '}
@@ -73,13 +73,13 @@ export function RoleTimeline({ roles }: { roles: readonly Role[] }) {
                   role.period
                 )}
               </span>
-              <span aria-hidden="true" className="text-[var(--color-slate)]">
+              <span aria-hidden="true" className="text-ink-2">
                 /
               </span>
-              <span className="text-[var(--color-slate)]">{role.relationship}</span>
+              <span className="text-ink-2">{role.relationship}</span>
             </p>
 
-            <p className="mt-3 text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">
+            <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-3">
               {role.description}
             </p>
           </li>

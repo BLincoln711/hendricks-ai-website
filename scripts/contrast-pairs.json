@@ -1,229 +1,826 @@
 [
-  {"fg":"--page-fg","bg":"--page-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ink","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ink","bg":"--surface-raised","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ink","bg":"--surface-tint","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ink-body","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ink-body","bg":"--surface-raised","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ink-body","bg":"--surface-tint","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ink-2","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ink-2","bg":"--surface-raised","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ink-2","bg":"--surface-tint","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--rule","bg":"--surface","scope":"light","role":"decorative","threshold":null,"note":"hairline; never a control edge"},
-  {"fg":"--rule-strong","bg":"--surface","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--rule-strong","bg":"--surface-raised","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--rule-strong","bg":"--surface-tint","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--guide","bg":"--surface","scope":"light","role":"graphic","threshold":3},
-  {"fg":"--guide","bg":"--surface-tint","scope":"light","role":"graphic","threshold":3},
-  {"fg":"--row-highlight","bg":"--surface","scope":"light","role":"graphic","threshold":3},
-  {"fg":"--ev-observed","bg":"--row-highlight","scope":"light","role":"graphic","threshold":3,"note":"the Evidence node over the sources-ledger disc"},
-  {"fg":"--rule-registration","bg":"--page-bg","scope":"light","role":"decorative","threshold":null,"note":"drawn on the page ground; measured 3.70:1"},
-  {"fg":"--plate-registration","bg":"--page-bg","scope":"light","role":"decorative","threshold":null,"note":"fixed to the page ground; not re-scoped"},
-  {"fg":"--action-fg","bg":"--action","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--action-fg","bg":"--action-hover","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--action-secondary-fg","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--action-secondary-fg","bg":"--action-secondary-hover-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--action-secondary-fg","bg":"--action-secondary-active-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--action-secondary-edge","bg":"--surface","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--action-secondary-hover-edge","bg":"--action-secondary-hover-bg","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--action-disabled-fg","bg":"--action-disabled-bg","scope":"light","role":"text","threshold":4.5,"note":"disabled is exempt from 1.4.3; held to text anyway"},
-  {"fg":"--action-disabled-edge","bg":"--action-disabled-bg","scope":"light","role":"decorative","threshold":null},
-  {"fg":"--link","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--link","bg":"--surface-raised","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--link","bg":"--surface-tint","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--link-hover","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--focus-ring","bg":"--surface","scope":"light","role":"graphic","threshold":3},
-  {"fg":"--focus-ring","bg":"--surface-raised","scope":"light","role":"graphic","threshold":3},
-  {"fg":"--focus-ring","bg":"--surface-tint","scope":"light","role":"graphic","threshold":3},
-  {"fg":"--ev-observed","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ev-observed","bg":"--surface-tint","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ev-inferred","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ev-inferred","bg":"--surface-tint","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ev-measured","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ev-measured","bg":"--surface-tint","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ev-measured-hover","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ev-tested","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ev-tested","bg":"--surface-raised","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ev-tested","bg":"--surface-tint","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ev-gap","bg":"--surface","scope":"light","role":"text","threshold":4.5,"note":"the gap mark always travels with words"},
-  {"fg":"--ev-gap","bg":"--surface-raised","scope":"light","role":"text","threshold":4.5,"note":"the gap mark always travels with words"},
-  {"fg":"--ev-gap","bg":"--surface-tint","scope":"light","role":"text","threshold":4.5,"note":"the gap mark always travels with words"},
-  {"fg":"--ev-muted","bg":"--surface","scope":"light","role":"graphic","threshold":3,"note":"other brands tracks; never text"},
-  {"fg":"--ev-muted","bg":"--surface-tint","scope":"light","role":"graphic","threshold":3,"note":"other brands tracks; never text"},
-  {"fg":"--path","bg":"--surface","scope":"light","role":"graphic","threshold":3},
-  {"fg":"--path","bg":"--surface-tint","scope":"light","role":"graphic","threshold":3},
-  {"fg":"--signal-positive","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--signal-positive","bg":"--surface-raised","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--signal-positive","bg":"--surface-tint","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--signal-destructive","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--signal-destructive","bg":"--surface-raised","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--signal-destructive","bg":"--surface-tint","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--signal-dot","bg":"--surface","scope":"light","role":"graphic","threshold":3},
-  {"fg":"--signal-dot-ring","bg":"--surface","scope":"light","role":"decorative","threshold":null,"note":"equals the page ground; meaningful only where the dot crosses a track"},
-  {"fg":"--selection-fg","bg":"--selection-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--foreground","bg":"--background","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--muted-foreground","bg":"--background","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--primary-foreground","bg":"--primary","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--destructive","bg":"--background","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--border","bg":"--background","scope":"light","role":"decorative","threshold":null},
-  {"fg":"--button-primary-fg","bg":"--button-primary-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--button-primary-fg","bg":"--button-primary-hover-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--button-primary-active-inset","bg":"--button-primary-active-bg","scope":"light","role":"graphic","threshold":3,"note":"1 px inset ring on active"},
-  {"fg":"--button-secondary-fg","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--button-secondary-fg","bg":"--button-secondary-hover-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--button-secondary-fg","bg":"--button-secondary-active-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--button-secondary-edge","bg":"--surface","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--button-secondary-hover-edge","bg":"--button-secondary-hover-bg","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--button-disabled-fg","bg":"--button-disabled-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--button-disabled-edge","bg":"--button-disabled-bg","scope":"light","role":"decorative","threshold":null},
-  {"fg":"--input-fg","bg":"--input-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--input-edge","bg":"--input-bg","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--input-edge","bg":"--surface","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--input-edge-hover","bg":"--input-bg","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--input-edge-invalid","bg":"--input-bg","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--input-label-fg","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--input-hint-fg","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--input-placeholder-fg","bg":"--input-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--input-error-fg","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--input-success-fg","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--input-check-edge","bg":"--input-bg","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--input-check-checked-fg","bg":"--input-check-checked-bg","scope":"light","role":"graphic","threshold":3,"note":"the check mark"},
-  {"fg":"--ledger-rule","bg":"--surface","scope":"light","role":"decorative","threshold":null},
-  {"fg":"--ledger-rule-top","bg":"--surface","scope":"light","role":"graphic","threshold":3},
-  {"fg":"--ledger-rule-total","bg":"--surface","scope":"light","role":"graphic","threshold":3},
-  {"fg":"--ledger-head-fg","bg":"--ledger-head-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--ledger-index-fg","bg":"--surface","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--tile-fg","bg":"--tile-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--tile-edge","bg":"--surface","scope":"light","role":"decorative","threshold":null},
-  {"fg":"--tile-edge-hover","bg":"--surface","scope":"light","role":"graphic","threshold":3},
-  {"fg":"--tile-head-fg","bg":"--tile-head-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--chip-fg","bg":"--chip-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--chip-fg","bg":"--chip-hover-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--chip-edge","bg":"--chip-bg","scope":"light","role":"decorative","threshold":null,"note":"static chips are not controls"},
-  {"fg":"--chip-edge-acting","bg":"--chip-bg","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--chip-hover-edge","bg":"--chip-hover-bg","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--chip-pressed-fg","bg":"--chip-pressed-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--chip-pressed-edge","bg":"--surface","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--header-nav-fg","bg":"--header-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--header-nav-fg","bg":"--disclosure-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--header-edge","bg":"--header-bg","scope":"light","role":"decorative","threshold":null},
-  {"fg":"--header-nav-current-edge","bg":"--header-bg","scope":"light","role":"graphic","threshold":3,"note":"aria-current underline"},
-  {"fg":"--disclosure-edge","bg":"--surface","scope":"light","role":"decorative","threshold":null},
-  {"fg":"--consent-fg","bg":"--consent-bg","scope":"light","role":"text","threshold":4.5},
-  {"fg":"--consent-edge","bg":"--consent-bg","scope":"light","role":"control-edge","threshold":3},
-  {"fg":"--ink","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink","bg":"--surface-raised","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink","bg":"--surface-tint","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink-body","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink-body","bg":"--surface-raised","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink-body","bg":"--surface-tint","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink-2","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink-2","bg":"--surface-raised","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink-2","bg":"--surface-tint","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink","bg":"--surface-plate","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink","bg":"--surface-plate-2","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink","bg":"--plate-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink","bg":"--plate-inner-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink-2","bg":"--surface-plate","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink-2","bg":"--surface-plate-2","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink-2","bg":"--plate-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ink-2","bg":"--plate-inner-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--rule","bg":"--surface","scope":"on-plate","role":"decorative","threshold":null,"note":"hairline; never a control edge"},
-  {"fg":"--rule-strong","bg":"--surface","scope":"on-plate","role":"control-edge","threshold":3},
-  {"fg":"--rule-strong","bg":"--surface-raised","scope":"on-plate","role":"control-edge","threshold":3},
-  {"fg":"--rule-strong","bg":"--surface-tint","scope":"on-plate","role":"control-edge","threshold":3},
-  {"fg":"--guide","bg":"--surface","scope":"on-plate","role":"graphic","threshold":3},
-  {"fg":"--guide","bg":"--surface-raised","scope":"on-plate","role":"graphic","threshold":3},
-  {"fg":"--row-highlight","bg":"--surface-raised","scope":"on-plate","role":"graphic","threshold":3},
-  {"fg":"--ev-observed","bg":"--row-highlight","scope":"on-plate","role":"graphic","threshold":3,"note":"the Evidence node over the sources-ledger disc"},
-  {"fg":"--action-fg","bg":"--action","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--action-fg","bg":"--action-hover","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--action-secondary-fg","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--action-secondary-fg","bg":"--action-secondary-hover-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--action-secondary-fg","bg":"--action-secondary-active-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--action-secondary-edge","bg":"--surface","scope":"on-plate","role":"control-edge","threshold":3},
-  {"fg":"--action-secondary-hover-edge","bg":"--action-secondary-hover-bg","scope":"on-plate","role":"control-edge","threshold":3},
-  {"fg":"--action-disabled-fg","bg":"--action-disabled-bg","scope":"on-plate","role":"text","threshold":4.5,"note":"disabled is exempt from 1.4.3; held to text anyway"},
-  {"fg":"--action-disabled-edge","bg":"--action-disabled-bg","scope":"on-plate","role":"decorative","threshold":null},
-  {"fg":"--link","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--link","bg":"--surface-raised","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--link-hover","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--focus-ring","bg":"--surface","scope":"on-plate","role":"graphic","threshold":3},
-  {"fg":"--focus-ring","bg":"--surface-raised","scope":"on-plate","role":"graphic","threshold":3},
-  {"fg":"--ev-observed","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ev-observed","bg":"--surface-raised","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ev-inferred","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ev-inferred","bg":"--surface-raised","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ev-measured","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ev-measured","bg":"--surface-raised","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ev-measured-hover","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ev-tested","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ev-tested","bg":"--surface-raised","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ev-gap","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5,"note":"the gap mark always travels with words"},
-  {"fg":"--ev-gap","bg":"--surface-raised","scope":"on-plate","role":"text","threshold":4.5,"note":"the gap mark always travels with words"},
-  {"fg":"--ev-muted","bg":"--surface","scope":"on-plate","role":"graphic","threshold":3,"note":"other brands tracks; never text"},
-  {"fg":"--ev-muted","bg":"--surface-raised","scope":"on-plate","role":"graphic","threshold":3,"note":"other brands tracks; never text"},
-  {"fg":"--path","bg":"--surface","scope":"on-plate","role":"graphic","threshold":3},
-  {"fg":"--path","bg":"--surface-raised","scope":"on-plate","role":"graphic","threshold":3},
-  {"fg":"--signal-positive","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--signal-destructive","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--signal-destructive","bg":"--surface-raised","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--signal-dot","bg":"--surface","scope":"on-plate","role":"graphic","threshold":3},
-  {"fg":"--signal-dot-ring","bg":"--surface","scope":"on-plate","role":"graphic","threshold":3,"note":"field halo around the dot"},
-  {"fg":"--signal-dot-ring","bg":"--surface-raised","scope":"on-plate","role":"graphic","threshold":3,"note":"field halo around the dot"},
-  {"fg":"--selection-fg","bg":"--selection-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--muted-foreground","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--primary-foreground","bg":"--primary","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--destructive","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--border","bg":"--surface","scope":"on-plate","role":"decorative","threshold":null},
-  {"fg":"--button-primary-fg","bg":"--button-primary-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--button-primary-fg","bg":"--button-primary-hover-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--button-primary-active-inset","bg":"--button-primary-active-bg","scope":"on-plate","role":"graphic","threshold":3,"note":"1 px inset ring on active"},
-  {"fg":"--button-secondary-fg","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--button-secondary-fg","bg":"--button-secondary-hover-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--button-secondary-fg","bg":"--button-secondary-active-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--button-secondary-edge","bg":"--surface","scope":"on-plate","role":"control-edge","threshold":3},
-  {"fg":"--button-secondary-hover-edge","bg":"--button-secondary-hover-bg","scope":"on-plate","role":"control-edge","threshold":3},
-  {"fg":"--button-disabled-fg","bg":"--button-disabled-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--button-disabled-edge","bg":"--button-disabled-bg","scope":"on-plate","role":"decorative","threshold":null},
-  {"fg":"--input-fg","bg":"--input-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--input-edge","bg":"--input-bg","scope":"on-plate","role":"control-edge","threshold":3},
-  {"fg":"--input-edge-hover","bg":"--input-bg","scope":"on-plate","role":"control-edge","threshold":3},
-  {"fg":"--input-edge-invalid","bg":"--input-bg","scope":"on-plate","role":"control-edge","threshold":3},
-  {"fg":"--input-label-fg","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--input-hint-fg","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--input-placeholder-fg","bg":"--input-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--input-error-fg","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--input-success-fg","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--input-check-edge","bg":"--input-bg","scope":"on-plate","role":"control-edge","threshold":3},
-  {"fg":"--input-check-checked-fg","bg":"--input-check-checked-bg","scope":"on-plate","role":"graphic","threshold":3,"note":"the check mark"},
-  {"fg":"--plate-inner-edge","bg":"--plate-inner-bg","scope":"on-plate","role":"decorative","threshold":null},
-  {"fg":"--plate-rule","bg":"--plate-bg","scope":"on-plate","role":"decorative","threshold":null},
-  {"fg":"--plate-guide","bg":"--plate-bg","scope":"on-plate","role":"graphic","threshold":3},
-  {"fg":"--plate-guide","bg":"--plate-inner-bg","scope":"on-plate","role":"graphic","threshold":3},
-  {"fg":"--ledger-rule","bg":"--surface","scope":"on-plate","role":"decorative","threshold":null},
-  {"fg":"--ledger-rule-top","bg":"--surface","scope":"on-plate","role":"graphic","threshold":3},
-  {"fg":"--ledger-rule-total","bg":"--surface","scope":"on-plate","role":"graphic","threshold":3},
-  {"fg":"--ledger-head-fg","bg":"--ledger-head-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--ledger-index-fg","bg":"--surface","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--tile-fg","bg":"--tile-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--tile-edge","bg":"--surface","scope":"on-plate","role":"decorative","threshold":null},
-  {"fg":"--tile-edge-hover","bg":"--surface","scope":"on-plate","role":"graphic","threshold":3},
-  {"fg":"--tile-head-fg","bg":"--tile-head-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--chip-fg","bg":"--chip-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--chip-fg","bg":"--chip-hover-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--chip-edge","bg":"--chip-bg","scope":"on-plate","role":"decorative","threshold":null,"note":"static chips are not controls"},
-  {"fg":"--chip-edge-acting","bg":"--chip-bg","scope":"on-plate","role":"control-edge","threshold":3},
-  {"fg":"--chip-hover-edge","bg":"--chip-hover-bg","scope":"on-plate","role":"control-edge","threshold":3},
-  {"fg":"--chip-pressed-fg","bg":"--chip-pressed-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--chip-pressed-edge","bg":"--surface","scope":"on-plate","role":"control-edge","threshold":3},
-  {"fg":"--header-nav-fg","bg":"--header-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--header-nav-fg","bg":"--disclosure-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--header-edge","bg":"--header-bg","scope":"on-plate","role":"decorative","threshold":null},
-  {"fg":"--header-nav-current-edge","bg":"--header-bg","scope":"on-plate","role":"graphic","threshold":3,"note":"aria-current underline"},
-  {"fg":"--disclosure-edge","bg":"--surface","scope":"on-plate","role":"decorative","threshold":null},
-  {"fg":"--consent-fg","bg":"--consent-bg","scope":"on-plate","role":"text","threshold":4.5},
-  {"fg":"--consent-edge","bg":"--consent-bg","scope":"on-plate","role":"control-edge","threshold":3},
-  {"fg":"--action-fg","bg":"--hx-navy-900","scope":"light","role":"text","threshold":4.5,"note":"D2 ink variant on html[data-action=\"ink\"]"},
-  {"fg":"--action-fg","bg":"--hx-navy-700","scope":"light","role":"text","threshold":4.5,"note":"D2 ink variant on html[data-action=\"ink\"]"}
+  {
+    "fg": "--ink",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "body and headings"
+  },
+  {
+    "fg": "--ink-3",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "mid ink"
+  },
+  {
+    "fg": "--ink-2",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "quiet body ink and the two-tone continuation"
+  },
+  {
+    "fg": "--link",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "link ink"
+  },
+  {
+    "fg": "--alert",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "error text"
+  },
+  {
+    "fg": "--ok",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "success text"
+  },
+  {
+    "fg": "--caution",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "advisory text"
+  },
+  {
+    "fg": "--header-nav-fg",
+    "bg": "--header-bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "header route link"
+  },
+  {
+    "fg": "--consent-fg",
+    "bg": "--consent-bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "consent sheet copy"
+  },
+  {
+    "fg": "--header-nav-fg",
+    "bg": "--disclosure-bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "route link inside the disclosure panel"
+  },
+  {
+    "fg": "--tile-fg",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "tile body"
+  },
+  {
+    "fg": "--tile-fg",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "tile body"
+  },
+  {
+    "fg": "--tile-head-fg",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "tile head label"
+  },
+  {
+    "fg": "--tile-head-fg",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "tile head label"
+  },
+  {
+    "fg": "--chip-fg",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "chip label"
+  },
+  {
+    "fg": "--chip-fg",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "chip label"
+  },
+  {
+    "fg": "--input-fg",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "input value"
+  },
+  {
+    "fg": "--input-fg",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "input value"
+  },
+  {
+    "fg": "--input-label-fg",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "field label"
+  },
+  {
+    "fg": "--input-label-fg",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "field label"
+  },
+  {
+    "fg": "--input-hint-fg",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "field hint"
+  },
+  {
+    "fg": "--input-hint-fg",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "field hint"
+  },
+  {
+    "fg": "--input-placeholder-fg",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "placeholder; never carries the label"
+  },
+  {
+    "fg": "--input-placeholder-fg",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "placeholder; never carries the label"
+  },
+  {
+    "fg": "--input-error-fg",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "field error"
+  },
+  {
+    "fg": "--input-error-fg",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "field error"
+  },
+  {
+    "fg": "--input-success-fg",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "field success"
+  },
+  {
+    "fg": "--input-success-fg",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "field success"
+  },
+  {
+    "fg": "--ledger-head-fg",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "ledger head label"
+  },
+  {
+    "fg": "--ledger-head-fg",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "ledger head label"
+  },
+  {
+    "fg": "--ledger-index-fg",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "ledger row index"
+  },
+  {
+    "fg": "--ledger-index-fg",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "ledger row index"
+  },
+  {
+    "fg": "--button-secondary-fg",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "secondary button label"
+  },
+  {
+    "fg": "--button-disabled-fg",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "disabled label; exempt from 1.4.3 and passes anyway"
+  },
+  {
+    "fg": "--button-primary-fg",
+    "bg": "--button-primary-bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "primary button label"
+  },
+  {
+    "fg": "--button-primary-fg",
+    "bg": "--button-primary-hover-bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "primary button label through hover"
+  },
+  {
+    "fg": "--chip-pressed-fg",
+    "bg": "--chip-pressed-bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "pressed chip label"
+  },
+  {
+    "fg": "--selection-fg",
+    "bg": "--selection-bg",
+    "scope": "page",
+    "role": "text",
+    "threshold": 4.5,
+    "note": "selected text"
+  },
+  {
+    "fg": "--ev-observed",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "observed marks"
+  },
+  {
+    "fg": "--ev-inferred",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "inferred marks"
+  },
+  {
+    "fg": "--ev-measured",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "measured marks"
+  },
+  {
+    "fg": "--ev-measured-hover",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "measured marks through hover"
+  },
+  {
+    "fg": "--ev-tested",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "tested marks"
+  },
+  {
+    "fg": "--ev-gap",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "evidence gap mark; always travels with words"
+  },
+  {
+    "fg": "--ev-muted",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "other brands' tracks"
+  },
+  {
+    "fg": "--path",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "the customer path"
+  },
+  {
+    "fg": "--signal-dot",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "the signal dot"
+  },
+  {
+    "fg": "--rule-strong",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "axis and baseline"
+  },
+  {
+    "fg": "--guide",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "gridline"
+  },
+  {
+    "fg": "--row-highlight",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "sources-ledger row disc"
+  },
+  {
+    "fg": "--focus",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "focus ring"
+  },
+  {
+    "fg": "--plate-guide",
+    "bg": "--plate-bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "stage guides inside an instrument"
+  },
+  {
+    "fg": "--plate-guide",
+    "bg": "--plate-bg",
+    "scope": "plate",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "stage guides inside an instrument"
+  },
+  {
+    "fg": "--ledger-rule-total",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "the double rule around a closing band"
+  },
+  {
+    "fg": "--ledger-rule-total",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "the double rule around a closing band"
+  },
+  {
+    "fg": "--header-nav-current-edge",
+    "bg": "--header-bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "the 2px underline marking the current route"
+  },
+  {
+    "fg": "--input-check-checked-bg",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "the checked mark"
+  },
+  {
+    "fg": "--input-check-checked-bg",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "the checked mark"
+  },
+  {
+    "fg": "--input-check-checked-fg",
+    "bg": "--input-check-checked-bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "the tick inside the checked mark"
+  },
+  {
+    "fg": "--button-primary-active-inset",
+    "bg": "--button-primary-active-bg",
+    "scope": "page",
+    "role": "graphic",
+    "threshold": 3,
+    "note": "the 1px inset ring on active"
+  },
+  {
+    "fg": "--edge",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "control boundary"
+  },
+  {
+    "fg": "--btn",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "button fill against the ground"
+  },
+  {
+    "fg": "--button-secondary-edge",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "secondary button boundary"
+  },
+  {
+    "fg": "--button-secondary-hover-edge",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "secondary button boundary through hover"
+  },
+  {
+    "fg": "--chip-edge",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "chip boundary"
+  },
+  {
+    "fg": "--chip-edge",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "chip boundary"
+  },
+  {
+    "fg": "--chip-edge-acting",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "boundary of a chip that acts"
+  },
+  {
+    "fg": "--chip-edge-acting",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "boundary of a chip that acts"
+  },
+  {
+    "fg": "--chip-hover-edge",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "chip boundary through hover"
+  },
+  {
+    "fg": "--chip-hover-edge",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "chip boundary through hover"
+  },
+  {
+    "fg": "--chip-pressed-edge",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "pressed chip boundary"
+  },
+  {
+    "fg": "--chip-pressed-edge",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "pressed chip boundary"
+  },
+  {
+    "fg": "--input-edge",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "input boundary"
+  },
+  {
+    "fg": "--input-edge",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "input boundary"
+  },
+  {
+    "fg": "--input-edge-hover",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "input boundary through hover"
+  },
+  {
+    "fg": "--input-edge-hover",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "input boundary through hover"
+  },
+  {
+    "fg": "--input-edge-focus",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "input boundary while focused"
+  },
+  {
+    "fg": "--input-edge-focus",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "input boundary while focused"
+  },
+  {
+    "fg": "--input-edge-invalid",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "invalid input boundary"
+  },
+  {
+    "fg": "--input-edge-invalid",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "invalid input boundary"
+  },
+  {
+    "fg": "--input-check-edge",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "checkbox and radio boundary"
+  },
+  {
+    "fg": "--input-check-edge",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "checkbox and radio boundary"
+  },
+  {
+    "fg": "--consent-edge",
+    "bg": "--consent-bg",
+    "scope": "page",
+    "role": "control-edge",
+    "threshold": 3,
+    "note": "consent sheet boundary"
+  },
+  {
+    "fg": "--rule",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "decorative divider"
+  },
+  {
+    "fg": "--rule-2",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "decorative divider"
+  },
+  {
+    "fg": "--btn-hover",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "hover fill only, never a resting boundary; its label stays AA at 7.24:1"
+  },
+  {
+    "fg": "--plate",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "the instrument surface; it resolves to the ground on the approved page"
+  },
+  {
+    "fg": "--surface",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "the ground the current subtree sits on"
+  },
+  {
+    "fg": "--signal-dot-ring",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "the ring is the ground: a hole punched in the tracks the dot crosses, not a mark"
+  },
+  {
+    "fg": "--signal-dot-ring",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "decorative",
+    "threshold": null,
+    "note": "the ring is the ground: a hole punched in the tracks the dot crosses, not a mark"
+  },
+  {
+    "fg": "--ledger-rule",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "row separator"
+  },
+  {
+    "fg": "--ledger-rule",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "decorative",
+    "threshold": null,
+    "note": "row separator"
+  },
+  {
+    "fg": "--ledger-rule-top",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "ledger top rule"
+  },
+  {
+    "fg": "--ledger-rule-top",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "decorative",
+    "threshold": null,
+    "note": "ledger top rule"
+  },
+  {
+    "fg": "--tile-edge",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "tile hairline"
+  },
+  {
+    "fg": "--tile-edge",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "decorative",
+    "threshold": null,
+    "note": "tile hairline"
+  },
+  {
+    "fg": "--tile-edge-hover",
+    "bg": "--surface",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "tile hairline through hover"
+  },
+  {
+    "fg": "--tile-edge-hover",
+    "bg": "--surface",
+    "scope": "plate",
+    "role": "decorative",
+    "threshold": null,
+    "note": "tile hairline through hover"
+  },
+  {
+    "fg": "--plate-rule",
+    "bg": "--plate-bg",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "decorative hairline inside an instrument"
+  },
+  {
+    "fg": "--plate-rule",
+    "bg": "--plate-bg",
+    "scope": "plate",
+    "role": "decorative",
+    "threshold": null,
+    "note": "decorative hairline inside an instrument"
+  },
+  {
+    "fg": "--header-edge",
+    "bg": "--header-bg",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "masthead hairline"
+  },
+  {
+    "fg": "--disclosure-edge",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "disclosure row hairline"
+  },
+  {
+    "fg": "--button-disabled-edge",
+    "bg": "--bg",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "disabled boundary; a disabled control is exempt"
+  }
 ]

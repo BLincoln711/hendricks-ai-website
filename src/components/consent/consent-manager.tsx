@@ -158,7 +158,7 @@ export function ConsentManager() {
 
       <Dialog.Root open={isPreferencesOpen} onOpenChange={handlePreferencesChange}>
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-[var(--z-dialog)] bg-[color-mix(in_srgb,var(--surface-plate)_55%,transparent)]" />
+          <Dialog.Overlay className="fixed inset-0 z-[var(--z-dialog)] bg-[color-mix(in_srgb,var(--bg)_72%,transparent)]" />
           {/*
             `aria-modal` is set explicitly. Radix already hides the rest of the
             document from assistive technology and traps focus, but docs/16
@@ -170,7 +170,7 @@ export function ConsentManager() {
               opener.current = document.activeElement
             }}
             onCloseAutoFocus={handleCloseAutoFocus}
-            className="consent-dialog fixed inset-x-0 bottom-0 z-[var(--z-dialog)] flex max-h-[90vh] w-full flex-col rounded-t-plate bg-surface-raised shadow-dialog md:inset-0 md:m-auto md:h-fit md:max-w-lg md:rounded-plate"
+            className="consent-dialog fixed inset-x-0 bottom-0 z-[var(--z-dialog)] flex max-h-[90vh] w-full flex-col rounded-t-plate shadow-dialog md:inset-0 md:m-auto md:h-fit md:max-w-lg md:rounded-plate"
           >
             <div className="flex shrink-0 items-start justify-between gap-6 border-b border-rule p-6 md:p-8">
               <div className="flex flex-col gap-2">
@@ -180,7 +180,7 @@ export function ConsentManager() {
                 </Dialog.Description>
               </div>
               <Dialog.Close
-                className="inline-flex size-11 shrink-0 items-center justify-center rounded-small text-ink-2 transition-colors hover:bg-surface-tint hover:text-ink"
+                className="inline-flex size-11 shrink-0 items-center justify-center rounded-small text-ink-2 transition-colors hover: hover:text-ink"
                 aria-label="Close privacy choices"
               >
                 <X className="size-5" aria-hidden="true" focusable="false" />
@@ -201,10 +201,10 @@ export function ConsentManager() {
                       <p className="text-coordinate text-ink-2">{category.status}</p>
                     </div>
 
-                    <p className="text-small text-ink-body">{category.description}</p>
+                    <p className="text-small text-ink">{category.description}</p>
 
                     {category.examples.length > 0 ? (
-                      <ul className="flex flex-col gap-1.5 text-small text-ink-body">
+                      <ul className="flex flex-col gap-1.5 text-small text-ink">
                         {category.examples.map((example) => (
                           <li key={example} className="flex items-start gap-2">
                             <span
@@ -237,7 +237,7 @@ export function ConsentManager() {
               })}
 
               {gpc ? (
-                <p className="rounded-tile border-l-2 border-ink bg-surface-tint p-5 text-small text-ink-body">
+                <p className="rounded-tile border-l-2 border-ink p-5 text-small text-ink">
                   {preferences.gpcNotice}
                 </p>
               ) : null}

@@ -58,11 +58,11 @@ export default function ForAgenciesPage() {
         ]}
       >
         <div className="flex flex-col gap-6">
-          <ul className="flex flex-col gap-3 border-l-2 border-[var(--color-cyan)] pl-6">
+          <ul className="flex flex-col gap-3 border-l-2 border-path pl-6">
             {hero.clientQuestions.map((question) => (
               <li
                 key={question}
-                className="text-[1.0625rem] leading-relaxed text-[color-mix(in_srgb,var(--color-field)_86%,transparent)]"
+                className="text-[1.0625rem] leading-relaxed text-ink"
               >
                 {question}
               </li>
@@ -73,7 +73,7 @@ export default function ForAgenciesPage() {
             {hero.closing.map((paragraph) => (
               <p
                 key={paragraph}
-                className="text-[1.0625rem] leading-relaxed text-[color-mix(in_srgb,var(--color-field)_74%,transparent)]"
+                className="text-[1.0625rem] leading-relaxed text-ink-3"
               >
                 {paragraph}
               </p>

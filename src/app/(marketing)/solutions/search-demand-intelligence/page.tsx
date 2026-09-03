@@ -72,7 +72,7 @@ export default function SearchDemandIntelligencePage() {
           { label: routes.searchDemandIntelligence.label },
         ]}
         visual={
-          <div className="rounded-[var(--radius-panel)] border border-[color-mix(in_srgb,var(--color-field)_20%,transparent)] bg-[var(--color-navy-2)] p-8">
+          <div className=" border border-rule-2 p-8">
             <SolutionMotif motif="demand" />
           </div>
         }
@@ -85,15 +85,15 @@ export default function SearchDemandIntelligencePage() {
               <SectionHeading eyebrow={problem.eyebrow} title={problem.title} id="problem-title" />
               <div className="flex flex-col gap-2">
                 {problem.statements.map((statement) => (
-                  <p key={statement} className="text-[1.0625rem] text-[var(--color-graphite)]">
+                  <p key={statement} className="text-[1.0625rem] text-ink-3">
                     {statement}
                   </p>
                 ))}
               </div>
             </div>
 
-            <div className="flex flex-col gap-4 rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-white p-6 md:p-8">
-              <h3 className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+            <div className="flex flex-col gap-4 border border-rule p-6 md:p-8">
+              <h3 className="text-[1.0625rem] font-medium text-ink">
                 {problem.determinesLead}
               </h3>
               <SignalList items={problem.determines} />
@@ -117,14 +117,14 @@ export default function SearchDemandIntelligencePage() {
               {inputs.items.map((item) => (
                 <li
                   key={item}
-                  className="rounded-[var(--radius-small)] border border-[var(--color-border)] bg-[var(--color-field)] px-3 py-1.5 text-[0.875rem] text-[var(--color-graphite)]"
+                  className="rounded-[var(--radius-control)] border border-rule px-3 py-1.5 text-[0.875rem] text-ink-3"
                 >
                   {item}
                 </li>
               ))}
             </ul>
 
-            <p className="measure text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]">
+            <p className="measure text-[1.0625rem] leading-relaxed text-ink-3">
               {inputs.closing}
             </p>
           </div>
@@ -142,31 +142,31 @@ export default function SearchDemandIntelligencePage() {
             />
 
             <div className="grid gap-5 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
-              <div className="flex flex-col gap-3 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white p-6">
-                <h3 className="text-eyebrow text-[var(--color-slate)]">
+              <div className="flex flex-col gap-3 border border-rule p-6">
+                <h3 className="text-eyebrow text-ink-2">
                   {intentContext.keywordLabel}
                 </h3>
-                <p className="font-mono text-[0.9375rem] text-[var(--color-slate)]">
+                <p className="font-mono text-[0.9375rem] text-ink-2">
                   {intentContext.keyword}
                 </p>
               </div>
 
-              <div className="flex flex-col gap-3 rounded-[var(--radius-card)] border-l-2 border-[var(--color-blue)] bg-white p-6">
-                <h3 className="text-eyebrow text-[var(--color-blue)]">
+              <div className="flex flex-col gap-3 border-l-2 border-path p-6">
+                <h3 className="text-eyebrow text-ink-2">
                   {intentContext.contextLabel}
                 </h3>
-                <p className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]">
+                <p className="text-[1.0625rem] leading-relaxed text-ink-3">
                   {intentContext.context}
                 </p>
               </div>
             </div>
 
-            <p className="measure text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]">
+            <p className="measure text-[1.0625rem] leading-relaxed text-ink-3">
               {intentContext.comparison}
             </p>
 
-            <div className="flex flex-col gap-4 border-t border-[var(--color-border)] pt-8">
-              <h3 className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+            <div className="flex flex-col gap-4 border-t border-rule pt-8">
+              <h3 className="text-[1.0625rem] font-medium text-ink">
                 {intentContext.libraryLead}
               </h3>
               <SignalList items={intentContext.libraryUses} columns={2} />
@@ -180,7 +180,7 @@ export default function SearchDemandIntelligencePage() {
       <Section variant="white" size="standard">
         <Container width="narrow">
           <Callout variant="methodology" title={weighting.title}>
-            <p className="rounded-[var(--radius-small)] bg-white p-4 font-mono text-[0.875rem] leading-relaxed text-[var(--color-navy)]">
+            <p className="rounded-[var(--radius-control)] p-4 font-mono text-[0.875rem] leading-relaxed text-ink">
               {weighting.formula}
             </p>
             <p>{weighting.note}</p>

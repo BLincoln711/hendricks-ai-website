@@ -106,7 +106,7 @@ export default function WhatIsSearchIntelligenceEngineeringPage() {
 
             <div className="flex flex-col gap-2">
               {whyItExists.closing.map((line) => (
-                <p key={line} className="text-lead measure text-[var(--color-graphite)]">
+                <p key={line} className="text-lead measure text-ink-3">
                   {line}
                 </p>
               ))}
@@ -128,13 +128,13 @@ export default function WhatIsSearchIntelligenceEngineeringPage() {
             <ol className="grid gap-x-10 gap-y-10 md:grid-cols-2">
               {outcomes.items.map((item) => (
                 <li key={item.name} className="flex flex-col gap-2">
-                  <span className="font-mono text-[0.75rem] text-[var(--color-blue)]">
+                  <span className="font-mono text-[0.75rem] text-ink-2">
                     {item.number}
                   </span>
-                  <h3 className="text-[1.25rem] leading-snug font-medium text-[var(--color-navy)]">
+                  <h3 className="text-[1.25rem] leading-snug font-medium text-ink">
                     {item.name}
                   </h3>
-                  <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                  <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                     {item.description}
                   </p>
                   <TextCta
@@ -162,7 +162,7 @@ export default function WhatIsSearchIntelligenceEngineeringPage() {
                 id="why-engineering-title"
                 level={2}
               />
-              <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+              <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                 {whyEngineering.lead}
               </p>
             </div>
@@ -195,7 +195,7 @@ export default function WhatIsSearchIntelligenceEngineeringPage() {
               id="path-title"
               level={2}
             />
-            <div className="rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-white p-6 md:p-8">
+            <div className=" border border-rule p-6 md:p-8">
               <CompletePath steps={path.steps} />
             </div>
           </div>

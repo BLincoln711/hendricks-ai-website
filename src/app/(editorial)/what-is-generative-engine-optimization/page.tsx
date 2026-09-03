@@ -121,7 +121,7 @@ export default function WhatIsGenerativeEngineOptimizationPage() {
 
             <SignalList items={inPractice.items} columns={2} />
 
-            <p className="text-lead measure text-[var(--color-graphite)]">{inPractice.closing}</p>
+            <p className="text-lead measure text-ink-3">{inPractice.closing}</p>
           </div>
         </Container>
       </Section>
@@ -146,7 +146,7 @@ export default function WhatIsGenerativeEngineOptimizationPage() {
               {sameAsSeo.body.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]"
+                  className="text-[1.0625rem] leading-relaxed text-ink-3"
                 >
                   {paragraph}
                 </p>
@@ -177,13 +177,13 @@ export default function WhatIsGenerativeEngineOptimizationPage() {
             <ol className="grid gap-x-10 gap-y-10 md:grid-cols-2">
               {runsOut.items.map((item) => (
                 <li key={item.name} className="flex flex-col gap-2">
-                  <span className="font-mono text-[0.75rem] text-[var(--color-blue)]">
+                  <span className="font-mono text-[0.75rem] text-ink-2">
                     {item.number}
                   </span>
-                  <h3 className="text-[1.25rem] leading-snug font-medium text-[var(--color-navy)]">
+                  <h3 className="text-[1.25rem] leading-snug font-medium text-ink">
                     {item.name}
                   </h3>
-                  <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                  <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                     {item.description}
                   </p>
                 </li>
@@ -212,7 +212,7 @@ export default function WhatIsGenerativeEngineOptimizationPage() {
               {observed.body.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]"
+                  className="text-[1.0625rem] leading-relaxed text-ink-3"
                 >
                   {paragraph}
                 </p>
@@ -240,7 +240,7 @@ export default function WhatIsGenerativeEngineOptimizationPage() {
 
             <div className="flex flex-col gap-2">
               {versusSie.closing.map((line) => (
-                <p key={line} className="text-lead measure text-[var(--color-graphite)]">
+                <p key={line} className="text-lead measure text-ink-3">
                   {line}
                 </p>
               ))}
@@ -292,7 +292,7 @@ export default function WhatIsGenerativeEngineOptimizationPage() {
       <Section variant="soft" size="small" ariaLabelledBy="references-heading">
         <Container width="narrow">
           <div className="flex flex-col gap-4">
-            <h2 id="references-heading" className="text-eyebrow text-[var(--color-slate)]">
+            <h2 id="references-heading" className="text-eyebrow text-ink-2">
               References
             </h2>
 
@@ -300,13 +300,13 @@ export default function WhatIsGenerativeEngineOptimizationPage() {
               {sources.references.map((reference) => (
                 <li
                   key={reference.href}
-                  className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]"
+                  className="text-[0.9375rem] leading-relaxed text-ink-2"
                 >
                   <a
                     href={reference.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[var(--color-blue)] underline decoration-[color-mix(in_srgb,var(--color-blue)_40%,transparent)] underline-offset-4 hover:decoration-[var(--color-blue)]"
+                    className="text-link underline decoration-link underline-offset-4 hover:decoration-link"
                   >
                     {reference.title}
                     <span className="sr-only"> (opens in a new tab)</span>

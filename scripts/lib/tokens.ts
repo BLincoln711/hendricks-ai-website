@@ -8,14 +8,22 @@
  * blocks, and a Tailwind `@theme inline` mapping. Nothing here understands CSS
  * beyond that shape: a small block tokenizer records every custom property with
  * the selectors and at-rules it was declared under and the section it sits in,
- * and a resolver substitutes `var()` chains for one of the two surfaces.
+ * a resolver substitutes `var()` chains for one of the two grounds, and a
+ * colour model composites the canvas's alpha ink tiers over the ground they
+ * are painted on so a ratio is computed against the painted colour.
  *
  * Pure functions over text so the unit test can feed fixtures.
  */
 
 export const TOKEN_FILE = 'src/styles/tokens.css'
 
-export type Scope = 'light' | 'on-plate'
+/**
+ * The two grounds a token can resolve against. `page` is the document ground
+ * `--bg`; `plate` is an instrument surface, the `.on-plate` re-scope. The pair
+ * was named light and dark before the canvas; the whole document is one dark
+ * ground now, so the distinction that remains is page against instrument.
+ */
+export type Scope = 'page' | 'plate'
 
 export const SECTION_NAMES = {
   0: 'header',
@@ -169,7 +177,7 @@ export function buildScope(parsed: ParsedTokens, scope: Scope): Map<string, stri
   for (const declaration of parsed.declarations) {
     if (isBaseDeclaration(declaration)) values.set(declaration.name, declaration.value)
   }
-  if (scope === 'on-plate') {
+  if (scope === 'plate') {
     for (const declaration of parsed.declarations) {
       if (isPlateDeclaration(declaration)) values.set(declaration.name, declaration.value)
     }
@@ -222,6 +230,11 @@ export interface Rgb {
   b: number
 }
 
+/** A colour that may be partly transparent. `a` is 0 to 1; 1 is opaque. */
+export interface Rgba extends Rgb {
+  a: number
+}
+
 /** Accepts `#rgb` and `#rrggbb`; anything else, including alpha forms, is not a token colour. */
 export function parseHex(value: string): Rgb | null {
   const match = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.exec(value.trim())
@@ -231,6 +244,53 @@ export function parseHex(value: string): Rgb | null {
     r: parseInt(hex.slice(0, 2), 16),
     g: parseInt(hex.slice(2, 4), 16),
     b: parseInt(hex.slice(4, 6), 16),
+  }
+}
+
+const RGB_FUNCTION = /^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)(?:\s*[,/]\s*([\d.]+%?))?\s*\)$/i
+
+/**
+ * Every colour form the canvas token file uses: opaque hex, `#rrggbbaa`, and
+ * the `rgba(r, g, b, a)` ink tiers. The canvas states its ink, hairline and
+ * control-boundary tiers as Field White at an alpha, so a gate that only read
+ * hex would silently skip the five values that carry most of the page's text.
+ */
+export function parseColor(value: string): Rgba | null {
+  const trimmed = value.trim()
+  const opaque = parseHex(trimmed)
+  if (opaque) return { ...opaque, a: 1 }
+
+  const withAlpha = /^#([0-9a-fA-F]{8})$/.exec(trimmed)
+  if (withAlpha) {
+    const hex = withAlpha[1]
+    return {
+      r: parseInt(hex.slice(0, 2), 16),
+      g: parseInt(hex.slice(2, 4), 16),
+      b: parseInt(hex.slice(4, 6), 16),
+      a: parseInt(hex.slice(6, 8), 16) / 255,
+    }
+  }
+
+  const fn = RGB_FUNCTION.exec(trimmed)
+  if (!fn) return null
+  const [r, g, b] = [fn[1], fn[2], fn[3]].map(Number)
+  const rawAlpha = fn[4]
+  const a = rawAlpha === undefined ? 1 : rawAlpha.endsWith('%') ? Number(rawAlpha.slice(0, -1)) / 100 : Number(rawAlpha)
+  if ([r, g, b, a].some((channel) => !Number.isFinite(channel))) return null
+  return { r, g, b, a: Math.min(Math.max(a, 0), 1) }
+}
+
+/**
+ * Source-over composite of `fg` onto an opaque `bg`, which is what the browser
+ * paints and therefore what the ratio must be computed against. Channels are
+ * kept unrounded so the ratio matches the painted colour rather than an 8-bit
+ * approximation of it.
+ */
+export function composite(fg: Rgba, bg: Rgb): Rgb {
+  return {
+    r: fg.r * fg.a + bg.r * (1 - fg.a),
+    g: fg.g * fg.a + bg.g * (1 - fg.a),
+    b: fg.b * fg.a + bg.b * (1 - fg.a),
   }
 }
 
@@ -252,11 +312,11 @@ export function contrastRatio(a: Rgb, b: Rgb): number {
   return (light + 0.05) / (dark + 0.05)
 }
 
-/** Primitive-layer tokens whose value is a hex colour: the only hex the file may hold. */
+/** Primitive-layer tokens whose value is a colour: the only literal colours the file may hold. */
 export function colourPrimitives(parsed: ParsedTokens): Set<string> {
   const names = new Set<string>()
   for (const declaration of parsed.declarations) {
-    if (declaration.section === 1 && parseHex(declaration.value)) names.add(declaration.name)
+    if (declaration.section === 1 && parseColor(declaration.value)) names.add(declaration.name)
   }
   return names
 }
@@ -266,15 +326,15 @@ export function colourPrimitives(parsed: ParsedTokens): Set<string> {
  * the tokens the contrast manifest must cover.
  */
 export function colourTokens(parsed: ParsedTokens): string[] {
-  const light = buildScope(parsed, 'light')
-  const plate = buildScope(parsed, 'on-plate')
+  const page = buildScope(parsed, 'page')
+  const plate = buildScope(parsed, 'plate')
   const names = new Set<string>()
   for (const declaration of parsed.declarations) {
     if (declaration.section === 1 || declaration.section === 8) continue
     if (declaration.name.startsWith('--hx-')) continue
-    for (const scope of [light, plate]) {
+    for (const scope of [page, plate]) {
       const resolved = resolveToken(declaration.name, scope)
-      if (resolved.ok && parseHex(resolved.value)) names.add(declaration.name)
+      if (resolved.ok && parseColor(resolved.value)) names.add(declaration.name)
     }
   }
   return [...names]

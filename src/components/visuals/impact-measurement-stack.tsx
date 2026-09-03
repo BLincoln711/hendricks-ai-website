@@ -30,7 +30,7 @@ export function ImpactMeasurementStack({
         <li
           key={level.number}
           className={cn(
-            'flex flex-col gap-4 rounded-r-[var(--radius-small)] border border-l-rule-strong border-rule bg-surface-raised p-6 md:flex-row md:items-start md:gap-[var(--ledger-gap)] md:p-8',
+            'flex flex-col gap-4 border border-l-rule-strong border-rule p-6 md:flex-row md:items-start md:gap-[var(--ledger-gap)] md:p-8',
             ruleWidths[index] ?? ruleWidths[0],
           )}
         >
@@ -47,7 +47,7 @@ export function ImpactMeasurementStack({
             */}
             <h3 className="text-h4 text-ink">
               {level.name}{' '}
-              <span className="text-small mt-2 block font-normal tracking-normal text-ink-body">
+              <span className="text-small mt-2 block font-normal tracking-normal text-ink">
                 {level.question}
               </span>
             </h3>
@@ -57,7 +57,7 @@ export function ImpactMeasurementStack({
             {level.signals.map((signal) => (
               <li
                 key={signal}
-                className="text-small rounded-[var(--radius-small)] border border-rule bg-surface px-2.5 py-1 text-ink-body"
+                className="text-small rounded-[var(--radius-control)] border border-rule px-2.5 py-1 text-ink"
               >
                 {signal}
               </li>

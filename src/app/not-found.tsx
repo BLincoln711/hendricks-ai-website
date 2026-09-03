@@ -39,7 +39,7 @@ export default function NotFound() {
 
           <h1 className="text-h1 max-w-[var(--measure-h1)] text-ink">This path did not resolve.</h1>
 
-          <p className="text-lead measure-lead text-ink-body">
+          <p className="text-lead measure-wide text-ink">
             The page you requested does not exist, or it moved during the Hendricks site rebuild.
             Nothing is wrong with your connection.
           </p>

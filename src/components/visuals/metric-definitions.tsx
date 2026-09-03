@@ -30,7 +30,7 @@ export function MetricDefinitions({
             </span>
             {metric.name}
           </dt>
-          <dd className="text-ink-body">{metric.definition}</dd>
+          <dd className="text-ink">{metric.definition}</dd>
         </div>
       ))}
     </dl>

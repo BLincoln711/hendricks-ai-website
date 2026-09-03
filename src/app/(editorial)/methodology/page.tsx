@@ -77,9 +77,9 @@ export default function MethodologyPage() {
               level={2}
             />
 
-            <div className="flex flex-col gap-5 rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[var(--color-field)] p-6 md:p-8">
+            <div className="flex flex-col gap-5 border border-rule p-6 md:p-8">
               <ChipSet items={intentContext.formula} separator="plus" />
-              <p className="border-t border-[var(--color-border)] pt-5 text-[1.125rem] font-medium text-[var(--color-navy)]">
+              <p className="border-t border-rule pt-5 text-[1.125rem] font-medium text-ink">
                 = {intentContext.result}
               </p>
             </div>
@@ -99,12 +99,12 @@ export default function MethodologyPage() {
 
             <ContextPanelDiagram panels={contextPanels.panels} />
 
-            <div className="flex flex-col gap-2 rounded-[var(--radius-card)] border border-dashed border-[var(--color-border)] p-6">
-              <p className="text-eyebrow text-[var(--color-slate)]">{contextPanels.optional.label}</p>
-              <h3 className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+            <div className="flex flex-col gap-2 border border-dashed border-rule p-6">
+              <p className="text-eyebrow text-ink-2">{contextPanels.optional.label}</p>
+              <h3 className="text-[1.0625rem] font-medium text-ink">
                 {contextPanels.optional.name}
               </h3>
-              <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+              <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                 {contextPanels.optional.description}
               </p>
             </div>
@@ -122,7 +122,7 @@ export default function MethodologyPage() {
                 id="classification-title"
                 level={2}
               />
-              <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+              <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                 {classification.closing}
               </p>
             </div>
@@ -142,7 +142,7 @@ export default function MethodologyPage() {
                 id="weighting-title"
                 level={2}
               />
-              <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+              <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                 {weighting.lead}
               </p>
               <SignalList items={weighting.factors} columns={2} />
@@ -176,11 +176,11 @@ export default function MethodologyPage() {
       <Section variant="navy" size="major" ariaLabelledBy="statement-title">
         <Container width="narrow">
           <div className="flex flex-col gap-6">
-            <h2 id="statement-title" className="text-eyebrow text-[var(--color-cyan)]">
+            <h2 id="statement-title" className="text-eyebrow text-ink-2">
               {statement.title}
             </h2>
-            <blockquote className="border-l-2 border-[var(--color-cyan)] pl-6 md:pl-8">
-              <p className="text-h3 text-[var(--color-field)]">{statement.quote}</p>
+            <blockquote className="border-l-2 border-path pl-6 md:pl-8">
+              <p className="text-h3 text-ink">{statement.quote}</p>
             </blockquote>
           </div>
         </Container>
@@ -196,7 +196,7 @@ export default function MethodologyPage() {
                 id="repro-title"
                 level={2}
               />
-              <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+              <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                 {reproducibility.lead}
               </p>
             </div>

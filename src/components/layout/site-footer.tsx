@@ -44,7 +44,7 @@ export function SiteFooter() {
   ].filter((column) => column.items.length > 0)
 
   return (
-    <footer className="mt-section border-t border-rule bg-surface-tint pt-10 pb-8 min-[45rem]:pt-14">
+    <footer className="mt-section border-t border-rule pt-10 pb-8 min-[45rem]:pt-14">
       <Container width="site">
         <div className="grid gap-x-[var(--grid-gap)] gap-y-10 md:grid-cols-2 lg:grid-cols-[minmax(0,3fr)_repeat(4,minmax(0,2fr))]">
           <div className="grid content-start gap-3 md:col-span-2 lg:col-span-1">

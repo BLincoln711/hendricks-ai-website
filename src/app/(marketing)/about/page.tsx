@@ -86,16 +86,16 @@ export default function AboutPage() {
                 height={hero.portrait.height}
                 priority
                 sizes="(min-width: 768px) 320px, 100vw"
-                className="w-full max-w-[320px] rounded-[var(--radius-card)] border border-[color-mix(in_srgb,var(--color-field)_20%,transparent)]"
+                className="w-full max-w-[320px] border border-rule-2"
               />
 
               <div className="flex flex-col gap-6">
-                <p className="text-eyebrow flex items-center gap-2 text-[var(--color-cyan)]">
+                <p className="text-eyebrow flex items-center gap-2 text-ink-2">
                   <SignalDot size={6} tone="cyan" />
                   {hero.eyebrow}
                 </p>
 
-                <h1 id="page-title" className="text-h1 max-w-[22ch] text-[var(--color-field)]">
+                <h1 id="page-title" className="text-h1 max-w-[22ch] text-ink">
                   {hero.title}
                 </h1>
 
@@ -103,7 +103,7 @@ export default function AboutPage() {
                   {hero.lead.map((paragraph) => (
                     <p
                       key={paragraph}
-                      className="text-lead measure text-[color-mix(in_srgb,var(--color-field)_76%,transparent)]"
+                      className="text-lead measure text-ink-3"
                     >
                       {paragraph}
                     </p>
@@ -129,27 +129,27 @@ export default function AboutPage() {
                 id="point-of-view-title"
               />
 
-              <blockquote className="border-l-2 border-[var(--color-blue)] pl-6">
-                <p className="text-h3 text-[var(--color-navy)]">{pointOfView.quote}</p>
+              <blockquote className="border-l-2 border-path pl-6">
+                <p className="text-h3 text-ink">{pointOfView.quote}</p>
               </blockquote>
             </div>
 
             <div className="flex flex-col gap-5">
               {pointOfView.body.map((paragraph) => (
-                <p key={paragraph} className="text-lead text-[var(--color-graphite)]">
+                <p key={paragraph} className="text-lead text-ink-3">
                   {paragraph}
                 </p>
               ))}
 
               <ul className="flex flex-col gap-1">
                 {pointOfView.notList.map((line) => (
-                  <li key={line} className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+                  <li key={line} className="text-[1.0625rem] font-medium text-ink">
                     {line}
                   </li>
                 ))}
               </ul>
 
-              <p className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]">
+              <p className="text-[1.0625rem] leading-relaxed text-ink-3">
                 {pointOfView.closing}
               </p>
             </div>
@@ -171,12 +171,12 @@ export default function AboutPage() {
               {principles.items.map((principle) => (
                 <div
                   key={principle.name}
-                  className="flex flex-col gap-2 border-t-2 border-[var(--color-blue)] pt-5"
+                  className="flex flex-col gap-2 border-t-2 border-path pt-5"
                 >
-                  <dt className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+                  <dt className="text-[1.0625rem] font-medium text-ink">
                     {principle.name}
                   </dt>
-                  <dd className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                  <dd className="text-[0.9375rem] leading-relaxed text-ink-2">
                     {principle.description}
                   </dd>
                 </div>
@@ -200,7 +200,7 @@ export default function AboutPage() {
             </div>
 
             <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
-              <h3 className="text-xl font-semibold text-[var(--color-navy)]">
+              <h3 className="text-xl font-semibold text-ink">
                 {experience.capabilitiesTitle}
               </h3>
               <SignalList items={experience.items} columns={2} />

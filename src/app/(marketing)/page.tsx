@@ -60,16 +60,16 @@ export default function HomePage() {
           */}
           <div className="flex flex-col gap-10 lg:gap-14">
             <div className="flex flex-col gap-5">
-              <p className="text-eyebrow flex items-center gap-2 text-[var(--color-cyan)]">
+              <p className="text-eyebrow flex items-center gap-2 text-ink-2">
                 <SignalDot size={6} tone="cyan" />
                 {hero.eyebrow}
               </p>
 
-              <h1 id="hero-title" className="text-h1 max-w-[20ch] text-[var(--color-field)]">
+              <h1 id="hero-title" className="text-h1 max-w-[20ch] text-ink">
                 {hero.title}
               </h1>
 
-              <p className="text-h3 max-w-[26ch] text-[color-mix(in_srgb,var(--color-field)_88%,transparent)]">
+              <p className="text-h3 max-w-[26ch] text-ink">
                 {hero.subtitle}
               </p>
             </div>
@@ -80,7 +80,7 @@ export default function HomePage() {
                   {hero.lead.map((paragraph) => (
                     <p
                       key={paragraph}
-                      className="text-lead text-[color-mix(in_srgb,var(--color-field)_74%,transparent)]"
+                      className="text-lead text-ink-3"
                     >
                       {paragraph}
                     </p>
@@ -92,11 +92,11 @@ export default function HomePage() {
                   <PrimaryCta cta={hero.secondaryCta} variant="outlineOnNavy" />
                 </CtaGroup>
 
-                <div className="mt-2 flex flex-col gap-3 border-t border-[color-mix(in_srgb,var(--color-field)_16%,transparent)] pt-6">
-                  <p className="text-[0.9375rem] font-medium text-[var(--color-cyan)]">
+                <div className="mt-2 flex flex-col gap-3 border-t border-rule-2 pt-6">
+                  <p className="text-[0.9375rem] font-medium text-ink-2">
                     {hero.operatingLine}
                   </p>
-                  <p className="text-[0.8125rem] leading-relaxed text-[color-mix(in_srgb,var(--color-field)_56%,transparent)]">
+                  <p className="text-[0.8125rem] leading-relaxed text-ink-2">
                     {hero.credibilityLine}
                   </p>
                 </div>
@@ -126,25 +126,25 @@ export default function HomePage() {
 
             <div className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
               <div className="flex flex-col gap-5">
-                <p className="text-lead text-[var(--color-graphite)]">{problem.body}</p>
+                <p className="text-lead text-ink-3">{problem.body}</p>
                 <div className="flex flex-col gap-1">
                   {problem.emphasis.map((line) => (
-                    <p key={line} className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+                    <p key={line} className="text-[1.0625rem] font-medium text-ink">
                       {line}
                     </p>
                   ))}
                 </div>
               </div>
 
-              <blockquote className="border-l-2 border-[var(--color-blue)] pl-6">
-                <p className="text-h3 text-[var(--color-navy)]">{problem.quote}</p>
+              <blockquote className="border-l-2 border-path pl-6">
+                <p className="text-h3 text-ink">{problem.quote}</p>
               </blockquote>
             </div>
 
-            <div className="flex flex-col gap-5 rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-white p-6 md:p-8">
-              <h3 className="text-eyebrow text-[var(--color-slate)]">The complete path</h3>
+            <div className="flex flex-col gap-5 border border-rule p-6 md:p-8">
+              <h3 className="text-eyebrow text-ink-2">The complete path</h3>
               <CompletePath steps={problem.completePath} />
-              <p className="text-[0.9375rem] text-[var(--color-slate)]">{problem.closing}</p>
+              <p className="text-[0.9375rem] text-ink-2">{problem.closing}</p>
             </div>
 
             <TextCta cta={problem.cta} />
@@ -164,8 +164,8 @@ export default function HomePage() {
                 maxWidth="wide"
               />
               <div className="flex flex-col gap-2">
-                <p className="text-lead text-[var(--color-graphite)]">{whatWeDo.lead}</p>
-                <p className="text-lead text-[var(--color-slate)]">{whatWeDo.supporting}</p>
+                <p className="text-lead text-ink-3">{whatWeDo.lead}</p>
+                <p className="text-lead text-ink-2">{whatWeDo.supporting}</p>
               </div>
             </div>
 
@@ -173,18 +173,18 @@ export default function HomePage() {
               {whatWeDo.questions.map((item) => (
                 <li
                   key={item.number}
-                  className="flex flex-col gap-3 border-t border-[var(--color-border)] pt-6"
+                  className="flex flex-col gap-3 border-t border-rule pt-6"
                 >
-                  <span className="font-mono text-[0.875rem] text-[var(--color-blue)]">
+                  <span className="font-mono text-[0.875rem] text-ink-2">
                     {item.number}
                   </span>
-                  <h3 className="text-[1.375rem] leading-snug font-medium text-[var(--color-navy)]">
+                  <h3 className="text-[1.375rem] leading-snug font-medium text-ink">
                     {item.question}
                   </h3>
-                  <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                  <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                     {item.description}
                   </p>
-                  <p className="mt-1 flex items-center gap-2 text-[0.875rem] font-medium text-[var(--color-navy)]">
+                  <p className="mt-1 flex items-center gap-2 text-[0.875rem] font-medium text-ink">
                     <SignalDot size={6} />
                     Output: {item.output}
                   </p>
@@ -211,21 +211,21 @@ export default function HomePage() {
                 <article
                   key={solution.name}
                   className={[
-                    'flex flex-col gap-5 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white p-6 md:p-8',
+                    'flex flex-col gap-5 border border-rule p-6 md:p-8',
                     // Stagger so the grid does not read as four identical cards.
                     index % 2 === 1 ? 'lg:mt-10' : '',
                   ].join(' ')}
                 >
                   <div className="flex items-baseline justify-between gap-4">
-                    <span className="font-mono text-[0.875rem] text-[var(--color-blue)]">
+                    <span className="font-mono text-[0.875rem] text-ink-2">
                       {solution.number}
                     </span>
-                    <span className="text-eyebrow text-[var(--color-slate)]">{solution.name}</span>
+                    <span className="text-eyebrow text-ink-2">{solution.name}</span>
                   </div>
 
                   <SolutionMotif motif={solution.motif} />
 
-                  <h3 className="text-[1.5rem] leading-snug font-medium text-[var(--color-navy)]">
+                  <h3 className="text-[1.5rem] leading-snug font-medium text-ink">
                     {solution.title}
                   </h3>
 
@@ -233,7 +233,7 @@ export default function HomePage() {
                     {solution.description.map((paragraph) => (
                       <p
                         key={paragraph}
-                        className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]"
+                        className="text-[0.9375rem] leading-relaxed text-ink-2"
                       >
                         {paragraph}
                       </p>
@@ -262,12 +262,12 @@ export default function HomePage() {
               />
               <div className="flex flex-col gap-2">
                 {distinction.statements.map((statement) => (
-                  <p key={statement} className="text-[1.0625rem] text-[var(--color-graphite)]">
+                  <p key={statement} className="text-[1.0625rem] text-ink-3">
                     {statement}
                   </p>
                 ))}
               </div>
-              <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)] measure">
+              <p className="text-[0.9375rem] leading-relaxed text-ink-2 measure">
                 {distinction.closing}
               </p>
               <div>
@@ -313,14 +313,14 @@ export default function HomePage() {
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
             <div className="flex flex-col gap-6">
               <SectionHeading eyebrow={outputs.eyebrow} title={outputs.title} id="outputs-title" />
-              <p className="text-lead text-[var(--color-slate)]">{outputs.lead}</p>
+              <p className="text-lead text-ink-2">{outputs.lead}</p>
             </div>
 
             <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
               {outputs.items.map((item) => (
                 <li key={item} className="flex items-start gap-2.5">
                   <SignalDot size={6} className="mt-2" />
-                  <span className="text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">
+                  <span className="text-[0.9375rem] leading-relaxed text-ink-3">
                     {item}
                   </span>
                 </li>
@@ -345,21 +345,21 @@ export default function HomePage() {
               {measurement.layers.map((layer) => (
                 <div
                   key={layer.name}
-                  className="flex flex-col gap-2 border-t-2 border-[var(--color-blue)] pt-5"
+                  className="flex flex-col gap-2 border-t-2 border-path pt-5"
                 >
-                  <dt className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+                  <dt className="text-[1.0625rem] font-medium text-ink">
                     {layer.name}
                   </dt>
-                  <dd className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                  <dd className="text-[0.9375rem] leading-relaxed text-ink-2">
                     {layer.description}
                   </dd>
                 </div>
               ))}
             </dl>
 
-            <div className="flex flex-col gap-4 rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[var(--color-soft)] p-6 md:p-8">
+            <div className="flex flex-col gap-4 border border-rule p-6 md:p-8">
               {measurement.closing.map((paragraph) => (
-                <p key={paragraph} className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]">
+                <p key={paragraph} className="text-[1.0625rem] leading-relaxed text-ink-3">
                   {paragraph}
                 </p>
               ))}
@@ -386,21 +386,21 @@ export default function HomePage() {
                 <article
                   key={path.audience}
                   className={[
-                    'flex flex-col gap-5 rounded-[var(--radius-card)] p-6 md:p-8',
+                    'flex flex-col gap-5 p-6 md:p-8',
                     path.audienceType === 'brand'
-                      ? 'border border-[var(--color-blue)] bg-white'
-                      : 'border border-[var(--color-border)] bg-[var(--color-soft)]',
+                      ? 'border border-path'
+                      : 'border border-rule',
                   ].join(' ')}
                 >
-                  <p className="text-eyebrow text-[var(--color-blue)]">{path.audience}</p>
-                  <h3 className="text-[1.5rem] leading-snug font-medium text-[var(--color-navy)]">
+                  <p className="text-eyebrow text-ink-2">{path.audience}</p>
+                  <h3 className="text-[1.5rem] leading-snug font-medium text-ink">
                     {path.title}
                   </h3>
                   <div className="flex flex-col gap-3">
                     {path.description.map((paragraph) => (
                       <p
                         key={paragraph}
-                        className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]"
+                        className="text-[0.9375rem] leading-relaxed text-ink-2"
                       >
                         {paragraph}
                       </p>
@@ -430,21 +430,21 @@ export default function HomePage() {
                 title={diagnostic.title}
                 id="diagnostic-title"
               />
-              <p className="text-lead text-[var(--color-slate)]">{diagnostic.lead}</p>
+              <p className="text-lead text-ink-2">{diagnostic.lead}</p>
               <div>
                 <PrimaryCta cta={diagnostic.cta} />
               </div>
             </div>
 
-            <div className="flex flex-col gap-4 rounded-[var(--radius-panel)] border border-[var(--color-border)] p-6 md:p-8">
-              <h3 className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+            <div className="flex flex-col gap-4 border border-rule p-6 md:p-8">
+              <h3 className="text-[1.0625rem] font-medium text-ink">
                 {diagnostic.outcomeLead}
               </h3>
               <ul className="flex flex-col gap-3">
                 {diagnostic.outcomes.map((outcome) => (
                   <li key={outcome} className="flex items-start gap-2.5">
                     <SignalDot size={6} className="mt-2" />
-                    <span className="text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">
+                    <span className="text-[0.9375rem] leading-relaxed text-ink-3">
                       {outcome}
                     </span>
                   </li>
@@ -468,14 +468,14 @@ export default function HomePage() {
               width={founder.portrait.width}
               height={founder.portrait.height}
               sizes="(min-width: 768px) 320px, 100vw"
-              className="w-full max-w-[320px] rounded-[var(--radius-card)] border border-[var(--color-border)]"
+              className="w-full max-w-[320px] border border-rule"
             />
 
             <div className="flex flex-col gap-6">
               <SectionHeading eyebrow={founder.eyebrow} title={founder.title} id="founder-title" />
               <div className="flex flex-col gap-4 measure">
                 {founder.body.map((paragraph) => (
-                  <p key={paragraph} className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]">
+                  <p key={paragraph} className="text-[1.0625rem] leading-relaxed text-ink-3">
                     {paragraph}
                   </p>
                 ))}
@@ -502,7 +502,7 @@ export default function HomePage() {
               {finalCta.body.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="text-lead text-[color-mix(in_srgb,var(--color-field)_74%,transparent)]"
+                  className="text-lead text-ink-3"
                 >
                   {paragraph}
                 </p>

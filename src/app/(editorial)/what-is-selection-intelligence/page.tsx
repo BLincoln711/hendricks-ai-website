@@ -120,8 +120,8 @@ export default function WhatIsSelectionIntelligencePage() {
                       <figcaption
                         className={
                           isHendricks
-                            ? 'text-eyebrow text-[var(--color-blue)]'
-                            : 'text-eyebrow text-[var(--color-slate)]'
+                            ? 'text-eyebrow text-ink-2'
+                            : 'text-eyebrow text-ink-2'
                         }
                       >
                         {side.label}
@@ -129,15 +129,15 @@ export default function WhatIsSelectionIntelligencePage() {
                       <blockquote
                         className={
                           isHendricks
-                            ? 'rounded-[var(--radius-panel)] border-l-2 border-[var(--color-blue)] bg-[color-mix(in_srgb,var(--color-blue)_5%,white)] p-6 md:p-8'
-                            : 'rounded-[var(--radius-panel)] border-l-2 border-[var(--color-border)] bg-[var(--color-soft)] p-6 md:p-8'
+                            ? ' border-l-2 border-path p-6 md:p-8'
+                            : ' border-l-2 border-rule p-6 md:p-8'
                         }
                       >
                         <p
                           className={
                             isHendricks
-                              ? 'text-[1.25rem] leading-snug font-medium text-[var(--color-navy)]'
-                              : 'text-[1.25rem] leading-snug text-[var(--color-slate)]'
+                              ? 'text-[1.25rem] leading-snug font-medium text-ink'
+                              : 'text-[1.25rem] leading-snug text-ink-2'
                           }
                         >
                           {side.question}
@@ -164,11 +164,11 @@ export default function WhatIsSelectionIntelligencePage() {
             />
 
             <div className="flex flex-col gap-5">
-              <p className="font-medium text-[var(--color-navy)]">{whyContext.testsLead}</p>
+              <p className="font-medium text-ink">{whyContext.testsLead}</p>
               <SignalList items={whyContext.tests} columns={2} />
             </div>
 
-            <p className="text-lead measure text-[var(--color-graphite)]">{whyContext.closing}</p>
+            <p className="text-lead measure text-ink-3">{whyContext.closing}</p>
           </div>
         </Container>
       </Section>

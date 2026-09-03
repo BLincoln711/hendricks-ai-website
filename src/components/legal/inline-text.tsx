@@ -48,7 +48,7 @@ export function InlineText({ text }: { text: string }): ReactNode {
       )
     } else if (code) {
       nodes.push(
-        <code key={key++} className="font-mono text-[0.9em] text-ink-body">
+        <code key={key++} className="font-mono text-[0.9em] text-ink">
           {code}
         </code>,
       )

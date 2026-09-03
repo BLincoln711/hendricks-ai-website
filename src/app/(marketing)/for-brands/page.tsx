@@ -91,12 +91,12 @@ export default function ForBrandsPage() {
               {changes.items.map((item) => (
                 <li
                   key={item.name}
-                  className="flex flex-col gap-2 border-t-2 border-[var(--color-blue)] pt-5"
+                  className="flex flex-col gap-2 border-t-2 border-path pt-5"
                 >
-                  <h3 className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+                  <h3 className="text-[1.0625rem] font-medium text-ink">
                     {item.name}
                   </h3>
-                  <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                  <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                     {item.description}
                   </p>
                 </li>
@@ -120,20 +120,20 @@ export default function ForBrandsPage() {
               {engagements.items.map((engagement, index) => (
                 <li
                   key={engagement.name}
-                  className="flex flex-col gap-3 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white p-6 md:p-8"
+                  className="flex flex-col gap-3 border border-rule p-6 md:p-8"
                 >
-                  <span className="font-mono text-[0.8125rem] text-[var(--color-blue)]">
+                  <span className="font-mono text-[0.8125rem] text-ink-2">
                     {String(index + 1).padStart(2, '0')}
                   </span>
-                  <h3 className="text-[1.25rem] leading-snug font-medium text-[var(--color-navy)]">
+                  <h3 className="text-[1.25rem] leading-snug font-medium text-ink">
                     {engagement.name}
                   </h3>
-                  <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                  <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                     {engagement.description}
                   </p>
                   <Link
                     href={engagement.href}
-                    className="group mt-auto inline-flex items-center gap-1.5 pt-2 text-[0.9375rem] font-medium text-[var(--color-blue)] underline decoration-1 underline-offset-4 transition-colors hover:text-[var(--color-blue-hover)]"
+                    className="group mt-auto inline-flex items-center gap-1.5 pt-2 text-[0.9375rem] font-medium text-link underline decoration-1 underline-offset-4 transition-colors hover:text-link"
                   >
                     {engagement.linkLabel}
                     <ArrowRight
@@ -162,7 +162,7 @@ export default function ForBrandsPage() {
             <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
               <div className="flex flex-col gap-6">
                 <SignalList items={notReplaced.items} />
-                <p className="text-[1rem] leading-relaxed text-[var(--color-graphite)]">
+                <p className="text-[1rem] leading-relaxed text-ink-3">
                   {notReplaced.closing}
                 </p>
               </div>

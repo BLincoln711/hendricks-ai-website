@@ -41,7 +41,7 @@ export function SourcesNote({
 
           <p>
             {basis} Last reviewed{' '}
-            <time dateTime={reviewed} className="text-ink-body">
+            <time dateTime={reviewed} className="text-ink">
               {formatted}
             </time>
             .

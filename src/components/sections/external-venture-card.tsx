@@ -25,7 +25,7 @@ export function ExternalVentureCard({
   return (
     <aside
       aria-labelledby="external-venture-name"
-      className="flex flex-col gap-4 rounded-[var(--radius-tile)] border border-rule bg-surface-raised p-6"
+      className="flex flex-col gap-4 border border-rule p-6"
     >
       <Eyebrow>{label}</Eyebrow>
 
@@ -33,7 +33,7 @@ export function ExternalVentureCard({
         {name}
       </h3>
 
-      <p className="text-small measure text-ink-body">{description}</p>
+      <p className="text-small measure text-ink">{description}</p>
 
       <div>
         <PrimaryCta cta={cta} variant="secondary" size="small" />

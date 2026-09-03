@@ -1,19 +1,6 @@
 @import 'tailwindcss';
 @import '../styles/tokens.css';
-
-/*
- * Transitional alias re-scoping, retired with the last `var(--color-*)` call
- * site (redesign handoff PR 13). The token file maps the legacy `--color-cyan`
- * and `--color-amber` theme names onto `--focus-ring` and `--ev-gap`, which
- * `.on-plate` re-scopes. Tailwind emits those aliases on `:root` only, so an
- * arbitrary `var(--color-cyan)` inside a plate would read the light value.
- * Declaring the two on `.on-plate` keeps the live navy surfaces at their
- * measured cyan (8.15:1) and amber (8.68:1) until the call sites are retokened.
- */
-.on-plate {
-  --color-cyan: var(--focus-ring);
-  --color-amber: var(--ev-gap);
-}
+@import '../styles/plate.css';
 
 @layer base {
   html {
@@ -28,8 +15,8 @@
   }
 
   body {
-    background: var(--page-bg);
-    color: var(--page-fg);
+    background: var(--bg);
+    color: var(--ink);
     font-family: var(--font-sans);
     font-size: var(--text-body);
     line-height: var(--leading-body);
@@ -56,17 +43,17 @@
   }
 
   /*
-   * One focus treatment for both surfaces. `.on-plate` re-scopes `--focus-ring`
-   * to cyan, so no per-surface override exists (KF-05). The colour is also set
-   * at rest on every element: `transition-colors` animates outline-color, and
-   * without a resting value the ring fades in from currentColor (KF-06).
+   * One focus treatment for the whole document: the canvas has one ground, so
+   * the cyan ring is the same colour everywhere at 8.97:1. The colour is set at
+   * rest on every element because `transition-colors` animates outline-color,
+   * and without a resting value the ring fades in from currentColor.
    */
   * {
-    outline-color: var(--focus-ring);
+    outline-color: var(--focus);
   }
 
   :focus-visible {
-    outline: var(--focus-ring-width) solid var(--focus-ring);
+    outline: var(--focus-ring-width) solid var(--focus);
     outline-offset: var(--focus-ring-offset);
     border-radius: var(--focus-ring-radius);
   }
@@ -78,13 +65,6 @@
 }
 
 @layer utilities {
-  .text-display {
-    font-size: var(--text-display);
-    line-height: var(--leading-h1);
-    letter-spacing: var(--tracking-h1);
-    font-weight: var(--weight-medium);
-  }
-
   .text-h1 {
     font-size: var(--text-h1);
     line-height: var(--leading-h1);
@@ -103,7 +83,7 @@
     font-size: var(--text-h3);
     line-height: var(--leading-h3);
     letter-spacing: var(--tracking-h3);
-    font-weight: var(--weight-medium);
+    font-weight: var(--weight-sub);
   }
 
   .text-h4 {
@@ -144,16 +124,19 @@
     font-weight: var(--weight-medium);
   }
 
+  /* The canvas measures. `.measure` is the 46ch body column no text block
+   * exceeds; `.measure-wide` is the 62ch answer-first and long-form column;
+   * `.measure-narrow` is the 34ch figure note and side rail. */
   .measure {
-    max-width: var(--measure-body);
+    max-width: var(--measure);
   }
 
-  .measure-lead {
-    max-width: var(--measure-lead);
+  .measure-wide {
+    max-width: var(--measure-wide);
   }
 
-  .measure-tight {
-    max-width: var(--measure-tight);
+  .measure-narrow {
+    max-width: var(--measure-narrow);
   }
 }
 
@@ -173,8 +156,9 @@
     transition: text-decoration-thickness var(--duration-micro) var(--ease-standard);
   }
 
+  /* Hover thickens the underline. The colour does not change: the canvas has
+   * one link ink at 8.96:1 and a second blue would read as a second class. */
   .link:hover {
-    color: var(--link-hover);
     text-decoration-thickness: var(--link-underline-hover-width);
   }
 

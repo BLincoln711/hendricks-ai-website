@@ -108,7 +108,7 @@ export default function HowItWorksPage() {
 
           <div className="flex flex-col gap-2">
             {hero.closing.map((paragraph) => (
-              <p key={paragraph} className="text-ink-body">
+              <p key={paragraph} className="text-ink">
                 {paragraph}
               </p>
             ))}
@@ -130,7 +130,7 @@ export default function HowItWorksPage() {
               {stages.items.map((stage) => (
                 <li
                   key={stage.number}
-                  className="flex flex-col gap-3 border-t border-[var(--color-border)] py-8"
+                  className="flex flex-col gap-3 border-t border-rule py-8"
                 >
                   {/*
                     The stage label sits inside the heading rather than in a
@@ -144,21 +144,21 @@ export default function HowItWorksPage() {
                     to 2.125rem, and a full question set in it wraps to six
                     lines inside a 0.55fr column, so the row now stacks.
                   */}
-                  <h3 className="text-h3 text-[var(--color-navy)]">
+                  <h3 className="text-h3 text-ink">
                     <span className="mb-2 block text-[0.8125rem] leading-normal font-normal tracking-normal">
-                      <span className="font-mono text-[var(--color-blue)]">{stage.number}.</span>{' '}
+                      <span className="font-mono text-ink-2">{stage.number}.</span>{' '}
                       <span className="font-medium">{stage.name}.</span>
                     </span>{' '}
                     {stage.question}
                   </h3>
 
-                  <p className="measure text-[1rem] leading-relaxed text-[var(--color-slate)]">
+                  <p className="measure text-[1rem] leading-relaxed text-ink-2">
                     {stage.description}
                   </p>
 
                   <p className="flex flex-wrap items-center gap-x-2 gap-y-1 pt-1 text-[0.9375rem]">
                     <SignalDot size={6} />
-                    <span className="font-medium text-[var(--color-navy)]">
+                    <span className="font-medium text-ink">
                       Output: {stage.output}
                     </span>
                     {/*
@@ -169,7 +169,7 @@ export default function HowItWorksPage() {
                     */}
                     <Link
                       href={stage.solutionHref}
-                      className="text-[var(--color-blue)] underline decoration-1 underline-offset-4 transition-colors hover:text-[var(--color-blue-hover)]"
+                      className="text-link underline decoration-1 underline-offset-4 transition-colors hover:text-link"
                     >
                       {registryLabel(stage.solutionHref) ?? 'Related solution'}
                     </Link>
@@ -192,15 +192,15 @@ export default function HowItWorksPage() {
             />
 
             <div className="grid gap-6 md:grid-cols-2">
-              <div className="flex flex-col gap-4 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-soft)] p-6 md:p-8">
-                <h3 className="text-[1.125rem] font-medium text-[var(--color-navy)]">
+              <div className="flex flex-col gap-4 border border-rule p-6 md:p-8">
+                <h3 className="text-[1.125rem] font-medium text-ink">
                   {responsibilities.agents.heading}
                 </h3>
                 <SignalList items={responsibilities.agents.items} />
               </div>
 
-              <div className="flex flex-col gap-4 rounded-[var(--radius-card)] border border-[var(--color-blue)] bg-white p-6 md:p-8">
-                <h3 className="text-[1.125rem] font-medium text-[var(--color-navy)]">
+              <div className="flex flex-col gap-4 border border-path p-6 md:p-8">
+                <h3 className="text-[1.125rem] font-medium text-ink">
                   {responsibilities.humans.heading}
                 </h3>
                 <SignalList items={responsibilities.humans.items} />

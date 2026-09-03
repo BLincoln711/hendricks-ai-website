@@ -97,9 +97,9 @@ export default function AiSelectionProblemPage() {
             <div className="flex flex-col gap-8">
               <SignalList items={consequence.assets} columns={2} />
 
-              <div className="flex flex-col gap-3 border-t border-[var(--color-border)] pt-6">
+              <div className="flex flex-col gap-3 border-t border-rule pt-6">
                 {consequence.closing.map((line) => (
-                  <p key={line} className="text-lead text-[var(--color-graphite)]">
+                  <p key={line} className="text-lead text-ink-3">
                     {line}
                   </p>
                 ))}
@@ -122,8 +122,8 @@ export default function AiSelectionProblemPage() {
             <NegationLadder steps={notEnough.ladder} />
 
             <div className="flex flex-col gap-4">
-              <p className="font-medium text-[var(--color-navy)]">{notEnough.pathLead}</p>
-              <div className="rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-[var(--color-field)] p-6">
+              <p className="font-medium text-ink">{notEnough.pathLead}</p>
+              <div className=" border border-rule p-6">
                 <CompletePath steps={notEnough.path} />
               </div>
             </div>
@@ -163,7 +163,7 @@ export default function AiSelectionProblemPage() {
               {competitorRecommendation.body.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]"
+                  className="text-[1.0625rem] leading-relaxed text-ink-3"
                 >
                   {paragraph}
                 </p>
@@ -184,7 +184,7 @@ export default function AiSelectionProblemPage() {
               {competitorRecommendation.closing.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]"
+                  className="text-[1.0625rem] leading-relaxed text-ink-3"
                 >
                   {paragraph}
                 </p>
@@ -224,13 +224,13 @@ export default function AiSelectionProblemPage() {
             <ol className="grid gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
               {response.items.map((item) => (
                 <li key={item.name} className="flex flex-col gap-2">
-                  <span className="font-mono text-[0.75rem] text-[var(--color-cyan)]">
+                  <span className="font-mono text-[0.75rem] text-ink-2">
                     {item.number}
                   </span>
-                  <h3 className="text-[1.125rem] leading-snug font-medium text-[var(--color-field)]">
+                  <h3 className="text-[1.125rem] leading-snug font-medium text-ink">
                     {item.name}
                   </h3>
-                  <p className="text-[0.9375rem] leading-relaxed text-[color-mix(in_srgb,var(--color-field)_74%,transparent)]">
+                  <p className="text-[0.9375rem] leading-relaxed text-ink-3">
                     {item.description}
                   </p>
                 </li>

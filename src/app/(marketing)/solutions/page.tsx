@@ -90,7 +90,7 @@ export default function SolutionsPage() {
 
             <SystemFlow stages={solutionsSystem.stages} />
 
-            <p className="measure text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+            <p className="measure text-[0.9375rem] leading-relaxed text-ink-2">
               {solutionsSystem.note}
             </p>
           </div>

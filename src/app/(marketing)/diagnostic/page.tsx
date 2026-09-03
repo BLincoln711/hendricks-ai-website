@@ -95,14 +95,14 @@ export default function DiagnosticPage() {
                 description={scope.lead}
                 id="scope-title"
               />
-              <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+              <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                 {scope.closing}
               </p>
             </div>
 
             <div className="flex flex-col gap-6">
               <SignalList items={scope.items} />
-              <p className="rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-soft)] p-5 text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">
+              <p className=" border border-rule p-5 text-[0.9375rem] leading-relaxed text-ink-3">
                 {scope.timing}
               </p>
             </div>
@@ -124,22 +124,22 @@ export default function DiagnosticPage() {
               {phases.items.map((phase) => (
                 <li
                   key={phase.number}
-                  className="grid gap-4 border-t border-[var(--color-border)] py-8 lg:grid-cols-[minmax(0,0.5fr)_minmax(0,1.5fr)] lg:gap-12"
+                  className="grid gap-4 border-t border-rule py-8 lg:grid-cols-[minmax(0,0.5fr)_minmax(0,1.5fr)] lg:gap-12"
                 >
                   <div className="flex flex-col gap-1">
-                    <span className="font-mono text-[0.8125rem] text-[var(--color-blue)]">
+                    <span className="font-mono text-[0.8125rem] text-ink-2">
                       {phase.number}
                     </span>
-                    <h3 className="text-[1.25rem] leading-snug font-medium text-[var(--color-navy)]">
+                    <h3 className="text-[1.25rem] leading-snug font-medium text-ink">
                       {phase.name}
                     </h3>
                   </div>
 
                   <div className="flex flex-col gap-3">
-                    <p className="measure text-[1rem] leading-relaxed text-[var(--color-slate)]">
+                    <p className="measure text-[1rem] leading-relaxed text-ink-2">
                       {phase.description}
                     </p>
-                    <p className="flex items-center gap-2 text-[0.9375rem] font-medium text-[var(--color-navy)]">
+                    <p className="flex items-center gap-2 text-[0.9375rem] font-medium text-ink">
                       <SignalDot size={6} />
                       Output: {phase.output}
                     </p>
@@ -185,15 +185,15 @@ export default function DiagnosticPage() {
             <SectionHeading eyebrow={fit.eyebrow} title={fit.title} id="fit-title" maxWidth="wide" />
 
             <div className="grid gap-6 md:grid-cols-2">
-              <div className="flex flex-col gap-4 rounded-[var(--radius-card)] border border-[var(--color-positive)] bg-white p-6 md:p-8">
-                <h3 className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+              <div className="flex flex-col gap-4 border border-ok p-6 md:p-8">
+                <h3 className="text-[1.0625rem] font-medium text-ink">
                   {fit.goodFit.heading}
                 </h3>
                 <FitList items={fit.goodFit.items} tone="fit" />
               </div>
 
-              <div className="flex flex-col gap-4 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-soft)] p-6 md:p-8">
-                <h3 className="text-[1.0625rem] font-medium text-[var(--color-navy)]">
+              <div className="flex flex-col gap-4 border border-rule p-6 md:p-8">
+                <h3 className="text-[1.0625rem] font-medium text-ink">
                   {fit.notFit.heading}
                 </h3>
                 <FitList items={fit.notFit.items} tone="not-fit" />

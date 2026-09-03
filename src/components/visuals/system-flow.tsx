@@ -30,16 +30,16 @@ export function SystemFlow({
           <li key={stage.name} className="flex flex-1 items-stretch gap-3">
             <div
               className={cn(
-                'flex flex-1 flex-col gap-2 rounded-[var(--radius-card)] border p-5',
+                'flex flex-1 flex-col gap-2 border p-5',
                 onNavy
-                  ? 'border-[color-mix(in_srgb,var(--color-field)_20%,transparent)] bg-[var(--color-navy-2)]'
-                  : 'border-[var(--color-border)] bg-white',
+                  ? 'border-rule-2'
+                  : 'border-rule',
               )}
             >
               <span
                 className={cn(
                   'font-mono text-[0.75rem]',
-                  onNavy ? 'text-[var(--color-cyan)]' : 'text-[var(--color-blue)]',
+                  onNavy ? 'text-ink-2' : 'text-link',
                 )}
               >
                 {String(index + 1).padStart(2, '0')}
@@ -47,7 +47,7 @@ export function SystemFlow({
               <span
                 className={cn(
                   'text-[1.0625rem] leading-snug font-medium',
-                  onNavy ? 'text-[var(--color-field)]' : 'text-[var(--color-navy)]',
+                  onNavy ? 'text-ink' : 'text-ink',
                 )}
               >
                 {stage.name}
@@ -56,8 +56,8 @@ export function SystemFlow({
                 className={cn(
                   'text-[0.875rem] leading-relaxed',
                   onNavy
-                    ? 'text-[color-mix(in_srgb,var(--color-field)_66%,transparent)]'
-                    : 'text-[var(--color-slate)]',
+                    ? 'text-ink-3'
+                    : 'text-ink-2',
                 )}
               >
                 {stage.caption}
@@ -69,7 +69,7 @@ export function SystemFlow({
                 aria-hidden="true"
                 className={cn(
                   'hidden size-4 shrink-0 self-center lg:block',
-                  onNavy ? 'text-[var(--color-cyan)]' : 'text-[var(--color-border)]',
+                  onNavy ? 'text-ink-2' : 'text-ink-2',
                 )}
               />
             ) : null}

@@ -49,7 +49,7 @@ export function DemandToSelectionPath({
             <span className="sr-only">Step {step.number}. </span>
             {step.name}
           </h3>
-          <p className="text-small text-ink-body">{step.description}</p>
+          <p className="text-small text-ink">{step.description}</p>
         </li>
       ))}
     </ol>

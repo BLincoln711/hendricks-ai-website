@@ -63,26 +63,26 @@ export default function ContactPage() {
               maxWidth="wide"
             />
 
-            <blockquote className="border-l-2 border-[var(--color-blue)] pl-6">
-              <p className="text-h3 measure text-[var(--color-navy)]">{routing.prompt}</p>
+            <blockquote className="border-l-2 border-path pl-6">
+              <p className="text-h3 measure text-ink">{routing.prompt}</p>
             </blockquote>
 
             <ul className="grid gap-5 md:grid-cols-2">
               {routing.choices.map((choice) => (
                 <li
                   key={choice.name}
-                  className="flex flex-col gap-3 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white p-6"
+                  className="flex flex-col gap-3 border border-rule p-6"
                 >
-                  <h3 className="text-[1.125rem] font-medium text-[var(--color-navy)]">
+                  <h3 className="text-[1.125rem] font-medium text-ink">
                     {choice.name}
                   </h3>
-                  <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                  <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                     {choice.description}
                   </p>
                   {choice.href && choice.linkLabel ? (
                     <Link
                       href={choice.href}
-                      className="group mt-auto inline-flex items-center gap-1.5 pt-1 text-[0.9375rem] font-medium text-[var(--color-blue)] underline decoration-1 underline-offset-4 transition-colors hover:text-[var(--color-blue-hover)]"
+                      className="group mt-auto inline-flex items-center gap-1.5 pt-1 text-[0.9375rem] font-medium text-link underline decoration-1 underline-offset-4 transition-colors hover:text-link"
                     >
                       {choice.linkLabel}
                       <ArrowRight
@@ -107,7 +107,7 @@ export default function ContactPage() {
               id="expectations-title"
             />
             {expectations.body.map((paragraph) => (
-              <p key={paragraph} className="text-lead text-[var(--color-slate)]">
+              <p key={paragraph} className="text-lead text-ink-2">
                 {paragraph}
               </p>
             ))}

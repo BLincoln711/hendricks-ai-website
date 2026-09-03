@@ -65,7 +65,7 @@ export function EvidenceGrade({
   return (
     <span className="text-small inline-flex flex-wrap items-center gap-2 text-ink">
       {mark}{' '}
-      <span className={variant === 'static' ? 'sr-only' : 'text-ink-body'}>{standard}</span>
+      <span className={variant === 'static' ? 'sr-only' : 'text-ink'}>{standard}</span>
     </span>
   )
 }

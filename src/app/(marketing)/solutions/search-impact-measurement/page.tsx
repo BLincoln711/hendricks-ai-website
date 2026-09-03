@@ -130,7 +130,7 @@ export default function SearchImpactMeasurementPage() {
             {limitation.body.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
-            <p className="font-medium text-[var(--color-navy)]">{limitation.closing}</p>
+            <p className="font-medium text-ink">{limitation.closing}</p>
           </Callout>
         </Container>
       </Section>

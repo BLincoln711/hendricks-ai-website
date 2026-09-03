@@ -117,10 +117,10 @@ export default function WhatIsAiMediatedSearchPage() {
             <div className="grid gap-8 md:grid-cols-2 md:gap-10">
               {surfaces.groups.map((group) => (
                 <div key={group.name} className="flex flex-col gap-3">
-                  <h3 className="text-[1.25rem] leading-snug font-medium text-[var(--color-navy)]">
+                  <h3 className="text-[1.25rem] leading-snug font-medium text-ink">
                     {group.name}
                   </h3>
-                  <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+                  <p className="text-[0.9375rem] leading-relaxed text-ink-2">
                     {group.description}
                   </p>
                   <SignalList items={group.items} className="mt-1" />
@@ -171,7 +171,7 @@ export default function WhatIsAiMediatedSearchPage() {
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 {upstream.closing.map((line) => (
-                  <p key={line} className="text-lead measure text-[var(--color-graphite)]">
+                  <p key={line} className="text-lead measure text-ink-3">
                     {line}
                   </p>
                 ))}
@@ -207,7 +207,7 @@ export default function WhatIsAiMediatedSearchPage() {
               {absence.body.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="text-[1.0625rem] measure leading-relaxed text-[var(--color-graphite)]"
+                  className="text-[1.0625rem] measure leading-relaxed text-ink-3"
                 >
                   {paragraph}
                 </p>
@@ -246,7 +246,7 @@ export default function WhatIsAiMediatedSearchPage() {
               {diagnosis.closing.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="text-[1.0625rem] measure leading-relaxed text-[var(--color-graphite)]"
+                  className="text-[1.0625rem] measure leading-relaxed text-ink-3"
                 >
                   {paragraph}
                 </p>
@@ -282,7 +282,7 @@ export default function WhatIsAiMediatedSearchPage() {
               rows={comparison.rows}
             />
 
-            <p className="text-lead measure text-[var(--color-graphite)]">{comparison.closing}</p>
+            <p className="text-lead measure text-ink-3">{comparison.closing}</p>
           </div>
         </Container>
       </Section>
@@ -301,7 +301,7 @@ export default function WhatIsAiMediatedSearchPage() {
               {vocabulary.body.map((paragraph) => (
                 <p
                   key={paragraph}
-                  className="text-[1.0625rem] leading-relaxed text-[var(--color-graphite)]"
+                  className="text-[1.0625rem] leading-relaxed text-ink-3"
                 >
                   {paragraph}
                 </p>
@@ -363,7 +363,7 @@ export default function WhatIsAiMediatedSearchPage() {
       <Section variant="soft" size="small" ariaLabelledBy="references-heading">
         <Container width="narrow">
           <div className="flex flex-col gap-4">
-            <h2 id="references-heading" className="text-eyebrow text-[var(--color-slate)]">
+            <h2 id="references-heading" className="text-eyebrow text-ink-2">
               References
             </h2>
 
@@ -371,7 +371,7 @@ export default function WhatIsAiMediatedSearchPage() {
               {sources.citations.map((citation) => (
                 <li
                   key={citation.url}
-                  className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]"
+                  className="text-[0.9375rem] leading-relaxed text-ink-2"
                 >
                   {citation.publisher},{' '}
                   {/*
@@ -383,7 +383,7 @@ export default function WhatIsAiMediatedSearchPage() {
                     href={citation.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[var(--color-blue)] underline decoration-[color-mix(in_srgb,var(--color-blue)_40%,transparent)] underline-offset-4 hover:decoration-[var(--color-blue)]"
+                    className="text-link underline decoration-link underline-offset-4 hover:decoration-link"
                   >
                     {citation.title}
                     <span className="sr-only"> (opens in a new tab)</span>

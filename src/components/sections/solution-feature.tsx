@@ -28,18 +28,18 @@ export function SolutionFeature({
   reverse?: boolean
 }) {
   return (
-    <article className="grid gap-8 border-t border-[var(--color-border)] py-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-16 lg:py-14">
+    <article className="grid gap-8 border-t border-rule py-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-16 lg:py-14">
       <div className={reverse ? 'flex flex-col gap-5 lg:order-2' : 'flex flex-col gap-5'}>
         <div className="flex items-baseline gap-3">
-          <span className="font-mono text-[0.875rem] text-[var(--color-blue)]">
+          <span className="font-mono text-[0.875rem] text-ink-2">
             {solution.number}
           </span>
-          <h3 className="text-eyebrow text-[var(--color-slate)]">{solution.name}</h3>
+          <h3 className="text-eyebrow text-ink-2">{solution.name}</h3>
         </div>
 
-        <p className="text-h3 text-[var(--color-navy)]">{solution.title}</p>
+        <p className="text-h3 text-ink">{solution.title}</p>
 
-        <p className="measure text-[1.0625rem] leading-relaxed text-[var(--color-slate)]">
+        <p className="measure text-[1.0625rem] leading-relaxed text-ink-2">
           {solution.description}
         </p>
 
@@ -51,27 +51,27 @@ export function SolutionFeature({
       <div
         className={
           reverse
-            ? 'flex flex-col gap-5 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white p-6 lg:order-1'
-            : 'flex flex-col gap-5 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-white p-6'
+            ? 'flex flex-col gap-5 border border-rule p-6 lg:order-1'
+            : 'flex flex-col gap-5 border border-rule p-6'
         }
       >
         <SolutionMotif motif={solution.motif} />
 
-        <div className="flex flex-col gap-3 border-t border-[var(--color-border)] pt-5">
+        <div className="flex flex-col gap-3 border-t border-rule pt-5">
           {/*
             Composed from `solution.name` rather than a fixed label. Four
             solutions render on one route, so a hardcoded string shipped four
             identical H4s in the document outline. The name is approved copy
             already printed in the H3 above, so no new string is authored here.
           */}
-          <h4 className="text-eyebrow text-[var(--color-slate)]">
+          <h4 className="text-eyebrow text-ink-2">
             Primary outputs of {solution.name}
           </h4>
           <ul className="flex flex-col gap-2">
             {solution.outputs.map((output) => (
               <li key={output} className="flex items-start gap-2.5">
                 <SignalDot size={6} className="mt-2 shrink-0" />
-                <span className="text-[0.9375rem] leading-relaxed text-[var(--color-graphite)]">
+                <span className="text-[0.9375rem] leading-relaxed text-ink-3">
                   {output}
                 </span>
               </li>

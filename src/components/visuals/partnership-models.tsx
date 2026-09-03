@@ -21,10 +21,10 @@ export function PartnershipModels({
   className?: string
 }) {
   const treatments = [
-    'border-[var(--color-blue)] bg-white',
-    'border-[var(--color-border)] bg-[var(--color-soft)]',
-    'border-[var(--color-cyan)] bg-white',
-    'border-[var(--color-border)] border-dashed bg-white',
+    'border-path',
+    'border-rule',
+    'border-path',
+    'border-rule border-dashed',
   ]
 
   return (
@@ -33,15 +33,15 @@ export function PartnershipModels({
         <li
           key={model.name}
           className={cn(
-            'flex flex-col gap-4 rounded-[var(--radius-card)] border p-6 md:p-8',
+            'flex flex-col gap-4 border p-6 md:p-8',
             treatments[index] ?? treatments[0],
           )}
         >
-          <h3 className="text-[1.375rem] leading-snug font-medium text-[var(--color-navy)]">
+          <h3 className="text-[1.375rem] leading-snug font-medium text-ink">
             {model.name}
           </h3>
 
-          <p className="text-[0.9375rem] leading-relaxed text-[var(--color-slate)]">
+          <p className="text-[0.9375rem] leading-relaxed text-ink-2">
             {model.description}
           </p>
 
@@ -52,8 +52,8 @@ export function PartnershipModels({
             classes are unchanged from the paragraph they replace, and preflight
             zeroes the default `dd` indent, so nothing moves on screen.
           */}
-          <dl className="mt-auto flex flex-col gap-1 border-t border-[var(--color-border)] pt-4 text-[0.9375rem] text-[var(--color-graphite)]">
-            <dt className="text-eyebrow text-[var(--color-slate)]">Best for</dt>
+          <dl className="mt-auto flex flex-col gap-1 border-t border-rule pt-4 text-[0.9375rem] text-ink-3">
+            <dt className="text-eyebrow text-ink-2">Best for</dt>
             <dd>{model.bestFor}</dd>
           </dl>
         </li>

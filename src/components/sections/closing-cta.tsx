@@ -30,9 +30,9 @@ export function ClosingCta({
           <SectionHeading eyebrow={eyebrow} title={title} id="closing-cta-title" maxWidth="wide" />
 
           {body ? (
-            <div className="measure-lead flex flex-col gap-4">
+            <div className="measure-wide flex flex-col gap-4">
               {body.map((paragraph) => (
-                <p key={paragraph} className="text-lead text-ink-body">
+                <p key={paragraph} className="text-lead text-ink">
                   {paragraph}
                 </p>
               ))}

@@ -36,7 +36,7 @@ export function SolutionMotif({ motif }: { motif: Motif }) {
             y1={nodes[0].cy}
             x2={node.cx}
             y2={node.cy}
-            stroke="var(--color-border)"
+            stroke="var(--rule)"
             strokeWidth={1}
           />
         ))}
@@ -46,8 +46,8 @@ export function SolutionMotif({ motif }: { motif: Motif }) {
             cx={node.cx}
             cy={node.cy}
             r={node.r}
-            fill={index === 0 ? 'var(--color-blue)' : 'color-mix(in srgb, var(--color-blue) 22%, white)'}
-            stroke={index === 0 ? 'none' : 'var(--color-blue)'}
+            fill={index === 0 ? 'var(--ev-measured)' : 'color-mix(in srgb, var(--ev-measured) 22%, white)'}
+            stroke={index === 0 ? 'none' : 'var(--ev-measured)'}
             strokeWidth={1}
           />
         ))}
@@ -67,22 +67,22 @@ export function SolutionMotif({ motif }: { motif: Motif }) {
               width={104}
               height={18}
               rx={9}
-              fill={index === 1 ? 'color-mix(in srgb, var(--color-blue) 14%, white)' : 'white'}
-              stroke={index === 1 ? 'var(--color-blue)' : 'var(--color-border)'}
+              fill={index === 1 ? 'color-mix(in srgb, var(--ev-measured) 14%, white)' : 'white'}
+              stroke={index === 1 ? 'var(--ev-measured)' : 'var(--rule)'}
               strokeWidth={1}
             />
             <circle
               cx={30}
               cy={y}
               r={4}
-              fill={index === 1 ? 'var(--color-blue)' : 'var(--color-border)'}
+              fill={index === 1 ? 'var(--ev-measured)' : 'var(--rule)'}
             />
             {index === 1 ? (
-              <line x1={120} y1={y} x2={156} y2={y} stroke="var(--color-blue)" strokeWidth={2} />
+              <line x1={120} y1={y} x2={156} y2={y} stroke="var(--ev-measured)" strokeWidth={2} />
             ) : null}
           </g>
         ))}
-        <circle cx={168} cy={48} r={10} fill="var(--color-blue)" />
+        <circle cx={168} cy={48} r={10} fill="var(--ev-measured)" />
       </svg>
     )
   }
@@ -99,8 +99,8 @@ export function SolutionMotif({ motif }: { motif: Motif }) {
               width={144 - index * 12}
               height={14}
               rx={4}
-              fill={index === 0 ? 'color-mix(in srgb, var(--color-cyan) 20%, white)' : 'white'}
-              stroke={index === 0 ? 'var(--color-cyan)' : 'var(--color-border)'}
+              fill={index === 0 ? 'color-mix(in srgb, var(--focus) 20%, white)' : 'white'}
+              stroke={index === 0 ? 'var(--focus)' : 'var(--rule)'}
               strokeWidth={1}
             />
             {index < layers.length - 1 ? (
@@ -109,7 +109,7 @@ export function SolutionMotif({ motif }: { motif: Motif }) {
                 y1={y + 7}
                 x2={100}
                 y2={y + 11}
-                stroke="var(--color-cyan)"
+                stroke="var(--focus)"
                 strokeWidth={1.5}
               />
             ) : null}
@@ -124,7 +124,7 @@ export function SolutionMotif({ motif }: { motif: Motif }) {
       <polyline
         points="20,76 60,64 100,52 140,32 176,18"
         fill="none"
-        stroke="var(--color-blue)"
+        stroke="var(--ev-measured)"
         strokeWidth={2.5}
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -135,15 +135,15 @@ export function SolutionMotif({ motif }: { motif: Motif }) {
         [100, 52],
         [140, 32],
       ].map(([cx, cy]) => (
-        <circle key={`${cx}`} cx={cx} cy={cy} r={4} fill="white" stroke="var(--color-blue)" strokeWidth={2} />
+        <circle key={`${cx}`} cx={cx} cy={cy} r={4} fill="white" stroke="var(--ev-measured)" strokeWidth={2} />
       ))}
-      <circle cx={176} cy={18} r={7} fill="var(--color-amber)" />
+      <circle cx={176} cy={18} r={7} fill="var(--ev-gap)" />
       <line
         x1={16}
         y1={86}
         x2={184}
         y2={86}
-        stroke="var(--color-border)"
+        stroke="var(--rule)"
         strokeWidth={1}
       />
     </svg>

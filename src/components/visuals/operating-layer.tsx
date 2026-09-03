@@ -26,7 +26,7 @@ export function OperatingLayer({
   return (
     <figure
       className={cn(
-        'flex flex-col gap-4 rounded-[var(--radius-panel)] border border-[var(--color-border)] bg-white p-6 md:p-8',
+        'flex flex-col gap-4 border border-rule p-6 md:p-8',
         className,
       )}
     >
@@ -34,12 +34,12 @@ export function OperatingLayer({
         {participants.map((participant) => (
           <li
             key={participant.name}
-            className="flex flex-col gap-1.5 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-field)] p-4"
+            className="flex flex-col gap-1.5 border border-rule p-4"
           >
-            <span className="text-[1rem] leading-snug font-medium text-[var(--color-navy)]">
+            <span className="text-[1rem] leading-snug font-medium text-ink">
               {participant.name}
             </span>
-            <span className="text-[0.8125rem] leading-relaxed text-[var(--color-slate)]">
+            <span className="text-[0.8125rem] leading-relaxed text-ink-2">
               {participant.role}
             </span>
           </li>
@@ -50,14 +50,14 @@ export function OperatingLayer({
         {participants.map((participant) => (
           <span
             key={participant.name}
-            className="h-5 w-px bg-[var(--color-border)]"
+            className="h-5 w-px bg-rule"
           />
         ))}
       </div>
 
-      <div className="flex flex-col gap-1.5 rounded-[var(--radius-card)] border border-[var(--color-blue)] bg-[color-mix(in_srgb,var(--color-blue)_6%,white)] p-5">
-        <span className="text-[1.0625rem] font-medium text-[var(--color-navy)]">{layerName}</span>
-        <span className="text-[0.875rem] leading-relaxed text-[var(--color-slate)]">
+      <div className="flex flex-col gap-1.5 border border-path p-5">
+        <span className="text-[1.0625rem] font-medium text-ink">{layerName}</span>
+        <span className="text-[0.875rem] leading-relaxed text-ink-2">
           {layerDescription}
         </span>
       </div>
