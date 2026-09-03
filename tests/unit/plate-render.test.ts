@@ -54,14 +54,23 @@ describe('the resting frame', () => {
     for (const svg of drawings) expect(svg.getAttribute('aria-describedby')).toBe('plate-01-alt')
   })
 
-  it('names every drawing with its own title and description, as the first two children', () => {
+  it('names every drawing with its own title as the first child', () => {
     for (const svg of drawings) {
       expect(svg.children[0].tagName.toLowerCase()).toBe('title')
-      expect(svg.children[1].tagName.toLowerCase()).toBe('desc')
       expect(svg.getAttribute('role')).toBe('img')
       expect(resting.getElementById(svg.getAttribute('aria-labelledby')!)).toBe(svg.children[0])
-      expect(svg.children[1].textContent).toBe(ILLUSTRATIVE_CAPTION)
     }
+  })
+
+  it('states the illustrative line once, in the caption, not inside each drawing', () => {
+    // Two drawings ship at once, one per breakpoint, so a `desc` carrying the
+    // disclaimer would put it into the accessibility tree three times over.
+    for (const svg of drawings) expect(svg.querySelector('desc')).toBeNull()
+
+    const spoken = [...resting.querySelectorAll('.illus')].filter(
+      (node) => node.textContent === ILLUSTRATIVE_CAPTION,
+    )
+    expect(spoken).toHaveLength(1)
   })
 
   it('renders the answer in words as well as in marks', () => {
@@ -74,10 +83,12 @@ describe('the resting frame', () => {
   })
 
   it('ships the list view present and hidden, so the alternative exists before any script', () => {
-    const list = resting.querySelector('.plate-list')!
-    expect(list.hasAttribute('hidden')).toBe(true)
-    expect(list.querySelectorAll('tbody tr')).toHaveLength(5)
-    expect(list.querySelector('caption')!.textContent).toContain(ILLUSTRATIVE_CAPTION)
+    // The whole view is hidden, the scroll region and its hint together, so the
+    // hint never advertises a table nobody can see.
+    const view = resting.querySelector('.plate-listview')!
+    expect(view.hasAttribute('hidden')).toBe(true)
+    expect(view.querySelectorAll('tbody tr')).toHaveLength(5)
+    expect(view.querySelector('caption')!.textContent).toContain(ILLUSTRATIVE_CAPTION)
   })
 
   it('makes the table’s scroll region a named keyboard stop', () => {
@@ -86,7 +97,19 @@ describe('the resting frame', () => {
     const list = resting.querySelector('.plate-list')!
     expect(list.getAttribute('role')).toBe('region')
     expect(list.getAttribute('tabindex')).toBe('0')
-    expect(list.getAttribute('aria-label')).toBe(plateChrome.listRegion)
+    // 16 SM-08: the region carries the caption, not a shorter label, so moving
+    // by landmark tells a reader as much as reading the table does.
+    expect(list.getAttribute('aria-label')).toBe(
+      resting.querySelector('.plate-list caption')!.textContent,
+    )
+    expect(list.getAttribute('aria-label')).toContain(plateChrome.listRegion)
+  })
+
+  it('offers the scroll hint outside the region, so it does not scroll away', () => {
+    const hint = resting.querySelector('.plate-list-hint')!
+    expect(hint.getAttribute('aria-hidden')).toBe('true')
+    expect(hint.textContent).toBe(plateChrome.scrollHint)
+    expect(hint.closest('.plate-list')).toBeNull()
   })
 
   it('lists the six source types and never a publication', () => {

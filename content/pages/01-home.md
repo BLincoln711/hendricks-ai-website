@@ -14,7 +14,15 @@
 
 ## Primary objective
 
-Explain the category, establish the AI Selection Problem, make the four solutions tangible, and convert qualified visitors to the Search Intelligence Diagnostic.
+Explain the category, establish the AI Selection Problem, make the Demand-to-Selection System tangible, and convert qualified visitors to the Search Intelligence Diagnostic.
+
+## How to read this file
+
+This is the copy of record for `src/content/pages/home.ts`. It carries the lines that render today.
+
+Seventeen homepage lines are new or variant and are held by the content gate (`CONTENT_VERIFICATION.md` rows H1 to H17, plus F2 for the proof line). While a row is pending the page renders the approved line it replaces, and that approved line is what appears below. Each gated slot is marked "Gated" with its row, so a reader can see what is held and what ships. The proposals themselves live in one place, `src/content/gate.ts`, and are never transcribed here.
+
+The homepage is the one route exempt from decision D-E. It is a conversion surface, not the page that gets cited, so its depth lives on the interior routes. Every line moved off this page is published on the route named beside it.
 
 ---
 
@@ -28,171 +36,119 @@ Explain the category, establish the AI Selection Problem, make the four solution
 
 ---
 
-## Hero
+## Station 1. Hero
 
-**Eyebrow:** SEARCH INTELLIGENCE ENGINEERING
+Anchor: `#hero`
+
+**Eyebrow:** Search Intelligence Engineering
+*Gated H1. Ships in place of the category line as the eyebrow.*
 
 # Search Intelligence Engineering for the AI Era.
 
-## Know where your brand is missing from the shortlist.
+*Gated H1. Ships in place of the verb-first headline.*
 
-Search increasingly interprets the need, researches the market, compares options, and narrows consideration before a customer reaches your website.
+**Lead, claim:** Know where your brand is missing from the shortlist.
 
-Hendricks maps the questions and decisions that drive your market, measures whether your brand enters the consideration set, improves the conditions that shape visibility and trust, and connects the work to pipeline and revenue.
+**Lead, continuation:** Hendricks maps the questions and decisions that drive your market, measures whether your brand enters the consideration set, improves the conditions that shape visibility and trust, and connects the work to pipeline and revenue.
+*Gated H2.*
+
+**Boundary and audience:** For organizations where search materially affects a valuable purchase, shortlist, appointment, demo, or customer relationship.
+*Gated H3. Carries the second and third five-second answers: who it is for, and why it is neither software nor an SEO agency.*
 
 **Primary CTA:** Start with a Search Intelligence Diagnostic
 
 **Secondary CTA:** See What Hendricks Actually Does
+*Gated H5. Destination `/how-it-works`.*
+
+**Definer:** not rendered.
+*Gated H4. An addition with no approved predecessor, so nothing renders and the primary button carries no description.*
 
 **Operating line:** Measure demand. Understand AI visibility. Engineer selection. Prove business impact.
 
-**Credibility line:** Built from more than fifteen years of enterprise search, paid and organic acquisition, analytics, and search operating systems. Verify the exact experience statement before publication.
+**Proof line:** Built from enterprise search, paid and organic acquisition, analytics, and search operating systems.
+*Gated F2. The numbered form ships only when the start year is recorded.*
 
-### Visual
-
-Responsive Selection Map:
-
-`Customer Need → Context → Discovery → Evidence → Consideration → Impact`
-
-Show multiple candidate brands entering the system and a smaller shortlist emerging. Use abstract labels such as Brand A, Brand B, and Your Brand. Do not imply client data.
-
-**Required visual caption:** Illustrative interface. Not a client result.
-
-**Text alternative:** An illustrative diagram showing a customer need being interpreted through context and evidence, several brands being evaluated, a smaller shortlist emerging, and the outcome being connected to business impact.
+**Instrument:** Plate 01, the Selection Map. Title, gloss, three-question picker, nine nodes, five sample brands, the sources ledger, the four state markers, the list view and the pause control. Caption: Illustrative interface. Not a client result.
 
 ---
 
-## The problem
+## Station 2. The loss before the click
 
-**Eyebrow:** THE AI SELECTION PROBLEM
+Anchor: `#before-the-click`
 
-# Brands are losing control over the path between being discovered and being chosen.
+**Eyebrow:** The AI Selection Problem
 
-### Traditional search was largely a ranking problem
+## Brands are losing control over the path between being discovered and being chosen.
 
-`Query → Search Results → Website → Conversion`
+*Gated H6. The locked core problem holds the headline slot while the row is pending.*
 
-### AI-mediated search is increasingly a selection journey
-
-`Need → Intent Interpretation → Research → Comparison → Synthesis → Shortlist → Choice`
+Search increasingly interprets the need, researches the market, compares options, and narrows consideration before a customer reaches your website.
 
 A business can have a strong website, high rankings, excellent reviews, active paid media, respected leadership, and a recognizable brand, and still fail to enter an AI-mediated buying journey.
 
-The loss can happen before a visit.
+**Lead, claim:** Brands are losing control over the path between being discovered and being chosen.
 
-Before a click.
+**Lead, continuation:** Most organizations have major blind spots across that path.
+*Gated H7.*
 
-Before the company’s analytics records the buyer.
+**Link:** See why a brand can rank #1 on Google and still not appear in AI answers. Destination `/what-is-ai-mediated-search`.
 
-> You cannot be chosen if you are not seen. But being seen does not guarantee being understood. Being understood does not guarantee trust. And trust does not guarantee selection.
-
-### Complete path
-
-`Discoverable → Understood → Relevant → Trusted → Cited → Considered → Recommended → Selected → Revenue`
-
-Most organizations have major blind spots across that path.
-
-**Link:** [See why a brand can rank #1 on Google and still not appear in AI answers](/what-is-ai-mediated-search)
+**Instrument:** Plate 02, Two paths. Gloss: Traditional search ran to a ranking. AI-mediated search runs to a shortlist. Lane one: Query, Search Results, Website, Conversion, with the website session beginning at step three. Lane two: Need, Intent Interpretation, Research, Comparison, Synthesis, Shortlist, Choice, with the website session drawn as an inference after the choice, if at all. Caption: Illustrative interface. Not a client result.
 
 ---
 
-## What Hendricks actually does
+## Station 3. The system
 
-**Eyebrow:** FROM THEORY TO EXECUTION
+Anchor: `#what-hendricks-does`, with `#solutions` on the phase rail for inbound links.
 
-# We find where you are being excluded, change the conditions, and measure what happens.
+**Eyebrow:** The Hendricks Method
 
-Hendricks does not sell screenshots of chatbot mentions.
+## We find where you are being excluded, change the conditions, and measure what happens.
 
-We build an evidence-based system that answers four business questions.
+*Gated H8.*
 
-### 01. What demand is worth pursuing?
+**Lead, claim:** Hendricks does not sell screenshots of chatbot mentions.
 
-Determine what customers are trying to accomplish, what they search and ask, how those needs differ by context, and which decisions have commercial value.
+**Lead, continuation:** We build an evidence-based system that answers four business questions.
+*Gated H8.*
 
-**Output:** Demand Map
+The four phases. Each renders its name as the link to its solution page, the business question, one summary line, and the named output.
 
-### 02. Where are we winning or losing consideration?
+**01 Map demand.** What demand is worth pursuing? Determine what customers are trying to accomplish, what they search and ask, how those needs differ by context, and which decisions have commercial value. Output: Demand Map. Destination `/solutions/search-demand-intelligence`.
+*Summary gated H9.*
 
-Measure whether the brand is absent, referenced, considered, or recommended across controlled customer contexts, platforms, competitors, and time periods.
+**02 Observe selection.** Where are we winning or losing consideration? Measure whether the brand is absent, referenced, considered, or recommended across controlled customer contexts, platforms, competitors, and time periods. Output: Selection Map. Destination `/solutions/selection-intelligence`.
+*Summary gated H9.*
 
-**Output:** Selection Map
+**03 Engineer the presence.** What should change? Identify and implement the technical, entity, content, evidence, authority, acquisition, and conversion improvements most likely to close valuable gaps. Output: Intervention Roadmap. Destination `/solutions/search-presence-engineering`.
+*Summary gated H9.*
 
-### 03. What should change?
+**04 Measure impact.** Did it produce business impact? Connect changes in search and AI visibility with customer behavior, branded demand, qualified leads, opportunities, pipeline, and revenue. Output: Impact Ledger. Destination `/solutions/search-impact-measurement`.
+*Summary gated H9.*
 
-Identify and implement the technical, entity, content, evidence, authority, acquisition, and conversion improvements most likely to close valuable gaps.
+**Return leg:** Learn and repeat
 
-**Output:** Intervention Roadmap and implementation
+**Scope, rendered once per page and imported from the shared module:** Hendricks observes four systems: Google AI Overviews, ChatGPT, Perplexity, and Gemini. Hendricks does not measure, test, monitor, or report on Google AI Mode or Microsoft Copilot.
 
-### 04. Did it produce business impact?
-
-Connect changes in search and AI visibility with customer behavior, branded demand, qualified leads, opportunities, pipeline, and revenue.
-
-**Output:** Impact Ledger
-
----
-
-## Four solutions
-
-**Eyebrow:** THE HENDRICKS SOLUTION SYSTEM
-
-# Four solutions. One path from demand to business impact.
-
-### Search Demand Intelligence
-
-## Know which customer decisions are worth winning.
-
-Map the questions, needs, comparisons, markets, and buying contexts that represent meaningful commercial demand.
-
-Hendricks combines available search, paid media, customer, sales, CRM, competitor, and market data to separate real opportunity from prompt volume.
-
-**Link:** Explore Search Demand Intelligence
-
-### Selection Intelligence
-
-## Know when your brand enters the shortlist, and when it disappears.
-
-Measure how search and AI systems represent, cite, compare, consider, and recommend your brand across realistic customer contexts.
-
-See which competitors win, which sources shape the result, how stable the outcome is, and where evidence is missing.
-
-**Link:** Explore Selection Intelligence
-
-### Search Presence Engineering
-
-## Build the conditions that make your brand easier to find, understand, trust, and recommend.
-
-Improve technical access, entity clarity, decision-stage content, independent evidence, authority, paid and organic coverage, and conversion experiences.
-
-Not every visibility problem is a content problem. Hendricks diagnoses the complete information environment.
-
-**Link:** Explore Search Presence Engineering
-
-### Search Impact Measurement
-
-## Connect visibility with outcomes the business can defend.
-
-Combine search visibility, AI referrals, branded demand, website behavior, CRM data, pipeline, and controlled experiments.
-
-Hendricks does not promise perfect attribution. We build a stronger body of evidence and state the confidence behind every conclusion.
-
-**Link:** Explore Search Impact Measurement
+Moved to `/how-it-works`: the six stages with their questions and artifacts. Moved to the four solution pages: each solution's business question, what Hendricks examines, and the decision it supports.
 
 ---
 
-## Selection Intelligence distinction
+## Station 4. Beyond visibility
 
-**Eyebrow:** BEYOND AI VISIBILITY
+Anchor: `#beyond-visibility`
 
-# Visibility tells you that you appeared. Selection Intelligence tells you what that appearance means.
+**Eyebrow:** Beyond AI Visibility
 
-A brand mention is not the same as consideration.
+## A brand mention is not the same as consideration.
 
-A citation is not the same as recommendation.
+**Lead, claim:** Visibility tells you that you appeared.
 
-A recommendation is not the same as customer selection.
+**Lead, continuation:** Selection Intelligence tells you what that appearance means.
 
-| Stage | Business question |
+The ladder. Seven rungs render while H10 is pending; the Trust rung and the third column, "How Hendricks knows", ship with that row.
+
+| Rung | The question it answers |
 |---|---|
 | Visibility | Did the brand appear? |
 | Understanding | Was the brand represented accurately? |
@@ -202,184 +158,177 @@ A recommendation is not the same as customer selection.
 | Selection | Did the customer choose it? |
 | Impact | Did that choice produce commercial value? |
 
-AI-mediated results can vary by context, wording, location, platform, and time. Hendricks therefore measures controlled intent contexts and repeated outcomes, not one pretend universal ranking.
+**Citation note:** not rendered.
+*Gated H10.*
 
-**CTA:** Learn What Selection Intelligence Measures
+**Closing:** AI-mediated results can vary by context, wording, location, platform, and time. Hendricks therefore measures controlled intent contexts and repeated outcomes, not one pretend universal ranking.
 
----
-
-## Methodology
-
-**Eyebrow:** THE DEMAND-TO-SELECTION SYSTEM
-
-# From customer need to measurable impact.
-
-### 1. Map demand
-
-Identify the questions, needs, comparisons, customer groups, markets, and buying decisions that matter.
-
-### 2. Observe selection
-
-Test controlled customer contexts and determine whether the brand is absent, referenced, considered, or recommended.
-
-### 3. Engineer the presence
-
-Implement the technical, content, evidence, authority, acquisition, and conversion changes associated with stronger consideration.
-
-### 4. Measure impact
-
-Track exposure, behavior, commercial outcomes, and controlled evidence over time.
-
-**CTA:** See How the System Works
+**Link:** Learn What Selection Intelligence Measures. Destination `/what-is-selection-intelligence`.
 
 ---
 
-## Tangible outputs
+## Station 5. The evidence rule
 
-**Eyebrow:** DECISIONS, NOT MORE REPORTS
+Anchor: `#evidence-rule`
 
-# Every output should tell the organization what happened, why it matters, and what to do next.
+Accessible name: The evidence rule.
 
-A typical Hendricks engagement can produce:
+**Claim:** Absence is not yet a diagnosis.
 
-- A commercially weighted Demand Map
-- An Intent Context Library
-- A competitor consideration benchmark
-- An observed consideration and recommendation baseline
-- A source and Evidence Graph
-- A Commercial Selection Gap
-- A prioritized intervention backlog
-- Technical and entity requirements
-- Decision-stage content architecture
-- Authority and third-party source priorities
-- A measurement and experimentation plan
-- An executive Impact Ledger
-- A 90-day implementation roadmap
+**Continuation:** A single answer screen is one observation under one set of conditions.
+
+Locked. The word "yet" is load bearing and is never cut.
 
 ---
 
-## Honest measurement
+## Station 6. Evidence and outputs
 
-**Eyebrow:** PROOF WITHOUT FALSE PRECISION
+Anchor: `#outputs`
 
-# We separate what is observed, inferred, measured, and proven.
+**Eyebrow:** Decisions, Not More Reports
+*Gated H11.*
 
-### Observed
+## Every output should tell the organization what happened, why it matters, and what to do next.
 
-Responses, citations, sources, rankings, impressions, referrals, customer behavior, and repeated test outcomes.
+*Gated H11. The approved sentence holds the headline slot; when the row is approved it becomes the lead and the new headline takes its place.*
 
-### Inferred
+Eight artifacts, each with a plate number and an illustrative miniature. Names are approved; the decision line under each is held by H12 and does not render.
 
-The likely relationship between evidence gaps, source patterns, brand understanding, and recommendation outcomes.
+| Plate | Artifact |
+|---|---|
+| Plate 04 | Demand Map |
+| Plate 05 | Intent Context Library |
+| Plate 06 | Selection Map |
+| Plate 07 | Competitor Selection Matrix |
+| Plate 08 | Source and Evidence Graph |
+| Plate 09 | Commercial Selection Gap |
+| Plate 10 | Intervention Roadmap |
+| Plate 11 | Impact Ledger |
 
-### Measured
+**Caption:** Illustrative interface. Not a client result.
 
-Leads, appointments, opportunities, pipeline, revenue, branded demand, and assisted customer journeys.
+**Closing line:** not rendered.
+*Gated H11.*
 
-### Tested
-
-Changes evaluated through baselines, staggered rollouts, matched groups, holdouts, or other controlled comparisons where feasible.
-
-Hendricks does not claim access to a model’s hidden reasoning.
-
-We study inputs, outputs, sources, interventions, and business outcomes, then state how much confidence the evidence supports.
-
-**Link:** Read the Hendricks Measurement Methodology
+Moved to the solution pages and `/diagnostic`: the full structural previews of each artifact.
 
 ---
 
-## Audience paths
+## Station 7. Audience pathways
 
-**Eyebrow:** BUILT FOR VALUABLE SEARCH DECISIONS
+Anchor: `#pathways`
 
-# One system. Two ways to work with Hendricks.
+**Eyebrow:** Built for Valuable Search Decisions
+
+## One system. Two ways to work with Hendricks.
 
 ### For Brands
 
-## Turn fragmented search investment into a path to selection.
+**Headline:** Turn fragmented search investment into a path to selection.
+*Gated H13.*
 
-For organizations where search materially affects a valuable purchase, shortlist, appointment, demo, or customer relationship.
+**Body, claim:** Your customer experiences one decision journey.
 
-Connect demand, traditional search, AI visibility, paid media, organic performance, evidence, analytics, and revenue.
+**Body, continuation:** Connect demand, traditional search, AI visibility, paid media, organic performance, evidence, analytics, and revenue.
+*Gated H13.*
 
-**CTA:** Hendricks for Brands
+**CTA:** Hendricks for Brands. Destination `/for-brands`.
+*Gated H13.*
 
 ### For Agencies
 
-## Add specialized Search Intelligence without building the complete capability in-house.
+**Headline:** Add specialized Search Intelligence without building the complete capability in-house.
+*Gated H14.*
 
-Use Hendricks as a white-label specialist, embedded intelligence lead, co-branded partner, or system builder.
+**Body, claim:** Your agency keeps the client relationship.
 
-Your agency keeps the client relationship. Responsibilities, branding, data access, and communication ownership are established before delivery.
+**Body, continuation:** Responsibilities, branding, data access, and communication ownership are established before delivery. No fabricated results or guaranteed citation claims.
 
-**CTA:** Hendricks for Agencies
+**Models:** White-label specialist / Embedded intelligence lead / Co-branded partner / System builder
 
----
+**CTA:** Discuss an Agency Partnership. Destination `/for-agencies`.
 
-## Diagnostic entry
-
-**Eyebrow:** START WITH EVIDENCE
-
-# Direct engagements begin with a fixed-scope diagnostic, not an open-ended retainer.
-
-The Search Intelligence Diagnostic establishes the market demand, customer contexts, competitive baseline, selection gaps, data quality, implementation priorities, and measurement plan.
-
-At the end, the client knows:
-
-- What problem is actually worth solving
-- Where the brand is losing valuable consideration
-- Which observations are supported by evidence
-- What should be changed first
-- What data and access are required
-- How success should be measured
-- Whether Hendricks is the right implementation partner
-
-**Primary CTA:** Explore the Search Intelligence Diagnostic
+Moved to `/for-agencies`: each model's description and its best-for line. Moved to `/for-brands`: the nine-channel list and the seven roles Hendricks does not replace.
 
 ---
 
-## Results section
+## Station 8. How Hendricks knows
 
-Render only when the Results feature flag is enabled and verified content exists.
+Anchor: `#how-hendricks-knows`
 
-**Eyebrow:** PROOF, NOT PROMISES
+**Eyebrow:** Proof Without False Precision
 
-# Every result needs a baseline, intervention, timeframe, source, and limitation.
+## We separate what is observed, inferred, measured, and proven.
 
-No fabricated screenshots. No unattributed percentages. No case study written around a metric the customer did not value.
+*Gated H15. One word, "tested" for "proven", ships with that row.*
 
-**CTA:** Review Hendricks Results
+| Label | What it covers |
+|---|---|
+| Observed | Responses, citations, sources, rankings, and referrals. |
+| Inferred | The likely relationship between evidence gaps and outcomes. |
+| Measured | Leads, opportunities, pipeline, revenue, and branded demand. |
+| Tested | Baselines, staggered rollouts, matched groups, and holdouts. |
 
----
+**Pull, claim:** Hendricks does not claim access to a model’s hidden reasoning.
 
-## Founder
+**Pull, continuation:** We study inputs, outputs, sources, interventions, and business outcomes, then state how much confidence the evidence supports.
 
-**Eyebrow:** BUILT FROM SEARCH
+**Link:** Read the Hendricks Measurement Methodology. Destination `/methodology`.
 
-# More than fifteen years inside search. Now engineering what comes next.
-
-Brandon Lincoln Hendricks is the founder of Hendricks and a Search Intelligence Engineer.
-
-His work spans enterprise search strategy, paid media, organic search, analytics, AI-mediated discovery, data systems, and cross-functional operating models.
-
-Before publication, verify every named employer, title, date, advisory role, and client relationship.
-
-Brandon personally architects Hendricks engagements.
-
-**CTA:** About Brandon Lincoln Hendricks
+Moved to their study pages: the Hendricks Selection Baseline run and The Answer Index capture. The homepage has no caveat slot beside either figure, and the compression budget is the tighter constraint.
 
 ---
 
-## Final CTA
+## Station 9. The entry point
 
-**Eyebrow:** FIND THE GAP
+Anchor: `#diagnostic`, with the founder note at `#founder`.
 
-# What decision can your current search system not answer?
+**Eyebrow:** Start with Evidence
 
-Tell Hendricks what your organization needs to understand, improve, or build.
+## Direct engagements begin with a fixed-scope diagnostic, not an open-ended retainer.
 
-We will determine whether a Search Intelligence Diagnostic is the appropriate first step, and say directly when a simpler solution is sufficient.
+*Gated H16.*
+
+The Search Intelligence Diagnostic is a fixed-scope engagement that identifies where valuable customer demand exists, whether your brand enters consideration, which observable conditions separate you from stronger competitors, and what should be implemented first.
+
+Most Diagnostics are designed to take approximately three to four weeks, assuming required data access and stakeholder availability.
 
 **Primary CTA:** Start with a Search Intelligence Diagnostic
 
-**Secondary CTA:** Discuss an Agency Partnership
+**Plate 12 / What you leave with**
+
+01 Decision Brief
+02 Commercial Demand Model
+03 Selection Baseline
+04 Commercial Selection Gap
+05 Source and Evidence Graph
+06 90-Day Demand-to-Selection Roadmap
+
+### Founder note
+
+Portrait of Brandon Lincoln Hendricks, rendered in colour at every size. Alt text: Brandon Lincoln Hendricks, founder of Hendricks.
+
+**Brandon Lincoln Hendricks** is the founder of Hendricks and a Search Intelligence Engineer. Each stage has one question and one named output.
+*Delivery-model line gated H17.*
+
+**Link:** About Brandon Lincoln Hendricks. Destination `/about`.
+
+Moved to `/diagnostic`: the five phases and their outputs, the scope cell, and the fit tool. Moved to `/about`: the employment record. No fee renders on this page.
+
+---
+
+## Station 10. The close
+
+Anchor: `#find-the-gap`
+
+**Eyebrow:** Find the Gap
+
+## What decision can your current search system not answer?
+
+**Lead, claim:** Tell Hendricks what your organization needs to understand, improve, or build.
+
+**Lead, continuation:** We will determine whether a Search Intelligence Diagnostic is the appropriate first step, and say directly when a simpler solution is sufficient.
+
+**Primary CTA:** Start with a Search Intelligence Diagnostic
+
+**Secondary CTA:** Discuss an Agency Partnership. Destination `/for-agencies`.

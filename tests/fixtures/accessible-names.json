@@ -9,6 +9,19 @@
     "/": {
       "img": [
         "Brandon Lincoln Hendricks, founder of Hendricks"
+      ],
+      "svg": [
+        "Selection Map, question 1 of 3",
+        "Selection Map, question 1 of 3",
+        "Two search paths compared",
+        "Demand Map. Customer decisions as rows, relative value as bar length, no figures.",
+        "Intent Context Library. Three situation cards for one decision, each with need, who, constraint, and decision stage fields.",
+        "Selection Map. The hero instrument at thumbnail scale, five sample brands on one context.",
+        "Competitor Selection Matrix. Decisions as rows, sample brands as columns, cells marked absent, referenced, considered, or recommended.",
+        "Source and Evidence Graph. Source-type nodes linked to claim nodes, with unsupported claims drawn in the inferred stroke.",
+        "Commercial Selection Gap. Your Brand against a benchmark band on a relative scale, no figures.",
+        "Intervention Roadmap. Ordered rows with condition, owner, and measurement fields, the first row expanded.",
+        "Impact Ledger. Ledger rows with a change, a period, a source, and an evidence-class label, no values."
       ]
     },
     "/about": {

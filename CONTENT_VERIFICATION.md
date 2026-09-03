@@ -307,3 +307,36 @@ Per `docs/06` §8, these `Organization` fields may only be emitted once verified
 
 Until approved, the homepage `Organization` node emits only name, URL, logo, and
 founder.
+
+---
+
+## Homepage redesign copy
+
+Every line the redesign's `04-homepage-narrative-and-copy.md` marks new or
+variant, with the approved line it replaces. Until a row is `approved` the
+homepage renders that approved line instead; the mechanism is
+`src/content/gate.ts` and `check:content` enforces both halves of it (redesign
+handoff 4.7 rule 9). Rows are grouped by the station that renders them.
+
+`F2` above governs the hero proof line and is not repeated here: while its row
+is not `approved` the numberless variant ships (CANON R5; 04 decision 6).
+
+| # | Claim | Proposed location | What must be verified | Status |
+|---|---|---|---|---|
+| H1 | Eyebrow "Search Intelligence Engineering for the AI Era." with H1 "Engineer the path from customer demand to brand selection." | Homepage hero | 04 decision 1 and CANON R1. Replaces the eyebrow "Search Intelligence Engineering" and the H1 "Search Intelligence Engineering for the AI Era." The SEO title does not change. | pending |
+| H2 | Lead sentence 2: "Hendricks finds the customer decisions worth winning, measures whether your brand is considered across Google and AI search, engineers the conditions your brand controls, and connects the work to pipeline and revenue." | Homepage hero | 04 decision 2. Replaces the approved sentence at `home.ts` "Hendricks maps the questions and decisions that drive your market...". | pending |
+| H3 | Boundary and audience paragraph, including the noun "a specialist consultancy and engineering partner" | Homepage hero | 04 decisions 3 and 23. "Consultancy" appears in no approved copy and sits one adjective from three blocked descriptors. The alternative is "Hendricks is a Search Intelligence Engineering firm, not software and not an SEO agency." | pending |
+| H4 | Definer under the primary CTA: "A fixed-scope engagement of approximately three to four weeks that establishes where your brand is losing consideration and what to change first." | Homepage hero | 04 decision 4. Adds to the hero; compresses two approved sentences on /diagnostic. Nothing renders while pending. | pending |
+| H5 | Secondary CTA label "See the Demand-to-Selection System" | Homepage hero | 04 decision 5. Replaces "See What Hendricks Actually Does". | pending |
+| H6 | H2 "The most important search loss may happen before a customer visits your website." | Homepage, the loss before the click | 04 decision 7. The locked core problem moves from the H2 to the body, unchanged. | pending |
+| H7 | Contrast line "Traditional search measured whether a brand ranked. Hendricks measures and engineers whether a brand becomes a legitimate choice." | Homepage, the loss before the click | 04 decision 8. Replaces the approved closing line "Most organizations have major blind spots across that path." | pending |
+| H8 | H2 "Find the gap. Change the conditions. Measure what happens." with the lead naming the Demand-to-Selection System | Homepage, the system | 04 decision 9. Replaces the approved H2 and the approved supporting sentence. | pending |
+| H9 | The four one-line phase summaries | Homepage, the system | 04 decision 10. Each compresses the approved phase description it replaces. Phase names, business questions and output names are approved and are not gated. | pending |
+| H10 | The Trust rung, the "How Hendricks knows" column, and the citation note | Homepage, beyond visibility | 04 decision 13 and CANON R3. While pending the ladder is the approved seven rungs and their questions, with no third column. | pending |
+| H11 | Eyebrow "Evidence and Outputs", H2 "Decisions, not another dashboard.", and the closing line about evidence classes | Homepage, evidence and outputs | 04 decision 15. While pending the approved sentence is the H2 and no lead renders beneath it. | pending |
+| H12 | The eight artifact decision lines | Homepage, evidence and outputs | 04 decision 11 and the messaging register. No approved sentence exists for several of these artifacts. While pending each figure renders its plate number, name and drawing without a decision line. | pending |
+| H13 | For Brands headline, body sentence 2, and the CTA label "Explore Hendricks for Brands" | Homepage, audience pathways | 04 decision 17. The headline is approved on /for-brands and is a variant of the approved homepage sentence "Turn fragmented search investment into a path to selection." | pending |
+| H14 | For Agencies headline "Add Search Intelligence to your agency without building the entire capability in-house." | Homepage, audience pathways | 04 decision 18. Approved on /for-agencies; a variant of the approved homepage sentence. | pending |
+| H15 | H2 "We separate what is observed, inferred, measured, and tested." | Homepage, how Hendricks knows | 04 decision 16. One word changed from the approved "proven", so the headline matches the four labels beneath it. | pending |
+| H16 | H2 "Begin with evidence, not an open-ended retainer." | Homepage, the entry point | 04 decision 19. Replaces the approved "Direct engagements begin with a fixed-scope diagnostic, not an open-ended retainer." | pending |
+| H17 | Delivery-model line "Every engagement runs on the Demand-to-Selection System, a published method with one question and one named output at each stage." | Homepage, the founder note | 04 decision 20. New framing around the approved sentence "Each stage has one question and one named output." Ships in place of F8, which stays pending. | pending |

@@ -1,12 +1,42 @@
 import type { Cta } from '@/components/ui/cta'
 import { ctaHref, routes } from '@/config/routes'
+import { addition, gated, isApproved, line } from '@/content/gate'
+import { observedSystemsExclusion, observedSystemsSentence } from '@/content/shared/observed-systems'
 
 /**
- * Approved homepage copy, transcribed from content/pages/01-home.md.
+ * Approved homepage copy, transcribed from `content/pages/01-home.md`.
  *
+ * Rebuilt on the approved canvas (`07-hifi/home-v3.html`, decision D-A) to the
+ * ten stations of that page, with the copy of redesign 04 as compressed by 04a.
  * Copy lives here rather than inside components so it can be reviewed without
- * reading TSX (docs/02 §6). Do not edit these strings without a corresponding
- * change to the approved markdown.
+ * reading TSX (docs/02 section 6). Do not edit these strings without the
+ * matching change to the approved markdown.
+ *
+ * Every line redesign 04 marks new or variant runs through `gated`, so the
+ * page renders the approved line it replaces until Brandon Lincoln Hendricks
+ * records the row in `CONTENT_VERIFICATION.md` as approved (handoff 4.7 rule
+ * 9). The fallback beside each call is the exact approved sentence 04's
+ * decisions table names, so this file reads as the decision it encodes.
+ *
+ * The homepage is the one route exempt from D-E: it is a conversion surface
+ * and is not what gets cited, so the depth lives on the interior routes that
+ * answer one question each. Nothing cut here is lost; 04a names the page that
+ * already carries it.
+ *
+ * Three conflicts between the design package and the copy specs, resolved and
+ * recorded rather than reconciled silently:
+ *
+ * 1. `home-v3.html` drops the hero's boundary and audience paragraph, which
+ *    carries two of the five answers the hero owes a reader in five seconds
+ *    (04 section 1). 04a keeps it. The paragraph stays.
+ * 2. `home-v3.html` renders a fee sentence in the Diagnostic station. 04a's
+ *    homepage list carries the timing sentence and not the investment cell, and
+ *    no fee renders anywhere under `src/content`. The timing sentence stays and
+ *    the fee sentence does not.
+ * 3. 04a offers the self-baseline and Answer Index research lines "or move to
+ *    /methodology related research if the height target is missed".
+ *    `home-v3.html` omits both and the measured budget is tighter than 04a's,
+ *    so they are not rendered here. Both are published on their study pages.
  */
 
 export const homeMeta = {
@@ -15,72 +45,115 @@ export const homeMeta = {
     'Hendricks maps valuable search demand, measures whether brands enter consideration across Google and AI search, engineers search-presence gaps, and connects the work to business impact.',
 } as const
 
+/** Station ids, which are also the page's published anchors (04 decisions). */
+export const stations = {
+  hero: 'hero',
+  problem: 'before-the-click',
+  system: 'what-hendricks-does',
+  /** The merged system station keeps the `#solutions` anchor for inbound links (04a section 3). */
+  solutions: 'solutions',
+  ladder: 'beyond-visibility',
+  evidenceRule: 'evidence-rule',
+  outputs: 'outputs',
+  pathways: 'pathways',
+  evidence: 'how-hendricks-knows',
+  diagnostic: 'diagnostic',
+  founder: 'founder',
+  close: 'find-the-gap',
+} as const
+
+/* ========================================================================== */
+/* Station 1. Hero                                                            */
+/* ========================================================================== */
+
 export const hero = {
-  eyebrow: 'Search Intelligence Engineering',
-  title: 'Search Intelligence Engineering for the AI Era.',
-  subtitle: 'Know where your brand is missing from the shortlist.',
-  lead: [
-    'Search increasingly interprets the need, researches the market, compares options, and narrows consideration before a customer reaches your website.',
-    'Hendricks maps the questions and decisions that drive your market, measures whether your brand enters the consideration set, improves the conditions that shape visibility and trust, and connects the work to pipeline and revenue.',
-  ],
+  // R1 moves the locked category line from the H1 to the eyebrow and puts the
+  // brief's verb-first sentence in its place. Until H1 is approved the page
+  // renders the pair it replaces: the live eyebrow and the live H1.
+  eyebrow: line('heroEyebrow'),
+  title: line('heroTitle'),
+  /** The two-tone lead: the claim at full ink, the continuation at 62 per cent. */
+  lead: {
+    claim: 'Know where your brand is missing from the shortlist.',
+    continuation: line('heroLead'),
+  },
+  /**
+   * Five-second answers 2 and 3: who it is for, and why it is neither an SEO
+   * agency nor a tool. Restored over `home-v3.html`, which drops it.
+   */
+  boundary: line('heroBoundary'),
   primaryCta: {
     label: 'Start with a Search Intelligence Diagnostic',
     href: '/diagnostic',
     analytics: { location: 'home_hero' },
   } satisfies Cta,
   secondaryCta: {
-    label: 'See What Hendricks Actually Does',
-    href: '#what-hendricks-does',
+    label: line('heroSecondaryCta'),
+    href: '/how-it-works',
     analytics: { location: 'home_hero_secondary' },
   } satisfies Cta,
+  /**
+   * The definer, bound to the primary CTA by `aria-describedby`. It adds to the
+   * hero rather than replacing an approved line, so while H4 is pending it is
+   * not rendered and the button carries no description.
+   */
+  definer: addition('heroDefiner'),
   operatingLine:
     'Measure demand. Understand AI visibility. Engineer selection. Prove business impact.',
-  // CONTENT_VERIFICATION.md F2 — the approved copy itself requires this line to
-  // be verified before publication.
-  credibilityLine:
-    'Built from more than fifteen years of enterprise search, paid and organic acquisition, analytics, and search operating systems.',
+  /**
+   * The proof line. The numbered form is CONTENT_VERIFICATION F2, whose row
+   * records the wording as approved and the start year as pending, so the
+   * numberless fallback is what ships (CANON R5; 04 decision 6).
+   */
+  proofLine: line('heroProofLine'),
 } as const
+
+/* ========================================================================== */
+/* Station 2. The loss before the click                                       */
+/* ========================================================================== */
 
 export const problem = {
   eyebrow: 'The AI Selection Problem',
-  title: 'Brands are losing control over the path between being discovered and being chosen.',
-  traditional: {
-    label: 'Traditional search was largely a ranking problem',
-    steps: ['Query', 'Search Results', 'Website', 'Conversion'],
-  },
-  aiMediated: {
-    label: 'AI-mediated search is increasingly a selection journey',
-    steps: [
-      'Need',
-      'Intent Interpretation',
-      'Research',
-      'Comparison',
-      'Synthesis',
-      'Shortlist',
-      'Choice',
-    ],
-  },
-  body: 'A business can have a strong website, high rankings, excellent reviews, active paid media, respected leadership, and a recognizable brand, and still fail to enter an AI-mediated buying journey.',
-  emphasis: ['The loss can happen before a visit.', 'Before a click.', 'Before the company’s analytics records the buyer.'],
-  quote:
-    'You cannot be chosen if you are not seen. But being seen does not guarantee being understood. Being understood does not guarantee trust. And trust does not guarantee selection.',
-  completePath: [
-    'Discoverable',
-    'Understood',
-    'Relevant',
-    'Trusted',
-    'Cited',
-    'Considered',
-    'Recommended',
-    'Selected',
-    'Revenue',
+  title: line('problemTitle'),
+  body: [
+    'Search increasingly interprets the need, researches the market, compares options, and narrows consideration before a customer reaches your website.',
+    'A business can have a strong website, high rankings, excellent reviews, active paid media, respected leadership, and a recognizable brand, and still fail to enter an AI-mediated buying journey.',
   ],
-  closing: 'Most organizations have major blind spots across that path.',
-  // The section states the wedge in the buyer's own terms and, until this entry
-  // existed, carried no link of any kind. docs/03 §6: the highest-authority
-  // section on the site should not be a dead end. Destination is the page that
-  // owns "rank well and still lose the shortlist" (docs/17 §3.2), and the label
-  // is descriptive rather than exact-match commercial (docs/06 §13).
+  /**
+   * The locked core problem at full ink, with the contrast line as its
+   * continuation. While H7 is pending the continuation is the approved
+   * sentence that carried this beat on the live page.
+   */
+  lead: {
+    claim: 'Brands are losing control over the path between being discovered and being chosen.',
+    continuation: line('problemContrast'),
+  },
+  /** Plate 02. Lane labels and steps are approved verbatim (04 section 2). */
+  plate: {
+    number: 'Plate 02',
+    title: 'Two paths',
+    gloss: 'Traditional search ran to a ranking. AI-mediated search runs to a shortlist.',
+    traditional: {
+      label: 'Traditional search was largely a ranking problem',
+      steps: ['Query', 'Search Results', 'Website', 'Conversion'],
+      marker: 'website session begins',
+    },
+    aiMediated: {
+      label: 'AI-mediated search is increasingly a selection journey',
+      steps: [
+        'Need',
+        'Intent Interpretation',
+        'Research',
+        'Comparison',
+        'Synthesis',
+        'Shortlist',
+        'Choice',
+      ],
+      marker: 'website session, if at all',
+      note: 'the loss can happen before a visit',
+    },
+    alt: 'Two paths compared. Traditional search ran Query, Search Results, Website, Conversion, and the website was the third step. AI-mediated search runs Need, Intent Interpretation, Research, Comparison, Synthesis, Shortlist, Choice, and the website may not be visited at all.',
+  },
   cta: {
     label: 'See why a brand can rank #1 on Google and still not appear in AI answers',
     href: routes.whatIsAiMediatedSearch.path,
@@ -88,304 +161,364 @@ export const problem = {
   } satisfies Cta,
 } as const
 
-export const whatWeDo = {
-  eyebrow: 'From Theory to Execution',
-  title: 'We find where you are being excluded, change the conditions, and measure what happens.',
-  lead: 'Hendricks does not sell screenshots of chatbot mentions.',
-  supporting: 'We build an evidence-based system that answers four business questions.',
-  questions: [
+/* ========================================================================== */
+/* Station 3. The system. Live sections 3 and 6 merged (audit decision 17).    */
+/* ========================================================================== */
+
+export const system = {
+  eyebrow: 'The Hendricks Method',
+  title: line('systemTitle'),
+  lead: {
+    claim: 'Hendricks does not sell screenshots of chatbot mentions.',
+    continuation: line('systemLead'),
+  },
+  /**
+   * The four phases. Names, business questions and output names are approved
+   * verbatim (CANON section 3; home.ts phases). Only the one-line summary is
+   * new, so only it is gated; the fallback is the approved description it
+   * compresses.
+   */
+  phases: [
     {
-      number: '01',
+      index: '01',
+      name: 'Map demand',
+      href: '/solutions/search-demand-intelligence',
       question: 'What demand is worth pursuing?',
-      description:
-        'Determine what customers are trying to accomplish, what they search and ask, how those needs differ by context, and which decisions have commercial value.',
+      summary: line('phaseDemand'),
       output: 'Demand Map',
     },
     {
-      number: '02',
+      index: '02',
+      name: 'Observe selection',
+      href: '/solutions/selection-intelligence',
       question: 'Where are we winning or losing consideration?',
-      description:
-        'Measure whether the brand is absent, referenced, considered, or recommended across controlled customer contexts, platforms, competitors, and time periods.',
+      summary: line('phaseSelection'),
       output: 'Selection Map',
     },
     {
-      number: '03',
+      index: '03',
+      name: 'Engineer the presence',
+      href: '/solutions/search-presence-engineering',
       question: 'What should change?',
-      description:
-        'Identify and implement the technical, entity, content, evidence, authority, acquisition, and conversion improvements most likely to close valuable gaps.',
-      output: 'Intervention Roadmap and implementation',
+      summary: line('phasePresence'),
+      output: 'Intervention Roadmap',
     },
     {
-      number: '04',
+      index: '04',
+      name: 'Measure impact',
+      href: '/solutions/search-impact-measurement',
       question: 'Did it produce business impact?',
-      description:
-        'Connect changes in search and AI visibility with customer behavior, branded demand, qualified leads, opportunities, pipeline, and revenue.',
+      summary: line('phaseImpact'),
       output: 'Impact Ledger',
     },
   ],
+  /** The operating cycle closes on itself (CANON section 3). */
+  returnLabel: 'Learn and repeat',
+  /**
+   * The scope boundary, rendered once per page, here, where "observe" first
+   * appears as an activity (audit V7). Imported from the shared module and
+   * never retyped, so the closed list of four cannot drift.
+   */
+  scope: [observedSystemsSentence, observedSystemsExclusion],
+  alt: 'Four linked phases. Map demand asks what demand is worth pursuing and produces the Demand Map. Observe selection asks where the brand is winning or losing consideration across the four observed systems and produces the Selection Map. Engineer the presence asks what should change across seven conditions the brand controls and produces the Intervention Roadmap. Measure impact asks whether the work produced business impact, produces the Impact Ledger, and feeds the next cycle.',
 } as const
 
-export const solutions = {
-  eyebrow: 'The Hendricks Solution System',
-  title: 'Four solutions. One path from demand to business impact.',
-  items: [
-    {
-      number: '01',
-      name: 'Search Demand Intelligence',
-      title: 'Know which customer decisions are worth winning.',
-      description: [
-        'Map the questions, needs, comparisons, markets, and buying contexts that represent meaningful commercial demand.',
-        'Hendricks combines available search, paid media, customer, sales, CRM, competitor, and market data to separate real opportunity from prompt volume.',
-      ],
-      cta: {
-        label: 'Explore Search Demand Intelligence',
-        href: '/solutions/search-demand-intelligence',
-        analytics: { location: 'home_solutions', solutionName: 'Search Demand Intelligence' },
-      } satisfies Cta,
-      motif: 'demand' as const,
-    },
-    {
-      number: '02',
-      name: 'Selection Intelligence',
-      title: 'Know when your brand enters the shortlist, and when it disappears.',
-      description: [
-        'Measure how search and AI systems represent, cite, compare, consider, and recommend your brand across realistic customer contexts.',
-        'See which competitors win, which sources shape the result, how stable the outcome is, and where evidence is missing.',
-      ],
-      cta: {
-        label: 'Explore Selection Intelligence',
-        href: '/solutions/selection-intelligence',
-        analytics: { location: 'home_solutions', solutionName: 'Selection Intelligence' },
-      } satisfies Cta,
-      motif: 'selection' as const,
-    },
-    {
-      number: '03',
-      name: 'Search Presence Engineering',
-      title:
-        'Build the conditions that make your brand easier to find, understand, trust, and recommend.',
-      description: [
-        'Improve technical access, entity clarity, decision-stage content, independent evidence, authority, paid and organic coverage, and conversion experiences.',
-        'Not every visibility problem is a content problem. Hendricks diagnoses the complete information environment.',
-      ],
-      cta: {
-        label: 'Explore Search Presence Engineering',
-        href: '/solutions/search-presence-engineering',
-        analytics: { location: 'home_solutions', solutionName: 'Search Presence Engineering' },
-      } satisfies Cta,
-      motif: 'presence' as const,
-    },
-    {
-      number: '04',
-      name: 'Search Impact Measurement',
-      title: 'Connect visibility with outcomes the business can defend.',
-      description: [
-        'Combine search visibility, AI referrals, branded demand, website behavior, CRM data, pipeline, and controlled experiments.',
-        'Hendricks does not promise perfect attribution. We build a stronger body of evidence and state the confidence behind every conclusion.',
-      ],
-      cta: {
-        label: 'Explore Search Impact Measurement',
-        href: '/solutions/search-impact-measurement',
-        analytics: { location: 'home_solutions', solutionName: 'Search Impact Measurement' },
-      } satisfies Cta,
-      motif: 'impact' as const,
-    },
-  ],
-} as const
+/* ========================================================================== */
+/* Station 4. Beyond visibility                                               */
+/* ========================================================================== */
 
-export const distinction = {
+type Rung = {
+  name: string
+  question: string
+  /** How Hendricks knows. Present only while H10 is approved. */
+  knows?: string
+  /** The evidence classes the rung's inline mark draws, in order. */
+  marks: readonly ('observed' | 'inferred' | 'measured' | 'tested')[]
+}
+
+const approvedRungs: readonly Rung[] = [
+  { name: 'Visibility', question: 'Did the brand appear?', marks: ['observed'] },
+  { name: 'Understanding', question: 'Was the brand represented accurately?', marks: ['observed'] },
+  {
+    name: 'Relevance',
+    question: 'Was it connected to the customer’s specific need?',
+    marks: ['observed'],
+  },
+  { name: 'Consideration', question: 'Was it presented as a legitimate option?', marks: ['observed'] },
+  { name: 'Recommendation', question: 'Was it actively favored or shortlisted?', marks: ['observed'] },
+  { name: 'Selection', question: 'Did the customer choose it?', marks: ['measured'] },
+  {
+    name: 'Impact',
+    question: 'Did that choice produce commercial value?',
+    marks: ['measured', 'tested'],
+  },
+]
+
+const proposedRungs: readonly Rung[] = [
+  { ...approvedRungs[0], knows: 'observed in the answer' },
+  { ...approvedRungs[1], knows: 'observed in the answer' },
+  { ...approvedRungs[2], knows: 'observed in the answer' },
+  {
+    name: 'Trust',
+    question: 'Did sufficient evidence support it?',
+    knows: 'sources observed; sufficiency inferred',
+    marks: ['observed', 'inferred'],
+  },
+  { ...approvedRungs[3], knows: 'observed in the answer' },
+  { ...approvedRungs[4], knows: 'observed in the answer' },
+  { ...approvedRungs[5], knows: 'measured in your own systems' },
+  { ...approvedRungs[6], knows: 'measured, and tested where a control exists' },
+]
+
+export const ladder = {
   eyebrow: 'Beyond AI Visibility',
-  title:
-    'Visibility tells you that you appeared. Selection Intelligence tells you what that appearance means.',
-  statements: [
-    'A brand mention is not the same as consideration.',
-    'A citation is not the same as recommendation.',
-    'A recommendation is not the same as customer selection.',
-  ],
-  tableCaption: 'How each stage of AI-mediated search maps to a business question.',
-  stages: [
-    { stage: 'Visibility', question: 'Did the brand appear?' },
-    { stage: 'Understanding', question: 'Was the brand represented accurately?' },
-    { stage: 'Relevance', question: 'Was it connected to the customer’s specific need?' },
-    { stage: 'Consideration', question: 'Was it presented as a legitimate option?' },
-    { stage: 'Recommendation', question: 'Was it actively favored or shortlisted?' },
-    { stage: 'Selection', question: 'Did the customer choose it?' },
-    { stage: 'Impact', question: 'Did that choice produce commercial value?' },
-  ],
+  title: 'A brand mention is not the same as consideration.',
+  lead: {
+    claim: 'Visibility tells you that you appeared.',
+    continuation: 'Selection Intelligence tells you what that appearance means.',
+  },
+  /**
+   * The Trust rung, the "How Hendricks knows" column and the citation note are
+   * one decision (04 decision 13). While H10 is pending the ladder is the
+   * approved seven rungs and their questions, with no third column.
+   */
+  rungs: gated('H10', proposedRungs, approvedRungs),
+  note: addition('ladderCitationNote'),
+  /** The stability sentence, kept on the homepage by 04a section 3. */
   closing:
     'AI-mediated results can vary by context, wording, location, platform, and time. Hendricks therefore measures controlled intent contexts and repeated outcomes, not one pretend universal ranking.',
   cta: {
     label: 'Learn What Selection Intelligence Measures',
     href: ctaHref('/what-is-selection-intelligence', '/solutions/selection-intelligence'),
-    analytics: { location: 'home_distinction' },
+    analytics: { location: 'home_ladder' },
   } satisfies Cta,
 } as const
 
-export const methodology = {
-  eyebrow: 'The Demand-to-Selection System',
-  title: 'From customer need to measurable impact.',
-  steps: [
-    {
-      number: '1',
-      name: 'Map demand',
-      description:
-        'Identify the questions, needs, comparisons, customer groups, markets, and buying decisions that matter.',
-    },
-    {
-      number: '2',
-      name: 'Observe selection',
-      description:
-        'Test controlled customer contexts and determine whether the brand is absent, referenced, considered, or recommended.',
-    },
-    {
-      number: '3',
-      name: 'Engineer the presence',
-      description:
-        'Implement the technical, content, evidence, authority, acquisition, and conversion changes associated with stronger consideration.',
-    },
-    {
-      number: '4',
-      name: 'Measure impact',
-      description:
-        'Track exposure, behavior, commercial outcomes, and controlled evidence over time.',
-    },
-  ],
-  cta: {
-    label: 'See How the System Works',
-    href: '/how-it-works',
-    analytics: { location: 'home_methodology' },
-  } satisfies Cta,
+/* ========================================================================== */
+/* Station 5. The evidence rule                                               */
+/* ========================================================================== */
+
+/** Locked, CANON section 2. The word "yet" is load bearing and is never cut. */
+export const evidenceRule = {
+  /** Not rendered as text: the station's accessible name, which its sentence answers. */
+  heading: 'The evidence rule',
+  claim: 'Absence is not yet a diagnosis.',
+  continuation: 'A single answer screen is one observation under one set of conditions.',
 } as const
 
+/* ========================================================================== */
+/* Station 6. Evidence and outputs                                            */
+/* ========================================================================== */
+
+/**
+ * The eight artifacts. Names are approved verbatim (CANON section 3;
+ * diagnostic.ts). The decision line under each is the 02 register's new copy
+ * and enters the gate with the register (04 decision 11), so while H12 is
+ * pending each figure renders its plate number, its name and its drawing.
+ */
 export const outputs = {
-  eyebrow: 'Decisions, Not More Reports',
-  title:
-    'Every output should tell the organization what happened, why it matters, and what to do next.',
-  lead: 'A typical Hendricks engagement can produce:',
+  eyebrow: line('outputsEyebrow'),
+  title: line('outputsTitle'),
+  /**
+   * Approved copy in a moved position, which is the whole of 04 decision 15:
+   * while H11 is pending this sentence is the H2, so no lead renders beneath
+   * it; once the row is approved the new H2 takes the heading slot and this
+   * sentence becomes the lead. It is not gated copy, so it is written here.
+   */
+  lead: isApproved('H11')
+    ? 'Every output should tell the organization what happened, why it matters, and what to do next.'
+    : null,
   items: [
-    'A commercially weighted Demand Map',
-    'An Intent Context Library',
-    'A competitor consideration benchmark',
-    'An observed consideration and recommendation baseline',
-    'A source and Evidence Graph',
-    'A Commercial Selection Gap',
-    'A prioritized intervention backlog',
-    'Technical and entity requirements',
-    'Decision-stage content architecture',
-    'Authority and third-party source priorities',
-    'A measurement and experimentation plan',
-    'An executive Impact Ledger',
-    'A 90-day implementation roadmap',
+    {
+      number: 'Plate 04',
+      name: 'Demand Map',
+      preview: 'demand-map' as const,
+      decision: addition('decisionDemandMap'),
+      alt: 'Demand Map. Customer decisions as rows, relative value as bar length, no figures.',
+    },
+    {
+      number: 'Plate 05',
+      name: 'Intent Context Library',
+      preview: 'intent-context' as const,
+      decision: addition('decisionIntentContext'),
+      alt: 'Intent Context Library. Three situation cards for one decision, each with need, who, constraint, and decision stage fields.',
+    },
+    {
+      number: 'Plate 06',
+      name: 'Selection Map',
+      preview: 'selection-map' as const,
+      decision: addition('decisionSelectionMap'),
+      alt: 'Selection Map. The hero instrument at thumbnail scale, five sample brands on one context.',
+    },
+    {
+      number: 'Plate 07',
+      name: 'Competitor Selection Matrix',
+      preview: 'competitor-matrix' as const,
+      decision: addition('decisionCompetitorMatrix'),
+      alt: 'Competitor Selection Matrix. Decisions as rows, sample brands as columns, cells marked absent, referenced, considered, or recommended.',
+    },
+    {
+      number: 'Plate 08',
+      name: 'Source and Evidence Graph',
+      preview: 'evidence-graph' as const,
+      decision: addition('decisionEvidenceGraph'),
+      alt: 'Source and Evidence Graph. Source-type nodes linked to claim nodes, with unsupported claims drawn in the inferred stroke.',
+    },
+    {
+      number: 'Plate 09',
+      name: 'Commercial Selection Gap',
+      preview: 'selection-gap' as const,
+      decision: addition('decisionSelectionGap'),
+      alt: 'Commercial Selection Gap. Your Brand against a benchmark band on a relative scale, no figures.',
+    },
+    {
+      number: 'Plate 10',
+      name: 'Intervention Roadmap',
+      preview: 'roadmap' as const,
+      decision: addition('decisionRoadmap'),
+      alt: 'Intervention Roadmap. Ordered rows with condition, owner, and measurement fields, the first row expanded.',
+    },
+    {
+      number: 'Plate 11',
+      name: 'Impact Ledger',
+      preview: 'impact-ledger' as const,
+      decision: addition('decisionImpactLedger'),
+      alt: 'Impact Ledger. Ledger rows with a change, a period, a source, and an evidence-class label, no values.',
+    },
+  ],
+  closing: addition('outputsClosing'),
+} as const
+
+/* ========================================================================== */
+/* Station 7. Audience pathways                                               */
+/* ========================================================================== */
+
+export const pathways = {
+  eyebrow: 'Built for Valuable Search Decisions',
+  title: 'One system. Two ways to work with Hendricks.',
+  columns: [
+    {
+      label: 'For Brands',
+      title: line('brandsTitle'),
+      body: {
+        claim: 'Your customer experiences one decision journey.',
+        continuation: line('brandsBody'),
+      },
+      cta: {
+        label: line('brandsCta'),
+        href: '/for-brands',
+        analytics: { location: 'home_pathways', audienceType: 'brand' as const },
+      } satisfies Cta,
+    },
+    {
+      label: 'For Agencies',
+      title: line('agenciesTitle'),
+      body: {
+        claim: 'Your agency keeps the client relationship.',
+        continuation:
+          'Responsibilities, branding, data access, and communication ownership are established before delivery. No fabricated results or guaranteed citation claims.',
+      },
+      /** The four models, named only. Descriptions and best-for lines stay on /for-agencies. */
+      models: [
+        'White-label specialist',
+        'Embedded intelligence lead',
+        'Co-branded partner',
+        'System builder',
+      ],
+      cta: {
+        label: 'Discuss an Agency Partnership',
+        href: '/for-agencies',
+        analytics: { location: 'home_pathways', audienceType: 'agency' as const },
+      } satisfies Cta,
+    },
   ],
 } as const
 
-export const measurement = {
+/* ========================================================================== */
+/* Station 8. How Hendricks knows                                             */
+/* ========================================================================== */
+
+export const evidence = {
   eyebrow: 'Proof Without False Precision',
-  title: 'We separate what is observed, inferred, measured, and proven.',
-  layers: [
+  title: line('evidenceTitle'),
+  classes: [
     {
+      kind: 'observed' as const,
       name: 'Observed',
-      description:
-        'Responses, citations, sources, rankings, impressions, referrals, customer behavior, and repeated test outcomes.',
+      description: 'Responses, citations, sources, rankings, and referrals.',
     },
     {
+      kind: 'inferred' as const,
       name: 'Inferred',
-      description:
-        'The likely relationship between evidence gaps, source patterns, brand understanding, and recommendation outcomes.',
+      description: 'The likely relationship between evidence gaps and outcomes.',
     },
     {
+      kind: 'measured' as const,
       name: 'Measured',
-      description:
-        'Leads, appointments, opportunities, pipeline, revenue, branded demand, and assisted customer journeys.',
+      description: 'Leads, opportunities, pipeline, revenue, and branded demand.',
     },
     {
+      kind: 'tested' as const,
       name: 'Tested',
-      description:
-        'Changes evaluated through baselines, staggered rollouts, matched groups, holdouts, or other controlled comparisons where feasible.',
+      description: 'Baselines, staggered rollouts, matched groups, and holdouts.',
     },
   ],
-  closing: [
-    'Hendricks does not claim access to a model’s hidden reasoning.',
-    'We study inputs, outputs, sources, interventions, and business outcomes, then state how much confidence the evidence supports.',
-  ],
+  pull: {
+    claim: 'Hendricks does not claim access to a model’s hidden reasoning.',
+    continuation:
+      'We study inputs, outputs, sources, interventions, and business outcomes, then state how much confidence the evidence supports.',
+  },
+  alt: 'A legend of four evidence classes. Observed uses a solid line and a filled dot. Inferred uses a dashed line and a hollow dot. Measured uses a solid rule with a tick. Tested uses a double rule. Every diagram on the page uses these four marks.',
   cta: {
     label: 'Read the Hendricks Measurement Methodology',
     href: ctaHref('/methodology', '/solutions/search-impact-measurement'),
-    analytics: { location: 'home_measurement' },
+    analytics: { location: 'home_evidence' },
   } satisfies Cta,
 } as const
 
-export const audiences = {
-  eyebrow: 'Built for Valuable Search Decisions',
-  title: 'One system. Two ways to work with Hendricks.',
-  paths: [
-    {
-      audience: 'For Brands',
-      title: 'Turn fragmented search investment into a path to selection.',
-      description: [
-        'For organizations where search materially affects a valuable purchase, shortlist, appointment, demo, or customer relationship.',
-        'Connect demand, traditional search, AI visibility, paid media, organic performance, evidence, analytics, and revenue.',
-      ],
-      cta: {
-        label: 'Hendricks for Brands',
-        href: '/for-brands',
-        analytics: { location: 'home_audiences', audienceType: 'brand' as const },
-      } satisfies Cta,
-      audienceType: 'brand' as const,
-    },
-    {
-      audience: 'For Agencies',
-      title: 'Add specialized Search Intelligence without building the complete capability in-house.',
-      description: [
-        'Use Hendricks as a white-label specialist, embedded intelligence lead, co-branded partner, or system builder.',
-        'Your agency keeps the client relationship. Responsibilities, branding, data access, and communication ownership are established before delivery.',
-      ],
-      cta: {
-        label: 'Hendricks for Agencies',
-        href: '/for-agencies',
-        analytics: { location: 'home_audiences', audienceType: 'agency' as const },
-      } satisfies Cta,
-      audienceType: 'agency' as const,
-    },
-  ],
-} as const
+/* ========================================================================== */
+/* Station 9. The entry point, with the founder note                          */
+/* ========================================================================== */
 
 export const diagnostic = {
   eyebrow: 'Start with Evidence',
-  title: 'Direct engagements begin with a fixed-scope diagnostic, not an open-ended retainer.',
-  lead: 'The Search Intelligence Diagnostic establishes the market demand, customer contexts, competitive baseline, selection gaps, data quality, implementation priorities, and measurement plan.',
-  outcomeLead: 'At the end, the client knows:',
-  outcomes: [
-    'What problem is actually worth solving',
-    'Where the brand is losing valuable consideration',
-    'Which observations are supported by evidence',
-    'What should be changed first',
-    'What data and access are required',
-    'How success should be measured',
-    'Whether Hendricks is the right implementation partner',
+  title: line('diagnosticTitle'),
+  lead: 'The Search Intelligence Diagnostic is a fixed-scope engagement that identifies where valuable customer demand exists, whether your brand enters consideration, which observable conditions separate you from stronger competitors, and what should be implemented first.',
+  timing:
+    'Most Diagnostics are designed to take approximately three to four weeks, assuming required data access and stakeholder availability.',
+  outputsLabel: 'Plate 12 / What you leave with',
+  outputs: [
+    'Decision Brief',
+    'Commercial Demand Model',
+    'Selection Baseline',
+    'Commercial Selection Gap',
+    'Source and Evidence Graph',
+    '90-Day Demand-to-Selection Roadmap',
   ],
   cta: {
-    label: 'Explore the Search Intelligence Diagnostic',
+    label: 'Start with a Search Intelligence Diagnostic',
     href: '/diagnostic',
     analytics: { location: 'home_diagnostic' },
   } satisfies Cta,
 } as const
 
 export const founder = {
-  eyebrow: 'Built from Search',
-  title: 'More than fifteen years inside search. Now engineering what comes next.',
-  // CONTENT_VERIFICATION.md F1, F8, F9 — all three claims below require sign-off.
-  body: [
-    'Brandon Lincoln Hendricks is the founder of Hendricks and a Search Intelligence Engineer.',
-    'His work spans enterprise search strategy, paid media, organic search, analytics, AI-mediated discovery, data systems, and cross-functional operating models.',
-    'Brandon personally architects Hendricks engagements.',
-  ],
+  /** D-D: this portrait renders in colour, at every size, on every ground. */
   portrait: {
     src: '/images/brandon-lincoln-hendricks-portrait.jpg',
     alt: 'Brandon Lincoln Hendricks, founder of Hendricks',
     width: 660,
     height: 819,
   },
+  name: 'Brandon Lincoln Hendricks',
+  body: 'is the founder of Hendricks and a Search Intelligence Engineer.',
+  /**
+   * The non-personal delivery-model line 02 section 2 requires while
+   * CONTENT_VERIFICATION F8 ("Brandon personally architects Hendricks
+   * engagements") stays pending. New framing around the approved stage
+   * sentence at how-it-works.ts, so it is gated on H17.
+   */
+  deliveryModel: line('founderDeliveryModel'),
   cta: {
     label: 'About Brandon Lincoln Hendricks',
     href: '/about',
@@ -393,13 +526,18 @@ export const founder = {
   } satisfies Cta,
 } as const
 
+/* ========================================================================== */
+/* Station 10. The close                                                      */
+/* ========================================================================== */
+
 export const finalCta = {
   eyebrow: 'Find the Gap',
   title: 'What decision can your current search system not answer?',
-  body: [
-    'Tell Hendricks what your organization needs to understand, improve, or build.',
-    'We will determine whether a Search Intelligence Diagnostic is the appropriate first step, and say directly when a simpler solution is sufficient.',
-  ],
+  lead: {
+    claim: 'Tell Hendricks what your organization needs to understand, improve, or build.',
+    continuation:
+      'We will determine whether a Search Intelligence Diagnostic is the appropriate first step, and say directly when a simpler solution is sufficient.',
+  },
   primaryCta: {
     label: 'Start with a Search Intelligence Diagnostic',
     href: '/diagnostic',

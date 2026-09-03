@@ -2,13 +2,12 @@ import { render, screen, within } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
 import { FactStrip, LedgerList } from '@/components/sections/ledger'
-import { DemandToSelectionPath } from '@/components/visuals/demand-to-selection-path'
 
 /**
- * The ledger (09 5.14) and the ordered-stage rule it shares with the
- * Demand-to-Selection path (16 SM-06): order that carries meaning is an `ol`,
- * a set is a `ul`, every item is labelled in text, and the margin index is
- * hidden from assistive technology.
+ * The ledger (09 5.14): order that carries meaning is an `ol`, a set is a
+ * `ul`, every item is labelled in text, and the margin index is hidden from
+ * assistive technology. The homepage's phase rail is held to the same rule in
+ * `home-sections.test.tsx` (16 SM-06).
  */
 
 const columns = { name: 'Phase', description: 'Question', link: 'Read', output: 'Output' }
@@ -83,23 +82,5 @@ describe('FactStrip', () => {
     const terms = screen.getAllByRole('term')
     expect(terms.map((term) => term.textContent)).toEqual(['Scope', 'Duration', 'Outputs'])
     expect(screen.getAllByRole('definition')).toHaveLength(3)
-  })
-})
-
-describe('DemandToSelectionPath', () => {
-  it('renders the stages as an ordered list with the step number in each heading', () => {
-    render(
-      <DemandToSelectionPath
-        steps={[
-          { number: '1', name: 'Demand', description: 'Map the need.' },
-          { number: '2', name: 'Selection', description: 'Read consideration.' },
-        ]}
-      />,
-    )
-
-    expect(screen.getByRole('list').tagName).toBe('OL')
-    const headings = screen.getAllByRole('heading', { level: 3 })
-    expect(headings[0]).toHaveTextContent('Step 1. Demand')
-    expect(headings[1]).toHaveTextContent('Step 2. Selection')
   })
 })

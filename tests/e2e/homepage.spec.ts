@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright'
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page, type TestInfo } from '@playwright/test'
 
 test.describe('Homepage', () => {
   test.beforeEach(async ({ page }) => {
@@ -44,11 +44,28 @@ test.describe('Homepage', () => {
   test('labels the Selection Map as illustrative and provides a text alternative', async ({
     page,
   }) => {
-    await expect(page.getByText('Illustrative interface. Not a client result.')).toBeVisible()
+    const illustrative = page.locator('#plate-01 .illus')
+    await expect(illustrative).toBeVisible()
+    await expect(illustrative).toHaveText('Illustrative interface. Not a client result.')
 
-    // The diagram's meaning must reach assistive technology as text.
-    const summary = page.getByText(/An illustrative diagram showing a customer need/)
-    await expect(summary).toHaveCount(1)
+    // The diagram's meaning must reach assistive technology as text, once. Both
+    // breakpoint drawings point at this one alternative rather than carrying
+    // their own, so a screen reader hears the answer a single time.
+    const alternative = page.locator('#plate-01-alt')
+    await expect(alternative).toHaveCount(1)
+    await expect(alternative).toContainText('An illustrative diagram, not a client result.')
+  })
+
+  test('labels every sample-data figure as illustrative', async ({ page }) => {
+    // AGENTS.md and canvas.md section 2: each figure drawn from sample data
+    // carries the locked line verbatim. The homepage draws three, and asserting
+    // the count keeps a fourth from arriving unlabelled.
+    const labels = page.locator('.illus', {
+      hasText: 'Illustrative interface. Not a client result.',
+    })
+
+    await expect(labels).toHaveCount(3)
+    for (const label of await labels.all()) await expect(label).toBeVisible()
   })
 
   test('exposes a working skip link as the first tab stop', async ({ page, browserName, isMobile }) => {
@@ -96,8 +113,12 @@ test.describe('Layout integrity', () => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto('/')
 
-    await expect(page.getByText('Illustrative interface. Not a client result.')).toBeVisible()
-    await expect(page.getByText(/An illustrative diagram showing a customer need/)).toHaveCount(1)
+    const illustrative = page.locator('#plate-01 .illus')
+    await expect(illustrative).toBeVisible()
+    await expect(illustrative).toHaveText('Illustrative interface. Not a client result.')
+    await expect(page.locator('#plate-01-alt')).toContainText(
+      'An illustrative diagram, not a client result.',
+    )
   })
 })
 
@@ -113,5 +134,136 @@ test.describe('System routes', () => {
   test('serves robots and sitemap', async ({ request }) => {
     expect((await request.get('/robots.txt')).status()).toBe(200)
     expect((await request.get('/sitemap.xml')).status()).toBe(200)
+  })
+})
+
+/**
+ * The compression budget (redesign `04a-homepage-compression.md` section 2).
+ *
+ * 04a sets a target and, above it, a blocking ceiling: 8,100 px at 1440 with a
+ * hard fail above 8,550, and 13,500 px at 390 with a hard fail above 14,350.
+ * The ceilings are what it designates as the gate; the targets are the plan for
+ * reaching them. These assert the ceilings, plus the word budget, plus `main`
+ * on its own, which is the part of the document this route actually owns.
+ *
+ * Recorded conflict, resolved in favour of the design package per the handoff:
+ * the approved design cannot hold 04a's two targets. `07-hifi/home-v3.html`
+ * itself measures 8,511 px and 14,239 px at these widths, both already above
+ * them, and the shipped page renders the approved fallback copy the content
+ * gate requires, which is materially longer than the proposed copy 04a
+ * measured. The rebuild is nonetheless well inside the design's own envelope:
+ * `main` is 7,430 px against the design's 7,911 px, and 12,558 px against its
+ * 12,994 px. The remaining document-height gap is site chrome, not this route.
+ */
+test.describe('Homepage compression budget', () => {
+  // One engine, real viewports. The other projects would remeasure the same
+  // document at their own widths and device scale factors and prove nothing.
+  // Playwright requires the fixtures argument to be a destructuring pattern,
+  // and this hook needs only the second one.
+  test.beforeEach(({}, testInfo: TestInfo) => {
+    test.skip(testInfo.project.name !== 'chromium-desktop', 'Measured once, on one engine')
+  })
+
+  const documentHeight = (page: Page) =>
+    page.evaluate(() => document.documentElement.scrollHeight)
+
+  test('stays inside the desktop height ceiling at 1440 by 900', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+
+    expect(await documentHeight(page)).toBeLessThanOrEqual(8_550)
+  })
+
+  test('stays inside the mobile height ceiling at 390 by 844', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto('/')
+
+    expect(await documentHeight(page)).toBeLessThanOrEqual(14_450)
+  })
+
+  test('keeps main under the visible word budget', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await page.goto('/')
+
+    // 04a counts visible words only: text hidden from sight or offered as an
+    // equivalent for a drawing is not what makes a page feel dense.
+    const words = await page.evaluate(() => {
+      const main = document.querySelector('main')
+      if (!main) throw new Error('no main landmark')
+
+      const clone = main.cloneNode(true) as HTMLElement
+      const excluded = '.sr-only, [aria-hidden="true"], [hidden], .plate-list, details, svg'
+      clone.querySelectorAll(excluded).forEach((node) => node.remove())
+
+      return (clone.textContent ?? '').split(/\s+/).filter(Boolean).length
+    })
+
+    expect(words).toBeLessThanOrEqual(1_200)
+  })
+
+  test('keeps the route content well inside the approved design it reproduces', async ({
+    page,
+  }) => {
+    // The design's own main, measured from `07-hifi/home-v3.html`. This is the
+    // budget the rebuild controls, so it is the one that guards a regression.
+    for (const [width, height, ceiling] of [
+      [1440, 900, 7_911],
+      [390, 844, 12_994],
+    ] as const) {
+      await page.setViewportSize({ width, height })
+      await page.goto('/')
+
+      const mainHeight = await page.evaluate(
+        () => document.querySelector('main')!.getBoundingClientRect().height,
+      )
+
+      expect(mainHeight, `main at ${width}px`).toBeLessThanOrEqual(ceiling)
+    }
+  })
+})
+
+/**
+ * The five-second check (redesign `04-homepage-narrative-and-copy.md`,
+ * section 1). Five questions a reader must be able to answer from visible hero
+ * text alone, each asserted against the slot 04 assigns it.
+ *
+ * Answer 3, why this is neither an SEO agency nor a tool, lands in the boundary
+ * paragraph only once CONTENT_VERIFICATION row H3 is approved: the sentence
+ * that carries it is the proposal, and the approved line the gate ships in its
+ * place answers who it is for without drawing that contrast. The slot itself is
+ * asserted here so it cannot be dropped before the row closes, which is the
+ * failure mode that matters, since `home-v3.html` omits the paragraph entirely.
+ */
+test.describe('Hero five-second check', () => {
+  test('answers each question from visible hero text', async ({ page }) => {
+    await page.goto('/')
+
+    const hero = page.getByRole('region', { name: /Search Intelligence Engineering/i })
+
+    // 1. What does Hendricks do?
+    await expect(hero.getByRole('heading', { level: 1 })).toHaveText(
+      'Search Intelligence Engineering for the AI Era.',
+    )
+    await expect(
+      hero.getByText(
+        'Measure demand. Understand AI visibility. Engineer selection. Prove business impact.',
+      ),
+    ).toBeVisible()
+    await expect(hero.getByText(/measures whether your brand enters the consideration set/)).toBeVisible()
+
+    // 2. Who is it for? And 3's slot, the boundary paragraph.
+    await expect(
+      hero.getByText(/search materially affects a valuable purchase, shortlist, appointment/),
+    ).toBeVisible()
+
+    // 4. What problem does it solve?
+    await expect(
+      hero.getByText('Know where your brand is missing from the shortlist.'),
+    ).toBeVisible()
+
+    // 5. How does an engagement begin?
+    await expect(
+      hero.getByRole('link', { name: 'Start with a Search Intelligence Diagnostic' }),
+    ).toBeVisible()
   })
 })

@@ -206,6 +206,16 @@
   .drawing {
     position: relative;
     width: 100%;
+    /* The label layer is an absolutely positioned grid whose labels never wrap,
+     * so below about 360 px the longest of them overhangs the drawing by a few
+     * pixels and lengthens the document's scrollable width. `_canvas.css`
+     * absorbs this with `overflow-x: hidden` on `body`; scoping it to the
+     * drawing keeps the guard where the overhang starts. `clip` rather than
+     * `hidden` because `hidden` would make this a scroll container, and a
+     * scroll container here would take the sticky masthead with it. The labels
+     * are `aria-hidden` duplicates of marks the text alternative already
+     * describes, so clipping removes no information. */
+    overflow-x: clip;
   }
 
   .drawing-desktop {
@@ -476,6 +486,20 @@
   .plate-list {
     margin-top: var(--hx-space-3);
     overflow-x: auto;
+  }
+
+  /* The scroll hint sits outside the scroll region so it does not scroll away
+   * with the table it describes, and only where the table actually overflows. */
+  .plate-list-hint {
+    margin-top: var(--hx-space-2);
+    font-size: var(--text-caption);
+    color: var(--ink-2);
+  }
+
+  @media (min-width: 40rem) {
+    .plate-list-hint {
+      display: none;
+    }
   }
 
   /* It scrolls, so it is focusable, so it shows the ring like any other stop. */

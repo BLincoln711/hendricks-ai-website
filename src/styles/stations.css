@@ -1,0 +1,738 @@
+/*
+ * The station system: the layout and figure primitives of the approved canvas.
+ *
+ * Source of truth: `07-hifi/_canvas.css` sections 4, 8, 12, 13 and 14, and the
+ * markup of `07-hifi/home-v3.html`, the page Brandon Lincoln Hendricks approved
+ * on 2026-09-02 (decision D-A). Geometry is verbatim from those files. Colour
+ * is read through the semantic roles in `tokens.css`, never as a literal, so
+ * `check:tokens` and `check:contrast` both reach every value here.
+ *
+ * THE RULE THAT OUTRANKS EVERY OTHER RULE IN THIS FILE, from `canvas.md`
+ * section 2: if an element has a background, a border that is not a single
+ * hairline, or a border-radius, it is either a control, an instrument surface,
+ * or a defect. Nothing below paints a card, a panel, a tile or a tinted band.
+ * Separation is hairlines and space. The two `background` declarations here are
+ * knockout marks, which punch a hole in a line they cross using the page ground
+ * itself, and the one radius is on a 24 px numbered node in the phase rail,
+ * which is a mark and not a container.
+ *
+ * A handful of sizes are canvas literals with no entry in the type scale
+ * (16.5 px rung, 14.5 px row, 13.5 px note). They are kept as literals rather
+ * than promoted to tokens because a token nothing else reads is dead weight,
+ * and because writing them here keeps the diff against `_canvas.css` readable.
+ * Every colour, measure and rhythm value that does have a role reads it.
+ *
+ * Motion is not here. `_canvas.css` reveals a station with a keyframe pair; the
+ * token lint forbids `@keyframes` outside the copy tree, and the reveal's rest
+ * state is its final state, so the station renders complete and the animation
+ * is not reproduced. Nothing a visitor reads depends on it.
+ */
+
+@layer components {
+  /* ---- Layout ------------------------------------------------------------- */
+
+  /* The 1440 container. The homepage carries it on its own root rather than on
+   * `main`, because `SiteShell` is shared with routes that still use Container. */
+  .wrap {
+    position: relative;
+    margin-inline: auto;
+    max-width: var(--container-site);
+  }
+
+  /* The section rhythm and the empty left rail the whole page is set against. */
+  .station {
+    position: relative;
+    padding: var(--station) var(--pad) var(--station) var(--rail);
+  }
+
+  /* The asymmetric split. Never a centred column of equal items. */
+  .split {
+    display: grid;
+    gap: var(--hx-space-10) var(--pad);
+    grid-template-columns: minmax(0, 40%) minmax(0, 60%);
+    align-items: start;
+  }
+
+  .split.flip {
+    grid-template-columns: minmax(0, 60%) minmax(0, 40%);
+  }
+
+  .split.flip .words {
+    order: 2;
+  }
+
+  .split.flip .figure {
+    order: 1;
+  }
+
+  @media (max-width: 63.9375rem) {
+    .split,
+    .split.flip {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .split.flip .words {
+      order: 1;
+    }
+
+    .split.flip .figure {
+      order: 2;
+    }
+  }
+
+  .words > * + * {
+    margin-top: var(--hx-space-5);
+  }
+
+  .words h2 + p {
+    margin-top: 22px;
+  }
+
+  /* Two equal columns separated by one hairline, never by a gap alone. */
+  .cols2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    margin-top: 38px;
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .cols2 > * {
+    padding: 22px 30px var(--hx-space-6) 0;
+  }
+
+  .cols2 > * + * {
+    padding-left: var(--hx-space-8);
+    border-left: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  @media (max-width: 56.1875rem) {
+    .cols2 {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cols2 > * + * {
+      padding-left: 0;
+      border-top: var(--hx-stroke-1) solid var(--rule-2);
+      border-left: 0;
+    }
+  }
+
+  /* ---- Type parts --------------------------------------------------------- */
+
+  /*
+   * The signature sentence: the claim at full ink, the continuation at 62 per
+   * cent, inside one sentence. It appears at least once per page. Colour only,
+   * so it composes with any size the caller sets.
+   */
+  .two-tone {
+    color: var(--ink);
+  }
+
+  .two-tone .cont {
+    color: var(--ink-2);
+  }
+
+  .fig-title {
+    margin: 0 0 5px;
+    font-size: var(--text-small);
+    font-weight: var(--weight-sub);
+    letter-spacing: var(--tracking-h4);
+    color: var(--ink);
+  }
+
+  .fig-note {
+    margin: 0;
+    max-width: 30ch;
+    font-size: 13.5px;
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+  }
+
+  /*
+   * The tertiary link: text and a rule that grows on hover, in a 44 px box.
+   * The canvas form. `.link-standalone` is the pre-canvas arrow form and stays
+   * on the routes that have not been converted yet.
+   */
+  .tlink {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: var(--target);
+    padding-block: var(--hx-space-2);
+    font-size: var(--text-small);
+    font-weight: var(--weight-mono);
+    color: var(--link);
+  }
+
+  .tlink::after {
+    content: '';
+    width: 14px;
+    height: var(--hx-stroke-1);
+    background: currentColor;
+    transition: width var(--duration-micro) var(--ease-standard);
+  }
+
+  .tlink:hover {
+    color: var(--ink);
+  }
+
+  .tlink:hover::after {
+    width: 22px;
+  }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--hx-space-3);
+  }
+
+  /* ---- The hero ----------------------------------------------------------- */
+
+  .hero {
+    padding-top: 116px;
+    padding-bottom: 0;
+  }
+
+  @media (max-width: 56.1875rem) {
+    .hero {
+      padding-top: 64px;
+    }
+  }
+
+  /*
+   * The hero's closing rule: the operating line at full ink beside the proof
+   * line. Wraps to two rows below the breakpoint at no cost.
+   */
+  .hero-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--hx-space-2) var(--hx-space-11);
+    margin-top: 28px;
+    padding-top: var(--hx-space-4);
+    border-top: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  .hero-foot .op {
+    color: var(--ink);
+  }
+
+  /* ---- The figure row ----------------------------------------------------- */
+
+  /*
+   * Four figures across, separated by single hairlines and by nothing else.
+   * The drawing owns the cell and the caption belongs to it.
+   */
+  .figrow {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    margin-top: var(--hx-space-11);
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+    border-bottom: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .figrow > * {
+    padding: 22px 26px 26px 0;
+  }
+
+  .figrow > * + * {
+    padding-left: var(--hx-space-6);
+    border-left: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .figrow > *:nth-child(4n + 1) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .figrow > *:nth-child(n + 5) {
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  /*
+   * The figure number sits above the drawing and the caption below it. Both are
+   * reordered in CSS, so the DOM order a screen reader and a client with no
+   * stylesheet read is the caption's own order.
+   */
+  .figrow > figure {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* `.fig-number` is the mono coordinate over the drawing; the markup gives it
+   * the `text-coordinate` utility for its type and this class for its place. */
+  .figrow > figure > .fig-number {
+    order: -1;
+    margin-bottom: var(--hx-space-4);
+  }
+
+  /*
+   * `align-self: start` is load bearing. The figure is a flex column, so the
+   * default stretch made the svg box the full cell width while
+   * `preserveAspectRatio` centred the 160 by 88 drawing inside it, floating the
+   * drawing in the middle of a cell above a left aligned caption.
+   */
+  .mini {
+    display: block;
+    align-self: start;
+    width: auto;
+    max-width: 100%;
+    height: 104px;
+    margin-bottom: 22px;
+  }
+
+  @media (max-width: 63.9375rem) {
+    .figrow {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .figrow > *:nth-child(4n + 1) {
+      padding-left: var(--hx-space-6);
+      border-left: var(--hx-stroke-1) solid var(--rule-2);
+    }
+
+    .figrow > *:nth-child(odd) {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .figrow > *:nth-child(n + 3) {
+      border-top: var(--hx-stroke-1) solid var(--rule-2);
+    }
+  }
+
+  @media (max-width: 37.4375rem) {
+    .figrow {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .figrow > * {
+      padding: var(--hx-space-4) 0 var(--hx-space-5);
+      border-top: var(--hx-stroke-1) solid var(--rule-2);
+      border-left: 0;
+    }
+
+    .figrow > *:nth-child(4n + 1) {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .figrow > *:first-child {
+      border-top: 0;
+    }
+
+    .figrow > figure > .fig-number {
+      margin-bottom: 10px;
+    }
+
+    .figrow > figure > .mini {
+      height: 96px;
+      margin-bottom: 14px;
+    }
+  }
+
+  /* The four evidence classes. */
+  .classrow {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    margin-top: var(--hx-space-10);
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .classrow > * {
+    padding: var(--hx-space-5) 22px 22px 0;
+  }
+
+  .classrow > * + * {
+    padding-left: var(--hx-space-6);
+    border-left: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .classrow svg {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    margin-bottom: var(--hx-space-6);
+  }
+
+  @media (max-width: 56.1875rem) {
+    .classrow {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .classrow > *:nth-child(odd) {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .classrow > *:nth-child(n + 3) {
+      border-top: var(--hx-stroke-1) solid var(--rule-2);
+    }
+  }
+
+  @media (max-width: 32.4375rem) {
+    .classrow {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .classrow > * {
+      padding-left: 0;
+      border-top: var(--hx-stroke-1) solid var(--rule-2);
+      border-left: 0;
+    }
+
+    .classrow > *:first-child {
+      border-top: 0;
+    }
+
+    .classrow svg {
+      max-width: 120px;
+      margin-bottom: var(--hx-space-4);
+    }
+  }
+
+  /* ---- Hairline rows ------------------------------------------------------ */
+
+  /* The ladder: rung, question, evidence class. Eight rungs on the homepage. */
+  .ladder {
+    margin: 38px 0 0;
+    max-width: 1000px;
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .ladder li {
+    display: grid;
+    grid-template-columns: minmax(0, 190px) minmax(0, 1fr) minmax(0, 270px);
+    gap: var(--hx-space-1) 28px;
+    align-items: baseline;
+    padding-block: var(--hx-space-2);
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  .ladder .rung {
+    display: flex;
+    align-items: center;
+    gap: var(--hx-space-3);
+    font-size: var(--text-h4);
+    font-weight: var(--weight-sub);
+    color: var(--ink);
+  }
+
+  .ladder .qn {
+    font-size: var(--text-small);
+    color: var(--ink-2);
+  }
+
+  .ladder .kn {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    letter-spacing: 0.02em;
+    color: var(--ink-2);
+  }
+
+  @media (max-width: 56.1875rem) {
+    .ladder li {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ladder .kn {
+      margin-top: var(--hx-space-1);
+    }
+  }
+
+  /* The outputs list. Two columns of numbered rows, hairline separated. */
+  .olist {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 var(--hx-space-8);
+  }
+
+  .olist li {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding-block: 11px;
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+    font-size: 14.5px;
+    color: var(--ink);
+  }
+
+  .olist .n {
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: 0.08em;
+    color: var(--ink-2);
+  }
+
+  @media (max-width: 43.6875rem) {
+    .olist {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  /* ---- The phase rail ----------------------------------------------------- */
+
+  .rail-fig {
+    margin-top: var(--hx-space-12);
+  }
+
+  .rail {
+    position: relative;
+    padding-top: 22px;
+  }
+
+  /* The rail's axis: one meaning-bearing rule the four nodes stand on. */
+  .rail::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: 33px;
+    z-index: 0;
+    border-top: var(--hx-stroke-1-5) solid var(--rule-strong);
+  }
+
+  .phase-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .phase-list li {
+    position: relative;
+    padding: 58px var(--hx-space-6) 0 0;
+  }
+
+  .phase-list li + li {
+    padding-left: var(--hx-space-6);
+    border-left: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  /* The node. A knockout ring: it is the ground, so the axis stops at its edge. */
+  .phase-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 21px;
+    width: var(--hx-size-24);
+    height: var(--hx-size-24);
+    border: var(--hx-stroke-1-5) solid var(--ink);
+    border-radius: var(--radius-round);
+    background: var(--bg);
+  }
+
+  .phase-list li + li::before {
+    left: var(--hx-size-24);
+  }
+
+  .phase-list .ix {
+    position: absolute;
+    left: 0;
+    top: 21px;
+    width: var(--hx-size-24);
+    height: var(--hx-size-24);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    line-height: var(--hx-size-24);
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: var(--ink);
+  }
+
+  .phase-list li + li .ix {
+    left: var(--hx-size-24);
+  }
+
+  .phase-list a {
+    display: inline-block;
+    font-size: 16.5px;
+    font-weight: var(--weight-sub);
+    color: var(--ink);
+  }
+
+  .phase-list a:hover {
+    color: var(--link);
+  }
+
+  .phase-list p {
+    margin: 7px 0 0;
+    max-width: 30ch;
+    font-size: 13.5px;
+    line-height: var(--leading-lead);
+    color: var(--ink-2);
+  }
+
+  .phase-list .out {
+    display: block;
+    margin-top: var(--hx-space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ev-measured);
+  }
+
+  /* The return leg of the operating cycle, drawn as a dashed hook. */
+  .rail-return {
+    position: relative;
+    margin-top: 22px;
+  }
+
+  .rail-return::before {
+    content: '';
+    position: absolute;
+    inset-inline: var(--hx-space-2);
+    top: 0;
+    height: 22px;
+    border: var(--hx-stroke-1) dashed var(--guide);
+    border-top: 0;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .rail-return span {
+    position: relative;
+    display: inline-block;
+    margin-top: 14px;
+    margin-left: var(--hx-space-6);
+    padding-right: var(--hx-space-3);
+    background: var(--bg);
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: var(--tracking-mono);
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  @media (max-width: 56.1875rem) {
+    .phase-list {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .rail::before {
+      inset-inline: var(--hx-space-2) auto;
+      top: 30px;
+      bottom: 30px;
+      width: 0;
+      height: auto;
+      border-top: 0;
+      border-left: var(--hx-stroke-1-5) solid var(--rule-strong);
+    }
+
+    .phase-list li,
+    .phase-list li + li {
+      padding: 26px 0 26px 34px;
+      border-top: var(--hx-stroke-1) solid var(--rule);
+      border-left: 0;
+    }
+
+    .phase-list li:first-child {
+      border-top: 0;
+    }
+
+    .phase-list li::before,
+    .phase-list li + li::before,
+    .phase-list .ix,
+    .phase-list li + li .ix {
+      left: 0;
+      top: 26px;
+    }
+
+    .rail-return::before {
+      inset-inline: 0 auto;
+      width: 40px;
+      border-right: 0;
+      border-radius: 0 0 0 10px;
+    }
+
+    .rail-return span {
+      margin-left: 34px;
+    }
+  }
+
+  /* ---- The hinge, the pull and the close ---------------------------------- */
+
+  /* One station carrying one sentence at display size. */
+  .hinge {
+    padding-block: calc(var(--station) * 0.85);
+  }
+
+  .hinge p {
+    max-width: var(--measure-h1);
+    font-size: clamp(26px, 3.4vw, 46px);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    font-weight: var(--weight-mono);
+  }
+
+  .pull {
+    margin-top: var(--hx-space-11);
+    max-width: 30ch;
+    font-size: clamp(20px, 2.2vw, 28px);
+    line-height: var(--leading-h3);
+    letter-spacing: -0.018em;
+    font-weight: var(--weight-mono);
+  }
+
+  .closing h2 {
+    max-width: 17ch;
+    font-size: clamp(30px, 4vw, 54px);
+  }
+
+  /*
+   * The founder block. D-D: the portrait renders in colour. No greyscale,
+   * duotone or desaturation filter, at any size, on any ground. `filter: none`
+   * is deliberate and must not be removed.
+   */
+  .founder {
+    display: flex;
+    align-items: center;
+    gap: var(--hx-space-5);
+    margin-top: 34px;
+    padding-top: var(--hx-space-6);
+    border-top: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  .founder img {
+    flex: none;
+    width: 84px;
+    height: 84px;
+    border-radius: var(--radius-round);
+    object-fit: cover;
+    object-position: 50% 18%;
+    filter: none;
+  }
+
+  .founder p {
+    max-width: 52ch;
+    font-size: 14.5px;
+    line-height: var(--leading-lead);
+    color: var(--ink-2);
+  }
+
+  .founder b {
+    font-weight: var(--weight-sub);
+    color: var(--ink);
+  }
+}
+
+/*
+ * Forced colours (`_canvas.css` section 20). System colours collapse --ink and
+ * --ink-2 to CanvasText, so the two-tone sentence stops distinguishing the
+ * claim from its continuation by colour. The claim keeps its weight instead.
+ */
+@media (forced-colors: active) {
+  .two-tone {
+    font-weight: var(--weight-sub);
+  }
+
+  .two-tone .cont {
+    font-weight: var(--weight-regular);
+  }
+}

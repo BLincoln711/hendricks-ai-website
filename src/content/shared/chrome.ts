@@ -29,6 +29,7 @@ export const plateChrome = {
   missingFor: 'missing for',
   impactLedger: 'Impact Ledger',
   listRegion: 'Brand states by stage',
+  scrollHint: 'Scroll horizontally to see the full table.',
   brandColumn: 'Brand',
   /** The three key-row controls. The cycle control names the action it performs. */
   play: 'Play',

@@ -185,8 +185,17 @@ export function SelectionMapFrame({
         </span>
       </figcaption>
 
-      {/* Silent while the cycle runs: an automatic frame change is not an announcement. */}
-      <p className="live" role="status" aria-live={state.playing ? 'off' : 'polite'}>
+      {/*
+        Silent while the cycle runs: an automatic frame change is not an
+        announcement. The politeness is carried by `aria-live` alone and not by
+        `role="status"`, for two reasons. The role implies a polite live region,
+        which contradicts `aria-live="off"` and would let some screen readers
+        announce the very frame changes this is meant to keep quiet. And the
+        site mounts exactly one `role="status"`, the shared announcer after
+        `main` (09 5.60), so a second one here would make "the status region"
+        ambiguous on any page carrying the plate.
+      */}
+      <p className="live" aria-live={state.playing ? 'off' : 'polite'}>
         {state.announcement}
       </p>
     </figure>

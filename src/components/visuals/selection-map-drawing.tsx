@@ -13,7 +13,7 @@ import {
   SignalDot,
   drawingAttributes,
 } from '@/components/visuals/marks'
-import { ILLUSTRATIVE_CAPTION, plateChrome } from '@/content/shared/chrome'
+import { plateChrome } from '@/content/shared/chrome'
 import { DESKTOP, MOBILE, TICK_HALF, BRACKET_INSET, BRACKET_MARGIN } from '@/lib/selection-map/geometry'
 import { drawnWord, hasGap, type ResolvedBrand, type ResolvedScenario } from '@/lib/selection-map/resolve'
 import type { Stage } from '@/lib/selection-map/schema'
@@ -65,13 +65,14 @@ function bracketRowsOf(resolved: ResolvedScenario): [number, number] | null {
   return [Math.min(...rows), Math.max(...rows)]
 }
 
-function Caption({ titleId, index, count }: { titleId: string; index: number; count: number }) {
-  return (
-    <>
-      <title id={titleId}>{`${plateChrome.title}, question ${index} of ${count}`}</title>
-      <desc>{ILLUSTRATIVE_CAPTION}</desc>
-    </>
-  )
+/**
+ * The drawing's accessible name. The description comes from `aria-describedby`
+ * on the svg, and the locked illustrative caption from the figcaption, so
+ * neither is repeated here: a `desc` element would put both into the
+ * accessibility tree a second time, once per breakpoint variant.
+ */
+function DrawingTitle({ titleId, index, count }: { titleId: string; index: number; count: number }) {
+  return <title id={titleId}>{`${plateChrome.title}, question ${index} of ${count}`}</title>
 }
 
 /* ---- Desktop, the stages across ------------------------------------------ */
@@ -83,7 +84,7 @@ function DesktopSvg({ resolved, index, count, titleId, descriptionId }: FramePro
 
   return (
     <svg {...drawingAttributes(DESKTOP.viewBox, titleId, descriptionId)}>
-      <Caption titleId={titleId} index={index} count={count} />
+      <DrawingTitle titleId={titleId} index={index} count={count} />
       <path d={`M8 ${rulerY}H656`} stroke="var(--rule-strong)" strokeWidth={1} fill="none" />
       <path d={stages.map((i) => `M${x(i)} ${rulerY - 8}V${rulerY}`).join('')} stroke="var(--rule-strong)" strokeWidth={1} fill="none" />
       <path
@@ -266,7 +267,7 @@ function MobileSvg({ resolved, index, count, titleId, descriptionId }: FrameProp
 
   return (
     <svg {...drawingAttributes(MOBILE.viewBox, titleId, descriptionId)}>
-      <Caption titleId={titleId} index={index} count={count} />
+      <DrawingTitle titleId={titleId} index={index} count={count} />
       <path d={`M${rulerX} ${y(NEED) - 12}V${y(IMPACT) + 12}`} stroke="var(--rule-strong)" strokeWidth={1} fill="none" />
       <path d={stages.map((i) => `M${rulerX} ${y(i)}H${guideLeft}`).join('')} stroke="var(--rule-strong)" strokeWidth={1} fill="none" />
       <path

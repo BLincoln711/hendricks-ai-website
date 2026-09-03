@@ -21,6 +21,26 @@ export type Cta = {
 }
 
 /**
+ * The one analytics dispatch every CTA shares. A Diagnostic destination is
+ * counted wherever it is linked from; the named event fires only for a CTA
+ * that declares an analytics slot. Extracted so the three link shapes below
+ * cannot drift apart on what they report.
+ */
+function trackCta(cta: Cta): void {
+  if (typeof window !== 'undefined' && isDiagnosticDestination(cta.href, window.location.origin)) {
+    trackDiagnosticCtaClick(window.location.pathname)
+  }
+  if (!cta.analytics) return
+  trackEvent('primary_cta_click', {
+    cta_label: cta.label,
+    cta_location: cta.analytics.location,
+    destination_url: cta.href,
+    ...(cta.analytics.audienceType ? { audience_type: cta.analytics.audienceType } : {}),
+    ...(cta.analytics.solutionName ? { solution_name: cta.analytics.solutionName } : {}),
+  })
+}
+
+/**
  * Client boundary exists only to dispatch the analytics event on click. The
  * anchor itself is a real link and navigates without JavaScript.
  */
@@ -29,34 +49,24 @@ export function PrimaryCta({
   variant = 'primary',
   size,
   className,
+  describedBy,
 }: {
   cta: Cta
   variant?: ButtonProps['variant']
   size?: ButtonProps['size']
   className?: string
+  /** Id of a description the button is bound to, such as the hero's definer. */
+  describedBy?: string
 }) {
   const Icon = cta.external ? ArrowUpRight : ArrowRight
-
-  const handleClick = () => {
-    if (typeof window !== 'undefined' && isDiagnosticDestination(cta.href, window.location.origin)) {
-      trackDiagnosticCtaClick(window.location.pathname)
-    }
-    if (!cta.analytics) return
-    trackEvent('primary_cta_click', {
-      cta_label: cta.label,
-      cta_location: cta.analytics.location,
-      destination_url: cta.href,
-      ...(cta.analytics.audienceType ? { audience_type: cta.analytics.audienceType } : {}),
-      ...(cta.analytics.solutionName ? { solution_name: cta.analytics.solutionName } : {}),
-    })
-  }
 
   return (
     <Button asChild variant={variant} size={size} className={className}>
       <Link
         href={cta.href}
-        onClick={handleClick}
+        onClick={() => trackCta(cta)}
         data-hendricks-cta=""
+        aria-describedby={describedBy}
         {...(cta.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       >
         {cta.label}
@@ -86,28 +96,40 @@ export function TextCta({
 }) {
   const Icon = cta.external ? ArrowUpRight : ArrowRight
 
-  const handleClick = () => {
-    if (typeof window !== 'undefined' && isDiagnosticDestination(cta.href, window.location.origin)) {
-      trackDiagnosticCtaClick(window.location.pathname)
-    }
-    if (!cta.analytics) return
-    trackEvent('primary_cta_click', {
-      cta_label: cta.label,
-      cta_location: cta.analytics.location,
-      destination_url: cta.href,
-    })
-  }
-
   return (
     <Link
       href={cta.href}
-      onClick={handleClick}
+      onClick={() => trackCta(cta)}
       data-hendricks-cta=""
       className={cn('link link-standalone', className)}
       {...(cta.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
     >
       {cta.label}
       <Icon className="link-arrow size-4 motion-reduce:transition-none" aria-hidden="true" focusable="false" />
+      {cta.external ? <span className="sr-only">(opens in a new tab)</span> : null}
+    </Link>
+  )
+}
+
+/**
+ * The canvas tertiary link: the label followed by a rule that grows on hover,
+ * in a 44 px box (`_canvas.css` section 3).
+ *
+ * The rule is a `::after` and therefore never read, so the link's accessible
+ * name is its label alone. `TextCta` is the pre-canvas arrow form and stays on
+ * the routes that have not been converted; this one is what a converted page
+ * uses, and the two are deleted down to one when the last route converts.
+ */
+export function RuleLink({ cta, className }: { cta: Cta; className?: string }) {
+  return (
+    <Link
+      href={cta.href}
+      onClick={() => trackCta(cta)}
+      data-hendricks-cta=""
+      className={cn('tlink', className)}
+      {...(cta.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+    >
+      {cta.label}
       {cta.external ? <span className="sr-only">(opens in a new tab)</span> : null}
     </Link>
   )

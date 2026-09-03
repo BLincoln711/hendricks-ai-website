@@ -317,8 +317,13 @@ test.describe('VZ-02 and VZ-08, the drawing is read once and read in words', () 
     for (const svg of await drawings.all()) {
       await expect(svg).toHaveAttribute('role', 'img')
       await expect(svg).toHaveAttribute('aria-describedby', 'plate-01-alt')
-      const first = await svg.evaluate((node) => [...node.children].slice(0, 2).map((child) => child.tagName))
-      expect(first).toEqual(['title', 'desc'])
+      const first = await svg.evaluate((node) => node.children[0]?.tagName)
+      expect(first).toBe('title')
+
+      // The description comes from `aria-describedby`, and the locked
+      // illustrative line from the figcaption. A `desc` element would repeat
+      // both in the accessibility tree, once for each breakpoint variant.
+      await expect(svg.locator('desc')).toHaveCount(0)
     }
 
     await expect(plate(page).locator('#plate-01-alt')).toContainText('An illustrative diagram, not a client result.')

@@ -17,6 +17,9 @@
 import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 
+import { GATED_STRINGS, gateStatus, type GateRow, type GateStatus } from '../src/content/gate'
+import * as homeCopy from '../src/content/pages/home'
+
 const ROOT = process.cwd()
 const SRC = path.join(ROOT, 'src')
 
@@ -80,8 +83,9 @@ const PLACEHOLDER_PATTERNS = [
  * presence of numbers, keeps the decision with a human.
  */
 const SAMPLE_DATA_COMPONENTS = [
-  'src/components/visuals/selection-map.tsx',
   'src/components/visuals/selection-map-plate.tsx',
+  'src/components/visuals/two-paths-plate.tsx',
+  'src/components/visuals/artifact-previews.tsx',
 ]
 const ILLUSTRATIVE_LABEL = 'Illustrative interface. Not a client result.'
 
@@ -101,6 +105,42 @@ const ILLUSTRATIVE_LABEL = 'Illustrative interface. Not a client result.'
  * range, not a clause break, and reads as typeset rather than generated.
  */
 const EM_DASH = '—'
+
+/**
+ * The content gate (handoff 4.7 rule 9).
+ *
+ * `src/content/gate.ts` is the register: it declares each proposed string once
+ * and hands callers the approved line instead while the row is pending. Any
+ * other file carrying a proposed string is publishing a line Brandon Lincoln
+ * Hendricks has not approved, which is the failure this rule catches.
+ */
+const GATE_REGISTER = 'src/content/gate.ts'
+const CONTENT_VERIFICATION = path.join(ROOT, 'CONTENT_VERIFICATION.md')
+
+/**
+ * Reads each row's status out of `CONTENT_VERIFICATION.md`. The register is a
+ * set of markdown tables whose first cell is the row id and whose last cell is
+ * the status. A status cell that is not one of the three legend words counts
+ * as not approved, which is what "wording approved, start year pending" on F1
+ * and F2 has to mean.
+ */
+function parseRegister(markdown: string): Map<string, GateStatus> {
+  const statuses = new Map<string, GateStatus>()
+
+  for (const line of markdown.split('\n')) {
+    const cells = line.split('|').map((cell) => cell.trim())
+    // A table row splits into a leading and a trailing empty cell.
+    if (cells.length < 4 || cells[0] !== '' || cells.at(-1) !== '') continue
+
+    const id = cells[1]
+    const status = cells.at(-2) ?? ''
+    if (!/^[A-Z]+[0-9]+$/.test(id)) continue
+
+    statuses.set(id, status === 'approved' || status === 'blocked' ? status : 'pending')
+  }
+
+  return statuses
+}
 
 type Failure = { file: string; message: string }
 
@@ -204,6 +244,102 @@ async function main() {
       })
     }
   }
+
+  // Rule 9, part one: the register and the transcription may not disagree.
+  const register = parseRegister(await readFile(CONTENT_VERIFICATION, 'utf8'))
+
+  for (const [row, transcribed] of Object.entries(gateStatus) as [GateRow, GateStatus][]) {
+    const recorded = register.get(row)
+
+    if (recorded === undefined) {
+      failures.push({
+        file: GATE_REGISTER,
+        message: `gate row ${row} has no row in CONTENT_VERIFICATION.md`,
+      })
+    } else if (recorded !== transcribed) {
+      failures.push({
+        file: GATE_REGISTER,
+        message: `gate row ${row} is "${transcribed}" here and "${recorded}" in CONTENT_VERIFICATION.md`,
+      })
+    }
+  }
+
+  // Rule 9, part two: a pending string may appear only in the register itself
+  // and in the files where the same sentence is already approved copy.
+  for (const { row, text, approvedOn = [] } of GATED_STRINGS) {
+    if (gateStatus[row] === 'approved') continue
+
+    const permitted = new Set<string>([GATE_REGISTER, ...approvedOn])
+
+    for (const file of [...files, ...copyFiles]) {
+      const relative = path.relative(ROOT, file)
+      if (permitted.has(relative)) continue
+
+      const raw = await readFile(file, 'utf8')
+      if (!raw.includes(text)) continue
+
+      failures.push({
+        file: relative,
+        message: `publishes gated copy for CONTENT_VERIFICATION row ${row} ("${text}") while that row is ${gateStatus[row]}`,
+      })
+    }
+  }
+
+  // The copy mirror (handoff PR 7). `src/content/pages/home.ts` renders the
+  // homepage and `content/pages/01-home.md` is the copy of record it is
+  // transcribed from. The two drifting apart is the defect the pairing exists to
+  // prevent, so every sentence the page renders has to appear in the record.
+  //
+  // Two kinds of string are described in the record rather than transcribed into
+  // it, and are skipped here rather than being silently absent:
+  //
+  //   `alt`  a drawing's text alternative. The record describes each instrument
+  //          in one prose line, so the equivalent is not duplicated word for word.
+  //   `src`  an asset path, which is not copy at all.
+  //
+  // The two lane groups inside the comparison plate are diagram labels drawn on
+  // the instrument, and the record carries them inside that same prose line.
+  const MIRROR_SKIP_KEYS = new Set(['alt', 'src'])
+  const MIRROR_SKIP_PATHS = ['problem.plate.traditional', 'problem.plate.aiMediated']
+  // Short strings are labels and fragments that recur; a substring test on them
+  // reports matches that mean nothing.
+  const MIRROR_MIN_LENGTH = 25
+
+  const normalise = (value: string) => value.replace(/\s+/g, ' ').trim()
+  const record = normalise(await readFile(path.join(CONTENT_PAGES, '01-home.md'), 'utf8'))
+  const checked = new Set<string>()
+
+  const walkCopy = (node: unknown, trail: string, key: string): void => {
+    if (MIRROR_SKIP_KEYS.has(key)) return
+    if (MIRROR_SKIP_PATHS.some((prefix) => trail.startsWith(prefix))) return
+
+    if (typeof node === 'string') {
+      const sentence = normalise(node)
+      if (sentence.length < MIRROR_MIN_LENGTH || checked.has(sentence)) return
+      checked.add(sentence)
+
+      if (!record.includes(sentence)) {
+        failures.push({
+          file: 'content/pages/01-home.md',
+          message: `does not carry the line home.ts renders at ${trail}: "${sentence}"`,
+        })
+      }
+      return
+    }
+
+    if (Array.isArray(node)) {
+      node.forEach((item, index) => walkCopy(item, `${trail}[${index}]`, key))
+      return
+    }
+
+    if (node && typeof node === 'object') {
+      for (const [childKey, child] of Object.entries(node)) {
+        walkCopy(child, trail ? `${trail}.${childKey}` : childKey, childKey)
+      }
+    }
+  }
+
+  for (const [key, value] of Object.entries(homeCopy)) walkCopy(value, key, key)
 
   for (const relative of SAMPLE_DATA_COMPONENTS) {
     if (!files.some((file) => path.relative(ROOT, file) === relative)) {
