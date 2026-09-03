@@ -51,13 +51,15 @@ export const selectionMapData = {
     { id: 'brandC', label: 'Brand C', yourBrand: false, drawingRow: 3 },
     { id: 'brandD', label: 'Brand D', yourBrand: false, drawingRow: 4 },
   ],
+  /* The six source types, lower case and word for word as CANON R12 lists them
+   * and as the approved canvas renders them in the ledger. */
   sources: [
-    { id: 'independent-review-site', label: 'Independent review site' },
-    { id: 'analyst-or-industry-report', label: 'Analyst or industry report' },
-    { id: 'brands-own-site', label: "Brand's own site" },
-    { id: 'community-thread', label: 'Community thread' },
-    { id: 'news-coverage', label: 'News coverage' },
-    { id: 'documentation', label: 'Documentation' },
+    { id: 'independent-review-site', label: 'independent review site' },
+    { id: 'analyst-or-industry-report', label: 'analyst or industry report' },
+    { id: 'brands-own-site', label: "brand's own site" },
+    { id: 'community-thread', label: 'community thread' },
+    { id: 'news-coverage', label: 'news coverage' },
+    { id: 'documentation', label: 'documentation' },
   ],
   scenarios: [
     {
@@ -217,7 +219,7 @@ export const selectionMapData = {
         selectionImpactNote,
       },
       textAlternative:
-        'An illustrative diagram, not a client result. For the question "Who should a manufacturer hire to inspect and recertify pressure vessels across several plants without stopping production?", five sample brands enter a nine-step path from Customer need through Context, Discovery, Understanding, Evidence, Consideration, Recommendation, Selection, and Impact. Brand D is never found. Your Brand is found but misunderstood as a general inspection service and drops out before Consideration. Brand B is found and understood but lacks evidence in documentation and news coverage, and is not considered. Brand C is found and understood but lacks evidence in news coverage, and is not shortlisted. Brand A is supported by documentation and news coverage, is considered, is shortlisted, and its selection is linked to a measured outcome in the Impact Ledger. Six source types feed the Evidence step: independent review site, analyst or industry report, brand\'s own site, community thread, news coverage, and documentation. The first seven steps are observed in the answer; Selection and Impact are measured in the client\'s own systems, and no value is shown. No real company, publication, or AI system is named.',
+        'An illustrative diagram, not a client result. For the question "Who should a manufacturer hire to inspect and recertify pressure vessels across several plants without stopping production?", five sample brands enter a nine-step path from Customer need through Context, Discovery, Understanding, Evidence, Consideration, Recommendation, Selection, and Impact. Brand D is never found. Your Brand is found but misunderstood as a general inspection service and drops out before Consideration. Brand B is found and understood, its only cited source is a community thread, and it is not considered. Brand C is found and understood but lacks evidence in news coverage, and is not shortlisted. Brand A is supported by documentation and news coverage, is considered, is shortlisted, and its selection is linked to a measured outcome in the Impact Ledger. Six source types feed the Evidence step: independent review site, analyst or industry report, brand\'s own site, community thread, news coverage, and documentation. The first seven steps are observed in the answer; Selection and Impact are measured in the client\'s own systems, and no value is shown. No real company, publication, or AI system is named.',
       announce: {
         resting:
           'Question 2 of 3. Brand A reaches the shortlist and is connected to a measured outcome. Your Brand is visible but misunderstood and is not considered; it is described as a general inspection service, not pressure-vessel recertification. Brand D is not visible.',

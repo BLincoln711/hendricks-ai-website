@@ -1,5 +1,5 @@
 import { keyLabels } from '@/content/shared/chrome'
-import type { KeyItem } from '@/lib/selection-map/resolve'
+import { KEY_ITEMS, type KeyItem } from '@/lib/selection-map/resolve'
 
 /**
  * The 12 px inline mark a key row or a ledger row carries: shape first, hue
@@ -44,19 +44,27 @@ export function KeyMark({ kind }: { kind: KeyItem }) {
 }
 
 /**
- * The instrument's legend: the classes and state marks this frame draws, and
- * only those. A key never names a mark the reader cannot find on the drawing,
- * which is why the list is derived from the frame rather than fixed.
+ * The instrument's legend: the classes and state marks this frame draws.
+ *
+ * A key never names a mark the reader cannot find on the drawing, so an item
+ * this frame does not draw is hidden. It is hidden rather than dropped because
+ * the key row wraps: dropping the one item Q2's intervention does not draw
+ * reflowed the row and moved the caption under it every time the cycle
+ * stepped. Hidden with `visibility`, so the box stays and assistive technology
+ * still reads only the marks that are on the drawing.
  */
 export function EvidenceKey({ items }: { items: readonly KeyItem[] }) {
   return (
     <div className="klegend">
-      {items.map((item) => (
-        <span key={item} className="kitem">
-          <KeyMark kind={item} />
-          {keyLabels[item]}
-        </span>
-      ))}
+      {KEY_ITEMS.map((item) => {
+        const drawn = items.includes(item)
+        return (
+          <span key={item} className="kitem" {...(drawn ? null : { 'data-off': '', 'aria-hidden': true })}>
+            <KeyMark kind={item} />
+            {keyLabels[item]}
+          </span>
+        )
+      })}
     </div>
   )
 }

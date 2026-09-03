@@ -80,6 +80,15 @@ describe('the resting frame', () => {
     expect(list.querySelector('caption')!.textContent).toContain(ILLUSTRATIVE_CAPTION)
   })
 
+  it('makes the table’s scroll region a named keyboard stop', () => {
+    // It scrolls at narrow widths, so a keyboard-only reader has to be able to
+    // reach it. axe reports this one as serious, and only at 320.
+    const list = resting.querySelector('.plate-list')!
+    expect(list.getAttribute('role')).toBe('region')
+    expect(list.getAttribute('tabindex')).toBe('0')
+    expect(list.getAttribute('aria-label')).toBe(plateChrome.listRegion)
+  })
+
   it('lists the six source types and never a publication', () => {
     const rows = [...resting.querySelectorAll('.sources li')]
     expect(rows).toHaveLength(6)
@@ -87,6 +96,15 @@ describe('the resting frame', () => {
       selectionMapData.sources.map((source) => source.label),
     )
     expect(resting.querySelector('.sources-h')!.textContent).toBe(plateChrome.sourcesHeading)
+  })
+
+  it('names the brands in a lane in drawing order, as the approved canvas renders them', () => {
+    // Top to bottom as the tracks are stacked, so a reader can cross-read a
+    // row against the figure. The 04 appendix orders them alphabetically with
+    // Your Brand last; the canvas wins.
+    const rows = [...resting.querySelectorAll('.sources li')]
+    expect(rows[2].querySelector('.who')!.textContent).toBe('Brand A, Your Brand, Brand B, Brand C')
+    expect(rows[0].querySelector('.miss')!.textContent).toBe(`${plateChrome.missingFor} Your Brand, Brand C`)
   })
 
   it('puts the pause control first in the key row, naming the action it performs', () => {
@@ -106,13 +124,44 @@ describe('the resting frame', () => {
     expect(resting.querySelector('.pick .sr-only')!.textContent).toContain(selectionMapData.scenarios[0].question)
   })
 
-  it('keys only the marks this frame draws', () => {
-    const legend = [...resting.querySelectorAll('.kitem')].map((item) => item.textContent)
-    expect(legend).toEqual(['Observed', 'Measured', 'evidence missing', 'misunderstood', 'exits'])
+  it('keys only the marks this frame draws, and keeps the box of the ones it does not', () => {
+    const legend = [...resting.querySelectorAll('.kitem')]
+    expect(legend.map((item) => item.textContent)).toEqual([
+      'Observed',
+      'Measured',
+      'evidence missing',
+      'misunderstood',
+      'exits',
+    ])
+    // Q1 draws all five, so nothing is hidden here.
+    expect(legend.filter((item) => item.hasAttribute('data-off'))).toHaveLength(0)
+
+    // Q2's intervention clears the one misunderstanding, so that mark leaves
+    // the drawing. It keeps its box and gives up its ink, and it is hidden
+    // from assistive technology with it.
+    const cleared = [...frame({ scenario: 1, intervention: true }).querySelectorAll('.kitem')]
+    expect(cleared).toHaveLength(5)
+    const off = cleared.filter((item) => item.hasAttribute('data-off'))
+    expect(off.map((item) => item.textContent)).toEqual(['misunderstood'])
+    expect(off[0].getAttribute('aria-hidden')).toBe('true')
   })
 
   it('reserves the boxes that a frame change would otherwise move', () => {
-    expect(resting.querySelector('.plate-q .q')!.textContent).toBe(selectionMapData.scenarios[0].question)
+    // Every question is in the slot and one is shown, so the slot is as tall
+    // as the longest question at this width and changing question moves
+    // nothing beneath it.
+    const questions = [...resting.querySelectorAll('.plate-q > p')]
+    expect(questions.map((line) => line.querySelector('.q')!.textContent)).toEqual(
+      selectionMapData.scenarios.map((scenario) => scenario.question),
+    )
+    const shown = questions.filter((line) => !line.hasAttribute('data-off'))
+    expect(shown).toHaveLength(1)
+    expect(shown[0].querySelector('.q')!.textContent).toBe(selectionMapData.scenarios[0].question)
+    expect(shown[0].querySelector('.c')!.textContent).toBe(selectionMapData.scenarios[0].context)
+    for (const hidden of questions.filter((line) => line.hasAttribute('data-off'))) {
+      expect(hidden.getAttribute('aria-hidden')).toBe('true')
+    }
+
     // Present and hidden, not absent: the note holds its box while it is off.
     expect(resting.querySelector('.iv-note')!.hasAttribute('data-off')).toBe(true)
     expect(resting.querySelector('.iv-note')!.textContent).toBe(selectionMapData.scenarios[0].intervention.note)

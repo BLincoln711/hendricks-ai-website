@@ -73,7 +73,10 @@ export function PlateListView({
   const label = (stage: BrandStage) => data.stages.find((candidate) => candidate.id === stage)!.label
 
   return (
-    <div className="plate-list" hidden={hidden}>
+    // It scrolls at narrow widths, so it is a named region and a keyboard stop.
+    // Without that a keyboard-only reader can reach the table's contents at
+    // 1440 and not at 320, where the table is exactly what the drawing is not.
+    <div className="plate-list" role="region" aria-label={plateChrome.listRegion} tabIndex={0} hidden={hidden}>
       <table>
         <caption className="sr-only">
           {`${plateChrome.listRegion}, question ${index} of ${count}. ${ILLUSTRATIVE_CAPTION}`}

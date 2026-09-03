@@ -9,7 +9,8 @@ import { expect, test, type Page } from '@playwright/test'
  * duration, and is asserted with a spy on `Element.prototype.animate` rather
  * than by counting animations afterwards. And the plate never shifts: a figure
  * that reflows while it plays is a figure that moves the page under a reader,
- * so the layout-shift score across a whole cycle has to be zero.
+ * so no element inside the plate may move at any point of a whole cycle, at
+ * any width.
  */
 
 const ROUTE = '/plate-fixtures'
@@ -21,6 +22,28 @@ const ROUTE = '/plate-fixtures'
  * of a run of this length.
  */
 const SEQUENCE_MS = 1400
+
+/**
+ * The island's holds, and the whole cycle they add up to: three questions,
+ * each shown at rest and then under its intervention. Nine seconds, which is
+ * what this file used to wait, reaches only the first intervention, and that
+ * is the one step of the cycle where nothing about the frame changes size.
+ * A shift gate that never sees the other five frames is not a gate.
+ */
+const HOLD_SCENARIO_MS = 2200
+const HOLD_INTERVENTION_MS = 2600
+const CYCLE_MS = 3 * (SEQUENCE_MS + HOLD_SCENARIO_MS + SEQUENCE_MS + HOLD_INTERVENTION_MS)
+
+/** Every frame the cycle passes through, as `scenario:intervention`. */
+const FRAMES = ['q1:off', 'q1:on', 'q2:off', 'q2:on', 'q3:off', 'q3:on']
+
+/**
+ * The widths the shift gate runs at. 320 is the one that mattered: the
+ * question line wraps to three lines there, so a reserved slot that is right
+ * at 1440 can be short by half a question at 320 and move the whole figure
+ * every time the cycle steps.
+ */
+const SHIFT_WIDTHS = [1440, 390, 320]
 
 /**
  * The finished-or-zero-duration predicate, over the instrument's own subtree.
@@ -133,27 +156,89 @@ test.describe('MO-02 and MO-04, the cycle', () => {
   })
 })
 
+/**
+ * The residual the metric still reports after nothing in the plate moves.
+ *
+ * Question 3 draws its rows in a different order, so two label cells trade
+ * words when the cycle reaches it and again when it leaves. No box moves, but
+ * a word that changes changes the ink box of its own text node, and Chrome
+ * attributes that to the layout-shift entry. It is 0.00011 at its worst,
+ * three orders of magnitude under the 0.1 the AGENTS.md target allows, and it
+ * is the drawing relabelling itself, which is the instrument working. The
+ * assertion that actually holds the line is the one below it: no element
+ * inside the plate moves at all.
+ */
+const SHIFT_BUDGET = 0.001
+
 test('MO-02, the plate shifts nothing through a whole cycle', async ({ page }) => {
-  await page.goto(ROUTE)
+  // A whole cycle is 22.8 s, and it is driven by the clock rather than by
+  // clicks on purpose: a shift within half a second of an interaction carries
+  // `hadRecentInput` and is dropped from the score, so stepping the frames
+  // from the controls would hide exactly the shifts this test exists to catch.
+  test.setTimeout(SHIFT_WIDTHS.length * (CYCLE_MS + 20_000))
 
-  // Scores only the shifts inside the plate, so a shift elsewhere on the
-  // fixture cannot pass or fail this.
-  await page.evaluate(() => {
-    Object.assign(window, { __shift: 0 })
-    new PerformanceObserver((list) => {
-      for (const entry of list.getEntries() as (PerformanceEntry & {
-        value: number
-        hadRecentInput: boolean
-        sources?: { node?: Node }[]
-      })[]) {
-        if (entry.hadRecentInput) continue
-        const inPlate = entry.sources?.some((source) => source.node && document.querySelector('#plate-01')?.contains(source.node))
-        if (inPlate) (window as unknown as { __shift: number }).__shift += entry.value
+  const supported = await page.evaluate(
+    () => PerformanceObserver.supportedEntryTypes?.includes('layout-shift') ?? false,
+  )
+  test.skip(!supported, 'The Layout Instability API is Chromium only')
+
+  for (const width of SHIFT_WIDTHS) {
+    await page.setViewportSize({ width, height: 900 })
+    await page.goto(ROUTE)
+
+    // Scores only what happens inside the plate, so a shift elsewhere on the
+    // fixture cannot pass or fail this, and records every frame the cycle
+    // actually reached so a short window cannot pass by never getting there.
+    //
+    // The plate is looked up per callback rather than captured once: the
+    // island replaces the figure when it hydrates, and a held reference would
+    // point at a detached node and quietly score nothing at all.
+    await page.evaluate(() => {
+      const plate = () => document.querySelector<HTMLElement>('#plate-01')
+      const frames = new Set<string>()
+      const record = () => {
+        const figure = plate()
+        if (figure) frames.add(`${figure.dataset.scenario}:${figure.dataset.intervention}`)
       }
-    }).observe({ type: 'layout-shift', buffered: true })
-  })
+      record()
 
-  // Long enough for two scenario changes and two intervention steps.
-  await page.waitForTimeout(9000)
-  expect(await page.evaluate(() => (window as unknown as { __shift: number }).__shift)).toBe(0)
+      Object.assign(window, { __shift: 0, __frames: frames, __moved: [] as string[] })
+      new MutationObserver(record).observe(document.body, {
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['data-scenario', 'data-intervention'],
+      })
+      new PerformanceObserver((list) => {
+        for (const entry of list.getEntries() as (PerformanceEntry & {
+          value: number
+          hadRecentInput: boolean
+          sources?: { node?: Node }[]
+        })[]) {
+          if (entry.hadRecentInput) continue
+          const inside = (entry.sources ?? []).filter((source) => source.node && plate()?.contains(source.node))
+          if (inside.length === 0) continue
+
+          const scored = window as unknown as { __shift: number; __moved: string[] }
+          scored.__shift += entry.value
+          for (const source of inside) {
+            const node = source.node!
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              scored.__moved.push(`${(node as Element).tagName}.${(node as Element).className}`)
+            }
+          }
+        }
+      }).observe({ type: 'layout-shift', buffered: true })
+    })
+
+    await page.waitForTimeout(CYCLE_MS + 1500)
+
+    const result = await page.evaluate(() => {
+      const scored = window as unknown as { __shift: number; __moved: string[]; __frames: Set<string> }
+      return { shift: scored.__shift, moved: [...new Set(scored.__moved)], frames: [...scored.__frames].sort() }
+    })
+
+    expect(result.frames, `frames reached at ${width}`).toEqual(FRAMES)
+    expect(result.moved, `elements that moved inside the plate at ${width}`).toEqual([])
+    expect(result.shift, `layout shift inside the plate at ${width}`).toBeLessThan(SHIFT_BUDGET)
+  }
 })

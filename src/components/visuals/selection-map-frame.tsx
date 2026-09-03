@@ -106,11 +106,20 @@ export function SelectionMapFrame({
         </div>
       </fieldset>
 
-      {/* Reserved slot: the question line holds its box at every question. */}
-      <p className="plate-q">
-        <span className="q">{scenario.question}</span>
-        <span className="c">{scenario.context}</span>
-      </p>
+      {/*
+        Reserved slot: every question is here and one is shown, so the slot is
+        as tall as the longest question wraps at this width and changing
+        question moves nothing. The questions are already in the served HTML
+        once, as the picker's accessible names.
+      */}
+      <div className="plate-q">
+        {data.scenarios.map((candidate, i) => (
+          <p key={candidate.id} {...(i === state.scenario ? null : { 'data-off': '', 'aria-hidden': true })}>
+            <span className="q">{candidate.question}</span>
+            <span className="c">{candidate.context}</span>
+          </p>
+        ))}
+      </div>
 
       {/* Reserved slot: the note keeps its box while it is off, so turning it on shifts nothing. */}
       <p className="iv-note" {...(state.intervention ? null : { 'data-off': '' })}>

@@ -433,10 +433,42 @@
   --input-stack-gap: var(--hx-space-6);
 
   /* --- Plate: the instrument. Its surface is the ground. -------------------
-   * Sizes are the approved canvas's, with one deviation recorded: the canvas
-   * sets its uppercase mono coordinate marks at 11 px and its list-view table
-   * head at 10.5 px. Both read `--text-coordinate`, which is 12 px, so no
-   * rendered text in the instrument falls below the 12 px floor. */
+   *
+   * Sizes are the approved canvas's. Every departure from `_canvas.css`
+   * section 11 is recorded here, so the next reviewer diffing the build
+   * against the canvas reads the same list rather than rediscovering it.
+   *
+   * 1. Type floor. The canvas sets its uppercase mono coordinate marks at
+   *    11 px and its list-view table head at 10.5 px. Both read
+   *    `--text-coordinate`, which is 12 px, so no rendered text in the
+   *    instrument falls below the 12 px floor.
+   * 2. Tracking, which the floor drags with it. Every mono mark that was
+   *    raised to 12 px also reads `--tracking-coordinate` (0.12em) rather
+   *    than the canvas's per-element value: `.plate-list thead th` 0.08em,
+   *    `.picker legend`, `.sources-h`, `.lb-stage` and `.lb-tick` 0.1em. One
+   *    tracking value for one type role; the canvas's own `.plate-title` is
+   *    already 0.12em. `.illus` is the exception and keeps the canvas's
+   *    0.07em, which is why `--tracking-illus` exists.
+   * 3. Spacing snapped to the token scale, never to a new value: the canvas's
+   *    14 px reads `--hx-space-3` (12 px) on `.plate-gloss`, `.iv-note`,
+   *    `.plate-key` padding-top and `.plate-cap`; 10 px reads the same on
+   *    `.sources-h`; the key row's 10/18 gap reads 12/16 and `.kbtn`
+   *    padding-inline 14 px reads 12 px.
+   * 4. `.src` and `.src-static` use the canvas's below-900px two-column grid
+   *    at every width, not only at mobile. The canvas's desktop flex row
+   *    reflows when a lane gains or loses a name, which moves every row
+   *    beneath it while the cycle plays. The grid, plus the reserved
+   *    `--plate-lane-line`, is what holds the ledger still.
+   * 5. Reserved boxes the canvas does not hold. The canvas's fixed
+   *    `min-height: 42px` on `.plate-q` is smaller than a wrapped question at
+   *    390 and below, so it reserves nothing there; the build stacks all
+   *    three questions in one grid cell instead and shows one, which holds the
+   *    tallest box at every width without a magic number. `.klegend` is
+   *    likewise derived per frame in the canvas and reflows the key row; the
+   *    build renders all five key items and hides the ones this frame does
+   *    not draw, so the reader still never sees a mark the drawing has not
+   *    made. Both are CLS fixes, measured on the plate at 320, 390, 1024 and
+   *    1440 (AGENTS.md caps CLS at 0.1). */
   --plate-bg: var(--plate);
   --plate-rule: var(--rule);   /* Decorative hairlines inside an instrument */
   --plate-rule-2: var(--rule-2);
@@ -450,10 +482,11 @@
   --plate-label-size: 13px;     /* Brand labels on the drawing */
   --plate-state-size: 12px;     /* State words on the drawing, and the key row */
   --plate-question-size: 13.5px;
-  --plate-question-reserve: 42px; /* Reserved: the question line holds its box at every question */
   --plate-note-reserve: 36px;     /* Reserved: the intervention note holds its box while off */
   /* Reserved: a ledger row's second line, whether or not the lane has a gap,
-   * so changing question cannot move the rows beneath it. */
+   * so changing question cannot move the rows beneath it. It is the row's own
+   * line box, which is why `.src` states `--leading-small` rather than
+   * inheriting the body's leading and reserving 1.25 px too little. */
   --plate-lane-line: calc(var(--plate-row-size) * var(--leading-small));
   --plate-mark-size: 12px;        /* The inline class mark in a key or ledger row */
   --plate-head-gap: var(--hx-space-4);

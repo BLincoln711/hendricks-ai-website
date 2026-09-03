@@ -35,9 +35,6 @@ export type BrandStage = (typeof BRAND_STAGES)[number]
 export const BRAND_IDS = ['brandA', 'brandB', 'brandC', 'brandD', 'yourBrand'] as const
 export type BrandId = (typeof BRAND_IDS)[number]
 
-/** The 04 appendix order, used by the list view and the sources ledger. */
-export const LIST_ORDER: readonly BrandId[] = ['brandA', 'brandB', 'brandC', 'brandD', 'yourBrand']
-
 export const SOURCE_IDS = [
   'independent-review-site',
   'analyst-or-industry-report',

@@ -74,6 +74,30 @@ describe('the shipped Selection Map data', () => {
     }
   })
 
+  it('never tells a reader a brand lacks evidence the drawing does not show it lacking', () => {
+    // The text alternative is the whole figure for anyone who cannot see it,
+    // so a gap named in words that no lane carries is a claim the instrument
+    // does not support (CANON section 5: observation and inference stay
+    // distinguishable). Read every sentence that says a brand lacks evidence
+    // and require the lanes to agree.
+    for (const scenario of selectionMapData.scenarios) {
+      const resolved = resolveScenario(selectionMapData, scenario, false)
+      const claims = scenario.textAlternative
+        .split(/(?<=[.?])\s+/)
+        .filter((sentence) => sentence.includes('lacks evidence'))
+      expect(claims.length).toBeGreaterThan(0)
+
+      for (const sentence of claims) {
+        const named = resolved.rows.filter((brand) => sentence.includes(brand.label))
+        expect(named.length, sentence).toBeGreaterThan(0)
+        for (const brand of named) {
+          const evidence = brand.evidence === '(exited)' ? null : brand.evidence
+          expect(evidence?.missing ?? [], `${brand.label} in ${scenario.id}`).not.toHaveLength(0)
+        }
+      }
+    }
+  })
+
   it('keeps the shortlist bracket on adjacent rows, at rest and under the intervention', () => {
     for (const scenario of selectionMapData.scenarios) {
       for (const intervention of [false, true]) {

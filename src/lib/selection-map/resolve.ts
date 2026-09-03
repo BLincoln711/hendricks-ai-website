@@ -1,7 +1,6 @@
 import {
   BRAND_IDS,
   BRAND_STAGES,
-  LIST_ORDER,
   type Brand,
   type BrandId,
   type BrandStage,
@@ -137,9 +136,11 @@ export function drawnWord(brand: ResolvedBrand, stage: BrandStage): string | nul
   }
 }
 
-export type KeyItem = 'observed' | 'measured' | 'gap' | 'misunderstood' | 'exits'
+/** The classes, then the state marks, in the canvas's key order. */
+export const KEY_ITEMS = ['observed', 'measured', 'gap', 'misunderstood', 'exits'] as const
+export type KeyItem = (typeof KEY_ITEMS)[number]
 
-/** The key lists only the marks the frame actually draws, in the canvas order. */
+/** The marks the frame actually draws, in the canvas order. */
 export function keyItemsOf(resolved: ResolvedScenario): KeyItem[] {
   const has = { observed: true, measured: false, gap: false, misunderstood: false, exits: false }
   for (const brand of resolved.rows) {
@@ -148,19 +149,25 @@ export function keyItemsOf(resolved: ResolvedScenario): KeyItem[] {
     if (reaches(brand, 'understanding') && brand.understanding === 'misunderstood') has.misunderstood = true
     if (brand.exitsAt) has.exits = true
   }
-  return (Object.keys(has) as KeyItem[]).filter((item) => has[item])
+  return KEY_ITEMS.filter((item) => has[item])
 }
 
 export type LedgerRow = {
   source: { id: SourceId; label: string }
-  /** Brands that cite the lane, in the 04 order. */
+  /**
+   * Brands that cite the lane, in drawing order, which is the order the
+   * approved canvas renders them in. A reader cross-reading a row against the
+   * figure then reads the names top to bottom as the tracks are stacked. The
+   * 04 appendix lists them alphabetically with Your Brand last; the canvas
+   * wins, and this is where that conflict is recorded.
+   */
   cited: readonly ResolvedBrand[]
   missing: readonly ResolvedBrand[]
 }
 
 /** One row per source type in the R12 order, with the brands it supports and the brands it is missing for. */
 export function ledgerRowsOf(data: SelectionMapData, resolved: ResolvedScenario): LedgerRow[] {
-  const listed = LIST_ORDER.map((id) => resolved.byId[id]).filter((brand) => reaches(brand, 'evidence'))
+  const listed = resolved.rows.filter((brand) => reaches(brand, 'evidence'))
   return data.sources.map((source) => ({
     source,
     cited: listed.filter((brand) => evidenceOf(brand)?.lanes.includes(source.id)),

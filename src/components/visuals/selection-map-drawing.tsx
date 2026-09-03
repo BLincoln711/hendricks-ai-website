@@ -199,7 +199,11 @@ function DesktopLabels({ resolved, stages }: { resolved: ResolvedScenario; stage
         const up = upperRow(brand.row)
         const lo = lowerRow(brand.row)
         return (
-          <Fragment key={brand.id}>
+          // Keyed by drawing row, not by brand: a question that reorders the
+          // rows then changes each cell's words in place rather than moving
+          // the label nodes between cells, and a label that does not move
+          // cannot shift the page while the cycle plays.
+          <Fragment key={brand.row}>
             <Label className={`lb-brand${brand.yourBrand ? ' you' : ''}`} column={stageColumn(CONTEXT)} row={`${up} / span 3`}>
               {brand.label}
             </Label>
@@ -374,7 +378,7 @@ function MobileLabels({ resolved, stages }: { resolved: ResolvedScenario; stages
     >
       {resolved.rows.map((brand) => (
         <Label
-          key={brand.id}
+          key={brand.row}
           className={`lb-brand${brand.yourBrand ? ' you' : ''}`}
           column={MOBILE.brandColumn(brand.row)}
           row={MOBILE.brandRow(brand.row)}

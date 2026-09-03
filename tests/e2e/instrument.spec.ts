@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Locator, type Page } from '@playwright/test'
 
 /**
@@ -291,12 +292,12 @@ test.describe('the controls', () => {
   test('VZ-06, the ledger names source types and never a publication or an engine', async ({ page }) => {
     const types = await plate(page).locator('.src .type, .src-static .type').allTextContents()
     expect(types).toEqual([
-      'Independent review site',
-      'Analyst or industry report',
-      "Brand's own site",
-      'Community thread',
-      'News coverage',
-      'Documentation',
+      'independent review site',
+      'analyst or industry report',
+      "brand's own site",
+      'community thread',
+      'news coverage',
+      'documentation',
     ])
 
     const text = (await plate(page).textContent())!
@@ -324,4 +325,60 @@ test.describe('VZ-02 and VZ-08, the drawing is read once and read in words', () 
     // The words on the drawing are decorative; the label layer is never read.
     await expect(plate(page).locator('.dts-labels').first()).toHaveAttribute('aria-hidden', 'true')
   })
+})
+
+test.describe('the list view at the width it scrolls at', () => {
+  test('its scroll region is a named keyboard stop', async ({ page }) => {
+    // The table is 620 px wide inside a 320 px column, so it scrolls, and a
+    // scroll region a keyboard cannot reach is content a keyboard cannot read.
+    await openPaused(page, 320)
+    await page.getByRole('button', { name: 'View as list' }).click()
+    await expect(plate(page).getByRole('region', { name: 'Brand states by stage' })).toBeVisible()
+
+    await plate(page).locator('.pick input').first().focus()
+    let reached = false
+    for (let step = 0; step < 12 && !reached; step += 1) {
+      await page.keyboard.press('Tab')
+      reached = await page.evaluate(() => document.activeElement?.classList.contains('plate-list') ?? false)
+    }
+    expect(reached, 'the table scroll region is reachable by keyboard').toBe(true)
+  })
+})
+
+/**
+ * axe on the instrument itself.
+ *
+ * `/plate-fixtures` is deliberately unregistered in `src/config/routes.ts`, so
+ * the sitemap and `llms.txt` never see it, and so `axe.spec.ts`, which sweeps
+ * the registry, never sees it either. The one interactive component this work
+ * adds would otherwise be the only new surface in the build the site's own
+ * accessibility gate does not read. This is that gate, scoped to the plate and
+ * run at both widths in both views.
+ */
+test.describe('CF-01 on the plate', () => {
+  const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']
+
+  for (const width of [1440, 320]) {
+    for (const listView of [false, true]) {
+      test(`no serious or critical violation at ${width}, list view ${listView ? 'on' : 'off'}`, async ({ page }) => {
+        await openPaused(page, width)
+        if (listView) await page.getByRole('button', { name: 'View as list' }).click()
+        // Back to the top: a control half under the sticky masthead reads as a
+        // target-size failure that is an artefact of where the page is scrolled.
+        await page.evaluate(() => window.scrollTo(0, 0))
+
+        const results = await new AxeBuilder({ page }).include('#plate-01').withTags(TAGS).analyze()
+        const blocking = results.violations.filter(
+          (violation) => violation.impact === 'serious' || violation.impact === 'critical',
+        )
+
+        expect(
+          blocking,
+          blocking
+            .map((violation) => `${violation.id} [${violation.impact}]: ${violation.help} (${violation.nodes.length} nodes)`)
+            .join('\n'),
+        ).toEqual([])
+      })
+    }
+  }
 })

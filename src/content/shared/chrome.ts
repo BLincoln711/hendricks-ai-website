@@ -4,8 +4,15 @@
  * string per row and no two components can spell the same label differently.
  *
  * Every string below is verbatim from the approved canvas page
- * `07-hifi/home-v3.html`, except the list-view caption, which uses the locked
- * illustrative line in place of the canvas's shortened variant of it.
+ * `07-hifi/home-v3.html`, checked word for word and case for case, except the
+ * list-view caption, which uses the locked illustrative line in place of the
+ * canvas's shortened variant of it.
+ *
+ * Two pieces of the instrument's copy are deliberately not here. The six
+ * source labels are data, not chrome, and live in
+ * `src/content/instruments/selection-map-data.ts` in the canvas's own lower
+ * case. The order the ledger names brands in is derived, and the one
+ * departure from the 04 appendix is recorded in `ledgerRowsOf`.
  */
 
 /** The locked illustrative caption (CANON section 2). */
