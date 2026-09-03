@@ -4,6 +4,7 @@ import * as theAnswerIndex from '@/content/research/the-answer-index'
 import * as noSharedSourceAcrossEngines from '@/content/research/no-shared-source-across-engines'
 import * as hendricksSelectionBaseline from '@/content/research/hendricks-selection-baseline'
 import * as whoGetsCitedInAiAnswers from '@/content/research/who-gets-cited-in-ai-answers'
+import { latestChangeDate } from '@/content/shared/publication-record'
 import type { ResearchArticle } from '@/content/research/types'
 
 export * from '@/content/research/types'
@@ -73,7 +74,7 @@ export const researchArticles: readonly ResearchArticle[] = [
     title: theAnswerIndex.hero.title,
     summary: theAnswerIndex.meta.description,
     publishedDate: theAnswerIndex.byline.published,
-    updatedDate: theAnswerIndex.byline.updated,
+    updatedDate: latestChangeDate(theAnswerIndex.changes),
     dataThroughDate: theAnswerIndex.byline.dataThrough,
     designation: theAnswerIndex.experimentLabel.label,
     /*
@@ -108,7 +109,7 @@ export const researchArticles: readonly ResearchArticle[] = [
     title: noSharedSourceAcrossEngines.hero.title,
     summary: noSharedSourceAcrossEngines.meta.description,
     publishedDate: noSharedSourceAcrossEngines.byline.published,
-    updatedDate: noSharedSourceAcrossEngines.byline.updated,
+    updatedDate: latestChangeDate(noSharedSourceAcrossEngines.changes),
     dataThroughDate: noSharedSourceAcrossEngines.byline.dataThrough,
     designation: noSharedSourceAcrossEngines.experimentLabel.label,
     /*
@@ -147,7 +148,7 @@ export const researchArticles: readonly ResearchArticle[] = [
     */
     summary: hendricksSelectionBaseline.meta.description,
     publishedDate: hendricksSelectionBaseline.byline.published,
-    updatedDate: hendricksSelectionBaseline.byline.updated,
+    updatedDate: latestChangeDate(hendricksSelectionBaseline.changes),
     dataThroughDate: hendricksSelectionBaseline.byline.dataThrough,
     designation: hendricksSelectionBaseline.experimentLabel.label,
     /*
@@ -182,7 +183,7 @@ export const researchArticles: readonly ResearchArticle[] = [
     title: answerStabilityTwoRuns.hero.title,
     summary: answerStabilityTwoRuns.meta.description,
     publishedDate: answerStabilityTwoRuns.byline.published,
-    updatedDate: answerStabilityTwoRuns.byline.updated,
+    updatedDate: latestChangeDate(answerStabilityTwoRuns.changes),
     dataThroughDate: answerStabilityTwoRuns.byline.dataThrough,
     designation: answerStabilityTwoRuns.experimentLabel.label,
     /*
@@ -214,7 +215,7 @@ export const researchArticles: readonly ResearchArticle[] = [
     title: whoGetsCitedInAiAnswers.hero.title,
     summary: whoGetsCitedInAiAnswers.meta.description,
     publishedDate: whoGetsCitedInAiAnswers.byline.published,
-    updatedDate: whoGetsCitedInAiAnswers.byline.updated,
+    updatedDate: latestChangeDate(whoGetsCitedInAiAnswers.changes),
     dataThroughDate: whoGetsCitedInAiAnswers.byline.dataThrough,
     designation: whoGetsCitedInAiAnswers.experimentLabel.label,
     /*

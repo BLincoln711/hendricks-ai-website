@@ -1,3 +1,4 @@
+import type { ChangeEntry } from '@/content/shared/publication-record'
 import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { DataTableColumn, DataTableRow } from '@/components/ui/data-table'
 import type { Cta } from '@/components/ui/cta'
@@ -588,7 +589,6 @@ export const byline = {
   authorRole: 'Search Intelligence Engineer, Hendricks',
   authorHref: siteConfig.founderPersonId,
   published: '2026-08-19',
-  updated: '2026-09-01',
   dataThrough: '2026-08-19',
   note: 'The updated date on this page moves when a figure, a method, or a limitation changes. It is not refreshed to signal activity. The data-through date is the run this page reports, run 2026-08-19-110930, and will not advance until a further run is published here.',
 } as const
@@ -599,6 +599,29 @@ export const byline = {
  * this element 14 and because an unbuilt destination must never render as a dead
  * link if the route is ever flagged off.
  */
+/**
+ * Item 11. The dated record, transcribed from the corrections prose below.
+ */
+export const changes: readonly [ChangeEntry, ...ChangeEntry[]] = [
+  {
+    date: '2026-08-19',
+    kind: 'publication',
+    summary: 'First publication of the citation-set structure study.',
+  },
+  {
+    date: '2026-09-01',
+    kind: 'update',
+    summary:
+      'The shared observed-systems sentence changed when Gemini became the fourth observed system under CONTENT_VERIFICATION A1. No figure on this page changed and nothing from Gemini is reported here.',
+  },
+  {
+    date: '2026-09-01',
+    kind: 'correction',
+    summary:
+      'The probe was discarding overview panels the vendor flagged as asynchronously rendered, so Google AI Overviews read as nearly absent. The counts stand as a record of the defective instrument and the conclusion built on them came off finding 03.',
+  },
+]
+
 export const corrections = {
   eyebrow: 'Corrections',
   title: 'One correction to this page, and how the next one gets made',

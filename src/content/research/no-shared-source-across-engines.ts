@@ -1,3 +1,4 @@
+import type { ChangeEntry } from '@/content/shared/publication-record'
 import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { DataTableColumn, DataTableRow } from '@/components/ui/data-table'
 import type { Cta } from '@/components/ui/cta'
@@ -636,12 +637,41 @@ export const byline = {
   authorRole: 'Search Intelligence Engineer, Hendricks',
   authorHref: siteConfig.founderPersonId,
   published: '2026-08-21',
-  updated: '2026-09-01',
   dataThrough: '2026-08-20',
   note: 'The published date is the day this page went live. The data-through date is the day of the run it reports, run 2026-08-20-110653, which is the day before. The two differ on purpose and neither is rounded to match the other. The updated date moves when a figure, a method, or a limitation changes, and is not refreshed to signal activity.',
 } as const
 
 /** Element 14. */
+/**
+ * Item 11. The dated record. No corrections and three dated updates, exactly as
+ * the corrections prose below states.
+ */
+export const changes: readonly [ChangeEntry, ...ChangeEntry[]] = [
+  {
+    date: '2026-08-21',
+    kind: 'publication',
+    summary: 'First publication of the cross-engine agreement study.',
+  },
+  {
+    date: '2026-09-01',
+    kind: 'update',
+    summary:
+      'A later 480-question corpus, run-2026-09-01T022903Z, finds 78 domains cited by all three engines compared here and 60 cited by all four once Gemini is included. It explains the zero published here rather than contradicting it: ChatGPT filled 9 citation slots in this run.',
+  },
+  {
+    date: '2026-09-01',
+    kind: 'update',
+    summary:
+      'The durable form of the pairwise ChatGPT comparison in the larger corpus is a mean per-question overlap of 0.020 with Perplexity over 480 questions and 0.011 with Google AI Overviews over 430. The direction reported here holds; the counts should not travel without their denominator.',
+  },
+  {
+    date: '2026-09-01',
+    kind: 'update',
+    summary:
+      'The shared observed-systems sentence changed when Gemini became the fourth observed system under CONTENT_VERIFICATION A1. No figure on this page changed and nothing from Gemini is reported here.',
+  },
+]
+
 export const corrections = {
   eyebrow: 'Corrections',
   title: 'No corrections to this page, three dated updates, and one finding that was killed before it reached it',

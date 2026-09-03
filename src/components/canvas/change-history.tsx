@@ -3,15 +3,12 @@ import Link from 'next/link'
 import { NOT_YET_RECORDED } from '@/components/canvas/byline'
 import { TableRegion } from '@/components/canvas/table-region'
 import { routes } from '@/config/routes'
-import { publicationChrome } from '@/content/shared/publication-record'
+import {
+  changeKindLabels,
+  publicationChrome,
+  type ChangeEntry,
+} from '@/content/shared/publication-record'
 import { formatLongDate } from '@/lib/utils/format-date'
-
-export type ChangeEntry = {
-  /** ISO date, or undefined where the site has recorded none. */
-  date?: string
-  kind: string
-  summary: string
-}
 
 /**
  * The change history of a page (canvas `_canvas.css` section 16).
@@ -26,12 +23,23 @@ export type ChangeEntry = {
  * know how a correction is made.
  */
 export function ChangeHistory({ entries }: { entries?: readonly ChangeEntry[] }) {
-  const rows = entries ?? [
-    {
-      kind: publicationChrome.changeHistory.firstPublication.kind,
-      summary: publicationChrome.changeHistory.firstPublication.summary,
-    },
-  ]
+  /*
+    A page that has recorded no history still renders the table, with the one
+    row it can honestly state. The date column reads "Not yet recorded" rather
+    than a date nobody approved, which is the same rule the byline follows.
+  */
+  const rows: { date?: string; kind: string; summary: string }[] = entries?.length
+    ? entries.map((entry) => ({
+        date: entry.date,
+        kind: changeKindLabels[entry.kind],
+        summary: entry.summary,
+      }))
+    : [
+        {
+          kind: publicationChrome.changeHistory.firstPublication.kind,
+          summary: publicationChrome.changeHistory.firstPublication.summary,
+        },
+      ]
 
   return (
     <>

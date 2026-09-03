@@ -2,6 +2,7 @@ import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
 import type { DataTableColumn, DataTableRow } from '@/components/ui/data-table'
 import type { MetricDefinition } from '@/components/visuals/metric-definitions'
+import type { ChangeEntry } from '@/content/shared/publication-record'
 
 /**
  * The research section's content contract.
@@ -40,9 +41,9 @@ import type { MetricDefinition } from '@/components/visuals/metric-definitions'
  *   9  Sources                              sources
  *   10 Author                               byline.author
  *   11 Published date                       byline.published
- *   12 Meaningful updated date              byline.updated
+ *   12 Meaningful updated date              changes.at(-1).date
  *   13 Data-through date                    byline.dataThrough
- *   14 Corrections link                     corrections
+ *   14 Corrections link                     corrections, changes
  *   15 Related solution                     relatedSolution
  *
  * `errorsFound` is the one optional section among the fifteen's homes, because a
@@ -116,6 +117,50 @@ export type ResearchEvidenceTable = {
   summary?: string
 }
 
+/**
+ * A primary source, in the four fields a reader needs to go and check it
+ * (17 RC-09). All four are required: a citation without a date cannot be
+ * checked against the version the page read.
+ */
+export type ResearchCitation = {
+  title: string
+  publisher: string
+  /** ISO date of the source, not of the reading. */
+  date: string
+  url: string
+}
+
+/**
+ * The archived data release behind a study (17 S-10).
+ *
+ * `sha256` is the digest of the file served at `contentUrl`, and a unit test
+ * recomputes it from `public/` rather than trusting the string, so a re-released
+ * package with the same name cannot keep an old digest. `contentSize` is the
+ * byte count for the same reason: both are properties of the file, and both are
+ * checkable without leaving the repo.
+ */
+export type ResearchDataset = {
+  name: string
+  description: string
+  /** The version DOI: the identifier for this release, not for the series. */
+  doi: { label: string; href: string }
+  /** The concept DOI, which always resolves to the latest release. */
+  latestVersionDoi?: { label: string; href: string }
+  /** Licence name and URL, read from the release rather than assumed. */
+  license: { name: string; href: string }
+  /** The period the data covers, as an ISO date or an ISO interval. */
+  temporalCoverage: string
+  /** The units the release measures, named as the study's own definitions name them. */
+  variableMeasured: readonly string[]
+  distribution: {
+    /** Site-absolute path to the archive served from `public/`. */
+    contentUrl: string
+    encodingFormat: string
+    contentSize: number
+    sha256: string
+  }
+}
+
 export type ResearchArticleContent = {
   meta: { title: string; description: string }
   hero: { eyebrow: string; title: string; lead: readonly string[]; primaryCta?: Cta }
@@ -163,6 +208,18 @@ export type ResearchArticleContent = {
     lead?: string
     items: readonly { cta: Cta; note: string }[]
   }
+  /**
+   * The archived data release behind the study, where one exists (17 S-10).
+   *
+   * Carried separately from `downloads` because these are the identifiers a
+   * third party cites and recomputes against rather than links a reader clicks:
+   * the DOI that outlives this URL, the licence that says what may be done with
+   * the rows, and the digest that says whether the bytes are the ones the DOI
+   * names. All three render visibly in the cite-this block, and the `Dataset`
+   * node reads the same values, so the graph cannot claim a licence the page
+   * does not show.
+   */
+  dataset?: ResearchDataset
   /**
    * Item 4, the checked half. Optional: a study that only counts has nothing to
    * put here. Where it is used, every entry states the verification method and
@@ -224,12 +281,30 @@ export type ResearchArticleContent = {
     authorHref: string
     /** ISO date. Never changes once published (`docs/06` §15). */
     published: string
-    /** ISO date. Moves only on a material change (`docs/06` §15). */
-    updated: string
-    /** ISO date of the most recent measurement the article reports. */
+    /**
+     * ISO date of the most recent measurement the article reports.
+     *
+     * There is deliberately no `updated` field beside it. The updated date is
+     * derived from the last `changes` entry (17 RC-10, 12 RT-08), because an
+     * authored update date is a claim about the page that nothing on the page
+     * has to support: it can move without a change and stay still through one.
+     * Making it a projection of the record means a study cannot say it changed
+     * without saying what changed.
+     */
     dataThrough: string
     note?: string
   }
+  /**
+   * Item 11. The dated record of what changed and when (17 RC-10).
+   *
+   * Required, and required to be non-empty: the first entry is the publication,
+   * so a study that has never been corrected still renders a history saying so
+   * with a real date. Every entry is transcribed from the page's own visible
+   * corrections prose; a change described only in a typed row and not in the
+   * prose is a change the reader cannot read, and the reverse is what RC-11
+   * forbids. Ascending by date, so `at(-1)` is the most recent.
+   */
+  changes: readonly [ChangeEntry, ...ChangeEntry[]]
   /**
    * Item 14.
    *
@@ -258,6 +333,12 @@ export type ResearchArticleContent = {
     /** ISO date, rendered inside a visible `<time>`. */
     reviewed: string
     basis: string
+    /**
+     * Primary sources, required wherever the page quotes a third-party fact
+     * (17 RC-09, RC-18). A study that reports only its own runs quotes none and
+     * carries none; the basis sentence names the runs instead.
+     */
+    citations?: readonly ResearchCitation[]
     /** Where the measurement is put to work. Unbuilt routes are filtered out. */
     appliedIn: readonly { label: string; href: string }[]
   }
@@ -277,7 +358,7 @@ export type ResearchArticleRecord = {
   summary: string
   /** ISO. Read from `content.byline`. */
   publishedDate: string
-  /** ISO. Read from `content.byline`. */
+  /** ISO. Computed from the last `changes` entry, never authored. */
   updatedDate: string
   /** ISO. Read from `content.byline`. */
   dataThroughDate: string

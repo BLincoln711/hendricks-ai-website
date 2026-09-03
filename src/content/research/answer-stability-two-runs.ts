@@ -1,3 +1,4 @@
+import type { ChangeEntry } from '@/content/shared/publication-record'
 import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { DataTableColumn, DataTableRow } from '@/components/ui/data-table'
 import type { Cta } from '@/components/ui/cta'
@@ -566,7 +567,6 @@ export const byline = {
   authorRole: 'Search Intelligence Engineer, Hendricks',
   authorHref: siteConfig.founderPersonId,
   published: '2026-08-19',
-  updated: '2026-09-01',
   dataThrough: '2026-08-19',
   note: 'The updated date on this page moves when a figure, a method, or a limitation changes. It is not refreshed to signal activity. The data-through date is the later of the two runs this page reports, run 2026-08-19-181155, and will not advance until a further run pair is published here.',
 } as const
@@ -581,6 +581,29 @@ export const byline = {
  * publication day is the least informative version of this element, so it names
  * the failure the archiving step was built to prevent instead.
  */
+/**
+ * Item 11. The dated record, transcribed from the corrections prose below.
+ */
+export const changes: readonly [ChangeEntry, ...ChangeEntry[]] = [
+  {
+    date: '2026-08-19',
+    kind: 'publication',
+    summary: 'First publication of the two-run repeat comparison.',
+  },
+  {
+    date: '2026-09-01',
+    kind: 'update',
+    summary:
+      'The shared observed-systems sentence changed when Gemini became the fourth observed system under CONTENT_VERIFICATION A1. No figure on this page changed and nothing from Gemini is reported here.',
+  },
+  {
+    date: '2026-09-01',
+    kind: 'correction',
+    summary:
+      'The probe was discarding asynchronously rendered overview panels in both runs, so 12 Google AI Overviews cells read as empty by defect and agreed with themselves. The scope note on finding 01 and the corrected reading on finding 04 are now inline.',
+  },
+]
+
 export const corrections = {
   eyebrow: 'Corrections',
   title: 'One correction to this page, and how the next one gets made',

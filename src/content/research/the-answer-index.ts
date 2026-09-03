@@ -1,3 +1,4 @@
+import type { ChangeEntry } from '@/content/shared/publication-record'
 import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
 import type { DataTableColumn, DataTableRow } from '@/components/ui/data-table'
@@ -657,12 +658,25 @@ export const byline = {
   authorRole: 'Search Intelligence Engineer, Hendricks',
   authorHref: siteConfig.founderPersonId,
   published: '2026-09-01',
-  updated: '2026-09-01',
   dataThrough: '2026-09-01',
   note: 'The published date and the data-through date are the same day because the corpus was captured, verified, and written up in one pass. The updated date moves when a figure, a method, or a limitation changes, and is not refreshed to signal activity.',
 } as const
 
 /** Element 14. */
+/**
+ * Item 11. The dated record. One entry, because the page has been corrected
+ * zero times and says so in its own corrections prose; the row is the machine
+ * readable form of that sentence rather than a second claim.
+ */
+export const changes: readonly [ChangeEntry, ...ChangeEntry[]] = [
+  {
+    date: '2026-09-01',
+    kind: 'publication',
+    summary:
+      'First publication. Six findings from run-2026-09-01T022903Z against panel v2.0, with the 480-question corpus published as an open data package.',
+  },
+]
+
 export const corrections = {
   eyebrow: 'Corrections',
   title: 'No corrections to this page yet, and forty findings that never reached it',
