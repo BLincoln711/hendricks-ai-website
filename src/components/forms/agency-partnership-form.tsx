@@ -25,6 +25,9 @@ import {
  * redundant entry. No investment select either, because the qualifier here is
  * the field set itself.
  *
+ * The four groups, their legends and the field order are the hi-fi's
+ * (07-hifi/for-agencies.html). Only the name pair runs two-up.
+ *
  * Both legal/01 section 6 warnings sit above every free-text field, so "do not
  * identify a client" is read before an agency writes about an account rather
  * than after. "Number of relevant accounts" is a count for the same reason.
@@ -50,12 +53,14 @@ export function AgencyPartnershipForm({
   })
 
   const { fieldId, errorFor, valueFor } = form
-  const warningId = fieldId('sensitive')
+
+  const opportunityWarningId = fieldId('sensitive-opportunity')
+  const contextWarningId = fieldId('sensitive-context')
 
   return (
     <LeadFormShell controller={form} startedAt={startedAt} copy={agencyForm}>
       <fieldset className="fset">
-        <legend>{agencyForm.legends.about}</legend>
+        <legend>{agencyForm.legends.agency}</legend>
 
         <Field
           label={agencyForm.labels.organization}
@@ -96,6 +101,10 @@ export function AgencyPartnershipForm({
             className="input min-w-0"
           />
         </Field>
+      </fieldset>
+
+      <fieldset className="fset">
+        <legend>{agencyForm.legends.contact}</legend>
 
         <div className="fieldpair">
           <Field
@@ -139,99 +148,98 @@ export function AgencyPartnershipForm({
           </Field>
         </div>
 
-        <div className="fieldpair">
-          <Field
-            label={agencyForm.labels.workEmail}
-            htmlFor={fieldId('workEmail')}
-            error={errorFor('workEmail')}
+        <Field
+          label={agencyForm.labels.workEmail}
+          htmlFor={fieldId('workEmail')}
+          error={errorFor('workEmail')}
+          required
+        >
+          <input
+            id={fieldId('workEmail')}
+            name="workEmail"
+            type="email"
+            autoComplete="email"
             required
-          >
-            <input
-              id={fieldId('workEmail')}
-              name="workEmail"
-              type="email"
-              autoComplete="email"
-              required
-              maxLength={254}
-              defaultValue={valueFor('workEmail')}
-              aria-invalid={Boolean(errorFor('workEmail'))}
-              aria-describedby={describedBy(fieldId('workEmail'), { error: Boolean(errorFor('workEmail')) })}
-              className="input min-w-0"
-            />
-          </Field>
+            maxLength={254}
+            defaultValue={valueFor('workEmail')}
+            aria-invalid={Boolean(errorFor('workEmail'))}
+            aria-describedby={describedBy(fieldId('workEmail'), { error: Boolean(errorFor('workEmail')) })}
+            className="input min-w-0"
+          />
+        </Field>
 
-          <Field
-            label={agencyForm.labels.role}
-            htmlFor={fieldId('role')}
-            error={errorFor('role')}
+        <Field
+          label={agencyForm.labels.role}
+          htmlFor={fieldId('role')}
+          error={errorFor('role')}
+          required
+        >
+          <input
+            id={fieldId('role')}
+            name="role"
+            type="text"
+            autoComplete="organization-title"
             required
-          >
-            <input
-              id={fieldId('role')}
-              name="role"
-              type="text"
-              autoComplete="organization-title"
-              required
-              maxLength={160}
-              defaultValue={valueFor('role')}
-              aria-invalid={Boolean(errorFor('role'))}
-              aria-describedby={describedBy(fieldId('role'), { error: Boolean(errorFor('role')) })}
-              className="input min-w-0"
-            />
-          </Field>
-        </div>
-
-        <div className="fieldpair">
-          <Field
-            label={agencyForm.labels.primaryMarket}
-            htmlFor={fieldId('primaryMarket')}
-            error={errorFor('primaryMarket')}
-            required
-          >
-            <input
-              id={fieldId('primaryMarket')}
-              name="primaryMarket"
-              type="text"
-              required
-              maxLength={300}
-              defaultValue={valueFor('primaryMarket')}
-              aria-invalid={Boolean(errorFor('primaryMarket'))}
-              aria-describedby={describedBy(fieldId('primaryMarket'), { error: Boolean(errorFor('primaryMarket')) })}
-              className="input min-w-0"
-            />
-          </Field>
-
-          <Field
-            label={agencyForm.labels.relevantAccounts}
-            htmlFor={fieldId('relevantAccounts')}
-            hint={agencyForm.hints.relevantAccounts}
-            error={errorFor('relevantAccounts')}
-          >
-            <select
-              id={fieldId('relevantAccounts')}
-              name="relevantAccounts"
-              defaultValue={valueFor('relevantAccounts')}
-              aria-describedby={describedBy(fieldId('relevantAccounts'), {
-                hint: true,
-                error: Boolean(errorFor('relevantAccounts')),
-              })}
-              className="select min-w-0"
-            >
-              <option value="">{sharedLabels.chooseOne}</option>
-              {relevantAccountsOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </Field>
-        </div>
+            maxLength={160}
+            defaultValue={valueFor('role')}
+            aria-invalid={Boolean(errorFor('role'))}
+            aria-describedby={describedBy(fieldId('role'), { error: Boolean(errorFor('role')) })}
+            className="input min-w-0"
+          />
+        </Field>
       </fieldset>
 
       <fieldset className="fset">
-        <legend>{agencyForm.legends.request}</legend>
+        <legend>{agencyForm.legends.opportunity}</legend>
 
-        <SensitiveWarning id={warningId} texts={[sensitiveWarning, agencyClientWarning]} />
+        <Field
+          label={agencyForm.labels.primaryMarket}
+          htmlFor={fieldId('primaryMarket')}
+          error={errorFor('primaryMarket')}
+          required
+        >
+          <input
+            id={fieldId('primaryMarket')}
+            name="primaryMarket"
+            type="text"
+            required
+            maxLength={300}
+            defaultValue={valueFor('primaryMarket')}
+            aria-invalid={Boolean(errorFor('primaryMarket'))}
+            aria-describedby={describedBy(fieldId('primaryMarket'), { error: Boolean(errorFor('primaryMarket')) })}
+            className="input min-w-0"
+          />
+        </Field>
+
+        <Field
+          label={agencyForm.labels.relevantAccounts}
+          htmlFor={fieldId('relevantAccounts')}
+          hint={agencyForm.hints.relevantAccounts}
+          error={errorFor('relevantAccounts')}
+        >
+          <select
+            id={fieldId('relevantAccounts')}
+            name="relevantAccounts"
+            defaultValue={valueFor('relevantAccounts')}
+            aria-describedby={describedBy(fieldId('relevantAccounts'), {
+              hint: true,
+              error: Boolean(errorFor('relevantAccounts')),
+            })}
+            className="select min-w-0"
+          >
+            <option value="">{sharedLabels.chooseOne}</option>
+            {relevantAccountsOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </Field>
+
+        <SensitiveWarning
+          id={opportunityWarningId}
+          texts={[sensitiveWarning, agencyClientWarning]}
+        />
 
         <Field
           label={agencyForm.labels.primaryQuestion}
@@ -249,59 +257,40 @@ export function AgencyPartnershipForm({
             aria-invalid={Boolean(errorFor('primaryQuestion'))}
             aria-describedby={describedBy(fieldId('primaryQuestion'), {
               error: Boolean(errorFor('primaryQuestion')),
-              warning: warningId,
+              warning: opportunityWarningId,
             })}
             className="textarea min-w-0"
           />
         </Field>
 
-        <div className="fieldpair">
-          <Field
-            label={agencyForm.labels.preferredModel}
-            htmlFor={fieldId('preferredModel')}
-            error={errorFor('preferredModel')}
+        <Field
+          label={agencyForm.labels.preferredModel}
+          htmlFor={fieldId('preferredModel')}
+          error={errorFor('preferredModel')}
+        >
+          <select
+            id={fieldId('preferredModel')}
+            name="preferredModel"
+            defaultValue={valueFor('preferredModel') || (preselectedModel ?? '')}
+            aria-describedby={describedBy(fieldId('preferredModel'), {
+              error: Boolean(errorFor('preferredModel')),
+            })}
+            className="select min-w-0"
           >
-            <select
-              id={fieldId('preferredModel')}
-              name="preferredModel"
-              defaultValue={valueFor('preferredModel') || (preselectedModel ?? '')}
-              aria-describedby={describedBy(fieldId('preferredModel'), {
-                error: Boolean(errorFor('preferredModel')),
-              })}
-              className="select min-w-0"
-            >
-              <option value="">{sharedLabels.chooseOne}</option>
-              {preferredModelOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </Field>
+            <option value="">{sharedLabels.chooseOne}</option>
+            {preferredModelOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </Field>
+      </fieldset>
 
-          <Field
-            label={agencyForm.labels.desiredTiming}
-            htmlFor={fieldId('desiredTiming')}
-            error={errorFor('desiredTiming')}
-          >
-            <select
-              id={fieldId('desiredTiming')}
-              name="desiredTiming"
-              defaultValue={valueFor('desiredTiming')}
-              aria-describedby={describedBy(fieldId('desiredTiming'), {
-                error: Boolean(errorFor('desiredTiming')),
-              })}
-              className="select min-w-0"
-            >
-              <option value="">{sharedLabels.chooseOne}</option>
-              {desiredTimingOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </Field>
-        </div>
+      <fieldset className="fset">
+        <legend>{agencyForm.legends.context}</legend>
+
+        <SensitiveWarning id={contextWarningId} texts={[sensitiveWarning, agencyClientWarning]} />
 
         <Field
           label={agencyForm.labels.currentStack}
@@ -316,10 +305,33 @@ export function AgencyPartnershipForm({
             defaultValue={valueFor('currentStack')}
             aria-describedby={describedBy(fieldId('currentStack'), {
               error: Boolean(errorFor('currentStack')),
-              warning: warningId,
+              warning: contextWarningId,
             })}
             className="textarea min-w-0"
           />
+        </Field>
+
+        <Field
+          label={agencyForm.labels.desiredTiming}
+          htmlFor={fieldId('desiredTiming')}
+          error={errorFor('desiredTiming')}
+        >
+          <select
+            id={fieldId('desiredTiming')}
+            name="desiredTiming"
+            defaultValue={valueFor('desiredTiming')}
+            aria-describedby={describedBy(fieldId('desiredTiming'), {
+              error: Boolean(errorFor('desiredTiming')),
+            })}
+            className="select min-w-0"
+          >
+            <option value="">{sharedLabels.chooseOne}</option>
+            {desiredTimingOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </Field>
 
         <Field
@@ -335,7 +347,7 @@ export function AgencyPartnershipForm({
             defaultValue={valueFor('additionalContext')}
             aria-describedby={describedBy(fieldId('additionalContext'), {
               error: Boolean(errorFor('additionalContext')),
-              warning: warningId,
+              warning: contextWarningId,
             })}
             className="textarea min-w-0"
           />

@@ -65,6 +65,7 @@ export function LeadFormShell({
       noValidate
       className="form"
       onFocusCapture={controller.onFirstFocus}
+      onSubmit={controller.onSubmit}
     >
       <input type="hidden" name="startedAt" value={startedAt} />
       <input id={controller.attributionId} type="hidden" name="attribution" defaultValue="" />

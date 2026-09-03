@@ -11,14 +11,16 @@ import { RelatedLinks } from '@/components/sections/related-links'
 import { JsonLd } from '@/components/seo/json-ld'
 import { FitList, SignalList } from '@/components/ui/signal-list'
 import { SignalDot } from '@/components/visuals/signal-dot'
-import { DIAGNOSTIC_FIT_ID } from '@/config/navigation'
+import {
+  DIAGNOSTIC_APPLY_ANCHOR,
+  DIAGNOSTIC_APPLY_ID,
+  DIAGNOSTIC_FIT_ID,
+} from '@/config/navigation'
 import { routes } from '@/config/routes'
 import { fitTool } from '@/content/forms/fit-tool'
 import {
   closing,
   deliverables,
-  DIAGNOSTIC_APPLY_ANCHOR,
-  DIAGNOSTIC_APPLY_ID,
   fit,
   hero,
   investment,

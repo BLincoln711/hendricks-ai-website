@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
+import { readFirstTouch } from '@/lib/analytics/attribution-storage'
 import {
   buildAttribution,
   CAPTURE_CLICK_IDENTIFIERS,
@@ -153,12 +154,57 @@ describe('Attribution', () => {
   it('captures no click identifier until the Privacy Notice discloses one', () => {
     expect(CAPTURE_CLICK_IDENTIFIERS).toBe(false)
 
+    // The fixture is the string the browser actually submits, built by the
+    // client from a paid landing URL, rather than a hand-written blob of the
+    // fields the server was already known to drop.
+    const storedRaw = JSON.stringify(
+      readFirstTouch(
+        {
+          href:
+            'https://hendricks.ai/diagnostic?utm_source=google&gclid=CLICK_ID&msclkid=BING_ID&model=embedded',
+        },
+        'https://www.google.com/search?q=hendricks&gclid=CLICK_ID',
+      ),
+    )
+
+    expect(storedRaw).not.toContain('CLICK_ID')
+    expect(storedRaw).not.toContain('BING_ID')
+    expect(storedRaw).not.toContain('embedded')
+    expect(JSON.parse(storedRaw).utmSource).toBe('google')
+
     const merged = buildAttribution({
-      storedRaw: JSON.stringify({ gclid: 'abc', msclkid: 'def' }),
-      referer: 'https://hendricks.ai/diagnostic?gclid=abc&msclkid=def',
+      storedRaw,
+      referer: 'https://hendricks.ai/diagnostic?gclid=CLICK_ID&msclkid=BING_ID',
     })
 
-    expect(JSON.stringify(merged)).not.toContain('abc')
-    expect(JSON.stringify(merged)).not.toContain('def')
+    const payload = JSON.stringify(merged)
+    expect(payload).not.toContain('CLICK_ID')
+    expect(payload).not.toContain('BING_ID')
+    expect(merged.landingPage).toBe('https://hendricks.ai/diagnostic?utm_source=google')
+  })
+
+  it('re-applies the allowlist to a forged first-touch record', () => {
+    // The stored blob is client-supplied, so the server filters it again even
+    // though the client already did.
+    const merged = buildAttribution({
+      storedRaw: JSON.stringify({
+        landingPage: 'https://hendricks.ai/diagnostic?gclid=CLICK_ID&intent=brand',
+        referrer: 'https://ads.example/click?msclkid=BING_ID',
+      }),
+      referer: null,
+    })
+
+    expect(merged.landingPage).toBe('https://hendricks.ai/diagnostic')
+    expect(merged.referrer).toBe('https://ads.example/click')
+  })
+
+  it('drops a stored URL that will not parse rather than passing it through', () => {
+    const merged = buildAttribution({
+      storedRaw: JSON.stringify({ landingPage: 'not a url', referrer: 'also not a url' }),
+      referer: null,
+    })
+
+    expect(merged.landingPage).toBeUndefined()
+    expect(merged.referrer).toBeUndefined()
   })
 })

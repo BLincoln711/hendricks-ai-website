@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { privacyNotice } from '@/content/legal/privacy'
+import { env } from '@/lib/env'
 import {
   buildNotificationBody,
   buildNotificationSubject,
@@ -127,6 +128,63 @@ describe('Delivery', () => {
     expect(message).toContain('RESEND_API_KEY')
     expect(message).toContain('LEAD_NOTIFICATION_EMAIL')
     expect(message).toContain('was not delivered')
+  })
+
+  it('refuses a CRM-only delivery, because the inbox D-H names took nothing', async () => {
+    // `env` is parsed once at module load, so the variable is set on the
+    // parsed object rather than through the environment, and put back after.
+    const configured = env.CRM_WEBHOOK_URL
+    const crm = vi.fn(async () => new Response(null, { status: 200 }))
+    vi.stubGlobal('fetch', crm)
+    env.CRM_WEBHOOK_URL = 'https://crm.example/leads'
+
+    try {
+      const result = await deliverLead(record)
+
+      expect(result.crmWebhook).toBe('success')
+      expect(result.email).toBe('skipped')
+      // The visitor is not told a lead was delivered that no monitored inbox
+      // received. An unconfigured email adapter is launch blocker 1.
+      expect(result.delivered).toBe(false)
+    } finally {
+      env.CRM_WEBHOOK_URL = configured
+    }
+  })
+
+  it('keeps the CRM as a durable destination when a configured email fails', async () => {
+    const configured = env.CRM_WEBHOOK_URL
+    const configuredKey = env.RESEND_API_KEY
+    const configuredFrom = env.LEAD_FROM_EMAIL
+    const configuredTo = env.LEAD_NOTIFICATION_EMAIL
+
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async (url: unknown) =>
+        String(url).includes('resend')
+          ? new Response(null, { status: 500 })
+          : new Response(null, { status: 200 }),
+      ),
+    )
+
+    env.CRM_WEBHOOK_URL = 'https://crm.example/leads'
+    env.RESEND_API_KEY = 'test-key'
+    env.LEAD_FROM_EMAIL = 'forms@hendricks.ai'
+    env.LEAD_NOTIFICATION_EMAIL = 'brandon@hendricks.ai'
+
+    try {
+      const result = await deliverLead(record)
+
+      expect(result.email).toBe('failed')
+      expect(result.crmWebhook).toBe('success')
+      // A configured channel that failed is a logged operator problem, and one
+      // durable destination held the lead (15 section 4).
+      expect(result.delivered).toBe(true)
+    } finally {
+      env.CRM_WEBHOOK_URL = configured
+      env.RESEND_API_KEY = configuredKey
+      env.LEAD_FROM_EMAIL = configuredFrom
+      env.LEAD_NOTIFICATION_EMAIL = configuredTo
+    }
   })
 
   it('reports the channels that actually took the submission', () => {

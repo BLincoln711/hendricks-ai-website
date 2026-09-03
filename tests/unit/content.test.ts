@@ -208,9 +208,10 @@ describe('Navigation', () => {
     expect(isCurrentRoute('/', '/')).toBe(true)
   })
 
-  it('points the header button at the fit anchor on /diagnostic and nowhere else', () => {
-    // Redesign 03 section 2; 14 DX-05; register B1.
-    expect(headerCtaHref('/diagnostic')).toBe('#fit')
+  it('points the header button at the application on /diagnostic and nowhere else', () => {
+    // Redesign 03 section 2; 14 DX-05; register B1. 15 section 1 names #apply
+    // for the header button; the hero's own CTA is the one that goes to #fit.
+    expect(headerCtaHref('/diagnostic')).toBe('#apply')
     expect(headerCtaHref('/')).toBe('/diagnostic')
     expect(headerCtaHref('/for-agencies')).toBe('/diagnostic')
   })

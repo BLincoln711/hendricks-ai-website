@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  attributionInputSchema,
   audienceTypeOf,
   leadInputSchema,
   normalizeWebsite,
@@ -163,17 +164,18 @@ describe('Lead schema by form', () => {
     ).toBe(false)
   })
 
-  it('keeps the attribution object optional and bounded', () => {
-    const parsed = leadInputSchema.safeParse({
-      ...contact,
-      attribution: { utmSource: 'linkedin', landingPage: 'https://hendricks.ai/' },
-    })
-    expect(parsed.success).toBe(true)
-
+  it('bounds the attribution object the browser contributes', () => {
+    // The lead union carries no attribution field: the action never reads one
+    // off the form, it builds it server-side. The schema is the bound on the
+    // stored blob, and `parseStoredAttribution` is its only caller.
     expect(
-      leadInputSchema.safeParse({ ...contact, attribution: { utmSource: 'x'.repeat(400) } })
-        .success,
-    ).toBe(false)
+      attributionInputSchema.safeParse({
+        utmSource: 'linkedin',
+        landingPage: 'https://hendricks.ai/',
+      }).success,
+    ).toBe(true)
+
+    expect(attributionInputSchema.safeParse({ utmSource: 'x'.repeat(400) }).success).toBe(false)
   })
 
   it('discriminates on the form name and refuses an unknown one', () => {

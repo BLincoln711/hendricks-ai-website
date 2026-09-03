@@ -7,6 +7,8 @@
  * provider error and never anything derived from a delivery failure.
  */
 
+import type { ContactAudience } from '@/lib/forms/lead-options'
+
 export type LeadFormStatus =
   | 'idle'
   | 'success'
@@ -23,6 +25,14 @@ export type LeadFormState = {
   retryAfterSeconds?: number
   /** Which destinations took it, for the success event. Never a field value. */
   deliveryChannels?: string
+  /**
+   * The audience category the server parsed, returned on success only.
+   *
+   * A category, never a field value, and the only place the chosen audience is
+   * authoritative: the client knows the page's preselect, which is not the
+   * same thing as the answer the visitor gave.
+   */
+  audienceType?: ContactAudience
 }
 
 export const initialLeadFormState: LeadFormState = { status: 'idle' }

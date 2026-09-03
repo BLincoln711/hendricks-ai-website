@@ -1,5 +1,6 @@
 import {
   trackEvent,
+  type AudienceType,
   type ContactAudienceType,
   type FormErrorType,
 } from '@/lib/analytics/events'
@@ -31,7 +32,7 @@ export function trackFormStart({
 }: {
   formName: LeadFormName
   pageName: string
-  audienceType?: 'brand' | 'agency'
+  audienceType?: AudienceType
 }): void {
   if (started.has(formName)) return
   started.add(formName)
@@ -73,22 +74,36 @@ export function trackValidationErrors({
   }
 }
 
-/** Fires when client validation passed and the action was invoked. */
+/**
+ * Fires when the action is invoked with the audience the visitor chose.
+ *
+ * The CSV makes `audience_type` a required parameter of `diagnostic_submit`,
+ * and the audience is the application's first required field, so a submission
+ * carrying no choice is not a validated one and raises nothing. It reaches the
+ * server all the same and comes back as the invalid state, which is the event
+ * that describes it.
+ */
 export function trackFormSubmit({
   formName,
   audienceType,
 }: {
   formName: LeadFormName
-  audienceType?: 'brand' | 'agency'
+  audienceType?: AudienceType
 }): void {
-  if (formName !== 'diagnostic') return
+  if (formName !== 'diagnostic' || !audienceType) return
 
-  trackEvent('diagnostic_submit', {
-    form_name: formName,
-    ...(audienceType ? { audience_type: audienceType } : {}),
-  })
+  trackEvent('diagnostic_submit', { form_name: formName, audience_type: audienceType })
 }
 
+/**
+ * The success event of each form.
+ *
+ * `audienceType` is the category the server parsed, not the page's preselect,
+ * and it is omitted rather than guessed when it is absent: "other" is itself
+ * one of the four approved routing choices, so a fallback to it reports a
+ * wrong category instead of a missing one. `deliveryChannels` is omitted on an
+ * idempotent repeat, which sent to nothing; the CSV makes it optional.
+ */
 export function trackFormSuccess({
   formName,
   audienceType,
@@ -96,31 +111,30 @@ export function trackFormSuccess({
 }: {
   formName: LeadFormName
   audienceType?: ContactAudienceType
-  deliveryChannels: string
+  deliveryChannels?: string
 }): void {
+  const channels = deliveryChannels ? { delivery_channels: deliveryChannels } : {}
+
   if (formName === 'diagnostic') {
     trackEvent('diagnostic_success', {
       form_name: formName,
       ...(audienceType === 'brand' || audienceType === 'agency'
         ? { audience_type: audienceType }
         : {}),
-      delivery_channels: deliveryChannels,
+      ...channels,
     })
     return
   }
 
   if (formName === 'agency-partnership') {
-    trackEvent('agency_partner_inquiry_submit', {
-      form_name: formName,
-      delivery_channels: deliveryChannels,
-    })
+    trackEvent('agency_partner_inquiry_submit', { form_name: formName, ...channels })
     return
   }
 
   trackEvent('contact_submit', {
     form_name: formName,
-    audience_type: audienceType ?? 'other',
-    delivery_channels: deliveryChannels,
+    ...(audienceType ? { audience_type: audienceType } : {}),
+    ...channels,
   })
 }
 

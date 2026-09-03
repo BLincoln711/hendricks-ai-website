@@ -76,8 +76,16 @@ export const preferredModelOptions = options([
   { value: 'unsure', label: 'Not sure yet' },
 ] as const)
 
-function values<T extends readonly Option<string>[]>(list: T): [string, ...string[]] {
-  return list.map((option) => option.value) as [string, ...string[]]
+/**
+ * The values of a list, as the tuple `z.enum` wants, keeping the literal union
+ * rather than widening to `string`. What a form recorded as its audience is a
+ * category the analytics layer and the delivered record both read back, and a
+ * widened type there is what let a preselect stand in for a choice.
+ */
+function values<T extends readonly Option<string>[]>(
+  list: T,
+): [T[number]['value'], ...T[number]['value'][]] {
+  return list.map((option) => option.value) as [T[number]['value'], ...T[number]['value'][]]
 }
 
 export const diagnosticAudienceValues = values(diagnosticAudienceOptions)

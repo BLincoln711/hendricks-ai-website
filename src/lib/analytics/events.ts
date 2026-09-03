@@ -37,17 +37,27 @@ type EventMap = {
     solution_name?: string
   }
   diagnostic_start: FormEventBase & { page_name: string; audience_type?: AudienceType }
-  diagnostic_submit: FormEventBase & { audience_type?: AudienceType }
-  diagnostic_success: FormEventBase & { audience_type?: AudienceType; delivery_channels: string }
+  /** `audience_type` is required by the CSV, so the event is not raised without it. */
+  diagnostic_submit: FormEventBase & { audience_type: AudienceType }
+  diagnostic_success: FormEventBase & { audience_type?: AudienceType; delivery_channels?: string }
   diagnostic_error: FormEventBase & { error_type: FormErrorType }
   agency_partner_inquiry_start: FormEventBase & { page_name: string }
-  agency_partner_inquiry_submit: FormEventBase & { delivery_channels: string }
+  agency_partner_inquiry_submit: FormEventBase & { delivery_channels?: string }
   agency_partner_inquiry_error: FormEventBase & { error_type: FormErrorType }
   research_view: { content_slug: string; content_category?: string }
   research_related_click: { content_slug: string; destination_url: string }
   case_study_view: { case_study_slug: string }
   external_venture_click: { external_brand_name: string; destination_url: string }
-  contact_submit: FormEventBase & { audience_type: ContactAudienceType; delivery_channels: string }
+  /**
+   * `audience_type` is required by the CSV and the server supplies it on every
+   * success, because the routing choice is a required field. It is optional
+   * here so an absent audience is omitted rather than reported as "other",
+   * which is itself one of the four approved choices.
+   */
+  contact_submit: FormEventBase & {
+    audience_type?: ContactAudienceType
+    delivery_channels?: string
+  }
   contact_error: FormEventBase & { error_type: FormErrorType }
   /** `field_name` is a name, never a value. */
   form_validation_error: FormEventBase & {

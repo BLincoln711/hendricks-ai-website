@@ -13,7 +13,12 @@ import {
 } from '@/lib/forms/lead-delivery'
 import type { LeadFormState } from '@/lib/forms/lead-form-state'
 import { buildSubmissionRecord } from '@/lib/forms/lead-record'
-import { leadInputSchema, type LeadFormName, type LeadInput } from '@/lib/forms/lead-schema'
+import {
+  audienceTypeOf,
+  leadInputSchema,
+  type LeadFormName,
+  type LeadInput,
+} from '@/lib/forms/lead-schema'
 import { checkRateLimit, identifierFromHeaders } from '@/lib/forms/rate-limit'
 
 /**
@@ -156,8 +161,11 @@ async function handle(
   const { firstSubmission } = await claimSubmission(key)
 
   if (!firstSubmission) {
-    // The same success, nothing re-sent (docs/15 section 5).
-    return { status: 'success', deliveryChannels: 'duplicate' }
+    // The same success, nothing re-sent (docs/15 section 5). No
+    // `deliveryChannels`: the first submission named them and this one sent to
+    // nothing, and the parameter is optional in the analytics CSV, so an
+    // omission is inside the vocabulary where a word like "duplicate" is not.
+    return { status: 'success', audienceType: audienceTypeOf(input) }
   }
 
   const attribution = buildAttribution({
@@ -186,7 +194,11 @@ async function handle(
 
   recordMarketingConsent(record)
 
-  return { status: 'success', deliveryChannels: deliveryChannels(result) }
+  return {
+    status: 'success',
+    deliveryChannels: deliveryChannels(result),
+    audienceType: audienceTypeOf(input),
+  }
 }
 
 export async function submitDiagnosticApplication(

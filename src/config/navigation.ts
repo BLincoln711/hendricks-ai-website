@@ -71,17 +71,26 @@ export function isCurrentRoute(pathname: string, href: string): boolean {
 }
 
 /**
- * The header button's destination (redesign 03 section 2; 14 DX-05; register
- * B1). On /diagnostic it points at the fit section's anchor so the most
- * persistent CTA never reloads the page the visitor is converting on. The
- * label never varies by route (WCAG 3.2.4). The section that owns the id
- * renders it from `DIAGNOSTIC_FIT_ID` so the two cannot drift (14 DX-25).
+ * The two in-page anchors on /diagnostic. Each section that owns an id renders
+ * it from the constant here, so a target and the link to it cannot drift
+ * (14 DX-25). They live in the config rather than beside the page copy because
+ * the header reads one of them on every route.
  */
 export const DIAGNOSTIC_FIT_ID = 'fit'
 export const DIAGNOSTIC_FIT_ANCHOR = `#${DIAGNOSTIC_FIT_ID}`
+export const DIAGNOSTIC_APPLY_ID = 'apply'
+export const DIAGNOSTIC_APPLY_ANCHOR = `#${DIAGNOSTIC_APPLY_ID}`
 
+/**
+ * The header button's destination (redesign 03 section 2; 14 DX-05; register
+ * B1). On /diagnostic it points at the application, per 15 section 1: the most
+ * persistent CTA never reloads the page the visitor is converting on, and its
+ * words are an instruction to apply. The hero's own CTA is the one that goes
+ * to the fit check first (15 decision 2). The label never varies by route
+ * (WCAG 3.2.4).
+ */
 export function headerCtaHref(pathname: string): string {
-  return pathname === routes.diagnostic.path ? DIAGNOSTIC_FIT_ANCHOR : routes.diagnostic.path
+  return pathname === routes.diagnostic.path ? DIAGNOSTIC_APPLY_ANCHOR : routes.diagnostic.path
 }
 
 /** Footer architecture (redesign 03 section 3). Results appears only when enabled. */

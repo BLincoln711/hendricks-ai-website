@@ -55,8 +55,12 @@ export const errors = {
 } as const
 
 type FormCopy = {
-  /** The form's own id, used for the anchor, the events and the schema. */
-  legends: { about: string; request: string }
+  /**
+   * The fieldset legends, in the groups the hi-fi form uses. Named per form
+   * rather than shared: the three group different questions, and a shared pair
+   * of keys is what collapsed them into two groups in the first place.
+   */
+  legends: Record<string, string>
   labels: Record<string, string>
   hints: Record<string, string>
   submit: string
@@ -73,12 +77,11 @@ type FormCopy = {
 export const diagnosticForm = {
   eyebrow: 'Application',
   heading: 'Leave with clarity about what should be built first.',
-  /** diagnostic.ts closing body, verbatim. It promises no reply, only a read. */
-  intro:
-    'Tell Hendricks what your organization needs to understand, improve, or build. We will determine whether a Diagnostic is the appropriate first step, and say directly when a simpler solution is sufficient.',
   legends: {
-    about: 'About you and your organization',
-    request: 'What the Diagnostic should answer',
+    details: 'Your details',
+    organization: 'Your organization',
+    question: 'The question',
+    context: 'Context',
   },
   labels: {
     audienceType: 'I am applying as',
@@ -107,8 +110,10 @@ export const diagnosticForm = {
 
 export const agencyForm = {
   legends: {
-    about: 'About your agency',
-    request: 'The opportunity',
+    agency: 'Your agency',
+    contact: 'Contact and role',
+    opportunity: 'The opportunity',
+    context: 'Context',
   },
   labels: {
     ...sharedLabels,
@@ -139,8 +144,9 @@ export const contactForm = {
   eyebrow: 'Inquiry',
   heading: 'Tell Hendricks what you need.',
   legends: {
-    about: 'About you and your organization',
-    request: 'What you need',
+    contact: 'Contact',
+    question: 'Your question',
+    context: 'Context',
   },
   labels: {
     audienceType: 'I am contacting Hendricks as',

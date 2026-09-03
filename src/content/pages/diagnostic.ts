@@ -3,10 +3,6 @@ import type { Cta } from '@/components/ui/cta'
 import { DIAGNOSTIC_FIT_ANCHOR } from '@/config/navigation'
 import { routes } from '@/config/routes'
 
-/** The application's own anchor, rendered by the station that owns the id. */
-export const DIAGNOSTIC_APPLY_ID = 'apply'
-export const DIAGNOSTIC_APPLY_ANCHOR = `#${DIAGNOSTIC_APPLY_ID}`
-
 /**
  * Approved copy, transcribed from content/pages/07-diagnostic.md.
  *

@@ -76,6 +76,11 @@ export function Field({
  * A radio group. A fieldset because the question is the legend and the options
  * are the answers, which is the one grouping a screen reader announces without
  * being told to.
+ *
+ * The fieldset carries `idPrefix` as its own id, so the error summary's link
+ * for this field resolves (16 FM-02). Pointing it at the first radio instead
+ * would move focus onto one answer and read that answer rather than the
+ * question, which is the wrong half of the group to land on.
  */
 export function RadioGroup({
   legend,
@@ -103,6 +108,8 @@ export function RadioGroup({
 }) {
   return (
     <fieldset
+      id={idPrefix}
+      tabIndex={-1}
       className="fset"
       aria-invalid={error ? true : undefined}
       aria-describedby={error ? `${idPrefix}-error` : undefined}

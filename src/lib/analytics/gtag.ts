@@ -1,3 +1,4 @@
+import { allowlistedSearch, redactUrl as redactToAllowlist } from '@/lib/analytics/url-allowlist'
 import { analyticsAllowed } from '@/lib/consent/state'
 import { getSnapshot } from '@/lib/consent/store'
 
@@ -42,43 +43,20 @@ export function sendGtagEvent(name: string, params?: object): void {
  * would put a field value on every consented page_view, which is the leak
  * CANON R8 and 16 FM-10 forbid by a different route. Click identifiers are
  * dropped for the same reason until CONTENT_VERIFICATION L7 discloses them.
+ *
+ * The rule lives in `url-allowlist` because the form's first-touch record and
+ * the server's attribution builder apply the same one. It is re-exported here
+ * so a caller reaching for the analytics query rule finds it where it reads.
  */
-const ALLOWED_QUERY_PARAMETERS = [
-  'utm_source',
-  'utm_medium',
-  'utm_campaign',
-  'utm_term',
-  'utm_content',
-] as const
-
-/** Returns the allowlisted query, with its `?`, or an empty string. */
-export function allowlistedSearch(search: string): string {
-  const source = new URLSearchParams(search)
-  const kept = new URLSearchParams()
-
-  for (const name of ALLOWED_QUERY_PARAMETERS) {
-    const value = source.get(name)
-    if (value) kept.append(name, value)
-  }
-
-  const query = kept.toString()
-  return query.length > 0 ? `?${query}` : ''
-}
+export { allowlistedSearch }
 
 /**
- * Rebuilds an absolute URL with only the allowlisted query. A URL that cannot
- * be parsed is dropped rather than passed through, because an unparseable
- * value is exactly the one that has not been redacted.
+ * Rebuilds an absolute URL with only the allowlisted query. Returns an empty
+ * string where the shared helper returns undefined: a page path is a string
+ * everywhere it is read here, and an absent one is the empty path.
  */
 export function redactUrl(href: string): string {
-  if (!href) return ''
-
-  try {
-    const url = new URL(href)
-    return `${url.origin}${url.pathname}${allowlistedSearch(url.search)}`
-  } catch {
-    return ''
-  }
+  return redactToAllowlist(href) ?? ''
 }
 
 export function readCampaignAttribution(

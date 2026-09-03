@@ -169,11 +169,35 @@ describe('Lead form events', () => {
     ])
   })
 
-  it('raises a submit event on the Diagnostic only', () => {
+  it('raises a submit event on the Diagnostic only, and only with an audience', () => {
     trackFormSubmit({ formName: 'diagnostic', audienceType: 'brand' })
     trackFormSubmit({ formName: 'contact' })
+    // The CSV makes audience_type required, so a submission with the required
+    // radio unanswered raises nothing rather than an event missing a parameter.
+    trackFormSubmit({ formName: 'diagnostic' })
 
     expect(layer().map((entry) => entry.event)).toEqual(['diagnostic_submit'])
+    expect(layer()[0]).toMatchObject({ audience_type: 'brand' })
+  })
+
+  it('omits an unknown audience rather than reporting it as "other"', () => {
+    trackFormSuccess({ formName: 'contact', deliveryChannels: 'email' })
+
+    expect(layer()[0]).toEqual({
+      event: 'contact_submit',
+      form_name: 'contact',
+      delivery_channels: 'email',
+    })
+  })
+
+  it('omits the delivery channels on a repeat that sent to nothing', () => {
+    trackFormSuccess({ formName: 'diagnostic', audienceType: 'brand' })
+
+    expect(layer()[0]).toEqual({
+      event: 'diagnostic_success',
+      form_name: 'diagnostic',
+      audience_type: 'brand',
+    })
   })
 
   it('never carries a field value in any parameter', () => {

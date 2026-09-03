@@ -5,11 +5,19 @@
  * decision. Without consent the server keeps what the request itself carries,
  * which needs no storage and therefore no permission.
  *
+ * The two URLs written here go through the same allowlist the server applies
+ * to the `Referer` header. The landing page of a paid session carries `gclid`
+ * and `msclkid`, and storing it raw would capture the click identifiers by the
+ * front door while the header was being redacted at the back (15 decision 17,
+ * CONTENT_VERIFICATION L7). The referrer is filtered for the same reason.
+ *
  * The key is versioned, so a change to the stored shape retires the old record
  * instead of misreading it, and it is removed the moment the decision is
  * withdrawn or a Global Privacy Control signal appears, so no optional
  * processing continues after the decision (docs/16 section 15).
  */
+
+import { redactUrl } from '@/lib/analytics/url-allowlist'
 
 export const ATTRIBUTION_STORAGE_KEY = 'hx_attr_v1'
 
@@ -31,10 +39,22 @@ const UTM_FIELDS = [
   ['utm_content', 'utmContent'],
 ] as const
 
-export function readFirstTouch(location: Location, referrer: string): FirstTouchAttribution {
-  const params = new URLSearchParams(location.search)
-  const attribution: FirstTouchAttribution = {
-    landingPage: `${location.origin}${location.pathname}${location.search}`,
+/**
+ * Takes `{ href }` rather than `Location` so the allowlist can be exercised
+ * against a real URL in a test without a browser standing behind it.
+ */
+export function readFirstTouch(location: { href: string }, referrer: string): FirstTouchAttribution {
+  const attribution: FirstTouchAttribution = {}
+
+  const landingPage = redactUrl(location.href)
+  if (landingPage) attribution.landingPage = landingPage
+
+  let params = new URLSearchParams()
+  try {
+    params = new URL(location.href).searchParams
+  } catch {
+    // An unparseable location leaves the UTM fields unread. There is nothing
+    // to recover from it, and a raw substring is the value that is not filtered.
   }
 
   for (const [param, field] of UTM_FIELDS) {
@@ -42,7 +62,8 @@ export function readFirstTouch(location: Location, referrer: string): FirstTouch
     if (value) attribution[field] = value.slice(0, 300)
   }
 
-  if (referrer) attribution.referrer = referrer.slice(0, 1000)
+  const referrerUrl = redactUrl(referrer)
+  if (referrerUrl) attribution.referrer = referrerUrl
 
   return attribution
 }

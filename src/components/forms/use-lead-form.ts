@@ -1,15 +1,16 @@
 'use client'
 
-import { useActionState, useEffect, useId, useRef } from 'react'
+import { useActionState, useCallback, useEffect, useId, useRef, type FormEvent } from 'react'
 
 import { errors } from '@/content/forms/lead-forms'
 import {
   trackFormError,
   trackFormStart,
+  trackFormSubmit,
   trackFormSuccess,
   trackValidationErrors,
 } from '@/lib/analytics/form-events'
-import type { ContactAudienceType } from '@/lib/analytics/events'
+import type { AudienceType, ContactAudienceType } from '@/lib/analytics/events'
 import { initialLeadFormState, type LeadFormState } from '@/lib/forms/lead-form-state'
 import type { LeadFormName } from '@/lib/forms/lead-schema'
 
@@ -33,6 +34,15 @@ export type LeadFormController = {
   fieldId: (name: string) => string
   errorFor: (name: string) => string | undefined
   valueFor: (name: string) => string
+  /**
+   * Raised on submit rather than by wrapping `action`.
+   *
+   * The action handed to `<form action>` has to be the one `useActionState`
+   * returned, unwrapped: React serializes that function into the form's own
+   * target, and a client wrapper around it silently costs the form its no-JS
+   * submission (16 FM-12). A submit handler is the seam that leaves it alone.
+   */
+  onSubmit: (event: FormEvent<HTMLFormElement>) => void
   hasSummary: boolean
   summaryMessage: string | undefined
   /**
@@ -48,6 +58,18 @@ export type LeadFormController = {
 
 function minutesFrom(seconds: number | undefined): number {
   return Math.max(1, Math.ceil((seconds ?? 60) / 60))
+}
+
+/**
+ * The audience the visitor actually selected, read off the submitted form.
+ *
+ * A category, not a field value, and the only reading available at invocation
+ * time: the server has not answered yet, and the page's preselect is not an
+ * answer. Anything else, including an unanswered group, reads as absent.
+ */
+function submittedAudience(formData: FormData): AudienceType | undefined {
+  const value = formData.get('audienceType')
+  return value === 'brand' || value === 'agency' ? value : undefined
 }
 
 export function useLeadForm({
@@ -69,6 +91,22 @@ export function useLeadForm({
   const [state, action, pending] = useActionState(serverAction, initialLeadFormState)
   const ids = useId()
   const reported = useRef<LeadFormState | null>(null)
+
+  /**
+   * `diagnostic_submit` is the one event raised on the way out rather than
+   * from a result, because the spec's trigger is the invocation itself. The
+   * handler never prevents the default, so the action runs whether or not the
+   * event does, and without JavaScript neither this nor analytics exists.
+   */
+  const onSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      trackFormSubmit({
+        formName,
+        audienceType: submittedAudience(new FormData(event.currentTarget)),
+      })
+    },
+    [formName],
+  )
 
   const summaryId = `${ids}-error-summary`
   const successId = `${ids}-success`
@@ -94,8 +132,10 @@ export function useLeadForm({
     if (state.status === 'success') {
       trackFormSuccess({
         formName,
-        audienceType,
-        deliveryChannels: state.deliveryChannels ?? 'unknown',
+        // The server's category first: it is the answer that was submitted,
+        // where the prop is only what the page preselected.
+        audienceType: state.audienceType ?? audienceType,
+        deliveryChannels: state.deliveryChannels,
       })
       return
     }
@@ -133,6 +173,7 @@ export function useLeadForm({
     state,
     action,
     pending,
+    onSubmit,
     fieldId: (name) => `${ids}-${name}`,
     errorFor: (name) => state.fieldErrors?.[name],
     valueFor: (name) => state.values?.[name] ?? '',

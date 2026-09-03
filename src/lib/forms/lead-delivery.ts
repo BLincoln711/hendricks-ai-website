@@ -191,9 +191,15 @@ async function sendCrmWebhook(record: LeadSubmissionRecord): Promise<DeliveryCha
 /**
  * Delivers to every configured destination and reports what happened.
  *
- * The two run in parallel because neither depends on the other, and a partial
- * failure is a logged operator problem rather than a visitor problem as long as
- * one destination held the lead.
+ * The two run in parallel because neither depends on the other. Public success
+ * needs one durable destination (15 section 4), and it also needs the email
+ * adapter to exist: D-H puts a named human on `brandon@hendricks.ai`, and a
+ * `skipped` email means the three Resend variables are unset, which is launch
+ * blocker 1 rather than a transient fault. A CRM-only success would show the
+ * visitor a confirmation while nothing reached the monitored inbox, so an
+ * unconfigured email channel fails closed. A configured channel that failed is
+ * different: it is a logged operator problem, and the CRM holding the lead is
+ * the partial success the spec describes.
  */
 export async function deliverLead(record: LeadSubmissionRecord): Promise<DeliveryResult> {
   const [email, crmWebhook] = await Promise.all([
@@ -201,7 +207,7 @@ export async function deliverLead(record: LeadSubmissionRecord): Promise<Deliver
     sendCrmWebhook(record),
   ])
 
-  const delivered = email === 'success' || crmWebhook === 'success'
+  const delivered = email !== 'skipped' && (email === 'success' || crmWebhook === 'success')
 
   if (delivered && (email === 'failed' || crmWebhook === 'failed')) {
     console.error(

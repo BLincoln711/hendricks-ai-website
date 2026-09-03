@@ -3,6 +3,7 @@ import type { ReactElement } from 'react'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { ConsentProvider } from '@/components/consent/consent-provider'
+import { ErrorSummary, RadioGroup } from '@/components/forms/form-parts'
 import { AgencyPartnershipForm } from '@/components/forms/agency-partnership-form'
 import { ContactInquiryForm } from '@/components/forms/contact-inquiry-form'
 import { DiagnosticApplicationForm } from '@/components/forms/diagnostic-application-form'
@@ -15,6 +16,7 @@ import {
   sensitiveWarning,
 } from '@/content/forms/lead-forms'
 import { resetConsentStoreForTests } from '@/lib/consent/store'
+import { diagnosticAudienceOptions } from '@/lib/forms/lead-options'
 
 const STARTED_AT = 1_756_000_000_000
 
@@ -203,5 +205,64 @@ describe('General inquiry', () => {
       'href',
       '/for-agencies#partnership-inquiry',
     )
+  })
+})
+
+describe('Error summary', () => {
+  /**
+   * 16 FM-02: every message links to its field. A radio group is the entry a
+   * visitor is most likely to have missed, because it has no default, and it
+   * was the one entry whose anchor pointed at nothing.
+   */
+  it('links every message to an element that exists, the radio group included', () => {
+    const fieldId = (name: string) => `lead-${name}`
+
+    render(
+      <>
+        <ErrorSummary
+          id="summary"
+          fieldErrors={{
+            audienceType: 'Choose whether you are applying as a brand or as an agency.',
+            workEmail: 'Enter a valid work email address.',
+          }}
+          fieldId={fieldId}
+        />
+        <RadioGroup
+          legend="I am applying as"
+          name="audienceType"
+          idPrefix={fieldId('audienceType')}
+          options={diagnosticAudienceOptions}
+          error="Choose whether you are applying as a brand or as an agency."
+          required
+        />
+        <input id={fieldId('workEmail')} type="email" />
+      </>,
+    )
+
+    const links = within(screen.getByRole('alert')).getAllByRole('link')
+    expect(links).toHaveLength(2)
+
+    for (const link of links) {
+      const target = (link.getAttribute('href') ?? '').slice(1)
+      expect(document.getElementById(target), `no element for #${target}`).not.toBeNull()
+    }
+  })
+
+  it('gives the radio group a focus target rather than one of its answers', () => {
+    const idPrefix = 'lead-audienceType'
+
+    const { container } = render(
+      <RadioGroup
+        legend="I am applying as"
+        name="audienceType"
+        idPrefix={idPrefix}
+        options={diagnosticAudienceOptions}
+        required
+      />,
+    )
+
+    const fieldset = container.querySelector('fieldset')
+    expect(fieldset).toHaveAttribute('id', idPrefix)
+    expect(fieldset).toHaveAttribute('tabindex', '-1')
   })
 })

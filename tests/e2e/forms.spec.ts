@@ -32,6 +32,7 @@ const FORMS = [
     anchor: '#apply',
     copy: diagnosticForm,
     fill: fillDiagnostic,
+    audienceRadio: true,
   },
   {
     name: 'Agency partnership inquiry',
@@ -39,6 +40,7 @@ const FORMS = [
     anchor: '#partnership-inquiry',
     copy: agencyForm,
     fill: fillAgency,
+    audienceRadio: false,
   },
   {
     name: 'General inquiry',
@@ -46,6 +48,7 @@ const FORMS = [
     anchor: '#inquiry',
     copy: contactForm,
     fill: fillContact,
+    audienceRadio: true,
   },
 ] as const
 
@@ -206,6 +209,37 @@ for (const form of FORMS) {
       await expect(page.locator(`#${(describedBy ?? '').split(' ').pop()}`)).toContainText(
         /valid work email/i,
       )
+    })
+
+    test('links every message in the summary to a field that exists (FM-02)', async ({
+      page,
+    }, testInfo) => {
+      await openForm(page, form, `${form.name}-anchors-${testInfo.project.name}`)
+
+      // Nothing is filled, so every required field reports. The audience radio
+      // has no default and is the first entry, which is the anchor a summary
+      // built from field names is most likely to point at nothing.
+      await waitOutTimingFloor(page)
+      await submit(page, form.copy.submit)
+
+      const alert = summary(page)
+      await expect(alert).toBeVisible()
+
+      const targets = await alert
+        .getByRole('link')
+        .evaluateAll((links) => links.map((link) => link.getAttribute('href') ?? ''))
+
+      expect(targets.length).toBeGreaterThan(1)
+
+      for (const target of targets) {
+        await expect(page.locator(target), `no element for ${target}`).toHaveCount(1)
+      }
+
+      if (form.audienceRadio) {
+        const audience = targets.find((target) => target.endsWith('-audienceType'))
+        expect(audience, `no audienceType entry in ${targets.join(', ')}`).toBeTruthy()
+        await expect(page.locator(audience as string)).toHaveAttribute('tabindex', '-1')
+      }
     })
 
     test('preserves every answer through a recoverable error (WCAG 3.3.7)', async ({
@@ -382,6 +416,52 @@ test.describe('Analytics', () => {
     expect(named, `dataLayer held events before consent:\n${JSON.stringify(named)}`).toEqual([])
   })
 
+  test('reports the submission with the audience the visitor chose', async ({
+    page,
+  }, testInfo) => {
+    await ownBucket(page, `analytics-submit-${testInfo.project.name}`)
+    await decideConsent(page, 'granted')
+    await page.goto('/diagnostic#apply')
+
+    await fillDiagnostic(page)
+    await waitOutTimingFloor(page)
+    await submit(page, diagnosticForm.submit)
+    await expect(summary(page)).toBeVisible()
+
+    const layer = await page.evaluate(
+      () => (window as unknown as { dataLayer?: Record<string, unknown>[] }).dataLayer ?? [],
+    )
+
+    // Fired at invocation, so it is present even though delivery is
+    // unconfigured under test and the run ends in the delivery error.
+    const submitted = layer.find((entry) => entry.event === 'diagnostic_submit')
+    expect(submitted, `dataLayer:\n${JSON.stringify(layer, null, 2)}`).toMatchObject({
+      form_name: 'diagnostic',
+      audience_type: 'brand',
+    })
+  })
+
+  test('stores no click identifier in the first-touch record it submits', async ({
+    page,
+  }, testInfo) => {
+    await ownBucket(page, `analytics-attribution-${testInfo.project.name}`)
+    await decideConsent(page, 'granted')
+    await page.goto('/diagnostic?utm_source=linkedin&gclid=CLICK_ID&msclkid=BING_ID#apply')
+
+    // The record is written by an effect, so the hidden field filling is what
+    // says hydration has run. Reading storage before that reads an empty store.
+    const field = page.locator('#apply form input[name="attribution"]')
+    await expect(field).not.toHaveValue('')
+
+    const stored = await page.evaluate(() => window.sessionStorage.getItem('hx_attr_v1'))
+    expect(stored).not.toContain('CLICK_ID')
+    expect(stored).not.toContain('BING_ID')
+    expect(stored).toContain('linkedin')
+
+    const submitted = await field.inputValue()
+    expect(submitted).not.toContain('CLICK_ID')
+    expect(submitted).not.toContain('BING_ID')
+  })
 })
 
 test.describe('The fit check with JavaScript', () => {

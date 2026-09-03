@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import {
+  type ContactAudience,
   contactAudienceValues,
   desiredTimingValues,
   diagnosticAudienceValues,
@@ -113,7 +114,6 @@ const common = {
   marketingOptIn: z.boolean().default(false),
   honeypot: z.string().max(0),
   startedAt: z.number().int().positive(),
-  attribution: attributionInputSchema.optional(),
 }
 
 const diagnosticSchema = z.object({
@@ -169,6 +169,6 @@ export type ContactLeadInput = z.infer<typeof contactSchema>
  * The agency form has no audience field: the page it sits on is the answer, and
  * asking again would be redundant entry (WCAG 3.3.7).
  */
-export function audienceTypeOf(input: LeadInput): string {
+export function audienceTypeOf(input: LeadInput): ContactAudience {
   return input.formName === 'agency-partnership' ? 'agency' : input.audienceType
 }

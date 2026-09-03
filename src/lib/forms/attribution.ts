@@ -1,5 +1,6 @@
 import 'server-only'
 
+import { redactUrl } from '@/lib/analytics/url-allowlist'
 import { attributionInputSchema, type AttributionInput } from '@/lib/forms/lead-schema'
 
 /**
@@ -18,14 +19,6 @@ import { attributionInputSchema, type AttributionInput } from '@/lib/forms/lead-
  * Advertising storage stays denied either way.
  */
 export const CAPTURE_CLICK_IDENTIFIERS = false
-
-export const UTM_PARAMETERS = [
-  'utm_source',
-  'utm_medium',
-  'utm_campaign',
-  'utm_term',
-  'utm_content',
-] as const
 
 export type LeadAttribution = AttributionInput & { currentPage?: string }
 
@@ -56,40 +49,27 @@ export function utmFromUrl(url: string | undefined): AttributionInput {
   }
 }
 
-/**
- * Rebuilds a URL with only the allowlisted query.
- *
- * The `Referer` header carries whatever was on the page URL, which on a paid
- * landing includes `gclid` and `msclkid`. Storing it raw would capture the
- * click identifiers by the back door, which decision 17 holds until
- * CONTENT_VERIFICATION L7 discloses them. A URL that will not parse is dropped
- * rather than passed through, because an unparseable value is the one that has
- * not been redacted.
- */
-function redact(url: string | undefined): string | undefined {
-  if (!url) return undefined
-
-  try {
-    const parsed = new URL(url)
-    const kept = new URLSearchParams()
-
-    for (const name of UTM_PARAMETERS) {
-      const value = parsed.searchParams.get(name)
-      if (value) kept.append(name, value)
-    }
-
-    const query = kept.toString()
-    return `${parsed.origin}${parsed.pathname}${query.length > 0 ? `?${query}` : ''}`
-  } catch {
-    return undefined
-  }
-}
-
 /** Drops the keys whose value is undefined so a merge cannot blank a value. */
 function defined(source: AttributionInput): AttributionInput {
   return Object.fromEntries(
     Object.entries(source).filter(([, value]) => value !== undefined),
   ) as AttributionInput
+}
+
+/**
+ * Re-applies the allowlist to the two URLs the browser contributed.
+ *
+ * The client already filters them, and this filters them again. The stored
+ * blob is a client-supplied string like any other form value: a forged
+ * `landingPage` is the one route by which a click identifier could still reach
+ * the record and the CRM webhook, and it costs one parse to close it.
+ */
+function redactStoredUrls(input: AttributionInput): AttributionInput {
+  return defined({
+    ...input,
+    landingPage: redactUrl(input.landingPage),
+    referrer: redactUrl(input.referrer),
+  })
 }
 
 /**
@@ -102,7 +82,7 @@ export function parseStoredAttribution(raw: string | null): AttributionInput {
 
   try {
     const parsed = attributionInputSchema.safeParse(JSON.parse(raw))
-    return parsed.success ? defined(parsed.data) : {}
+    return parsed.success ? redactStoredUrls(defined(parsed.data)) : {}
   } catch {
     return {}
   }
@@ -116,7 +96,7 @@ export function buildAttribution({
   referer: string | null
 }): LeadAttribution {
   const stored = parseStoredAttribution(storedRaw)
-  const currentPage = redact(trim(referer, 1000))
+  const currentPage = redactUrl(trim(referer, 1000))
 
   return {
     // The request wins on the current page, which it observed; the stored

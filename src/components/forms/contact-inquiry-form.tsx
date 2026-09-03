@@ -26,6 +26,9 @@ import {
  * them with or without JavaScript. `intent` is a form field value, so the query
  * allowlist in `gtag.ts` strips it from every consented page_view.
  *
+ * The three groups, their legends and the field order are the hi-fi's
+ * (07-hifi/contact.html). Only the name pair runs two-up.
+ *
  * The two pointers under "Brand or company" and "Digital marketing agency"
  * always render. A visitor who belongs on the Diagnostic application or the
  * agency inquiry reads that before typing rather than after submitting into the
@@ -48,7 +51,9 @@ export function ContactInquiryForm({
   })
 
   const { fieldId, errorFor, valueFor } = form
-  const warningId = fieldId('sensitive')
+
+  const questionWarningId = fieldId('sensitive-question')
+  const contextWarningId = fieldId('sensitive-context')
 
   const pointer = (target: { text: string; label: string; href: string }) => {
     const [before, after] = target.text.split(target.label)
@@ -80,7 +85,7 @@ export function ContactInquiryForm({
       />
 
       <fieldset className="fset">
-        <legend>{contactForm.legends.about}</legend>
+        <legend>{contactForm.legends.contact}</legend>
 
         <div className="fieldpair">
           <Field
@@ -124,86 +129,82 @@ export function ContactInquiryForm({
           </Field>
         </div>
 
-        <div className="fieldpair">
-          <Field
-            label={contactForm.labels.workEmail}
-            htmlFor={fieldId('workEmail')}
-            error={errorFor('workEmail')}
+        <Field
+          label={contactForm.labels.workEmail}
+          htmlFor={fieldId('workEmail')}
+          error={errorFor('workEmail')}
+          required
+        >
+          <input
+            id={fieldId('workEmail')}
+            name="workEmail"
+            type="email"
+            autoComplete="email"
             required
-          >
-            <input
-              id={fieldId('workEmail')}
-              name="workEmail"
-              type="email"
-              autoComplete="email"
-              required
-              maxLength={254}
-              defaultValue={valueFor('workEmail')}
-              aria-invalid={Boolean(errorFor('workEmail'))}
-              aria-describedby={describedBy(fieldId('workEmail'), { error: Boolean(errorFor('workEmail')) })}
-              className="input min-w-0"
-            />
-          </Field>
+            maxLength={254}
+            defaultValue={valueFor('workEmail')}
+            aria-invalid={Boolean(errorFor('workEmail'))}
+            aria-describedby={describedBy(fieldId('workEmail'), { error: Boolean(errorFor('workEmail')) })}
+            className="input min-w-0"
+          />
+        </Field>
 
-          <Field
-            label={contactForm.labels.organization}
-            htmlFor={fieldId('organization')}
-            error={errorFor('organization')}
+        <Field
+          label={contactForm.labels.organization}
+          htmlFor={fieldId('organization')}
+          error={errorFor('organization')}
+          required
+        >
+          <input
+            id={fieldId('organization')}
+            name="organization"
+            type="text"
+            autoComplete="organization"
             required
-          >
-            <input
-              id={fieldId('organization')}
-              name="organization"
-              type="text"
-              autoComplete="organization"
-              required
-              maxLength={160}
-              defaultValue={valueFor('organization')}
-              aria-invalid={Boolean(errorFor('organization'))}
-              aria-describedby={describedBy(fieldId('organization'), { error: Boolean(errorFor('organization')) })}
-              className="input min-w-0"
-            />
-          </Field>
-        </div>
+            maxLength={160}
+            defaultValue={valueFor('organization')}
+            aria-invalid={Boolean(errorFor('organization'))}
+            aria-describedby={describedBy(fieldId('organization'), { error: Boolean(errorFor('organization')) })}
+            className="input min-w-0"
+          />
+        </Field>
 
-        <div className="fieldpair">
-          <Field
-            label={contactForm.labels.website}
-            htmlFor={fieldId('website')}
-            error={errorFor('website')}
-          >
-            <input
-              id={fieldId('website')}
-              name="website"
-              type="url"
-              autoComplete="url"
-              maxLength={500}
-              defaultValue={valueFor('website')}
-              aria-invalid={Boolean(errorFor('website'))}
-              aria-describedby={describedBy(fieldId('website'), { error: Boolean(errorFor('website')) })}
-              className="input min-w-0"
-            />
-          </Field>
+        <Field
+          label={contactForm.labels.website}
+          htmlFor={fieldId('website')}
+          error={errorFor('website')}
+        >
+          <input
+            id={fieldId('website')}
+            name="website"
+            type="url"
+            autoComplete="url"
+            maxLength={500}
+            defaultValue={valueFor('website')}
+            aria-invalid={Boolean(errorFor('website'))}
+            aria-describedby={describedBy(fieldId('website'), { error: Boolean(errorFor('website')) })}
+            className="input min-w-0"
+          />
+        </Field>
 
-          <Field label={contactForm.labels.role} htmlFor={fieldId('role')} error={errorFor('role')}>
-            <input
-              id={fieldId('role')}
-              name="role"
-              type="text"
-              autoComplete="organization-title"
-              maxLength={160}
-              defaultValue={valueFor('role')}
-              aria-describedby={describedBy(fieldId('role'), { error: Boolean(errorFor('role')) })}
-              className="input min-w-0"
-            />
-          </Field>
-        </div>
+        <Field label={contactForm.labels.role} htmlFor={fieldId('role')} error={errorFor('role')}>
+          <input
+            id={fieldId('role')}
+            name="role"
+            type="text"
+            autoComplete="organization-title"
+            maxLength={160}
+            defaultValue={valueFor('role')}
+            aria-describedby={describedBy(fieldId('role'), { error: Boolean(errorFor('role')) })}
+            className="input min-w-0"
+          />
+        </Field>
       </fieldset>
 
       <fieldset className="fset">
-        <legend>{contactForm.legends.request}</legend>
+        <legend>{contactForm.legends.question}</legend>
 
-        <SensitiveWarning id={warningId} texts={[sensitiveWarning]} />
+        <SensitiveWarning id={questionWarningId} texts={[sensitiveWarning]} />
 
         <Field
           label={contactForm.labels.primaryQuestion}
@@ -221,54 +222,35 @@ export function ContactInquiryForm({
             aria-invalid={Boolean(errorFor('primaryQuestion'))}
             aria-describedby={describedBy(fieldId('primaryQuestion'), {
               error: Boolean(errorFor('primaryQuestion')),
-              warning: warningId,
+              warning: questionWarningId,
             })}
             className="textarea min-w-0"
           />
         </Field>
 
-        <div className="fieldpair">
-          <Field
-            label={contactForm.labels.primaryMarket}
-            htmlFor={fieldId('primaryMarket')}
-            error={errorFor('primaryMarket')}
-          >
-            <input
-              id={fieldId('primaryMarket')}
-              name="primaryMarket"
-              type="text"
-              maxLength={500}
-              defaultValue={valueFor('primaryMarket')}
-              aria-describedby={describedBy(fieldId('primaryMarket'), {
-                error: Boolean(errorFor('primaryMarket')),
-              })}
-              className="input min-w-0"
-            />
-          </Field>
+        <Field
+          label={contactForm.labels.primaryMarket}
+          htmlFor={fieldId('primaryMarket')}
+          error={errorFor('primaryMarket')}
+        >
+          <input
+            id={fieldId('primaryMarket')}
+            name="primaryMarket"
+            type="text"
+            maxLength={500}
+            defaultValue={valueFor('primaryMarket')}
+            aria-describedby={describedBy(fieldId('primaryMarket'), {
+              error: Boolean(errorFor('primaryMarket')),
+            })}
+            className="input min-w-0"
+          />
+        </Field>
+      </fieldset>
 
-          <Field
-            label={contactForm.labels.desiredTiming}
-            htmlFor={fieldId('desiredTiming')}
-            error={errorFor('desiredTiming')}
-          >
-            <select
-              id={fieldId('desiredTiming')}
-              name="desiredTiming"
-              defaultValue={valueFor('desiredTiming')}
-              aria-describedby={describedBy(fieldId('desiredTiming'), {
-                error: Boolean(errorFor('desiredTiming')),
-              })}
-              className="select min-w-0"
-            >
-              <option value="">{sharedLabels.chooseOne}</option>
-              {desiredTimingOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </Field>
-        </div>
+      <fieldset className="fset">
+        <legend>{contactForm.legends.context}</legend>
+
+        <SensitiveWarning id={contextWarningId} texts={[sensitiveWarning]} />
 
         <Field
           label={contactForm.labels.currentStack}
@@ -283,10 +265,33 @@ export function ContactInquiryForm({
             defaultValue={valueFor('currentStack')}
             aria-describedby={describedBy(fieldId('currentStack'), {
               error: Boolean(errorFor('currentStack')),
-              warning: warningId,
+              warning: contextWarningId,
             })}
             className="textarea min-w-0"
           />
+        </Field>
+
+        <Field
+          label={contactForm.labels.desiredTiming}
+          htmlFor={fieldId('desiredTiming')}
+          error={errorFor('desiredTiming')}
+        >
+          <select
+            id={fieldId('desiredTiming')}
+            name="desiredTiming"
+            defaultValue={valueFor('desiredTiming')}
+            aria-describedby={describedBy(fieldId('desiredTiming'), {
+              error: Boolean(errorFor('desiredTiming')),
+            })}
+            className="select min-w-0"
+          >
+            <option value="">{sharedLabels.chooseOne}</option>
+            {desiredTimingOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </Field>
 
         <Field
@@ -302,7 +307,7 @@ export function ContactInquiryForm({
             defaultValue={valueFor('additionalContext')}
             aria-describedby={describedBy(fieldId('additionalContext'), {
               error: Boolean(errorFor('additionalContext')),
-              warning: warningId,
+              warning: contextWarningId,
             })}
             className="textarea min-w-0"
           />

@@ -18,6 +18,10 @@ import {
  * it already asked, which is what WCAG 3.3.7 asks of a form that is the end of
  * a considered journey rather than a lead magnet.
  *
+ * The five groups, their legends and the field order are the hi-fi's
+ * (07-hifi/diagnostic.html). Only the name pair runs two-up; every other
+ * control is full width, including the two selects.
+ *
  * The investment select names the visitor's own combined search spend and never
  * a Hendricks fee. Its value never reaches analytics, never changes the copy on
  * screen, and never reorders or gates anything (15 section 7 rules 1 and 8).
@@ -32,7 +36,11 @@ export function DiagnosticApplicationForm({ startedAt }: { startedAt: number }) 
   })
 
   const { fieldId, errorFor, valueFor } = form
-  const warningId = fieldId('sensitive')
+
+  // One warning per group that holds free text, bound to every control in it,
+  // so it is read with the field rather than found after it (legal/01 § 6).
+  const questionWarningId = fieldId('sensitive-question')
+  const contextWarningId = fieldId('sensitive-context')
 
   return (
     <LeadFormShell controller={form} startedAt={startedAt} copy={diagnosticForm}>
@@ -47,7 +55,7 @@ export function DiagnosticApplicationForm({ startedAt }: { startedAt: number }) 
       />
 
       <fieldset className="fset">
-        <legend>{diagnosticForm.legends.about}</legend>
+        <legend>{diagnosticForm.legends.details}</legend>
 
         <div className="fieldpair">
           <Field
@@ -111,47 +119,49 @@ export function DiagnosticApplicationForm({ startedAt }: { startedAt: number }) 
           />
         </Field>
 
-        <div className="fieldpair">
-          <Field
-            label={diagnosticForm.labels.organization}
-            htmlFor={fieldId('organization')}
-            error={errorFor('organization')}
+        <Field
+          label={diagnosticForm.labels.role}
+          htmlFor={fieldId('role')}
+          error={errorFor('role')}
+          required
+        >
+          <input
+            id={fieldId('role')}
+            name="role"
+            type="text"
+            autoComplete="organization-title"
             required
-          >
-            <input
-              id={fieldId('organization')}
-              name="organization"
-              type="text"
-              autoComplete="organization"
-              required
-              maxLength={160}
-              defaultValue={valueFor('organization')}
-              aria-invalid={Boolean(errorFor('organization'))}
-              aria-describedby={describedBy(fieldId('organization'), { error: Boolean(errorFor('organization')) })}
-              className="input min-w-0"
-            />
-          </Field>
+            maxLength={160}
+            defaultValue={valueFor('role')}
+            aria-invalid={Boolean(errorFor('role'))}
+            aria-describedby={describedBy(fieldId('role'), { error: Boolean(errorFor('role')) })}
+            className="input min-w-0"
+          />
+        </Field>
+      </fieldset>
 
-          <Field
-            label={diagnosticForm.labels.role}
-            htmlFor={fieldId('role')}
-            error={errorFor('role')}
+      <fieldset className="fset">
+        <legend>{diagnosticForm.legends.organization}</legend>
+
+        <Field
+          label={diagnosticForm.labels.organization}
+          htmlFor={fieldId('organization')}
+          error={errorFor('organization')}
+          required
+        >
+          <input
+            id={fieldId('organization')}
+            name="organization"
+            type="text"
+            autoComplete="organization"
             required
-          >
-            <input
-              id={fieldId('role')}
-              name="role"
-              type="text"
-              autoComplete="organization-title"
-              required
-              maxLength={160}
-              defaultValue={valueFor('role')}
-              aria-invalid={Boolean(errorFor('role'))}
-              aria-describedby={describedBy(fieldId('role'), { error: Boolean(errorFor('role')) })}
-              className="input min-w-0"
-            />
-          </Field>
-        </div>
+            maxLength={160}
+            defaultValue={valueFor('organization')}
+            aria-invalid={Boolean(errorFor('organization'))}
+            aria-describedby={describedBy(fieldId('organization'), { error: Boolean(errorFor('organization')) })}
+            className="input min-w-0"
+          />
+        </Field>
 
         <Field
           label={diagnosticForm.labels.website}
@@ -194,9 +204,9 @@ export function DiagnosticApplicationForm({ startedAt }: { startedAt: number }) 
       </fieldset>
 
       <fieldset className="fset">
-        <legend>{diagnosticForm.legends.request}</legend>
+        <legend>{diagnosticForm.legends.question}</legend>
 
-        <SensitiveWarning id={warningId} texts={[sensitiveWarning]} />
+        <SensitiveWarning id={questionWarningId} texts={[sensitiveWarning]} />
 
         <Field
           label={diagnosticForm.labels.primaryQuestion}
@@ -214,7 +224,7 @@ export function DiagnosticApplicationForm({ startedAt }: { startedAt: number }) 
             aria-invalid={Boolean(errorFor('primaryQuestion'))}
             aria-describedby={describedBy(fieldId('primaryQuestion'), {
               error: Boolean(errorFor('primaryQuestion')),
-              warning: warningId,
+              warning: questionWarningId,
             })}
             className="textarea min-w-0"
           />
@@ -233,61 +243,65 @@ export function DiagnosticApplicationForm({ startedAt }: { startedAt: number }) 
             defaultValue={valueFor('currentStack')}
             aria-describedby={describedBy(fieldId('currentStack'), {
               error: Boolean(errorFor('currentStack')),
-              warning: warningId,
+              warning: questionWarningId,
             })}
             className="textarea min-w-0"
           />
         </Field>
+      </fieldset>
 
-        <div className="fieldpair">
-          <Field
-            label={diagnosticForm.labels.monthlySearchInvestment}
-            htmlFor={fieldId('monthlySearchInvestment')}
-            hint={diagnosticForm.hints.monthlySearchInvestment}
-            error={errorFor('monthlySearchInvestment')}
-          >
-            <select
-              id={fieldId('monthlySearchInvestment')}
-              name="monthlySearchInvestment"
-              defaultValue={valueFor('monthlySearchInvestment')}
-              aria-describedby={describedBy(fieldId('monthlySearchInvestment'), {
-                hint: true,
-                error: Boolean(errorFor('monthlySearchInvestment')),
-              })}
-              className="select min-w-0"
-            >
-              <option value="">{sharedLabels.chooseOne}</option>
-              {monthlySearchInvestmentOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </Field>
+      <fieldset className="fset">
+        <legend>{diagnosticForm.legends.context}</legend>
 
-          <Field
-            label={diagnosticForm.labels.desiredTiming}
-            htmlFor={fieldId('desiredTiming')}
-            error={errorFor('desiredTiming')}
+        <SensitiveWarning id={contextWarningId} texts={[sensitiveWarning]} />
+
+        <Field
+          label={diagnosticForm.labels.monthlySearchInvestment}
+          htmlFor={fieldId('monthlySearchInvestment')}
+          hint={diagnosticForm.hints.monthlySearchInvestment}
+          error={errorFor('monthlySearchInvestment')}
+        >
+          <select
+            id={fieldId('monthlySearchInvestment')}
+            name="monthlySearchInvestment"
+            defaultValue={valueFor('monthlySearchInvestment')}
+            aria-describedby={describedBy(fieldId('monthlySearchInvestment'), {
+              hint: true,
+              error: Boolean(errorFor('monthlySearchInvestment')),
+            })}
+            className="select min-w-0"
           >
-            <select
-              id={fieldId('desiredTiming')}
-              name="desiredTiming"
-              defaultValue={valueFor('desiredTiming')}
-              aria-describedby={describedBy(fieldId('desiredTiming'), {
-                error: Boolean(errorFor('desiredTiming')),
-              })}
-              className="select min-w-0"
-            >
-              <option value="">{sharedLabels.chooseOne}</option>
-              {desiredTimingOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </Field>
-        </div>
+            <option value="">{sharedLabels.chooseOne}</option>
+            {monthlySearchInvestmentOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </Field>
+
+        <Field
+          label={diagnosticForm.labels.desiredTiming}
+          htmlFor={fieldId('desiredTiming')}
+          error={errorFor('desiredTiming')}
+        >
+          <select
+            id={fieldId('desiredTiming')}
+            name="desiredTiming"
+            defaultValue={valueFor('desiredTiming')}
+            aria-describedby={describedBy(fieldId('desiredTiming'), {
+              error: Boolean(errorFor('desiredTiming')),
+            })}
+            className="select min-w-0"
+          >
+            <option value="">{sharedLabels.chooseOne}</option>
+            {desiredTimingOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </Field>
 
         <Field
           label={diagnosticForm.labels.additionalContext}
@@ -302,7 +316,7 @@ export function DiagnosticApplicationForm({ startedAt }: { startedAt: number }) 
             defaultValue={valueFor('additionalContext')}
             aria-describedby={describedBy(fieldId('additionalContext'), {
               error: Boolean(errorFor('additionalContext')),
-              warning: warningId,
+              warning: contextWarningId,
             })}
             className="textarea min-w-0"
           />
