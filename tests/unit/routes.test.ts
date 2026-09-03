@@ -135,7 +135,7 @@ describe('ctaHref', () => {
 
 describe('Navigation link integrity', () => {
   const internalHrefs = [
-    ...primaryNavigation.flatMap((item) => [item.href, ...(item.children?.map((c) => c.href) ?? [])]),
+    ...primaryNavigation.map((item) => item.href),
     ...Object.values(footerNavigation).flatMap((column) => column.items.map((item) => item.href)),
     ...legalNavigation.map((item) => item.href),
   ].filter((href) => href.startsWith('/'))

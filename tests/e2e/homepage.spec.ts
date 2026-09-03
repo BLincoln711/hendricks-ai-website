@@ -101,36 +101,6 @@ test.describe('Layout integrity', () => {
   })
 })
 
-test.describe('Mobile navigation', () => {
-  test.use({ viewport: { width: 390, height: 844 } })
-
-  test('opens, traps focus, closes on Escape, and restores focus to the trigger', async ({
-    page,
-  }) => {
-    await page.goto('/')
-
-    const trigger = page.getByRole('button', { name: 'Open menu' })
-    await trigger.click()
-
-    const dialog = page.getByRole('dialog')
-    await expect(dialog).toBeVisible()
-    await expect(dialog.getByRole('link', { name: 'Solutions' })).toBeVisible()
-
-    await page.keyboard.press('Escape')
-    await expect(dialog).toBeHidden()
-    await expect(trigger).toBeFocused()
-  })
-
-  test('navigates and closes when a link is chosen', async ({ page }) => {
-    await page.goto('/')
-
-    await page.getByRole('button', { name: 'Open menu' }).click()
-    await page.getByRole('dialog').getByRole('link', { name: 'About' }).click()
-
-    await expect(page.getByRole('dialog')).toBeHidden()
-  })
-})
-
 test.describe('System routes', () => {
   test('serves a custom 404 without an error overlay', async ({ page }) => {
     const response = await page.goto('/this-route-does-not-exist')

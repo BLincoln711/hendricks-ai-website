@@ -9,9 +9,10 @@ import { privacyChoicesLabel } from '@/content/consent'
  *
  * A real button, not a link, because it opens a dialog and changes no route.
  * Required on every route, which is why it lives in the footer rather than on
- * the legal pages, styled as its sibling legal links so the withdrawal path is
- * exactly as reachable as the links to the policies themselves. Focus returns
- * here when the dialog closes (16 KF-04).
+ * the legal pages. It carries no class of its own: the `.foot-legal` rule in
+ * globals.css styles the row's links and this button together, so the
+ * withdrawal path cannot drift out of parity with the links to the policies
+ * beside it. Focus returns here when the dialog closes (16 KF-04).
  */
 export function PrivacyChoicesButton() {
   const { isPreferencesOpen, openPreferences } = useConsent()
@@ -22,7 +23,6 @@ export function PrivacyChoicesButton() {
       aria-haspopup="dialog"
       aria-expanded={isPreferencesOpen}
       onClick={openPreferences}
-      className="target-variance inline-flex min-h-[var(--link-min-height)] min-w-target items-center text-small text-link underline decoration-[length:var(--link-underline-width)] underline-offset-[var(--link-underline-offset)] transition-[text-decoration-thickness] duration-[var(--duration-micro)] ease-standard hover:decoration-[length:var(--link-underline-hover-width)]"
     >
       {privacyChoicesLabel}
     </button>

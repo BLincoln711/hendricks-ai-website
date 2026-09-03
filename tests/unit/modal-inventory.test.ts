@@ -4,9 +4,11 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 /**
- * KF-04 (redesign 16 section 2): the site carries exactly two modal dialogs,
- * the mobile navigation sheet and the consent preferences dialog, both on
- * Radix so the focus trap, Escape and focus restoration are shared. A third
+ * KF-04 (redesign 16 section 2), as the canvas amends it: the site carries
+ * exactly one modal dialog, the consent preferences dialog, on Radix for the
+ * focus trap, Escape and focus restoration. The mobile navigation sheet is
+ * gone: the canvas chrome restores the six routes below 900 px as a disclosure
+ * panel that covers nothing and traps nothing, so it is not a modal. A second
  * `Dialog.Root` is a new modal and needs its own KF-04 review.
  */
 const SOURCE_ROOT = path.resolve(__dirname, '../../src')
@@ -21,10 +23,9 @@ function filesContaining(needle: string, dir: string): string[] {
 }
 
 describe('Modal inventory', () => {
-  it('mounts Dialog.Root only in the mobile navigation and the consent manager', () => {
+  it('mounts Dialog.Root only in the consent manager', () => {
     expect(filesContaining('Dialog.Root', SOURCE_ROOT).sort()).toEqual([
       'components/consent/consent-manager.tsx',
-      'components/layout/mobile-navigation.tsx',
     ])
   })
 })

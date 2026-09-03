@@ -5,6 +5,7 @@ import {
   headerCtaHref,
   isCurrentRoute,
   primaryNavigation,
+  solutionsNavigation,
 } from '@/config/navigation'
 import { features } from '@/config/feature-flags'
 import * as home from '@/content/pages/home'
@@ -86,9 +87,18 @@ describe('Navigation', () => {
     expect(labels).not.toContain('Pricing')
   })
 
-  it('exposes the four solutions under Solutions', () => {
+  it('links Solutions straight to the hub, with no dropdown', () => {
+    // Decision D-G (2026-09-02). The four solution names do not appear in the
+    // header at all; the hub and the footer are where they are reachable.
     const solutions = primaryNavigation.find((item) => item.label === 'Solutions')
-    expect(solutions?.children).toHaveLength(4)
+    expect(solutions?.href).toBe('/solutions')
+    expect(JSON.stringify(primaryNavigation)).not.toContain('Selection Intelligence')
+    expect(solutionsNavigation.map((item) => item.label)).toEqual([
+      'Search Demand Intelligence',
+      'Selection Intelligence',
+      'Search Presence Engineering',
+      'Search Impact Measurement',
+    ])
   })
 
   it('carries the six links in header order with Research restored', () => {

@@ -4,11 +4,14 @@ import { isBuilt, routes } from './routes'
 export type NavigationItem = {
   label: string
   href: string
-  children?: NavigationItem[]
 }
 
 /**
- * Primary navigation (redesign 03 section 2; docs/03 section 2).
+ * Primary navigation (redesign 03 section 2; docs/03 section 2; decisions D-F
+ * and D-G).
+ *
+ * Six routes in the D-F order, every one a real route and never an in-page
+ * anchor, plus the header CTA. No entry carries children.
  *
  * Deliberately excluded: The Search Economy, Platform, Pricing, Methodology,
  * Contact and the definition pages. The Search Economy is an external
@@ -24,6 +27,7 @@ function built(items: NavigationItem[]): NavigationItem[] {
   return items.filter((item) => isBuilt(item.href))
 }
 
+/** The four solution pages. Footer only: D-G keeps them out of the header. */
 export const solutionsNavigation: NavigationItem[] = built([
   { label: 'Search Demand Intelligence', href: routes.searchDemandIntelligence.path },
   { label: 'Selection Intelligence', href: routes.selectionIntelligence.path },
@@ -32,7 +36,14 @@ export const solutionsNavigation: NavigationItem[] = built([
 ])
 
 export const primaryNavigation: NavigationItem[] = built([
-  { label: 'Solutions', href: routes.solutions.path, children: solutionsNavigation },
+  /*
+    Decision D-G (2026-09-02): Solutions is a plain link to the hub, not a
+    dropdown, and the four solution names do not appear in the header. A
+    dropdown asks a visitor to choose between four terms before the page has
+    taught them, which is the comprehension failure the audit recorded on the
+    live site. The four pages stay reachable from the hub and from the footer.
+  */
+  { label: 'Solutions', href: routes.solutions.path },
   { label: 'How It Works', href: routes.howItWorks.path },
   { label: 'For Brands', href: routes.forBrands.path },
   { label: 'For Agencies', href: routes.forAgencies.path },

@@ -1,0 +1,83 @@
+'use client'
+
+import { usePathname } from 'next/navigation'
+import { useCallback, useEffect, useRef, useState } from 'react'
+
+import { NavLink } from '@/components/layout/nav-link'
+import { primaryNavigation } from '@/config/navigation'
+
+/**
+ * The masthead's six route links (canvas `_canvas.html`; decisions D-F, D-G).
+ *
+ * One `nav` serves both widths. From 900 px it is the row of routes in the bar.
+ * Below 900 px it is a disclosure panel spanning the masthead, opened by the
+ * Menu button that precedes it in the DOM, so the panel follows its own
+ * control. The panel is not a modal: it takes no focus trap and steals no
+ * focus, because it neither covers the page nor blocks it (KF-04 is amended
+ * here; the canvas replaced the sheet with this disclosure and the consent
+ * preferences dialog is now the only modal on the site).
+ *
+ * Solutions is a plain link to the hub. D-G removed the dropdown: choosing
+ * between four terms before the page has taught them is the comprehension
+ * failure the audit recorded on the live site.
+ *
+ * The panel closes on Escape with focus restored to the button, and on every
+ * route change, so a client-side navigation never leaves it open over the page
+ * it just loaded. Tapping the route already open closes it too, since that
+ * navigation changes nothing.
+ */
+const NAV_ID = 'route-menu'
+
+export function PrimaryNav() {
+  const toggle = useRef<HTMLButtonElement>(null)
+  const pathname = usePathname()
+  /*
+   * The route the panel was opened on, rather than a boolean. A client-side
+   * navigation changes `pathname`, which closes the panel during the same
+   * render as the new route rather than in an effect after it.
+   */
+  const [openedAt, setOpenedAt] = useState<string | null>(null)
+  const open = openedAt === pathname
+
+  const close = useCallback(() => {
+    setOpenedAt(null)
+  }, [])
+
+  useEffect(() => {
+    if (!open) return undefined
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      // Focus may be on a panel link, which is about to be display:none and
+      // would drop focus to body (2.4.3).
+      toggle.current?.focus()
+      setOpenedAt(null)
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [open])
+
+  return (
+    <>
+      <button
+        ref={toggle}
+        type="button"
+        className="route-menu-toggle"
+        aria-expanded={open}
+        aria-controls={NAV_ID}
+        onClick={() => setOpenedAt(open ? null : pathname)}
+      >
+        Menu
+      </button>
+
+      <nav id={NAV_ID} aria-label="Primary" className="route-menu" data-open={open || undefined}>
+        {primaryNavigation.map((item) => (
+          <NavLink key={item.href} href={item.href} onClick={close}>
+            {item.label}
+          </NavLink>
+        ))}
+      </nav>
+    </>
+  )
+}

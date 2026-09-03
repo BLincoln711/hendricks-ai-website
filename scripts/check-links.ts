@@ -27,12 +27,7 @@
 import { readdir, stat } from 'node:fs/promises'
 import path from 'node:path'
 
-import {
-  footerNavigation,
-  legalNavigation,
-  primaryNavigation,
-  type NavigationItem,
-} from '../src/config/navigation'
+import { footerNavigation, legalNavigation, primaryNavigation } from '../src/config/navigation'
 import { isBuilt, routes } from '../src/config/routes'
 
 const ROOT = process.cwd()
@@ -100,10 +95,6 @@ async function exists(target: string): Promise<boolean> {
   }
 }
 
-function flatten(items: readonly NavigationItem[]): NavigationItem[] {
-  return items.flatMap((item) => [item, ...flatten(item.children ?? [])])
-}
-
 async function main() {
   const failures: Failure[] = []
 
@@ -143,7 +134,7 @@ async function main() {
   }
 
   const navigationHrefs = [
-    ...flatten(primaryNavigation).map((item) => ({ source: 'primaryNavigation', item })),
+    ...primaryNavigation.map((item) => ({ source: 'primaryNavigation', item })),
     ...Object.entries(footerNavigation).flatMap(([column, { items }]) =>
       items.map((item) => ({ source: `footerNavigation.${column}`, item })),
     ),

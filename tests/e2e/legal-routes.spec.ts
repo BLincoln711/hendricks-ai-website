@@ -113,7 +113,7 @@ test.describe('/privacy-request', () => {
     await page.goto('/')
 
     await expect(
-      page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', {
+      page.getByRole('navigation', { name: 'Primary' }).getByRole('link', {
         name: 'Privacy Request',
       }),
     ).toHaveCount(0)

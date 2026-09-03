@@ -12,7 +12,18 @@ import { describe, expect, it } from 'vitest'
  */
 const SOURCE_ROOT = path.resolve(__dirname, '../../src')
 
-const INTERACTIVE_TAGS = new Set(['a', 'button', 'input', 'select', 'textarea', 'summary', 'Link', 'Button'])
+/** `NavLink` and `Button` are the two wrappers that render one of these. */
+const INTERACTIVE_TAGS = new Set([
+  'a',
+  'button',
+  'input',
+  'select',
+  'textarea',
+  'summary',
+  'Link',
+  'NavLink',
+  'Button',
+])
 
 function sourceFiles(dir: string): string[] {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {

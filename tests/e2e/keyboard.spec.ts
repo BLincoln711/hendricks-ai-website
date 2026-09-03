@@ -5,11 +5,36 @@ import { banner, preferences } from '@/content/consent'
 
 /**
  * Keyboard and focus requirements KF-01 to KF-10 (redesign 16 section 2),
- * measured on the shell: skip link, header, Solutions disclosure, footer,
+ * measured on the canvas shell: skip link, masthead, route menu, footer,
  * consent sheet and preferences dialog. Everything inside `main` belongs to the
  * page rebuilds and is measured by their own specs. The KF-04 modal inventory
  * is a source check and lives in `tests/unit/modal-inventory.test.ts`.
+ *
+ * Two rows read differently after the canvas rebuild, and both are amendments
+ * the design package makes rather than regressions:
+ *
+ * - KF-08 was the Solutions disclosure. Decision D-G removed it: Solutions is a
+ *   plain link to the hub and no solution name appears in the header. The row
+ *   now covers the disclosure the canvas does add, the route menu that restores
+ *   the six routes below 900 px, where the approved page left a phone with no
+ *   route out of the header at all.
+ * - KF-04 named the mobile sheet as a Radix modal. The canvas replaced it with
+ *   that same route menu, which covers nothing and traps nothing, so the
+ *   preferences dialog is the site's only modal.
  */
+
+/** The canvas collapses the six route links into the menu below 900 px. */
+const PHONE = { width: 390, height: 844 }
+const DESKTOP = { width: 1440, height: 900 }
+
+const ROUTE_LABELS = [
+  'Solutions',
+  'How It Works',
+  'For Brands',
+  'For Agencies',
+  'Research',
+  'About',
+]
 
 /**
  * `--focus` is `--hx-cyan-500` on the canvas ground and stays that value inside
@@ -24,6 +49,17 @@ const FOCUS_RING_OFFSET = '3px'
 const TARGET = 44
 
 const sheet = (page: Page) => page.getByRole('region', { name: banner.title })
+
+/**
+ * Sequential keyboard navigation to a link or a button, and click-to-focus on a
+ * button, are macOS platform behaviours gated by Full Keyboard Access, which is
+ * off by default. Playwright's WebKit build honours the setting and exposes no
+ * way to turn it on, so the mobile (Mobile Safari) project cannot measure tab
+ * order or focus restoration at all. Document order, focusability and every
+ * geometric assertion below still run there; the sequence itself is proven on
+ * chromium-desktop, firefox-desktop and tablet.
+ */
+const KEYBOARD_IS_PLATFORM_GATED = 'Mobile Safari: Full Keyboard Access is off and cannot be set'
 
 async function box(locator: Locator) {
   const rect = await locator.boundingBox()
@@ -57,7 +93,8 @@ function undersized(boxes: Array<{ name: string; width: number; height: number }
 
 test.describe('KF-01 skip link', () => {
   for (const route of ['/', '/diagnostic', '/privacy', '/no-such-route']) {
-    test(`${route}: first tab stop targets main`, async ({ page }) => {
+    test(`${route}: first tab stop targets main`, async ({ page, browserName }) => {
+      test.skip(browserName === 'webkit', KEYBOARD_IS_PLATFORM_GATED)
       await page.goto(route)
 
       // Nothing steals focus on load (KF-02).
@@ -105,24 +142,17 @@ test.describe('KF-02 document order', () => {
 
   test('the tab sequence runs skip link, wordmark, primary navigation, header button', async ({
     page,
+    browserName,
   }) => {
+    test.skip(browserName === 'webkit', KEYBOARD_IS_PLATFORM_GATED)
     await page.goto('/')
 
+    // The menu button is display:none from 900 px, so it is not a tab stop, and
+    // no solution name is in the header at all (D-G).
     const expected = [
       'Skip to main content',
       'Hendricks, home',
-      'Solutions',
-      'Show the four solutions',
-      // Focus inside the group opens the panel, so its four links join the sequence.
-      'Search Demand Intelligence',
-      'Selection Intelligence',
-      'Search Presence Engineering',
-      'Search Impact Measurement',
-      'How It Works',
-      'For Brands',
-      'For Agencies',
-      'Research',
-      'About',
+      ...ROUTE_LABELS,
       'Start with a Diagnostic',
     ]
 
@@ -175,7 +205,9 @@ test.describe('KF-03 consent sheet', () => {
 
   test('tabs Reject, Manage, Accept in that order and opens the dialog from a button', async ({
     page,
+    browserName,
   }) => {
+    test.skip(browserName === 'webkit', KEYBOARD_IS_PLATFORM_GATED)
     await page.goto('/')
     const region = sheet(page)
 
@@ -194,7 +226,9 @@ test.describe('KF-03 consent sheet', () => {
 
   test('Escape on the dialog records nothing and returns focus to Manage choices', async ({
     page,
+    browserName,
   }) => {
+    test.skip(browserName === 'webkit', KEYBOARD_IS_PLATFORM_GATED)
     await page.goto('/')
     const manage = sheet(page).getByRole('button', { name: banner.manage })
     await manage.click()
@@ -211,12 +245,16 @@ test.describe('KF-03 consent sheet', () => {
 test.describe('KF-05 and KF-06 focus ring', () => {
   test('is Insight Cyan on the ground and inside .on-plate, and set at rest', async ({
     page,
+    browserName,
   }) => {
+    test.skip(browserName === 'webkit', KEYBOARD_IS_PLATFORM_GATED)
     await page.goto('/')
 
     // The resting outline colour is the ring colour on every element, so the
-    // ring never fades in from currentColor (KF-06).
+    // ring never fades in from currentColor (KF-06). The masthead and the
+    // footer both carry the wordmark link, so this reads the first.
     const resting = await page
+      .locator('header')
       .getByRole('link', { name: 'Hendricks, home' })
       .evaluate((node) => getComputedStyle(node).outlineColor)
     expect(resting).toBe(FOCUS_RING)
@@ -258,11 +296,15 @@ test.describe('KF-05 and KF-06 focus ring', () => {
 })
 
 test.describe('KF-07 focus not obscured', () => {
-  test.use({ viewport: { width: 390, height: 844 } })
+  test.use({ viewport: PHONE })
 
   test('every focusable element in main lands between the header and the open sheet', async ({
     page,
+    browserName,
   }) => {
+    // Programmatic focus does not move on Mobile Safari with Full Keyboard
+    // Access off, so nothing scrolls and every box reads its unscrolled offset.
+    test.skip(browserName === 'webkit', KEYBOARD_IS_PLATFORM_GATED)
     await page.goto('/')
     await expect(sheet(page)).toBeVisible()
 
@@ -300,97 +342,105 @@ test.describe('KF-07 focus not obscured', () => {
   })
 })
 
-test.describe('KF-08 Solutions disclosure', () => {
-  test('opens from the chevron, closes on Escape without moving focus', async ({ page }) => {
+test.describe('KF-08 the route menu', () => {
+  test.use({ viewport: DESKTOP })
+
+  test('from 900 px the six routes are in the bar and the menu button is gone', async ({
+    page,
+  }) => {
     await page.goto('/')
 
-    const trigger = page.getByRole('button', { name: 'Show the four solutions' })
-    const panelId = await trigger.getAttribute('aria-controls')
-    const panel = page.locator(`#${panelId}`)
+    const nav = page.getByRole('navigation', { name: 'Primary' })
+    await expect(nav.getByRole('link')).toHaveText(ROUTE_LABELS)
+    await expect(page.getByRole('button', { name: 'Menu' })).toBeHidden()
 
-    await expect(box(trigger)).resolves.toMatchObject({ width: TARGET, height: TARGET })
+    // Solutions is a plain link to the hub, with no control beside it (D-G).
+    await expect(nav.getByRole('link', { name: 'Solutions' })).toHaveAttribute(
+      'href',
+      '/solutions',
+    )
+    await expect(nav.getByRole('button')).toHaveCount(0)
+  })
+})
 
-    // Focus lands with the keyboard, which also opens the panel on focus.
-    await trigger.focus()
-    await expect(trigger).toBeFocused()
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true')
-    await expect(panel).toBeVisible()
+test.describe('KF-08 the route menu below 900 px', () => {
+  test.use({ viewport: PHONE })
+
+  test('opens from the button, closes on Escape and restores focus to it', async ({ page }) => {
+    await page.goto('/')
+
+    const toggle = page.getByRole('button', { name: 'Menu' })
+    const nav = page.getByRole('navigation', { name: 'Primary' })
+
+    await expect(box(toggle)).resolves.toMatchObject({ height: TARGET })
+    await expect(toggle).toHaveAttribute('aria-controls', 'route-menu')
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    await expect(nav).toBeHidden()
+
+    await toggle.focus()
+    await page.keyboard.press('Enter')
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    await expect(nav).toBeVisible()
+    await expect(nav.getByRole('link')).toHaveText(ROUTE_LABELS)
+
+    // The panel opens below the bar, never over it.
+    const bar = (await box(page.locator('header')))!
+    expect((await box(nav)).y).toBeGreaterThanOrEqual(bar.height - 1)
 
     await page.keyboard.press('Escape')
-    await expect(panel).toBeHidden()
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false')
-    await expect(trigger).toBeFocused()
-
-    // A press reopens it after a dismissal.
-    await page.keyboard.press('Enter')
-    await expect(panel).toBeVisible()
-    await expect(panel.getByRole('link')).toHaveCount(4)
+    await expect(nav).toBeHidden()
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    await expect(toggle).toBeFocused()
   })
 
-  test('Escape from a panel link returns focus to the chevron', async ({ page }) => {
+  test('Escape from a route link returns focus to the button', async ({ page }) => {
     await page.goto('/')
 
-    const trigger = page.getByRole('button', { name: 'Show the four solutions' })
-    const panel = page.locator(`#${await trigger.getAttribute('aria-controls')}`)
+    const toggle = page.getByRole('button', { name: 'Menu' })
+    const nav = page.getByRole('navigation', { name: 'Primary' })
 
-    await trigger.focus()
-    await panel.getByRole('link', { name: 'Search Impact Measurement' }).focus()
-    await expect(panel.getByRole('link', { name: 'Search Impact Measurement' })).toBeFocused()
+    await toggle.click()
+    await nav.getByRole('link', { name: 'Research' }).focus()
 
     // Hiding the panel would otherwise drop focus to body (2.4.3).
     await page.keyboard.press('Escape')
-    await expect(panel).toBeHidden()
-    await expect(trigger).toBeFocused()
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false')
+    await expect(nav).toBeHidden()
+    await expect(toggle).toBeFocused()
   })
 
-  test('is hoverable and persistent under the pointer', async ({ page }) => {
+  test('the closed panel holds no tab stop, and the button precedes it', async ({
+    page,
+    browserName,
+  }) => {
+    test.skip(browserName === 'webkit', KEYBOARD_IS_PLATFORM_GATED)
     await page.goto('/')
-    // Dismiss the sheet so the pointer path below is unobstructed.
-    await sheet(page).getByRole('button', { name: banner.reject }).click()
 
-    const link = page.getByRole('navigation', { name: 'Primary navigation' }).getByRole('link', {
-      name: 'Solutions',
-      exact: true,
-    })
-    const trigger = page.getByRole('button', { name: 'Show the four solutions' })
-    const panel = page.locator(`#${await trigger.getAttribute('aria-controls')}`)
-
-    await link.hover()
-    await expect(panel).toBeVisible()
-
-    // Travel from the trigger onto the panel: the last item is the farthest.
-    await panel.getByRole('link', { name: 'Search Impact Measurement' }).hover()
-    await expect(panel).toBeVisible()
-
-    await page.waitForTimeout(5000)
-    await expect(panel).toBeVisible()
-
-    await page.mouse.move(10, 600)
-    await expect(panel).toBeHidden()
+    for (const name of ['Skip to main content', 'Hendricks, home', 'Menu', 'Start with a Diagnostic']) {
+      await page.keyboard.press('Tab')
+      const active = await page.evaluate(() => {
+        const node = document.activeElement
+        return (node?.getAttribute('aria-label') ?? node?.textContent ?? '').trim()
+      })
+      expect(active).toBe(name)
+    }
   })
 
-  test('closes when focus leaves the group', async ({ page }) => {
+  test('a route taken from the panel closes it', async ({ page }) => {
     await page.goto('/')
 
-    const trigger = page.getByRole('button', { name: 'Show the four solutions' })
-    const panel = page.locator(`#${await trigger.getAttribute('aria-controls')}`)
+    const toggle = page.getByRole('button', { name: 'Menu' })
+    const nav = page.getByRole('navigation', { name: 'Primary' })
 
-    await trigger.focus()
-    await expect(panel).toBeVisible()
-
-    // Through the four panel links and out to How It Works.
-    for (let step = 0; step < 5; step += 1) await page.keyboard.press('Tab')
-    await expect(page.getByRole('link', { name: 'How It Works' }).first()).toBeFocused()
-    await expect(panel).toBeHidden()
+    await toggle.click()
+    await nav.getByRole('link', { name: 'For Agencies' }).click()
+    await expect(page).toHaveURL(/\/for-agencies$/)
+    await expect(nav).toBeHidden()
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false')
   })
 })
 
 test.describe('KF-09 target size', () => {
-  for (const viewport of [
-    { width: 390, height: 844 },
-    { width: 1440, height: 900 },
-  ]) {
+  for (const viewport of [PHONE, DESKTOP]) {
     test(`shell controls are at least 44 px at ${viewport.width}`, async ({ page }) => {
       await page.setViewportSize(viewport)
       await page.goto('/')
@@ -402,11 +452,11 @@ test.describe('KF-09 target size', () => {
       expect(header.length + footer.length + consent.length).toBeGreaterThan(20)
       expect(undersized([...header, ...footer, ...consent])).toEqual([])
 
-      if (viewport.width < 1024) {
-        await page.getByRole('button', { name: 'Open menu' }).click()
-        const dialog = page.getByRole('dialog')
-        await page.getByRole('button', { name: 'Show the four solutions' }).click()
-        expect(undersized(await controlBoxes(dialog))).toEqual([])
+      if (viewport.width < 900) {
+        await page.getByRole('button', { name: 'Menu' }).click()
+        const nav = page.getByRole('navigation', { name: 'Primary' })
+        await expect(nav).toBeVisible()
+        expect(undersized(await controlBoxes(nav))).toEqual([])
         await page.keyboard.press('Escape')
       }
 
@@ -419,7 +469,7 @@ test.describe('KF-09 target size', () => {
 })
 
 test.describe('DX-05 header button on /diagnostic', () => {
-  test.use({ viewport: { width: 390, height: 844 } })
+  test.use({ viewport: PHONE })
 
   test('targets an anchor that exists and lands clear of the header with the sheet open', async ({
     page,
@@ -437,12 +487,9 @@ test.describe('DX-05 header button on /diagnostic', () => {
     await expect(target).toHaveCount(1)
     await expect(target).toHaveAttribute('tabindex', '-1')
 
-    // The sheet's button carries the same destination (09 5.2).
-    await page.getByRole('button', { name: 'Open menu' }).click()
-    await expect(
-      page.getByRole('dialog').getByRole('link', { name: 'Start with a Diagnostic' }),
-    ).toHaveAttribute('href', href)
-    await page.keyboard.press('Escape')
+    // The canvas keeps one button, in the bar at every width, so there is no
+    // second copy of it to drift (09 5.2).
+    await expect(page.getByRole('link', { name: 'Start with a Diagnostic' })).toHaveCount(1)
 
     await button.click()
     await expect(target).toBeFocused()
@@ -469,6 +516,12 @@ test.describe('KF-10 aria-current', () => {
     test(`${route.path} marks its link in the header and footer`, async ({ page }) => {
       await page.goto(route.path)
 
+      // Below 900 px the six routes live in the menu, so the mark is only
+      // reachable once it is open.
+      if ((page.viewportSize()?.width ?? 0) < 900) {
+        await page.getByRole('button', { name: 'Menu' }).click()
+      }
+
       const header = page.locator('header')
       await expect(header.getByRole('link', { name: route.header, exact: true })).toHaveAttribute(
         'aria-current',
@@ -485,16 +538,16 @@ test.describe('KF-10 aria-current', () => {
     })
   }
 
-  test('marks the current page in the mobile sheet', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 })
+  test('marks the current page in the route menu', async ({ page }) => {
+    await page.setViewportSize(PHONE)
     await page.goto('/about')
 
-    await page.getByRole('button', { name: 'Open menu' }).click()
-    const dialog = page.getByRole('dialog')
-    await expect(dialog.getByRole('link', { name: 'About', exact: true })).toHaveAttribute(
+    await page.getByRole('button', { name: 'Menu' }).click()
+    const nav = page.getByRole('navigation', { name: 'Primary' })
+    await expect(nav.getByRole('link', { name: 'About', exact: true })).toHaveAttribute(
       'aria-current',
       'page',
     )
-    await expect(dialog.locator('a[aria-current="page"]')).toHaveCount(1)
+    await expect(nav.locator('a[aria-current="page"]')).toHaveCount(1)
   })
 })

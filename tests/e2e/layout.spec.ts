@@ -12,6 +12,10 @@ import { banner } from '@/content/consent'
  * The sheet body is the approved four-sentence banner. The two-sentence
  * variant in 16 decision 1 ships only after counsel amends legal/01 section 9;
  * when it lands, this file runs the sheet assertions once per body.
+ *
+ * The last describe is the chrome itself: the masthead and the footer are one
+ * shared shell, so their links and their order must be identical on every
+ * route. Only `aria-current` may differ, which KF-10 owns.
  */
 
 const VIEWPORTS = [
@@ -111,18 +115,77 @@ for (const viewport of VIEWPORTS) {
       await assertNoHorizontalOverflow(page)
     })
 
-    test('the mobile sheet fits the viewport with no horizontal overflow', async ({ page }) => {
+    test('the route menu fits the viewport with no horizontal overflow', async ({ page }) => {
       await page.goto('/')
-      await page.getByRole('button', { name: 'Open menu' }).click()
+      await page.getByRole('button', { name: 'Menu' }).click()
 
-      const dialog = page.getByRole('dialog')
-      await expect(dialog).toBeVisible()
-      await page.getByRole('button', { name: 'Show the four solutions' }).click()
-      await expect(dialog.getByRole('link', { name: 'Search Impact Measurement' })).toBeVisible()
+      const nav = page.getByRole('navigation', { name: 'Primary' })
+      await expect(nav).toBeVisible()
+      await expect(nav.getByRole('link')).toHaveCount(6)
 
-      const box = (await dialog.boundingBox())!
+      const box = (await nav.boundingBox())!
       expect(box.width).toBeLessThanOrEqual(viewport.width + 0.5)
       await assertNoHorizontalOverflow(page)
     })
   })
 }
+
+/**
+ * The canvas chrome is byte-identical across the fourteen design pages, so the
+ * built shell has to be identical across the built routes: the same wordmark,
+ * the same six routes in the D-F order, the same button, the same four footer
+ * columns and the same legal row, everywhere.
+ */
+test.describe('the shared chrome', () => {
+  test.use({ viewport: { width: 1440, height: 900 } })
+
+  const chrome = (page: Page) =>
+    page.evaluate(() => {
+      const read = (root: Element | null) =>
+        [...(root?.querySelectorAll('a, button') ?? [])].map((node) => {
+          const href = node.getAttribute('href')
+          return {
+            tag: node.tagName,
+            name: (node.getAttribute('aria-label') ?? node.textContent ?? '').trim(),
+            // The one documented per-route difference: on /diagnostic the
+            // button points at the fit anchor so the most persistent CTA never
+            // reloads the page the visitor is converting on (14 DX-05, which
+            // `keyboard.spec.ts` owns). Normalised here so the rest of the
+            // chrome is compared strictly.
+            href: href === '#fit' ? '/diagnostic' : href,
+          }
+        })
+      return {
+        header: read(document.querySelector('header')),
+        footer: read(document.querySelector('footer')),
+        headings: [...document.querySelectorAll('footer h2')].map((node) =>
+          (node.textContent ?? '').trim(),
+        ),
+      }
+    })
+
+  test('the masthead and footer render identically on every route', async ({ page }) => {
+    await page.goto('/')
+    const reference = await chrome(page)
+
+    expect(reference.header.map((entry) => entry.name)).toEqual([
+      'Hendricks, home',
+      'Menu',
+      'Solutions',
+      'How It Works',
+      'For Brands',
+      'For Agencies',
+      'Research',
+      'About',
+      'Start with a Diagnostic',
+    ])
+    expect(reference.headings).toEqual(['Solutions', 'Who We Help', 'Company', 'Research'])
+    // Results is out of the footer while its flag is off (03 section 3).
+    expect(reference.footer.map((entry) => entry.name)).not.toContain('Results')
+
+    for (const path of builtRoutes) {
+      await page.goto(path)
+      expect(await chrome(page), path).toEqual(reference)
+    }
+  })
+})

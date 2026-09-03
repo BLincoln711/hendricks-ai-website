@@ -14,6 +14,19 @@
     scroll-padding-bottom: calc(var(--consent-banner-height, 0px) + 1rem);
   }
 
+  /*
+   * `scroll-padding-top` covers a scroll the document performs; it does not
+   * cover a scroll an ancestor performs, and it is not applied when the browser
+   * restores a fragment on load. Both land the heading behind the sticky
+   * masthead, which is the canvas defect 6 a table-of-contents jump exposed.
+   * `--stick` is a step above `--header-height`, so the target clears the bar
+   * rather than touching it.
+   */
+  :target,
+  [id] {
+    scroll-margin-top: var(--stick);
+  }
+
   body {
     background: var(--bg);
     color: var(--ink);
@@ -181,50 +194,181 @@
   }
 
   /*
-   * Mount-time entries (11 section 4). These are the four @starting-style
-   * sites the 11 section 8 grep gate counts: the Solutions panel, the mobile
-   * sheet with its overlay, the consent sheet and the preferences dialog. Each
-   * transitions from its starting frame to rest when the element mounts or
-   * leaves `hidden`; close is immediate, since nothing animates on exit, and
-   * under reduced motion the duration tokens collapse to 0.01 ms.
+   * The masthead route menu (canvas `.nav` and `.nav-toggle`).
+   *
+   * One `nav` at both widths. From 900 px the six routes are a row in the bar,
+   * spaced by a gap rather than by padding, the current one lifted to full ink
+   * beside its `aria-current`. Below 900 px they are a disclosure panel that
+   * spans the masthead: the ground, one hairline under each row, one under the
+   * panel, and no fill of its own. `top: 100%` rather than a fixed offset, so
+   * the panel follows the bar when the bar grows at the narrowest widths.
+   *
+   * The 44 px row is the site target rule (KF-09), which is taller than the
+   * canvas link box and changes nothing visually in a centred 62 px bar.
    */
-  .nav-panel {
-    opacity: 1;
-    transform: translateY(0);
-    transition:
-      opacity var(--duration-micro) var(--ease-standard),
-      transform var(--duration-micro) var(--ease-standard);
+  .route-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--header-nav-gap);
+    margin-left: auto;
   }
 
-  @starting-style {
-    .nav-panel {
-      opacity: 0;
-      transform: translateY(-4px);
+  .route-menu a {
+    display: inline-flex;
+    align-items: center;
+    /* The site target rule is 44 by 44 at every width (KF-09), and a short
+     * label such as About is narrower than that on its text alone. */
+    min-height: var(--target);
+    min-width: var(--target);
+    font-size: var(--header-nav-size);
+    color: var(--header-nav-fg);
+    white-space: nowrap;
+    transition: color var(--duration-micro) var(--ease-standard);
+  }
+
+  .route-menu a:hover,
+  .route-menu a[aria-current='page'] {
+    color: var(--header-nav-current-fg);
+  }
+
+  .route-menu-toggle {
+    display: none;
+    margin-left: auto;
+    min-height: var(--target);
+    min-width: var(--target);
+    padding-inline: var(--hx-space-3);
+    border: var(--button-edge-width) solid var(--edge);
+    border-radius: var(--radius-control);
+    font-size: var(--button-font-size);
+    font-weight: var(--button-font-weight);
+    color: var(--ink);
+    transition: border-color var(--duration-micro) var(--ease-standard);
+  }
+
+  .route-menu-toggle:hover {
+    border-color: var(--ev-muted);
+  }
+
+  @media (max-width: 56.1875rem) {
+    .route-menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .route-menu {
+      position: absolute;
+      inset-inline: 0;
+      top: 100%;
+      z-index: var(--z-header);
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      /* The canvas panel insets: 4 px above the first row, 14 px below the last. */
+      padding: var(--hx-space-1) var(--pad) 14px var(--rail);
+      background: var(--nav-panel-bg);
+      border-bottom: var(--hx-stroke-1) solid var(--nav-panel-edge);
+    }
+
+    .route-menu[data-open] {
+      display: flex;
+    }
+
+    .route-menu a {
+      font-size: var(--nav-panel-size);
+      border-bottom: var(--hx-stroke-1) solid var(--nav-panel-row-edge);
+    }
+
+    .route-menu a:last-child {
+      border-bottom: 0;
     }
   }
 
-  .mobile-sheet-overlay {
-    opacity: 1;
-    transition: opacity var(--duration-micro) var(--ease-standard);
+  /*
+   * The footer legal row (canvas `.foot-legal`). One rule for the links and the
+   * Privacy Choices button together: legal/01 section 11 requires the
+   * withdrawal control to be exactly as reachable as the policies beside it, so
+   * the two may not drift apart into separate class strings.
+   */
+  .foot-legal a,
+  .foot-legal button {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--link-min-height);
+    min-width: var(--target);
+    font: inherit;
+    font-size: var(--text-caption);
+    color: var(--ink-2);
+    transition: color var(--duration-micro) var(--ease-standard);
   }
 
-  @starting-style {
-    .mobile-sheet-overlay {
-      opacity: 0;
-    }
+  .foot-legal button {
+    cursor: pointer;
   }
 
-  .mobile-sheet {
-    transform: translateX(0);
-    transition: transform var(--duration-standard) var(--ease-standard);
+  .foot-legal a:hover,
+  .foot-legal button:hover,
+  .foot-legal a[aria-current='page'] {
+    color: var(--ink);
+    text-decoration-line: underline;
   }
 
-  @starting-style {
-    .mobile-sheet {
-      transform: translateX(100%);
-    }
+  /*
+   * Breadcrumbs (canvas `.crumbs`). Mono coordinates with a slash between
+   * them, no hairline and no chevron; the slash is generated, so it is never
+   * read out. The 44 px box is the site target rule.
+   */
+  .crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: var(--hx-space-2);
   }
 
+  .crumbs li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--hx-space-2);
+  }
+
+  .crumbs li + li::before {
+    content: '/';
+    color: var(--ink-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+  }
+
+  .crumbs a,
+  .crumbs span {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--link-min-height);
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: var(--tracking-illus);
+    text-transform: uppercase;
+    color: var(--ink-2);
+    transition: color var(--duration-micro) var(--ease-standard);
+  }
+
+  .crumbs a:hover {
+    color: var(--ink);
+    text-decoration-line: underline;
+  }
+
+  .crumbs [aria-current='page'] {
+    color: var(--ink);
+  }
+
+  /*
+   * Mount-time entries (11 section 4). The consent sheet and the preferences
+   * dialog are the two that remain: D-G removed the Solutions panel and the
+   * canvas replaced the mobile sheet with the route menu above, which the
+   * canvas gives no motion at all. Each transitions from its starting frame to
+   * rest when the element mounts; close is immediate, since nothing animates on
+   * exit, and under reduced motion the duration tokens collapse to 0.01 ms.
+   */
   .consent-sheet {
     transform: translateY(0);
     transition: transform var(--duration-standard) var(--ease-standard);

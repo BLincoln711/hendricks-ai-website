@@ -74,7 +74,6 @@ export default function AboutPage() {
                 { label: routes.home.label, href: routes.home.path },
                 { label: routes.about.label },
               ]}
-              onNavy
               path={routes.about.path}
             />
 

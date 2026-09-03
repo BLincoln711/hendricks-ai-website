@@ -73,11 +73,11 @@
   },
   {
     "fg": "--header-nav-fg",
-    "bg": "--disclosure-bg",
+    "bg": "--nav-panel-bg",
     "scope": "page",
     "role": "text",
     "threshold": 4.5,
-    "note": "route link inside the disclosure panel"
+    "note": "route link inside the mobile route menu"
   },
   {
     "fg": "--tile-fg",
@@ -440,12 +440,12 @@
     "note": "the double rule around a closing band"
   },
   {
-    "fg": "--header-nav-current-edge",
+    "fg": "--header-nav-current-fg",
     "bg": "--header-bg",
     "scope": "page",
-    "role": "graphic",
-    "threshold": 3,
-    "note": "the 2px underline marking the current route"
+    "role": "text",
+    "threshold": 4.5,
+    "note": "the current route, lifted to full ink"
   },
   {
     "fg": "--input-check-checked-bg",
@@ -808,12 +808,20 @@
     "note": "masthead hairline"
   },
   {
-    "fg": "--disclosure-edge",
+    "fg": "--nav-panel-edge",
     "bg": "--bg",
     "scope": "page",
     "role": "decorative",
     "threshold": null,
-    "note": "disclosure row hairline"
+    "note": "mobile route menu hairline"
+  },
+  {
+    "fg": "--nav-panel-row-edge",
+    "bg": "--nav-panel-bg",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "hairline under each route row in the mobile menu"
   },
   {
     "fg": "--button-disabled-edge",

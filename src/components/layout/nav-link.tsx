@@ -34,12 +34,12 @@ export function NavLink({ href, ...props }: NavLinkProps) {
 type HeaderCtaLinkProps = Omit<ComponentPropsWithRef<'a'>, 'href' | 'children'>
 
 /**
- * The header button's link, in the header and at the foot of the mobile sheet
- * (09 5.2, 5.3). On /diagnostic the destination is a fragment and the element
- * is a plain anchor: next/link handles a same-page hash itself and leaves
- * focus on the link, whereas the browser's own fragment navigation moves
- * focus to the `tabIndex={-1}` target (14 DX-25; 16 KF-07). `ref` and
- * handlers pass through so a Radix `Slot` can wrap it.
+ * The masthead button's link (09 5.3). It stays in the bar at every width, so
+ * there is one of it. On /diagnostic the destination is a fragment and the
+ * element is a plain anchor: next/link handles a same-page hash itself and
+ * leaves focus on the link, whereas the browser's own fragment navigation
+ * moves focus to the `tabIndex={-1}` target (14 DX-25; 16 KF-07). `ref` and
+ * handlers pass through so a `Slot` can wrap it.
  */
 export function HeaderCtaLink(props: HeaderCtaLinkProps) {
   const href = headerCtaHref(usePathname())
@@ -60,7 +60,7 @@ export function HeaderCtaLink(props: HeaderCtaLinkProps) {
 }
 
 /**
- * The header button (09 5.3). The label never varies by route; below 480 px it
+ * The masthead button (09 5.3). The label never varies by route; below 480 px it
  * gives up its width and wraps to two lines inside `--button-height-masthead`
  * so the row fits 320 px beside the wordmark and the menu control. That token
  * is the masthead's own height role: the canvas sets `.masthead .btn` shorter

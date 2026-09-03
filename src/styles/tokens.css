@@ -514,23 +514,28 @@
   --ev-grade-size: var(--hx-size-24);
   --ev-accent-width: var(--hx-stroke-1-5); /* The one accent border in the system: a left rule */
 
-  /* --- Header -------------------------------------------------------------- */
+  /* --- Header. The canvas masthead: a 62 px bar, six route links spaced by a
+   * gap rather than by padding, and the current route lifted to full ink. ---- */
   --header-bg: var(--bg);
-  --header-edge: var(--rule-2);
-  --header-nav-fg: var(--ink);
-  --header-nav-size: 14px;
+  --header-veil: 82%;                    /* The bar is translucent over the ground it shares,
+                                          * so content passes under it rather than behind a slab */
+  --header-blur: saturate(140%) blur(10px);
+  --header-edge: var(--rule);
+  --header-nav-fg: var(--ink-2);         /* 7.35:1 resting */
+  --header-nav-current-fg: var(--ink);   /* 18.40:1; the current route, with aria-current beside it */
+  --header-nav-size: 14.5px;
   --header-nav-size-laptop: 13.5px;
-  --header-nav-pad-x: var(--hx-space-3);
-  --header-nav-pad-x-laptop: var(--hx-space-2);
-  --header-nav-current-edge: var(--ink); /* A 2 px underline marks the current page with aria-current */
-  --header-gap: var(--hx-space-6);
+  --header-nav-gap: 22px;
+  --header-nav-gap-laptop: var(--hx-space-4);
+  --header-gap: 28px;
   --header-wordmark-height: 28px;
-  --disclosure-bg: var(--bg);  /* A floating panel is opaque so the page behind it
-                                * does not read through the routes; it is the
-                                * ground, not a lifted surface */
-  --disclosure-edge: var(--rule-2);
-  --disclosure-radius: var(--radius-control); /* A disclosure is a control */
-  --disclosure-width: 320px;
+  /* The route menu below 900 px. It is the ground with one hairline under each
+   * row and a hairline under the panel, never a lifted surface and never a
+   * floating card: it spans the bar and pushes nothing. */
+  --nav-panel-bg: var(--bg);
+  --nav-panel-edge: var(--rule-2);
+  --nav-panel-row-edge: var(--rule);
+  --nav-panel-size: 16px;
 
   /* --- Consent sheet ------------------------------------------------------- */
   --consent-bg: var(--bg);
@@ -588,7 +593,7 @@
 @media (min-width: 64rem) and (max-width: 79.9375rem) {
   :root {
     --header-nav-size: var(--header-nav-size-laptop);
-    --header-nav-pad-x: var(--header-nav-pad-x-laptop);
+    --header-nav-gap: var(--header-nav-gap-laptop);
     --header-gap: var(--hx-space-4);
   }
 }
@@ -688,7 +693,9 @@
     --chip-pressed-edge: Highlight;
     --header-bg: Canvas;
     --header-edge: CanvasText;
-    --disclosure-edge: CanvasText;
+    --nav-panel-bg: Canvas;
+    --nav-panel-edge: CanvasText;
+    --nav-panel-row-edge: CanvasText;
     --consent-bg: Canvas;
     --consent-edge: CanvasText;
   }
