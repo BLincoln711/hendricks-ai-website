@@ -800,6 +800,22 @@
     "note": "decorative hairline inside an instrument"
   },
   {
+    "fg": "--plate-rule-2",
+    "bg": "--plate-bg",
+    "scope": "page",
+    "role": "decorative",
+    "threshold": null,
+    "note": "decorative hairline separating an instrument's blocks"
+  },
+  {
+    "fg": "--plate-rule-2",
+    "bg": "--plate-bg",
+    "scope": "plate",
+    "role": "decorative",
+    "threshold": null,
+    "note": "decorative hairline separating an instrument's blocks"
+  },
+  {
     "fg": "--header-edge",
     "bg": "--header-bg",
     "scope": "page",

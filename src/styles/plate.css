@@ -1,695 +1,616 @@
 /*
- * Plate styles: the instrument. Every colour, size and duration reads a token.
+ * The instrument. Every colour, size and duration reads a token.
  *
- * Retokened to the canvas (2026-09-02). The instrument no longer sits on a
- * lifted navy surface: its ground is the page ground, so the plate frame has
- * lost its fill, its radius, its registration line and its right bleed, and the
- * inner panel has become a single top hairline. What remains of the boxed
- * structure below (the label grid's cell borders, the lane rows) is noted where
- * it stands and belongs to the instrument rebuild, not to the token layer.
+ * Rebuilt on the approved canvas (`07-hifi/_canvas.css` section 11 and the
+ * markup in `07-hifi/home-v3.html`). A drawing sits on the one ground: the
+ * plate has no fill, no edge, no radius and no registration line, and it is
+ * separated from its neighbours by space and by a hairline. The only boxes
+ * here are controls, which is the one exception the system allows.
  *
  * The label layer is the load-bearing part: an HTML grid over the SVG whose
  * tracks are the drawing's own units, so labels stay at token size while the
- * drawing scales and every label belongs to a grid cell (10 section 4). The
- * percentages are offsets inside a cell in drawing units (a 72-unit desktop
- * cell, a 52-unit mobile cell, the 270-unit mobile drawing).
+ * drawing scales and every label belongs to a cell. The percentage offsets are
+ * fractions of a cell in those units: 5.56% of a 72-unit desktop cell is 4
+ * units, 62.5% is 45, 27.8% is 20.
+ *
+ * Motion lives in `src/lib/motion.ts`, not here. The stylesheet only ever
+ * states the rest state, which is also the final state.
  */
 
 @layer components {
   /* ---- Frame -------------------------------------------------------------- */
-  .plate {
-    margin: 0;
+
+  /* The island's mount. It wraps the figure and paints nothing. */
+  .plate-mount {
     min-width: 0;
   }
 
-  /*
-   * The instrument surface is the page ground, so the frame carries no fill and
-   * no radius. The registration line that used to sit under a lifted plate is
-   * gone with the lift: a hairline drawn on the same colour it separates from
-   * is decoration, which is the thing the canvas removed.
-   */
-  .plate-body {
+  .plate {
     position: relative;
-    background: var(--plate-bg);
-    padding: var(--plate-pad) 0 calc(var(--plate-pad) - 2px);
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    min-width: 0;
   }
 
   .plate-head {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: var(--hx-space-2) var(--hx-space-4);
+    gap: var(--hx-space-2) var(--plate-head-gap);
     margin-bottom: var(--hx-space-2);
   }
 
+  .plate-no,
   .plate-title {
     font-family: var(--font-mono);
-    font-size: var(--plate-annotation-size);
-    letter-spacing: 0.06em;
+    font-size: var(--text-coordinate);
+    letter-spacing: var(--tracking-coordinate);
     text-transform: uppercase;
+    font-weight: var(--weight-mono);
+  }
+
+  .plate-no {
+    color: var(--ink-2);
+  }
+
+  .plate-title {
     color: var(--ink);
-    font-weight: var(--weight-medium);
   }
 
   .plate-gloss {
     margin: 0 0 var(--hx-space-3);
-    font-size: var(--text-small);
+    font-size: var(--plate-gloss-size);
     line-height: var(--leading-small);
     color: var(--ink-2);
-    max-width: var(--measure);
+    max-width: 52ch;
   }
 
-  .plate-caption {
-    margin: var(--hx-space-4) 0 0;
-    font-family: var(--font-mono);
-    font-size: var(--text-caption);
-    line-height: var(--leading-small);
-    color: var(--ink-2);
-  }
+  /* ---- The scenario picker. A control, so a radius is legal. -------------- */
 
-  .plate-section {
-    margin-top: var(--hx-space-3);
-    padding-top: var(--hx-space-3);
-    border-top: 1px solid var(--plate-rule);
-  }
-
-  /* Was an inner panel with its own ground, edge and radius. On one ground a
-   * panel is a box, so the grouping is carried by one hairline and space. */
-  .plate-inner {
-    border-top: 1px solid var(--plate-rule);
-    padding-top: var(--plate-pad);
-  }
-
-  /* ---- Picker, question, intervention note --------------------------------- */
   .picker {
-    border: 0;
+    min-width: 0;
     margin: 0 0 var(--hx-space-3);
     padding: 0;
-    min-width: 0;
+    border: 0;
   }
 
-  .picker legend {
+  .picker > legend {
     padding: 0;
-    margin: 0 0 var(--hx-space-2);
-    font-size: var(--text-small);
-    line-height: var(--leading-small);
-    font-weight: var(--weight-medium);
-    color: var(--ink);
+    margin-bottom: var(--hx-space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-coordinate);
+    letter-spacing: var(--tracking-coordinate);
+    text-transform: uppercase;
+    color: var(--ink-2);
   }
 
   .picker-items {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--target-clearance);
+    gap: var(--hx-space-2);
   }
 
   .pick {
+    position: relative;
+  }
+
+  /* The input covers the chip, so the whole 44 px chip is the target. */
+  .pick input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .pick span {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    min-height: var(--target);
-    padding: 0 14px 0 12px;
-    border: 1px solid var(--chip-edge);
+    justify-content: center;
+    min-height: var(--control-height-compact);
+    min-width: var(--control-height-compact);
+    padding: 0 var(--hx-space-4);
+    border: var(--hx-stroke-1) solid var(--edge);
     border-radius: var(--radius-control);
-    cursor: pointer;
-    color: var(--ink);
-    font-size: var(--text-small);
-    font-weight: var(--weight-medium);
-    line-height: 1.2;
+    font-size: var(--plate-question-size);
+    font-weight: var(--weight-mono);
+    color: var(--ink-2);
+    white-space: nowrap;
   }
 
-  .pick:hover {
-    border-color: var(--chip-hover-edge);
-  }
-
-  /* Selected is the path colour on the boundary plus full ink on the label, so
-   * the state is carried by two channels and never by a fill. */
-  .pick:has(input:checked) {
+  /* The chosen question carries full ink as well as the path edge, never hue alone. */
+  .pick input:checked + span {
     border-color: var(--path);
     color: var(--ink);
   }
 
-  .pick:has(input:focus-visible) {
+  .pick input:focus-visible + span {
     outline: var(--focus-ring-width) solid var(--focus);
-    outline-offset: var(--focus-ring-offset);
+    outline-offset: var(--hx-space-1);
   }
 
-  .pick input {
-    width: var(--input-check-size);
-    height: var(--input-check-size);
-    margin: 0;
-    accent-color: var(--input-check-checked-bg);
-  }
+  /* ---- Reserved slots ----------------------------------------------------- */
 
-  .pick input:focus-visible {
-    outline: none;
-  }
-
-  .plate-question {
-    margin: 0 0 var(--plate-head-gap);
+  /*
+   * Both blocks hold their box at every frame, so no step of the automatic
+   * cycle can move the page. The note hides with visibility, never display.
+   */
+  .plate-q {
     display: grid;
     gap: 2px;
-    max-width: var(--measure);
-    font-size: var(--text-small);
+    margin: 0 0 var(--hx-space-3);
+    min-height: var(--plate-question-reserve);
+    max-width: 96ch;
+    font-size: var(--plate-question-size);
     line-height: var(--leading-small);
-    color: var(--ink);
   }
 
-  .plate-question-text {
+  .plate-q .q {
+    color: var(--ink);
     font-weight: var(--weight-medium);
   }
 
-  .plate-question-context {
+  .plate-q .c {
     color: var(--ink-2);
   }
 
-  /* Reserved while off (11 rule 11), so switching the intervention on shifts nothing. */
-  .intervention-note {
+  .iv-note {
     margin: 0 0 var(--hx-space-3);
-    padding: var(--hx-space-3) var(--hx-space-4);
-    border-left: var(--ev-accent-width) solid var(--rule-strong);
-    font-size: var(--text-small);
+    padding-left: var(--hx-space-3);
+    border-left: var(--ev-accent-width) solid var(--ev-gap);
+    min-height: var(--plate-note-reserve);
+    max-width: var(--measure-wide);
+    font-size: var(--plate-row-size);
     line-height: var(--leading-small);
-    color: var(--ink);
+    color: var(--ink-2);
   }
 
-  .intervention-note[data-visible='false'],
-  .plate-after-note[data-visible='false'] {
+  .iv-note[data-off] {
     visibility: hidden;
   }
 
-  /* ---- Drawing and label layer --------------------------------------------- */
-  .plate-drawing {
+  /* ---- The drawing and its ledger ---------------------------------------- */
+
+  .plate-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .plate-main,
+  .plate-side {
+    min-width: 0;
+  }
+
+  .drawing {
     position: relative;
     width: 100%;
   }
 
-  .plate-drawing-desktop {
+  .drawing-desktop {
     max-width: var(--plate-svg-max);
   }
 
-  .plate-drawing-mobile {
-    max-width: var(--plate-svg-mobile-max);
+  .drawing-mobile {
     display: none;
+    max-width: var(--plate-svg-mobile-max);
+    margin-inline: auto;
   }
 
-  .plate-svg {
+  /* Fixed viewBox, fluid width: the box is set by the aspect ratio, so a frame
+   * change never resizes the figure. */
+  .dts {
     display: block;
     width: 100%;
     height: auto;
   }
 
-  .plate-labels {
+  /* ---- The label layer ---------------------------------------------------- */
+
+  .dts-labels {
     position: absolute;
     inset: 0;
     display: grid;
     pointer-events: none;
   }
 
-  .plate-label {
+  /* A label is never wrapped and never wider than its own words, except the
+   * full-width mobile band, which is a flex row and sizes itself. */
+  .lb {
     min-width: 0;
     white-space: nowrap;
-    line-height: 1.15;
+    line-height: 14px;
   }
 
-  .lbl-stage,
-  .lbl-stage-m {
-    font-family: var(--font-mono);
-    font-size: var(--plate-annotation-size);
-    letter-spacing: var(--tracking-coordinate);
-    text-transform: uppercase;
-    color: var(--ink-2);
-    font-weight: var(--weight-medium);
-  }
-
-  .lbl-stage {
-    justify-self: center;
-    align-self: center;
+  .lb-stage,
+  .lb-brand,
+  .lb-state,
+  .lb-out,
+  .lb-tick {
     width: max-content;
   }
 
-  .lbl-stage.lbl-start {
+  .lb-stage {
+    font-family: var(--font-mono);
+    font-size: var(--text-coordinate);
+    letter-spacing: var(--tracking-coordinate);
+    text-transform: uppercase;
+    font-weight: var(--weight-mono);
+    color: var(--ink-2);
+    justify-self: center;
+    align-self: center;
+  }
+
+  .lb-stage.start {
     justify-self: start;
   }
 
-  .lbl-stage.lbl-end {
-    justify-self: end;
-  }
-
-  /* Right-aligned 20 units inside the Context cell (10 section 4), clear of the fan. */
-  .lbl-brand {
+  .lb-brand {
     font-size: var(--plate-label-size);
     font-weight: var(--weight-medium);
     color: var(--ink-2);
     justify-self: end;
     align-self: center;
-    margin-right: 27.78%;
-    width: max-content;
+    margin-right: 27.8%;
   }
 
-  .lbl-brand.lbl-your {
+  .lb-brand.you {
     color: var(--ink);
   }
 
-  .lbl-state {
-    font-size: var(--plate-annotation-size);
+  .lb-state {
+    font-size: var(--plate-state-size);
     color: var(--ink-2);
-    width: max-content;
-    align-self: center;
+  }
+
+  .lb-state.up {
+    align-self: end;
     justify-self: start;
     margin-left: 5.56%;
   }
 
-  /* The Discovery word starts 4 units right of its node, clear of the fan below it. */
-  .lbl-state.lbl-disc {
-    margin-left: 55.56%;
+  .lb-state.lo {
+    align-self: start;
+    justify-self: start;
+    margin-left: 5.56%;
   }
 
-  /* The Consideration exit word ends 4 units left of its node, so it never reaches the bracket. */
-  .lbl-state.lbl-before {
+  /* The one word that reads back towards the stage before it. */
+  .lb-state.lo.before {
     justify-self: end;
     margin-left: 0;
-    margin-right: 55.56%;
+    margin-right: 62.5%;
   }
 
-  .lbl-state.lbl-gap {
+  .lb-state.disc {
+    margin-left: 62.5%;
+  }
+
+  .lb-state.gap {
     color: var(--ev-gap);
   }
 
-  .lbl-outcome {
-    font-size: var(--plate-annotation-size);
+  .lb-out {
+    font-size: var(--plate-state-size);
     color: var(--ev-measured);
+    text-align: right;
     justify-self: end;
     align-self: center;
-    width: max-content;
   }
 
-  .lbl-tick,
-  .lbl-tick-m {
+  .lb-tick {
     font-family: var(--font-mono);
-    font-size: var(--plate-coordinate-size);
-    letter-spacing: 0.05em;
+    font-size: var(--text-coordinate);
+    letter-spacing: var(--tracking-coordinate);
     color: var(--ink-2);
-    width: max-content;
-  }
-
-  .lbl-tick {
     justify-self: center;
-    align-self: center;
+    align-self: start;
+    margin-top: 14%;
   }
 
-  /* Mobile labels: right-aligned to the guide end at x 266 on a knockout that covers segments only. */
-  .lbl-brand-m {
+  .dts-labels-m .lb-brand {
     justify-self: center;
     margin-right: 0;
+    font-size: var(--plate-state-size);
   }
 
-  .lbl-band {
+  .lb-band {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-right: 1.48%;
-  }
-
-  /* Knockout marks: a label that punches a hole in the line it crosses. The
-   * fill is the ground it stands on, so it is a hole, not a surface. */
-  .lbl-stage-m,
-  .lbl-tick-m,
-  .lbl-fn {
-    background: var(--surface);
-  }
-
-  .lbl-stage-m {
-    padding: 0 4px;
-  }
-
-  .lbl-tick-m {
-    padding: 0 4px;
-    justify-self: end;
-    align-self: center;
-    margin-right: 1.48%;
-  }
-
-  .lbl-fn {
-    font-family: var(--font-mono);
-    font-size: var(--plate-coordinate-size);
-    font-weight: var(--weight-medium);
-    color: var(--ink);
-    padding: 0 3px;
-    line-height: 12px;
-    justify-self: start;
+    padding-right: 1.5%;
     align-self: center;
   }
 
-  /* ---- Footnote key, outcome link ----------------------------------------- */
-  .plate-foot {
-    display: none;
-    list-style: none;
-    margin: var(--hx-space-3) 0 0;
-    padding: 0;
-    gap: var(--hx-space-1) var(--hx-space-5);
-    flex-wrap: wrap;
-    font-size: var(--plate-annotation-size);
-    line-height: var(--leading-small);
-    color: var(--ink-2);
-  }
-
-  .plate-foot li {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 4px;
-  }
-
-  .plate-foot-index {
+  /* A knockout: the stage name punches a hole in the guide it crosses. */
+  .lb-stage-m {
     font-family: var(--font-mono);
-    font-weight: var(--weight-medium);
-    color: var(--ink);
-  }
-
-  .plate-outcome {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 6px;
-    margin: 0;
-    padding: var(--hx-space-1) 0 0;
-    font-size: var(--text-small);
-    line-height: var(--leading-small);
-  }
-
-  .plate-outcome-lead {
+    font-size: var(--text-coordinate);
+    letter-spacing: var(--tracking-coordinate);
+    text-transform: uppercase;
+    font-weight: var(--weight-mono);
     color: var(--ink-2);
+    background: var(--bg);
+    padding: 0 var(--hx-space-1);
   }
 
-  /* ---- Sources ledger (mark 16) ------------------------------------------- */
-  .plate-sources {
-    margin-top: var(--hx-space-4);
-    padding-top: var(--hx-space-3);
-    border-top: 1px solid var(--plate-rule);
-  }
+  /* ---- The sources ledger ------------------------------------------------- */
 
-  /* A label, not a coordinate: 14 px (VZ-11). */
-  .plate-subhead {
-    margin: 0 0 var(--hx-space-1);
+  .sources-h {
+    margin: 0 0 var(--hx-space-2);
     font-family: var(--font-mono);
-    font-size: var(--plate-annotation-size);
+    font-size: var(--text-coordinate);
     letter-spacing: var(--tracking-coordinate);
     text-transform: uppercase;
     color: var(--ink-2);
-    font-weight: var(--weight-medium);
   }
 
-  .src-list {
-    list-style: none;
+  .sources {
     margin: 0;
     padding: 0;
+    list-style: none;
+    border-top: var(--hx-stroke-1) solid var(--plate-rule-2);
+  }
+
+  .sources li {
+    border-bottom: var(--hx-stroke-1) solid var(--plate-rule);
+  }
+
+  /*
+   * Three lines, always: the source type beside its mark, the brands it
+   * supports, the brands it is missing for. A row that reflowed those onto one
+   * line when the names were short would change height when the question
+   * changed, and every row beneath it would move while the figure played.
+   * The mark keeps its own column, so it is never orphaned above its label.
+   */
+  .src,
+  .src-static {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: var(--hx-space-6);
-    row-gap: var(--target-clearance);
-  }
-
-  .src-row {
-    border-bottom: 1px solid var(--plate-rule);
-  }
-
-  .lane {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 4px 10px;
+    grid-template-columns: var(--plate-mark-size) minmax(0, 1fr);
+    gap: 3px var(--hx-space-2);
+    align-items: start;
     width: 100%;
-    min-height: var(--target);
-    padding: 6px 8px 6px 4px;
-    margin: 0;
-    text-align: left;
-    background: transparent;
-    border: 0;
-    border-left: 2px solid transparent;
-    border-radius: var(--radius-mark);
-    color: var(--ink);
+    min-height: var(--control-height-compact);
+    padding: var(--hx-space-2) 0;
     font: inherit;
-    font-size: var(--text-small);
-    line-height: var(--leading-small);
+    font-size: var(--plate-row-size);
+    color: var(--ink-2);
+    text-align: left;
   }
 
-  button.lane {
+  .src > span,
+  .src-static > span {
+    grid-column: 2;
+  }
+
+  .src > svg {
+    margin-top: var(--hx-space-1);
+  }
+
+  .src {
+    background: none;
+    border: 0;
     cursor: pointer;
   }
 
-  button.lane:hover {
-    border-left-color: var(--rule-strong);
+  .src .type {
+    color: var(--ink);
   }
 
-  button.lane[aria-pressed='true'] {
-    border-left-color: var(--ink);
-  }
-
-  .lane-mark {
-    display: inline-flex;
-    flex: 0 0 12px;
-    width: 12px;
-    height: 12px;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .lane-type {
-    font-weight: var(--weight-medium);
-  }
-
-  .lane-brands {
-    font-family: var(--font-mono);
-    font-size: var(--text-caption);
+  .src-static .type {
     color: var(--ink-2);
   }
 
-  .lane-none {
-    font-family: var(--font-sans);
-    font-size: var(--text-small);
-  }
-
-  .lane-missing {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: var(--text-small);
+  /*
+   * Always present, and always a full line box high even when empty, so a lane
+   * gaining or losing a gap cannot move the rows beneath it.
+   */
+  .miss {
+    min-height: var(--plate-lane-line);
     color: var(--ev-gap);
   }
 
-  /* ---- Key row and controls (09 5.13) ------------------------------------- */
-  .plate-key-list {
-    list-style: none;
-    margin: 0;
+  .src:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* ---- The text equivalents ---------------------------------------------- */
+
+  .plate-states {
+    display: none;
+    margin: var(--hx-space-3) 0 0;
     padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--hx-space-2) var(--plate-key-gap);
-    font-family: var(--font-mono);
-    font-size: var(--text-small);
+    list-style: none;
+  }
+
+  .plate-states li {
+    padding: 3px 0;
+    border-bottom: var(--hx-stroke-1) solid var(--plate-rule);
+    font-size: var(--plate-row-size);
     line-height: var(--leading-small);
     color: var(--ink-2);
   }
 
-  .plate-key-list li {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .plate-controls {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--hx-space-2) var(--hx-space-3);
-    margin-top: var(--hx-space-4);
-  }
-
-  .plate-after-note {
-    font-family: var(--font-mono);
-    font-size: var(--text-small);
-    color: var(--ink-2);
-  }
-
-  /* ---- List view (09 5.56) -------------------------------------------------- */
-  .plate-list {
-    padding: var(--hx-space-2) var(--hx-space-1) 0;
-  }
-
-  .list-alt {
-    margin: 0 0 var(--hx-space-4);
-    max-width: var(--measure-wide);
-    font-size: var(--text-small);
-    line-height: var(--leading-small);
+  .plate-states b {
     color: var(--ink);
-  }
-
-  .list-need {
-    margin: 0 0 var(--hx-space-4);
-    display: grid;
-    gap: var(--hx-space-2);
-    font-size: var(--text-small);
-    line-height: var(--leading-small);
-  }
-
-  .list-need div {
-    display: grid;
-    grid-template-columns: 9em minmax(0, 1fr);
-    gap: var(--hx-space-3);
-  }
-
-  .list-need dt {
-    font-family: var(--font-mono);
-    font-size: var(--text-caption);
-    color: var(--ink-2);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .list-need dd {
-    margin: 0;
-    color: var(--ink);
-  }
-
-  .table-scroll {
-    overflow-x: auto;
-    max-width: 100%;
-  }
-
-  .table-scroll:focus-visible {
-    outline-offset: -2px;
-  }
-
-  .plate-table {
-    border-collapse: collapse;
-    width: 100%;
-    font-size: var(--text-small);
-    line-height: var(--leading-small);
-  }
-
-  .plate-table caption {
-    text-align: left;
     font-weight: var(--weight-medium);
-    color: var(--ink);
-    padding: 0 0 var(--hx-space-2);
   }
 
-  .plate-table th,
-  .plate-table td {
+  .plate-list {
+    margin-top: var(--hx-space-3);
+    overflow-x: auto;
+  }
+
+  .plate-list table {
+    width: 100%;
+    min-width: 620px;
+    border-collapse: collapse;
+    font-size: var(--plate-row-size);
+  }
+
+  .plate-list th,
+  .plate-list td {
+    padding: var(--hx-space-2) var(--hx-space-3) var(--hx-space-2) 0;
+    border-bottom: var(--hx-stroke-1) solid var(--plate-rule);
     text-align: left;
     vertical-align: top;
-    padding: 8px 10px;
-    border-top: 1px solid var(--plate-rule);
-  }
-
-  .plate-table thead th {
-    font-family: var(--font-mono);
-    font-size: var(--text-caption);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-weight: var(--weight-regular);
     color: var(--ink-2);
-    font-weight: var(--weight-medium);
-    border-top: 0;
-    border-bottom: 2px solid var(--ledger-rule-top);
   }
 
-  .plate-table tbody th {
-    font-weight: var(--weight-medium);
-    white-space: nowrap;
+  .plate-list thead th {
+    font-family: var(--font-mono);
+    font-size: var(--text-coordinate);
+    letter-spacing: var(--tracking-coordinate);
+    text-transform: uppercase;
+    color: var(--ink-2);
   }
 
-  .plate-table td {
+  .plate-list tbody th {
     color: var(--ink);
-    min-width: 9em;
+    font-weight: var(--weight-medium);
   }
 
-  /* ---- Responsive ----------------------------------------------------------- */
+  /* ---- The key row -------------------------------------------------------- */
+
+  .plate-key {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--hx-space-3) var(--plate-head-gap);
+    margin-top: var(--plate-head-gap);
+    padding-top: var(--hx-space-3);
+    border-top: var(--hx-stroke-1) solid var(--plate-rule-2);
+  }
+
+  .kbtn {
+    min-height: var(--control-height-compact);
+    padding: 0 var(--hx-space-3);
+    background: transparent;
+    color: var(--ink-2);
+    border: var(--hx-stroke-1) solid var(--edge);
+    border-radius: var(--radius-control);
+    font: inherit;
+    font-size: var(--chip-font-size);
+    font-weight: var(--weight-mono);
+    cursor: pointer;
+  }
+
+  .kbtn:hover {
+    color: var(--ink);
+    border-color: var(--ev-muted);
+  }
+
+  .kbtn[aria-pressed='true'] {
+    color: var(--ink);
+    border-color: var(--path);
+  }
+
+  .kbtn:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus);
+    outline-offset: var(--focus-ring-offset);
+  }
+
+  /* The pause control every self-playing instrument must expose. It holds one
+   * width for both labels, so swapping Play for Pause moves nothing. */
+  .kbtn-cycle {
+    min-width: 92px;
+  }
+
+  .klegend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--hx-space-2) var(--plate-head-gap);
+    margin-left: auto;
+  }
+
+  .kitem {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: var(--plate-state-size);
+    color: var(--ink-2);
+  }
+
+  /* ---- The caption and the live region ------------------------------------ */
+
+  .plate-cap {
+    margin: var(--hx-space-3) 0 0;
+  }
+
+  .illus {
+    font-family: var(--font-mono);
+    font-size: var(--text-coordinate);
+    letter-spacing: var(--tracking-coordinate);
+    color: var(--ink-2);
+  }
+
+  .live {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  /* ---- Widths ------------------------------------------------------------- */
+
+  @media (min-width: 73.75rem) {
+    .plate-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(var(--plate-side-min), var(--plate-side-max));
+      gap: var(--plate-gutter);
+    }
+  }
+
   @media (max-width: 56.1875rem) {
-    .src-list {
-      grid-template-columns: minmax(0, 1fr);
-    }
-  }
-
-  @media (max-width: 47.4375rem) {
-    .plate-drawing-desktop {
+    .drawing-desktop {
       display: none;
     }
 
-    .plate-drawing-mobile {
+    .drawing-mobile {
       display: block;
     }
 
-    .plate-foot {
-      display: flex;
-    }
-  }
-
-  @media (max-width: 44.9375rem) {
-    .plate-body {
-      margin-left: calc(-1 * var(--gutter));
-      margin-right: calc(-1 * var(--gutter));
-      border-radius: 0;
-    }
-
-    .plate-body::after {
-      left: 0;
-      right: 0;
-    }
-  }
-
-  @media (max-width: 39.9375rem) {
-    .plate-table thead {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip-path: inset(50%);
-    }
-
-    .plate-table,
-    .plate-table tbody,
-    .plate-table tr,
-    .plate-table th,
-    .plate-table td {
+    /* The vertical drawing cannot carry state words, so the list carries them. */
+    .plate-states {
       display: block;
     }
+  }
 
-    .plate-table tr {
-      border-top: 2px solid var(--ledger-rule-top);
-      padding: 6px 0 10px;
+  /* ---- Forced colours ----------------------------------------------------- */
+
+  /*
+   * A forced colour mode repaints backgrounds and borders, so every control
+   * and every knockout needs a boundary the system will keep. SVG fills and
+   * strokes are left alone, which is why no mark carries `forced-color-adjust`.
+   */
+  @media (forced-colors: active) {
+    .kbtn,
+    .pick span {
+      border: var(--hx-stroke-1) solid CanvasText;
     }
 
-    .plate-table tbody th {
-      border: 0;
-      padding: 6px 0;
+    .iv-note {
+      border-left: var(--hx-stroke-2) solid CanvasText;
     }
+  }
 
-    .plate-table td {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 2px;
-      min-width: 0;
-      padding: 6px 0;
-      border-top: 1px solid var(--plate-rule);
-    }
+  /* ---- Reduced motion ----------------------------------------------------- */
 
-    .plate-table td::before {
-      content: attr(data-label);
-      font-family: var(--font-mono);
-      font-size: var(--text-caption);
-      color: var(--ink-2);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    /* The stacked list keeps one block per brand; the exit word already says "exits". */
-    .plate-table td[data-exited] {
+  /*
+   * Under reduce the cycle never starts, so the control that pauses it has
+   * nothing to pause. The primitives return before creating an animation, so
+   * there is nothing here to switch off.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    html[data-motion='reduce'] .kbtn-cycle {
       display: none;
-    }
-
-    .list-need div {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 2px;
     }
   }
 }

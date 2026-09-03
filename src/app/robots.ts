@@ -36,7 +36,13 @@ import { isProduction } from '@/lib/env'
  * A named group that omits this list silently opens /studio and /api/ to that
  * agent, which is why the paths are shared from one constant instead of retyped.
  */
-const disallowedPaths = ['/studio', '/api/', '/preview', '/draft']
+/**
+ * `/plate-fixtures` is the redesign's component fixture route
+ * (`src/app/(dev)/plate-fixtures`): it returns 404 in production, is
+ * unregistered in `routes.ts` so the sitemap never lists it, and is named here
+ * so no crawler that reaches a preview build records it either.
+ */
+const disallowedPaths = ['/studio', '/api/', '/preview', '/draft', '/plate-fixtures']
 
 /**
  * Search-discovery crawlers for the engines the site must be visible in:

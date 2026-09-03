@@ -79,7 +79,10 @@ const PLACEHOLDER_PATTERNS = [
  * `AGENTS.md`. Registering them explicitly, rather than inferring from the
  * presence of numbers, keeps the decision with a human.
  */
-const SAMPLE_DATA_COMPONENTS = ['src/components/visuals/selection-map.tsx']
+const SAMPLE_DATA_COMPONENTS = [
+  'src/components/visuals/selection-map.tsx',
+  'src/components/visuals/selection-map-plate.tsx',
+]
 const ILLUSTRATIVE_LABEL = 'Illustrative interface. Not a client result.'
 
 /**

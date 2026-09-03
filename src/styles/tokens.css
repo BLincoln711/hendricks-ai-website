@@ -131,6 +131,7 @@
   --hx-space-5: 1.25rem;  /* 20 */
   --hx-space-6: 1.5rem;   /* 24 */
   --hx-space-8: 2rem;     /* 32 */
+  --hx-space-9: 2.25rem;  /* 36 */
   --hx-space-10: 2.5rem;  /* 40 */
   --hx-space-11: 2.75rem; /* 44, the block break */
   --hx-space-12: 3rem;    /* 48 */
@@ -431,19 +432,33 @@
   --input-gap: var(--hx-space-2);
   --input-stack-gap: var(--hx-space-6);
 
-  /* --- Plate: the instrument. Its surface is the ground. ------------------- */
+  /* --- Plate: the instrument. Its surface is the ground. -------------------
+   * Sizes are the approved canvas's, with one deviation recorded: the canvas
+   * sets its uppercase mono coordinate marks at 11 px and its list-view table
+   * head at 10.5 px. Both read `--text-coordinate`, which is 12 px, so no
+   * rendered text in the instrument falls below the 12 px floor. */
   --plate-bg: var(--plate);
   --plate-rule: var(--rule);   /* Decorative hairlines inside an instrument */
+  --plate-rule-2: var(--rule-2);
   --plate-guide: var(--guide); /* Stage guides, 3.93:1, meaning bearing */
-  --plate-pad: var(--hx-space-5);
-  --plate-svg-max: 740px;
+  --plate-svg-max: 800px;
   --plate-svg-mobile-max: 400px;
-  --plate-label-size: 15px;             /* Brand and node labels; never under 14 px rendered */
-  --plate-annotation-size: 14px;        /* Annotations and stage labels: content text, 14 px floor */
-  --plate-coordinate-size: 14px;        /* Uppercase mono coordinate marks */
-  --plate-coordinate-size-mobile: 13px; /* Coordinate marks only, below 720 px */
+  --plate-side-min: 280px;
+  --plate-side-max: 340px;
+  --plate-gloss-size: 13.5px;   /* The one sentence under the title */
+  --plate-row-size: 12.5px;     /* Ledger rows, the state list, the list-view cells */
+  --plate-label-size: 13px;     /* Brand labels on the drawing */
+  --plate-state-size: 12px;     /* State words on the drawing, and the key row */
+  --plate-question-size: 13.5px;
+  --plate-question-reserve: 42px; /* Reserved: the question line holds its box at every question */
+  --plate-note-reserve: 36px;     /* Reserved: the intervention note holds its box while off */
+  /* Reserved: a ledger row's second line, whether or not the lane has a gap,
+   * so changing question cannot move the rows beneath it. */
+  --plate-lane-line: calc(var(--plate-row-size) * var(--leading-small));
+  --plate-mark-size: 12px;        /* The inline class mark in a key or ledger row */
   --plate-head-gap: var(--hx-space-4);
   --plate-key-gap: var(--hx-space-6);
+  --plate-gutter: var(--hx-space-9); /* 36 px between the drawing and the ledger */
 
   /* --- Ledger: hairline rows, no head fill -------------------------------- */
   --ledger-rule: var(--rule);
