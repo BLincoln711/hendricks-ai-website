@@ -170,7 +170,7 @@ export function ConsentManager() {
               opener.current = document.activeElement
             }}
             onCloseAutoFocus={handleCloseAutoFocus}
-            className="consent-dialog fixed inset-x-0 bottom-0 z-[var(--z-dialog)] flex max-h-[90vh] w-full flex-col rounded-t-plate shadow-dialog md:inset-0 md:m-auto md:h-fit md:max-w-lg md:rounded-plate"
+            className="consent-dialog fixed inset-x-0 bottom-0 z-[var(--z-dialog)] flex max-h-[90vh] w-full flex-col md:inset-0 md:m-auto md:h-fit md:max-w-lg"
           >
             <div className="flex shrink-0 items-start justify-between gap-6 border-b border-rule p-6 md:p-8">
               <div className="flex flex-col gap-2">
@@ -180,7 +180,7 @@ export function ConsentManager() {
                 </Dialog.Description>
               </div>
               <Dialog.Close
-                className="inline-flex size-11 shrink-0 items-center justify-center rounded-small text-ink-2 transition-colors hover: hover:text-ink"
+                className="inline-flex size-11 shrink-0 items-center justify-center rounded-control text-ink-2 transition-colors hover:text-ink"
                 aria-label="Close privacy choices"
               >
                 <X className="size-5" aria-hidden="true" focusable="false" />
@@ -194,7 +194,7 @@ export function ConsentManager() {
                 return (
                   <div
                     key={category.name}
-                    className="flex flex-col gap-3 rounded-tile border border-rule p-5"
+                    className="flex flex-col gap-3 border border-rule p-5"
                   >
                     <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
                       <h3 className="text-h4 text-ink">{category.name}</h3>
@@ -237,7 +237,7 @@ export function ConsentManager() {
               })}
 
               {gpc ? (
-                <p className="rounded-tile border-l-2 border-ink p-5 text-small text-ink">
+                <p className="border-l-[length:var(--ev-accent-width)] border-l-ink py-2 pl-5 text-small text-ink">
                   {preferences.gpcNotice}
                 </p>
               ) : null}

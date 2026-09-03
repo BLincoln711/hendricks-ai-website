@@ -24,8 +24,10 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#071A2B',
-  colorScheme: 'light',
+  // The canvas ground, so the browser chrome and the UA form controls match
+  // the page instead of framing it in a light bar.
+  themeColor: '#060E16',
+  colorScheme: 'dark',
 }
 
 const onVercel = Boolean(process.env.NEXT_PUBLIC_VERCEL_ENV ?? process.env.VERCEL)

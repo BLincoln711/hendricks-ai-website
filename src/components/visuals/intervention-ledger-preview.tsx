@@ -24,9 +24,18 @@ export function InterventionLedgerPreview({
         className,
       )}
     >
-      <ol className="grid gap-px overflow-hidden border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-3">
+      {/*
+        Hairlines are drawn as a lattice: the parent carries the top and left
+        rules, each cell the right and bottom. A tinted parent showing through
+        1 px gaps needs opaque children, and with transparent cells it paints
+        the whole block, which is the tinted panel the canvas forbids.
+      */}
+      <ol className="grid border-t border-l border-rule sm:grid-cols-2 lg:grid-cols-3">
         {fields.map((field, index) => (
-          <li key={field} className="flex items-baseline gap-3 px-4 py-3">
+          <li
+            key={field}
+            className="flex items-baseline gap-3 border-r border-b border-rule px-4 py-3"
+          >
             <span className="font-mono text-[0.75rem] text-ink-2 tabular-nums">
               {String(index + 1).padStart(2, '0')}
             </span>

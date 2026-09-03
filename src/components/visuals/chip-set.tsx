@@ -63,14 +63,15 @@ function EvidenceMark({ evidence }: { evidence: EvidenceClass }) {
 }
 
 /**
- * A static chip (09 5.20): the label is the text, the mark is decorative, and
- * the pill radius is permitted only here. Not a target: a chip that acts is a
- * `button` with `aria-pressed` and a 44 px height, which lands with the
- * filter that needs it.
+ * A static chip (09 5.20): the label is the text and the mark is decorative.
+ * Square, because the canvas grants a radius to controls only and a static
+ * label is not one. Not a target either: a chip that acts is a `button` with
+ * `aria-pressed` and a 44 px height, reading `--chip-radius`, and it lands with
+ * the filter that needs it.
  */
 export function EvidenceChip({ label, evidence }: { label: string; evidence?: EvidenceClass }) {
   return (
-    <span className="inline-flex min-h-[var(--chip-min-height-static)] items-center gap-[var(--chip-gap)] rounded-[var(--chip-radius)] border border-[var(--chip-edge)] bg-[var(--chip-bg)] px-[var(--chip-pad-x)] py-[var(--chip-pad-y)] text-[length:var(--chip-font-size)] leading-[var(--leading-small)] [font-weight:var(--chip-font-weight)] text-[var(--chip-fg)]">
+    <span className="inline-flex min-h-[var(--chip-min-height-static)] items-center gap-[var(--chip-gap)] border border-[var(--chip-edge)] bg-[var(--chip-bg)] px-[var(--chip-pad-x)] py-[var(--chip-pad-y)] text-[length:var(--chip-font-size)] leading-[var(--leading-small)] [font-weight:var(--chip-font-weight)] text-[var(--chip-fg)]">
       {evidence ? <EvidenceMark evidence={evidence} /> : null}
       {label}
     </span>

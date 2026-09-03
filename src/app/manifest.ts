@@ -9,8 +9,10 @@ export default function manifest(): MetadataRoute.Manifest {
     description: siteConfig.description,
     start_url: '/',
     display: 'standalone',
-    background_color: '#F7F9FC',
-    theme_color: '#071A2B',
+    // Both are the canvas ground, so the splash screen and the title bar
+    // are the same near-black the site renders on.
+    background_color: '#060E16',
+    theme_color: '#060E16',
     icons: [
       { src: '/icon.png', sizes: '512x512', type: 'image/png' },
       { src: '/apple-icon.png', sizes: '180x180', type: 'image/png' },

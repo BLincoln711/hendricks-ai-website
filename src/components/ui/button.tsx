@@ -34,7 +34,8 @@ const buttonVariants = cva(
       size: {
         /** 48 px, the default control height. */
         default: 'min-h-[var(--button-height)] px-[var(--button-pad-x)]',
-        /** 44 px compact: the header button and controls beside text. */
+        /** 44 px compact: a control beside text. The masthead button layers
+         *  `--button-height-masthead` over it (see `HeaderCta`). */
         small: 'min-h-[var(--button-height-compact)] px-[var(--button-pad-x-compact)]',
       },
     },

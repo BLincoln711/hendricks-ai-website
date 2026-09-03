@@ -40,7 +40,7 @@ export function DataTable({
         tabIndex={0}
         role="region"
         aria-label={caption}
-        className="min-w-0 overflow-x-auto rounded-[var(--radius-control)] border border-rule-strong"
+        className="min-w-0 overflow-x-auto border border-rule-strong"
       >
         <table className="text-small w-full min-w-[34rem] border-collapse text-left tabular-nums">
           <caption className={captionVisible ? 'px-4 py-3 text-left text-ink-2 md:px-6' : 'sr-only'}>

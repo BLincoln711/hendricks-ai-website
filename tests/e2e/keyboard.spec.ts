@@ -11,9 +11,14 @@ import { banner, preferences } from '@/content/consent'
  * is a source check and lives in `tests/unit/modal-inventory.test.ts`.
  */
 
-/** `--focus-ring` on light (`--hx-blue-600`) and under `.on-plate` (`--hx-cyan-500`). */
-const FOCUS_RING_LIGHT = 'rgb(36, 88, 230)'
-const FOCUS_RING_PLATE = 'rgb(0, 194, 216)'
+/**
+ * `--focus` is `--hx-cyan-500` on the canvas ground and stays that value inside
+ * `.on-plate`, because the canvas has one ground. The ring is 2 px at a 3 px
+ * offset, from the `:focus-visible` rule in globals.css.
+ */
+const FOCUS_RING = 'rgb(0, 194, 216)'
+const FOCUS_RING_WIDTH = '2px'
+const FOCUS_RING_OFFSET = '3px'
 
 /** The site target rule: 44 by 44 CSS px at every width (KF-09). */
 const TARGET = 44
@@ -204,7 +209,7 @@ test.describe('KF-03 consent sheet', () => {
 })
 
 test.describe('KF-05 and KF-06 focus ring', () => {
-  test('is Signal Blue on light, Insight Cyan inside .on-plate, and set at rest', async ({
+  test('is Insight Cyan on the ground and inside .on-plate, and set at rest', async ({
     page,
   }) => {
     await page.goto('/')
@@ -214,7 +219,7 @@ test.describe('KF-05 and KF-06 focus ring', () => {
     const resting = await page
       .getByRole('link', { name: 'Hendricks, home' })
       .evaluate((node) => getComputedStyle(node).outlineColor)
-    expect(resting).toBe(FOCUS_RING_LIGHT)
+    expect(resting).toBe(FOCUS_RING)
 
     await page.keyboard.press('Tab')
     const focused = await page
@@ -228,9 +233,16 @@ test.describe('KF-05 and KF-06 focus ring', () => {
           offset: style.outlineOffset,
         }
       })
-    expect(focused).toEqual({ color: FOCUS_RING_LIGHT, style: 'solid', width: '2px', offset: '2px' })
+    expect(focused).toEqual({
+      color: FOCUS_RING,
+      style: 'solid',
+      width: FOCUS_RING_WIDTH,
+      offset: FOCUS_RING_OFFSET,
+    })
 
-    // A control inside a plate re-scopes to cyan through one token, no variant.
+    // A control inside a plate reads the same ring through one token, no
+    // variant: the canvas has one ground, so the re-scope changes nothing today
+    // and this is what proves it.
     const plate = await page.evaluate(() => {
       const wrapper = document.createElement('div')
       wrapper.className = 'on-plate'
@@ -241,7 +253,7 @@ test.describe('KF-05 and KF-06 focus ring', () => {
       document.querySelector('main')?.append(wrapper)
       return getComputedStyle(button).outlineColor
     })
-    expect(plate).toBe(FOCUS_RING_PLATE)
+    expect(plate).toBe(FOCUS_RING)
   })
 })
 

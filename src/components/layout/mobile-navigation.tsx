@@ -24,10 +24,10 @@ import { cn } from '@/lib/utils/cn'
  */
 
 const CONTROL_CLASS =
-  'inline-flex size-11 shrink-0 items-center justify-center rounded-small border border-rule-strong text-ink'
+  'inline-flex size-11 shrink-0 items-center justify-center rounded-control border border-rule-strong text-ink'
 
 const ITEM_CLASS =
-  'flex min-h-control w-full items-center rounded-small px-1 font-medium text-link aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-[6px]'
+  'flex min-h-control w-full items-center px-1 font-medium text-link aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-[6px]'
 
 export function MobileNavigation() {
   return (
@@ -85,7 +85,7 @@ function SheetNavigation() {
                     aria-controls={subListId}
                     aria-label="Show the four solutions"
                     onClick={() => setSolutionsOpen((value) => !value)}
-                    className="inline-flex size-11 shrink-0 items-center justify-center rounded-small text-ink"
+                    className="inline-flex size-11 shrink-0 items-center justify-center rounded-control text-ink"
                   >
                     <ChevronDown
                       className={cn(

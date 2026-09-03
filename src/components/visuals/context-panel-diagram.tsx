@@ -10,9 +10,12 @@ export type ContextPanel = {
  * Four context quadrants on Selection Intelligence (09 5.55).
  *
  * Each quadrant states the question it answers, which is the point of the
- * diagram: the panels are a research design, not decoration. A quadrant grid
- * is not a plate, so it reads `--radius-tile` and the raised surface with a 1
- * px `--rule` gap.
+ * diagram: the panels are a research design, not decoration.
+ *
+ * The separators are a hairline lattice: the parent carries the top and left
+ * rules, each cell the right and bottom. A tinted parent showing through 1 px
+ * gaps needs opaque children; with transparent cells its rule colour paints the
+ * whole block, which is the tinted panel the canvas forbids.
  */
 export function ContextPanelDiagram({
   panels,
@@ -22,14 +25,12 @@ export function ContextPanelDiagram({
   className?: string
 }) {
   return (
-    <ul
-      className={cn(
-        'grid gap-px overflow-hidden border border-rule bg-rule sm:grid-cols-2',
-        className,
-      )}
-    >
+    <ul className={cn('grid border-t border-l border-rule sm:grid-cols-2', className)}>
       {panels.map((panel, index) => (
-        <li key={panel.name} className="flex flex-col gap-3 p-6 md:p-8">
+        <li
+          key={panel.name}
+          className="flex flex-col gap-3 border-r border-b border-rule p-6 md:p-8"
+        >
           <span aria-hidden="true" className="text-coordinate text-ink-2">
             {String(index + 1).padStart(2, '0')}
           </span>

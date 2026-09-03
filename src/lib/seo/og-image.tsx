@@ -33,7 +33,7 @@ export function renderOgImage({
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          background: '#071A2B',
+          background: '#060E16',
           padding: '72px',
         }}
       >

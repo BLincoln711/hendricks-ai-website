@@ -57,7 +57,7 @@ export function EngineeringLayers({
               {layer.workItems.map((item) => (
                 <li
                   key={item}
-                  className="text-small rounded-[var(--radius-control)] border border-rule px-2.5 py-1 text-ink"
+                  className="text-small border border-rule px-2.5 py-1 text-ink"
                 >
                   {item}
                 </li>

@@ -71,7 +71,7 @@ function ArticleCard({ article, featured = false }: { article: ResearchArticle; 
           {article.category}
         </span>
         {/* The Results-gate label, on the card as well as on the article. */}
-        <span className="text-eyebrow rounded-full border border-rule px-3 py-1 text-ink-2">
+        <span className="text-eyebrow border border-rule px-3 py-1 text-ink-2">
           {article.designation}
         </span>
       </div>

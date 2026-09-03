@@ -20,7 +20,7 @@ import { primaryNavigation, type NavigationItem } from '@/config/navigation'
  */
 
 const LINK_CLASS =
-  'target-variance inline-flex min-h-target items-center rounded-t-small border-b-2 border-transparent px-[var(--header-nav-pad-x)] text-[length:var(--header-nav-size)] font-medium whitespace-nowrap text-[var(--header-nav-fg)] transition-[border-color] duration-[var(--duration-micro)] ease-standard hover:border-[var(--header-nav-current-edge)] aria-[current=page]:border-[var(--header-nav-current-edge)]'
+  'target-variance inline-flex min-h-target items-center border-b-2 border-transparent px-[var(--header-nav-pad-x)] text-[length:var(--header-nav-size)] font-medium whitespace-nowrap text-[var(--header-nav-fg)] transition-[border-color] duration-[var(--duration-micro)] ease-standard hover:border-[var(--header-nav-current-edge)] aria-[current=page]:border-[var(--header-nav-current-edge)]'
 
 export function DesktopNavigation() {
   return (
@@ -104,7 +104,7 @@ function DisclosureGroup({ item, items }: { item: NavigationItem; items: Navigat
         aria-controls={panelId}
         aria-label="Show the four solutions"
         onClick={handleToggle}
-        className="group inline-flex size-11 shrink-0 items-center justify-center rounded-small text-ink hover:"
+        className="group inline-flex size-11 shrink-0 items-center justify-center rounded-control text-ink"
       >
         <ChevronDown
           className="size-3.5 transition-transform duration-[var(--duration-micro)] ease-standard group-aria-expanded:rotate-180"
@@ -123,7 +123,7 @@ function DisclosureGroup({ item, items }: { item: NavigationItem; items: Navigat
           <li key={child.href}>
             <NavLink
               href={child.href}
-              className="flex min-h-target items-center rounded-small px-3 text-small font-medium whitespace-nowrap text-link hover:"
+              className="flex min-h-target items-center px-3 text-small font-medium whitespace-nowrap text-link"
             >
               {child.label}
             </NavLink>

@@ -2,9 +2,19 @@
 
 /**
  * Global error boundary (09 5.45). Replaces the root layout, so it must render
- * its own html and body and cannot read the stylesheet or the fonts: the
- * literals below are the token file's primitives (page ground, body ink,
- * heading ink, ink-2, Signal Blue), allowlisted in `check:tokens`.
+ * its own html and body and cannot read the stylesheet or the fonts. The
+ * literals below are the canvas primitives written out, and they are the only
+ * copy of those values outside `src/styles/tokens.css`, which is why this file
+ * is allowlisted in `check:tokens`:
+ *
+ *   #060E16  --bg, the one ground
+ *   #F7F9FC  --ink, Field White, 18.40:1 on the ground
+ *   rgba(247, 249, 252, 0.62)  --ink-2, the quiet mono line, 7.35:1
+ *   #2458E6  --btn, the button fill, with Field White on it at 5.51:1
+ *
+ * The button keeps the 6 px control radius and the 48 px control height. The
+ * page carries no other radius, no fill and no border, because an error page is
+ * still the canvas.
  */
 export default function GlobalError({
   error,
@@ -22,8 +32,8 @@ export default function GlobalError({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#F7F9FC',
-          color: '#0B253A',
+          background: '#060E16',
+          color: '#F7F9FC',
           fontFamily: 'ui-sans-serif, system-ui, sans-serif',
           padding: '2rem',
         }}
@@ -35,20 +45,20 @@ export default function GlobalError({
               fontSize: '0.8125rem',
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
-              color: '#5E6C7B',
+              color: 'rgba(247, 249, 252, 0.62)',
               margin: '0 0 1rem',
             }}
           >
             Status 500, request failed
           </p>
-          <h1 style={{ fontSize: '2rem', lineHeight: 1.1, color: '#071A2B', margin: '0 0 1rem' }}>
+          <h1 style={{ fontSize: '2rem', lineHeight: 1.1, color: '#F7F9FC', margin: '0 0 1rem' }}>
             The site failed to load.
           </h1>
-          <p style={{ fontSize: '1.0625rem', lineHeight: 1.6, color: '#0B253A', margin: '0 0 1.5rem' }}>
+          <p style={{ fontSize: '1.0625rem', lineHeight: 1.6, color: '#F7F9FC', margin: '0 0 1.5rem' }}>
             An unexpected error stopped the page from rendering. Reloading usually resolves it.
           </p>
           {error.digest ? (
-            <p style={{ fontFamily: 'ui-monospace, monospace', fontSize: '0.875rem', color: '#5E6C7B' }}>
+            <p style={{ fontFamily: 'ui-monospace, monospace', fontSize: '0.875rem', color: 'rgba(247, 249, 252, 0.62)' }}>
               Reference: {error.digest}
             </p>
           ) : null}
@@ -58,10 +68,10 @@ export default function GlobalError({
               marginTop: '1rem',
               minHeight: '48px',
               padding: '0 1.375rem',
-              borderRadius: '10px',
+              borderRadius: '6px',
               border: 'none',
               background: '#2458E6',
-              color: '#FFFFFF',
+              color: '#F7F9FC',
               fontSize: '0.9375rem',
               fontWeight: 500,
               cursor: 'pointer',

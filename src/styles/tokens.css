@@ -143,8 +143,6 @@
 
   /* --- Sizes --------------------------------------------------------------- */
   --hx-size-24: 24px;  /* WCAG 2.5.8 minimum target */
-  --hx-size-38: 38px;  /* Masthead button */
-  --hx-size-40: 40px;  /* Compact control */
   --hx-size-44: 44px;  /* Site target rule */
   --hx-size-48: 48px;  /* Default control height */
   --hx-size-62: 62px;  /* Masthead */
@@ -367,7 +365,13 @@
 
   /* --- Button. Filled primary, hairline secondary. No third variant. ------- */
   --button-height: var(--control-height);
-  --button-height-compact: var(--hx-size-38); /* The masthead button */
+  --button-height-compact: var(--control-height-compact); /* 44: every compact button */
+  /* The canvas scopes 38 px to one selector, `.masthead .btn`, and the site's
+   * own KF-09 rule is 44 by 44 at every width, which the header button is
+   * tested against. So the masthead keeps its own part token and that token
+   * resolves to the target, rather than the 38 px exception leaking into the
+   * shared compact role and shrinking the consent controls with it. */
+  --button-height-masthead: var(--target);
   --button-pad-x: 18px;
   --button-pad-x-compact: 15px;
   --button-gap: var(--hx-space-2);
@@ -577,7 +581,6 @@
   :root {
     --header-wordmark-height: 24px;
     --header-gap: var(--hx-space-2);
-    --button-height-compact: var(--hx-size-40);
     --button-pad-x-compact: var(--hx-space-3);
   }
 }

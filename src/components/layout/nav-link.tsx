@@ -61,15 +61,18 @@ export function HeaderCtaLink(props: HeaderCtaLinkProps) {
 
 /**
  * The header button (09 5.3). The label never varies by route; below 480 px it
- * gives up its width and wraps to two lines inside a 44 px minimum height so
- * the row fits 320 px beside the wordmark and the menu control.
+ * gives up its width and wraps to two lines inside `--button-height-masthead`
+ * so the row fits 320 px beside the wordmark and the menu control. That token
+ * is the masthead's own height role: the canvas sets `.masthead .btn` shorter
+ * than the rest, and the token is where that exception lives rather than in the
+ * shared compact size, which every other small button reads.
  */
 export function HeaderCta({ className }: { className?: string }) {
   return (
     <HeaderCtaLink
       className={cn(
         buttonVariants({ size: 'small' }),
-        'h-auto min-h-11 max-[29.9375rem]:max-w-[10em] max-[29.9375rem]:px-2.5 max-[29.9375rem]:py-1.5 max-[29.9375rem]:leading-[1.15] min-[30rem]:shrink-0 min-[30rem]:whitespace-nowrap',
+        'h-auto min-h-[var(--button-height-masthead)] max-[29.9375rem]:max-w-[10em] max-[29.9375rem]:px-2.5 max-[29.9375rem]:py-1.5 max-[29.9375rem]:leading-[1.15] min-[30rem]:shrink-0 min-[30rem]:whitespace-nowrap',
         className,
       )}
     />

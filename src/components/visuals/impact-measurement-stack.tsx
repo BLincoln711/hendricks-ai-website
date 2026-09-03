@@ -10,13 +10,11 @@ export type MeasurementLevel = {
 /**
  * The four levels of measurement on Search Impact Measurement (09 5.55).
  *
- * Each level widens the left rule as the evidence gets closer to revenue, so
- * the stack reads as a progression: width carries it, never colour. The rule
- * is decorative; the ordered list and the numbers carry the sequence for
- * assistive technology.
+ * Every level carries the same 1.5 px left rule, which is the one accent border
+ * the canvas has. An earlier version widened the rule from 2 px to 8 px down the
+ * stack to carry the progression; 8 px is not a hairline, and the ordered list,
+ * the level numbers and the level names already carry the sequence in text.
  */
-const ruleWidths = ['border-l-2', 'border-l-4', 'border-l-[6px]', 'border-l-8'] as const
-
 export function ImpactMeasurementStack({
   levels,
   className,
@@ -25,14 +23,11 @@ export function ImpactMeasurementStack({
   className?: string
 }) {
   return (
-    <ol className={cn('flex flex-col gap-4', className)}>
-      {levels.map((level, index) => (
+    <ol className={cn('flex flex-col gap-8', className)}>
+      {levels.map((level) => (
         <li
           key={level.number}
-          className={cn(
-            'flex flex-col gap-4 border border-l-rule-strong border-rule p-6 md:flex-row md:items-start md:gap-[var(--ledger-gap)] md:p-8',
-            ruleWidths[index] ?? ruleWidths[0],
-          )}
+          className="flex flex-col gap-4 border-l-[length:var(--ev-accent-width)] border-l-rule-strong py-2 pl-5 md:flex-row md:items-start md:gap-[var(--ledger-gap)]"
         >
           <div className="flex flex-col gap-2 md:w-[19rem] md:shrink-0">
             <span className="text-small font-mono text-[var(--ledger-index-fg)] tabular-nums">
@@ -53,11 +48,11 @@ export function ImpactMeasurementStack({
             </h3>
           </div>
 
-          <ul className="flex flex-wrap gap-1.5 md:pt-8">
+          <ul className="flex flex-wrap gap-1.5">
             {level.signals.map((signal) => (
               <li
                 key={signal}
-                className="text-small rounded-[var(--radius-control)] border border-rule px-2.5 py-1 text-ink"
+                className="text-small border border-rule px-2.5 py-1 text-ink"
               >
                 {signal}
               </li>

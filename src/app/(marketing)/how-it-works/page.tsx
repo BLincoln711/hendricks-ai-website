@@ -89,8 +89,8 @@ export default function HowItWorksPage() {
                   key={stage}
                   className={
                     isLast
-                      ? 'text-small flex items-center gap-1.5 rounded-[var(--chip-radius)] border border-rule-strong bg-[var(--chip-bg)] px-3 py-1.5 font-medium text-[var(--chip-fg)]'
-                      : 'text-small rounded-[var(--chip-radius)] border border-[var(--chip-edge)] bg-[var(--chip-bg)] px-3 py-1.5 text-[var(--chip-fg)]'
+                      ? 'text-small flex items-center gap-1.5 border border-rule-strong bg-[var(--chip-bg)] px-3 py-1.5 font-medium text-[var(--chip-fg)]'
+                      : 'text-small border border-[var(--chip-edge)] bg-[var(--chip-bg)] px-3 py-1.5 text-[var(--chip-fg)]'
                   }
                 >
                   {/*

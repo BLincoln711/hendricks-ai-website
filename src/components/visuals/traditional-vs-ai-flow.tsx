@@ -33,7 +33,7 @@ function Flow({
           <li key={step} className="flex items-center gap-1.5">
             <span
               className={cn(
-                'inline-flex items-center rounded-[var(--radius-control)] border px-2.5 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap',
+                'inline-flex items-center border px-2.5 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap',
                 tone === 'active'
                   ? 'border-path text-ink'
                   : 'border-rule text-ink-2',
@@ -96,7 +96,7 @@ export function CompletePath({ steps, className }: { steps: readonly string[]; c
           <li key={step} className="flex items-center gap-1.5">
             <span
               className={cn(
-                'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap',
+                'inline-flex items-center gap-1.5 border px-3 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap',
                 isLast
                   ? 'border-ev-gap text-ink'
                   : 'border-rule text-ink-3',

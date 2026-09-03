@@ -268,9 +268,12 @@ describe(TOKEN_FILE, () => {
     const plate = buildScope(parsed, 'plate')
     expect(resolveToken('--bg', page)).toEqual({ ok: true, value: '#060E16' })
     expect(resolveToken('--surface', page)).toEqual({ ok: true, value: '#060E16' })
-    // The re-scope is a real swap: on a plate --surface reads --plate, which is
-    // the one other value the canvas allows an instrument surface to take.
-    expect(resolveToken('--surface', plate)).toEqual(resolveToken('--plate', page))
+    // The re-scope is asserted on the declaration, not on the resolved value:
+    // --plate and --bg are the same colour today, so comparing the two values
+    // would pass whether or not `.on-plate` re-scopes --surface at all.
+    expect(page.get('--surface')).toBe('var(--bg)')
+    expect(plate.get('--surface')).toBe('var(--plate)')
+    expect(resolveToken('--surface', plate)).toEqual({ ok: true, value: '#060E16' })
   })
 
   it('carries the canvas ink tiers as alpha over the ground, not as flattened hex', () => {
