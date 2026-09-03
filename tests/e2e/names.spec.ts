@@ -11,8 +11,8 @@ import { sweepRoutes } from './lib/routes'
  * checked-in list in `tests/fixtures/accessible-names.json` (the shell's two
  * wordmarks on every route, plus the route's own), so a new image, a changed
  * alt or a dropped one fails here rather than in review. `alt=""` appears
- * only on the header wordmark, which sits inside the link named
- * "Hendricks, home".
+ * only on the two wordmarks, in the masthead and in the footer, each of which
+ * sits inside the link named "Hendricks, home".
  *
  * Inline SVG: every `svg` is either decorative (`aria-hidden="true"`) or
  * exposed with `role="img"` and a name; the named ones are listed per route.

@@ -29,9 +29,22 @@ import { siteConfig } from '@/config/site'
  * The canvas brand row reads "Search Intelligence Engineering. Houston, Texas.
  * hello@hendricks.ai". The city and the address are not in CANON and are
  * published nowhere in the approved copy, and an unmonitored address is the
- * defect `content/pages` already records for corrections@, so the row carries
- * the locked category line alone until the contact facts are verified.
+ * defect `content/pages` already records for corrections@, so neither is
+ * rendered until the contact facts are verified. The operating line takes the
+ * slot beside the category line: both are CANON section 2 locked strings that
+ * the pre-canvas footer carried on every route, and D-E keeps text that
+ * answers a question rather than letting the layout drop it. The row is a
+ * wrapping flex, so the second line costs nothing above 900 px and wraps
+ * below it.
  */
+
+const BRAND_LINE =
+  'font-mono text-[length:var(--text-coordinate)] leading-[var(--leading-small)] font-[var(--weight-mono)] tracking-[0.02em] text-ink-2'
+
+/* The canvas column heading is the coordinate role one step down: mono
+   uppercase at the 11 px illustrative size, tracked at 0.12em. */
+const COLUMN_HEADING =
+  'mb-3 font-mono text-[length:var(--text-illus)] leading-[var(--leading-small)] font-[var(--weight-mono)] tracking-[var(--tracking-coordinate)] text-ink-2 uppercase'
 
 const COLUMN_LINK =
   'inline-flex min-h-[var(--link-min-height)] min-w-target items-center text-small text-ink-2 transition-colors duration-[var(--duration-micro)] ease-standard hover:text-ink hover:underline aria-[current=page]:text-ink aria-[current=page]:underline'
@@ -62,9 +75,8 @@ export function SiteFooter() {
           {/* The canvas brand line is the mono label in sentence case, so it is
               composed here rather than taking `.text-coordinate`, which is the
               uppercase coordinate role. */}
-          <p className="font-mono text-[length:var(--text-coordinate)] leading-[var(--leading-small)] font-[var(--weight-mono)] tracking-[0.02em] text-ink-2">
-            {siteConfig.categoryLine}
-          </p>
+          <p className={BRAND_LINE}>{siteConfig.categoryLine}</p>
+          <p className={BRAND_LINE}>{siteConfig.operatingLine}</p>
         </div>
 
         <div className="mt-[34px] grid grid-cols-1 gap-x-pad gap-y-8 min-[32.5rem]:grid-cols-2 min-[56.25rem]:grid-cols-4">
@@ -73,7 +85,7 @@ export function SiteFooter() {
 
             return (
               <nav key={column.heading} aria-labelledby={headingId} className="min-w-0">
-                <h2 id={headingId} className="text-coordinate mb-3 text-ink-2">
+                <h2 id={headingId} className={COLUMN_HEADING}>
                   {column.heading}
                 </h2>
                 <ul className="grid">

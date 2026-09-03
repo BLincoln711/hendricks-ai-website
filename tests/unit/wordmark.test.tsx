@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
 import { Wordmark } from '@/components/layout/wordmark'
@@ -33,6 +33,16 @@ function requestedAsset(src: string): string {
   return inner ?? url.pathname
 }
 
+/**
+ * The mark is decorative inside a named link, so it has no accessible name to
+ * query by; there is one image in the render and this is it.
+ */
+function renderedAsset(container: HTMLElement): string {
+  const image = container.querySelector('img')
+  expect(image, 'the wordmark renders an image').not.toBeNull()
+  return requestedAsset(image!.getAttribute('src') ?? '')
+}
+
 /** The mean colour of the mark's ink, over its opaque pixels only. */
 async function meanInk(file: string): Promise<Rgb> {
   const { default: sharp } = await import('sharp')
@@ -60,17 +70,14 @@ describe('the wordmark reads against the canvas ground', () => {
   const bg = ground.ok ? parseHex(ground.value) : null
 
   it('renders the Field White variant, not the near-black one', () => {
-    render(<Wordmark />)
-    expect(requestedAsset(screen.getByAltText('Hendricks').getAttribute('src') ?? '')).toBe(
-      '/brand/hendricks-wordmark-dark.png',
-    )
+    const { container } = render(<Wordmark />)
+    expect(renderedAsset(container)).toBe('/brand/hendricks-wordmark-dark.png')
   })
 
   it('has ink at 3:1 or better against --bg', async () => {
     expect(bg, '--bg resolves to a hex').not.toBeNull()
-    render(<Wordmark />)
-    const asset = requestedAsset(screen.getByAltText('Hendricks').getAttribute('src') ?? '')
-    const ink = await meanInk(path.join(process.cwd(), 'public', asset))
+    const { container } = render(<Wordmark />)
+    const ink = await meanInk(path.join(process.cwd(), 'public', renderedAsset(container)))
     expect(contrastRatio(ink, bg!)).toBeGreaterThanOrEqual(MIN_RATIO)
   })
 })

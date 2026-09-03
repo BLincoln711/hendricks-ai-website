@@ -577,20 +577,36 @@
   }
 }
 
-/* The locked D-F CTA label needs three lines at 320 px. The label may not change
- * and the link may not be hidden, so the masthead grows below 360 px: it keeps
+/* The locked D-F CTA label wraps at 320 px. The label may not change and the
+ * link may not be hidden, so the masthead grows below 360 px: it keeps
  * --header-height as its minimum and lets its own content set the box. The
  * sticky offset grows with it, which is why --stick is a step above the height
  * rather than equal to it. */
 @media (max-width: 22.4375rem) {
   :root {
-    --header-wordmark-height: 24px;
     --header-gap: var(--hx-space-2);
     --button-pad-x-compact: var(--hx-space-3);
   }
 }
 
-@media (min-width: 64rem) and (max-width: 79.9375rem) {
+/* The canvas wordmark is one size at every width and measures 90.42 px wide.
+ * The mark here is a bitmap with its own ratio: at 28 px tall it is 130.31,
+ * which is 40 px more of the row than the canvas spends, and at 20 px it is
+ * 92.54, which is the canvas width. Below 375 px it takes the smaller step so
+ * the button is left the width the canvas leaves it. The canvas breakpoint is
+ * 360; the wider mark runs the row out one step earlier. */
+@media (max-width: 23.4375rem) {
+  :root {
+    --header-wordmark-height: 20px;
+  }
+}
+
+/* The nav steps down one size as soon as the six route links join the row,
+ * rather than at 1024. The canvas holds 14.5 px at every width above 900,
+ * which its 90 px text wordmark leaves room for; the bitmap mark spends 40 px
+ * more of the same row, and the locked button label would be pushed out of the
+ * bar between 900 and 1000 without this step. */
+@media (min-width: 56.25rem) and (max-width: 79.9375rem) {
   :root {
     --header-nav-size: var(--header-nav-size-laptop);
     --header-nav-gap: var(--header-nav-gap-laptop);

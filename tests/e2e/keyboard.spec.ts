@@ -243,11 +243,13 @@ test.describe('KF-03 consent sheet', () => {
 })
 
 test.describe('KF-05 and KF-06 focus ring', () => {
-  test('is Insight Cyan on the ground and inside .on-plate, and set at rest', async ({
-    page,
-    browserName,
-  }) => {
-    test.skip(browserName === 'webkit', KEYBOARD_IS_PLATFORM_GATED)
+  /*
+   * Two of the three reads need no key press, so they run on every project
+   * rather than sharing the tab-order skip: the ring colour is the whole point
+   * of KF-06 and Mobile Safari resolves it the same way every other engine
+   * does.
+   */
+  test('is set at rest and re-scopes inside .on-plate through one token', async ({ page }) => {
     await page.goto('/')
 
     // The resting outline colour is the ring colour on every element, so the
@@ -258,6 +260,29 @@ test.describe('KF-05 and KF-06 focus ring', () => {
       .getByRole('link', { name: 'Hendricks, home' })
       .evaluate((node) => getComputedStyle(node).outlineColor)
     expect(resting).toBe(FOCUS_RING)
+
+    // A control inside a plate reads the same ring through one token, no
+    // variant: the canvas has one ground, so the re-scope changes nothing today
+    // and this is what proves it.
+    const plate = await page.evaluate(() => {
+      const wrapper = document.createElement('div')
+      wrapper.className = 'on-plate'
+      const button = document.createElement('button')
+      button.type = 'button'
+      button.textContent = 'probe'
+      wrapper.append(button)
+      document.querySelector('main')?.append(wrapper)
+      return getComputedStyle(button).outlineColor
+    })
+    expect(plate).toBe(FOCUS_RING)
+  })
+
+  test('is Insight Cyan, solid, 2 px at a 3 px offset when focus lands', async ({
+    page,
+    browserName,
+  }) => {
+    test.skip(browserName === 'webkit', KEYBOARD_IS_PLATFORM_GATED)
+    await page.goto('/')
 
     await page.keyboard.press('Tab')
     const focused = await page
@@ -277,21 +302,6 @@ test.describe('KF-05 and KF-06 focus ring', () => {
       width: FOCUS_RING_WIDTH,
       offset: FOCUS_RING_OFFSET,
     })
-
-    // A control inside a plate reads the same ring through one token, no
-    // variant: the canvas has one ground, so the re-scope changes nothing today
-    // and this is what proves it.
-    const plate = await page.evaluate(() => {
-      const wrapper = document.createElement('div')
-      wrapper.className = 'on-plate'
-      const button = document.createElement('button')
-      button.type = 'button'
-      button.textContent = 'probe'
-      wrapper.append(button)
-      document.querySelector('main')?.append(wrapper)
-      return getComputedStyle(button).outlineColor
-    })
-    expect(plate).toBe(FOCUS_RING)
   })
 })
 
@@ -339,6 +349,64 @@ test.describe('KF-07 focus not obscured', () => {
     }, sheetTitleId)
 
     expect(failures, failures.join('\n')).toEqual([])
+  })
+
+  /*
+   * The route menu is absolutely positioned over the page, so anything focused
+   * beneath it is obscured (2.4.11). It closes when focus leaves the group, so
+   * the panel and the focused element never share a box. /about is the
+   * reproduction: its breadcrumb trail sits directly under the open panel.
+   */
+  test('the open route menu never covers what focus lands on', async ({ page, browserName }) => {
+    test.skip(browserName === 'webkit', KEYBOARD_IS_PLATFORM_GATED)
+    await page.goto('/about')
+
+    const toggle = page.getByRole('button', { name: 'Menu' })
+    const nav = page.getByRole('navigation', { name: 'Primary' })
+
+    await toggle.focus()
+    await page.keyboard.press('Enter')
+    await expect(nav).toBeVisible()
+
+    const obscured: string[] = []
+    let closed = false
+
+    for (let step = 0; step < ROUTE_LABELS.length + 4 && !closed; step += 1) {
+      await page.keyboard.press('Tab')
+      const reading = await page.evaluate(() => {
+        const panel = document.getElementById('route-menu')!
+        const active = document.activeElement
+        if (!panel.hasAttribute('data-open')) return { open: false, overlaps: false, label: '' }
+        if (!(active instanceof HTMLElement) || active === document.body) {
+          return { open: true, overlaps: false, label: '' }
+        }
+        const label = (active.getAttribute('aria-label') ?? active.textContent ?? '').trim().slice(0, 40)
+        // A link inside the panel is not under it.
+        if (panel.contains(active)) return { open: true, overlaps: false, label }
+        const box = active.getBoundingClientRect()
+        const over = panel.getBoundingClientRect()
+        return {
+          open: true,
+          overlaps:
+            box.left < over.right &&
+            box.right > over.left &&
+            box.top < over.bottom &&
+            box.bottom > over.top,
+          label,
+        }
+      })
+
+      if (reading.overlaps) obscured.push(`${reading.label}: under the open route menu`)
+      closed = !reading.open
+    }
+
+    expect(obscured, obscured.join('\n')).toEqual([])
+    // Tabbing off the last route link reaches the masthead button, which is
+    // outside the group, so the panel is gone by then rather than left open
+    // over the page.
+    expect(closed, 'the panel closed once focus left it').toBe(true)
+    await expect(nav).toBeHidden()
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false')
   })
 })
 

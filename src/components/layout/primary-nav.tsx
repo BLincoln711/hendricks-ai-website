@@ -21,15 +21,16 @@ import { primaryNavigation } from '@/config/navigation'
  * between four terms before the page has taught them is the comprehension
  * failure the audit recorded on the live site.
  *
- * The panel closes on Escape with focus restored to the button, and on every
- * route change, so a client-side navigation never leaves it open over the page
- * it just loaded. Tapping the route already open closes it too, since that
- * navigation changes nothing.
+ * The panel closes on Escape with focus restored to the button, on every route
+ * change, so a client-side navigation never leaves it open over the page it
+ * just loaded, and when focus leaves the group. Tapping the route already open
+ * closes it too, since that navigation changes nothing.
  */
 const NAV_ID = 'route-menu'
 
 export function PrimaryNav() {
   const toggle = useRef<HTMLButtonElement>(null)
+  const panel = useRef<HTMLElement>(null)
   const pathname = usePathname()
   /*
    * The route the panel was opened on, rather than a boolean. A client-side
@@ -54,8 +55,28 @@ export function PrimaryNav() {
       setOpenedAt(null)
     }
 
+    /*
+     * The panel is absolutely positioned over the page, so anything focused
+     * beneath it would be obscured (2.4.11). Focus leaving the group closes it,
+     * which is the behaviour the Solutions disclosure this replaced also had.
+     *
+     * A null `relatedTarget` is focus leaving for nothing at all: a window
+     * blur, or WebKit's click on a link, which does not focus what it clicked.
+     * Hiding the panel there would cancel the click before its mouseup.
+     */
+    const onFocusOut = (event: FocusEvent) => {
+      const next = event.relatedTarget
+      if (!(next instanceof Node)) return
+      if (toggle.current?.contains(next) || panel.current?.contains(next)) return
+      setOpenedAt(null)
+    }
+
     document.addEventListener('keydown', onKeyDown)
-    return () => document.removeEventListener('keydown', onKeyDown)
+    document.addEventListener('focusout', onFocusOut)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.removeEventListener('focusout', onFocusOut)
+    }
   }, [open])
 
   return (
@@ -71,7 +92,13 @@ export function PrimaryNav() {
         Menu
       </button>
 
-      <nav id={NAV_ID} aria-label="Primary" className="route-menu" data-open={open || undefined}>
+      <nav
+        ref={panel}
+        id={NAV_ID}
+        aria-label="Primary"
+        className="route-menu"
+        data-open={open || undefined}
+      >
         {primaryNavigation.map((item) => (
           <NavLink key={item.href} href={item.href} onClick={close}>
             {item.label}

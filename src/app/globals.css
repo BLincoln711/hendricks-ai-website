@@ -346,7 +346,9 @@
     min-height: var(--link-min-height);
     font-family: var(--font-mono);
     font-size: var(--text-illus);
-    letter-spacing: var(--tracking-illus);
+    /* The canvas tracks the trail at 0.1em, which is the mono role, not the
+     * 0.07em an illustrative caption takes. */
+    letter-spacing: var(--tracking-mono);
     text-transform: uppercase;
     color: var(--ink-2);
     transition: color var(--duration-micro) var(--ease-standard);
@@ -419,5 +421,21 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/*
+ * Forced colours (`_canvas.css` section 20). The token file maps the whole
+ * palette to system colours, which collapses --ink and --ink-2 to CanvasText,
+ * so the current route and the current breadcrumb stop being distinguishable
+ * by colour. The canvas underlines them instead, and a text decoration is one
+ * of the few marks a forced colour mode keeps. `.toc a[aria-current="true"]`
+ * is the third selector in the canvas rule and lands with the table of
+ * contents.
+ */
+@media (forced-colors: active) {
+  .route-menu a[aria-current='page'],
+  .crumbs [aria-current='page'] {
+    text-decoration-line: underline;
   }
 }
