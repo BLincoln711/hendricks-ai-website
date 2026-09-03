@@ -31,9 +31,6 @@ export type PrivacyRequestState = {
   values?: Record<string, string>
 }
 
-/** Five submissions per hour per client. Generous for a person, costly for a bot. */
-const RATE_LIMIT = { limit: 5, windowSeconds: 60 * 60 }
-
 function readValues(formData: FormData): Record<string, string> {
   const values: Record<string, string> = {}
 
@@ -52,10 +49,11 @@ export async function submitPrivacyRequest(
 ): Promise<PrivacyRequestState> {
   const values = readValues(formData)
 
+  // One bucket shared with the three lead forms (15 decision 14). A submitter
+  // who has exhausted the allowance on an inquiry form has exhausted it.
   const requestHeaders = await headers()
-  const rateLimit = checkRateLimit({
+  const rateLimit = await checkRateLimit({
     identifier: identifierFromHeaders(requestHeaders),
-    ...RATE_LIMIT,
   })
 
   if (!rateLimit.allowed) {

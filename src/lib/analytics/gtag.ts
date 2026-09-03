@@ -32,6 +32,55 @@ export function sendGtagEvent(name: string, params?: object): void {
   window.gtag('event', name, params)
 }
 
+/**
+ * The only query parameters allowed to leave the browser (15 section 4).
+ *
+ * `page_path`, `page_location` and `page_referrer` would otherwise carry the
+ * whole query string, and three of the parameters the site uses are form
+ * values: `?intent=` preselects the routing choice on /contact and `?model=`
+ * preselects the partnership model on /for-agencies. Sending either to GA4
+ * would put a field value on every consented page_view, which is the leak
+ * CANON R8 and 16 FM-10 forbid by a different route. Click identifiers are
+ * dropped for the same reason until CONTENT_VERIFICATION L7 discloses them.
+ */
+const ALLOWED_QUERY_PARAMETERS = [
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+  'utm_term',
+  'utm_content',
+] as const
+
+/** Returns the allowlisted query, with its `?`, or an empty string. */
+export function allowlistedSearch(search: string): string {
+  const source = new URLSearchParams(search)
+  const kept = new URLSearchParams()
+
+  for (const name of ALLOWED_QUERY_PARAMETERS) {
+    const value = source.get(name)
+    if (value) kept.append(name, value)
+  }
+
+  const query = kept.toString()
+  return query.length > 0 ? `?${query}` : ''
+}
+
+/**
+ * Rebuilds an absolute URL with only the allowlisted query. A URL that cannot
+ * be parsed is dropped rather than passed through, because an unparseable
+ * value is exactly the one that has not been redacted.
+ */
+export function redactUrl(href: string): string {
+  if (!href) return ''
+
+  try {
+    const url = new URL(href)
+    return `${url.origin}${url.pathname}${allowlistedSearch(url.search)}`
+  } catch {
+    return ''
+  }
+}
+
 export function readCampaignAttribution(
   search: string = typeof window === 'undefined' ? '' : window.location.search,
 ): CampaignAttribution {
@@ -80,14 +129,13 @@ export function sendGa4PageView(): void {
   const pageLocation = window.location.href
   if (lastPageLocation === pageLocation) return
 
-  const pagePath = `${window.location.pathname}${window.location.search}`
-  const pageReferrer = lastPageLocation ?? document.referrer
+  const search = allowlistedSearch(window.location.search)
 
   sendGtagEvent('page_view', {
-    page_path: pagePath,
-    page_location: pageLocation,
+    page_path: `${window.location.pathname}${search}`,
+    page_location: redactUrl(pageLocation),
     page_title: document.title,
-    page_referrer: pageReferrer,
+    page_referrer: redactUrl(lastPageLocation ?? document.referrer),
     ...readCampaignAttribution(),
   })
 

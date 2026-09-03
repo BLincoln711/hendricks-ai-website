@@ -433,7 +433,7 @@ export const pathways = {
       ],
       cta: {
         label: 'Discuss an Agency Partnership',
-        href: '/for-agencies',
+        href: '/for-agencies#partnership-inquiry',
         analytics: { location: 'home_pathways', audienceType: 'agency' as const },
       } satisfies Cta,
     },
@@ -551,7 +551,7 @@ export const finalCta = {
   } satisfies Cta,
   secondaryCta: {
     label: 'Discuss an Agency Partnership',
-    href: '/for-agencies',
+    href: '/for-agencies#partnership-inquiry',
     analytics: { location: 'home_final_cta', audienceType: 'agency' as const },
   } satisfies Cta,
 } as const

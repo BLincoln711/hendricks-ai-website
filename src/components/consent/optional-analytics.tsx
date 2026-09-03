@@ -5,6 +5,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 
 import { useConsent } from '@/components/consent/consent-provider'
 import { optionalAnalyticsEnabled } from '@/config/feature-flags'
+import { redactUrl } from '@/lib/analytics/gtag'
 
 /**
  * The only place an optional analytics vendor may mount (docs/16 §2, §15).
@@ -49,7 +50,12 @@ export function OptionalAnalytics({ onVercel }: { onVercel: boolean }) {
 
   return (
     <>
-      <Analytics />
+      {/*
+        Query redaction, the same allowlist GA4 gets (docs/16 section 10, 15
+        section 4). `?intent=` and `?model=` are form values, so a pageview URL
+        carrying either would report what a visitor selected before submitting.
+      */}
+      <Analytics beforeSend={(event) => ({ ...event, url: redactUrl(event.url) })} />
       <SpeedInsights />
     </>
   )

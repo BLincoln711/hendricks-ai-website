@@ -194,13 +194,19 @@ for (const route of builtRoutes) {
       }
     })
 
-    test('routes conversion to the Diagnostic or Contact', async ({ page }) => {
+    test('offers a way to convert', async ({ page }) => {
       await page.goto(route.path)
 
-      const conversionLinks = page
-        .getByRole('main')
-        .locator('a[href="/diagnostic"], a[href="/contact"]')
-      expect(await conversionLinks.count()).toBeGreaterThan(0)
+      const main = page.getByRole('main')
+
+      // A route either points at a form or carries one. /diagnostic,
+      // /for-agencies and /contact each carry the form that qualifies their
+      // own audience (15 section 1), so the link they used to carry upward is
+      // now the thing itself.
+      const links = await main.locator('a[href="/diagnostic"], a[href="/contact"]').count()
+      const forms = await main.locator('form').count()
+
+      expect(links + forms).toBeGreaterThan(0)
     })
 
     test('renders without console errors', async ({ page }) => {

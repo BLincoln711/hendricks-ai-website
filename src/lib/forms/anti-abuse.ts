@@ -1,5 +1,7 @@
 import 'server-only'
 
+import { MAXIMUM_SUBMIT_SECONDS, MINIMUM_SUBMIT_SECONDS } from '@/lib/forms/limits'
+
 /**
  * Accessible anti-abuse controls (docs/16 §15, `21-privacy-request.md`).
  *
@@ -12,12 +14,6 @@ import 'server-only'
  * generic error rather than naming the control, since telling a bot which check
  * it failed is how the check gets bypassed.
  */
-
-/** Below this, the submission was not typed by a person (docs/07 §8). */
-export const MINIMUM_SUBMIT_SECONDS = 3
-
-/** Above this, `startedAt` is stale or forged rather than a real page view. */
-const MAXIMUM_SUBMIT_SECONDS = 60 * 60 * 12
 
 export type AntiAbuseResult = { ok: true } | { ok: false; reason: 'honeypot' | 'timing' }
 

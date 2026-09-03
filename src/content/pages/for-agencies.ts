@@ -10,10 +10,28 @@ import { observedSystemsSentence } from '@/content/shared/observed-systems'
  * The type moved here from `visuals/partnership-models.tsx` when the canvas
  * conversion deleted that component; nothing else read it.
  */
+/**
+ * The one endpoint the locked agency CTA binds to, everywhere it appears
+ * (15 section 1). The homepage, this page's hero, the four model panels and
+ * the closing station all target it, so the label never means two things.
+ */
+export const PARTNERSHIP_INQUIRY_ID = 'partnership-inquiry'
+export const PARTNERSHIP_INQUIRY_ANCHOR = `#${PARTNERSHIP_INQUIRY_ID}`
+
+/** The same anchor from another route. */
+export const PARTNERSHIP_INQUIRY_PATH = `${routes.forAgencies.path}${PARTNERSHIP_INQUIRY_ANCHOR}`
+
 export type PartnershipModel = {
   name: string
   description: string
   bestFor: string
+  /**
+   * The `?model=` value the panel's CTA carries, so the inquiry below opens
+   * with the model already selected (15 section 5). It is a form field value,
+   * never a page identity, which is why the analytics query allowlist strips
+   * it before any consented page_view.
+   */
+  value: 'white-label' | 'embedded' | 'co-branded' | 'system-builder'
 }
 
 /**
@@ -78,7 +96,7 @@ export const hero = {
   ],
   primaryCta: {
     label: 'Discuss an Agency Partnership',
-    href: routes.contact.path,
+    href: PARTNERSHIP_INQUIRY_ANCHOR,
     analytics: { location: 'for_agencies_hero', audienceType: 'agency' },
   } satisfies Cta,
   leadTwoTone: {
@@ -220,24 +238,28 @@ export const models = {
   items: [
     {
       name: 'White-label specialist',
+      value: 'white-label',
       description:
         'Hendricks delivers under the agency’s brand, communication structure, and account leadership.',
       bestFor: 'Agencies protecting one unified client experience.',
     },
     {
       name: 'Embedded intelligence lead',
+      value: 'embedded',
       description:
         'Hendricks joins strategy, technical, data, or client meetings as an extension of the agency team.',
       bestFor: 'Enterprise accounts and temporary capability gaps.',
     },
     {
       name: 'Co-branded partner',
+      value: 'co-branded',
       description:
         'Both organizations are visible, with responsibilities and ownership defined in advance.',
       bestFor: 'Complex engagements where specialist authority supports the sale.',
     },
     {
       name: 'System builder',
+      value: 'system-builder',
       description:
         'Hendricks architects and deploys a repeatable Search Intelligence capability that the agency can operate.',
       bestFor: 'Agencies building a durable new service line.',
@@ -281,6 +303,25 @@ export const commitments = {
     'Honest disclosure when a simpler solution is sufficient',
     'No fabricated results or guaranteed citation claims',
   ],
+} as const
+
+/**
+ * Legal model for the agency partnership inquiry (legal/01 section 3, docs/16
+ * section 7).
+ *
+ * The third notice at collection, and the one that carries the client
+ * confidentiality boundary: an agency writing about an account is writing about
+ * someone else's information, so the notice says so before the submit button
+ * rather than after the fact. There is no privacy-consent checkbox here either.
+ */
+export const formLegal = {
+  notice:
+    'Hendricks will use the contact, company, opportunity, and partnership information you provide to evaluate and respond to this request, maintain business records, and protect the form from fraud and abuse. We may share it with service providers that host the website, deliver email, secure the form, and operate our customer-relationship systems. Do not include client-confidential information unless an appropriate confidentiality agreement is already in place. See our [Privacy Notice](/privacy).',
+  marketingOptIn:
+    'Send me occasional Hendricks agency-partner research and service updates by email. I can unsubscribe at any time. This is optional and is not a condition of partnership consideration.',
+  submitLabel: 'Discuss an Agency Partnership',
+  confirmation:
+    'Thank you. Your partnership inquiry has been received. Hendricks will review the opportunity and respond if the requested model appears appropriate. Submission does not create a partnership, exclusivity obligation, or confidentiality duty.',
 } as const
 
 export const relatedTitle = 'Where to go next.'
@@ -343,12 +384,12 @@ export const related: readonly RelatedEntry[] = [
   },
 ]
 
+/**
+ * The closing station is the inquiry itself, so it carries no CTA: the form is
+ * the call to action, and a button beside it would point at the thing it sits
+ * on.
+ */
 export const closing = {
   eyebrow: 'Agency Inquiry',
   title: 'Strengthen the capability your clients increasingly expect.',
-  primaryCta: {
-    label: 'Discuss an Agency Partnership',
-    href: routes.contact.path,
-    analytics: { location: 'for_agencies_closing', audienceType: 'agency' },
-  } satisfies Cta,
 } as const

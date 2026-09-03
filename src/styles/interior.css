@@ -1161,6 +1161,58 @@
     color: var(--ink-2);
   }
 
+  /* ---- The fit tool ------------------------------------------------------- */
+
+  /*
+   * Fourteen questions in the two approved groups. Hairlines and space, no box.
+   * The tool is advisory and must never read as a gate the application sits
+   * behind, and a bordered panel is exactly how it would start to.
+   */
+  .fittool > * + * {
+    margin-top: 34px;
+  }
+
+  .fitq {
+    min-width: 0;
+    margin-inline: 0;
+    padding: 0 0 6px;
+    border: 0;
+    border-top: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  .fitq > legend {
+    max-width: var(--measure-wide);
+    padding: 14px 0 4px;
+    font-size: 15.5px;
+    line-height: var(--leading-small);
+    color: var(--ink);
+  }
+
+  /* The two answers read as one pair rather than as two more questions. The
+   * 44px target belongs to the label row and survives the inline switch. */
+  .fitq .check {
+    display: inline-grid;
+    margin-right: var(--hx-space-6);
+  }
+
+  /* Reserved, so the region does not resize the page when the fourteenth
+   * answer turns the progress line into a reading. */
+  .fitresult {
+    min-height: 76px;
+  }
+
+  /* A permanent pointer under one radio choice. It sits outside the label
+   * because it carries a link, and it is indented to the label's text column
+   * so it still reads as belonging to the choice above it. */
+  .radio-note {
+    max-width: var(--measure-wide);
+    margin: -6px 0 var(--hx-space-3);
+    padding-left: calc(20px + var(--hx-space-3));
+    font-size: 13px;
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+  }
+
   /* Notice. One hairline in the caution amber. Advisory, never a gate. */
   .notice {
     max-width: none;

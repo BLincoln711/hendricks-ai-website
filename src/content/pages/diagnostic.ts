@@ -1,19 +1,20 @@
 import type { RelatedLink } from '@/components/sections/related-links'
 import type { Cta } from '@/components/ui/cta'
+import { DIAGNOSTIC_FIT_ANCHOR } from '@/config/navigation'
 import { routes } from '@/config/routes'
+
+/** The application's own anchor, rendered by the station that owns the id. */
+export const DIAGNOSTIC_APPLY_ID = 'apply'
+export const DIAGNOSTIC_APPLY_ANCHOR = `#${DIAGNOSTIC_APPLY_ID}`
 
 /**
  * Approved copy, transcribed from content/pages/07-diagnostic.md.
  *
- * Two deliberate omissions:
- *
- * - The "$15,000–$25,000" range and the "$15,000" support line are withheld.
- *   CONTENT_VERIFICATION.md P1 is resolved as withheld: the fee is disclosed in
- *   conversation, not on the site. The factors that set the fee are approved
- *   and are published.
- * - The application form lands with the redesign's /diagnostic rebuild (handoff
- *   PR 9). Its legal model is settled (CONTENT_VERIFICATION.md L3) and its
- *   approved wording is in `formLegal` below.
+ * One deliberate omission: the "$15,000–$25,000" range and the "$15,000"
+ * support line are withheld. CONTENT_VERIFICATION.md P1 is resolved as
+ * withheld, so the fee is disclosed in conversation and not on the site. The
+ * factors that set the fee are approved and are published, and no field, hint,
+ * option label or confirmation on any form carries a Hendricks figure.
  */
 
 export const meta = {
@@ -29,9 +30,12 @@ export const hero = {
     'The Search Intelligence Diagnostic is a fixed-scope engagement that identifies where valuable customer demand exists, whether your brand enters consideration, which observable conditions separate you from stronger competitors, and what should be implemented first.',
     'You leave with a system map and an evidence-based roadmap, not a generic audit.',
   ],
+  /* The hero jumps to the fit check, with the form directly beneath it, so a
+     visitor reads who the Diagnostic is for before applying (15 decision 2).
+     The label never varies, and the id is rendered from the same constant. */
   primaryCta: {
     label: 'Apply for a Diagnostic',
-    href: routes.contact.path,
+    href: DIAGNOSTIC_FIT_ANCHOR,
     analytics: { location: 'diagnostic_hero' },
   } satisfies Cta,
 } as const
@@ -223,15 +227,15 @@ export const formLegal = {
     'You received this service message because you submitted a request through Hendricks.ai. This message confirms your inquiry; it does not enroll you in marketing unless you separately selected the optional marketing checkbox.',
 } as const
 
+/**
+ * The application station. It carries no CTA of its own: the form is the call
+ * to action, and "Apply for a Search Intelligence Diagnostic" is retired as a
+ * second label for the submit button beside it (15 decision 15).
+ */
 export const closing = {
   eyebrow: 'Application',
   title: 'Leave with clarity about what should be built first.',
   body: [
     'Tell Hendricks what your organization needs to understand, improve, or build. We will determine whether a Diagnostic is the appropriate first step, and say directly when a simpler solution is sufficient.',
   ],
-  primaryCta: {
-    label: 'Apply for a Search Intelligence Diagnostic',
-    href: routes.contact.path,
-    analytics: { location: 'diagnostic_closing' },
-  } satisfies Cta,
 } as const

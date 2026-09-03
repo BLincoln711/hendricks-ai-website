@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { isDiagnosticDestination, diagnosticCtaFromClickTarget } from '@/lib/analytics/diagnostic-cta'
-import { trackEvent } from '@/lib/analytics/events'
+import { resetEventBufferForTests, trackEvent } from '@/lib/analytics/events'
 import { shouldLoadGa4, shouldLoadLinkedInInsight } from '@/lib/analytics/gates'
 import {
   canSendToGa4,
@@ -131,6 +131,7 @@ describe('GA4 send gate', () => {
   beforeEach(() => {
     resetConsentStoreForTests()
     resetGa4PageViewForTests()
+    resetEventBufferForTests()
     gtag.mockReset()
     window.gtag = gtag
     window.dataLayer = []
@@ -235,13 +236,16 @@ describe('GA4 send gate', () => {
     expect(gtag).toHaveBeenCalledWith('event', 'diagnostic_cta_click', { page_path: '/' })
   })
 
-  it('writes the first-party dataLayer without calling gtag when consent is denied', () => {
+  it('writes nothing at all when consent is denied', () => {
+    // `window.dataLayer` is gtag.js's command queue as well as the first-party
+    // layer, so a container mounted later would replay a pre-consent push as
+    // though it had been consented (15 section 4).
     recordDecision('denied', 'banner')
     configureGa4('G-AB12CD34EF')
 
     trackEvent('diagnostic_cta_click', { page_path: '/' })
 
-    expect(window.dataLayer).toContainEqual({ event: 'diagnostic_cta_click', page_path: '/' })
+    expect(window.dataLayer).toEqual([])
     expect(gtag).not.toHaveBeenCalledWith('event', 'diagnostic_cta_click', expect.anything())
   })
 })

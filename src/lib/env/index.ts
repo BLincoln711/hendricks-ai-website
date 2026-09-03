@@ -70,6 +70,17 @@ const serverSchema = z.object({
 
   RATE_LIMIT_REDIS_URL: optionalUrl,
   RATE_LIMIT_REDIS_TOKEN: z.string().optional(),
+  /**
+   * Shared secret for the rate-limit and idempotency keys. Without it every
+   * instance derives a different key for the same visitor, which is the
+   * in-memory limiter wearing a hash. Thirty-two characters minimum, rotated
+   * quarterly, which also expires every key in the store.
+   */
+  RATE_LIMIT_HASH_SECRET: z
+    .string()
+    .min(32, 'RATE_LIMIT_HASH_SECRET must be at least 32 characters')
+    .optional()
+    .or(z.literal('').transform(() => undefined)),
 })
 
 const parsed = serverSchema.safeParse(process.env)
@@ -92,7 +103,7 @@ export const integrationStatus = {
   ga4: Boolean(env.NEXT_PUBLIC_GA_MEASUREMENT_ID),
   linkedinInsight: Boolean(env.NEXT_PUBLIC_LINKEDIN_PARTNER_ID),
   sanity: Boolean(env.NEXT_PUBLIC_SANITY_PROJECT_ID),
-  email: Boolean(env.RESEND_API_KEY && env.LEAD_NOTIFICATION_EMAIL),
+  email: Boolean(env.RESEND_API_KEY && env.LEAD_FROM_EMAIL && env.LEAD_NOTIFICATION_EMAIL),
   crmWebhook: Boolean(env.CRM_WEBHOOK_URL),
   turnstile: Boolean(env.TURNSTILE_SECRET_KEY && env.NEXT_PUBLIC_TURNSTILE_SITE_KEY),
 } as const

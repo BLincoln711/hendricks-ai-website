@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Answer } from '@/components/canvas/answer'
 import { Ledger } from '@/components/canvas/ledger'
 import { CanvasPageHero } from '@/components/canvas/page-hero'
+import { ContactInquiryForm } from '@/components/forms/contact-inquiry-form'
 import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
 import { RuleLink } from '@/components/ui/cta'
@@ -18,18 +19,24 @@ import {
   relatedTitle,
   routing,
 } from '@/content/pages/contact'
+import { contactForm } from '@/content/forms/lead-forms'
+import { requestTimestamp } from '@/lib/forms/request-time'
+import { resolveContactIntent } from '@/lib/forms/lead-options'
 import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
- * /contact, rebuilt on the approved canvas (`07-hifi/contact.html`).
+ * /contact, on the approved canvas (`07-hifi/contact.html`).
  *
- * The general inquiry form the design carries is not built here. It needs a
- * server action, validation, rate limiting and email delivery, which is a
- * separate piece of work (handoff PR 9 and PR 10), and D-H requires that action
- * to fail closed without its delivery key. A form that accepted a submission it
- * could not deliver would be worse than the routing this page already carries,
- * so the stations are converted and no submission endpoint is advertised.
+ * The general inquiry is the last station (15 section 6). Its routing radio is
+ * preselected from `?intent=`, read here on the server so the preselect works
+ * with JavaScript disabled; a fragment would never reach the server and is
+ * reserved for scroll targets. An unrecognised value selects nothing rather
+ * than answering the question wrongly on the visitor's behalf.
+ *
+ * The route is dynamic because it reads the query and stamps `startedAt` for
+ * the timing floor. A prerendered timestamp would be hours stale on arrival and
+ * every submission would be rejected as out of window.
  */
 
 export const metadata: Metadata = buildMetadata({
@@ -38,7 +45,14 @@ export const metadata: Metadata = buildMetadata({
   path: routes.contact.path,
 })
 
-export default function ContactPage() {
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const [{ intent }, startedAt] = await Promise.all([searchParams, requestTimestamp()])
+  const preselected = resolveContactIntent(typeof intent === 'string' ? intent : undefined)
+
   return (
     <div className="wrap">
       <JsonLd
@@ -130,6 +144,18 @@ export default function ContactPage() {
               note: entry.href,
             }))}
         />
+      </Station>
+
+      {/* 6. The general inquiry */}
+      <Station id="inquiry" ariaLabelledBy="inquiry-title">
+        <p className="text-eyebrow mb-[22px] text-ink-2">{contactForm.eyebrow}</p>
+        <h2 id="inquiry-title" className="text-h2 text-ink">
+          {contactForm.heading}
+        </h2>
+
+        <div className="mt-[34px]">
+          <ContactInquiryForm startedAt={startedAt} intent={preselected} />
+        </div>
       </Station>
     </div>
   )

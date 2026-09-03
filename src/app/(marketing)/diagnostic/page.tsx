@@ -4,7 +4,8 @@ import { Container } from '@/components/layout/container'
 import { PageHero } from '@/components/layout/page-hero'
 import { Section } from '@/components/layout/section'
 import { SectionHeading } from '@/components/layout/section-heading'
-import { ClosingCta } from '@/components/sections/closing-cta'
+import { FitTool } from '@/components/diagnostic/fit-tool'
+import { DiagnosticApplicationForm } from '@/components/forms/diagnostic-application-form'
 import { Deliverables } from '@/components/sections/deliverables'
 import { RelatedLinks } from '@/components/sections/related-links'
 import { JsonLd } from '@/components/seo/json-ld'
@@ -12,9 +13,12 @@ import { FitList, SignalList } from '@/components/ui/signal-list'
 import { SignalDot } from '@/components/visuals/signal-dot'
 import { DIAGNOSTIC_FIT_ID } from '@/config/navigation'
 import { routes } from '@/config/routes'
+import { fitTool } from '@/content/forms/fit-tool'
 import {
   closing,
   deliverables,
+  DIAGNOSTIC_APPLY_ANCHOR,
+  DIAGNOSTIC_APPLY_ID,
   fit,
   hero,
   investment,
@@ -24,8 +28,23 @@ import {
   related,
   scope,
 } from '@/content/pages/diagnostic'
+import { requestTimestamp } from '@/lib/forms/request-time'
 import { itemListSchema, jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * /diagnostic.
+ *
+ * The last two sections are the fit check and the application, in that order
+ * (15 section 2). Where to go next moves above them so the page ends on the two
+ * things a decided visitor came for.
+ *
+ * The fit check is advisory and never a gate: the application below it is not
+ * disabled, hidden or reordered by any reading, and both approved lists stay on
+ * the page whether or not anyone answers a question (D-E).
+ *
+ * The route is dynamic because it stamps `startedAt` for the timing floor.
+ */
 
 export const metadata: Metadata = buildMetadata({
   title: meta.title,
@@ -33,7 +52,9 @@ export const metadata: Metadata = buildMetadata({
   path: routes.diagnostic.path,
 })
 
-export default function DiagnosticPage() {
+export default async function DiagnosticPage() {
+  const startedAt = await requestTimestamp()
+
   return (
     <>
       <JsonLd
@@ -167,11 +188,13 @@ export default function DiagnosticPage() {
         </Container>
       </Section>
 
+      <RelatedLinks title="Where to go next." links={related} />
+
       {/*
-        The header button's target on this route (14 DX-05, DX-25). The
-        landing offset comes from `scroll-padding-top` on `html`, which every
-        fragment jump already inherits (16 KF-07); a scroll margin here would
-        add to it, not replace it.
+        The header button's target on this route (14 DX-05, DX-25). The landing
+        offset comes from `scroll-padding-top` on `html`, which every fragment
+        jump already inherits (16 KF-07); a scroll margin here would add to it,
+        not replace it.
       */}
       <Section
         variant="field"
@@ -182,35 +205,64 @@ export default function DiagnosticPage() {
       >
         <Container>
           <div className="flex flex-col gap-10">
-            <SectionHeading eyebrow={fit.eyebrow} title={fit.title} id="fit-title" maxWidth="wide" />
+            <SectionHeading
+              eyebrow={fit.eyebrow}
+              title={fitTool.heading}
+              description={fitTool.listsIntro}
+              id="fit-title"
+              maxWidth="wide"
+            />
 
-            <div className="grid gap-6 md:grid-cols-2">
-              <div className="flex flex-col gap-4 border border-ok p-6 md:p-8">
+            {/* Before the lists, so a visitor who has already decided is one
+                key away from the form rather than fourteen. */}
+            <p>
+              <a className="link" href={DIAGNOSTIC_APPLY_ANCHOR}>
+                {fitTool.skipLabel}
+              </a>
+            </p>
+
+            <div className="cols2">
+              <div>
                 <h3 className="text-[1.0625rem] font-medium text-ink">
                   {fit.goodFit.heading}
                 </h3>
-                <FitList items={fit.goodFit.items} tone="fit" />
+                <FitList className="mt-4" items={fit.goodFit.items} tone="fit" />
               </div>
 
-              <div className="flex flex-col gap-4 border border-rule p-6 md:p-8">
+              <div>
                 <h3 className="text-[1.0625rem] font-medium text-ink">
                   {fit.notFit.heading}
                 </h3>
-                <FitList items={fit.notFit.items} tone="not-fit" />
+                <FitList className="mt-4" items={fit.notFit.items} tone="not-fit" />
               </div>
             </div>
+
+            <FitTool applyHref={DIAGNOSTIC_APPLY_ANCHOR} />
           </div>
         </Container>
       </Section>
 
-      <RelatedLinks title="Where to go next." links={related} />
+      <Section
+        variant="field"
+        size="major"
+        id={DIAGNOSTIC_APPLY_ID}
+        tabIndex={-1}
+        ariaLabelledBy="apply-title"
+      >
+        <Container>
+          <div className="flex flex-col gap-10">
+            <SectionHeading
+              eyebrow={closing.eyebrow}
+              title={closing.title}
+              description={closing.body[0]}
+              id="apply-title"
+              maxWidth="wide"
+            />
 
-      <ClosingCta
-        eyebrow={closing.eyebrow}
-        title={closing.title}
-        body={closing.body}
-        primaryCta={closing.primaryCta}
-      />
+            <DiagnosticApplicationForm startedAt={startedAt} />
+          </div>
+        </Container>
+      </Section>
     </>
   )
 }

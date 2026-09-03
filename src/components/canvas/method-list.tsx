@@ -13,6 +13,12 @@ export type MethodStep = {
   /** Optional, where the approved copy records no name for the step. */
   title?: string
   /**
+   * Id for the title, so a step's own link can point `aria-describedby` at it.
+   * Four steps carrying one locked CTA label need the heading to say which
+   * step each one belongs to, or the four names are ambiguous (16 SM-10).
+   */
+  titleId?: string
+  /**
    * The step's own label, where the page has one ("Stage 1"). Replaces the
    * generated counter, so an approved coordinate is printed rather than
    * silently replaced by a number that happens to match it.
@@ -23,7 +29,7 @@ export type MethodStep = {
   /** The named artifact the step produces. */
   output?: string
   /** Where the step is delivered. */
-  link?: { label: string; href: string }
+  link?: { label: string; href: string; describedBy?: string }
 }
 
 /**
@@ -49,7 +55,7 @@ export function MethodList({
       {steps.map((step) => (
         <li key={step.marker ?? step.title} data-marker={step.marker}>
           <div>
-            {step.title ? <h3>{step.title}</h3> : null}
+            {step.title ? <h3 id={step.titleId}>{step.title}</h3> : null}
             {step.body.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
@@ -62,7 +68,11 @@ export function MethodList({
                   </span>
                 ) : null}
                 {step.link ? (
-                  <Link className="tlink" href={step.link.href}>
+                  <Link
+                    className="tlink"
+                    href={step.link.href}
+                    aria-describedby={step.link.describedBy}
+                  >
                     {step.link.label}
                   </Link>
                 ) : null}

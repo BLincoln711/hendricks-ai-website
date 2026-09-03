@@ -2,12 +2,12 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { Answer } from '@/components/canvas/answer'
-import { ClosingStation } from '@/components/canvas/closing-station'
 import { FaqList } from '@/components/canvas/faq-list'
 import { Ledger } from '@/components/canvas/ledger'
 import { MethodList } from '@/components/canvas/method-list'
 import { CanvasPageHero } from '@/components/canvas/page-hero'
 import { RuleList } from '@/components/canvas/rule-list'
+import { AgencyPartnershipForm } from '@/components/forms/agency-partnership-form'
 import { TableOfContents } from '@/components/canvas/table-of-contents'
 import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
@@ -24,9 +24,13 @@ import {
   hero,
   meta,
   models,
+  PARTNERSHIP_INQUIRY_ANCHOR,
+  PARTNERSHIP_INQUIRY_ID,
   related,
   relatedTitle,
 } from '@/content/pages/for-agencies'
+import { requestTimestamp } from '@/lib/forms/request-time'
+import { resolvePreferredModel } from '@/lib/forms/lead-options'
 import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
@@ -34,12 +38,14 @@ import { buildMetadata } from '@/lib/seo/metadata'
  * /for-agencies, rebuilt on the approved canvas (`07-hifi/for-agencies.html`)
  * station for station.
  *
- * The agency inquiry form the design carries in its closing station is not
- * built here. The three forms and their server action are a separate piece of
- * work (handoff PR 9 and PR 10) and D-H requires the action to fail closed
- * without its delivery key, so a form posting nowhere would be worse than the
- * link this page already carries. The closing station keeps its anchor, its
- * heading and the locked agency CTA, and the form lands on that anchor.
+ * The partnership inquiry is the closing station (15 section 5). Every
+ * appearance of the locked agency CTA targets it, including the four model
+ * panels, which carry `?model=` so the inquiry opens with that model already
+ * selected. The server reads the value, so the preselect works with JavaScript
+ * disabled, and an unrecognised value selects nothing.
+ *
+ * The route is dynamic because it reads the query and stamps `startedAt` for
+ * the timing floor.
  */
 
 export const metadata: Metadata = buildMetadata({
@@ -48,7 +54,14 @@ export const metadata: Metadata = buildMetadata({
   path: routes.forAgencies.path,
 })
 
-export default function ForAgenciesPage() {
+export default async function ForAgenciesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const [{ model }, startedAt] = await Promise.all([searchParams, requestTimestamp()])
+  const preselectedModel = resolvePreferredModel(typeof model === 'string' ? model : undefined)
+
   return (
     <div className="wrap">
       <JsonLd
@@ -135,10 +148,19 @@ export default function ForAgenciesPage() {
         <MethodList
           className="mt-[34px]"
           ariaLabel={models.title}
-          steps={models.items.map((model) => ({
-            title: model.name,
-            body: [model.description, `${models.bestForLabel} ${model.bestFor}`],
-            link: hero.primaryCta,
+          steps={models.items.map((item) => ({
+            title: item.name,
+            titleId: `model-${item.value}`,
+            body: [item.description, `${models.bestForLabel} ${item.bestFor}`],
+            /* Four panels carry one locked label. The panel heading gives each
+               its context through `aria-describedby`, so no new agency label is
+               introduced and no two link names reach different destinations
+               (15 section 5; 16 SM-10). */
+            link: {
+              label: hero.primaryCta.label,
+              href: `${routes.forAgencies.path}?model=${item.value}${PARTNERSHIP_INQUIRY_ANCHOR}`,
+              describedBy: `model-${item.value}`,
+            },
           }))}
         />
       </Station>
@@ -207,12 +229,20 @@ export default function ForAgenciesPage() {
       </Station>
 
       {/* 8. The agency inquiry */}
-      <ClosingStation
-        id="partnership-inquiry"
-        eyebrow={closing.eyebrow}
-        title={closing.title}
-        primaryCta={closing.primaryCta}
-      />
+      <Station
+        id={PARTNERSHIP_INQUIRY_ID}
+        ariaLabelledBy="partnership-inquiry-title"
+        className="closing"
+      >
+        <p className="text-eyebrow mb-[22px] text-ink-2">{closing.eyebrow}</p>
+        <h2 id="partnership-inquiry-title" className="text-h2 text-ink">
+          {closing.title}
+        </h2>
+
+        <div className="mt-[34px]">
+          <AgencyPartnershipForm startedAt={startedAt} preselectedModel={preselectedModel} />
+        </div>
+      </Station>
     </div>
   )
 }

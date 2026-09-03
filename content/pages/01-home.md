@@ -246,7 +246,7 @@ Anchor: `#pathways`
 
 **Models:** White-label specialist / Embedded intelligence lead / Co-branded partner / System builder
 
-**CTA:** Discuss an Agency Partnership. Destination `/for-agencies`.
+**CTA:** Discuss an Agency Partnership. Destination `/for-agencies#partnership-inquiry`.
 
 Moved to `/for-agencies`: each model's description and its best-for line. Moved to `/for-brands`: the nine-channel list and the seven roles Hendricks does not replace.
 
@@ -331,4 +331,4 @@ Anchor: `#find-the-gap`
 
 **Primary CTA:** Start with a Search Intelligence Diagnostic
 
-**Secondary CTA:** Discuss an Agency Partnership. Destination `/for-agencies`.
+**Secondary CTA:** Discuss an Agency Partnership. Destination `/for-agencies#partnership-inquiry`.
