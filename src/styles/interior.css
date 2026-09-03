@@ -1,0 +1,1686 @@
+/*
+ * The interior-route layer of the approved canvas.
+ *
+ * Source of truth: `07-hifi/_canvas.css` sections 4, 8, 9, 10, 13, 15, 16 and
+ * 17, every one of them marked ADDED there, plus the markup of the thirteen
+ * converted interior pages in `07-hifi/`. `stations.css` carries the parts the
+ * homepage needed; this file carries the parts only an interior route needs.
+ * Geometry is verbatim from the canvas. Colour is read through the semantic
+ * roles in `tokens.css`, never as a literal, so `check:tokens` and
+ * `check:contrast` reach every value here.
+ *
+ * THE RULE THAT OUTRANKS EVERY OTHER RULE IN THIS FILE, from `canvas.md`
+ * section 2: if an element has a background, a border that is not a single
+ * hairline, or a border-radius, it is either a control, an instrument surface,
+ * or a defect. The only fills below are on form controls, which are controls,
+ * and the only radius is the control radius. Every other separation is a
+ * hairline or space. A left rule of 1.5px is the system's one accent border and
+ * the only callout it has; nothing here upgrades one into a box.
+ *
+ * D-E: an interior route keeps every sentence, source, date, definition and
+ * limitation it carries. Nothing in this file caps a page length, and the
+ * citation furniture in section 16 exists precisely so the depth has somewhere
+ * to render.
+ *
+ * CONFLICT RECORDED, 2026-09-03. The thirteen converted pages in `07-hifi/`
+ * reference roughly 130 class names that `_canvas.css` never defines: the
+ * drawing label layer (`.dw`, `.dw-pins`, `.dw-labels`), the numbered rule list
+ * (`.rlist`), the related list (`.rel`), the entry list (`.entry`) and a long
+ * tail of per-page parts. As authored, those pages do not fully render against
+ * the system file they link. Per the brief the canvas files win, so the
+ * geometry those pages imply is written here, in the canvas's own idiom, rather
+ * than reinterpreted: hairlines and space, no card and no fill.
+ *
+ * Motion is not here. The canvas reveals a station with a keyframe pair; the
+ * token lint forbids `@keyframes` outside the copy tree, the rest state is the
+ * final state, and nothing a visitor reads depends on it.
+ */
+
+@layer components {
+  /* ---- Layout ------------------------------------------------------------- */
+
+  /* A short station: the contents-and-answer band under an interior hero. */
+  .station.tight {
+    padding-top: calc(var(--station) * 0.6);
+  }
+
+  /* The block rhythm inside a long station. A heading at display size has
+   * almost no descender room at line-height 1.02, so the block after it takes
+   * `--space-heading-to-body` rather than the paragraph rhythm (canvas defect 9). */
+  .stack > * + * {
+    margin-top: 22px;
+  }
+
+  .stack > h2 + *,
+  .stack > h3 + * {
+    margin-top: var(--space-heading-to-body);
+  }
+
+  /* A hairline-marked block is a change of voice, so it takes the wider rhythm
+   * on both sides and never sits at the paragraph distance from ordinary prose. */
+  .stack > .answer,
+  .stack > .limits,
+  .stack > .notice,
+  .stack > .errsum,
+  .stack > .done,
+  .stack > .cite,
+  .stack > .answer + *,
+  .stack > .limits + *,
+  .stack > .notice + *,
+  .stack > .errsum + *,
+  .stack > .done + *,
+  .stack > .cite + * {
+    margin-top: 36px;
+  }
+
+  .block + .block {
+    margin-top: var(--space-block);
+  }
+
+  /* Twelve columns. Collapses to one below 1024, where twelve columns have no
+   * room to say anything. */
+  .grid12 {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+    gap: var(--hx-space-10) var(--pad);
+    align-items: start;
+  }
+
+  .sp-3 { grid-column: span 3; }
+  .sp-4 { grid-column: span 4; }
+  .sp-5 { grid-column: span 5; }
+  .sp-6 { grid-column: span 6; }
+  .sp-7 { grid-column: span 7; }
+  .sp-8 { grid-column: span 8; }
+  .sp-9 { grid-column: span 9; }
+  .sp-12 { grid-column: span 12; }
+
+  /* The sticky table of contents beside the body: the interior route's answer
+   * to the homepage's asymmetric splits. */
+  .railcol {
+    display: grid;
+    grid-template-columns: minmax(0, 232px) minmax(0, 1fr);
+    gap: var(--hx-space-10) var(--pad);
+    align-items: start;
+  }
+
+  @media (max-width: 63.9375rem) {
+    .grid12 {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .sp-3,
+    .sp-4,
+    .sp-5,
+    .sp-6,
+    .sp-7,
+    .sp-8,
+    .sp-9,
+    .sp-12 {
+      grid-column: auto;
+    }
+
+    .railcol {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  /* ---- The interior hero -------------------------------------------------- */
+
+  /* No instrument, no bleed, no figure. One hairline closes it so the page's
+   * first section does not float. */
+  .page-hero {
+    padding-top: 92px;
+    padding-bottom: calc(var(--station) * 0.7);
+  }
+
+  .page-hero h1 {
+    max-width: 19ch;
+  }
+
+  .page-hero-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 36px;
+    max-width: none;
+    margin-top: 34px;
+    padding-top: var(--hx-space-4);
+    border-top: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  @media (max-width: 56.1875rem) {
+    .page-hero {
+      padding-top: 52px;
+    }
+  }
+
+  /* The byline. D-B: the author link resolves to the one Person node at
+   * https://brandonlincolnhendricks.com/#person. */
+  .byline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--hx-space-1) 18px;
+    max-width: none;
+    margin-top: 22px;
+    font-size: 13.5px;
+    color: var(--ink-2);
+  }
+
+  .byline time {
+    font-family: var(--font-mono);
+    font-size: var(--text-coordinate);
+    letter-spacing: 0.06em;
+  }
+
+  /* ---- The answer-first block --------------------------------------------- */
+
+  /*
+   * D-E. Every interior route opens its body with the direct answer, in one
+   * paragraph, before any explanation. One hairline in the path blue marks it.
+   * No background, no box.
+   */
+  .answer {
+    max-width: none;
+    margin: 0;
+    padding-left: var(--hx-space-5);
+    border-left: var(--hx-stroke-1-5) solid var(--path);
+  }
+
+  .answer > * {
+    max-width: var(--measure-wide);
+  }
+
+  .answer > * + * {
+    margin-top: 14px;
+  }
+
+  .answer p {
+    font-size: var(--text-lead);
+    line-height: var(--leading-lead);
+  }
+
+  @media (max-width: 37.4375rem) {
+    .answer {
+      padding-left: 14px;
+    }
+  }
+
+  /* ---- The table of contents ---------------------------------------------- */
+
+  /* Sticky from 1024px, static below it. Hairline separated rows, no box. */
+  .toc ol {
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .toc li {
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  .toc a {
+    display: flex;
+    align-items: baseline;
+    gap: var(--hx-space-3);
+    min-height: var(--target);
+    padding-block: 10px;
+    font-size: 14px;
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+    transition: color var(--duration-micro) var(--ease-standard);
+  }
+
+  .toc a:hover,
+  .toc a[aria-current='true'] {
+    color: var(--ink);
+  }
+
+  .toc .n {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: 0.08em;
+    color: var(--ink-2);
+  }
+
+  @media (min-width: 64rem) {
+    .toc {
+      position: sticky;
+      top: var(--stick);
+      max-height: calc(100vh - var(--stick) - var(--hx-space-6));
+      overflow-y: auto;
+    }
+  }
+
+  /* ---- Ledger rows -------------------------------------------------------- */
+
+  /*
+   * The generic hairline separated row: a label, a value and a note. The
+   * ladder, the phase rail and the outputs list are specialisations of it.
+   */
+  .ledger {
+    max-width: 1000px;
+    margin-top: var(--hx-space-10);
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .ledger > li {
+    display: grid;
+    grid-template-columns: minmax(0, 220px) minmax(0, 1fr) minmax(0, 240px);
+    gap: var(--hx-space-1) 28px;
+    align-items: baseline;
+    padding-block: 10px;
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  .ledger .k {
+    display: flex;
+    align-items: baseline;
+    gap: var(--hx-space-3);
+    font-size: 15.5px;
+    font-weight: var(--weight-sub);
+    color: var(--ink);
+  }
+
+  .ledger .v {
+    font-size: var(--text-small);
+    color: var(--ink-2);
+  }
+
+  .ledger .n {
+    font-family: var(--font-mono);
+    font-size: var(--text-coordinate);
+    letter-spacing: 0.06em;
+    color: var(--ink-2);
+  }
+
+  /* The row index, when a ledger is ordered. A coordinate, not a bullet. */
+  .ledger .ix {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    font-weight: var(--weight-mono);
+    letter-spacing: 0.08em;
+    color: var(--ink-2);
+  }
+
+  @media (max-width: 56.1875rem) {
+    .ledger > li {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .ledger .n {
+      margin-top: var(--hx-space-1);
+    }
+  }
+
+  /* ---- The numbered rule list --------------------------------------------- */
+
+  /*
+   * `.rlist` is the canvas form of the old signal list: one hairline per row, a
+   * mono index in the margin, no bullet and no marker glyph. It is what an
+   * enumerated set of signals, exclusions or criteria renders as.
+   */
+  .rlist {
+    max-width: var(--measure-wide);
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .rlist > li {
+    display: grid;
+    grid-template-columns: minmax(0, 34px) minmax(0, 1fr);
+    gap: var(--hx-space-1) var(--hx-space-4);
+    align-items: baseline;
+    padding-block: 11px;
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+    font-size: 14.5px;
+    line-height: var(--leading-small);
+    color: var(--ink-3);
+  }
+
+  .rlist > li > .n {
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: 0.08em;
+    color: var(--ink-2);
+  }
+
+  /* ---- The related list --------------------------------------------------- */
+
+  /*
+   * `.rel` is the where-to-go-next list: a link at reading size, a mono kind or
+   * date beside it, and one quiet sentence under both.
+   */
+  .rel {
+    max-width: var(--measure-wide);
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .rel > li {
+    padding-block: var(--hx-space-3);
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  .rel > li > a {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--hx-space-2) var(--hx-space-4);
+    min-height: var(--target);
+    font-size: var(--text-small);
+    font-weight: var(--weight-sub);
+  }
+
+  .rel .kind {
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    font-weight: var(--weight-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .rel > li > p {
+    max-width: var(--measure-wide);
+    font-size: 13.5px;
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+  }
+
+  /* ---- The entry list ----------------------------------------------------- */
+
+  /*
+   * `.entry` is a run of long rows, each a heading, a one-line tag and a field
+   * grid. It is what the Solutions hub and the research index render as: the
+   * hairline between rows does the separating a card used to.
+   */
+  .entry {
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .entry > li {
+    padding-block: 30px;
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  .entry h3 {
+    max-width: var(--measure);
+  }
+
+  .entry .tag {
+    max-width: var(--measure-wide);
+    margin-top: var(--hx-space-2);
+    font-size: var(--text-small);
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+  }
+
+  .entry .pubrec {
+    margin-top: 18px;
+  }
+
+  .entry .tlink {
+    margin-top: var(--hx-space-2);
+  }
+
+  /* A term defined where it is first used, inline in the field it appears in. */
+  .defnote {
+    display: block;
+    margin-top: var(--hx-space-1);
+    font-size: 13px;
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+  }
+
+  /* ---- Tables ------------------------------------------------------------- */
+
+  /*
+   * Every table lives inside a labelled, keyboard reachable scroll region, so a
+   * wide table scrolls inside its own box and never the document. Rows are
+   * separated by hairlines: no zebra fill, no cell border.
+   */
+  .tablewrap {
+    margin-top: 14px;
+    overflow-x: auto;
+  }
+
+  .tablewrap table {
+    width: 100%;
+    min-width: 620px;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+
+  .tablewrap th,
+  .tablewrap td {
+    padding: var(--hx-space-2) var(--hx-space-3) var(--hx-space-2) 0;
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+    text-align: left;
+    vertical-align: top;
+    font-weight: var(--weight-regular);
+    color: var(--ink-2);
+  }
+
+  .tablewrap thead th {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .tablewrap tbody th {
+    font-weight: var(--weight-mono);
+    color: var(--ink);
+  }
+
+  .tablewrap caption {
+    padding-bottom: var(--hx-space-2);
+    text-align: left;
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+
+  /* ---- The citation furniture --------------------------------------------- */
+
+  /*
+   * Publication record, cite this, change history, downloads, definitions,
+   * method, limitations and sources. These exist because of D-E: they are what
+   * makes a page answerable and quotable, so no design pass removes them.
+   */
+
+  /* A definition grid: edition, version, published, updated, author, licence. */
+  .pubrec {
+    max-width: 720px;
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .pubrec-row {
+    display: grid;
+    grid-template-columns: minmax(0, 190px) minmax(0, 1fr);
+    gap: 2px var(--hx-space-6);
+    padding-block: 9px;
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  .pubrec dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: var(--tracking-mono);
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .pubrec dd {
+    font-size: 14px;
+    line-height: var(--leading-small);
+    color: var(--ink);
+  }
+
+  /*
+   * The citation string is selectable text in mono on one hairline, scrolling
+   * inside its own region. It is not a code block and carries no fill.
+   */
+  .cite-str {
+    max-width: 78ch;
+    padding: 2px 0 2px var(--hx-space-4);
+    border-left: var(--hx-stroke-1-5) solid var(--rule-strong);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: auto;
+  }
+
+  .cite-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+    margin-top: var(--hx-space-3);
+  }
+
+  /* Dated rows, newest first. A study that changes says so. */
+  .changelog {
+    max-width: 800px;
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .changelog li {
+    display: grid;
+    grid-template-columns: minmax(0, 124px) minmax(0, 1fr);
+    gap: 2px var(--hx-space-6);
+    padding-block: 10px;
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  .changelog time {
+    font-family: var(--font-mono);
+    font-size: var(--text-coordinate);
+    letter-spacing: 0.06em;
+    color: var(--ink-2);
+  }
+
+  .changelog p {
+    max-width: var(--measure-wide);
+    font-size: 14px;
+    line-height: var(--leading-lead);
+    color: var(--ink-2);
+  }
+
+  .changelog b {
+    font-weight: var(--weight-sub);
+    color: var(--ink);
+  }
+
+  /* Each row names the file, its format and its size, so a reader and a crawler
+   * both know what they are being offered. */
+  .downloads {
+    max-width: 800px;
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .downloads li {
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  .downloads a {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 150px);
+    gap: 2px var(--hx-space-6);
+    align-items: baseline;
+    min-height: var(--target);
+    padding-block: 11px;
+    font-size: 14.5px;
+  }
+
+  .downloads a:hover .dl-name {
+    color: var(--ink);
+    text-decoration-line: underline;
+  }
+
+  .downloads .dl-name {
+    color: var(--link);
+  }
+
+  .downloads .dl-meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    /* A digest or a DOI is one unbreakable token wider than its column, which
+     * pushes the whole grid past the container. It wraps rather than overflows. */
+    overflow-wrap: anywhere;
+  }
+
+  /* The sentence under a download, where the file's own note is prose rather
+   * than a format and a size. */
+  .downloads .dl-note {
+    max-width: var(--measure-wide);
+    padding-bottom: var(--hx-space-3);
+    font-size: 13px;
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+  }
+
+  /* CANON section 6: define every Hendricks term on first use on a page. */
+  .deflist {
+    max-width: 860px;
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .deflist > div {
+    padding-block: var(--hx-space-3);
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  .deflist dt {
+    margin-bottom: 5px;
+    font-size: 15.5px;
+    font-weight: var(--weight-semibold);
+    color: var(--ink);
+  }
+
+  .deflist dd {
+    max-width: var(--measure-wide);
+    font-size: 14.5px;
+    line-height: var(--leading-body);
+    color: var(--ink-2);
+  }
+
+  .deflist dd + dd {
+    margin-top: 6px;
+  }
+
+  /*
+   * The step number sits in the margin in mono, so the step titles form one
+   * left edge and the list reads as a procedure, not as a bulleted opinion.
+   */
+  .method {
+    max-width: 900px;
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+    counter-reset: step;
+  }
+
+  .method > li {
+    display: grid;
+    grid-template-columns: minmax(0, 56px) minmax(0, 1fr);
+    gap: var(--hx-space-1) 22px;
+    padding-block: var(--hx-space-4);
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+    counter-increment: step;
+  }
+
+  .method > li::before {
+    content: counter(step, decimal-leading-zero);
+    white-space: nowrap;
+    padding-top: 2px;
+    font-family: var(--font-mono);
+    font-size: var(--text-coordinate);
+    letter-spacing: var(--tracking-mono);
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+  }
+
+  /* A step that carries its own approved label prints it in place of the
+   * generated counter. The counter still increments, so removing a label from
+   * one step does not renumber the rest. */
+  .method > li[data-marker]::before {
+    content: attr(data-marker);
+  }
+
+  .method h3 {
+    max-width: 40ch;
+    margin-bottom: 6px;
+    font-size: 17px;
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-h4);
+  }
+
+  .method p {
+    max-width: var(--measure-wide);
+    font-size: 14.5px;
+    line-height: var(--leading-body);
+    color: var(--ink-2);
+  }
+
+  .method p + p {
+    margin-top: var(--hx-space-2);
+  }
+
+  .method .out {
+    display: inline-block;
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ev-measured);
+  }
+
+  /*
+   * A dashed hairline in the inferred grey, because a limitation is the
+   * boundary of what the evidence supports. Never a warning box, never a fill.
+   */
+  .limits {
+    max-width: none;
+    padding-left: 18px;
+    border-left: var(--hx-stroke-1-5) dashed var(--ev-inferred);
+  }
+
+  .limits ul {
+    margin-top: 10px;
+    padding-left: var(--hx-space-5);
+    list-style: disc;
+  }
+
+  .limits li,
+  .limits p {
+    max-width: var(--measure-wide);
+    padding-block: 3px;
+    font-size: 14.5px;
+    line-height: var(--leading-body);
+    color: var(--ink-2);
+  }
+
+  /*
+   * Every source carries its publisher and its date. A source without a date is
+   * not a source. Numbered, so body text can cite [1] and resolve here.
+   */
+  .srclist {
+    max-width: 900px;
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+    counter-reset: src;
+  }
+
+  .srclist > li {
+    display: grid;
+    grid-template-columns: minmax(0, 42px) minmax(0, 1fr);
+    gap: 2px 18px;
+    padding-block: 11px;
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+    counter-increment: src;
+  }
+
+  .srclist > li::before {
+    content: '[' counter(src) ']';
+    padding-top: 2px;
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: 0.06em;
+    color: var(--ink-2);
+  }
+
+  .srclist .s-title {
+    display: block;
+    font-size: 14.5px;
+    line-height: var(--leading-small);
+    color: var(--ink);
+  }
+
+  .srclist a.s-title {
+    color: var(--link);
+  }
+
+  .srclist a.s-title:hover {
+    color: var(--ink);
+    text-decoration-line: underline;
+  }
+
+  .srclist .s-meta {
+    display: block;
+    margin-top: 3px;
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+
+  .srclist .s-meta time {
+    font-family: var(--font-mono);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 37.4375rem) {
+    .pubrec-row,
+    .changelog li,
+    .srclist > li {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .downloads a,
+    .method > li {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .method > li::before {
+      padding-top: 0;
+    }
+
+    .limits {
+      padding-left: 14px;
+    }
+  }
+
+  /* ---- The drawing label layer -------------------------------------------- */
+
+  /*
+   * A drawing is an SVG with its words in HTML on top of it, not inside it, so
+   * the labels take the page's own font stack and its own ink tokens and scale
+   * with the reader's text size. `.dw-pins` places a label at a percentage of
+   * the drawing box; `.dw-labels` places it in a grid cell. Both layers are
+   * decorative twins of a text equivalent the page renders for a screen reader,
+   * so both are `aria-hidden` at their call sites.
+   */
+  .dw {
+    position: relative;
+  }
+
+  .dw-pins,
+  .dw-labels {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .dw-labels {
+    display: grid;
+  }
+
+  .dw-pins > span {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    line-height: var(--leading-small);
+  }
+
+  .dw-pins .big {
+    font-size: var(--text-small);
+    font-weight: var(--weight-sub);
+    color: var(--ink);
+  }
+
+  .dw-pins .sm {
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: 0.06em;
+    color: var(--ink-2);
+  }
+
+  .dw-labels > span {
+    align-self: center;
+    min-width: 0;
+    font-size: 13.5px;
+    line-height: var(--leading-small);
+    color: var(--ink);
+  }
+
+  .dw-labels .inset {
+    padding-left: var(--hx-space-10);
+  }
+
+  .dw-labels .center {
+    justify-self: center;
+    text-align: center;
+  }
+
+  .dw-labels .q {
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: 0.06em;
+    color: var(--ink-2);
+  }
+
+  /* ---- Form primitives ---------------------------------------------------- */
+
+  /*
+   * A form control is a control, so the control radius and the `--edge`
+   * boundary at 3.41:1 are legal here and nowhere else. Nothing in a form has a
+   * fill.
+   */
+  .form {
+    max-width: 640px;
+  }
+
+  .form > * + * {
+    margin-top: 22px;
+  }
+
+  /* `margin-inline`, not the `margin` shorthand: a fieldset's default inline
+   * margin has to go, but the shorthand also zeroed the form rhythm's
+   * margin-top at equal specificity and jammed each legend under the control
+   * above it (canvas defect 8). */
+  .fset {
+    min-width: 0;
+    margin-inline: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .fset > legend {
+    margin-bottom: var(--hx-space-3);
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: var(--tracking-mono);
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .fset > * + * {
+    margin-top: 18px;
+  }
+
+  .field {
+    display: block;
+  }
+
+  .field > .label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 14.5px;
+    font-weight: var(--weight-mono);
+    color: var(--ink);
+  }
+
+  .field > .hint {
+    display: block;
+    max-width: var(--measure-wide);
+    margin-bottom: var(--hx-space-2);
+    font-size: 13px;
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+  }
+
+  .field > .req {
+    font-weight: var(--weight-regular);
+    color: var(--ink-2);
+  }
+
+  .input,
+  .select,
+  .textarea {
+    display: block;
+    width: 100%;
+    min-height: var(--control-height);
+    padding: var(--hx-space-3) 14px;
+    border: var(--hx-stroke-1) solid var(--edge);
+    border-radius: var(--radius-control);
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: var(--text-small);
+    line-height: var(--leading-small);
+    transition: border-color var(--duration-micro-min) var(--ease-standard);
+  }
+
+  .input::placeholder,
+  .textarea::placeholder {
+    color: var(--ink-2);
+    opacity: 1;
+  }
+
+  .input:hover,
+  .select:hover,
+  .textarea:hover {
+    border-color: var(--ev-muted);
+  }
+
+  .input:focus-visible,
+  .select:focus-visible,
+  .textarea:focus-visible {
+    border-color: var(--path);
+  }
+
+  .textarea {
+    min-height: 132px;
+    resize: vertical;
+  }
+
+  .select {
+    appearance: none;
+    padding-right: 42px;
+  }
+
+  .select option {
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  /* An invalid control carries a label and an error message, never colour
+   * alone; the message names itself before it names the fault. */
+  .input[aria-invalid='true'],
+  .select[aria-invalid='true'],
+  .textarea[aria-invalid='true'] {
+    border-color: var(--alert);
+  }
+
+  .field > .err {
+    display: block;
+    margin-top: 7px;
+    font-size: 13px;
+    line-height: var(--leading-small);
+    color: var(--alert);
+  }
+
+  .field > .err::before {
+    content: 'Error. ';
+    font-weight: var(--weight-sub);
+  }
+
+  /* Checkbox and radio. The 44px target is the label row, not the box. */
+  .check {
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr);
+    gap: 0 var(--hx-space-3);
+    align-items: start;
+    min-height: var(--target);
+    padding-block: 10px;
+    cursor: pointer;
+  }
+
+  .check input {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    margin: 1px 0 0;
+    accent-color: var(--btn);
+  }
+
+  .check > span {
+    max-width: var(--measure-wide);
+    font-size: 14.5px;
+    line-height: var(--leading-small);
+    color: var(--ink);
+  }
+
+  .check > span small {
+    display: block;
+    margin-top: var(--hx-space-1);
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+
+  /* Notice. One hairline in the caution amber. Advisory, never a gate. */
+  .notice {
+    max-width: none;
+    padding-left: var(--hx-space-4);
+    border-left: var(--hx-stroke-1-5) solid var(--caution);
+  }
+
+  .notice p {
+    max-width: var(--measure-wide);
+    font-size: 14px;
+    line-height: var(--leading-body);
+    color: var(--ink-2);
+  }
+
+  /* Error summary: rendered at the top of the form, focused on submit, linking
+   * to each field. One hairline in the alert coral, no box. */
+  .errsum {
+    max-width: none;
+    padding-left: var(--hx-space-4);
+    border-left: var(--hx-stroke-1-5) solid var(--alert);
+  }
+
+  .errsum h2 {
+    max-width: none;
+    font-size: 17px;
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-h4);
+    color: var(--alert);
+  }
+
+  .errsum ul {
+    margin-top: 10px;
+    padding-left: var(--hx-space-5);
+    list-style: disc;
+  }
+
+  .errsum li {
+    padding-block: var(--hx-space-1);
+    font-size: 14.5px;
+    line-height: var(--leading-small);
+  }
+
+  .errsum a {
+    color: var(--alert);
+    text-decoration-line: underline;
+  }
+
+  .errsum a:hover {
+    color: var(--ink);
+  }
+
+  /* Success panel. Named a panel, drawn as rules: one hairline in the tested
+   * green. No fill, no radius, no box. */
+  .done {
+    max-width: none;
+    padding-left: var(--hx-space-4);
+    border-left: var(--hx-stroke-1-5) solid var(--ok);
+  }
+
+  .done h2 {
+    max-width: 24ch;
+    font-size: clamp(22px, 2.2vw, 28px);
+    letter-spacing: -0.018em;
+  }
+
+  .done p {
+    max-width: var(--measure-wide);
+    margin-top: var(--hx-space-3);
+    font-size: var(--text-small);
+    line-height: var(--leading-body);
+    color: var(--ink-2);
+  }
+
+  /* ---- Prose -------------------------------------------------------------- */
+
+  /*
+   * `.prose` is the long-form reading column an editorial route sets its body
+   * in: one measure, one rhythm, and no styling of its own beyond that. The
+   * lists inside it keep their markers, because a definition page's ordered
+   * steps and unordered criteria are read aloud as lists.
+   */
+  .prose > * + * {
+    margin-top: 18px;
+  }
+
+  .prose p,
+  .prose li {
+    max-width: var(--measure-wide);
+    color: var(--ink-2);
+  }
+
+  .prose ul,
+  .prose ol {
+    padding-left: var(--hx-space-5);
+  }
+
+  .prose ul {
+    list-style: disc;
+  }
+
+  .prose ol {
+    list-style: decimal;
+  }
+
+  .prose li {
+    padding-block: 3px;
+  }
+
+  .prose strong,
+  .prose b {
+    font-weight: var(--weight-sub);
+    color: var(--ink);
+  }
+}
+
+  /* ---- Page parts --------------------------------------------------------- */
+
+  /*
+   * The body of a definition or research route: the rail column and its
+   * stations. The wrapper carries the page's left rail and right padding, and
+   * the stations inside it drop their own horizontal padding so the two do not
+   * compound into a double indent.
+   */
+  .bodywrap {
+    padding: 0 var(--pad) 0 var(--rail);
+  }
+
+  .bodywrap .station {
+    padding-inline: 0;
+  }
+
+  /* The first answer on a page reads at the lead size, because it is the
+   * sentence the page exists to say. */
+  .answer-lead p {
+    font-size: clamp(19px, 1.8vw, 23px);
+    line-height: var(--leading-h3);
+    color: var(--ink);
+  }
+
+  /*
+   * A question a page quotes rather than asks: set at the H3 size so the two
+   * questions in the Selection Intelligence hero read as the pair they are.
+   */
+  .qline {
+    max-width: var(--measure-wide);
+    font-size: var(--text-h3);
+    line-height: var(--leading-h3);
+    letter-spacing: var(--tracking-h3);
+    color: var(--ink);
+  }
+
+  /* The operating line, set as its own statement rather than as body copy. */
+  .opline {
+    max-width: none;
+    font-size: var(--text-lead);
+    line-height: var(--leading-lead);
+    color: var(--ink);
+  }
+
+  /* A list that keeps its marker because the items are read as a set. */
+  .plainlist {
+    max-width: var(--measure-wide);
+    padding-left: var(--hx-space-5);
+    list-style: disc;
+  }
+
+  .plainlist > li {
+    padding-block: var(--hx-space-1);
+    color: var(--ink-3);
+  }
+
+  /* A list separated by hairlines instead of by markers. */
+  .ruled {
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .ruled > li {
+    padding-block: 9px;
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+    font-size: 14.5px;
+    color: var(--ink-3);
+  }
+
+  /* The stage rail: an ordered path where each rung carries its own coordinate
+   * and the rungs share one left edge. */
+  .pathrail {
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .pathrail > li {
+    display: grid;
+    grid-template-columns: minmax(0, 88px) minmax(0, 1fr);
+    gap: var(--hx-space-4);
+    align-items: baseline;
+    padding-block: 9px;
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+    font-size: var(--text-small);
+    color: var(--ink);
+  }
+
+  .pathrail .st {
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  /* The output and its destination on one row under a method step. */
+  .outrow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--hx-space-2) var(--hx-space-6);
+    max-width: none;
+  }
+
+  /* The link form of the rule list: one column, because the row is a link line
+   * and a sentence stacked rather than an index beside an item. */
+  .rlist-links > li {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* A related row whose first line is a link and a kind. */
+  .rlist .top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--hx-space-2) var(--hx-space-4);
+  }
+
+  .rlist .kind {
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    font-weight: var(--weight-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .rlist > li > p {
+    max-width: var(--measure-wide);
+    margin-top: var(--hx-space-1);
+    font-size: 13.5px;
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+  }
+
+  /* The row of a comparison table that is about Hendricks itself. Full ink,
+   * never colour alone: the row header names the subject in words. */
+  .tablewrap td.you {
+    color: var(--ink);
+  }
+
+  /* The sensitive-information warning above a free-text field. A hairline in
+   * the caution amber and the word itself, never the colour alone. */
+  .warn {
+    max-width: var(--measure-wide);
+    margin-bottom: var(--hx-space-2);
+    padding-left: var(--hx-space-3);
+    border-left: var(--hx-stroke-1-5) solid var(--caution);
+    font-size: 13px;
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+  }
+
+  /* Two fields on one row from 600 px, one below it. */
+  .fieldpair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px var(--hx-space-5);
+  }
+
+  @media (max-width: 37.4375rem) {
+    .fieldpair {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  /* The honeypot. Removed from the accessibility tree and from the page, but
+   * still submitted, so a bot that fills every field identifies itself. */
+  .hp {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* A question and its answer, separated by hairlines. */
+  .faq {
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .faq > div {
+    padding-block: 18px;
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  .faq h2,
+  .faq h3 {
+    max-width: var(--measure-wide);
+    font-size: var(--text-h3);
+    line-height: var(--leading-h3);
+    font-weight: var(--weight-sub);
+    letter-spacing: var(--tracking-h3);
+  }
+
+  .faq p {
+    max-width: var(--measure-wide);
+    margin-top: var(--hx-space-2);
+    font-size: 14.5px;
+    line-height: var(--leading-body);
+    color: var(--ink-2);
+  }
+
+  /*
+   * The class row carries four short entries with an index, a title, a sentence
+   * and a link. The homepage uses it for the evidence classes, where the entry
+   * is a drawing; an interior route uses it for a set of engagements, where the
+   * entry is words. Both are four across at reading widths.
+   */
+  .classrow .ix {
+    display: block;
+    margin-bottom: 10px;
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    font-weight: var(--weight-mono);
+    letter-spacing: var(--tracking-mono);
+    color: var(--ink-2);
+  }
+
+  .classrow h3 {
+    max-width: 22ch;
+    font-size: 16.5px;
+    font-weight: var(--weight-sub);
+    letter-spacing: var(--tracking-h4);
+  }
+
+  .classrow p {
+    max-width: 30ch;
+    margin-top: 7px;
+    font-size: 13.5px;
+    line-height: var(--leading-lead);
+    color: var(--ink-2);
+  }
+
+  /*
+   * The operating-layer figure: three contributors above one shared layer. The
+   * layer's own name and sentence sit under the drawing rather than inside a
+   * bordered panel, because the system has no panel.
+   */
+  .layer-note {
+    max-width: var(--measure-wide);
+    margin-top: var(--hx-space-6);
+    padding-left: 18px;
+    border-left: var(--hx-stroke-1-5) solid var(--path);
+  }
+
+  .layer-note h3 {
+    max-width: var(--measure);
+    font-size: 17px;
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-h4);
+  }
+
+  .layer-note p {
+    max-width: var(--measure-wide);
+    margin-top: 6px;
+    font-size: 14.5px;
+    line-height: var(--leading-body);
+    color: var(--ink-2);
+  }
+
+  /*
+   * The portrait. D-D: every image of Brandon Lincoln Hendricks renders in
+   * colour, at any size, on any ground. `filter: none` is written here on
+   * purpose and must not be removed.
+   */
+  .portrait img {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    margin-top: var(--hx-space-4);
+    filter: none;
+  }
+
+  .portrait figcaption {
+    margin-top: var(--hx-space-3);
+  }
+
+  /*
+   * A set of terms read as a set rather than as a sequence: outcome classes,
+   * weighting factors, stored fields. One hairline per row, wrapped into as
+   * many columns as the measure allows, and no bullet or chip boundary.
+   */
+  .terms {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0 var(--hx-space-8);
+    max-width: 1000px;
+    margin-top: var(--hx-space-8);
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .terms > li {
+    padding-block: 10px;
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+    font-size: 14.5px;
+    color: var(--ink-3);
+  }
+
+  /*
+   * The intent-context formula: seven terms that resolve into one. The plus and
+   * the equals are generated, so neither is read out, and the resolved term sits
+   * at full ink because it is the unit the rest of the page measures in.
+   */
+  .formula {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--hx-space-2) var(--hx-space-3);
+    max-width: 1000px;
+  }
+
+  .formula > li {
+    font-size: var(--text-small);
+    color: var(--ink-3);
+  }
+
+  .formula > li + li::before {
+    content: '+';
+    margin-right: var(--hx-space-3);
+    font-family: var(--font-mono);
+    color: var(--ink-2);
+  }
+
+  .formula > .res {
+    font-weight: var(--weight-sub);
+    color: var(--ink);
+  }
+
+  .formula > .res::before {
+    content: '=';
+  }
+
+  /*
+   * The series strip above a study's title: name, edition, package version and
+   * cadence, separated by hairlines rather than by punctuation.
+   */
+  .series {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--hx-space-2) 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .series > li + li {
+    margin-left: var(--hx-space-3);
+    padding-left: var(--hx-space-3);
+    border-left: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  /* A study's own title, at the display size the flagship earns. */
+  .flagship-title {
+    max-width: 26ch;
+    margin-top: var(--hx-space-4);
+    font-size: var(--text-h2);
+    line-height: var(--leading-h2);
+    letter-spacing: var(--tracking-h2);
+    font-weight: var(--weight-medium);
+  }
+
+  /* One mono line of study metadata: category, kind, claim class, cadence. */
+  .meta-line {
+    max-width: none;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+    color: var(--ink-2);
+  }
+
+  /*
+   * The supporting studies. Each row is the record on the left and the study on
+   * the right, separated from its neighbours by one hairline.
+   */
+  .studies {
+    margin-top: var(--hx-space-10);
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+  }
+
+  .studies > li {
+    display: grid;
+    grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+    gap: var(--hx-space-6) var(--pad);
+    align-items: start;
+    padding-block: 30px;
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  .studies .idx {
+    display: block;
+    margin-bottom: 10px;
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: 0.08em;
+    color: var(--ink-2);
+  }
+
+  .studies h3 {
+    max-width: var(--measure);
+    font-size: var(--text-h3);
+    line-height: var(--leading-h3);
+    font-weight: var(--weight-sub);
+  }
+
+  .studies .desc {
+    max-width: var(--measure-wide);
+    margin-top: var(--hx-space-3);
+    font-size: 14.5px;
+    line-height: var(--leading-body);
+    color: var(--ink-2);
+  }
+
+  .studies .note {
+    max-width: var(--measure-wide);
+    margin-top: var(--hx-space-3);
+    padding-left: 14px;
+    border-left: var(--hx-stroke-1-5) solid var(--rule-strong);
+    font-size: 13.5px;
+    line-height: var(--leading-small);
+    color: var(--ink-2);
+  }
+
+  /* A compact record of dated fields beside a study. */
+  .fields > div {
+    display: grid;
+    grid-template-columns: minmax(0, 96px) minmax(0, 1fr);
+    gap: 2px var(--hx-space-4);
+    padding-block: 6px;
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+  }
+
+  .fields dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-illus);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .fields dd {
+    font-size: 13.5px;
+    color: var(--ink-3);
+  }
+
+  @media (max-width: 56.1875rem) {
+    .studies > li {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  /*
+   * A marked block: a labelled note that is neither an answer nor a limitation.
+   * One hairline in the quiet line colour, which is what says "read this as a
+   * qualification" without claiming a class the content does not carry.
+   */
+  .markblock {
+    max-width: none;
+    padding-left: 18px;
+    border-left: var(--hx-stroke-1-5) solid var(--rule-strong);
+  }
+
+  .markblock h2 {
+    max-width: 30ch;
+    margin-top: var(--hx-space-3);
+    font-size: clamp(20px, 1.9vw, 24px);
+    letter-spacing: var(--tracking-h3);
+  }
+
+  .markblock p {
+    max-width: var(--measure-wide);
+    margin-top: var(--hx-space-3);
+    font-size: 14.5px;
+    line-height: var(--leading-body);
+    color: var(--ink-2);
+  }
+
+  /* A plain figure: a drawing and its caption, with no plate chrome. */
+  .fig {
+    margin-top: var(--hx-space-10);
+  }
+
+  .fig > figcaption {
+    margin-top: var(--hx-space-4);
+  }
+
+/*
+ * Forced colours. The token file maps the palette to system colours, which
+ * collapses the ink tiers, so anything distinguished only by ink tier is given
+ * a second, non-colour signal here.
+ */
+@media (forced-colors: active) {
+  .answer,
+  .limits,
+  .notice,
+  .errsum,
+  .done,
+  .cite-str {
+    border-left-color: CanvasText;
+  }
+
+  .toc a[aria-current='true'] {
+    text-decoration-line: underline;
+  }
+}

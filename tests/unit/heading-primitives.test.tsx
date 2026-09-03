@@ -5,14 +5,13 @@ import { Breadcrumbs } from '@/components/layout/breadcrumbs'
 import { Eyebrow } from '@/components/layout/eyebrow'
 import { PageHero } from '@/components/layout/page-hero'
 import { SectionHeading } from '@/components/layout/section-heading'
-import { ClosingBand } from '@/components/sections/closing-band'
-import { DirectAnswer } from '@/components/sections/direct-answer'
 
 /**
  * The heading primitives (09 5.7, 5.8, 5.41, 5.43, 5.49, 5.50): eyebrows are
  * `p` siblings outside every heading's accessible name (16 SM-02), the margin
- * index is hidden from assistive technology, sections are labelled by their
- * heading, and the closing band is light.
+ * index is hidden from assistive technology, and sections are labelled by their
+ * heading. The canvas replacements for the closing band and the direct answer
+ * are covered in `canvas-primitives.test.tsx`.
  */
 
 describe('Eyebrow', () => {
@@ -119,34 +118,4 @@ describe('Breadcrumbs', () => {
   })
 })
 
-describe('ClosingBand', () => {
-  it('is a light section labelled by its H2 with the two locked CTAs', () => {
-    render(
-      <ClosingBand
-        eyebrow="Find the Gap"
-        title="What decision can your current search system not answer?"
-        primaryCta={{ label: 'Start with a Search Intelligence Diagnostic', href: '/diagnostic' }}
-        secondaryCta={{ label: 'Discuss an Agency Partnership', href: '/for-agencies' }}
-      />,
-    )
 
-    const region = screen.getByRole('region')
-    expect(region).not.toHaveClass('on-plate')
-    expect(region).toHaveAttribute('aria-labelledby', 'closing-band-title')
-    expect(screen.getByRole('heading', { level: 2 })).toHaveAccessibleName(
-      'What decision can your current search system not answer?',
-    )
-    expect(screen.getAllByRole('link')).toHaveLength(2)
-  })
-})
-
-describe('DirectAnswer', () => {
-  it('labels the section by the term and states the answer as a paragraph', () => {
-    render(<DirectAnswer term="Search Intelligence Engineering" answer="A one-sentence definition." />)
-
-    expect(screen.getByRole('region')).toHaveAttribute('aria-labelledby', 'direct-answer-label')
-    expect(document.getElementById('direct-answer-label')?.tagName).toBe('P')
-    expect(screen.getByText('A one-sentence definition.').tagName).toBe('P')
-    expect(screen.queryByRole('heading')).toBeNull()
-  })
-})

@@ -110,3 +110,15 @@ Hendricks combines analytics, search data, CRM outcomes, and controlled tests.
 # Begin with the decision your organization needs to make.
 
 **CTA:** Start with a Search Intelligence Diagnostic
+
+## Canvas conversion, 2026-09-03
+
+**Answer label:** The rule this system is built on
+
+**Plate 01:** The Demand-to-Selection System
+
+**Plate 01 caption:** The complete search decision journey, ten nodes in order.
+
+**Operating cycle caption:** Observe, Diagnose, Prioritize, Implement, Measure, Learn, Repeat.
+
+The standards behind each stage, and the research that tests them, are published on the Methodology page and at the Research Hub: practical, source-supported research on how people search, how brands enter consideration, how AI-mediated discovery changes the buying journey, and how organizations can measure the commercial result.

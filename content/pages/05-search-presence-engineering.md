@@ -26,7 +26,9 @@ The work is not limited to publishing more articles.
 
 A selection gap can originate from technical access, unclear positioning, weak service associations, missing proof, insufficient independent evidence, inconsistent profiles, poor decision content, ineffective landing pages, or disconnected paid and organic strategies.
 
-**Primary CTA:** Review Your Search Presence
+**Primary CTA:** Start with a Search Intelligence Diagnostic
+
+**Secondary link:** Review Your Search Presence
 
 ## Seven engineering layers
 
@@ -190,4 +192,6 @@ Hendricks improves the quality, clarity, accessibility, relevance, evidence, aut
 
 # Turn Selection Intelligence into implementation.
 
-**CTA:** Discuss a 90-Day Demand-to-Selection Program
+**CTA:** Start with a Search Intelligence Diagnostic
+
+**Secondary link:** Discuss a 90-Day Demand-to-Selection Program

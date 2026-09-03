@@ -1,4 +1,4 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 
@@ -40,6 +40,13 @@ export const hero = {
     href: routes.diagnostic.path,
     analytics: { location: 'about_hero' },
   } satisfies Cta,
+  /* The approved opening sentence, in the two-tone form. */
+  leadTwoTone: {
+    claim: 'Brandon Lincoln Hendricks is a Search Intelligence Engineer',
+    continuation: 'and the founder of Hendricks.',
+  },
+  answerHeading: 'What Brandon Lincoln Hendricks has worked on',
+  answerLabel: 'The direct answer',
 } as const
 
 export const pointOfView = {
@@ -48,6 +55,7 @@ export const pointOfView = {
   quote:
     'Search is not merely a traffic channel. It is a live record of customer demand, uncertainty, comparison, intent, and decision-making.',
   body: ['Hendricks is the next expression of that work.'],
+  notListLabel: 'What Hendricks is not',
   notList: ['Not another channel agency.', 'Not a prompt-tracking dashboard.', 'Not a general automation shop.'],
   closing:
     'Hendricks engineers systems that help organizations understand demand, enter valuable consideration, act on evidence, and measure the business result.',
@@ -134,6 +142,30 @@ export const experience = {
         'These experiences formed the basis of the Search Intelligence Engineering perspective. Search is not just a channel to optimize. It is a data and signal system that must be engineered.',
     },
   ],
+  /*
+    The employment record renders as a real table inside a named, keyboard
+    reachable scroll region. The head labels are information, so they are read
+    rather than hidden, and the relationship column returns because the region
+    scrolls rather than compressing.
+  */
+  tableCaption: 'Employment record: organization, role, period and relationship',
+  tableNote:
+    'Roles held, with organization, role, period and relationship. The table scrolls sideways on a narrow screen.',
+  tableColumns: {
+    index: 'No.',
+    organization: 'Organization',
+    role: 'Role',
+    period: 'Period',
+    relationship: 'Relationship',
+  },
+  capabilitiesLabel: 'Capability areas',
+  researchLabel: 'Research',
+  /*
+    The one clause this page authors rather than transcribes, required by
+    docs/03 section 6. Everything after the colon is the research hub's own lead
+    verbatim, imported rather than retyped.
+  */
+  researchIntro: 'Hendricks publishes its research at the ',
   capabilitiesTitle: 'The capability areas behind Hendricks engagements.',
   items: [
     'Enterprise search leadership',
@@ -158,7 +190,9 @@ export const externalVenture = {
   } satisfies Cta,
 } as const
 
-export const related: readonly RelatedLink[] = [
+export const closingEyebrow = 'Closing'
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.howItWorks.path,
     label: 'How It Works',

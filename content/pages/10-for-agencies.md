@@ -70,6 +70,24 @@ Technical access is the one candidate cause an agency can check the same day, be
 
 Platform documentation states which crawler surfaces a site in a system’s search results and how a site controls its access. It does not establish that allowing access produces a citation. Access is a precondition that can be checked, not a lever with a measured effect. An agency that sells it as a lever is selling plausible mechanism as measured effect.
 
+## Commitment boundary figure
+
+**Figure 01**
+
+**What an agency can commit to**
+
+- Repeated runs across the customer contexts the business actually sells into
+- The conditions the brand controls on its own properties
+- The reading, and the record of what changed and when
+
+**What no agency can commit to**
+
+- The citation itself
+- A date by which a citation appears
+- A number that will still read the same when the measurement is repeated
+
+**Caption:** Structure, not evidence: the commitment boundary stated in the answer above and in the partner commitments below. No result is shown.
+
 ## Partnership models
 
 ### White-label specialist
@@ -144,4 +162,4 @@ Fields:
 
 # Strengthen the capability your clients increasingly expect.
 
-**CTA:** Discuss an Agency Intelligence Partnership
+**CTA:** Discuss an Agency Partnership

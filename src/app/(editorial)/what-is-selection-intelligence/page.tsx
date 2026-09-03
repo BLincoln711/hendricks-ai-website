@@ -1,20 +1,24 @@
 import type { Metadata } from 'next'
 
-import { Container } from '@/components/layout/container'
-import { PageHero } from '@/components/layout/page-hero'
-import { Section } from '@/components/layout/section'
-import { SectionHeading } from '@/components/layout/section-heading'
-import { ClosingCta } from '@/components/sections/closing-cta'
-import { DirectAnswer } from '@/components/sections/direct-answer'
-import { RelatedLinks } from '@/components/sections/related-links'
-import { SourcesNote } from '@/components/sections/sources-note'
+import { Answer } from '@/components/canvas/answer'
+import { Byline } from '@/components/canvas/byline'
+import { ChangeHistory } from '@/components/canvas/change-history'
+import { ClosingStation } from '@/components/canvas/closing-station'
+import { DefinitionList } from '@/components/canvas/definition-list'
+import { Limitations } from '@/components/canvas/limitations'
+import { CanvasPageHero } from '@/components/canvas/page-hero'
+import { RailColumn } from '@/components/canvas/rail-column'
+import { RelatedRules } from '@/components/canvas/related-list'
+import { RelatedTerms } from '@/components/canvas/related-terms'
+import { RuleList } from '@/components/canvas/rule-list'
+import { SourcesStation } from '@/components/canvas/sources-station'
+import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
-import { Callout } from '@/components/ui/callout'
-import { SignalList } from '@/components/ui/signal-list'
-import { MetricDefinitions } from '@/components/visuals/metric-definitions'
 import { routes } from '@/config/routes'
+import { siteConfig } from '@/config/site'
 import {
   closing,
+  contents,
   directAnswer,
   hero,
   limitation,
@@ -22,10 +26,13 @@ import {
   metrics,
   questions,
   related,
+  relatedSection,
   sources,
   versusRankTracking,
   whyContext,
 } from '@/content/pages/what-is-selection-intelligence'
+import { isDefinitionRoute } from '@/content/shared/definition-routes'
+import { publicationChrome } from '@/content/shared/publication-record'
 import {
   definedTermSchema,
   definedTermSetSchema,
@@ -34,15 +41,28 @@ import {
 } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
+/**
+ * /what-is-selection-intelligence, rebuilt on the approved canvas
+ * (`07-hifi/definition-page.html`) station for station.
+ *
+ * The contrast with rank tracking renders as two quoted questions across one
+ * hairline rather than as two bordered quotes: the system has no box, and the
+ * difference the section exists to draw is between the two questions, which the
+ * ink tiers carry.
+ */
+
 export const metadata: Metadata = buildMetadata({
   title: meta.title,
   description: meta.description,
   path: routes.whatIsSelectionIntelligence.path,
 })
 
+const relatedTerms = related.filter((entry) => isDefinitionRoute(entry.href))
+const relatedWork = related.filter((entry) => !isDefinitionRoute(entry.href))
+
 export default function WhatIsSelectionIntelligencePage() {
   return (
-    <>
+    <div className="wrap">
       <JsonLd
         data={jsonLdGraph(
           webPageSchema({
@@ -55,7 +75,7 @@ export default function WhatIsSelectionIntelligencePage() {
             about: null,
             hasBreadcrumb: true,
             // Emitted only because this page renders the same date visibly in
-            // its SourcesNote <time>. Pages without a visible date get none.
+            // its sources station. Pages without a visible date get none.
             dateModified: sources.reviewed,
           }),
           definedTermSetSchema([
@@ -73,139 +93,140 @@ export default function WhatIsSelectionIntelligencePage() {
         )}
       />
 
-      <PageHero
+      {/* 1. Page hero */}
+      <CanvasPageHero
         eyebrow={hero.eyebrow}
         title={hero.title}
-        lead={hero.lead}
-        primaryCta={hero.primaryCta}
         path={routes.whatIsSelectionIntelligence.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.whatIsSelectionIntelligence.label },
         ]}
-      />
+        primaryCta={hero.primaryCta}
+      >
+        <Answer
+          id="answer"
+          className="answer-lead mt-[30px]"
+          label={directAnswer.term}
+          labelId="direct-answer-label"
+          paragraphs={[directAnswer.answer]}
+        />
 
-      <DirectAnswer term={directAnswer.term} answer={directAnswer.answer} />
+        <Byline
+          authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`}
+          reviewed={sources.reviewed}
+        />
 
-      <Section variant="field" size="major" ariaLabelledBy="questions-title">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1fr)] lg:gap-16">
-            <SectionHeading
-              eyebrow={questions.eyebrow}
-              title={questions.title}
-              id="questions-title"
-              level={2}
-            />
-            <SignalList items={questions.items} columns={2} />
-          </div>
-        </Container>
-      </Section>
+        <p className="text-lead mt-[26px] max-w-[60ch] text-ink">{hero.lead[0]}</p>
+      </CanvasPageHero>
 
-      <Section variant="white" size="major" ariaLabelledBy="versus-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={versusRankTracking.eyebrow}
-              title={versusRankTracking.title}
-              id="versus-title"
-              level={2}
-            />
+      <div className="bodywrap">
+        <RailColumn sections={contents}>
+          {/* 01. The questions it answers */}
+          <Station id="questions" ariaLabelledBy="questions-title" stack>
+            <p className="text-eyebrow text-ink-2">{questions.eyebrow}</p>
+            <h2 id="questions-title" className="text-h2 text-ink">
+              {questions.title}
+            </h2>
+            <RuleList items={questions.items} ariaLabel={questions.title} />
+          </Station>
 
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
+          {/* 02. Against rank tracking */}
+          <Station id="versus-rank-tracking" ariaLabelledBy="versus-title" stack>
+            <p className="text-eyebrow text-ink-2">{versusRankTracking.eyebrow}</p>
+            <h2 id="versus-title" className="text-h2 text-ink">
+              {versusRankTracking.title}
+            </h2>
+
+            <div className="cols2">
               {[versusRankTracking.rankTracking, versusRankTracking.selectionIntelligence].map(
-                (side, index) => {
-                  const isHendricks = index === 1
-                  return (
-                    <figure key={side.label} className="flex flex-col gap-3">
-                      <figcaption
-                        className={
-                          isHendricks
-                            ? 'text-eyebrow text-ink-2'
-                            : 'text-eyebrow text-ink-2'
-                        }
-                      >
-                        {side.label}
-                      </figcaption>
-                      <blockquote
-                        className={
-                          isHendricks
-                            ? ' border-l-2 border-path p-6 md:p-8'
-                            : ' border-l-2 border-rule p-6 md:p-8'
-                        }
-                      >
-                        <p
-                          className={
-                            isHendricks
-                              ? 'text-[1.25rem] leading-snug font-medium text-ink'
-                              : 'text-[1.25rem] leading-snug text-ink-2'
-                          }
-                        >
-                          {side.question}
-                        </p>
-                      </blockquote>
-                    </figure>
-                  )
-                },
+                (side, index) => (
+                  <div key={side.label}>
+                    <p className="text-coordinate text-ink-2">{side.label}</p>
+                    {/* The Hendricks question at full ink, the one it replaces
+                        at the quiet tier: the contrast is the point, and the ink
+                        tiers carry it without a second border. */}
+                    <p className={index === 1 ? 'qline mt-3' : 'qline mt-3 text-ink-2'}>
+                      {side.question}
+                    </p>
+                  </div>
+                ),
               )}
             </div>
-          </div>
-        </Container>
-      </Section>
+          </Station>
 
-      <Section variant="soft" size="major" ariaLabelledBy="context-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={whyContext.eyebrow}
-              title={whyContext.title}
-              description={whyContext.lead}
-              id="context-title"
-              level={2}
-            />
+          {/* 03. Why context decides */}
+          <Station id="why-context" ariaLabelledBy="context-title" stack>
+            <p className="text-eyebrow text-ink-2">{whyContext.eyebrow}</p>
+            <h2 id="context-title" className="text-h2 text-ink">
+              {whyContext.title}
+            </h2>
+            <p className="text-lead text-ink">{whyContext.lead}</p>
 
-            <div className="flex flex-col gap-5">
-              <p className="font-medium text-ink">{whyContext.testsLead}</p>
-              <SignalList items={whyContext.tests} columns={2} />
-            </div>
+            <p className="text-coordinate text-ink-2">{whyContext.testsLead}</p>
+            <RuleList items={whyContext.tests} ariaLabel={whyContext.testsLead} />
 
             <p className="text-lead measure text-ink-3">{whyContext.closing}</p>
-          </div>
-        </Container>
-      </Section>
+          </Station>
 
-      <Section variant="white" size="major" ariaLabelledBy="metrics-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={metrics.eyebrow}
-              title={metrics.title}
-              id="metrics-title"
-              level={2}
+          {/* 04. Metric definitions */}
+          <Station id="metric-definitions" ariaLabelledBy="metrics-title" stack>
+            <p className="text-eyebrow text-ink-2">{metrics.eyebrow}</p>
+            <h2 id="metrics-title" className="text-h2 text-ink">
+              {metrics.title}
+            </h2>
+            <DefinitionList
+              definitions={metrics.items.map((metric) => ({
+                term: metric.name,
+                definition: [metric.definition],
+              }))}
             />
-            <MetricDefinitions metrics={metrics.items} />
-          </div>
-        </Container>
-      </Section>
+          </Station>
 
-      <Section variant="field" size="standard">
-        <Container>
-          <Callout variant="limitation" label="Honest limitation" title={limitation.title}>
-            {limitation.body.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </Callout>
-        </Container>
-      </Section>
+          {/* 05. The honest limitation */}
+          <Station id="limitation" ariaLabelledBy="limitation-title" stack>
+            <h2 id="limitation-title" className="text-h2 text-ink">
+              {limitation.title}
+            </h2>
+            <Limitations label={limitation.label} body={limitation.body} />
+          </Station>
 
-      <RelatedLinks title="Where to go next." links={related} />
+          <SourcesStation
+            reviewed={sources.reviewed}
+            basis={sources.basis}
+            appliedIn={sources.appliedIn}
+          />
 
-      <SourcesNote
-        reviewed={sources.reviewed}
-        basis={sources.basis}
-        appliedIn={sources.appliedIn}
-      />
+          {/* 07. Change history */}
+          <Station id="change-history" ariaLabelledBy="changes-title" stack>
+            <p className="text-eyebrow text-ink-2">{publicationChrome.changeHistory.eyebrow}</p>
+            <h2 id="changes-title" className="text-h2 text-ink">
+              {publicationChrome.changeHistory.title}
+            </h2>
+            <ChangeHistory />
+          </Station>
 
-      <ClosingCta title={closing.title} primaryCta={closing.primaryCta} />
-    </>
+          {/* 08. Related terms */}
+          <Station id="related-terms" ariaLabelledBy="terms-title" stack>
+            <p className="text-eyebrow text-ink-2">{publicationChrome.relatedTerms.eyebrow}</p>
+            <h2 id="terms-title" className="text-h2 text-ink">
+              {publicationChrome.relatedTerms.title}
+            </h2>
+            <RelatedTerms terms={relatedTerms} />
+          </Station>
+
+          {/* 09. Where to go next */}
+          <Station id="related" ariaLabelledBy="related-title" stack>
+            <p className="text-eyebrow text-ink-2">{relatedSection.eyebrow}</p>
+            <h2 id="related-title" className="text-h2 text-ink">
+              {relatedSection.title}
+            </h2>
+            <RelatedRules entries={relatedWork} ariaLabel={relatedSection.title} />
+          </Station>
+        </RailColumn>
+      </div>
+
+      <ClosingStation id="close" title={closing.title} primaryCta={closing.primaryCta} />
+    </div>
   )
 }

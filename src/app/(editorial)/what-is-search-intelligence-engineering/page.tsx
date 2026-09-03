@@ -1,32 +1,41 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
-import { Container } from '@/components/layout/container'
-import { PageHero } from '@/components/layout/page-hero'
-import { Section } from '@/components/layout/section'
-import { SectionHeading } from '@/components/layout/section-heading'
-import { ClosingCta } from '@/components/sections/closing-cta'
-import { DirectAnswer } from '@/components/sections/direct-answer'
-import { RelatedLinks } from '@/components/sections/related-links'
-import { SourcesNote } from '@/components/sections/sources-note'
+import { Answer } from '@/components/canvas/answer'
+import { Byline } from '@/components/canvas/byline'
+import { ChangeHistory } from '@/components/canvas/change-history'
+import { ClosingStation } from '@/components/canvas/closing-station'
+import { CanvasPageHero } from '@/components/canvas/page-hero'
+import { RailColumn } from '@/components/canvas/rail-column'
+import { RelatedRules } from '@/components/canvas/related-list'
+import { RelatedTerms } from '@/components/canvas/related-terms'
+import { RuleList } from '@/components/canvas/rule-list'
+import { SourcesStation } from '@/components/canvas/sources-station'
+import { TableRegion } from '@/components/canvas/table-region'
+import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
-import { TextCta } from '@/components/ui/cta'
-import { DataTable } from '@/components/ui/data-table'
-import { FitList, SignalList } from '@/components/ui/signal-list'
-import { CompletePath } from '@/components/visuals/traditional-vs-ai-flow'
+import { RuleLink } from '@/components/ui/cta'
+import { TwoTone } from '@/components/ui/two-tone'
 import { routes } from '@/config/routes'
+import { siteConfig } from '@/config/site'
 import {
   closing,
+  contents,
   directAnswer,
   hero,
   meta,
   outcomes,
   path,
   related,
+  relatedSection,
   sources,
   whatItIsNot,
   whyEngineering,
   whyItExists,
 } from '@/content/pages/what-is-search-intelligence-engineering'
+import { isDefinitionRoute } from '@/content/shared/definition-routes'
+import { evidenceRule } from '@/content/shared/evidence-rule'
+import { publicationChrome } from '@/content/shared/publication-record'
 import {
   definedTermSchema,
   definedTermSetSchema,
@@ -35,15 +44,31 @@ import {
 } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
+/**
+ * /what-is-search-intelligence-engineering, rebuilt on the approved canvas
+ * (`07-hifi/definition-page.html`, which is drawn from this route) station for
+ * station.
+ *
+ * The definition-page shape, in order: the hero carries the term and the
+ * one-sentence definition as the answer-first block, the byline resolves to the
+ * one Person node (D-B), and the body sits beside a sticky table of contents.
+ * The tail is what makes the page citable and is required on every interior
+ * route by D-E: sources with their review date, the change history, the related
+ * terms and the related work.
+ */
+
 export const metadata: Metadata = buildMetadata({
   title: meta.title,
   description: meta.description,
   path: routes.whatIsSearchIntelligenceEngineering.path,
 })
 
+const relatedTerms = related.filter((entry) => isDefinitionRoute(entry.href))
+const relatedWork = related.filter((entry) => !isDefinitionRoute(entry.href))
+
 export default function WhatIsSearchIntelligenceEngineeringPage() {
   return (
-    <>
+    <div className="wrap">
       <JsonLd
         data={jsonLdGraph(
           webPageSchema({
@@ -56,7 +81,7 @@ export default function WhatIsSearchIntelligenceEngineeringPage() {
             about: null,
             hasBreadcrumb: true,
             // Emitted only because this page renders the same date visibly in
-            // its SourcesNote <time>. Pages without a visible date get none.
+            // its sources station. Pages without a visible date get none.
             dateModified: sources.reviewed,
           }),
           definedTermSetSchema([
@@ -74,143 +99,175 @@ export default function WhatIsSearchIntelligenceEngineeringPage() {
         )}
       />
 
-      <PageHero
+      {/* 1. Page hero */}
+      <CanvasPageHero
         eyebrow={hero.eyebrow}
         title={hero.title}
-        lead={hero.lead}
-        primaryCta={hero.primaryCta}
         path={routes.whatIsSearchIntelligenceEngineering.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.whatIsSearchIntelligenceEngineering.label },
         ]}
-      />
+        primaryCta={hero.primaryCta}
+        foot={<span className="text-caption text-ink-2">{siteConfig.categoryLine}</span>}
+      >
+        <Answer
+          id="answer"
+          className="answer-lead mt-[30px]"
+          label={directAnswer.term}
+          labelId="direct-answer-label"
+          paragraphs={[directAnswer.answer]}
+        />
 
-      <DirectAnswer term={directAnswer.term} answer={directAnswer.answer} />
+        <Byline authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`} reviewed={sources.reviewed} />
 
-      <Section variant="field" size="major" ariaLabelledBy="why-exists-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={whyItExists.eyebrow}
-              title={whyItExists.title}
-              id="why-exists-title"
-              level={2}
-            />
+        <p className="text-lead mt-[26px] max-w-[60ch] text-ink">{hero.lead[0]}</p>
+      </CanvasPageHero>
 
-            <DataTable
+      {/* The body, beside its own contents. */}
+      <div className="bodywrap">
+        <RailColumn sections={contents}>
+          {/* 01. Why it exists */}
+          <Station id="why-it-exists" ariaLabelledBy="why-exists-title" stack>
+            <p className="text-eyebrow text-ink-2">{whyItExists.eyebrow}</p>
+            <h2 id="why-exists-title" className="text-h2 text-ink">
+              {whyItExists.title}
+            </h2>
+
+            <TableRegion
               caption={whyItExists.caption}
               columns={whyItExists.columns}
               rows={whyItExists.rows}
             />
 
-            <div className="flex flex-col gap-2">
+            <div className="prose">
               {whyItExists.closing.map((line) => (
-                <p key={line} className="text-lead measure text-ink-3">
-                  {line}
-                </p>
+                <p key={line}>{line}</p>
               ))}
             </div>
-          </div>
-        </Container>
-      </Section>
+          </Station>
 
-      <Section variant="white" size="major" ariaLabelledBy="outcomes-title">
-        <Container>
-          <div className="flex flex-col gap-12">
-            <SectionHeading
-              eyebrow={outcomes.eyebrow}
-              title={outcomes.title}
-              id="outcomes-title"
-              level={2}
-            />
+          {/* 02. Four outcomes */}
+          <Station id="four-outcomes" ariaLabelledBy="outcomes-title" stack>
+            <p className="text-eyebrow text-ink-2">{outcomes.eyebrow}</p>
+            <h2 id="outcomes-title" className="text-h2 text-ink">
+              {outcomes.title}
+            </h2>
 
-            <ol className="grid gap-x-10 gap-y-10 md:grid-cols-2">
+            <ol className="ledger" aria-label={outcomes.title}>
               {outcomes.items.map((item) => (
-                <li key={item.name} className="flex flex-col gap-2">
-                  <span className="font-mono text-[0.75rem] text-ink-2">
-                    {item.number}
-                  </span>
-                  <h3 className="text-[1.25rem] leading-snug font-medium text-ink">
+                <li key={item.name}>
+                  <span className="k">
+                    <span className="ix" aria-hidden="true">
+                      {item.number}
+                    </span>
                     {item.name}
-                  </h3>
-                  <p className="text-[0.9375rem] leading-relaxed text-ink-2">
-                    {item.description}
-                  </p>
-                  <TextCta
-                    cta={{
-                      label: item.solution.label,
-                      href: item.solution.href,
-                      analytics: { location: 'wisie_outcomes' },
-                    }}
-                    className="mt-1"
-                  />
+                  </span>
+                  <span className="v">{item.description}</span>
+                  <span className="n">
+                    <Link href={item.solution.href}>{item.solution.label}</Link>
+                  </span>
                 </li>
               ))}
             </ol>
-          </div>
-        </Container>
-      </Section>
 
-      <Section variant="soft" size="major" ariaLabelledBy="why-engineering-title">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] lg:gap-16">
-            <div className="flex flex-col gap-5">
-              <SectionHeading
-                eyebrow={whyEngineering.eyebrow}
-                title={whyEngineering.title}
-                id="why-engineering-title"
-                level={2}
-              />
-              <p className="text-[0.9375rem] leading-relaxed text-ink-2">
-                {whyEngineering.lead}
-              </p>
-            </div>
+            <p className="opline">{siteConfig.operatingLine}</p>
+          </Station>
 
-            <SignalList items={whyEngineering.layers} columns={2} />
-          </div>
-        </Container>
-      </Section>
+          {/* 03. Why engineering */}
+          <Station id="why-engineering" ariaLabelledBy="why-engineering-title" stack>
+            <p className="text-eyebrow text-ink-2">{whyEngineering.eyebrow}</p>
+            <h2 id="why-engineering-title" className="text-h2 text-ink">
+              {whyEngineering.title}
+            </h2>
+            <p className="text-lead text-ink">{whyEngineering.lead}</p>
 
-      <Section variant="white" size="major" ariaLabelledBy="not-title">
-        <Container width="narrow">
-          <div className="flex flex-col gap-8">
-            <SectionHeading
-              eyebrow={whatItIsNot.eyebrow}
-              title={whatItIsNot.title}
-              id="not-title"
-              level={2}
-            />
-            <FitList items={whatItIsNot.items} tone="not-fit" />
-          </div>
-        </Container>
-      </Section>
+            <RuleList items={whyEngineering.layers} ariaLabel={whyEngineering.lead} />
+          </Station>
 
-      <Section variant="field" size="major" ariaLabelledBy="path-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={path.eyebrow}
-              title={path.title}
-              id="path-title"
-              level={2}
-            />
-            <div className=" border border-rule p-6 md:p-8">
-              <CompletePath steps={path.steps} />
-            </div>
-          </div>
-        </Container>
-      </Section>
+          {/* 04. What it is not */}
+          <Station id="what-it-is-not" ariaLabelledBy="not-title" stack>
+            <p className="text-eyebrow text-ink-2">{whatItIsNot.eyebrow}</p>
+            <h2 id="not-title" className="text-h2 text-ink">
+              {whatItIsNot.title}
+            </h2>
 
-      <RelatedLinks title="Where to go next." links={related} />
+            <ul className="plainlist" aria-label={whatItIsNot.title}>
+              {whatItIsNot.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
 
-      <SourcesNote
-        reviewed={sources.reviewed}
-        basis={sources.basis}
-        appliedIn={sources.appliedIn}
+            <TwoTone sentence={evidenceRule} className="pull" />
+          </Station>
+
+          {/* 05. The Demand-to-Selection path */}
+          <Station id="demand-to-selection-path" ariaLabelledBy="path-title" stack>
+            <p className="text-eyebrow text-ink-2">{path.eyebrow}</p>
+            <h2 id="path-title" className="text-h2 text-ink">
+              {path.title}
+            </h2>
+
+            <p className="fig-note">{path.note}</p>
+
+            <ol className="pathrail" aria-label={path.title}>
+              {path.steps.map((step, index) => (
+                <li key={step}>
+                  <span className="st" aria-hidden="true">
+                    {path.stageLabel} {String(index + 1).padStart(2, '0')}
+                  </span>
+                  {step}
+                </li>
+              ))}
+            </ol>
+
+            <RuleLink cta={path.cta} />
+          </Station>
+
+          <SourcesStation
+            reviewed={sources.reviewed}
+            basis={sources.basis}
+            appliedIn={sources.appliedIn}
+          />
+
+          {/* 07. Change history */}
+          <Station id="change-history" ariaLabelledBy="changes-title" stack>
+            <p className="text-eyebrow text-ink-2">{publicationChrome.changeHistory.eyebrow}</p>
+            <h2 id="changes-title" className="text-h2 text-ink">
+              {publicationChrome.changeHistory.title}
+            </h2>
+            <ChangeHistory />
+          </Station>
+
+          {/* 08. Related terms */}
+          <Station id="related-terms" ariaLabelledBy="terms-title" stack>
+            <p className="text-eyebrow text-ink-2">{publicationChrome.relatedTerms.eyebrow}</p>
+            <h2 id="terms-title" className="text-h2 text-ink">
+              {publicationChrome.relatedTerms.title}
+            </h2>
+            <RelatedTerms terms={relatedTerms} />
+          </Station>
+
+          {/* 09. Related solutions and methodology */}
+          <Station id="related" ariaLabelledBy="related-title" stack>
+            <p className="text-eyebrow text-ink-2">{relatedSection.eyebrow}</p>
+            <h2 id="related-title" className="text-h2 text-ink">
+              {relatedSection.title}
+            </h2>
+
+            <RelatedRules entries={relatedWork} ariaLabel={relatedSection.title} />
+          </Station>
+        </RailColumn>
+      </div>
+
+      {/* The close */}
+      <ClosingStation
+        id="close"
+        eyebrow={closing.eyebrow}
+        title={closing.title}
+        primaryCta={closing.primaryCta}
+        body={[siteConfig.categoryLine]}
       />
-
-      <ClosingCta title={closing.title} primaryCta={closing.primaryCta} />
-    </>
+    </div>
   )
 }

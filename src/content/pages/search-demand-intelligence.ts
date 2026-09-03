@@ -1,4 +1,4 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { NamedDeliverable } from '@/components/sections/deliverables'
 import type { Cta } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
@@ -215,7 +215,9 @@ export const faq = {
   ],
 } as const
 
-export const related: readonly RelatedLink[] = [
+export const relatedTitle = 'Related'
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.selectionIntelligence.path,
     label: 'Selection Intelligence',

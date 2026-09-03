@@ -22,7 +22,9 @@ Before tracking ChatGPT mentions, citations, or thousands of prompts, determine 
 
 Hendricks maps the questions, needs, comparisons, constraints, customer contexts, and buying stages that represent meaningful commercial demand.
 
-**Primary CTA:** Map Your Search Demand
+**Primary CTA:** Start with a Search Intelligence Diagnostic
+
+**Secondary link:** Map Your Search Demand
 
 ## Problem
 

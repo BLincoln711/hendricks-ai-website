@@ -17,6 +17,12 @@ import { cn } from '@/lib/utils/cn'
  * as the seam and no animation is attached to it. Nothing a visitor reads
  * depends on the animation.
  *
+ * `stack` is the block rhythm a long interior station sets its own content in,
+ * and it lands on `.station-in` rather than on the section, because the section
+ * has exactly one child and a rhythm applied there would separate nothing.
+ * `className` stays on the section, where `page-hero`, `closing`, `hinge` and
+ * `tight` all belong.
+ *
  * Every station names itself: `ariaLabelledBy` points at its own heading, and
  * a station whose heading is visually silent passes `ariaLabel` instead.
  */
@@ -26,12 +32,15 @@ export function Station({
   ariaLabelledBy,
   ariaLabel,
   className,
+  stack = false,
 }: {
   children: ReactNode
   id: string
   ariaLabelledBy?: string
   ariaLabel?: string
   className?: string
+  /** The block rhythm of a long station, applied to the content seam. */
+  stack?: boolean
 }) {
   return (
     <section
@@ -40,7 +49,7 @@ export function Station({
       aria-label={ariaLabel}
       className={cn('station', className)}
     >
-      <div className="station-in">{children}</div>
+      <div className={cn('station-in', stack && 'stack')}>{children}</div>
     </section>
   )
 }

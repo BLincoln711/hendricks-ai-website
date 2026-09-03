@@ -1,4 +1,4 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 import { metricDefinitions } from '@/content/shared/metrics'
@@ -105,6 +105,7 @@ export const metrics = {
 } as const
 
 export const limitation = {
+  label: 'Honest limitation',
   title: 'Selection Intelligence does not reveal a model’s private reasoning.',
   body: [
     'It analyzes controlled inputs, observable outputs, citations, sources, brand associations, interventions, and downstream outcomes.',
@@ -121,7 +122,25 @@ export const sources = {
   ],
 } as const
 
-export const related: readonly RelatedLink[] = [
+/** The page's own outline, in the order the stations render. */
+export const contents = [
+  { id: 'questions', label: 'The questions it answers' },
+  { id: 'versus-rank-tracking', label: 'Against rank tracking' },
+  { id: 'why-context', label: 'Why context decides' },
+  { id: 'metric-definitions', label: 'Metric definitions' },
+  { id: 'limitation', label: 'The honest limitation' },
+  { id: 'sources', label: 'Sources' },
+  { id: 'change-history', label: 'Change history' },
+  { id: 'related-terms', label: 'Related terms' },
+  { id: 'related', label: 'Where to go next' },
+] as const
+
+export const relatedSection = {
+  eyebrow: 'Where To Go Next',
+  title: 'Where to go next.',
+} as const
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.selectionIntelligence.path,
     label: 'Explore the Selection Intelligence solution',

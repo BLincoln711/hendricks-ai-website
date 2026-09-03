@@ -1,8 +1,21 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
-import type { ContextPanel } from '@/components/visuals/context-panel-diagram'
 import { routes } from '@/config/routes'
 import { evidenceGradeRows } from '@/content/shared/evidence-grades'
+import { metricDefinitions } from '@/content/shared/metrics'
+
+/**
+ * One controlled condition and the question it answers.
+ *
+ * The type moved here from `visuals/context-panel-diagram.tsx` when the canvas
+ * conversion deleted that component. `/solutions/selection-intelligence` reads
+ * it from here, because both pages describe the same research design.
+ */
+export type ContextPanel = {
+  name: string
+  description: string
+  question: string
+}
 
 /**
  * Approved copy, transcribed from content/pages/16-methodology.md.
@@ -35,7 +48,29 @@ export const hero = {
     href: routes.diagnostic.path,
     analytics: { location: 'methodology_hero' },
   } satisfies Cta,
+  /* The second approved lead sentence, as the answer-first block: it is the one
+     claim the whole page is an argument for. */
+  answerLabel: 'The unit of measurement',
+  answerTwoTone: {
+    claim: 'Hendricks centers',
+    continuation: 'on the commercial intent context.',
+  },
 } as const
+
+/** The page's own outline, in the order the stations render. */
+export const contents = [
+  { id: 'intent-context', label: 'Intent context' },
+  { id: 'context-panels', label: 'Context panels' },
+  { id: 'outcome-classification', label: 'Outcome classification' },
+  { id: 'weighting', label: 'Weighting' },
+  { id: 'evidence-classes', label: 'Evidence classes' },
+  { id: 'evidence-grades', label: 'Evidence grades' },
+  { id: 'metrics', label: 'Metric definitions' },
+  { id: 'statement', label: 'Methodology statement' },
+  { id: 'reproducibility', label: 'Reproducibility requirements' },
+  { id: 'limitations', label: 'Limitations' },
+  { id: 'related-research', label: 'Related research' },
+] as const
 
 export const intentContext = {
   eyebrow: 'Intent Context',
@@ -50,11 +85,16 @@ export const intentContext = {
     'Commercial Value',
   ],
   result: 'Intent Context',
+  caption: 'The intent context formula: seven terms, one unit of measurement.',
+  gloss:
+    'An intent context is a realistic customer situation: the need, who has it, their constraints, location, decision stage, and what the decision is worth.',
 } as const
 
 export const contextPanels = {
   eyebrow: 'Context Panels',
   title: 'Each panel answers a different question.',
+  ariaLabel: 'The five context panels',
+  questionLabel: 'Question answered',
   panels: [
     {
       name: 'Neutral baseline',
@@ -119,6 +159,32 @@ export const weighting = {
     'Evidence confidence',
   ],
   limitation: 'No weighting model should be presented as universal.',
+  limitationTwoTone: {
+    claim: 'No weighting model',
+    continuation: 'should be presented as universal.',
+  },
+} as const
+
+/**
+ * The four evidence classes, rendered here as well as on the homepage. The
+ * classes themselves live in `home.ts` and are read from there rather than
+ * copied: this page is where the standard those marks encode is published, and
+ * two renderings of one legend must not drift.
+ */
+export const evidenceClasses = {
+  eyebrow: 'Proof Without False Precision',
+  title: 'We separate what is observed, inferred, measured, and proven.',
+} as const
+
+/**
+ * The five measures, read from the shared constant. Every page that names a
+ * Hendricks measure renders this wording rather than a second definition of the
+ * same measure, which docs/12 section 6 forbids.
+ */
+export const metrics = {
+  eyebrow: 'Metrics',
+  title: 'Five measures, each defined before it is reported.',
+  items: metricDefinitions,
 } as const
 
 /**
@@ -214,7 +280,11 @@ export const sources = {
  * result file a scheduled job overwrote in place. Quote whatever that study
  * publishes; never carry a figure forward from this file's history.
  */
-export const related: readonly RelatedLink[] = [
+export const relatedSection = {
+  title: 'Related research',
+} as const
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.researchHendricksSelectionBaseline.path,
     label: 'Hendricks Selection Baseline',

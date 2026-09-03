@@ -134,3 +134,19 @@ The figures are quoted from `/research/hendricks-selection-baseline` exactly as 
 # Establish a baseline before making claims.
 
 **CTA:** Start with a Search Intelligence Diagnostic
+
+## Canvas conversion, 2026-09-03
+
+**Answer label:** The unit of measurement
+
+**Intent context caption:** The intent context formula: seven terms, one unit of measurement.
+
+An intent context is a realistic customer situation: the need, who has it, their constraints, location, decision stage, and what the decision is worth.
+
+**Evidence classes eyebrow:** Proof Without False Precision
+
+**Evidence classes heading:** We separate what is observed, inferred, measured, and proven.
+
+**Metrics eyebrow:** Metrics
+
+**Metrics heading:** Five measures, each defined before it is reported.

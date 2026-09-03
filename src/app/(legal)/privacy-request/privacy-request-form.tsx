@@ -12,7 +12,6 @@ import {
   relationshipOptions,
   requestTypeOptions,
 } from '@/content/legal/privacy-request'
-import { cn } from '@/lib/utils/cn'
 
 import { submitPrivacyRequest, type PrivacyRequestState } from './actions'
 
@@ -52,38 +51,41 @@ function Field({
   children: React.ReactNode
 }) {
   return (
-    // `min-w-0` is load-bearing inside the two-column grids: a select's
+    // `min-w-0` is load-bearing inside the two-column pairs: a select's
     // min-content width is its longest option, and "Opt out of sale, sharing, or
     // targeted advertising" is wider than a 320px viewport.
-    <div className="flex min-w-0 flex-col gap-2">
-      <label htmlFor={htmlFor} className="text-[0.9375rem] font-medium text-ink">
+    <div className="field min-w-0">
+      <label htmlFor={htmlFor} className="label">
         {label}
         {required ? (
-          <span className="ml-1 text-ink-2" aria-hidden="true">
+          <span className="req" aria-hidden="true">
             *
           </span>
         ) : null}
       </label>
 
       {hint ? (
-        <p id={`${htmlFor}-hint`} className="text-[0.875rem] leading-relaxed text-ink-2">
+        <span id={`${htmlFor}-hint`} className="hint">
           {hint}
-        </p>
+        </span>
       ) : null}
 
       {children}
 
       {error ? (
-        <p id={`${htmlFor}-error`} className="text-[0.875rem] font-medium text-ev-gap">
+        <span id={`${htmlFor}-error`} className="err">
           {error}
-        </p>
+        </span>
       ) : null}
     </div>
   )
 }
 
-const controlClass =
-  'min-h-11 w-full min-w-0 rounded-[var(--radius-control)] border border-rule px-3.5 py-2.5 text-[1rem] text-ink-3 transition-colors focus:border-path'
+/** The canvas control classes. A control is the one place a fill and a radius
+ *  are legal, and `--edge` is the 3.41:1 boundary WCAG 1.4.11 asks for. */
+const controlClass = 'input min-w-0'
+const selectClass = 'select min-w-0'
+const textareaClass = 'textarea min-w-0'
 
 function describedBy(id: string, hint: boolean, error: boolean): string | undefined {
   const parts = [hint ? `${id}-hint` : null, error ? `${id}-error` : null].filter(Boolean)
@@ -118,35 +120,26 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
 
   if (state.status === 'success') {
     return (
-      <div
-        role="status"
-        className="flex flex-col gap-4 border-l-2 border-path p-6 md:p-8"
-      >
-        <h2 className="text-h3 text-ink">{confirmation.title}</h2>
-        <p className="text-[1rem] leading-relaxed text-ink-3">
-          {confirmation.body}
-        </p>
-        <p className="flex flex-wrap items-baseline gap-2 border-t border-rule pt-4">
-          <span className="text-eyebrow text-ink-2">
-            {confirmation.referenceLabel}
-          </span>
-          <span className="font-mono text-[1.0625rem] text-ink">
-            {state.requestId}
-          </span>
+      <div role="status" className="done">
+        <h2>{confirmation.title}</h2>
+        <p>{confirmation.body}</p>
+        <p className="cite-row">
+          <span className="text-coordinate text-ink-2">{confirmation.referenceLabel}</span>
+          <span className="font-mono text-[1.0625rem] text-ink">{state.requestId}</span>
         </p>
       </div>
     )
   }
 
   return (
-    <form action={action} noValidate className="flex flex-col gap-10">
+    <form action={action} noValidate className="form">
       <input type="hidden" name="startedAt" value={startedAt} />
 
       {/*
         Honeypot. Hidden from sight and from assistive technology, and excluded
         from tab order, so only an automated submitter reaches it.
       */}
-      <div aria-hidden="true" className="absolute h-px w-px overflow-hidden opacity-0">
+      <div aria-hidden="true" className="hp">
         <label htmlFor={fieldId('honeypot')}>Leave this field empty</label>
         <input
           id={fieldId('honeypot')}
@@ -158,43 +151,29 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
       </div>
 
       {hasSummary ? (
-        <div
-          ref={summaryRef}
-          tabIndex={-1}
-          role="alert"
-          className="flex flex-col gap-3 border-l-2 border-ev-gap p-5"
-        >
-          <h2 className="text-[1.0625rem] font-medium text-ink">
-            {errors.summaryTitle}
-          </h2>
+        <div ref={summaryRef} tabIndex={-1} role="alert" className="errsum">
+          <h2>{errors.summaryTitle}</h2>
 
           {state.status === 'invalid' && state.fieldErrors ? (
-            <ul className="flex flex-col gap-1.5">
+            <ul>
               {Object.entries(state.fieldErrors).map(([field, message]) => (
-                <li key={field} className="text-[0.9375rem]">
-                  <a
-                    href={`#${fieldId(field)}`}
-                    className="text-link underline underline-offset-4"
-                  >
-                    {message}
-                  </a>
+                <li key={field}>
+                  <a href={`#${fieldId(field)}`}>{message}</a>
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="text-[0.9375rem] leading-relaxed text-ink-3">
+            <p className="mt-3 text-ink-2">
               {state.status === 'rate-limited' ? errors.rateLimited : errors.server}
             </p>
           )}
         </div>
       ) : null}
 
-      <fieldset className="flex flex-col gap-6 border-0 p-0">
-        <legend className="text-eyebrow mb-2 text-ink-2">
-          {form.legends.about}
-        </legend>
+      <fieldset className="fset">
+        <legend>{form.legends.about}</legend>
 
-        <div className="grid gap-6 sm:grid-cols-2">
+        <div className="fieldpair">
           <Field label={form.labels.firstName} htmlFor={fieldId('firstName')} error={errorFor('firstName')} required>
             <input
               id={fieldId('firstName')}
@@ -238,7 +217,7 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
           />
         </Field>
 
-        <div className="grid gap-6 sm:grid-cols-2">
+        <div className="fieldpair">
           <Field label={form.labels.country} htmlFor={fieldId('country')} error={errorFor('country')} required>
             <input
               id={fieldId('country')}
@@ -288,7 +267,7 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
             defaultValue={valueFor('relationship')}
             aria-invalid={Boolean(errorFor('relationship'))}
             aria-describedby={describedBy(fieldId('relationship'), false, Boolean(errorFor('relationship')))}
-            className={cn(controlClass, 'appearance-none')}
+            className={selectClass}
           >
             <option value="">Select one</option>
             {relationshipOptions.map((option) => (
@@ -300,10 +279,8 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
         </Field>
       </fieldset>
 
-      <fieldset className="flex flex-col gap-6 border-0 p-0">
-        <legend className="text-eyebrow mb-2 text-ink-2">
-          {form.legends.request}
-        </legend>
+      <fieldset className="fset">
+        <legend>{form.legends.request}</legend>
 
         <Field
           label={form.labels.requestType}
@@ -318,7 +295,7 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
             defaultValue={valueFor('requestType')}
             aria-invalid={Boolean(errorFor('requestType'))}
             aria-describedby={describedBy(fieldId('requestType'), false, Boolean(errorFor('requestType')))}
-            className={cn(controlClass, 'appearance-none')}
+            className={selectClass}
           >
             <option value="">Select one</option>
             {requestTypeOptions.map((option) => (
@@ -350,9 +327,7 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
           />
         </Field>
 
-        <p className=" border-l-2 border-ev-gap p-4 text-[0.875rem] leading-relaxed text-ink-3">
-          {form.sensitiveWarning}
-        </p>
+        <p className="warn">{form.sensitiveWarning}</p>
 
         <Field
           label={form.labels.details}
@@ -370,30 +345,23 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
             defaultValue={valueFor('details')}
             aria-invalid={Boolean(errorFor('details'))}
             aria-describedby={describedBy(fieldId('details'), true, Boolean(errorFor('details')))}
-            className={cn(controlClass, 'resize-y leading-relaxed')}
+            className={textareaClass}
           />
         </Field>
 
-        <label
-          htmlFor={fieldId('isAuthorizedAgent')}
-          className="flex min-h-11 cursor-pointer items-start gap-3 text-[0.9375rem] leading-relaxed text-ink-3"
-        >
+        <label htmlFor={fieldId('isAuthorizedAgent')} className="check">
           <input
             id={fieldId('isAuthorizedAgent')}
             name="isAuthorizedAgent"
             type="checkbox"
             defaultChecked={valueFor('isAuthorizedAgent') === 'on'}
-            className="mt-0.5 size-5 shrink-0 accent-ink"
           />
-          {form.labels.isAuthorizedAgent}
+          <span>{form.labels.isAuthorizedAgent}</span>
         </label>
       </fieldset>
 
-      <div className="flex flex-col gap-6 border-t border-rule pt-8">
-        <label
-          htmlFor={fieldId('attestation')}
-          className="flex min-h-11 cursor-pointer items-start gap-3 text-[0.9375rem] leading-relaxed text-ink-3"
-        >
+      <div className="field border-t border-rule pt-8">
+        <label htmlFor={fieldId('attestation')} className="check">
           <input
             id={fieldId('attestation')}
             name="attestation"
@@ -402,23 +370,26 @@ export function PrivacyRequestForm({ startedAt }: { startedAt: number }) {
             defaultChecked={valueFor('attestation') === 'on'}
             aria-invalid={Boolean(errorFor('attestation'))}
             aria-describedby={describedBy(fieldId('attestation'), false, Boolean(errorFor('attestation')))}
-            className="mt-0.5 size-5 shrink-0 accent-ink"
           />
-          {form.labels.attestation}
+          <span>{form.labels.attestation}</span>
         </label>
 
         {errorFor('attestation') ? (
-          <p id={`${fieldId('attestation')}-error`} className="text-[0.875rem] font-medium text-ev-gap">
+          <span id={`${fieldId('attestation')}-error`} className="err">
             {errorFor('attestation')}
-          </p>
+          </span>
         ) : null}
 
         {/* Notice at collection. Readable without opening anything (legal/01 §1). */}
-        <p className="text-[0.875rem] leading-relaxed text-ink-2">
-          <InlineText text={form.notice} />
-        </p>
+        <div className="notice mt-6">
+          <p>
+            <InlineText text={form.notice} />
+          </p>
+        </div>
 
-        <SubmitButton />
+        <div className="cta-row mt-6">
+          <SubmitButton />
+        </div>
       </div>
     </form>
   )

@@ -1,4 +1,4 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 
@@ -180,6 +180,16 @@ export const log = {
   eyebrow: 'Log',
   title: 'Corrections to date.',
   lead: 'Six entries, newest first. The log does not reconstruct changes made before this page existed.',
+  /* The labels on each entry's fields. Held here so the log and any future
+     rendering of it cannot label the same field differently. */
+  fieldLabels: {
+    published: 'Published',
+    corrected: 'Corrected',
+    page: 'Page:',
+    claim: 'What was published',
+    fault: 'What was wrong',
+    change: 'What changed',
+  },
   entries: [
     {
       id: 'baseline-aio-parser-bailout',
@@ -278,6 +288,7 @@ export const log = {
 } as const
 
 export const limitation = {
+  label: 'Honest limitation',
   title: 'This log begins on the day the page shipped.',
   body: [
     'Hendricks kept no public corrections log before this page. Earlier changes to the site are in version control and are not enumerated here, and nothing on this page claims there were none.',
@@ -297,7 +308,23 @@ export const sources = {
   appliedIn: [] as readonly { label: string; href: string }[],
 } as const
 
-export const related: readonly RelatedLink[] = [
+/** The page's own outline, in the order the stations render. */
+export const contents = [
+  { id: 'scope', label: 'What is corrected' },
+  { id: 'reporting', label: 'Reporting an error' },
+  { id: 'recording', label: 'How a correction is recorded' },
+  { id: 'log', label: 'The correction log' },
+  { id: 'limitation', label: 'The honest limitation' },
+  { id: 'sources', label: 'Sources' },
+  { id: 'related', label: 'Where to go next' },
+] as const
+
+export const relatedSection = {
+  eyebrow: 'Where To Go Next',
+  title: 'Where to go next.',
+} as const
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.methodology.path,
     label: 'Methodology',

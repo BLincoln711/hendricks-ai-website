@@ -1,17 +1,36 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
 
-import { Container } from '@/components/layout/container'
-import { PageHero } from '@/components/layout/page-hero'
-import { Section } from '@/components/layout/section'
-import { SectionHeading } from '@/components/layout/section-heading'
-import { RelatedLinks } from '@/components/sections/related-links'
+import { Answer } from '@/components/canvas/answer'
+import { Ledger } from '@/components/canvas/ledger'
+import { CanvasPageHero } from '@/components/canvas/page-hero'
+import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
-import { routes } from '@/config/routes'
-import { expectations, hero, meta, related, routing } from '@/content/pages/contact'
+import { RuleLink } from '@/components/ui/cta'
+import { TwoTone } from '@/components/ui/two-tone'
+import { isBuilt, routes } from '@/config/routes'
+import {
+  expectations,
+  hero,
+  meta,
+  promise,
+  related,
+  relatedTitle,
+  routing,
+} from '@/content/pages/contact'
 import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * /contact, rebuilt on the approved canvas (`07-hifi/contact.html`).
+ *
+ * The general inquiry form the design carries is not built here. It needs a
+ * server action, validation, rate limiting and email delivery, which is a
+ * separate piece of work (handoff PR 9 and PR 10), and D-H requires that action
+ * to fail closed without its delivery key. A form that accepted a submission it
+ * could not deliver would be worse than the routing this page already carries,
+ * so the stations are converted and no submission endpoint is advertised.
+ */
 
 export const metadata: Metadata = buildMetadata({
   title: meta.title,
@@ -19,17 +38,9 @@ export const metadata: Metadata = buildMetadata({
   path: routes.contact.path,
 })
 
-/**
- * The consent language and the privacy notice are approved
- * (CONTENT_VERIFICATION.md L1, L3), so the inquiry form is no longer blocked on
- * copy. It lands with the redesign's forms work (handoff PR 10), and email
- * delivery is unconfirmed until then. This page carries the approved routing
- * and expectation copy only: no form is rendered and no submission endpoint is
- * advertised.
- */
 export default function ContactPage() {
   return (
-    <>
+    <div className="wrap">
       <JsonLd
         data={jsonLdGraph(
           webPageSchema({
@@ -42,10 +53,11 @@ export default function ContactPage() {
         )}
       />
 
-      <PageHero
+      {/* 1. Page hero */}
+      <CanvasPageHero
         eyebrow={hero.eyebrow}
         title={hero.title}
-        lead={hero.lead}
+        lead={hero.lead[0]}
         path={routes.contact.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
@@ -53,69 +65,72 @@ export default function ContactPage() {
         ]}
       />
 
-      <Section variant="field" size="major" ariaLabelledBy="routing-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={routing.eyebrow}
-              title={routing.title}
-              id="routing-title"
-              maxWidth="wide"
-            />
+      {/* 2. The hinge: one station, one sentence. */}
+      <Station id="promise" ariaLabelledBy="promise-title" className="hinge">
+        <h2 id="promise-title" className="sr-only">
+          {promise.heading}
+        </h2>
+        <TwoTone sentence={promise.sentence} />
+      </Station>
 
-            <blockquote className="border-l-2 border-path pl-6">
-              <p className="text-h3 measure text-ink">{routing.prompt}</p>
-            </blockquote>
+      {/* 3. Routing */}
+      <Station id="routing" ariaLabelledBy="routing-title">
+        <p className="text-eyebrow mb-[22px] text-ink-2">{routing.eyebrow}</p>
+        <h2 id="routing-title" className="text-h2 text-ink">
+          {routing.title}
+        </h2>
 
-            <ul className="grid gap-5 md:grid-cols-2">
-              {routing.choices.map((choice) => (
-                <li
-                  key={choice.name}
-                  className="flex flex-col gap-3 border border-rule p-6"
-                >
-                  <h3 className="text-[1.125rem] font-medium text-ink">
-                    {choice.name}
-                  </h3>
-                  <p className="text-[0.9375rem] leading-relaxed text-ink-2">
-                    {choice.description}
-                  </p>
-                  {choice.href && choice.linkLabel ? (
-                    <Link
-                      href={choice.href}
-                      className="group mt-auto inline-flex items-center gap-1.5 pt-1 text-[0.9375rem] font-medium text-link underline decoration-1 underline-offset-4 transition-colors hover:text-link"
-                    >
-                      {choice.linkLabel}
-                      <ArrowRight
-                        aria-hidden="true"
-                        className="size-4 transition-transform duration-[var(--duration-micro)] group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
-                      />
-                    </Link>
-                  ) : null}
-                </li>
-              ))}
-            </ul>
+        <p className="pull">{routing.prompt}</p>
+
+        <div className="classrow">
+          {routing.choices.map((choice, index) => (
+            <div key={choice.name}>
+              <span className="ix" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <h3>{choice.name}</h3>
+              <p>{choice.description}</p>
+              {choice.href && choice.linkLabel ? (
+                <RuleLink cta={{ label: choice.linkLabel, href: choice.href }} />
+              ) : null}
+            </div>
+          ))}
+        </div>
+      </Station>
+
+      {/* 4. What happens next */}
+      <Station id="expectations" ariaLabelledBy="expectations-title">
+        <div className="split">
+          <div className="words">
+            <p className="text-eyebrow text-ink-2">{expectations.eyebrow}</p>
+            <h2 id="expectations-title" className="text-h2 text-ink">
+              {expectations.title}
+            </h2>
           </div>
-        </Container>
-      </Section>
-
-      <Section variant="white" size="standard" ariaLabelledBy="expectations-title">
-        <Container width="narrow">
-          <div className="flex flex-col gap-5">
-            <SectionHeading
-              eyebrow={expectations.eyebrow}
-              title={expectations.title}
-              id="expectations-title"
-            />
-            {expectations.body.map((paragraph) => (
-              <p key={paragraph} className="text-lead text-ink-2">
-                {paragraph}
-              </p>
-            ))}
+          <div className="figure">
+            <Answer paragraphs={expectations.body} />
           </div>
-        </Container>
-      </Section>
+        </div>
+      </Station>
 
-      <RelatedLinks title="Where to go next." links={related} />
-    </>
+      {/* 5. Where to go next */}
+      <Station id="next" ariaLabelledBy="next-title">
+        <h2 id="next-title" className="text-h2 text-ink">
+          {relatedTitle}
+        </h2>
+
+        <Ledger
+          ariaLabel={relatedTitle}
+          rows={related
+            .filter((entry) => isBuilt(entry.href))
+            .map((entry) => ({
+              key: entry.href,
+              label: <Link href={entry.href}>{entry.label}</Link>,
+              value: entry.description,
+              note: entry.href,
+            }))}
+        />
+      </Station>
+    </div>
   )
 }

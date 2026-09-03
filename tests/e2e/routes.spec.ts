@@ -60,23 +60,46 @@ const editorialRoutes = [
     path: '/what-is-search-intelligence-engineering',
     meta: wisie.meta,
     h1: headingText(wisie.hero),
+    reviewed: wisie.sources.reviewed,
   },
-  { path: '/what-is-selection-intelligence', meta: wisi.meta, h1: headingText(wisi.hero) },
-  { path: '/what-is-ai-mediated-search', meta: wiams.meta, h1: headingText(wiams.hero) },
+  {
+    path: '/what-is-selection-intelligence',
+    meta: wisi.meta,
+    h1: headingText(wisi.hero),
+    reviewed: wisi.sources.reviewed,
+  },
+  {
+    path: '/what-is-ai-mediated-search',
+    meta: wiams.meta,
+    h1: headingText(wiams.hero),
+    reviewed: wiams.sources.reviewed,
+  },
   {
     path: '/what-is-generative-engine-optimization',
     meta: wgeo.meta,
     h1: headingText(wgeo.hero),
+    reviewed: wgeo.sources.reviewed,
   },
-  { path: '/ai-selection-problem', meta: aiSelectionProblem.meta, h1: headingText(aiSelectionProblem.hero) },
-  { path: '/methodology', meta: methodology.meta, h1: headingText(methodology.hero) },
+  {
+    path: '/ai-selection-problem',
+    meta: aiSelectionProblem.meta,
+    h1: headingText(aiSelectionProblem.hero),
+    reviewed: aiSelectionProblem.sources.reviewed,
+  },
+  {
+    path: '/methodology',
+    meta: methodology.meta,
+    h1: headingText(methodology.hero),
+    reviewed: methodology.sources.reviewed,
+  },
   // Buyer-decision route rather than a definition page. It shares the sweep
-  // because it shares the shape: PageHero, DirectAnswer, question-shaped H2s,
-  // SourcesNote, RelatedLinks, ClosingCta.
+  // because it shares the shape: the canvas page hero, the answer-first block,
+  // question-shaped H2s, the sources station and the closing station.
   {
     path: '/ai-visibility-tool-or-partner',
     meta: avtop.meta,
     h1: headingText(avtop.hero),
+    reviewed: avtop.sources.reviewed,
   },
 ] as const
 
@@ -258,12 +281,26 @@ test.describe('Definition pages', () => {
   test.describe.configure({ mode: 'parallel' })
 
   for (const route of editorialRoutes) {
+    /*
+      Every date these pages print is machine readable, and the review date is
+      one of them. The count is not pinned at one: the canvas byline states the
+      review date beside the author as well, which is a second rendering of the
+      same fact rather than a second date, and D-B put it there on purpose.
+    */
     test(`${route.path} dates its review in machine-readable form`, async ({ page }) => {
       await page.goto(route.path)
 
-      const time = page.getByRole('main').locator('time')
-      await expect(time).toHaveCount(1)
-      await expect(time).toHaveAttribute('datetime', /^\d{4}-\d{2}-\d{2}$/)
+      const times = page.getByRole('main').locator('time')
+      const count = await times.count()
+      expect(count).toBeGreaterThan(0)
+
+      for (let index = 0; index < count; index += 1) {
+        await expect(times.nth(index)).toHaveAttribute('datetime', /^\d{4}-\d{2}-\d{2}$/)
+      }
+
+      await expect(
+        page.getByRole('main').locator(`time[datetime="${route.reviewed}"]`).first(),
+      ).toBeVisible()
     })
   }
 

@@ -1,18 +1,23 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
 
-import { Container } from '@/components/layout/container'
-import { PageHero } from '@/components/layout/page-hero'
-import { Section } from '@/components/layout/section'
-import { SectionHeading } from '@/components/layout/section-heading'
-import { ClosingCta } from '@/components/sections/closing-cta'
-import { RelatedLinks } from '@/components/sections/related-links'
+import { Answer } from '@/components/canvas/answer'
+import { Byline } from '@/components/canvas/byline'
+import { ClosingStation } from '@/components/canvas/closing-station'
+import { CanvasPageHero } from '@/components/canvas/page-hero'
+import { RelatedRules } from '@/components/canvas/related-list'
+import { RelatedTerms } from '@/components/canvas/related-terms'
+import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
-import { SignalList } from '@/components/ui/signal-list'
-import { SignalDot } from '@/components/visuals/signal-dot'
+import { PrimaryCta, RuleLink } from '@/components/ui/cta'
+import { TwoTone } from '@/components/ui/two-tone'
 import { isBuilt, routes } from '@/config/routes'
 import { siteConfig } from '@/config/site'
+import {
+  furtherResearchArticles,
+  latestResearchArticle,
+  type ResearchArticle,
+} from '@/content/research'
 import {
   closing,
   coverage,
@@ -22,16 +27,32 @@ import {
   latest,
   meta,
   related,
+  relatedSection,
   standards,
+  supporting,
 } from '@/content/research/hub'
-import {
-  furtherResearchArticles,
-  latestResearchArticle,
-  type ResearchArticle,
-} from '@/content/research'
+import { downloads, series } from '@/content/research/the-answer-index'
+import { diagnosticCta } from '@/content/shared/ctas'
+import { evidenceRule } from '@/content/shared/evidence-rule'
+import { observedSystemsSentence } from '@/content/shared/observed-systems'
 import { itemListSchema, jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 import { formatLongDate } from '@/lib/utils/format-date'
+
+/**
+ * /research, rebuilt on the approved canvas (`07-hifi/research-hub.html`)
+ * station for station.
+ *
+ * Three tiers, in the order the section is meant to be read: the flagship study
+ * with its record and its downloads, the studies behind it, and the category
+ * pages the studies are written in. D-C makes The Answer Index a quarterly
+ * series, so the edition label, the package version and the cadence render; no
+ * next-capture date does, because none has been scheduled.
+ *
+ * Each supporting study names its relation to the flagship in the flagship's
+ * own words, read from `the-answer-index.ts` `related[]` by destination, so no
+ * relation sentence is authored twice.
+ */
 
 export const metadata: Metadata = buildMetadata({
   title: meta.title,
@@ -39,130 +60,19 @@ export const metadata: Metadata = buildMetadata({
   path: routes.research.path,
 })
 
-/**
- * A published study, rendered at the size the hub currently needs.
- *
- * `featured` is not decoration. The approved empty-state rule forbids launching
- * an index with no meaningful content, and the failure mode with one article is
- * not an empty page but a three-column grid holding a single lonely card, which
- * reads as an index that lost its contents. The newest study therefore renders
- * as a full-width panel that is complete on its own terms, and the grid appears
- * only once there is something to put in it.
- *
- * Every field the approved card requirements name is present: category, title,
- * short summary, author, and dates. Reading time is absent on purpose, because
- * the approved copy allows it "only if accurately calculated" and nothing here
- * counts the words of a rendered page. No popularity metric appears at all.
- */
-function ArticleCard({ article, featured = false }: { article: ResearchArticle; featured?: boolean }) {
-  const titleId = `research-${article.slug}-title`
-
-  return (
-    <article
-      className={
-        featured
-          ? 'flex flex-col gap-6 border border-rule p-6 md:p-10'
-          : 'flex h-full flex-col gap-4 border border-rule p-5'
-      }
-    >
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <span className="text-eyebrow flex items-center gap-2 text-ink-2">
-          <SignalDot size={6} tone="blue" />
-          {article.category}
-        </span>
-        {/* The Results-gate label, on the card as well as on the article. */}
-        <span className="text-eyebrow border border-rule px-3 py-1 text-ink-2">
-          {article.designation}
-        </span>
-      </div>
-
-      <h3
-        id={titleId}
-        className={
-          featured
-            ? 'text-h3 max-w-[26ch] text-ink'
-            : 'text-[1.125rem] leading-snug font-medium text-ink'
-        }
-      >
-        <Link
-          href={article.path}
-          className="underline decoration-ink-2 underline-offset-4 transition-colors hover:text-link hover:decoration-link"
-        >
-          {article.title}
-        </Link>
-      </h3>
-
-      <p
-        className={
-          featured
-            ? 'text-lead measure text-ink-3'
-            : 'text-[0.9375rem] leading-relaxed text-ink-2'
-        }
-      >
-        {article.summary}
-      </p>
-
-      <dl className="flex flex-col gap-2 border-t border-rule pt-4 text-[0.875rem] text-ink-2 sm:flex-row sm:flex-wrap sm:gap-x-8">
-        <div className="flex gap-2">
-          <dt className="text-ink-2">Author</dt>
-          {/* Read from the article's own byline, so the card and the page cannot
-              credit the study to two differently worded authors. */}
-          <dd className="text-ink-3">{article.content.byline.author}</dd>
-        </div>
-        <div className="flex gap-2">
-          <dt className="text-ink-2">Published</dt>
-          <dd className="text-ink-3">
-            <time dateTime={article.publishedDate}>{formatLongDate(article.publishedDate)}</time>
-          </dd>
-        </div>
-        <div className="flex gap-2">
-          <dt className="text-ink-2">Data through</dt>
-          <dd className="text-ink-3">
-            <time dateTime={article.dataThroughDate}>
-              {formatLongDate(article.dataThroughDate)}
-            </time>
-          </dd>
-        </div>
-      </dl>
-
-      {/*
-        The card title above is already the link to the study, so this repeated
-        label is qualified by the title through `aria-describedby`; otherwise
-        five links would share one accessible name for five destinations
-        (16 SM-10).
-      */}
-      <Link
-        href={article.path}
-        aria-describedby={titleId}
-        className="group inline-flex items-center gap-1.5 font-medium text-link underline decoration-1 underline-offset-4 transition-colors hover:text-link"
-      >
-        Read the study
-        <ArrowRight
-          aria-hidden="true"
-          className="size-4 transition-transform duration-[var(--duration-micro)] group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
-        />
-      </Link>
-    </article>
-  )
+/** The one mono line of study metadata: category, kind, and claim class. */
+function metaLine(article: ResearchArticle): string {
+  return [article.category, article.designation, article.claimClass].join('. ').concat('.')
 }
 
 export default function ResearchHubPage() {
-  // Only the foundation pages whose routes exist. An unbuilt entry reappears on
-  // its own the moment its route is marked built, with no edit to the content.
   const availableFoundations = foundations.filter((link) => isBuilt(link.href))
-
-  const researchUrl = new URL(routes.research.path, siteConfig.url).toString()
+  const relationOf = new Map(
+    (latestResearchArticle?.content.related ?? []).map((entry) => [entry.href, entry.description]),
+  )
 
   return (
-    <>
-      {/*
-        CollectionPage rather than WebPage, and an ItemList of what is actually
-        published rather than of what the section intends to publish. The list is
-        built from the registry, so it cannot advertise a study that does not
-        exist. No Article node is emitted here: each article declares its own on
-        its own URL, and restating them on the hub would put two nodes with
-        different `@id`s behind one headline.
-      */}
+    <div className="wrap">
       <JsonLd
         data={jsonLdGraph(
           webPageSchema({
@@ -170,141 +80,305 @@ export default function ResearchHubPage() {
             title: meta.title,
             description: meta.description,
             type: 'CollectionPage',
+            mainEntityFragment: 'studies',
             hasBreadcrumb: true,
-            mainEntity: { '@id': `${researchUrl}#published-research` },
           }),
           itemListSchema({
             path: routes.research.path,
-            name: 'Published research',
+            name: latest.title,
             items: [latestResearchArticle, ...furtherResearchArticles]
-              .filter((article) => article !== undefined)
+              .filter((article): article is ResearchArticle => Boolean(article))
               .map((article) => ({ name: article.title, description: article.summary })),
           }),
         )}
       />
 
-      <PageHero
-        eyebrow={hero.eyebrow}
-        title={hero.title}
-        lead={hero.lead}
-        primaryCta={
-          latestResearchArticle
-            ? {
-                label: hero.primaryCtaLabel,
-                href: latestResearchArticle.path,
-                analytics: { location: 'research_hub_hero' },
-              }
-            : undefined
-        }
-        path={routes.research.path}
-        breadcrumbs={[
-          { label: routes.home.label, href: routes.home.path },
-          { label: routes.research.label },
-        ]}
-      />
+      {/* 1. Page hero */}
+      <CanvasHubHero />
 
+      {/* 2. Tier 1, the flagship */}
       {latestResearchArticle ? (
-        <Section variant="white" size="major" ariaLabelledBy="latest-title">
-          <Container>
-            <div className="flex flex-col gap-10">
-              <SectionHeading
-                eyebrow={latest.eyebrow}
-                title={latest.title}
-                id="latest-title"
-                level={2}
-              />
+        <Station id="flagship" ariaLabelledBy="latest-title">
+          <p className="text-eyebrow mb-[22px] text-ink-2">{latest.eyebrow}</p>
+          <h2 id="latest-title" className="text-h2 text-ink">
+            {latest.title}
+          </h2>
 
-              <ArticleCard article={latestResearchArticle} featured />
-
-              {furtherResearchArticles.length > 0 ? (
-                <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  {furtherResearchArticles.map((article) => (
-                    <li key={article.slug}>
-                      <ArticleCard article={article} />
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
+          <article className="grid12 mt-9" aria-labelledby="flagship-title">
+            <div className="sp-12">
+              <ul className="series" aria-label={series.name}>
+                <li>{series.name}</li>
+                <li>{series.edition}</li>
+                <li>
+                  {series.labels.packageVersion} {series.packageVersion}
+                </li>
+                <li>{series.cadence}</li>
+              </ul>
+              <h3 className="flagship-title" id="flagship-title">
+                <Link href={latestResearchArticle.path}>{latestResearchArticle.title}</Link>
+              </h3>
             </div>
-          </Container>
-        </Section>
-      ) : null}
 
-      <Section variant="field" size="major" ariaLabelledBy="coverage-title">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] lg:gap-16">
-            <SectionHeading
-              eyebrow={coverage.eyebrow}
-              title={coverage.title}
-              description={coverage.description}
-              id="coverage-title"
-              level={2}
-            />
-            <SignalList items={coverage.categories} columns={2} />
-          </div>
-        </Container>
-      </Section>
-
-      {availableFoundations.length > 0 ? (
-        <Section variant="white" size="major" ariaLabelledBy="foundations-title">
-          <Container>
-            <div className="flex flex-col gap-10">
-              <SectionHeading
-                eyebrow={foundationsSection.eyebrow}
-                title={foundationsSection.title}
-                description={foundationsSection.description}
-                id="foundations-title"
-                level={2}
+            <div className="sp-7">
+              <p className="text-lead mt-6 max-w-[60ch] text-ink-3">
+                {latestResearchArticle.summary}
+              </p>
+              <p className="meta-line mt-[22px]">
+                {metaLine(latestResearchArticle)} {series.name} is published{' '}
+                {series.cadence.toLowerCase()}.
+              </p>
+              <Byline
+                authorName={latestResearchArticle.content.byline.author}
+                authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`}
+                published={latestResearchArticle.publishedDate}
+                updated={latestResearchArticle.updatedDate}
               />
+              <p className="byline">
+                <span>
+                  {supporting.dataThroughLabel}{' '}
+                  <time dateTime={latestResearchArticle.dataThroughDate}>
+                    {formatLongDate(latestResearchArticle.dataThroughDate)}
+                  </time>
+                </span>
+              </p>
+            </div>
 
-              <ul className="grid gap-4 md:grid-cols-2">
-                {availableFoundations.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="group flex h-full flex-col gap-2 border border-rule p-5 transition-colors hover:border-path"
+            <div className="sp-5">
+              <h4 className="text-h4 mb-3 text-ink">{downloads.title}</h4>
+              <ul className="downloads">
+                {downloads.items.map((item) => (
+                  <li key={item.cta.href}>
+                    <a
+                      href={item.cta.href}
+                      {...(item.cta.external
+                        ? { target: '_blank', rel: 'noopener noreferrer' }
+                        : {})}
                     >
-                      <span className="flex items-center gap-1.5 text-[1.0625rem] font-medium text-ink">
-                        {link.label}
-                        <ArrowRight
-                          aria-hidden="true"
-                          className="size-4 shrink-0 text-link transition-transform duration-[var(--duration-micro)] group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
-                        />
-                      </span>
-                      <span className="text-[0.875rem] leading-relaxed text-ink-2">
-                        {link.description}
-                      </span>
-                    </Link>
+                      <span className="dl-name">{item.cta.label}</span>
+                      {item.cta.external ? (
+                        <span className="sr-only"> (opens in a new tab)</span>
+                      ) : null}
+                    </a>
+                    {/* The file's note is a sentence rather than a format and a
+                        size, so it sits under the link instead of in the meta
+                        column, where a digest would not wrap. */}
+                    <p className="dl-note">{item.note}</p>
                   </li>
                 ))}
               </ul>
+
+              <dl className="pubrec mt-8">
+                <div className="pubrec-row">
+                  <dt>{series.labels.edition}</dt>
+                  <dd>{series.edition}</dd>
+                </div>
+                <div className="pubrec-row">
+                  <dt>{series.labels.packageVersion}</dt>
+                  <dd>{series.packageVersion}</dd>
+                </div>
+                <div className="pubrec-row">
+                  <dt>{series.labels.cadence}</dt>
+                  <dd>{series.cadence}</dd>
+                </div>
+                <div className="pubrec-row">
+                  <dt>{series.labels.dataDoi}</dt>
+                  <dd>
+                    <a href={series.dataDoi.href}>{series.dataDoi.label}</a>
+                  </dd>
+                </div>
+                <div className="pubrec-row">
+                  <dt>{series.labels.latestVersion}</dt>
+                  <dd>
+                    <a href={series.latestVersionDoi.href}>{series.latestVersionDoi.label}</a>
+                  </dd>
+                </div>
+                <div className="pubrec-row">
+                  <dt>{series.labels.relatedSolution}</dt>
+                  <dd>
+                    <Link href={latestResearchArticle.relatedSolution.href}>
+                      {latestResearchArticle.relatedSolution.label}
+                    </Link>
+                  </dd>
+                </div>
+              </dl>
             </div>
-          </Container>
-        </Section>
+          </article>
+        </Station>
       ) : null}
 
-      <Section variant="soft" size="major" ariaLabelledBy="standards-title">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] lg:gap-16">
-            <SectionHeading
-              eyebrow={standards.eyebrow}
-              title={standards.title}
-              description={standards.description}
-              id="standards-title"
-              level={2}
-            />
-            <SignalList items={standards.items} columns={2} />
+      {/* 3. Tier 2, the supporting studies */}
+      {furtherResearchArticles.length > 0 ? (
+        <Station id="supporting-studies" ariaLabelledBy="supporting-title">
+          <p className="text-eyebrow mb-[22px] text-ink-2">{supporting.eyebrow}</p>
+          <h2 id="supporting-title" className="text-h2 text-ink">
+            {supporting.title}
+          </h2>
+          <p className="text-lead mt-[22px] text-ink">{supporting.lead}</p>
+
+          <ol className="studies">
+            {furtherResearchArticles.map((article, index) => (
+              <li key={article.slug}>
+                <div>
+                  <span className="idx" aria-hidden="true">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <p className="meta-line mb-4">{metaLine(article)}</p>
+                  <dl className="fields">
+                    <div>
+                      <dt>{supporting.authorLabel}</dt>
+                      <dd>
+                        <a href={siteConfig.founderPersonId} rel="author">
+                          {article.content.byline.author}
+                        </a>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>{supporting.publishedLabel}</dt>
+                      <dd>
+                        <time dateTime={article.publishedDate}>
+                          {formatLongDate(article.publishedDate)}
+                        </time>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>{supporting.updatedLabel}</dt>
+                      <dd>
+                        <time dateTime={article.updatedDate}>
+                          {formatLongDate(article.updatedDate)}
+                        </time>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>{supporting.dataThroughLabel}</dt>
+                      <dd>
+                        <time dateTime={article.dataThroughDate}>
+                          {formatLongDate(article.dataThroughDate)}
+                        </time>
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+
+                <div>
+                  <h3>
+                    <Link href={article.path}>{article.title}</Link>
+                  </h3>
+                  <p className="desc">{article.summary}</p>
+                  {relationOf.get(article.path) ? (
+                    <p className="note">
+                      {supporting.relationLabel} {relationOf.get(article.path)}
+                    </p>
+                  ) : null}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </Station>
+      ) : null}
+
+      {/* 4. Tier 3, the foundation pages */}
+      {availableFoundations.length > 0 ? (
+        <Station id="foundations" ariaLabelledBy="foundations-title">
+          <p className="text-eyebrow mb-[22px] text-ink-2">{foundationsSection.eyebrow}</p>
+          <h2 id="foundations-title" className="text-h2 text-ink">
+            {foundationsSection.title}
+          </h2>
+          <p className="text-lead mt-[22px] text-ink">{foundationsSection.description}</p>
+
+          <div className="mt-9">
+            <RelatedTerms terms={availableFoundations} />
           </div>
-        </Container>
-      </Section>
+        </Station>
+      ) : null}
 
-      <RelatedLinks title="Where to go next." links={related} />
+      {/* 5. Coverage */}
+      <Station id="coverage" ariaLabelledBy="coverage-title">
+        <div className="split">
+          <div className="words">
+            <p className="text-eyebrow text-ink-2">{coverage.eyebrow}</p>
+            <h2 id="coverage-title" className="text-h2 text-ink">
+              {coverage.title}
+            </h2>
+            <p className="text-lead text-ink">{coverage.description}</p>
+          </div>
+          <div className="figure">
+            <p className="text-coordinate text-ink-2">{coverage.categoriesLabel}</p>
+            <ul className="plainlist mt-[14px]" aria-label={coverage.categoriesLabel}>
+              {coverage.categories.map((category) => (
+                <li key={category}>{category}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </Station>
 
-      <ClosingCta
+      {/* 6. Publication standards */}
+      <Station id="publication-standards" ariaLabelledBy="standards-title">
+        <p className="text-eyebrow mb-[22px] text-ink-2">{standards.eyebrow}</p>
+        <h2 id="standards-title" className="text-h2 text-ink">
+          {standards.title}
+        </h2>
+        <TwoTone sentence={standards.descriptionTwoTone} className="text-lead mt-[22px] max-w-[62ch]" />
+
+        <ol className="olist mt-[34px]" aria-label={standards.title}>
+          {standards.items.map((item, index) => (
+            <li key={item}>
+              <span className="n" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              {item}
+            </li>
+          ))}
+        </ol>
+      </Station>
+
+      {/* 7. Related */}
+      <Station id="related" ariaLabelledBy="related-title">
+        <h2 id="related-title" className="text-h2 text-ink">
+          {relatedSection.title}
+        </h2>
+        <RelatedRules className="mt-8" entries={related} ariaLabel={relatedSection.title} />
+        <p className="text-caption mt-[22px] max-w-[62ch] text-ink-2">{observedSystemsSentence}</p>
+      </Station>
+
+      {/* 8. The close */}
+      <ClosingStation
+        id="close"
+        eyebrow={closing.eyebrow}
         title={closing.title}
-        primaryCta={closing.primaryCta}
-        secondaryCta={closing.secondaryCta}
+        primaryCta={closing.secondaryCta}
+        secondaryLink={closing.primaryCta}
       />
-    </>
+
+      <Station id="evidence-rule" ariaLabel={evidenceRule.heading} className="hinge">
+        <TwoTone sentence={evidenceRule} />
+      </Station>
+    </div>
+  )
+}
+
+/**
+ * The hub's hero. Split out because the flagship resolution above reads better
+ * without the hero's markup between the registry lookup and its use.
+ */
+function CanvasHubHero() {
+  return (
+    <CanvasPageHero
+      eyebrow={hero.eyebrow}
+      title={hero.title}
+      path={routes.research.path}
+      breadcrumbs={[
+        { label: routes.home.label, href: routes.home.path },
+        { label: routes.research.label },
+      ]}
+      foot={<p className="text-caption max-w-none text-ink-2">{observedSystemsSentence}</p>}
+    >
+      <Answer className="mt-[26px]" label={hero.answerLabel} paragraphs={hero.lead} />
+
+      <div className="cta-row mt-[30px]">
+        <PrimaryCta cta={diagnosticCta('research_hub_hero')} />
+        <RuleLink cta={{ label: hero.primaryCtaLabel, href: '#flagship' }} />
+      </div>
+    </CanvasPageHero>
   )
 }

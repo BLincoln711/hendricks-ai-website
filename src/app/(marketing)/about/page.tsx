@@ -1,22 +1,24 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 
-import { Breadcrumbs } from '@/components/layout/breadcrumbs'
-import { Container } from '@/components/layout/container'
-import { Section } from '@/components/layout/section'
-import { SectionHeading } from '@/components/layout/section-heading'
-import { ClosingCta } from '@/components/sections/closing-cta'
-import { ExternalVentureCard } from '@/components/sections/external-venture-card'
-import { RelatedLinks } from '@/components/sections/related-links'
-import { RoleTimeline } from '@/components/sections/role-timeline'
+import { Answer } from '@/components/canvas/answer'
+import { Byline } from '@/components/canvas/byline'
+import { ClosingStation } from '@/components/canvas/closing-station'
+import { DefinitionList } from '@/components/canvas/definition-list'
+import { Ledger } from '@/components/canvas/ledger'
+import { MethodList } from '@/components/canvas/method-list'
+import { CanvasPageHero } from '@/components/canvas/page-hero'
+import { TableRegion } from '@/components/canvas/table-region'
+import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
-import { CtaGroup, PrimaryCta } from '@/components/ui/cta'
-import { SignalList } from '@/components/ui/signal-list'
-import { SignalDot } from '@/components/visuals/signal-dot'
-import { routes } from '@/config/routes'
+import { RuleLink } from '@/components/ui/cta'
+import { TwoTone } from '@/components/ui/two-tone'
+import { isBuilt, routes } from '@/config/routes'
 import { siteConfig } from '@/config/site'
 import {
   closing,
+  closingEyebrow,
   experience,
   externalVenture,
   hero,
@@ -25,8 +27,26 @@ import {
   principles,
   related,
 } from '@/content/pages/about'
+import { hero as researchHero } from '@/content/research/hub'
 import { jsonLdGraph, personSchema, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * /about, rebuilt on the approved canvas (`07-hifi/about.html`) station for
+ * station.
+ *
+ * Two things the design records and this page keeps. D-D: the portrait renders
+ * in colour, which `.portrait img` sets explicitly. D-B: the byline resolves to
+ * the one Person node, the same node this page's `Person` schema declares, so a
+ * machine reading the biography and a machine reading a research byline resolve
+ * to the same entity.
+ *
+ * Two departures from the design page, both recorded. Its "Design notes"
+ * station is hi-fi chrome rather than site copy and its own comment says so, so
+ * it is not shipped. Its hero drops the opening clause of the second approved
+ * lead sentence; that sentence is published on this route today and D-E keeps
+ * it, so the answer-first block carries it in full.
+ */
 
 export const metadata: Metadata = buildMetadata({
   title: meta.title,
@@ -36,7 +56,7 @@ export const metadata: Metadata = buildMetadata({
 
 export default function AboutPage() {
   return (
-    <>
+    <div className="wrap">
       <JsonLd
         data={jsonLdGraph(
           webPageSchema({
@@ -47,7 +67,7 @@ export default function AboutPage() {
             // the Person node below, which is what declares that this page is
             // about Brandon Lincoln Hendricks rather than merely mentioning him.
             type: 'AboutPage',
-            mainEntity: { '@id': `${siteConfig.url}/about#person` },
+            mainEntity: { '@id': siteConfig.founderPersonId },
             hasBreadcrumb: true,
           }),
           personSchema({
@@ -62,162 +82,208 @@ export default function AboutPage() {
         )}
       />
 
-      {/*
-        About uses its own hero rather than PageHero: the portrait is a real
-        photograph in the primary column, not a diagram in a side panel.
-      */}
-      <Section variant="navy" size="major" ariaLabelledBy="page-title">
-        <Container>
-          <div className="flex flex-col gap-8">
-            <Breadcrumbs
-              items={[
-                { label: routes.home.label, href: routes.home.path },
-                { label: routes.about.label },
-              ]}
-              path={routes.about.path}
-            />
+      {/* 1. Page hero */}
+      <CanvasPageHero
+        eyebrow={hero.eyebrow}
+        title={hero.title}
+        lead={hero.leadTwoTone}
+        path={routes.about.path}
+        breadcrumbs={[
+          { label: routes.home.label, href: routes.home.path },
+          { label: routes.about.label },
+        ]}
+        primaryCta={hero.primaryCta}
+        foot={
+          <>
+            <span className="text-caption text-ink-2">{siteConfig.categoryLine}</span>
+            <span className="text-caption text-ink-2">{siteConfig.operatingLine}</span>
+          </>
+        }
+      >
+        <Byline authorTitle={siteConfig.founderRole} showDates={false} />
+      </CanvasPageHero>
 
-            <div className="grid items-start gap-10 md:grid-cols-[minmax(0,320px)_minmax(0,1fr)] md:gap-14">
+      {/* 2. The direct answer */}
+      <Station id="answer" ariaLabelledBy="answer-title" className="tight">
+        <Answer
+          label={hero.answerLabel}
+          headingId="answer-title"
+          headingText={hero.answerHeading}
+          paragraphs={[hero.lead[1]]}
+        />
+      </Station>
+
+      {/* 3. The founder */}
+      <Station id="experience" ariaLabelledBy="experience-title">
+        <div className="split flip">
+          <div className="figure">
+            <figure className="portrait">
+              <div className="plate-head">
+                <span className="plate-no">Plate 01</span>
+                <span className="plate-title">The Founder</span>
+              </div>
               <Image
                 src={hero.portrait.src}
                 alt={hero.portrait.alt}
                 width={hero.portrait.width}
                 height={hero.portrait.height}
                 priority
-                sizes="(min-width: 768px) 320px, 100vw"
-                className="w-full max-w-[320px] border border-rule-2"
+                sizes="(min-width: 1024px) 420px, 100vw"
               />
-
-              <div className="flex flex-col gap-6">
-                <p className="text-eyebrow flex items-center gap-2 text-ink-2">
-                  <SignalDot size={6} tone="cyan" />
-                  {hero.eyebrow}
-                </p>
-
-                <h1 id="page-title" className="text-h1 max-w-[22ch] text-ink">
-                  {hero.title}
-                </h1>
-
-                <div className="flex flex-col gap-4">
-                  {hero.lead.map((paragraph) => (
-                    <p
-                      key={paragraph}
-                      className="text-lead measure text-ink-3"
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-
-                <CtaGroup className="mt-2">
-                  <PrimaryCta cta={hero.primaryCta} />
-                </CtaGroup>
-              </div>
-            </div>
+              <figcaption className="text-caption text-ink-2">
+                {siteConfig.founder}, {siteConfig.founderRole}
+              </figcaption>
+            </figure>
           </div>
-        </Container>
-      </Section>
 
-      <Section variant="field" size="major" ariaLabelledBy="point-of-view-title">
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
-            <div className="flex flex-col gap-6">
-              <SectionHeading
-                eyebrow={pointOfView.eyebrow}
-                title={pointOfView.title}
-                id="point-of-view-title"
-              />
-
-              <blockquote className="border-l-2 border-path pl-6">
-                <p className="text-h3 text-ink">{pointOfView.quote}</p>
-              </blockquote>
-            </div>
-
-            <div className="flex flex-col gap-5">
-              {pointOfView.body.map((paragraph) => (
-                <p key={paragraph} className="text-lead text-ink-3">
-                  {paragraph}
-                </p>
-              ))}
-
-              <ul className="flex flex-col gap-1">
-                {pointOfView.notList.map((line) => (
-                  <li key={line} className="text-[1.0625rem] font-medium text-ink">
-                    {line}
-                  </li>
-                ))}
-              </ul>
-
-              <p className="text-[1.0625rem] leading-relaxed text-ink-3">
-                {pointOfView.closing}
-              </p>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      <Section variant="white" size="major" ariaLabelledBy="principles-title">
-        <Container>
-          <div className="flex flex-col gap-12">
-            <SectionHeading
-              eyebrow={principles.eyebrow}
-              title={principles.title}
-              id="principles-title"
-              maxWidth="wide"
-            />
-
-            <dl className="grid gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
-              {principles.items.map((principle) => (
-                <div
-                  key={principle.name}
-                  className="flex flex-col gap-2 border-t-2 border-path pt-5"
-                >
-                  <dt className="text-[1.0625rem] font-medium text-ink">
-                    {principle.name}
-                  </dt>
-                  <dd className="text-[0.9375rem] leading-relaxed text-ink-2">
-                    {principle.description}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </Container>
-      </Section>
-
-      <Section variant="field" size="major" ariaLabelledBy="experience-title">
-        <Container>
-          <div className="flex flex-col gap-12">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
-              <SectionHeading
-                eyebrow={experience.eyebrow}
-                title={experience.title}
-                description={experience.lead}
-                id="experience-title"
-              />
-              <RoleTimeline roles={experience.roles} />
-            </div>
-
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
-              <h3 className="text-xl font-semibold text-ink">
-                {experience.capabilitiesTitle}
-              </h3>
-              <SignalList items={experience.items} columns={2} />
-            </div>
-
-            <ExternalVentureCard
-              label={externalVenture.label}
-              name={externalVenture.name}
-              description={externalVenture.description}
-              cta={externalVenture.cta}
+          <div className="words">
+            <p className="text-eyebrow text-ink-2">{experience.eyebrow}</p>
+            <h2 id="experience-title" className="text-h2 text-ink">
+              {experience.title}
+            </h2>
+            <TwoTone
+              sentence={{
+                claim: 'Two enterprise search leadership roles, held as an employee,',
+                continuation: 'and the firm that followed them.',
+              }}
+              className="text-caption"
             />
           </div>
-        </Container>
-      </Section>
+        </div>
 
-      <RelatedLinks title="Where to go next." links={related} />
+        <div className="block mt-[52px]">
+          <p className="text-caption mb-[10px] max-w-none text-ink-2">{experience.tableNote}</p>
 
-      <ClosingCta title={closing.title} primaryCta={closing.primaryCta} />
-    </>
+          <TableRegion
+            caption={experience.tableCaption}
+            columns={[
+              { key: 'index', header: experience.tableColumns.index },
+              { key: 'organization', header: experience.tableColumns.organization, rowHeader: true },
+              { key: 'role', header: experience.tableColumns.role },
+              { key: 'period', header: experience.tableColumns.period },
+              { key: 'relationship', header: experience.tableColumns.relationship },
+            ]}
+            rows={experience.roles.map((role, index) => ({
+              index: String(index + 1).padStart(2, '0'),
+              organization: role.organization,
+              role: role.title,
+              period: role.period,
+              relationship: role.relationship,
+            }))}
+          />
+
+          {/*
+            The design's table carries the record and drops the three role
+            descriptions. They are published on this route today, so D-E keeps
+            them: each renders against the role it belongs to, once.
+          */}
+          <DefinitionList
+            className="mt-9"
+            definitions={experience.roles.map((role) => ({
+              term: `${role.organization}, ${role.title}`,
+              definition: [role.description],
+            }))}
+          />
+        </div>
+
+        <div className="block">
+          <p className="text-coordinate text-ink-2">{externalVenture.label}</p>
+          <h3 className="text-h3 mt-3 text-ink">{externalVenture.name}</h3>
+          <p className="text-caption mt-3 max-w-[62ch] text-ink-2">
+            {externalVenture.description}
+          </p>
+          <RuleLink cta={externalVenture.cta} />
+        </div>
+      </Station>
+
+      {/* 4. Point of view */}
+      <Station id="point-of-view" ariaLabelledBy="point-of-view-title">
+        <p className="text-eyebrow mb-[22px] text-ink-2">{pointOfView.eyebrow}</p>
+        <h2 id="point-of-view-title" className="text-h2 text-ink">
+          {pointOfView.title}
+        </h2>
+
+        {/* The quote is the station's pull sentence, on no border: a bordered
+            quote is a box, and this system has none. */}
+        <p className="pull">{pointOfView.quote}</p>
+
+        <div className="cols2">
+          <div>
+            <p className="text-lead text-ink">{pointOfView.body[0]}</p>
+            <p className="mt-4 text-[15.5px] text-ink-2">{pointOfView.closing}</p>
+          </div>
+          <div>
+            <p className="text-coordinate text-ink-2">{pointOfView.notListLabel}</p>
+            <ul className="ruled mt-[14px]" aria-label={pointOfView.notListLabel}>
+              {pointOfView.notList.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </Station>
+
+      {/* 5. Five principles */}
+      <Station id="principles" ariaLabelledBy="principles-title">
+        <p className="text-eyebrow mb-[22px] text-ink-2">{principles.eyebrow}</p>
+        <h2 id="principles-title" className="text-h2 text-ink">
+          {principles.title}
+        </h2>
+
+        <MethodList
+          className="mt-9"
+          ariaLabel={principles.title}
+          steps={principles.items.map((principle) => ({
+            title: principle.name,
+            body: [principle.description],
+          }))}
+        />
+      </Station>
+
+      {/* 6. Capability areas */}
+      <Station id="capabilities" ariaLabelledBy="capabilities-title">
+        <h2 id="capabilities-title" className="text-h2 text-ink">
+          {experience.capabilitiesTitle}
+        </h2>
+
+        <div className="cols2">
+          <div>
+            <p className="text-coordinate text-ink-2">{experience.capabilitiesLabel}</p>
+            <ul className="ruled mt-[14px]" aria-label={experience.capabilitiesLabel}>
+              {experience.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="text-coordinate text-ink-2">{experience.researchLabel}</p>
+            <p className="mt-[14px] text-[15.5px] text-ink-2">
+              {experience.researchIntro}
+              <Link href={routes.research.path}>{routes.research.label}</Link>
+              {`: ${researchHero.lead[0]}`}
+            </p>
+          </div>
+        </div>
+
+        <Ledger
+          ariaLabel={experience.capabilitiesTitle}
+          rows={related
+            .filter((entry) => isBuilt(entry.href))
+            .map((entry) => ({
+              key: entry.href,
+              label: <Link href={entry.href}>{entry.label}</Link>,
+              value: entry.description,
+            }))}
+        />
+      </Station>
+
+      {/* 7. The close */}
+      <ClosingStation
+        id="close"
+        eyebrow={closingEyebrow}
+        title={closing.title}
+        primaryCta={closing.primaryCta}
+      />
+    </div>
   )
 }

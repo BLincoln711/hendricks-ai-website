@@ -1,7 +1,19 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
-import type { MeasurementLevel } from '@/components/visuals/impact-measurement-stack'
 import { routes } from '@/config/routes'
+
+/**
+ * One level of measurement: the question it answers and the signals it reads.
+ *
+ * The type moved here from `visuals/impact-measurement-stack.tsx` when the
+ * canvas conversion deleted that component; nothing else read it.
+ */
+export type MeasurementLevel = {
+  number: string
+  name: string
+  question: string
+  signals: readonly string[]
+}
 import { evidenceGradeRows } from '@/content/shared/evidence-grades'
 import {
   observedSystemsContext,
@@ -168,6 +180,7 @@ export const impactContract = {
 } as const
 
 export const limitation = {
+  label: 'What we do not promise',
   title: 'What Hendricks does not promise.',
   body: [
     'We do not promise that every AI interaction can be traced to an individual buyer.',
@@ -280,7 +293,9 @@ export const faq = {
  * result file a scheduled job overwrote in place. Quote whatever that study
  * publishes; never carry a figure forward from this file's history.
  */
-export const related: readonly RelatedLink[] = [
+export const relatedTitle = 'Related'
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.researchHendricksSelectionBaseline.path,
     label: 'Hendricks Selection Baseline',

@@ -143,3 +143,19 @@ This page states the Hendricks position on how AI-mediated search changes buying
 # Find where your brand is losing the shortlist.
 
 **CTA:** Start with a Search Intelligence Diagnostic
+
+## Canvas conversion, 2026-09-03
+
+**Sources heading:** Sources
+
+**Change history heading:** Change history
+
+**Change history columns:** Date, Kind, Summary
+
+**First publication row:** Not yet recorded. Publication. First publication of this page.
+
+**Corrections link:** Read the corrections policy
+
+**Related terms heading:** Related terms
+
+**Where to go next heading:** Where to go next.

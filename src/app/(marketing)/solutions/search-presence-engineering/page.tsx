@@ -1,17 +1,14 @@
 import type { Metadata } from 'next'
 
-import { Container } from '@/components/layout/container'
-import { PageHero } from '@/components/layout/page-hero'
-import { Section } from '@/components/layout/section'
-import { SectionHeading } from '@/components/layout/section-heading'
-import { ClosingCta } from '@/components/sections/closing-cta'
-import { Deliverables } from '@/components/sections/deliverables'
-import { RelatedLinks } from '@/components/sections/related-links'
+import { Answer } from '@/components/canvas/answer'
+import { ClosingStation } from '@/components/canvas/closing-station'
+import { CanvasPageHero } from '@/components/canvas/page-hero'
+import { RelatedList } from '@/components/canvas/related-list'
+import { RuleList } from '@/components/canvas/rule-list'
+import { Limitations } from '@/components/canvas/limitations'
+import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
-import { Callout } from '@/components/ui/callout'
-import { EngineeringLayers } from '@/components/visuals/engineering-layers'
-import { InterventionLedgerPreview } from '@/components/visuals/intervention-ledger-preview'
-import { SolutionMotif } from '@/components/visuals/solution-motif'
+import { RuleLink } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 import {
   closing,
@@ -21,11 +18,23 @@ import {
   ledger,
   meta,
   related,
+  relatedTitle,
   scope,
   trust,
 } from '@/content/pages/search-presence-engineering'
+import { diagnosticCta } from '@/content/shared/ctas'
 import { jsonLdGraph, serviceSchema, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * /solutions/search-presence-engineering, rebuilt on the approved canvas
+ * (`07-hifi/solution-page.html`) station for station.
+ *
+ * The seven engineering layers render as the numbered method list, with each
+ * layer's work items as a rule list under it, so a reader can see both what the
+ * layer is for and what the work actually is. The control boundary keeps the
+ * limitation treatment: one dashed hairline, no warning box.
+ */
 
 export const metadata: Metadata = buildMetadata({
   title: meta.title,
@@ -35,7 +44,7 @@ export const metadata: Metadata = buildMetadata({
 
 export default function SearchPresenceEngineeringPage() {
   return (
-    <>
+    <div className="wrap">
       <JsonLd
         data={jsonLdGraph(
           webPageSchema({
@@ -58,82 +67,119 @@ export default function SearchPresenceEngineeringPage() {
         )}
       />
 
-      <PageHero
+      {/* 1. Page hero */}
+      <CanvasPageHero
         eyebrow={hero.eyebrow}
         title={hero.title}
-        lead={hero.lead}
-        primaryCta={hero.primaryCta}
+        lead={hero.lead[0]}
         path={routes.searchPresenceEngineering.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.solutions.label, href: routes.solutions.path },
           { label: routes.searchPresenceEngineering.label },
         ]}
-        visual={
-          <div className=" border border-rule-2 p-8">
-            <SolutionMotif motif="presence" />
+        primaryCta={diagnosticCta('spe_hero')}
+      >
+        <Answer className="mt-9" paragraphs={hero.lead.slice(1)} />
+        <RuleLink cta={hero.primaryCta} className="mt-3" />
+      </CanvasPageHero>
+
+      {/* 2. Seven engineering layers */}
+      <Station id="layers" ariaLabelledBy="layers-title">
+        <p className="text-eyebrow mb-[22px] text-ink-2">{layers.eyebrow}</p>
+        <h2 id="layers-title" className="text-h2 text-ink">
+          {layers.title}
+        </h2>
+
+        <ol className="method mt-9" aria-label={layers.title}>
+          {layers.items.map((layer) => (
+            <li key={layer.number} data-marker={layer.number}>
+              <div>
+                {/* Layer 06 has no name in the approved markdown; the heading
+                    is omitted rather than invented. */}
+                {layer.title ? <h3>{layer.title}</h3> : null}
+                <p>{layer.description}</p>
+                <RuleList
+                  className="mt-4"
+                  items={layer.workItems}
+                  ariaLabel={layer.title ?? layer.description}
+                />
+              </div>
+            </li>
+          ))}
+        </ol>
+      </Station>
+
+      {/* 3. Scope */}
+      <Station id="scope" ariaLabelledBy="scope-title">
+        <h2 id="scope-title" className="text-h3 text-ink">
+          {scope.title}
+        </h2>
+        {scope.body.map((paragraph) => (
+          <p key={paragraph} className="measure-wide mt-4 text-ink-2">
+            {paragraph}
+          </p>
+        ))}
+      </Station>
+
+      {/* 4. What it produces */}
+      <Station id="deliverables" ariaLabelledBy="deliverables-title">
+        <h2 id="deliverables-title" className="text-h2 text-ink">
+          {deliverables.title}
+        </h2>
+
+        <ol className="olist mt-8 max-w-[1000px]" aria-label={deliverables.title}>
+          {deliverables.items.map((item, index) => (
+            <li key={item}>
+              <span className="n" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              {item}
+            </li>
+          ))}
+        </ol>
+      </Station>
+
+      {/* 5. The Intervention Ledger */}
+      <Station id="intervention-ledger" ariaLabelledBy="ledger-title">
+        <div className="split">
+          <div className="words">
+            <p className="text-eyebrow text-ink-2">{ledger.eyebrow}</p>
+            <h2 id="ledger-title" className="text-h2 text-ink">
+              {ledger.title}
+            </h2>
+            <p className="text-lead text-ink">{ledger.lead}</p>
+            <p className="text-caption text-ink-2">{ledger.caption}</p>
           </div>
-        }
-      />
-
-      <Section variant="field" size="major" ariaLabelledBy="layers-title">
-        <Container>
-          <div className="flex flex-col gap-8">
-            <SectionHeading
-              eyebrow={layers.eyebrow}
-              title={layers.title}
-              id="layers-title"
-              maxWidth="wide"
-            />
-            <EngineeringLayers layers={layers.items} />
+          <div className="figure">
+            <RuleList items={ledger.fields} ariaLabel={ledger.lead} />
           </div>
-        </Container>
-      </Section>
+        </div>
+      </Station>
 
-      <Section variant="white" size="standard">
-        <Container>
-          <Callout variant="insight" label="Scope" title={scope.title}>
-            {scope.body.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </Callout>
-        </Container>
-      </Section>
+      {/* 6. What Hendricks can and cannot control */}
+      <Station id="control-boundary" ariaLabelledBy="trust-title">
+        <h2 id="trust-title" className="text-h2 text-ink">
+          {trust.title}
+        </h2>
+        <Limitations className="mt-7" label={trust.label} body={trust.body} />
+      </Station>
 
-      <Deliverables title={deliverables.title} items={deliverables.items} />
+      {/* 7. Related */}
+      <Station id="related" ariaLabelledBy="related-title">
+        <h2 id="related-title" className="text-h2 text-ink">
+          {relatedTitle}
+        </h2>
+        <RelatedList className="mt-8" entries={related} ariaLabel={relatedTitle} />
+      </Station>
 
-      <Section variant="white" size="major" ariaLabelledBy="ledger-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={ledger.eyebrow}
-              title={ledger.title}
-              description={ledger.lead}
-              id="ledger-title"
-              maxWidth="wide"
-            />
-            <InterventionLedgerPreview fields={ledger.fields} caption={ledger.caption} />
-          </div>
-        </Container>
-      </Section>
-
-      <Section variant="field" size="standard">
-        <Container>
-          <Callout variant="limitation" label="What we control" title={trust.title}>
-            {trust.body.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </Callout>
-        </Container>
-      </Section>
-
-      <RelatedLinks title="Related solutions and research." links={related} />
-
-      <ClosingCta
+      {/* 8. The close */}
+      <ClosingStation
+        id="closing"
         title={closing.title}
-        primaryCta={closing.primaryCta}
-        secondaryCta={closing.secondaryCta}
+        primaryCta={closing.secondaryCta}
+        secondaryLink={closing.primaryCta}
       />
-    </>
+    </div>
   )
 }

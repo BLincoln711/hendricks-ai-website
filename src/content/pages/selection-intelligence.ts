@@ -1,7 +1,7 @@
-import type { FaqItem } from '@/components/sections/faq-section'
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { FaqItem } from '@/components/canvas/faq-list'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
-import type { ContextPanel } from '@/components/visuals/context-panel-diagram'
+import type { ContextPanel } from '@/content/pages/methodology'
 import { routes } from '@/config/routes'
 import { baselineMetricDefinitions } from '@/content/shared/metrics'
 import {
@@ -26,8 +26,14 @@ export const hero = {
   lead: [
     'Selection Intelligence is the evidence-based analysis of whether, where, and under what customer contexts a brand is discovered, understood, considered, and recommended across search and AI-mediated buying journeys.',
   ],
+  movesBeyondLabel: 'It moves beyond:',
   movesBeyond: 'Were we mentioned?',
+  andAnswersLabel: 'And answers:',
   andAnswers: 'Did we become a legitimate option for a commercially valuable need?',
+  andAnswersTwoTone: {
+    claim: 'Did we become a legitimate option',
+    continuation: 'for a commercially valuable need?',
+  },
   primaryCta: {
     label: 'Establish Your Selection Baseline',
     href: routes.diagnostic.path,
@@ -38,6 +44,11 @@ export const hero = {
 export const firstStage = {
   eyebrow: 'Beyond Visibility',
   title: 'Visibility is only the first stage.',
+  statesLabel: 'What a brand can be',
+  closingTwoTone: {
+    claim: 'Selection Intelligence',
+    continuation: 'measures those differences.',
+  },
   lead: 'A brand can be:',
   states: [
     'Mentioned but represented inaccurately',
@@ -53,6 +64,8 @@ export const firstStage = {
 export const contextPanel = {
   eyebrow: 'Context Panel',
   title: 'Four controlled conditions, each answering a different question.',
+  ariaLabel: 'The four context panels',
+  questionLabel: 'Question answered',
   panels: [
     {
       name: 'Neutral baseline',
@@ -151,6 +164,9 @@ export const metrics = {
 
 export const limitation = {
   title: 'Hendricks does not claim to inspect hidden model reasoning.',
+  chainCaption:
+    'Inputs, Outputs, Citations, Sources, Interventions, Changes, Business Outcomes.',
+  chainListLabel: 'What Hendricks observes, in order',
   body: [
     'We do not assign invented weights to backlinks, schema, reviews, or individual sources.',
   ],
@@ -260,7 +276,9 @@ export const faq = {
   ] satisfies readonly FaqItem[],
 } as const
 
-export const related: readonly RelatedLink[] = [
+export const relatedTitle = 'Related'
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.searchPresenceEngineering.path,
     label: 'Search Presence Engineering',

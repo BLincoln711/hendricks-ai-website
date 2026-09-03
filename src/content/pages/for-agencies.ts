@@ -1,9 +1,20 @@
-import type { FaqItem } from '@/components/sections/faq-section'
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { FaqItem } from '@/components/canvas/faq-list'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
-import type { PartnershipModel } from '@/components/visuals/partnership-models'
 import { routes } from '@/config/routes'
 import { observedSystemsSentence } from '@/content/shared/observed-systems'
+
+/**
+ * One partnership model: what Hendricks does under it and who it suits.
+ *
+ * The type moved here from `visuals/partnership-models.tsx` when the canvas
+ * conversion deleted that component; nothing else read it.
+ */
+export type PartnershipModel = {
+  name: string
+  description: string
+  bestFor: string
+}
 
 /**
  * Approved copy, transcribed from content/pages/10-for-agencies.md.
@@ -38,7 +49,7 @@ import { observedSystemsSentence } from '@/content/shared/observed-systems'
  * imply it answers all five.
  *
  * The four answers reference their owning pages by name rather than by inline
- * anchor, because `FaqItem.answer` is `readonly string[]` and `faq-section.tsx`
+ * anchor, because `FaqItem.answer` is `readonly string[]` and `FaqList`
  * renders each string as a plain paragraph. Every destination those answers name
  * carries a real anchor from this page through `related` below, which is why
  * that array grew from five cards to nine in the same change.
@@ -70,6 +81,51 @@ export const hero = {
     href: routes.contact.path,
     analytics: { location: 'for_agencies_hero', audienceType: 'agency' },
   } satisfies Cta,
+  leadTwoTone: {
+    claim: 'Your existing team should not have to invent every answer alone.',
+    continuation:
+      'Hendricks provides a specialized intelligence and engineering layer while protecting the agency relationship.',
+  },
+} as const
+
+/** The page's own outline, in the order the stations render. */
+export const contents = [
+  { id: 'models', label: 'Partnership models' },
+  { id: 'capabilities', label: 'Capabilities' },
+  { id: 'partner-commitments', label: 'Partner commitments' },
+  { id: 'client-conversation', label: 'The client conversation' },
+  { id: 'next', label: 'Where to go next' },
+] as const
+
+/**
+ * Figure 01: the commitment boundary.
+ *
+ * Structure, not evidence. It restates the boundary the direct answer above it
+ * and the partner commitments below it both state, and shows no result of any
+ * kind, which is why its caption says so rather than carrying the illustrative
+ * label a sample-data figure would.
+ */
+export const commitmentBoundary = {
+  number: 'Figure 01',
+  can: {
+    label: 'What an agency can commit to',
+    items: [
+      'Repeated runs across the customer contexts the business actually sells into',
+      'The conditions the brand controls on its own properties',
+      'The reading, and the record of what changed and when',
+    ],
+  },
+  cannot: {
+    label: 'What no agency can commit to',
+    items: [
+      'The citation itself',
+      'A date by which a citation appears',
+      'A number that will still read the same when the measurement is repeated',
+    ],
+  },
+  readingLabel: 'The reading',
+  caption:
+    'Structure, not evidence: the commitment boundary stated in the answer above and in the partner commitments below. No result is shown.',
 } as const
 
 /**
@@ -86,7 +142,7 @@ export const directAnswer = {
 } as const
 
 /**
- * The four answers, rendered through `faq-section.tsx` at `headingLevel={2}`.
+ * The four answers, rendered through `FaqList`.
  *
  * Promotion to h2 is deliberate and permitted by that component's own contract
  * for "a page whose spine is the question set itself". After this change the
@@ -94,8 +150,8 @@ export const directAnswer = {
  * as a section in its own right and the buyer's phrasing travels with the chunk
  * a retrieval system lifts. Do not quietly drop it to 3.
  *
- * No `FAQPage` JSON-LD, here or anywhere (docs/06 §10). `faq-section.tsx` emits
- * none, which is the whole reason it exists.
+ * No `FAQPage` JSON-LD, here or anywhere (docs/06 §10). `FaqList` emits none,
+ * which is the whole reason it exists.
  *
  * Four things these answers deliberately do not restate, each owned elsewhere
  * under docs/17 §3.2:
@@ -187,6 +243,7 @@ export const models = {
       bestFor: 'Agencies building a durable new service line.',
     },
   ] satisfies readonly PartnershipModel[],
+  bestForLabel: 'Best for',
 } as const
 
 export const capabilities = {
@@ -226,7 +283,9 @@ export const commitments = {
   ],
 } as const
 
-export const related: readonly RelatedLink[] = [
+export const relatedTitle = 'Where to go next.'
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.solutions.path,
     label: 'Solutions',
@@ -272,12 +331,23 @@ export const related: readonly RelatedLink[] = [
     label: routes.whatIsGenerativeEngineOptimization.label,
     description: 'Check technical access against each platform’s own crawler documentation.',
   },
+  /*
+    Question 5 of the hero's five client questions, which this page poses and
+    does not answer. The route was built and registered before this page linked
+    it; the canvas conversion is the rebuild that closes the gap.
+  */
+  {
+    href: routes.aiVisibilityToolOrPartner.path,
+    label: routes.aiVisibilityToolOrPartner.label,
+    description: 'The buyer decision the hero’s fifth client question asks about.',
+  },
 ]
 
 export const closing = {
+  eyebrow: 'Agency Inquiry',
   title: 'Strengthen the capability your clients increasingly expect.',
   primaryCta: {
-    label: 'Discuss an Agency Intelligence Partnership',
+    label: 'Discuss an Agency Partnership',
     href: routes.contact.path,
     analytics: { location: 'for_agencies_closing', audienceType: 'agency' },
   } satisfies Cta,

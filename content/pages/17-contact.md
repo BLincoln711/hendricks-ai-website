@@ -69,3 +69,9 @@ Unchecked by default:
 Thank you. Your inquiry has been received. Hendricks will review the information and respond when an appropriate next step is available.
 
 Submitting this form does not create a client relationship. You will not be enrolled in marketing unless you separately selected the optional marketing checkbox.
+
+## Canvas conversion, 2026-09-03
+
+**Hinge heading:** What Hendricks does with an inquiry
+
+We will review the context, determine whether a Search Intelligence Diagnostic is the appropriate first step, and say directly when a simpler solution would be better.

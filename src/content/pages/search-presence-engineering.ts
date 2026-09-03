@@ -1,7 +1,24 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
-import type { EngineeringLayer } from '@/components/visuals/engineering-layers'
 import { routes } from '@/config/routes'
+
+/**
+ * One engineering layer: what it is for, and the work it covers.
+ *
+ * The type moved here from `visuals/engineering-layers.tsx` when the canvas
+ * conversion deleted that component; nothing else read it.
+ */
+export type EngineeringLayer = {
+  number: string
+  /**
+   * Optional, because layer 06 has no name in the approved markdown
+   * (`content/pages/05-search-presence-engineering.md`, heading "### 6."). The
+   * gap is left visible rather than filled with an invented title.
+   */
+  title?: string
+  description: string
+  workItems: readonly string[]
+}
 
 /** Approved copy, transcribed from content/pages/05-search-presence-engineering.md. */
 
@@ -198,6 +215,7 @@ export const ledger = {
 } as const
 
 export const trust = {
+  label: 'What we control',
   title: 'What Hendricks can and cannot control.',
   body: [
     'No firm controls whether an external AI or search system includes, cites, or recommends a brand.',
@@ -205,7 +223,9 @@ export const trust = {
   ],
 } as const
 
-export const related: readonly RelatedLink[] = [
+export const relatedTitle = 'Related'
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.selectionIntelligence.path,
     label: 'Selection Intelligence',

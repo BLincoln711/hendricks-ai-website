@@ -1,4 +1,4 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import { routes } from '@/config/routes'
 
 /**
@@ -23,6 +23,20 @@ export const hero = {
     'Tell Hendricks what your brand or agency needs to understand, improve, measure, or build.',
     'We will review the context, determine whether a Search Intelligence Diagnostic is the appropriate first step, and say directly when a simpler solution would be better.',
   ],
+} as const
+
+/**
+ * The hinge: the one thing a visitor is promised in return for an inquiry,
+ * carried as the page's two-tone sentence. Both halves are the approved second
+ * lead sentence, split at the clause where the promise turns into a commitment.
+ */
+export const promise = {
+  heading: 'What Hendricks does with an inquiry',
+  sentence: {
+    claim:
+      'We will review the context, determine whether a Search Intelligence Diagnostic is the appropriate first step,',
+    continuation: 'and say directly when a simpler solution would be better.',
+  },
 } as const
 
 type RoutingChoice = {
@@ -93,7 +107,9 @@ export const formLegal = {
     'Thank you. Your inquiry has been received. Hendricks will review the information and respond when an appropriate next step is available. Submitting this form does not create a client relationship.',
 } as const
 
-export const related: readonly RelatedLink[] = [
+export const relatedTitle = 'Where to go next.'
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.diagnostic.path,
     label: 'Search Intelligence Diagnostic',

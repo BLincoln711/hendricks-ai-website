@@ -1,4 +1,4 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import { routes } from '@/config/routes'
 import { researchCategories } from '@/content/research/types'
 
@@ -51,6 +51,23 @@ export const hero = {
    * resolves it, so adding an article never requires editing this file.
    */
   primaryCtaLabel: 'Explore the Latest Research',
+  answerLabel: 'What this section is',
+} as const
+
+/**
+ * The supporting-studies tier. Each study names its relation to the flagship in
+ * the flagship's own words, read from `the-answer-index.ts` rather than
+ * restated, so one relation sentence exists per pair of studies.
+ */
+export const supporting = {
+  eyebrow: 'Supporting studies',
+  title: 'The studies behind it.',
+  lead: 'Each study names its relation to the flagship in the flagship\u2019s own words.',
+  relationLabel: 'Relation to the flagship:',
+  authorLabel: 'Author',
+  publishedLabel: 'Published',
+  updatedLabel: 'Updated',
+  dataThroughLabel: 'Data through',
 } as const
 
 export const coverage = {
@@ -58,6 +75,7 @@ export const coverage = {
   title: 'What this section covers.',
   description:
     'Hendricks Research supports the firm’s professional methodology and category education.',
+  categoriesLabel: 'Eight categories',
   categories: researchCategories,
 } as const
 
@@ -88,7 +106,7 @@ export const foundationsSection = {
  * heading, because a foundation link that promises a research page and delivers
  * a solution page misdescribes its destination.
  */
-export const foundations: readonly RelatedLink[] = [
+export const foundations: readonly RelatedEntry[] = [
   {
     href: routes.whatIsSearchIntelligenceEngineering.path,
     label: 'What Is Search Intelligence Engineering?',
@@ -132,6 +150,11 @@ export const standards = {
   title: 'What every research page carries.',
   description:
     'A study that cannot be checked is an assertion. Every substantial page in this section publishes the material a reader needs in order to check it.',
+  descriptionTwoTone: {
+    claim: 'A study that cannot be checked is an assertion.',
+    continuation:
+      'Every substantial page in this section publishes the material a reader needs in order to check it.',
+  },
   items: [
     'A direct executive answer',
     'Key findings',
@@ -152,7 +175,11 @@ export const standards = {
   ],
 } as const
 
-export const related: readonly RelatedLink[] = [
+export const relatedSection = {
+  title: 'Related',
+} as const
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.methodology.path,
     label: 'Methodology',
@@ -171,6 +198,7 @@ export const related: readonly RelatedLink[] = [
 ]
 
 export const closing = {
+  eyebrow: 'Read in order',
   title: 'Read the method before the finding, and the limitations before either.',
   primaryCta: {
     label: 'Review the Demand-to-Selection methodology',

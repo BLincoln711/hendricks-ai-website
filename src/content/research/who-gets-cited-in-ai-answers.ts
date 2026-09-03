@@ -1,8 +1,9 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { DataTableColumn, DataTableRow } from '@/components/ui/data-table'
 import type { Cta } from '@/components/ui/cta'
 import type { MetricDefinition } from '@/components/visuals/metric-definitions'
 import { routes } from '@/config/routes'
+import { siteConfig } from '@/config/site'
 import {
   observedSystemsExclusion,
   observedSystemsSentence,
@@ -585,7 +586,7 @@ export const limitations = {
 export const byline = {
   author: 'Brandon Lincoln Hendricks',
   authorRole: 'Search Intelligence Engineer, Hendricks',
-  authorHref: routes.about.path,
+  authorHref: siteConfig.founderPersonId,
   published: '2026-08-19',
   updated: '2026-09-01',
   dataThrough: '2026-08-19',
@@ -650,7 +651,7 @@ export const sources = {
   ],
 } as const
 
-export const related: readonly RelatedLink[] = [
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.researchHendricksSelectionBaseline.path,
     label: 'Two Runs in AI Answers',

@@ -24,9 +24,11 @@ Your organization may manage that journey through separate SEO, paid media, cont
 
 Hendricks connects those fragments around customer demand and measurable selection.
 
-**Primary CTA:** Start with a Diagnostic
+**Primary CTA:** Start with a Search Intelligence Diagnostic
 
 ## Signs Hendricks may be a fit
+
+**CTA:** Check whether the Diagnostic is the right first step
 
 - Search materially influences customer research or shortlisting
 - One customer, account, appointment, or transaction has meaningful value
@@ -44,17 +46,25 @@ Hendricks connects those fragments around customer demand and measurable selecti
 
 Know which customer decisions matter and what they are potentially worth.
 
+**Named artifact:** Demand Map
+
 ### Selection clarity
 
 Know where the brand enters consideration, where it disappears, and which competitors win.
+
+**Named artifact:** Selection Map
 
 ### Action clarity
 
 Know which technical, content, evidence, authority, acquisition, or conversion changes deserve priority.
 
+**Named artifact:** Intervention Roadmap
+
 ### Measurement clarity
 
 Know what changed, what business outcomes followed, and how much confidence the evidence supports.
+
+**Named artifact:** Impact Ledger
 
 ## Ways brands work with Hendricks
 
@@ -89,6 +99,8 @@ Hendricks does not automatically replace:
 Hendricks can coordinate, augment, or provide specialist implementation according to the diagnostic and operating model.
 
 ## Collaboration visual
+
+**Figure caption:** Figure 01. Three contributors, one operating layer.
 
 Show the client team, agencies, and Hendricks connected through one Demand-to-Selection operating layer. Avoid implying Hendricks owns every execution channel.
 

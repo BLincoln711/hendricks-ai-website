@@ -99,3 +99,17 @@ This card must be visually and verbally separated from Hendricks services. Do no
 # Bring Hendricks the search question your current stack cannot answer.
 
 **CTA:** Start with a Search Intelligence Diagnostic
+
+## Canvas conversion, 2026-09-03
+
+**Answer label:** The direct answer
+
+**Employment record caption:** Employment record: organization, role, period and relationship
+
+Roles held, with organization, role, period and relationship. The table scrolls sideways on a narrow screen.
+
+**Capability areas label:** Capability areas
+
+**Research label:** Research
+
+**Closing eyebrow:** Closing

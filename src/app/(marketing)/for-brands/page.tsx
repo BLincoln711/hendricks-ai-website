@@ -1,29 +1,42 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
 
-import { Container } from '@/components/layout/container'
-import { PageHero } from '@/components/layout/page-hero'
-import { Section } from '@/components/layout/section'
-import { SectionHeading } from '@/components/layout/section-heading'
-import { ClosingCta } from '@/components/sections/closing-cta'
-import { RelatedLinks } from '@/components/sections/related-links'
+import { Answer } from '@/components/canvas/answer'
+import { ClosingStation } from '@/components/canvas/closing-station'
+import { Ledger } from '@/components/canvas/ledger'
+import { CanvasPageHero } from '@/components/canvas/page-hero'
+import { RuleList } from '@/components/canvas/rule-list'
+import { TableOfContents } from '@/components/canvas/table-of-contents'
+import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
-import { SignalList } from '@/components/ui/signal-list'
-import { OperatingLayer } from '@/components/visuals/operating-layer'
-import { routes } from '@/config/routes'
+import { RuleLink } from '@/components/ui/cta'
+import { OperatingLayerDrawing } from '@/components/visuals/operating-layer-drawing'
+import { isBuilt, routes } from '@/config/routes'
 import {
   changes,
   closing,
+  contents,
   engagements,
   hero,
   meta,
   notReplaced,
   related,
+  relatedTitle,
   signals,
 } from '@/content/pages/for-brands'
 import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * /for-brands, rebuilt on the approved canvas (`07-hifi/for-brands.html`)
+ * station for station.
+ *
+ * Eight stations: the hero, the contents-and-answer band, the signs of fit, the
+ * four kinds of clarity, the four engagements, the scope boundary with its
+ * operating-layer figure, where to go next, and the close. Every sentence and
+ * list item the light version carried is still here; the answer-first block and
+ * the page's own contents are what the conversion adds.
+ */
 
 export const metadata: Metadata = buildMetadata({
   title: meta.title,
@@ -33,7 +46,7 @@ export const metadata: Metadata = buildMetadata({
 
 export default function ForBrandsPage() {
   return (
-    <>
+    <div className="wrap">
       <JsonLd
         data={jsonLdGraph(
           webPageSchema({
@@ -45,141 +58,158 @@ export default function ForBrandsPage() {
         )}
       />
 
-      <PageHero
+      {/* 1. Page hero */}
+      <CanvasPageHero
         eyebrow={hero.eyebrow}
         title={hero.title}
-        lead={hero.lead}
-        primaryCta={hero.primaryCta}
+        lead={hero.leadTwoTone}
         path={routes.forBrands.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.forBrands.label },
         ]}
+        primaryCta={hero.primaryCta}
       />
 
-      <Section variant="field" size="major" ariaLabelledBy="signals-title">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
-            <SectionHeading eyebrow={signals.eyebrow} title={signals.title} id="signals-title" />
-            <SignalList items={signals.items} />
+      {/* 2. Contents and the direct answer */}
+      <Station id="answer" ariaLabelledBy="answer-title" className="tight">
+        <div className="railcol">
+          <TableOfContents items={contents} />
+          <Answer
+            headingId="answer-title"
+            headingText={hero.answerHeading}
+            paragraphs={[hero.lead[2]]}
+          />
+        </div>
+      </Station>
+
+      {/* 3. Signs of fit */}
+      <Station id="signals" ariaLabelledBy="signals-title">
+        <div className="split">
+          <div className="words">
+            <p className="text-eyebrow text-ink-2">{signals.eyebrow}</p>
+            <h2 id="signals-title" className="text-h2 text-ink">
+              {signals.title}
+            </h2>
+            <RuleLink cta={signals.cta} />
           </div>
-        </Container>
-      </Section>
-
-      <Section variant="white" size="major" ariaLabelledBy="changes-title">
-        <Container>
-          <div className="flex flex-col gap-12">
-            <SectionHeading
-              eyebrow={changes.eyebrow}
-              title={changes.title}
-              id="changes-title"
-              maxWidth="wide"
-            />
-
-            {/*
-              Headings rather than a description list. The approved markdown marks
-              all four of these as H3, and the engagements section below already
-              renders its items that way, so the two halves of the page now
-              segment the same. A heading cannot be nested inside a `<dt>`,
-              because the HTML content model forbids it, so the elements change:
-              `<ul>`/`<li>` replaces `<dl>`/`<div>`, `<h3>` replaces `<dt>`, `<p>`
-              replaces `<dd>`. Every class is carried over unchanged, and
-              preflight zeroes both the list bullet and the heading's default
-              size, so nothing moves on screen.
-            */}
-            <ul className="grid gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
-              {changes.items.map((item) => (
-                <li
-                  key={item.name}
-                  className="flex flex-col gap-2 border-t-2 border-path pt-5"
-                >
-                  <h3 className="text-[1.0625rem] font-medium text-ink">
-                    {item.name}
-                  </h3>
-                  <p className="text-[0.9375rem] leading-relaxed text-ink-2">
-                    {item.description}
-                  </p>
-                </li>
-              ))}
-            </ul>
+          <div className="figure">
+            <RuleList items={signals.items} ariaLabel={signals.title} />
           </div>
-        </Container>
-      </Section>
+        </div>
+      </Station>
 
-      <Section variant="soft" size="major" ariaLabelledBy="engagements-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={engagements.eyebrow}
-              title={engagements.title}
-              id="engagements-title"
-              maxWidth="wide"
-            />
+      {/* 4. What changes */}
+      <Station id="changes" ariaLabelledBy="changes-title">
+        <p className="text-eyebrow mb-[22px] text-ink-2">{changes.eyebrow}</p>
+        <h2 id="changes-title" className="text-h2 text-ink">
+          {changes.title}
+        </h2>
 
-            <ol className="grid gap-5 md:grid-cols-2">
-              {engagements.items.map((engagement, index) => (
-                <li
-                  key={engagement.name}
-                  className="flex flex-col gap-3 border border-rule p-6 md:p-8"
-                >
-                  <span className="font-mono text-[0.8125rem] text-ink-2">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="text-[1.25rem] leading-snug font-medium text-ink">
-                    {engagement.name}
-                  </h3>
-                  <p className="text-[0.9375rem] leading-relaxed text-ink-2">
-                    {engagement.description}
-                  </p>
-                  <Link
-                    href={engagement.href}
-                    className="group mt-auto inline-flex items-center gap-1.5 pt-2 text-[0.9375rem] font-medium text-link underline decoration-1 underline-offset-4 transition-colors hover:text-link"
-                  >
-                    {engagement.linkLabel}
-                    <ArrowRight
-                      aria-hidden="true"
-                      className="size-4 transition-transform duration-[var(--duration-micro)] group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
-                    />
-                  </Link>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </Container>
-      </Section>
+        <Ledger
+          ariaLabel={changes.title}
+          rows={changes.items.map((item) => ({
+            key: item.name,
+            label: item.name,
+            value: item.description,
+            note: item.artifact,
+          }))}
+        />
+      </Station>
 
-      <Section variant="white" size="major" ariaLabelledBy="not-replaced-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={notReplaced.eyebrow}
-              title={notReplaced.title}
-              description={notReplaced.lead}
-              id="not-replaced-title"
-              maxWidth="wide"
-            />
+      {/* 5. Ways to work together */}
+      <Station id="engagements" ariaLabelledBy="engagements-title">
+        <p className="text-eyebrow mb-[22px] text-ink-2">{engagements.eyebrow}</p>
+        <h2 id="engagements-title" className="text-h2 text-ink">
+          {engagements.title}
+        </h2>
 
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
-              <div className="flex flex-col gap-6">
-                <SignalList items={notReplaced.items} />
-                <p className="text-[1rem] leading-relaxed text-ink-3">
-                  {notReplaced.closing}
-                </p>
-              </div>
-
-              <OperatingLayer
-                participants={notReplaced.participants}
-                layerName={notReplaced.layerName}
-                layerDescription={notReplaced.layerDescription}
-              />
+        <div className="classrow">
+          {engagements.items.map((engagement, index) => (
+            <div key={engagement.name}>
+              <span className="ix" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <h3>{engagement.name}</h3>
+              <p>{engagement.description}</p>
+              <RuleLink cta={{ label: engagement.linkLabel, href: engagement.href }} />
             </div>
+          ))}
+        </div>
+      </Station>
+
+      {/* 6. What Hendricks does not replace */}
+      <Station id="scope" ariaLabelledBy="scope-title">
+        <div className="split flip">
+          <div className="figure">
+            <RuleList items={notReplaced.items} ariaLabel={notReplaced.lead} />
           </div>
-        </Container>
-      </Section>
+          <div className="words">
+            <p className="text-eyebrow text-ink-2">{notReplaced.eyebrow}</p>
+            <h2 id="scope-title" className="text-h2 text-ink">
+              {notReplaced.title}
+            </h2>
+            <p className="text-lead text-ink">{notReplaced.lead}</p>
+            <p className="measure text-ink-2">{notReplaced.closing}</p>
+          </div>
+        </div>
 
-      <RelatedLinks title="Where to go next." links={related} />
+        {/* The moment of scale on this page: three contributors and the one
+            operating layer, drawn at the width of the container. */}
+        <figure className="plate mt-12">
+          <p className="text-coordinate text-ink-2">{notReplaced.figure.number}</p>
+          <div className="drawing">
+            <OperatingLayerDrawing
+              participants={notReplaced.participants}
+              layerName={notReplaced.layerName}
+            />
+          </div>
 
-      <ClosingCta title={closing.title} primaryCta={closing.primaryCta} />
-    </>
+          <Ledger
+            ariaLabel={notReplaced.figure.caption}
+            rows={notReplaced.participants.map((participant) => ({
+              key: participant.name,
+              label: participant.name,
+              value: participant.role,
+            }))}
+          />
+
+          <div className="layer-note">
+            <h3>{notReplaced.layerName}</h3>
+            <p>{notReplaced.layerDescription}</p>
+          </div>
+
+          <figcaption className="plate-cap text-caption text-ink-2">
+            {notReplaced.figure.caption}
+          </figcaption>
+        </figure>
+      </Station>
+
+      {/* 7. Where to go next */}
+      <Station id="next" ariaLabelledBy="next-title">
+        <h2 id="next-title" className="text-h2 text-ink">
+          {relatedTitle}
+        </h2>
+
+        <Ledger
+          ariaLabel={relatedTitle}
+          rows={related
+            .filter((entry) => isBuilt(entry.href))
+            .map((entry) => ({
+              key: entry.href,
+              label: <Link href={entry.href}>{entry.label}</Link>,
+              value: entry.description,
+              note: entry.kind,
+            }))}
+        />
+      </Station>
+
+      {/* 8. The close */}
+      <ClosingStation
+        id="close"
+        title={closing.title}
+        primaryCta={closing.primaryCta}
+      />
+    </div>
   )
 }

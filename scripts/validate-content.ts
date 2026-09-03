@@ -38,8 +38,6 @@ const CONTENT_PAGES = path.join(ROOT, 'content', 'pages')
  */
 const SEARCH_ECONOMY_ALLOWLIST = [
   'src/content/pages/about.ts',
-  'src/components/sections/external-venture-card.tsx',
-  'src/app/(marketing)/about/page.tsx',
   'src/content/legal/privacy.ts',
   'src/content/legal/terms.ts',
 ]

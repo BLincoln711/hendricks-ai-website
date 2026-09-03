@@ -1,4 +1,4 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 import {
@@ -381,6 +381,7 @@ export const position = {
 } as const
 
 export const limitation = {
+  label: 'Honest limitation',
   title: 'This page states a position and reports no measurement.',
   body: [
     'Every claim on this page is either a statement about what a buyer can check or a statement about what Hendricks does. None of it reports a study, a survey, or a controlled test.',
@@ -402,7 +403,27 @@ export const sources = {
   ],
 } as const
 
-export const related: readonly RelatedLink[] = [
+/** The page's own outline, in the order the stations render. */
+export const contents = [
+  { id: 'produces', label: 'What a monitoring feed produces' },
+  { id: 'gap', label: 'What it leaves undone' },
+  { id: 'monitoring', label: 'Monitoring against measurement' },
+  { id: 'build-or-buy', label: 'Build, buy or contract' },
+  { id: 'after-dashboard', label: 'After the dashboard' },
+  { id: 'position', label: 'Where Hendricks sits' },
+  { id: 'limitation', label: 'The honest limitation' },
+  { id: 'sources', label: 'Sources' },
+  { id: 'change-history', label: 'Change history' },
+  { id: 'related-terms', label: 'Related terms' },
+  { id: 'related', label: 'Where to go next' },
+] as const
+
+export const relatedSection = {
+  eyebrow: 'Where To Go Next',
+  title: 'Where to go next.',
+} as const
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.selectionIntelligence.path,
     label: 'Selection Intelligence',

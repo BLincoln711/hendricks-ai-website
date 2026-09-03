@@ -1,20 +1,25 @@
 import type { Metadata } from 'next'
 
-import { Container } from '@/components/layout/container'
-import { PageHero } from '@/components/layout/page-hero'
-import { Section } from '@/components/layout/section'
-import { SectionHeading } from '@/components/layout/section-heading'
-import { ClosingCta } from '@/components/sections/closing-cta'
-import { DirectAnswer } from '@/components/sections/direct-answer'
-import { RelatedLinks } from '@/components/sections/related-links'
-import { SourcesNote } from '@/components/sections/sources-note'
+import { Answer } from '@/components/canvas/answer'
+import { Byline } from '@/components/canvas/byline'
+import { ChangeHistory } from '@/components/canvas/change-history'
+import { ClosingStation } from '@/components/canvas/closing-station'
+import { Ledger } from '@/components/canvas/ledger'
+import { Limitations } from '@/components/canvas/limitations'
+import { CanvasPageHero } from '@/components/canvas/page-hero'
+import { RailColumn } from '@/components/canvas/rail-column'
+import { RelatedRules } from '@/components/canvas/related-list'
+import { RelatedTerms } from '@/components/canvas/related-terms'
+import { RuleList } from '@/components/canvas/rule-list'
+import { SourcesStation } from '@/components/canvas/sources-station'
+import { TableRegion } from '@/components/canvas/table-region'
+import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
-import { Callout } from '@/components/ui/callout'
-import { DataTable } from '@/components/ui/data-table'
-import { SignalList } from '@/components/ui/signal-list'
 import { routes } from '@/config/routes'
+import { siteConfig } from '@/config/site'
 import {
   closing,
+  contents,
   directAnswer,
   hero,
   inPractice,
@@ -22,18 +27,25 @@ import {
   meta,
   observed,
   related,
+  relatedSection,
   runsOut,
   sameAsSeo,
   sources,
   versusSie,
 } from '@/content/pages/what-is-generative-engine-optimization'
-import {
-  definedTermSchema,
-  definedTermSetSchema,
-  jsonLdGraph,
-  webPageSchema,
-} from '@/lib/seo/json-ld'
+import { isDefinitionRoute } from '@/content/shared/definition-routes'
+import { publicationChrome } from '@/content/shared/publication-record'
+import { definedTermSchema, jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * /what-is-generative-engine-optimization, rebuilt on the approved canvas
+ * (`07-hifi/definition-page.html`) station for station.
+ *
+ * The structural limits render as a ledger rather than as a numbered card grid:
+ * each item is a named limit and one sentence, which is exactly the row this
+ * system already has, and a grid of boxed items is the thing the canvas removes.
+ */
 
 export const metadata: Metadata = buildMetadata({
   title: meta.title,
@@ -41,51 +53,23 @@ export const metadata: Metadata = buildMetadata({
   path: routes.whatIsGenerativeEngineOptimization.path,
 })
 
+const relatedTerms = related.filter((entry) => isDefinitionRoute(entry.href))
+const relatedWork = related.filter((entry) => !isDefinitionRoute(entry.href))
+
 export default function WhatIsGenerativeEngineOptimizationPage() {
   return (
-    <>
+    <div className="wrap">
       <JsonLd
         data={jsonLdGraph(
           webPageSchema({
             path: routes.whatIsGenerativeEngineOptimization.path,
             title: meta.title,
             description: meta.description,
-            // The subject of a definition page is the term it defines, not the
-            // firm. Without mainEntity the graph never says what this page is about.
             mainEntityFragment: 'term',
             about: null,
             hasBreadcrumb: true,
-            // Emitted only because this page renders the same date visibly in
-            // its SourcesNote <time>. Pages without a visible date get none.
             dateModified: sources.reviewed,
           }),
-          /*
-            The set carries this page's term alongside the two category terms.
-
-            `definedTermSchema` hard-codes `inDefinedTermSet` at the site
-            vocabulary node, so a set emitted here that omitted the term would
-            leave the page's own graph contradicting itself: a DefinedTerm
-            claiming membership in a set, listed on the same page, that does not
-            contain it.
-
-            Membership records that this site defines the term. It does not say
-            Hendricks sells the practice, and nothing else in the graph does
-            either: there is no Service node on this page, and the visible copy
-            states the boundary outright. The equivalent assertion already ships
-            site-wide, since `organizationSchema.knowsAbout` names both
-            generative engine optimization and answer engine optimization.
-          */
-          definedTermSetSchema([
-            {
-              name: 'Search Intelligence Engineering',
-              path: routes.whatIsSearchIntelligenceEngineering.path,
-            },
-            { name: 'Selection Intelligence', path: routes.whatIsSelectionIntelligence.path },
-            {
-              name: directAnswer.term,
-              path: routes.whatIsGenerativeEngineOptimization.path,
-            },
-          ]),
           definedTermSchema({
             path: routes.whatIsGenerativeEngineOptimization.path,
             term: directAnswer.term,
@@ -94,232 +78,175 @@ export default function WhatIsGenerativeEngineOptimizationPage() {
         )}
       />
 
-      <PageHero
+      {/* 1. Page hero */}
+      <CanvasPageHero
         eyebrow={hero.eyebrow}
         title={hero.title}
-        lead={hero.lead}
-        primaryCta={hero.primaryCta}
         path={routes.whatIsGenerativeEngineOptimization.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.whatIsGenerativeEngineOptimization.label },
         ]}
-      />
+        primaryCta={hero.primaryCta}
+      >
+        <Answer
+          id="answer"
+          className="answer-lead mt-[30px]"
+          label={directAnswer.term}
+          labelId="direct-answer-label"
+          paragraphs={[directAnswer.answer]}
+        />
 
-      <DirectAnswer term={directAnswer.term} answer={directAnswer.answer} />
+        <Byline
+          authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`}
+          reviewed={sources.reviewed}
+        />
 
-      <Section variant="field" size="major" ariaLabelledBy="practice-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={inPractice.eyebrow}
-              title={inPractice.title}
-              description={inPractice.lead}
-              id="practice-title"
-              level={2}
-            />
+        <div className="mt-[26px] max-w-[60ch]">
+          {hero.lead.map((paragraph) => (
+            <p key={paragraph} className="text-lead mt-3 text-ink">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </CanvasPageHero>
 
-            <SignalList items={inPractice.items} columns={2} />
+      <div className="bodywrap">
+        <RailColumn sections={contents}>
+          {/* 01. What the work covers */}
+          <Station id="in-practice" ariaLabelledBy="practice-title" stack>
+            <p className="text-eyebrow text-ink-2">{inPractice.eyebrow}</p>
+            <h2 id="practice-title" className="text-h2 text-ink">
+              {inPractice.title}
+            </h2>
+            <p className="text-lead text-ink">{inPractice.lead}</p>
+
+            <RuleList items={inPractice.items} ariaLabel={inPractice.title} />
 
             <p className="text-lead measure text-ink-3">{inPractice.closing}</p>
-          </div>
-        </Container>
-      </Section>
+          </Station>
 
-      {/*
-        Narrow container rather than the two-column grid used elsewhere. This
-        section is the answer to the question buyers ask most often, and its
-        four paragraphs have to be readable as continuous argument, so the
-        measure matters more than the composition.
-      */}
-      <Section variant="white" size="major" ariaLabelledBy="seo-title">
-        <Container width="narrow">
-          <div className="flex flex-col gap-8">
-            <SectionHeading
-              eyebrow={sameAsSeo.eyebrow}
-              title={sameAsSeo.title}
-              id="seo-title"
-              level={2}
-            />
+          {/* 02. Is it the same as SEO */}
+          <Station id="same-as-seo" ariaLabelledBy="seo-title" stack>
+            <p className="text-eyebrow text-ink-2">{sameAsSeo.eyebrow}</p>
+            <h2 id="seo-title" className="text-h2 text-ink">
+              {sameAsSeo.title}
+            </h2>
 
-            <div className="flex flex-col gap-4">
+            <div className="prose">
               {sameAsSeo.body.map((paragraph) => (
-                <p
-                  key={paragraph}
-                  className="text-[1.0625rem] leading-relaxed text-ink-3"
-                >
-                  {paragraph}
-                </p>
+                <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-          </div>
-        </Container>
-      </Section>
+          </Station>
 
-      {/*
-        Same numbered composition as the outcomes list on
-        /what-is-search-intelligence-engineering, minus the per-item link. Each
-        item is a named structural limit rather than a route into a solution, so
-        an item-level CTA would push the reader out of an argument that has to be
-        read whole.
-      */}
-      <Section variant="soft" size="major" ariaLabelledBy="runs-out-title">
-        <Container>
-          <div className="flex flex-col gap-12">
-            <SectionHeading
-              eyebrow={runsOut.eyebrow}
-              title={runsOut.title}
-              description={runsOut.lead}
-              id="runs-out-title"
-              level={2}
-            />
+          {/* 03. Where the framing runs out */}
+          <Station id="runs-out" ariaLabelledBy="runs-out-title" stack>
+            <p className="text-eyebrow text-ink-2">{runsOut.eyebrow}</p>
+            <h2 id="runs-out-title" className="text-h2 text-ink">
+              {runsOut.title}
+            </h2>
+            <p className="text-lead text-ink">{runsOut.lead}</p>
 
-            <ol className="grid gap-x-10 gap-y-10 md:grid-cols-2">
-              {runsOut.items.map((item) => (
-                <li key={item.name} className="flex flex-col gap-2">
-                  <span className="font-mono text-[0.75rem] text-ink-2">
-                    {item.number}
-                  </span>
-                  <h3 className="text-[1.25rem] leading-snug font-medium text-ink">
+            <Ledger
+              ariaLabel={runsOut.title}
+              rows={runsOut.items.map((item) => ({
+                key: item.name,
+                label: (
+                  <>
+                    <span className="ix" aria-hidden="true">
+                      {item.number}
+                    </span>
                     {item.name}
-                  </h3>
-                  <p className="text-[0.9375rem] leading-relaxed text-ink-2">
-                    {item.description}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </Container>
-      </Section>
-
-      {/*
-        Scope block. It is short and it is the most consequential section on the
-        page, so it gets its own band rather than being folded into the
-        comparison, where a reader scanning the table would pass it.
-      */}
-      <Section variant="white" size="standard" ariaLabelledBy="observed-title">
-        <Container width="narrow">
-          <div className="flex flex-col gap-8">
-            <SectionHeading
-              eyebrow={observed.eyebrow}
-              title={observed.title}
-              id="observed-title"
-              level={2}
+                  </>
+                ),
+                value: item.description,
+              }))}
             />
+          </Station>
 
-            <div className="flex flex-col gap-4">
+          {/* 04. What Hendricks observes */}
+          <Station id="observed" ariaLabelledBy="observed-title" stack>
+            <p className="text-eyebrow text-ink-2">{observed.eyebrow}</p>
+            <h2 id="observed-title" className="text-h2 text-ink">
+              {observed.title}
+            </h2>
+
+            <div className="prose">
               {observed.body.map((paragraph) => (
-                <p
-                  key={paragraph}
-                  className="text-[1.0625rem] leading-relaxed text-ink-3"
-                >
-                  {paragraph}
-                </p>
+                <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-          </div>
-        </Container>
-      </Section>
+          </Station>
 
-      <Section variant="field" size="major" ariaLabelledBy="comparison-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={versusSie.eyebrow}
-              title={versusSie.title}
-              id="comparison-title"
-              level={2}
-            />
+          {/* 05. Against Search Intelligence Engineering */}
+          <Station id="comparison" ariaLabelledBy="comparison-title" stack>
+            <p className="text-eyebrow text-ink-2">{versusSie.eyebrow}</p>
+            <h2 id="comparison-title" className="text-h2 text-ink">
+              {versusSie.title}
+            </h2>
 
-            <DataTable
+            <TableRegion
               caption={versusSie.caption}
               columns={versusSie.columns}
               rows={versusSie.rows}
             />
 
-            <div className="flex flex-col gap-2">
+            <div className="prose">
               {versusSie.closing.map((line) => (
-                <p key={line} className="text-lead measure text-ink-3">
+                <p key={line} className="text-lead text-ink-3">
                   {line}
                 </p>
               ))}
             </div>
-          </div>
-        </Container>
-      </Section>
+          </Station>
 
-      {/*
-        The callout title is promoted to h2 and carries the section's accessible
-        name. This is the concession the argument depends on, so it is a
-        section-level statement rather than a subsection aside.
-      */}
-      <Section variant="white" size="standard" ariaLabelledBy="limitation-title">
-        <Container>
-          <Callout
-            variant="limitation"
-            label="Honest limitation"
-            title={limitation.title}
-            titleId="limitation-title"
-            headingLevel={2}
-          >
-            {limitation.body.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </Callout>
-        </Container>
-      </Section>
-
-      <RelatedLinks title="Where to go next." links={related} />
-
-      <SourcesNote
-        reviewed={sources.reviewed}
-        basis={sources.basis}
-        appliedIn={sources.appliedIn}
-      />
-
-      {/*
-        The reference list is rendered here, and not inside SourcesNote, because
-        SourcesNote is shared with the definition pages that state a Hendricks
-        position and cite nothing. This page is different: it describes the
-        documented behaviour of platforms Hendricks does not control, so every
-        such claim has to be checkable.
-
-        It sits directly after SourcesNote so the block reads in the order the
-        approved copy promises. `sources.basis` ends "listed below", and the two
-        share a surface and a container width so they read as one band.
-      */}
-      <Section variant="soft" size="small" ariaLabelledBy="references-heading">
-        <Container width="narrow">
-          <div className="flex flex-col gap-4">
-            <h2 id="references-heading" className="text-eyebrow text-ink-2">
-              References
+          {/* 06. The honest limitation */}
+          <Station id="limitation" ariaLabelledBy="limitation-title" stack>
+            <h2 id="limitation-title" className="text-h2 text-ink">
+              {limitation.title}
             </h2>
+            <Limitations label={limitation.label} items={limitation.body} />
+          </Station>
 
-            <ul className="flex flex-col gap-3">
-              {sources.references.map((reference) => (
-                <li
-                  key={reference.href}
-                  className="text-[0.9375rem] leading-relaxed text-ink-2"
-                >
-                  <a
-                    href={reference.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-link underline decoration-link underline-offset-4 hover:decoration-link"
-                  >
-                    {reference.title}
-                    <span className="sr-only"> (opens in a new tab)</span>
-                  </a>
-                  . {reference.publisher}.
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Container>
-      </Section>
+          {/* 07. Sources and references */}
+          <SourcesStation
+            reviewed={sources.reviewed}
+            basis={sources.basis}
+            appliedIn={sources.appliedIn}
+            citations={sources.citations}
+          />
 
-      <ClosingCta title={closing.title} primaryCta={closing.primaryCta} />
-    </>
+          {/* 08. Change history */}
+          <Station id="change-history" ariaLabelledBy="changes-title" stack>
+            <p className="text-eyebrow text-ink-2">{publicationChrome.changeHistory.eyebrow}</p>
+            <h2 id="changes-title" className="text-h2 text-ink">
+              {publicationChrome.changeHistory.title}
+            </h2>
+            <ChangeHistory />
+          </Station>
+
+          {/* 09. Related terms */}
+          <Station id="related-terms" ariaLabelledBy="terms-title" stack>
+            <p className="text-eyebrow text-ink-2">{publicationChrome.relatedTerms.eyebrow}</p>
+            <h2 id="terms-title" className="text-h2 text-ink">
+              {publicationChrome.relatedTerms.title}
+            </h2>
+            <RelatedTerms terms={relatedTerms} />
+          </Station>
+
+          {/* 10. Where to go next */}
+          <Station id="related" ariaLabelledBy="related-title" stack>
+            <p className="text-eyebrow text-ink-2">{relatedSection.eyebrow}</p>
+            <h2 id="related-title" className="text-h2 text-ink">
+              {relatedSection.title}
+            </h2>
+            <RelatedRules entries={relatedWork} ariaLabel={relatedSection.title} />
+          </Station>
+        </RailColumn>
+      </div>
+
+      <ClosingStation id="close" title={closing.title} primaryCta={closing.primaryCta} />
+    </div>
   )
 }

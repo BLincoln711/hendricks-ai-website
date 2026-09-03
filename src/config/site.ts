@@ -22,6 +22,13 @@ export const siteConfig = {
   founder: 'Brandon Lincoln Hendricks',
   // CONTENT_VERIFICATION.md F9 — confirm this is the title to publish.
   founderRole: 'Search Intelligence Engineer',
+  /*
+    Decision D-B, 2026-09-02. One identity across both properties: the `Person`
+    node on hendricks.ai carries this `@id`, so a machine reading a research
+    byline here and a machine reading the biography at brandonlincolnhendricks.com
+    resolve to the same entity rather than to two people with the same name.
+  */
+  founderPersonId: 'https://brandonlincolnhendricks.com/#person',
 } as const
 
 export const primaryCta = {

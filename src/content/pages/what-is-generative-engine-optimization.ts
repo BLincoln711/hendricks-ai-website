@@ -1,4 +1,4 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 import {
@@ -23,7 +23,7 @@ import {
  * framing, never at the practitioners, which is why `limitation` concedes what
  * the framing gets right in the page's own voice rather than as a hedge.
  *
- * `sources.references` is new to this page. The other definition pages state the
+ * `sources.citations` is new to this page. The other definition pages state the
  * firm's position and cite nothing, which is correct for them. This one makes
  * claims about platform behaviour, so each is carried by the platform's own
  * documentation and every reference below was fetched and verified on the review
@@ -200,6 +200,7 @@ export const versusSie = {
 } as const
 
 export const limitation = {
+  label: 'Honest limitation',
   title: 'The GEO framing gets the direction right.',
   body: [
     'The practitioners who named generative engine optimization identified a real change early. Answers now sit between the customer and the website, evidence published off-site travels further than the page it sits on, and plain, extractable language matters more than it used to. Hendricks agrees with all of that.',
@@ -215,26 +216,47 @@ export const sources = {
     { label: 'the Selection Intelligence solution', href: routes.selectionIntelligence.path },
     { label: 'the measurement methodology', href: routes.methodology.path },
   ],
-  references: [
+  /* Named `citations` with a `url`, matching the other page in this set that
+     cites platform documentation, so one component reads both. */
+  citations: [
     {
       title: 'AI features and your website',
       publisher: 'Google Search Central',
-      href: 'https://developers.google.com/search/docs/appearance/ai-features',
+      url: 'https://developers.google.com/search/docs/appearance/ai-features',
     },
     {
       title: 'Overview of OpenAI Crawlers',
       publisher: 'OpenAI',
-      href: 'https://developers.openai.com/api/docs/bots',
+      url: 'https://developers.openai.com/api/docs/bots',
     },
     {
       title: 'Perplexity Crawlers',
       publisher: 'Perplexity',
-      href: 'https://docs.perplexity.ai/docs/resources/perplexity-crawlers',
+      url: 'https://docs.perplexity.ai/docs/resources/perplexity-crawlers',
     },
   ],
 } as const
 
-export const related: readonly RelatedLink[] = [
+/** The page's own outline, in the order the stations render. */
+export const contents = [
+  { id: 'in-practice', label: 'What the work covers' },
+  { id: 'same-as-seo', label: 'Is it the same as SEO' },
+  { id: 'runs-out', label: 'Where the framing runs out' },
+  { id: 'observed', label: 'What Hendricks observes' },
+  { id: 'comparison', label: 'Against Search Intelligence Engineering' },
+  { id: 'limitation', label: 'The honest limitation' },
+  { id: 'sources', label: 'Sources and references' },
+  { id: 'change-history', label: 'Change history' },
+  { id: 'related-terms', label: 'Related terms' },
+  { id: 'related', label: 'Where to go next' },
+] as const
+
+export const relatedSection = {
+  eyebrow: 'Where To Go Next',
+  title: 'Where to go next.',
+} as const
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.whatIsAiMediatedSearch.path,
     label: 'What Is AI-Mediated Search?',

@@ -1,7 +1,36 @@
-import type { SolutionFeatureData } from '@/components/sections/solution-feature'
 import type { Cta } from '@/components/ui/cta'
-import type { SystemFlowStage } from '@/components/visuals/system-flow'
 import { routes } from '@/config/routes'
+import { metricDefinitions } from '@/content/shared/metrics'
+
+/**
+ * One stage of the system diagram: the name and the sentence beneath it.
+ *
+ * The type moved here from `visuals/system-flow.tsx` when the canvas conversion
+ * deleted that component; nothing else read it.
+ */
+export type SystemFlowStage = {
+  name: string
+  caption: string
+}
+
+/**
+ * One solution as the Solutions hub renders it.
+ *
+ * The type replaces `SolutionFeatureData`, which lived in the feature card the
+ * canvas conversion deletes. Two fields are new and two are unchanged: a row
+ * now states the business question it answers and the decision it enables
+ * alongside what Hendricks examines and the complete list of what it produces.
+ */
+export type SolutionRow = {
+  number: string
+  name: string
+  title: string
+  question: string
+  description: string
+  outputs: readonly string[]
+  decision: string
+  cta: Cta
+}
 
 /**
  * Approved copy, transcribed from content/pages/02-solutions.md.
@@ -39,6 +68,19 @@ export const solutionsHero = {
     'SEO measures rankings. Paid media measures auctions. Content teams measure production. AI-visibility tools measure mentions and citations. Analytics measures website behavior. CRM systems measure sales activity.',
     'Hendricks connects those fragments around the decision the customer is trying to make.',
   ],
+  /*
+    The answer-first block. The three approved lead sentences are unchanged and
+    all three still render: the first is the hero's lead, the second and third
+    are the answer, and the third takes the two-tone treatment because it is the
+    claim the rest of the page explains.
+  */
+  answerLabel: 'The short answer',
+  answerTwoTone: {
+    claim: 'Hendricks connects those fragments',
+    continuation: 'around the decision the customer is trying to make.',
+  },
+  onThisPage:
+    'On this page: the one system, the four solutions and what each produces, the related research, and how the mix is chosen.',
   primaryCta: {
     label: 'Start with a Search Intelligence Diagnostic',
     href: routes.diagnostic.path,
@@ -68,7 +110,32 @@ export const solutionsSystem = {
     },
   ] satisfies readonly SystemFlowStage[],
   note: 'Each solution can be sold as part of an engagement, but clients should not be asked to diagnose the technical service mix alone.',
+  /** The drawing's text equivalent, read where the drawing is not. */
+  alt: 'Four solutions in one loop. Search Demand Intelligence produces the Demand Map and Intent Context Library and passes them to Selection Intelligence, which produces the Selection Map and Commercial Selection Gap and passes them to Search Presence Engineering, which produces the Intervention Roadmap and passes it to Search Impact Measurement, which produces the Impact Ledger and returns what was learned to the start.',
+  caption: 'Demand, Selection, Presence, Impact: one path, and what each solution hands to the next.',
+  plate: { number: 'Plate 01', title: 'One System' },
 } as const
+
+/**
+ * The four fields each solution row answers, in the order they are read.
+ *
+ * The canvas conversion renders a solution as a run of hairline rows rather
+ * than as a feature card, so each row states the business question it answers
+ * and the decision it enables alongside what Hendricks examines and what it
+ * produces. `outputs` is the complete list the approved markdown carries: D-E
+ * keeps every named output on the page rather than the first one or two.
+ */
+export const solutionFieldLabels = {
+  question: 'Business question',
+  examines: 'Hendricks examines',
+  outputs: 'Named outputs',
+  decision: 'Decision enabled',
+} as const
+
+/** The Commercial Selection Gap is defined where it is first used (CANON section 6). */
+export const commercialSelectionGap = metricDefinitions.find(
+  (metric) => metric.name === 'Commercial Selection Gap',
+)
 
 export const solutionsList = {
   eyebrow: 'The Four Solutions',
@@ -78,6 +145,9 @@ export const solutionsList = {
       number: '01',
       name: 'Search Demand Intelligence',
       title: 'Determine what is worth measuring and winning.',
+      question: 'Which customer decisions are worth winning?',
+      decision:
+        'Which decisions to measure, plan, and write for, and what each is potentially worth.',
       description:
         'Map customer needs, commercial questions, comparisons, market changes, and decision contexts before building a monitoring or content program.',
       outputs: [
@@ -87,7 +157,6 @@ export const solutionsList = {
         'Competitor demand capture',
         'Priority measurement set',
       ],
-      motif: 'demand',
       cta: {
         label: 'Explore Search Demand Intelligence',
         href: routes.searchDemandIntelligence.path,
@@ -102,6 +171,9 @@ export const solutionsList = {
       name: 'Selection Intelligence',
       title:
         'Understand whether, where, and under what conditions your brand enters consideration.',
+      question: 'When does the brand enter the shortlist, and when does it disappear?',
+      decision:
+        'How much valuable consideration the brand is losing, to which competitors, and what closing it is worth.',
       description:
         'Measure brand presence, understanding, relevance, consideration, recommendation, cited evidence, competitor performance, and outcome stability.',
       outputs: [
@@ -112,7 +184,6 @@ export const solutionsList = {
         'Evidence Graph',
         'Commercial Selection Gap',
       ],
-      motif: 'selection',
       cta: {
         label: 'Explore Selection Intelligence',
         href: routes.selectionIntelligence.path,
@@ -124,6 +195,8 @@ export const solutionsList = {
       name: 'Search Presence Engineering',
       title:
         'Improve the digital conditions that shape discovery, understanding, trust, and recommendation.',
+      question: 'What should change, and in what order?',
+      decision: 'What to change first, who owns it, and how each change will be measured.',
       description:
         'Implement technical, entity, content, evidence, authority, paid and organic, and conversion improvements.',
       outputs: [
@@ -134,7 +207,6 @@ export const solutionsList = {
         'Experiment backlog',
         'Change and Intervention Ledger',
       ],
-      motif: 'presence',
       cta: {
         label: 'Explore Search Presence Engineering',
         href: routes.searchPresenceEngineering.path,
@@ -149,6 +221,9 @@ export const solutionsList = {
       name: 'Search Impact Measurement',
       title:
         'Determine whether changes are influencing customer behavior and business outcomes.',
+      question: 'Did the work change outcomes the business can defend?',
+      decision:
+        'Whether to continue, scale, or stop each intervention, with the confidence the evidence supports.',
       description:
         'Connect exposure, branded demand, referrals, site behavior, leads, CRM outcomes, pipeline, and experiments.',
       outputs: [
@@ -159,7 +234,6 @@ export const solutionsList = {
         'Evidence grades',
         'Executive Impact Ledger',
       ],
-      motif: 'impact',
       cta: {
         label: 'Explore Search Impact Measurement',
         href: routes.searchImpactMeasurement.path,
@@ -169,18 +243,45 @@ export const solutionsList = {
         },
       },
     },
-  ] satisfies readonly SolutionFeatureData[],
+  ] satisfies readonly SolutionRow[],
 } as const
 
 export const solutionsBridge = {
   eyebrow: 'Engagement Bridge',
   title: 'The solution mix follows the evidence.',
-  body: [
-    'Direct clients typically begin with a Search Intelligence Diagnostic. The Diagnostic determines which solution layers matter, what can be changed, what data is available, and what should be implemented first.',
-  ],
+  /* The approved closing paragraph, in the two-tone form: claim, then the
+     continuation of the same sentence at the quiet ink tier. */
+  lead: {
+    claim: 'Direct clients typically begin with a Search Intelligence Diagnostic.',
+    continuation:
+      'The Diagnostic determines which solution layers matter, what can be changed, what data is available, and what should be implemented first.',
+  },
   primaryCta: {
-    label: 'Start with the Diagnostic',
+    label: 'Start with a Search Intelligence Diagnostic',
     href: routes.diagnostic.path,
     analytics: { location: 'solutions_bridge' },
   } satisfies Cta,
+} as const
+
+/**
+ * The related-research block the canvas conversion adds (handoff L-04).
+ *
+ * /solutions was the one top-level commercial page that reached no research
+ * page at all, which the file header recorded as an omission rather than a
+ * decision. The destination is resolved from the research registry at render
+ * time, so adding a study never requires editing this file.
+ */
+export const solutionsResearch = {
+  eyebrow: 'Related Research',
+  title: 'Research for the AI Search Era.',
+  lead: {
+    claim:
+      'Practical, source-supported research on how people search, how brands enter consideration,',
+    continuation:
+      'how AI-mediated discovery changes the buying journey, and how organizations can measure the commercial result.',
+  },
+  hubLabel: 'Research Hub',
+  hubDescription:
+    'Every published study, with its capture window, its method, and its limitations.',
+  latestKind: 'Captured',
 } as const

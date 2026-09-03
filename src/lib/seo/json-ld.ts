@@ -78,7 +78,7 @@ export function organizationSchema() {
     ],
     founder: {
       '@type': 'Person',
-      '@id': `${siteConfig.url}/about#person`,
+      '@id': siteConfig.founderPersonId,
       name: siteConfig.founder,
     },
   }
@@ -267,7 +267,8 @@ export function personSchema({
 }) {
   return {
     '@type': 'Person',
-    '@id': `${siteConfig.url}/about#person`,
+    // D-B: one Person node across hendricks.ai and brandonlincolnhendricks.com.
+    '@id': siteConfig.founderPersonId,
     name: siteConfig.founder,
     jobTitle,
     url: new URL('/about', siteConfig.url).toString(),

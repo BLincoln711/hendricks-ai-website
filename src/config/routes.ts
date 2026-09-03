@@ -283,7 +283,13 @@ export function indexableBuiltRoutes(): RouteDefinition[] {
 }
 
 export function isBuilt(path: string): boolean {
-  return Object.values(routes).some((route) => route.path === path && route.built)
+  // A fragment or a query names a place on a route, not a route, so both are
+  // stripped before the lookup. Without this an in-page anchor such as
+  // `/diagnostic#fit` reads as an unbuilt route and is filtered out of every
+  // link list that guards on this.
+  const [withoutFragment = ''] = path.split('#')
+  const [routePath = ''] = withoutFragment.split('?')
+  return Object.values(routes).some((route) => route.path === routePath && route.built)
 }
 
 /**

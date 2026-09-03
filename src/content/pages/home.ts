@@ -310,12 +310,7 @@ export const ladder = {
 /* ========================================================================== */
 
 /** Locked, CANON section 2. The word "yet" is load bearing and is never cut. */
-export const evidenceRule = {
-  /** Not rendered as text: the station's accessible name, which its sentence answers. */
-  heading: 'The evidence rule',
-  claim: 'Absence is not yet a diagnosis.',
-  continuation: 'A single answer screen is one observation under one set of conditions.',
-} as const
+export { evidenceRule } from '@/content/shared/evidence-rule'
 
 /* ========================================================================== */
 /* Station 6. Evidence and outputs                                            */

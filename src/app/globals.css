@@ -2,6 +2,7 @@
 @import '../styles/tokens.css';
 @import '../styles/plate.css';
 @import '../styles/stations.css';
+@import '../styles/interior.css';
 
 @layer base {
   html {

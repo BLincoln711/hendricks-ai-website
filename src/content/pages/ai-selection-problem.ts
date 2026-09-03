@@ -1,4 +1,4 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 
@@ -156,6 +156,7 @@ export const competitorRecommendation = {
     'A citation set distributed that way is not a standings table with a competitor placed above a brand in it. It is a wide, shallow spread in which most sources appear once and then do not appear again. That is what a reader is looking at when a competitor is named in an answer and their own brand is not.',
   ],
   limitation: {
+    label: 'Honest limitation',
     title: 'What that run does not establish.',
     body: [
       'The 2026-08-19 run covered 17 buyer questions on one date and measured 47 of its 51 cells, with nothing changed between it and the run before it and nothing held back for comparison. It records how the sources in those answers were distributed. It establishes nothing about why any source was chosen, nothing about any other brand’s category, and nothing about what a change to a website would do to a later answer.',
@@ -275,7 +276,26 @@ export const sources = {
  * pointer with a number on it, and the deepening docs/17 wave 2.3 describes is a
  * separate change to the page body that this file cannot make on its own.
  */
-export const related: readonly RelatedLink[] = [
+/** The page's own outline, in the order the stations render. */
+export const contents = [
+  { id: 'journeys', label: 'Journey comparison' },
+  { id: 'consequence', label: 'The business consequence' },
+  { id: 'not-enough', label: 'Visibility is not enough' },
+  { id: 'competitor', label: 'One observation, not a ranking' },
+  { id: 'intelligence-gap', label: 'The intelligence gap' },
+  { id: 'response', label: 'The Hendricks response' },
+  { id: 'sources', label: 'Sources' },
+  { id: 'change-history', label: 'Change history' },
+  { id: 'related-terms', label: 'Related terms' },
+  { id: 'related', label: 'Where to go next' },
+] as const
+
+export const relatedSection = {
+  eyebrow: 'Where To Go Next',
+  title: 'Where to go next.',
+} as const
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.whatIsAiMediatedSearch.path,
     label: 'What Is AI-Mediated Search?',

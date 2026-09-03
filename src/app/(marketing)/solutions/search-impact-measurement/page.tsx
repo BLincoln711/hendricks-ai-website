@@ -1,18 +1,16 @@
 import type { Metadata } from 'next'
 
-import { Container } from '@/components/layout/container'
-import { PageHero } from '@/components/layout/page-hero'
-import { Section } from '@/components/layout/section'
-import { SectionHeading } from '@/components/layout/section-heading'
-import { ClosingCta } from '@/components/sections/closing-cta'
-import { Deliverables } from '@/components/sections/deliverables'
-import { FaqSection } from '@/components/sections/faq-section'
-import { RelatedLinks } from '@/components/sections/related-links'
+import { Answer } from '@/components/canvas/answer'
+import { ClosingStation } from '@/components/canvas/closing-station'
+import { FaqList } from '@/components/canvas/faq-list'
+import { Limitations } from '@/components/canvas/limitations'
+import { CanvasPageHero } from '@/components/canvas/page-hero'
+import { RelatedList } from '@/components/canvas/related-list'
+import { RuleList } from '@/components/canvas/rule-list'
+import { TableRegion } from '@/components/canvas/table-region'
+import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
-import { Callout } from '@/components/ui/callout'
-import { DataTable } from '@/components/ui/data-table'
-import { SignalList } from '@/components/ui/signal-list'
-import { ImpactMeasurementStack } from '@/components/visuals/impact-measurement-stack'
+import { RuleLink } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 import {
   closing,
@@ -25,9 +23,22 @@ import {
   limitation,
   meta,
   related,
+  relatedTitle,
 } from '@/content/pages/search-impact-measurement'
+import { diagnosticCta } from '@/content/shared/ctas'
 import { jsonLdGraph, serviceSchema, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * /solutions/search-impact-measurement, rebuilt on the approved canvas
+ * (`07-hifi/solution-page.html`) station for station.
+ *
+ * The four levels render as the numbered method list, each carrying its own
+ * question and the signals it reads. The evidence grades stay a real table
+ * inside a named, keyboard reachable scroll region, because a grade and the
+ * standard it requires are a two-column record and reading one without the
+ * other is what the table exists to prevent.
+ */
 
 export const metadata: Metadata = buildMetadata({
   title: meta.title,
@@ -37,7 +48,7 @@ export const metadata: Metadata = buildMetadata({
 
 export default function SearchImpactMeasurementPage() {
   return (
-    <>
+    <div className="wrap">
       <JsonLd
         data={jsonLdGraph(
           webPageSchema({
@@ -60,96 +71,137 @@ export default function SearchImpactMeasurementPage() {
         )}
       />
 
-      <PageHero
+      {/* 1. Page hero */}
+      <CanvasPageHero
         eyebrow={hero.eyebrow}
         title={hero.title}
-        lead={hero.lead}
-        primaryCta={hero.primaryCta}
+        lead={hero.lead[0]}
         path={routes.searchImpactMeasurement.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.solutions.label, href: routes.solutions.path },
           { label: routes.searchImpactMeasurement.label },
         ]}
-      />
+        primaryCta={diagnosticCta('sim_hero')}
+      >
+        <Answer className="mt-9" paragraphs={hero.lead.slice(1)} />
+        <RuleLink cta={hero.primaryCta} className="mt-3" />
+      </CanvasPageHero>
 
-      <Section variant="field" size="major" ariaLabelledBy="levels-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={levels.eyebrow}
-              title={levels.title}
-              id="levels-title"
-              maxWidth="wide"
-            />
-            <ImpactMeasurementStack levels={levels.items} />
+      {/* 2. Four levels of measurement */}
+      <Station id="levels" ariaLabelledBy="levels-title">
+        <p className="text-eyebrow mb-[22px] text-ink-2">{levels.eyebrow}</p>
+        <h2 id="levels-title" className="text-h2 text-ink">
+          {levels.title}
+        </h2>
+
+        <ol className="method mt-9" aria-label={levels.title}>
+          {levels.items.map((level) => (
+            <li key={level.name} data-marker={level.number}>
+              <div>
+                <h3>{level.name}</h3>
+                <p>{level.question}</p>
+                <RuleList className="mt-4" items={level.signals} ariaLabel={level.name} />
+              </div>
+            </li>
+          ))}
+        </ol>
+      </Station>
+
+      {/* 3. Evidence grades */}
+      <Station id="evidence-grades" ariaLabelledBy="evidence-grades-title">
+        <div className="split">
+          <div className="words">
+            <p className="text-eyebrow text-ink-2">{evidenceGrades.eyebrow}</p>
+            <h2 id="evidence-grades-title" className="text-h2 text-ink">
+              {evidenceGrades.title}
+            </h2>
           </div>
-        </Container>
-      </Section>
-
-      <Section variant="white" size="major" ariaLabelledBy="evidence-grades-title">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
-            <SectionHeading
-              eyebrow={evidenceGrades.eyebrow}
-              title={evidenceGrades.title}
-              id="evidence-grades-title"
-            />
-
-            <DataTable
+          <div className="figure">
+            <TableRegion
               caption={evidenceGrades.caption}
               columns={[
-                { key: 'grade', header: 'Grade', rowHeader: true, width: '5.5rem' },
+                { key: 'grade', header: 'Grade', rowHeader: true },
                 { key: 'standard', header: 'Standard' },
               ]}
               rows={evidenceGrades.rows}
             />
           </div>
-        </Container>
-      </Section>
+        </div>
+      </Station>
 
-      <Deliverables title={deliverables.title} items={deliverables.items} />
+      {/* 4. What it produces */}
+      <Station id="deliverables" ariaLabelledBy="deliverables-title">
+        <h2 id="deliverables-title" className="text-h2 text-ink">
+          {deliverables.title}
+        </h2>
 
-      <Section variant="white" size="major" ariaLabelledBy="impact-contract-title">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
-            <SectionHeading
-              eyebrow={impactContract.eyebrow}
-              title={impactContract.title}
-              description={impactContract.lead}
-              id="impact-contract-title"
-            />
-            <SignalList items={impactContract.items} columns={2} />
+        <ol className="olist mt-8 max-w-[1000px]" aria-label={deliverables.title}>
+          {deliverables.items.map((item, index) => (
+            <li key={item}>
+              <span className="n" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              {item}
+            </li>
+          ))}
+        </ol>
+      </Station>
+
+      {/* 5. The impact contract */}
+      <Station id="impact-contract" ariaLabelledBy="impact-contract-title">
+        <div className="split">
+          <div className="words">
+            <p className="text-eyebrow text-ink-2">{impactContract.eyebrow}</p>
+            <h2 id="impact-contract-title" className="text-h2 text-ink">
+              {impactContract.title}
+            </h2>
+            <p className="text-lead text-ink">{impactContract.lead}</p>
           </div>
-        </Container>
-      </Section>
+          <div className="figure">
+            <RuleList items={impactContract.items} ariaLabel={impactContract.lead} />
+          </div>
+        </div>
+      </Station>
 
-      <Section variant="field" size="standard">
-        <Container>
-          <Callout variant="limitation" label="What we do not promise" title={limitation.title}>
-            {limitation.body.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-            <p className="font-medium text-ink">{limitation.closing}</p>
-          </Callout>
-        </Container>
-      </Section>
+      {/* 6. What Hendricks does not promise */}
+      <Station id="limitation" ariaLabelledBy="limitation-title">
+        <h2 id="limitation-title" className="text-h2 text-ink">
+          {limitation.title}
+        </h2>
+        <Limitations className="mt-7" label={limitation.label} items={limitation.body} />
+        <p className="measure-wide mt-7 text-ink">{limitation.closing}</p>
+      </Station>
 
       {/*
         docs/14 §3 places the FAQ directly after the limitation statement and
         before Related, and that order is the argument: the questions settle a
         decision the page has already made rather than carrying the page's
-        primary answer, so lifting the block higher would displace it.
-        FaqSection supplies its own Section, surface, and aria-labelledby, the
-        same way RelatedLinks and ClosingCta below it do. Its default white
-        surface separates the field band above from the soft Related band
-        below. No FAQPage markup is emitted here, per docs/06 §10.
+        primary answer. No FAQPage markup is emitted here, per docs/06 §10.
       */}
-      <FaqSection eyebrow={faq.eyebrow} title={faq.title} items={faq.items} />
+      <Station id="measurement-questions" ariaLabelledBy="faq-title">
+        <p className="text-eyebrow mb-[22px] text-ink-2">{faq.eyebrow}</p>
+        <h2 id="faq-title" className="text-h2 text-ink">
+          {faq.title}
+        </h2>
+        <FaqList className="mt-9" items={faq.items} />
+      </Station>
 
-      <RelatedLinks title="Related solutions and research." links={related} />
+      {/* 8. Related */}
+      <Station id="related" ariaLabelledBy="related-title">
+        <h2 id="related-title" className="text-h2 text-ink">
+          {relatedTitle}
+        </h2>
+        <RelatedList className="mt-8" entries={related} ariaLabel={relatedTitle} />
+      </Station>
 
-      <ClosingCta title={closing.title} primaryCta={closing.primaryCta} />
-    </>
+      {/* 9. The close */}
+      <ClosingStation
+        id="closing"
+        title={closing.title}
+        primaryCta={diagnosticCta('sim_closing')}
+        secondaryLink={closing.primaryCta}
+      />
+    </div>
   )
 }

@@ -1,4 +1,4 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 
@@ -159,6 +159,13 @@ export const path = {
     'Human Selection',
     'Revenue',
   ],
+  stageLabel: 'Stage',
+  note: 'One path, read from the customer\u2019s need to the revenue it produces. Each stage is a different question, and different stages require different evidence.',
+  cta: {
+    label: 'See How the System Works',
+    href: routes.howItWorks.path,
+    analytics: { location: 'wisie_path' },
+  } satisfies Cta,
 } as const
 
 export const sources = {
@@ -185,7 +192,25 @@ export const sources = {
  * changing a shared component to serve a single row. The related block does the
  * job without that.
  */
-export const related: readonly RelatedLink[] = [
+/** The page's own outline, in the order the stations render. */
+export const contents = [
+  { id: 'why-it-exists', label: 'Why it exists' },
+  { id: 'four-outcomes', label: 'Four outcomes' },
+  { id: 'why-engineering', label: 'Why engineering' },
+  { id: 'what-it-is-not', label: 'What it is not' },
+  { id: 'demand-to-selection-path', label: 'The Demand-to-Selection path' },
+  { id: 'sources', label: 'Sources' },
+  { id: 'change-history', label: 'Change history' },
+  { id: 'related-terms', label: 'Related terms' },
+  { id: 'related', label: 'Related solutions and methodology' },
+] as const
+
+export const relatedSection = {
+  eyebrow: 'Related Solutions and Methodology',
+  title: 'Related solutions and methodology',
+} as const
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.solutions.path,
     label: 'Explore the four solutions',
@@ -224,6 +249,7 @@ export const related: readonly RelatedLink[] = [
 ]
 
 export const closing = {
+  eyebrow: 'Find the Gap',
   title: 'Find where your brand is losing consideration.',
   primaryCta: {
     label: 'Start with a Search Intelligence Diagnostic',

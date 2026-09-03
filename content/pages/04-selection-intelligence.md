@@ -28,7 +28,9 @@ And answers:
 
 > Did we become a legitimate option for a commercially valuable need?
 
-**Primary CTA:** Establish Your Selection Baseline
+**Primary CTA:** Start with a Search Intelligence Diagnostic
+
+**Secondary link:** Establish Your Selection Baseline
 
 ## Visibility is only the first stage
 
@@ -203,4 +205,6 @@ Low Selection Stability is its own trigger. An outcome that already varied acros
 
 # Find the part of the consideration set your current reporting cannot see.
 
-**CTA:** Request a Selection Intelligence Baseline
+**CTA:** Start with a Search Intelligence Diagnostic
+
+**Secondary link:** Request a Selection Intelligence Baseline

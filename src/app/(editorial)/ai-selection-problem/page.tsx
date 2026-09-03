@@ -1,34 +1,54 @@
 import type { Metadata } from 'next'
 
-import { Container } from '@/components/layout/container'
-import { PageHero } from '@/components/layout/page-hero'
-import { Section } from '@/components/layout/section'
-import { SectionHeading } from '@/components/layout/section-heading'
-import { ClosingCta } from '@/components/sections/closing-cta'
-import { RelatedLinks } from '@/components/sections/related-links'
-import { SourcesNote } from '@/components/sections/sources-note'
+import { Byline } from '@/components/canvas/byline'
+import { ChangeHistory } from '@/components/canvas/change-history'
+import { ClosingStation } from '@/components/canvas/closing-station'
+import { Ledger } from '@/components/canvas/ledger'
+import { Limitations } from '@/components/canvas/limitations'
+import { CanvasPageHero } from '@/components/canvas/page-hero'
+import { RailColumn } from '@/components/canvas/rail-column'
+import { RelatedRules } from '@/components/canvas/related-list'
+import { RelatedTerms } from '@/components/canvas/related-terms'
+import { RuleList } from '@/components/canvas/rule-list'
+import { SourcesStation } from '@/components/canvas/sources-station'
+import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
-import { Callout } from '@/components/ui/callout'
-import { TextCta } from '@/components/ui/cta'
-import { SignalList } from '@/components/ui/signal-list'
-import { NegationLadder } from '@/components/visuals/negation-ladder'
-import { CompletePath, TraditionalVsAiFlow } from '@/components/visuals/traditional-vs-ai-flow'
+import { RuleLink } from '@/components/ui/cta'
+import { NodePathDrawing } from '@/components/visuals/node-paths'
 import { routes } from '@/config/routes'
+import { siteConfig } from '@/config/site'
 import {
   closing,
   competitorRecommendation,
   consequence,
+  contents,
   hero,
   intelligenceGap,
   journeys,
   meta,
   notEnough,
   related,
+  relatedSection,
   response,
   sources,
 } from '@/content/pages/ai-selection-problem'
+import { isDefinitionRoute } from '@/content/shared/definition-routes'
+import { publicationChrome } from '@/content/shared/publication-record'
 import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * /ai-selection-problem, rebuilt on the approved canvas
+ * (`07-hifi/definition-page.html`, the template this route shares with the
+ * definition pages) station for station.
+ *
+ * The journey comparison renders as two stage rails across one hairline rather
+ * than as a drawing. The homepage's two-path plate carries a gloss, two markers
+ * and a text alternative that this page's copy does not hold, and inventing
+ * them to reuse the figure would be publishing words nobody approved. Both
+ * journeys keep every step, in order, and the difference in length is the point
+ * the section is making.
+ */
 
 export const metadata: Metadata = buildMetadata({
   title: meta.title,
@@ -36,11 +56,12 @@ export const metadata: Metadata = buildMetadata({
   path: routes.aiSelectionProblem.path,
 })
 
+const relatedTerms = related.filter((entry) => isDefinitionRoute(entry.href))
+const relatedWork = related.filter((entry) => !isDefinitionRoute(entry.href))
+
 export default function AiSelectionProblemPage() {
   return (
-    <>
-      {/* No DefinedTerm node: this page explains a problem rather than defining a
-          term, so the markup would not reproduce visible content (docs/06 §8). */}
+    <div className="wrap">
       <JsonLd
         data={jsonLdGraph(
           webPageSchema({
@@ -48,207 +69,211 @@ export default function AiSelectionProblemPage() {
             title: meta.title,
             description: meta.description,
             hasBreadcrumb: true,
-            // Emitted only because this page renders the same date visibly in
-            // its SourcesNote <time>. Pages without a visible date get none.
             dateModified: sources.reviewed,
           }),
         )}
       />
 
-      <PageHero
+      {/* 1. Page hero */}
+      <CanvasPageHero
         eyebrow={hero.eyebrow}
         title={hero.title}
-        lead={hero.lead}
-        primaryCta={hero.primaryCta}
         path={routes.aiSelectionProblem.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.aiSelectionProblem.label },
         ]}
-      />
+        primaryCta={hero.primaryCta}
+      >
+        <Byline
+          authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`}
+          reviewed={sources.reviewed}
+        />
 
-      <Section variant="white" size="major" ariaLabelledBy="journeys-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={journeys.eyebrow}
-              title={journeys.title}
-              id="journeys-title"
-              level={2}
-            />
-            <TraditionalVsAiFlow
-              traditional={journeys.traditional}
-              aiMediated={journeys.aiMediated}
-            />
-          </div>
-        </Container>
-      </Section>
+        <div className="mt-[26px] max-w-[60ch]">
+          {hero.lead.map((paragraph) => (
+            <p key={paragraph} className="text-lead mt-3 text-ink">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </CanvasPageHero>
 
-      <Section variant="field" size="major" ariaLabelledBy="consequence-title">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] lg:gap-16">
-            <SectionHeading
-              eyebrow={consequence.eyebrow}
-              title={consequence.title}
-              id="consequence-title"
-              level={2}
-            />
+      <div className="bodywrap">
+        <RailColumn sections={contents}>
+          {/* 01. Journey comparison */}
+          <Station id="journeys" ariaLabelledBy="journeys-title" stack>
+            <p className="text-eyebrow text-ink-2">{journeys.eyebrow}</p>
+            <h2 id="journeys-title" className="text-h2 text-ink">
+              {journeys.title}
+            </h2>
 
-            <div className="flex flex-col gap-8">
-              <SignalList items={consequence.assets} columns={2} />
-
-              <div className="flex flex-col gap-3 border-t border-rule pt-6">
-                {consequence.closing.map((line) => (
-                  <p key={line} className="text-lead text-ink-3">
-                    {line}
-                  </p>
-                ))}
-              </div>
+            <div className="cols2">
+              {[journeys.traditional, journeys.aiMediated].map((lane) => (
+                <div key={lane.label}>
+                  <p className="text-coordinate text-ink-2">{lane.label}</p>
+                  <ol className="pathrail mt-4" aria-label={lane.label}>
+                    {lane.steps.map((step, index) => (
+                      <li key={step}>
+                        <span className="st" aria-hidden="true">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        {step}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              ))}
             </div>
-          </div>
-        </Container>
-      </Section>
+          </Station>
 
-      <Section variant="white" size="major" ariaLabelledBy="not-enough-title">
-        <Container width="narrow">
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={notEnough.eyebrow}
-              title={notEnough.title}
-              id="not-enough-title"
-              level={2}
-            />
+          {/* 02. The business consequence */}
+          <Station id="consequence" ariaLabelledBy="consequence-title" stack>
+            <p className="text-eyebrow text-ink-2">{consequence.eyebrow}</p>
+            <h2 id="consequence-title" className="text-h2 text-ink">
+              {consequence.title}
+            </h2>
 
-            <NegationLadder steps={notEnough.ladder} />
+            <RuleList items={consequence.assets} ariaLabel={consequence.title} />
 
-            <div className="flex flex-col gap-4">
-              <p className="font-medium text-ink">{notEnough.pathLead}</p>
-              <div className=" border border-rule p-6">
-                <CompletePath steps={notEnough.path} />
-              </div>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/*
-        The dated instance docs/17 6.1 says this page needs, placed after the
-        ladder so a reader has already met "being considered does not guarantee
-        recommendation" before being shown what a recommendation going elsewhere
-        is actually worth.
-
-        Container is narrow to match the ladder above it, because this section is
-        argument rather than inventory and the two inventory sections on either
-        side use the full width. The figures sit in body copy rather than in a
-        table: three numbers describing one distribution are a statement, not a
-        comparison, and a two-column table of them would be a comparison with
-        nothing on the other side.
-
-        The limitation is a Callout rather than a trailing paragraph. It is the
-        qualification the figures are only publishable with, and a retrieval
-        system lifting this section has to lift it too.
-      */}
-      <Section variant="field" size="major" ariaLabelledBy="competitor-title">
-        <Container width="narrow">
-          <div className="flex flex-col gap-8">
-            <SectionHeading
-              eyebrow={competitorRecommendation.eyebrow}
-              title={competitorRecommendation.title}
-              description={competitorRecommendation.lead}
-              id="competitor-title"
-              level={2}
-            />
-
-            <div className="flex flex-col gap-4">
-              {competitorRecommendation.body.map((paragraph) => (
-                <p
-                  key={paragraph}
-                  className="text-[1.0625rem] leading-relaxed text-ink-3"
-                >
-                  {paragraph}
+            <div className="prose">
+              {consequence.closing.map((line) => (
+                <p key={line} className="text-lead text-ink-3">
+                  {line}
                 </p>
               ))}
             </div>
+          </Station>
 
-            <Callout
-              variant="limitation"
-              label="Honest limitation"
-              title={competitorRecommendation.limitation.title}
-            >
-              {competitorRecommendation.limitation.body.map((paragraph) => (
+          {/* 03. Visibility is not enough */}
+          <Station id="not-enough" ariaLabelledBy="not-enough-title" stack>
+            <p className="text-eyebrow text-ink-2">{notEnough.eyebrow}</p>
+            <h2 id="not-enough-title" className="text-h2 text-ink">
+              {notEnough.title}
+            </h2>
+
+            <RuleList items={notEnough.ladder} ariaLabel={notEnough.title} />
+
+            <p className="text-coordinate text-ink-2">{notEnough.pathLead}</p>
+            <figure className="fig mt-0">
+              <NodePathDrawing nodes={notEnough.path} />
+              <ol className="sr-only" aria-label={notEnough.pathLead}>
+                {notEnough.path.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
+              </ol>
+              <figcaption className="text-caption text-ink-2">
+                {notEnough.path.join(', ')}.
+              </figcaption>
+            </figure>
+          </Station>
+
+          {/* 04. One observation, not a ranking */}
+          <Station id="competitor" ariaLabelledBy="competitor-title" stack>
+            <p className="text-eyebrow text-ink-2">{competitorRecommendation.eyebrow}</p>
+            <h2 id="competitor-title" className="text-h2 text-ink">
+              {competitorRecommendation.title}
+            </h2>
+            <p className="text-lead text-ink">{competitorRecommendation.lead}</p>
+
+            <div className="prose">
+              {competitorRecommendation.body.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
-            </Callout>
-
-            <div className="flex flex-col gap-4">
-              {competitorRecommendation.closing.map((paragraph) => (
-                <p
-                  key={paragraph}
-                  className="text-[1.0625rem] leading-relaxed text-ink-3"
-                >
-                  {paragraph}
-                </p>
-              ))}
-
-              <TextCta cta={competitorRecommendation.cta} />
             </div>
-          </div>
-        </Container>
-      </Section>
 
-      <Section variant="soft" size="major" ariaLabelledBy="gap-title">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1fr)] lg:gap-16">
-            <SectionHeading
-              eyebrow={intelligenceGap.eyebrow}
-              title={intelligenceGap.title}
-              id="gap-title"
-              level={2}
-            />
-            <SignalList items={intelligenceGap.questions} columns={2} />
-          </div>
-        </Container>
-      </Section>
-
-      <Section variant="navy" size="major" ariaLabelledBy="response-title">
-        <Container>
-          <div className="flex flex-col gap-12">
-            <SectionHeading
-              eyebrow={response.eyebrow}
-              title={response.title}
-              id="response-title"
-              level={2}
-              onNavy
+            {/*
+              The qualification the figures above are only publishable with. A
+              retrieval system lifting this section has to lift it too, so it
+              sits between the figures and the argument that follows them.
+            */}
+            <Limitations
+              label={competitorRecommendation.limitation.label}
+              body={[
+                competitorRecommendation.limitation.title,
+                ...competitorRecommendation.limitation.body,
+              ]}
             />
 
-            <ol className="grid gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
-              {response.items.map((item) => (
-                <li key={item.name} className="flex flex-col gap-2">
-                  <span className="font-mono text-[0.75rem] text-ink-2">
-                    {item.number}
-                  </span>
-                  <h3 className="text-[1.125rem] leading-snug font-medium text-ink">
-                    {item.name}
-                  </h3>
-                  <p className="text-[0.9375rem] leading-relaxed text-ink-3">
-                    {item.description}
-                  </p>
-                </li>
+            <div className="prose">
+              {competitorRecommendation.closing.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
               ))}
-            </ol>
-          </div>
-        </Container>
-      </Section>
+            </div>
 
-      <RelatedLinks title="Where to go next." links={related} />
+            <RuleLink cta={competitorRecommendation.cta} />
+          </Station>
 
-      <SourcesNote
-        reviewed={sources.reviewed}
-        basis={sources.basis}
-        appliedIn={sources.appliedIn}
-      />
+          {/* 05. The intelligence gap */}
+          <Station id="intelligence-gap" ariaLabelledBy="gap-title" stack>
+            <p className="text-eyebrow text-ink-2">{intelligenceGap.eyebrow}</p>
+            <h2 id="gap-title" className="text-h2 text-ink">
+              {intelligenceGap.title}
+            </h2>
+            <RuleList items={intelligenceGap.questions} ariaLabel={intelligenceGap.title} />
+          </Station>
 
-      <ClosingCta title={closing.title} primaryCta={closing.primaryCta} />
-    </>
+          {/* 06. The Hendricks response */}
+          <Station id="response" ariaLabelledBy="response-title" stack>
+            <p className="text-eyebrow text-ink-2">{response.eyebrow}</p>
+            <h2 id="response-title" className="text-h2 text-ink">
+              {response.title}
+            </h2>
+
+            <Ledger
+              ariaLabel={response.title}
+              rows={response.items.map((item) => ({
+                key: item.name,
+                label: (
+                  <>
+                    <span className="ix" aria-hidden="true">
+                      {item.number}
+                    </span>
+                    {item.name}
+                  </>
+                ),
+                value: item.description,
+              }))}
+            />
+          </Station>
+
+          {/* 07. Sources */}
+          <SourcesStation
+            reviewed={sources.reviewed}
+            basis={sources.basis}
+            appliedIn={sources.appliedIn}
+          />
+
+          {/* 08. Change history */}
+          <Station id="change-history" ariaLabelledBy="changes-title" stack>
+            <p className="text-eyebrow text-ink-2">{publicationChrome.changeHistory.eyebrow}</p>
+            <h2 id="changes-title" className="text-h2 text-ink">
+              {publicationChrome.changeHistory.title}
+            </h2>
+            <ChangeHistory />
+          </Station>
+
+          {/* 09. Related terms */}
+          <Station id="related-terms" ariaLabelledBy="terms-title" stack>
+            <p className="text-eyebrow text-ink-2">{publicationChrome.relatedTerms.eyebrow}</p>
+            <h2 id="terms-title" className="text-h2 text-ink">
+              {publicationChrome.relatedTerms.title}
+            </h2>
+            <RelatedTerms terms={relatedTerms} />
+          </Station>
+
+          {/* 10. Where to go next */}
+          <Station id="related" ariaLabelledBy="related-title" stack>
+            <p className="text-eyebrow text-ink-2">{relatedSection.eyebrow}</p>
+            <h2 id="related-title" className="text-h2 text-ink">
+              {relatedSection.title}
+            </h2>
+            <RelatedRules entries={relatedWork} ariaLabel={relatedSection.title} />
+          </Station>
+        </RailColumn>
+      </div>
+
+      <ClosingStation id="close" title={closing.title} primaryCta={closing.primaryCta} />
+    </div>
   )
 }

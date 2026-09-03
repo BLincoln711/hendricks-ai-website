@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest'
 
 import { Callout } from '@/components/ui/callout'
 import { DataTable } from '@/components/ui/data-table'
-import { ChipSet, EvidenceChip } from '@/components/visuals/chip-set'
 import { EVIDENCE_GRADE_TABLE_HREF, EvidenceGrade } from '@/components/visuals/evidence-grade'
 import { SignalDot } from '@/components/visuals/signal-dot'
 import { evidenceGradeRows } from '@/content/shared/evidence-grades'
@@ -35,32 +34,6 @@ describe('EvidenceGrade', () => {
     expect(link).toHaveAttribute('href', EVIDENCE_GRADE_TABLE_HREF)
     expect(link).toHaveAccessibleName('Grade B')
     expect(link).toHaveAccessibleDescription(evidenceGradeRows[1].evidence)
-  })
-})
-
-describe('EvidenceChip and ChipSet', () => {
-  it('draws the class mark as a decorative svg and the label as text', () => {
-    render(<EvidenceChip label="Observed" evidence="observed" />)
-
-    const chip = screen.getByText('Observed')
-    const mark = chip.querySelector('svg')
-    expect(mark).toHaveAttribute('aria-hidden', 'true')
-    expect(mark).toHaveAttribute('focusable', 'false')
-    expect(chip).toHaveAccessibleName('')
-  })
-
-  it('renders plain strings and evidence-classed items in one unordered set', () => {
-    render(<ChipSet items={['Uncertain', { label: 'Gap', evidence: 'gap' }]} />)
-
-    const list = screen.getByRole('list')
-    expect(list.tagName).toBe('UL')
-    expect(screen.getAllByRole('listitem')).toHaveLength(2)
-    expect(list.querySelectorAll('svg')).toHaveLength(1)
-  })
-
-  it('writes the plus separator as text between formula terms', () => {
-    render(<ChipSet items={['Need', 'Context']} separator="plus" />)
-    expect(screen.getByText('+')).toHaveAttribute('aria-hidden', 'true')
   })
 })
 

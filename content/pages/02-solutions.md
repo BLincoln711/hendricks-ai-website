@@ -26,6 +26,10 @@ Hendricks connects those fragments around the decision the customer is trying to
 
 **Primary CTA:** Start with a Search Intelligence Diagnostic
 
+**Answer label:** The short answer
+
+**On this page:** On this page: the one system, the four solutions and what each produces, the related research, and how the mix is chosen.
+
 ## System diagram
 
 `Demand → Selection → Presence → Impact`
@@ -37,6 +41,10 @@ Each solution can be sold as part of an engagement, but clients should not be as
 ### Search Demand Intelligence
 
 # Determine what is worth measuring and winning.
+
+**Business question:** Which customer decisions are worth winning?
+
+**Decision enabled:** Which decisions to measure, plan, and write for, and what each is potentially worth.
 
 Map customer needs, commercial questions, comparisons, market changes, and decision contexts before building a monitoring or content program.
 
@@ -55,6 +63,10 @@ Map customer needs, commercial questions, comparisons, market changes, and decis
 ### Selection Intelligence
 
 # Understand whether, where, and under what conditions your brand enters consideration.
+
+**Business question:** When does the brand enter the shortlist, and when does it disappear?
+
+**Decision enabled:** How much valuable consideration the brand is losing, to which competitors, and what closing it is worth.
 
 Measure brand presence, understanding, relevance, consideration, recommendation, cited evidence, competitor performance, and outcome stability.
 
@@ -75,6 +87,10 @@ Measure brand presence, understanding, relevance, consideration, recommendation,
 
 # Improve the digital conditions that shape discovery, understanding, trust, and recommendation.
 
+**Business question:** What should change, and in what order?
+
+**Decision enabled:** What to change first, who owns it, and how each change will be measured.
+
 Implement technical, entity, content, evidence, authority, paid and organic, and conversion improvements.
 
 **Primary outputs**
@@ -94,6 +110,10 @@ Implement technical, entity, content, evidence, authority, paid and organic, and
 
 # Determine whether changes are influencing customer behavior and business outcomes.
 
+**Business question:** Did the work change outcomes the business can defend?
+
+**Decision enabled:** Whether to continue, scale, or stop each intervention, with the confidence the evidence supports.
+
 Connect exposure, branded demand, referrals, site behavior, leads, CRM outcomes, pipeline, and experiments.
 
 **Primary outputs**
@@ -107,10 +127,18 @@ Connect exposure, branded demand, referrals, site behavior, leads, CRM outcomes,
 
 **CTA:** Explore Search Impact Measurement
 
+## Related research
+
+# Research for the AI Search Era.
+
+Practical, source-supported research on how people search, how brands enter consideration, how AI-mediated discovery changes the buying journey, and how organizations can measure the commercial result.
+
+The latest study, and the Research Hub: every published study, with its capture window, its method, and its limitations.
+
 ## Engagement bridge
 
 # The solution mix follows the evidence.
 
 Direct clients typically begin with a Search Intelligence Diagnostic. The Diagnostic determines which solution layers matter, what can be changed, what data is available, and what should be implemented first.
 
-**CTA:** Start with the Diagnostic
+**CTA:** Start with a Search Intelligence Diagnostic

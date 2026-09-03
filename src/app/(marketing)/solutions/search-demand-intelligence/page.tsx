@@ -1,17 +1,15 @@
 import type { Metadata } from 'next'
 
-import { Container } from '@/components/layout/container'
-import { PageHero } from '@/components/layout/page-hero'
-import { Section } from '@/components/layout/section'
-import { SectionHeading } from '@/components/layout/section-heading'
-import { ClosingCta } from '@/components/sections/closing-cta'
-import { Deliverables } from '@/components/sections/deliverables'
-import { FaqSection } from '@/components/sections/faq-section'
-import { RelatedLinks } from '@/components/sections/related-links'
+import { Answer } from '@/components/canvas/answer'
+import { ClosingStation } from '@/components/canvas/closing-station'
+import { DefinitionList } from '@/components/canvas/definition-list'
+import { FaqList } from '@/components/canvas/faq-list'
+import { CanvasPageHero } from '@/components/canvas/page-hero'
+import { RelatedList } from '@/components/canvas/related-list'
+import { RuleList } from '@/components/canvas/rule-list'
+import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
-import { Callout } from '@/components/ui/callout'
-import { SignalList } from '@/components/ui/signal-list'
-import { SolutionMotif } from '@/components/visuals/solution-motif'
+import { RuleLink } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 import {
   bestFit,
@@ -24,10 +22,22 @@ import {
   meta,
   problem,
   related,
+  relatedTitle,
   weighting,
 } from '@/content/pages/search-demand-intelligence'
+import { diagnosticCta } from '@/content/shared/ctas'
 import { jsonLdGraph, serviceSchema, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * /solutions/search-demand-intelligence, rebuilt on the approved canvas
+ * (`07-hifi/solution-page.html`) station for station.
+ *
+ * The weighting model renders as mono text on one hairline rather than in a
+ * bordered methodology callout: the canvas has no box, and a formula is the one
+ * place on this page where the exact characters matter, so it is selectable
+ * text in the citation treatment.
+ */
 
 export const metadata: Metadata = buildMetadata({
   title: meta.title,
@@ -37,7 +47,7 @@ export const metadata: Metadata = buildMetadata({
 
 export default function SearchDemandIntelligencePage() {
   return (
-    <>
+    <div className="wrap">
       <JsonLd
         data={jsonLdGraph(
           webPageSchema({
@@ -60,163 +70,160 @@ export default function SearchDemandIntelligencePage() {
         )}
       />
 
-      <PageHero
+      {/* 1. Page hero */}
+      <CanvasPageHero
         eyebrow={hero.eyebrow}
         title={hero.title}
-        lead={hero.lead}
-        primaryCta={hero.primaryCta}
+        lead={hero.lead[0]}
         path={routes.searchDemandIntelligence.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.solutions.label, href: routes.solutions.path },
           { label: routes.searchDemandIntelligence.label },
         ]}
-        visual={
-          <div className=" border border-rule-2 p-8">
-            <SolutionMotif motif="demand" />
+        primaryCta={diagnosticCta('sdi_hero')}
+      >
+        <Answer className="mt-9" paragraphs={[hero.lead[1]]} />
+        <RuleLink cta={hero.primaryCta} className="mt-3" />
+      </CanvasPageHero>
+
+      {/* 2. The problem */}
+      <Station id="problem" ariaLabelledBy="problem-title">
+        <div className="split">
+          <div className="words">
+            <p className="text-eyebrow text-ink-2">{problem.eyebrow}</p>
+            <h2 id="problem-title" className="text-h2 text-ink">
+              {problem.title}
+            </h2>
+            {problem.statements.map((statement) => (
+              <p key={statement} className="measure text-ink-3">
+                {statement}
+              </p>
+            ))}
           </div>
-        }
-      />
-
-      <Section variant="field" size="major" ariaLabelledBy="problem-title">
-        <Container>
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
-            <div className="flex flex-col gap-6">
-              <SectionHeading eyebrow={problem.eyebrow} title={problem.title} id="problem-title" />
-              <div className="flex flex-col gap-2">
-                {problem.statements.map((statement) => (
-                  <p key={statement} className="text-[1.0625rem] text-ink-3">
-                    {statement}
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-4 border border-rule p-6 md:p-8">
-              <h3 className="text-[1.0625rem] font-medium text-ink">
-                {problem.determinesLead}
-              </h3>
-              <SignalList items={problem.determines} />
-            </div>
+          <div className="figure">
+            <p className="text-coordinate text-ink-2">{problem.determinesLead}</p>
+            <RuleList className="mt-3" items={problem.determines} ariaLabel={problem.determinesLead} />
           </div>
-        </Container>
-      </Section>
+        </div>
+      </Station>
 
-      <Section variant="white" size="major" ariaLabelledBy="inputs-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={inputs.eyebrow}
-              title={inputs.title}
-              description={inputs.lead}
-              id="inputs-title"
-              maxWidth="wide"
-            />
+      {/* 3. Inputs */}
+      <Station id="inputs" ariaLabelledBy="inputs-title">
+        <p className="text-eyebrow mb-[22px] text-ink-2">{inputs.eyebrow}</p>
+        <h2 id="inputs-title" className="text-h2 text-ink">
+          {inputs.title}
+        </h2>
+        <p className="text-lead mt-[22px] text-ink">{inputs.lead}</p>
 
-            <ul className="flex flex-wrap gap-2">
-              {inputs.items.map((item) => (
-                <li
-                  key={item}
-                  className="border border-rule px-3 py-1.5 text-[0.875rem] text-ink-3"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
+        <ul className="ruled mt-6" aria-label={inputs.lead}>
+          {inputs.items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
 
-            <p className="measure text-[1.0625rem] leading-relaxed text-ink-3">
-              {inputs.closing}
-            </p>
+        <p className="measure mt-6 text-ink-2">{inputs.closing}</p>
+      </Station>
+
+      {/* 4. Intent context */}
+      <Station id="intent-context" ariaLabelledBy="intent-context-title">
+        <p className="text-eyebrow mb-[22px] text-ink-2">{intentContext.eyebrow}</p>
+        <h2 id="intent-context-title" className="text-h2 text-ink">
+          {intentContext.title}
+        </h2>
+
+        <div className="cols2">
+          <div>
+            <p className="text-coordinate text-ink-2">{intentContext.keywordLabel}</p>
+            <p className="mt-3 font-mono text-[0.9375rem] text-ink-2">{intentContext.keyword}</p>
           </div>
-        </Container>
-      </Section>
-
-      <Section variant="soft" size="major" ariaLabelledBy="intent-context-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={intentContext.eyebrow}
-              title={intentContext.title}
-              id="intent-context-title"
-              maxWidth="wide"
-            />
-
-            <div className="grid gap-5 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
-              <div className="flex flex-col gap-3 border border-rule p-6">
-                <h3 className="text-eyebrow text-ink-2">
-                  {intentContext.keywordLabel}
-                </h3>
-                <p className="font-mono text-[0.9375rem] text-ink-2">
-                  {intentContext.keyword}
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-3 border-l-2 border-path p-6">
-                <h3 className="text-eyebrow text-ink-2">
-                  {intentContext.contextLabel}
-                </h3>
-                <p className="text-[1.0625rem] leading-relaxed text-ink-3">
-                  {intentContext.context}
-                </p>
-              </div>
-            </div>
-
-            <p className="measure text-[1.0625rem] leading-relaxed text-ink-3">
-              {intentContext.comparison}
-            </p>
-
-            <div className="flex flex-col gap-4 border-t border-rule pt-8">
-              <h3 className="text-[1.0625rem] font-medium text-ink">
-                {intentContext.libraryLead}
-              </h3>
-              <SignalList items={intentContext.libraryUses} columns={2} />
-            </div>
+          <div>
+            <p className="text-coordinate text-ink-2">{intentContext.contextLabel}</p>
+            <p className="mt-3 text-ink-3">{intentContext.context}</p>
           </div>
-        </Container>
-      </Section>
+        </div>
 
-      <Deliverables title={deliverables.title} detailed={deliverables.items} />
+        <p className="measure mt-8 text-ink-2">{intentContext.comparison}</p>
 
-      <Section variant="white" size="standard">
-        <Container width="narrow">
-          <Callout variant="methodology" title={weighting.title}>
-            <p className="p-4 font-mono text-[0.875rem] leading-relaxed text-ink">
-              {weighting.formula}
-            </p>
-            <p>{weighting.note}</p>
-          </Callout>
-        </Container>
-      </Section>
+        <div className="block">
+          <p className="text-coordinate text-ink-2">{intentContext.libraryLead}</p>
+          <RuleList
+            className="mt-3"
+            items={intentContext.libraryUses}
+            ariaLabel={intentContext.libraryLead}
+          />
+        </div>
+      </Station>
 
-      <Section variant="field" size="major" ariaLabelledBy="best-fit-title">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
-            <SectionHeading
-              eyebrow={bestFit.eyebrow}
-              title={bestFit.title}
-              description={bestFit.lead}
-              id="best-fit-title"
-            />
-            <SignalList items={bestFit.items} />
+      {/* 5. What it produces */}
+      <Station id="deliverables" ariaLabelledBy="deliverables-title">
+        <h2 id="deliverables-title" className="text-h2 text-ink">
+          {deliverables.title}
+        </h2>
+
+        <DefinitionList
+          className="mt-9"
+          definitions={deliverables.items.map((item) => ({
+            term: item.name,
+            definition: [item.description],
+          }))}
+        />
+      </Station>
+
+      {/* 6. The weighting model */}
+      <Station id="weighting" ariaLabelledBy="weighting-title">
+        <h2 id="weighting-title" className="text-h3 text-ink">
+          {weighting.title}
+        </h2>
+        <p className="cite-str mt-5">{weighting.formula}</p>
+        <p className="measure-wide mt-5 text-ink-2">{weighting.note}</p>
+      </Station>
+
+      {/* 7. Best fit */}
+      <Station id="best-fit" ariaLabelledBy="best-fit-title">
+        <div className="split">
+          <div className="words">
+            <p className="text-eyebrow text-ink-2">{bestFit.eyebrow}</p>
+            <h2 id="best-fit-title" className="text-h2 text-ink">
+              {bestFit.title}
+            </h2>
+            <p className="text-lead text-ink">{bestFit.lead}</p>
           </div>
-        </Container>
-      </Section>
+          <div className="figure">
+            <RuleList items={bestFit.items} ariaLabel={bestFit.lead} />
+          </div>
+        </div>
+      </Station>
 
       {/*
         docs/14 §3 places the FAQ after the substantive sections and before
-        Related, and that order is the argument: the questions settle a
-        decision the page has already made rather than carrying the page's
-        primary answer, so lifting the block higher would displace it.
-        FaqSection supplies its own Section, surface, and aria-labelledby,
-        the same way RelatedLinks and ClosingCta below it do. Its default
-        white surface separates the field band above from the soft Related
-        band below. No FAQPage markup is emitted here, per docs/06 §10.
+        Related, and that order is the argument: the questions settle a decision
+        the page has already made rather than carrying the page's primary
+        answer. No FAQPage markup is emitted here, per docs/06 §10.
       */}
-      <FaqSection eyebrow={faq.eyebrow} title={faq.title} items={faq.items} />
+      <Station id="questions" ariaLabelledBy="faq-title">
+        <p className="text-eyebrow mb-[22px] text-ink-2">{faq.eyebrow}</p>
+        <h2 id="faq-title" className="text-h2 text-ink">
+          {faq.title}
+        </h2>
+        <FaqList className="mt-9" items={faq.items} />
+      </Station>
 
-      <RelatedLinks title="Related solutions and research." links={related} />
+      {/* 9. Related */}
+      <Station id="related" ariaLabelledBy="related-title">
+        <h2 id="related-title" className="text-h2 text-ink">
+          {relatedTitle}
+        </h2>
+        <RelatedList className="mt-8" entries={related} ariaLabel={relatedTitle} />
+      </Station>
 
-      <ClosingCta title={closing.title} primaryCta={closing.primaryCta} />
-    </>
+      {/* 10. The close */}
+      <ClosingStation
+        id="closing"
+        title={closing.title}
+        primaryCta={diagnosticCta('sdi_closing')}
+        secondaryLink={closing.primaryCta}
+      />
+    </div>
   )
 }

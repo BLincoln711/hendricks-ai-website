@@ -1,4 +1,4 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
 import type { DataTableColumn, DataTableRow } from '@/components/ui/data-table'
 import type { MetricDefinition } from '@/components/visuals/metric-definitions'
@@ -215,6 +215,12 @@ export type ResearchArticleContent = {
   byline: {
     author: string
     authorRole: string
+    /**
+     * D-B: the one Person node at brandonlincolnhendricks.com, so a machine
+     * reading a study byline and a machine reading the biography resolve to the
+     * same entity. It is not the /about route: two links named for the author
+     * pointing at two destinations is what SM-10 forbids.
+     */
     authorHref: string
     /** ISO date. Never changes once published (`docs/06` §15). */
     published: string
@@ -255,7 +261,7 @@ export type ResearchArticleContent = {
     /** Where the measurement is put to work. Unbuilt routes are filtered out. */
     appliedIn: readonly { label: string; href: string }[]
   }
-  related: readonly RelatedLink[]
+  related: readonly RelatedEntry[]
   closing: { title: string; primaryCta: Cta }
 }
 

@@ -1,4 +1,4 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 import {
@@ -384,6 +384,7 @@ export const vocabulary = {
 } as const
 
 export const limitation = {
+  label: 'Honest limitation',
   title:
     'Everything Hendricks reports about these surfaces is an observation under stated conditions.',
   body: [
@@ -448,7 +449,27 @@ export const sources = {
  * that section had no route to the page that defines them until this entry
  * existed. The GEO page already links back here first.
  */
-export const related: readonly RelatedLink[] = [
+/** The page's own outline, in the order the stations render. */
+export const contents = [
+  { id: 'surfaces', label: 'The surfaces' },
+  { id: 'ranking-gap', label: 'Ranking versus appearing' },
+  { id: 'absence', label: 'Absence versus no sources' },
+  { id: 'diagnosis', label: 'Ruling causes out' },
+  { id: 'comparison', label: 'Traditional versus AI-mediated' },
+  { id: 'vocabulary', label: 'Vocabulary' },
+  { id: 'limitation', label: 'The honest limitation' },
+  { id: 'sources', label: 'Sources and references' },
+  { id: 'change-history', label: 'Change history' },
+  { id: 'related-terms', label: 'Related terms' },
+  { id: 'related', label: 'Where to go next' },
+] as const
+
+export const relatedSection = {
+  eyebrow: 'Where To Go Next',
+  title: 'Where to go next.',
+} as const
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.whatIsGenerativeEngineOptimization.path,
     label: 'What Is Generative Engine Optimization?',

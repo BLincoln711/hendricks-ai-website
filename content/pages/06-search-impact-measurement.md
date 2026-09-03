@@ -26,7 +26,9 @@ A branded search increase is not always caused by one campaign.
 
 Hendricks builds an evidence system that connects market exposure, customer behavior, commercial outcomes, and controlled tests without pretending attribution is perfect.
 
-**Primary CTA:** Review Your Measurement System
+**Primary CTA:** Start with a Search Intelligence Diagnostic
+
+**Secondary link:** Review Your Measurement System
 
 ## Four levels of measurement
 
@@ -204,4 +206,6 @@ The figures are quoted from `/research/hendricks-selection-baseline` exactly as 
 
 # Make the work accountable to a business outcome.
 
-**CTA:** Build Your Search Impact Baseline
+**CTA:** Start with a Search Intelligence Diagnostic
+
+**Secondary link:** Build Your Search Impact Baseline

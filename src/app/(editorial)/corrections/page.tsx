@@ -1,22 +1,22 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
-import { Container } from '@/components/layout/container'
-import { PageHero } from '@/components/layout/page-hero'
-import { Section } from '@/components/layout/section'
-import { SectionHeading } from '@/components/layout/section-heading'
-import { ClosingCta } from '@/components/sections/closing-cta'
-import { DirectAnswer } from '@/components/sections/direct-answer'
-import { RelatedLinks } from '@/components/sections/related-links'
-import { SourcesNote } from '@/components/sections/sources-note'
+import { Answer } from '@/components/canvas/answer'
+import { ClosingStation } from '@/components/canvas/closing-station'
+import { Limitations } from '@/components/canvas/limitations'
+import { CanvasPageHero } from '@/components/canvas/page-hero'
+import { RailColumn } from '@/components/canvas/rail-column'
+import { RelatedRules } from '@/components/canvas/related-list'
+import { RuleList } from '@/components/canvas/rule-list'
+import { SourcesStation } from '@/components/canvas/sources-station'
+import { TableRegion } from '@/components/canvas/table-region'
+import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
-import { Callout } from '@/components/ui/callout'
-import { TextCta } from '@/components/ui/cta'
-import { DataTable } from '@/components/ui/data-table'
-import { SignalList } from '@/components/ui/signal-list'
+import { RuleLink } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 import {
   closing,
+  contents,
   directAnswer,
   hero,
   limitation,
@@ -24,6 +24,7 @@ import {
   meta,
   recording,
   related,
+  relatedSection,
   reporting,
   scope,
   sources,
@@ -31,6 +32,17 @@ import {
 import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 import { formatLongDate } from '@/lib/utils/format-date'
+
+/**
+ * /corrections, rebuilt on the approved canvas (`07-hifi/definition-page.html`,
+ * the template this route shares with the editorial pages) station for station.
+ *
+ * The log is an ordered list of entries rather than a table, and each entry
+ * keeps its three labelled fields as a description list, so the label travels
+ * with its text when one entry is extracted on its own. The card boundary the
+ * light version drew around each entry becomes one hairline: this page's
+ * subject is what the firm got wrong, and every word of every entry stays.
+ */
 
 export const metadata: Metadata = buildMetadata({
   title: meta.title,
@@ -40,20 +52,18 @@ export const metadata: Metadata = buildMetadata({
 
 export default function CorrectionsPage() {
   return (
-    <>
+    <div className="wrap">
       {/*
         WebPage with a breadcrumb and a modified date, and nothing else.
 
-        No `DefinedTerm`, for the same reason as /ai-visibility-tool-or-partner:
-        `DirectAnswer` takes a `term` prop that renders as the eyebrow above the
-        answer, and "Corrections policy" is a section label rather than a term
-        this page defines. No `FAQPage` under any framing (docs/06 §10).
+        No `DefinedTerm`: "Corrections policy" is a section label rather than a
+        term this page defines. No `FAQPage` under any framing (docs/06 §10).
 
-        `dateModified` is emitted only because SourcesNote renders the same
-        constant in a visible <time>. The log entries carry their own visible
-        dates and are deliberately not promoted into the graph: a corrections
-        log is not a `Dataset`, and there is no schema.org type for it that
-        would say anything true.
+        `dateModified` is emitted only because the sources station renders the
+        same constant in a visible <time>. The log entries carry their own
+        visible dates and are deliberately not promoted into the graph: a
+        corrections log is not a `Dataset`, and there is no schema.org type for
+        it that would say anything true.
       */}
       <JsonLd
         data={jsonLdGraph(
@@ -67,185 +77,150 @@ export default function CorrectionsPage() {
         )}
       />
 
-      <PageHero
+      {/* 1. Page hero */}
+      <CanvasPageHero
         eyebrow={hero.eyebrow}
         title={hero.title}
-        lead={hero.lead}
         path={routes.corrections.path}
         breadcrumbs={[
           { label: routes.home.label, href: routes.home.path },
           { label: routes.corrections.label },
         ]}
-      />
+      >
+        <Answer
+          id="answer"
+          className="answer-lead mt-[30px]"
+          label={directAnswer.term}
+          labelId="direct-answer-label"
+          paragraphs={[directAnswer.answer]}
+        />
 
-      <DirectAnswer term={directAnswer.term} answer={directAnswer.answer} />
+        <div className="mt-[26px] max-w-[60ch]">
+          {hero.lead.map((paragraph) => (
+            <p key={paragraph} className="text-lead mt-3 text-ink">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </CanvasPageHero>
 
-      <Section variant="field" size="major" ariaLabelledBy="scope-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={scope.eyebrow}
-              title={scope.title}
-              description={scope.lead}
-              id="scope-title"
-              level={2}
-            />
+      <div className="bodywrap">
+        <RailColumn sections={contents}>
+          {/* 01. What is corrected */}
+          <Station id="scope" ariaLabelledBy="scope-title" stack>
+            <p className="text-eyebrow text-ink-2">{scope.eyebrow}</p>
+            <h2 id="scope-title" className="text-h2 text-ink">
+              {scope.title}
+            </h2>
+            <p className="text-lead text-ink">{scope.lead}</p>
 
-            <DataTable caption={scope.caption} columns={scope.columns} rows={scope.rows} />
-          </div>
-        </Container>
-      </Section>
+            <TableRegion caption={scope.caption} columns={scope.columns} rows={scope.rows} />
+          </Station>
 
-      <Section variant="white" size="major" ariaLabelledBy="reporting-title">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-16">
-            <div className="flex flex-col gap-5">
-              <SectionHeading
-                eyebrow={reporting.eyebrow}
-                title={reporting.title}
-                description={reporting.lead}
-                id="reporting-title"
-                level={2}
-              />
-              <SignalList items={reporting.items} />
-            </div>
+          {/* 02. Reporting an error */}
+          <Station id="reporting" ariaLabelledBy="reporting-title" stack>
+            <p className="text-eyebrow text-ink-2">{reporting.eyebrow}</p>
+            <h2 id="reporting-title" className="text-h2 text-ink">
+              {reporting.title}
+            </h2>
+            <p className="text-lead text-ink">{reporting.lead}</p>
 
-            <div className="flex flex-col gap-4">
+            <RuleList items={reporting.items} ariaLabel={reporting.lead} />
+
+            <div className="prose">
               {reporting.closing.map((line) => (
-                <p
-                  key={line}
-                  className="text-[1.0625rem] leading-relaxed text-ink-3"
-                >
-                  {line}
-                </p>
+                <p key={line}>{line}</p>
               ))}
-
-              <TextCta cta={reporting.cta} />
             </div>
-          </div>
-        </Container>
-      </Section>
 
-      <Section variant="soft" size="major" ariaLabelledBy="recording-title">
-        <Container width="narrow">
-          <div className="flex flex-col gap-8">
-            <SectionHeading
-              eyebrow={recording.eyebrow}
-              title={recording.title}
-              id="recording-title"
-              level={2}
-            />
+            <RuleLink cta={reporting.cta} />
+          </Station>
 
-            <div className="flex flex-col gap-4">
+          {/* 03. How a correction is recorded */}
+          <Station id="recording" ariaLabelledBy="recording-title" stack>
+            <p className="text-eyebrow text-ink-2">{recording.eyebrow}</p>
+            <h2 id="recording-title" className="text-h2 text-ink">
+              {recording.title}
+            </h2>
+
+            <div className="prose">
               {recording.body.map((paragraph) => (
-                <p
-                  key={paragraph}
-                  className="text-[1.0625rem] leading-relaxed text-ink-3"
-                >
-                  {paragraph}
-                </p>
+                <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-          </div>
-        </Container>
-      </Section>
+          </Station>
 
-      {/*
-        The log is an ordered list rather than a table. Each entry is four
-        prose fields, and a table cell wide enough to hold "what was wrong"
-        stops being a table. The three fields render as a description list so
-        the label travels with its text when the entry is extracted on its own.
-      */}
-      <Section variant="white" size="major" ariaLabelledBy="log-title">
-        <Container>
-          <div className="flex flex-col gap-10">
-            <SectionHeading
-              eyebrow={log.eyebrow}
-              title={log.title}
-              description={log.lead}
-              id="log-title"
-              level={2}
-            />
+          {/* 04. The log */}
+          <Station id="log" ariaLabelledBy="log-title" stack>
+            <p className="text-eyebrow text-ink-2">{log.eyebrow}</p>
+            <h2 id="log-title" className="text-h2 text-ink">
+              {log.title}
+            </h2>
+            <p className="text-lead text-ink">{log.lead}</p>
 
-            <ol className="flex flex-col gap-10">
+            <ol className="entry">
               {log.entries.map((entry) => (
-                <li
-                  key={entry.id}
-                  id={entry.id}
-                  className="flex flex-col gap-4 border border-rule p-6 md:p-8"
-                >
-                  <h3 className="text-[1.25rem] leading-snug font-medium text-ink">
-                    {entry.title}
-                  </h3>
+                <li key={entry.id} id={entry.id}>
+                  <h3 className="text-h3 text-ink">{entry.title}</h3>
 
-                  <p className="text-[0.875rem] text-ink-2">
-                    Published{' '}
-                    <time dateTime={entry.published}>{formatLongDate(entry.published)}</time>.
-                    Corrected{' '}
-                    <time dateTime={entry.corrected}>{formatLongDate(entry.corrected)}</time>. Page:{' '}
-                    <Link
-                      href={entry.page.href}
-                      className="text-link underline decoration-link underline-offset-4 hover:decoration-link"
-                    >
-                      {entry.page.label}
-                    </Link>
-                    .
+                  <p className="tag">
+                    {log.fieldLabels.published}{' '}
+                    <time dateTime={entry.published}>{formatLongDate(entry.published)}</time>.{' '}
+                    {log.fieldLabels.corrected}{' '}
+                    <time dateTime={entry.corrected}>{formatLongDate(entry.corrected)}</time>.{' '}
+                    {log.fieldLabels.page} <Link href={entry.page.href}>{entry.page.label}</Link>.
                   </p>
 
-                  <dl className="flex flex-col gap-4">
+                  <dl className="pubrec">
                     {(
                       [
-                        ['What was published', entry.claim],
-                        ['What was wrong', entry.fault],
-                        ['What changed', entry.change],
+                        [log.fieldLabels.claim, entry.claim],
+                        [log.fieldLabels.fault, entry.fault],
+                        [log.fieldLabels.change, entry.change],
                       ] as const
                     ).map(([label, text]) => (
-                      <div key={label} className="flex flex-col gap-1">
-                        <dt className="text-eyebrow text-ink-2">{label}</dt>
-                        <dd className="measure text-[0.9375rem] leading-relaxed text-ink-3">
-                          {text}
-                        </dd>
+                      <div key={label} className="pubrec-row">
+                        <dt>{label}</dt>
+                        <dd>{text}</dd>
                       </div>
                     ))}
                   </dl>
                 </li>
               ))}
             </ol>
-          </div>
-        </Container>
-      </Section>
+          </Station>
 
-      {/*
-        Promoted to h2 and naming its own section, matching
-        /ai-visibility-tool-or-partner. On a page whose subject is what the firm
-        got wrong, the limits of the log itself are a section-level statement
-        rather than an aside.
-      */}
-      <Section variant="field" size="standard" ariaLabelledBy="limitation-title">
-        <Container>
-          <Callout
-            variant="limitation"
-            label="Honest limitation"
-            title={limitation.title}
-            titleId="limitation-title"
-            headingLevel={2}
-          >
-            {limitation.body.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </Callout>
-        </Container>
-      </Section>
+          {/*
+            05. The honest limitation. On a page whose subject is what the firm
+            got wrong, the limits of the log itself are a section-level
+            statement rather than an aside.
+          */}
+          <Station id="limitation" ariaLabelledBy="limitation-title" stack>
+            <h2 id="limitation-title" className="text-h2 text-ink">
+              {limitation.title}
+            </h2>
+            <Limitations label={limitation.label} items={limitation.body} />
+          </Station>
 
-      <RelatedLinks title="Where to go next." links={related} />
+          {/* 06. Sources */}
+          <SourcesStation
+            reviewed={sources.reviewed}
+            basis={sources.basis}
+            appliedIn={sources.appliedIn}
+          />
 
-      <SourcesNote
-        reviewed={sources.reviewed}
-        basis={sources.basis}
-        appliedIn={sources.appliedIn}
-      />
+          {/* 07. Where to go next */}
+          <Station id="related" ariaLabelledBy="related-title" stack>
+            <p className="text-eyebrow text-ink-2">{relatedSection.eyebrow}</p>
+            <h2 id="related-title" className="text-h2 text-ink">
+              {relatedSection.title}
+            </h2>
+            <RelatedRules entries={related} ariaLabel={relatedSection.title} />
+          </Station>
+        </RailColumn>
+      </div>
 
-      <ClosingCta title={closing.title} primaryCta={closing.primaryCta} />
-    </>
+      <ClosingStation id="close" title={closing.title} primaryCta={closing.primaryCta} />
+    </div>
   )
 }

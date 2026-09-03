@@ -1,8 +1,9 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
 import type { DataTableColumn, DataTableRow } from '@/components/ui/data-table'
 import type { MetricDefinition } from '@/components/visuals/metric-definitions'
 import { routes } from '@/config/routes'
+import { siteConfig } from '@/config/site'
 import {
   observedSystemsExclusion,
   observedSystemsSentence,
@@ -384,6 +385,37 @@ export const data = {
   ],
 } as const
 
+/**
+ * The series record (decision D-C, 2026-09-02).
+ *
+ * The Answer Index is quarterly, so it is a repeatable series rather than a
+ * single capture, and the edition label and package version may now render. No
+ * next-capture date renders, because none has been scheduled: printing one
+ * would promise a date nobody has committed to.
+ */
+export const series = {
+  name: 'The Answer Index',
+  edition: 'Edition 1, September 2026',
+  packageVersion: 'v2026.09.1',
+  cadence: 'Quarterly',
+  labels: {
+    edition: 'Edition',
+    packageVersion: 'Package version',
+    cadence: 'Cadence',
+    dataDoi: 'Data DOI',
+    latestVersion: 'Latest version',
+    relatedSolution: 'Related solution',
+  },
+  dataDoi: {
+    label: '10.5281/zenodo.22242103',
+    href: 'https://doi.org/10.5281/zenodo.22242103',
+  },
+  latestVersionDoi: {
+    label: '10.5281/zenodo.22242102',
+    href: 'https://doi.org/10.5281/zenodo.22242102',
+  },
+} as const
+
 /** Optional downloads. The page is canonical; these travel. */
 export const downloads = {
   eyebrow: 'Downloads',
@@ -623,7 +655,7 @@ export const limitations = {
 export const byline = {
   author: 'Brandon Lincoln Hendricks',
   authorRole: 'Search Intelligence Engineer, Hendricks',
-  authorHref: routes.about.path,
+  authorHref: siteConfig.founderPersonId,
   published: '2026-09-01',
   updated: '2026-09-01',
   dataThrough: '2026-09-01',
@@ -679,7 +711,7 @@ export const sources = {
   ],
 } as const
 
-export const related: readonly RelatedLink[] = [
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.researchNoSharedSourceAcrossEngines.path,
     label: 'No Shared Source Across Engines',

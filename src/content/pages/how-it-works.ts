@@ -1,4 +1,4 @@
-import type { RelatedLink } from '@/components/sections/related-links'
+import type { RelatedEntry } from '@/components/canvas/related-list'
 import type { Cta } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 
@@ -35,6 +35,22 @@ export const hero = {
     href: routes.diagnostic.path,
     analytics: { location: 'how_it_works_hero' },
   } satisfies Cta,
+  /*
+    The answer-first block. Both approved closing sentences render, and the
+    second takes the two-tone treatment because it is the boundary the rest of
+    the page is built on: no single unexplained score.
+  */
+  answerLabel: 'The rule this system is built on',
+  answerTwoTone: {
+    claim: 'Hendricks does not collapse the entire journey',
+    continuation: 'into a single unexplained score.',
+  },
+  plate: {
+    number: 'Plate 01',
+    title: 'The Demand-to-Selection System',
+    caption: 'The complete search decision journey, ten nodes in order.',
+    listLabel: 'The ten nodes of the journey, in order',
+  },
 } as const
 
 export const stages = {
@@ -133,9 +149,27 @@ export const operatingCycle = {
   eyebrow: 'Operating Cycle',
   title: 'The system runs as a loop, not a one-time audit.',
   steps: ['Observe', 'Diagnose', 'Prioritize', 'Implement', 'Measure', 'Learn', 'Repeat'],
+  caption: 'Observe, Diagnose, Prioritize, Implement, Measure, Learn, Repeat.',
+  listLabel:
+    'The seven steps of the operating cycle, in order; the last returns to the first',
 } as const
 
-export const related: readonly RelatedLink[] = [
+export const relatedSection = {
+  title: 'Related',
+  /*
+    One sentence naming where the standards and the research live. The Research
+    Hub's own description is reused verbatim rather than restated, so the two
+    pages cannot drift.
+  */
+  body: {
+    before: 'The standards behind each stage, and the research that tests them, are published on the ',
+    between: ' page and at the ',
+    after:
+      ': practical, source-supported research on how people search, how brands enter consideration, how AI-mediated discovery changes the buying journey, and how organizations can measure the commercial result.',
+  },
+} as const
+
+export const related: readonly RelatedEntry[] = [
   {
     href: routes.solutions.path,
     label: 'Solutions',
