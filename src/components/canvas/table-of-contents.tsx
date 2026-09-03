@@ -1,17 +1,20 @@
+import { TocDisclosure } from '@/components/canvas/toc-disclosure'
+
 /**
- * The interior route's table of contents (canvas `_canvas.css` section 10).
+ * The interior route's table of contents (canvas `_canvas.css` section 10, plus
+ * the `toc-toggle` control in the converted pages' own style block).
  *
  * Hairline separated rows, no box, sticky from 1024 px and static below it.
  * Each row is a 44 px box carrying a mono index and the section's own words, so
  * the list reads as the page's outline rather than as decoration.
  *
- * CONFLICT RECORDED. Four of the converted pages add a `.toc-toggle` control
- * that collapses the list below 1024 px, driven by a per-page script.
- * `_canvas.css` defines no such control and gives it no styling, and the list
- * ships expanded there so a reader without JavaScript sees every entry. The
- * system file is the one that wins, so the list renders in full at every width
- * and this route loads no JavaScript for its contents.
+ * Below 1024 px the visible heading gives way to the control that carries the
+ * same words, which is what the design's own per-page sheet does.
  */
+
+/** One table of contents per route, so the design's fixed id is safe to reuse. */
+const LIST_ID = 'toc-list'
+
 export function TableOfContents({
   items,
   heading = 'On this page',
@@ -31,7 +34,8 @@ export function TableOfContents({
       <h2 id={headingId} className="text-coordinate mb-[10px] text-ink-2">
         {heading}
       </h2>
-      <ol>
+
+      <TocDisclosure label={heading} listId={LIST_ID}>
         {items.map((item, index) => (
           <li key={item.id}>
             <a href={`#${item.id}`}>
@@ -42,7 +46,7 @@ export function TableOfContents({
             </a>
           </li>
         ))}
-      </ol>
+      </TocDisclosure>
     </nav>
   )
 }

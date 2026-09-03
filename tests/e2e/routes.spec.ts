@@ -216,6 +216,86 @@ for (const route of builtRoutes) {
   })
 }
 
+test.describe('Hairline-marked blocks', () => {
+  /*
+    canvas.md section 2: a background, a radius, or a border wider than one
+    hairline makes an element a control, an instrument surface, a knockout mark
+    or a defect. `.answer` and `.limits` are neither controls nor instruments,
+    so all three are forbidden on them. This is the assertion the unit suite
+    cannot make: jsdom carries no stylesheet, so a fill added to either class
+    would pass every class-name check in `tests/unit/canvas-primitives.test.tsx`.
+  */
+  const markedBlockRoutes = [
+    { path: '/what-is-selection-intelligence', selector: '.answer' },
+    { path: '/what-is-selection-intelligence', selector: '.limits' },
+    { path: '/what-is-ai-mediated-search', selector: '.limits' },
+    { path: researchArticles[0].path, selector: '.answer' },
+  ] as const
+
+  for (const { path, selector } of markedBlockRoutes) {
+    test(`${path} draws ${selector} as a hairline rather than a card`, async ({ page }) => {
+      await page.goto(path)
+
+      const block = page.locator(`main ${selector}`).first()
+      await expect(block).toBeVisible()
+
+      const box = await block.evaluate((element) => {
+        const style = getComputedStyle(element)
+        return {
+          background: style.backgroundColor,
+          backgroundImage: style.backgroundImage,
+          radius: style.borderTopLeftRadius,
+          widths: [
+            style.borderTopWidth,
+            style.borderRightWidth,
+            style.borderBottomWidth,
+            style.borderLeftWidth,
+          ],
+        }
+      })
+
+      // Transparent, in whichever of the two forms the engine reports it.
+      expect(['rgba(0, 0, 0, 0)', 'transparent']).toContain(box.background)
+      expect(box.backgroundImage).toBe('none')
+      expect(box.radius).toBe('0px')
+
+      // One left rule at the accent width, nothing on the other three sides.
+      const [top, right, bottom, left] = box.widths.map((width) => Number.parseFloat(width))
+      expect([top, right, bottom]).toEqual([0, 0, 0])
+      expect(left).toBeGreaterThan(0)
+      expect(left).toBeLessThanOrEqual(1.5)
+    })
+  }
+})
+
+test.describe('The table of contents disclosure', () => {
+  /*
+    D-E: the outline collapses on a phone, but every entry is in the document at
+    first paint and the control only hides what is already there. The assertion
+    is on the link count inside the collapsed list, not on the control.
+  */
+  test.use({ viewport: { width: 390, height: 844 } })
+
+  test('/for-brands keeps every contents entry in the document while collapsed', async ({
+    page,
+  }) => {
+    await page.goto('/for-brands')
+
+    const toggle = page.getByRole('button', { name: 'On this page' })
+    await expect(toggle).toBeVisible()
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+
+    const listId = await toggle.getAttribute('aria-controls')
+    const list = page.locator(`#${listId}`)
+    await expect(list).toBeHidden()
+    expect(await list.locator('a').count()).toBeGreaterThan(0)
+
+    await toggle.click()
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    await expect(list).toBeVisible()
+  })
+})
+
 test.describe('Narrow viewport integrity', () => {
   test.use({ viewport: { width: 320, height: 800 } })
 

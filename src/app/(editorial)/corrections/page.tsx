@@ -161,30 +161,34 @@ export default function CorrectionsPage() {
             <ol className="entry">
               {log.entries.map((entry) => (
                 <li key={entry.id} id={entry.id}>
-                  <h3 className="text-h3 text-ink">{entry.title}</h3>
+                  {/* One wrapper so the row is two grid cells: the counter the
+                      CSS generates, and everything the entry says. */}
+                  <div>
+                    <h3 className="text-ink">{entry.title}</h3>
 
-                  <p className="tag">
-                    {log.fieldLabels.published}{' '}
-                    <time dateTime={entry.published}>{formatLongDate(entry.published)}</time>.{' '}
-                    {log.fieldLabels.corrected}{' '}
-                    <time dateTime={entry.corrected}>{formatLongDate(entry.corrected)}</time>.{' '}
-                    {log.fieldLabels.page} <Link href={entry.page.href}>{entry.page.label}</Link>.
-                  </p>
+                    <p className="tag">
+                      {log.fieldLabels.published}{' '}
+                      <time dateTime={entry.published}>{formatLongDate(entry.published)}</time>.{' '}
+                      {log.fieldLabels.corrected}{' '}
+                      <time dateTime={entry.corrected}>{formatLongDate(entry.corrected)}</time>.{' '}
+                      {log.fieldLabels.page} <Link href={entry.page.href}>{entry.page.label}</Link>.
+                    </p>
 
-                  <dl className="pubrec">
-                    {(
-                      [
-                        [log.fieldLabels.claim, entry.claim],
-                        [log.fieldLabels.fault, entry.fault],
-                        [log.fieldLabels.change, entry.change],
-                      ] as const
-                    ).map(([label, text]) => (
-                      <div key={label} className="pubrec-row">
-                        <dt>{label}</dt>
-                        <dd>{text}</dd>
-                      </div>
-                    ))}
-                  </dl>
+                    <dl className="pubrec">
+                      {(
+                        [
+                          [log.fieldLabels.claim, entry.claim],
+                          [log.fieldLabels.fault, entry.fault],
+                          [log.fieldLabels.change, entry.change],
+                        ] as const
+                      ).map(([label, text]) => (
+                        <div key={label} className="pubrec-row">
+                          <dt>{label}</dt>
+                          <dd>{text}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
                 </li>
               ))}
             </ol>

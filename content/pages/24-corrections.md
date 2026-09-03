@@ -165,19 +165,3 @@ Last reviewed 2026-08-19.
 Found something wrong on this site? Report it, and it gets an answer.
 
 CTA: Submit a correction
-
-## Canvas conversion, 2026-09-03
-
-**Sources heading:** Sources
-
-**Change history heading:** Change history
-
-**Change history columns:** Date, Kind, Summary
-
-**First publication row:** Not yet recorded. Publication. First publication of this page.
-
-**Corrections link:** Read the corrections policy
-
-**Related terms heading:** Related terms
-
-**Where to go next heading:** Where to go next.

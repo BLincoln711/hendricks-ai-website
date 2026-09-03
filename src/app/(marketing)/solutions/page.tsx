@@ -154,41 +154,45 @@ export default function SolutionsPage() {
         <ol className="entry mt-10">
           {solutionsList.items.map((solution) => (
             <li key={solution.name}>
-              <h3 className="text-h3 text-ink">
-                <Link href={solution.cta.href}>{solution.name}</Link>
-              </h3>
-              <p className="tag">{solution.title}</p>
+              {/* One wrapper so the row is two grid cells: the counter the CSS
+                  generates, and everything the entry says. */}
+              <div>
+                <h3 className="text-ink">
+                  <Link href={solution.cta.href}>{solution.name}</Link>
+                </h3>
+                <p className="tag">{solution.title}</p>
 
-              <dl className="pubrec">
-                <div className="pubrec-row">
-                  <dt>{solutionFieldLabels.question}</dt>
-                  <dd>{solution.question}</dd>
-                </div>
-                <div className="pubrec-row">
-                  <dt>{solutionFieldLabels.examines}</dt>
-                  <dd>{solution.description}</dd>
-                </div>
-                <div className="pubrec-row">
-                  <dt>{solutionFieldLabels.outputs}</dt>
-                  <dd>
-                    {solution.outputs.join(', ')}
-                    {/* The one term on this page that is not self-explanatory is
-                        defined where it is first used, per CANON section 6. */}
-                    {commercialSelectionGap &&
-                    solution.outputs.includes(commercialSelectionGap.name) ? (
-                      <span className="defnote">
-                        {commercialSelectionGap.name}: {commercialSelectionGap.definition}
-                      </span>
-                    ) : null}
-                  </dd>
-                </div>
-                <div className="pubrec-row">
-                  <dt>{solutionFieldLabels.decision}</dt>
-                  <dd>{solution.decision}</dd>
-                </div>
-              </dl>
+                <dl className="pubrec">
+                  <div className="pubrec-row">
+                    <dt>{solutionFieldLabels.question}</dt>
+                    <dd>{solution.question}</dd>
+                  </div>
+                  <div className="pubrec-row">
+                    <dt>{solutionFieldLabels.examines}</dt>
+                    <dd>{solution.description}</dd>
+                  </div>
+                  <div className="pubrec-row">
+                    <dt>{solutionFieldLabels.outputs}</dt>
+                    <dd>
+                      {solution.outputs.join(', ')}
+                      {/* The one term on this page that is not self-explanatory
+                          is defined where it is first used, per CANON 6. */}
+                      {commercialSelectionGap &&
+                      solution.outputs.includes(commercialSelectionGap.name) ? (
+                        <span className="defnote">
+                          {commercialSelectionGap.name}: {commercialSelectionGap.definition}
+                        </span>
+                      ) : null}
+                    </dd>
+                  </div>
+                  <div className="pubrec-row">
+                    <dt>{solutionFieldLabels.decision}</dt>
+                    <dd>{solution.decision}</dd>
+                  </div>
+                </dl>
 
-              <RuleLink cta={solution.cta} />
+                <RuleLink cta={solution.cta} />
+              </div>
             </li>
           ))}
         </ol>

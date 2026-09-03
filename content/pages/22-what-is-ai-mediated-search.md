@@ -190,19 +190,3 @@ This definition is maintained by Hendricks. Where the page describes systems Hen
 # Measure the surfaces before deciding what to change.
 
 **CTA:** Establish a baseline through the Diagnostic
-
-## Canvas conversion, 2026-09-03
-
-**Sources heading:** Sources
-
-**Change history heading:** Change history
-
-**Change history columns:** Date, Kind, Summary
-
-**First publication row:** Not yet recorded. Publication. First publication of this page.
-
-**Corrections link:** Read the corrections policy
-
-**Related terms heading:** Related terms
-
-**Where to go next heading:** Where to go next.

@@ -22,14 +22,46 @@
  * citation furniture in section 16 exists precisely so the depth has somewhere
  * to render.
  *
- * CONFLICT RECORDED, 2026-09-03. The thirteen converted pages in `07-hifi/`
- * reference roughly 130 class names that `_canvas.css` never defines: the
+ * WHERE THE PER-PAGE GEOMETRY COMES FROM. Each converted page in `07-hifi/`
+ * carries two `<style>` blocks rather than a link: block 0 is `_canvas.css`
+ * inlined verbatim, and block 1 is that page's own instrument sheet, headed
+ * "Page instruments only. No token is redefined here." Block 1 is where the
  * drawing label layer (`.dw`, `.dw-pins`, `.dw-labels`), the numbered rule list
- * (`.rlist`), the related list (`.rel`), the entry list (`.entry`) and a long
- * tail of per-page parts. As authored, those pages do not fully render against
- * the system file they link. Per the brief the canvas files win, so the
- * geometry those pages imply is written here, in the canvas's own idiom, rather
- * than reinterpreted: hairlines and space, no card and no fill.
+ * (`.rlist`), the related list (`.rel`), the entry list (`.entry`), `.studies`,
+ * `.terms`, `.formula`, `.markblock` and the rest are defined, so the design
+ * package is self-consistent and does render in full. Counting both blocks,
+ * three class names across the thirteen pages remain undefined: `observed`,
+ * `inferred` and `measured`, which are `data-class` values rather than classes.
+ * Every value below is transcribed from block 1, read through the semantic
+ * roles in `tokens.css` where one exists.
+ *
+ * DEPARTURES FROM THAT SOURCE, each deliberate and each recorded here:
+ *
+ * 1. `.answer.answer-lead` takes a 1.5 px left rule, not the 2 px the per-page
+ *    blocks set. `canvas.md` section 2 makes the 1.5 px left rule the system's
+ *    one accent border, and block 1's own header states it introduces no border
+ *    wider than one hairline, which its own 2 px value contradicts. The rule
+ *    file wins over the page that breaks it. Scale, leading, tracking, measure
+ *    and the 26/16 px padding are the design's.
+ * 2. Where two pages define the same class differently, one value ships and the
+ *    variant is named on a modifier: `.answer-lead` is the definition page's
+ *    scale and `.answer-lead-study` the research article's; `.rlist` is the
+ *    numbered form and `.rlist-links` the link form.
+ * 3. Block 1 restates `margin: 0`, `padding: 0` and `list-style: none` on every
+ *    list because those pages carry no reset. Tailwind's preflight already sets
+ *    them here, so they are not repeated.
+ * 4. Outer margins that block 1 states as part of a shorthand (`.rlist`'s
+ *    `margin: 34px 0 0`, for example) are set at the call site as a utility,
+ *    because the same component sits at three different distances across the
+ *    routes. The component's internal geometry is the part that lives here.
+ * 5. `.ledger .ix` is spaced by a 13 px flex gap on `.ledger .k` rather than by
+ *    a 13 px right margin on the index. Same measured gap, one idiom.
+ * 6. `.outrow` has two forms in block 1: a baseline flex row on the solution and
+ *    methodology pages, and a two-column bordered figure grid on the Diagnostic.
+ *    The flex row is the one every call site here renders, so it is the one that
+ *    ships; the Diagnostic's figure grid has no call site.
+ * 7. `.bodywrap .station` states `padding-inline: 0` where block 1 writes the two
+ *    longhands. Same result, one declaration.
  *
  * Motion is not here. The canvas reveals a station with a keyframe pair; the
  * token lint forbids `@keyframes` outside the copy tree, the rest state is the
@@ -252,6 +284,44 @@
     }
   }
 
+  /*
+   * The disclosure that collapses the outline on a phone. It is a control, so
+   * the transparent fill, the one hairline edge at 3.41:1 and the 6 px radius
+   * are the three things canvas.md section 2 allows one. Above 1024 px the rail
+   * is its own column and the list is always open, so the control is not
+   * rendered at all and the heading carries the name instead.
+   */
+  .toc-toggle {
+    display: none;
+  }
+
+  @media (max-width: 63.9375rem) {
+    .toc > h2 {
+      display: none;
+    }
+
+    .toc-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: var(--target);
+      margin-bottom: 10px;
+      padding-inline: 14px;
+      border: var(--hx-stroke-1) solid var(--edge);
+      border-radius: var(--radius-control);
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: 14px;
+      font-weight: var(--weight-mono);
+      cursor: pointer;
+    }
+
+    .toc-toggle:hover {
+      border-color: var(--ev-muted);
+    }
+  }
+
   /* ---- Ledger rows -------------------------------------------------------- */
 
   /*
@@ -276,7 +346,7 @@
   .ledger .k {
     display: flex;
     align-items: baseline;
-    gap: var(--hx-space-3);
+    gap: 13px;
     font-size: 15.5px;
     font-weight: var(--weight-sub);
     color: var(--ink);
@@ -331,7 +401,7 @@
     grid-template-columns: minmax(0, 34px) minmax(0, 1fr);
     gap: var(--hx-space-1) var(--hx-space-4);
     align-items: baseline;
-    padding-block: 11px;
+    padding-block: 10px;
     border-bottom: var(--hx-stroke-1) solid var(--rule);
     font-size: 14.5px;
     line-height: var(--leading-small);
@@ -352,7 +422,7 @@
    * date beside it, and one quiet sentence under both.
    */
   .rel {
-    max-width: var(--measure-wide);
+    max-width: 1000px;
     border-top: var(--hx-stroke-1) solid var(--rule-2);
   }
 
@@ -372,6 +442,8 @@
   }
 
   .rel .kind {
+    display: block;
+    margin-top: 3px;
     font-family: var(--font-mono);
     font-size: var(--text-illus);
     font-weight: var(--weight-mono);
@@ -395,38 +467,60 @@
    * hairline between rows does the separating a card used to.
    */
   .entry {
+    counter-reset: entry;
     border-top: var(--hx-stroke-1) solid var(--rule-2);
   }
 
+  /* Two grid items per row: the counter and the entry's own wrapper. The index
+   * is generated content rather than a span, because the list is an `ol` and a
+   * second spoken number would double what the list already announces. */
   .entry > li {
-    padding-block: 30px;
+    counter-increment: entry;
+    display: grid;
+    grid-template-columns: minmax(0, 56px) minmax(0, 1fr);
+    gap: var(--hx-space-2) 22px;
+    padding: 26px 0 28px;
     border-bottom: var(--hx-stroke-1) solid var(--rule);
   }
 
+  .entry > li::before {
+    content: counter(entry, decimal-leading-zero);
+    padding-top: 6px;
+    font-family: var(--font-mono);
+    font-size: var(--text-coordinate);
+    letter-spacing: var(--tracking-mono);
+    color: var(--ink-2);
+  }
+
   .entry h3 {
-    max-width: var(--measure);
+    max-width: 30ch;
+    font-size: clamp(20px, 1.7vw, 24px);
+    line-height: var(--leading-h3);
+    font-weight: var(--weight-sub);
+    letter-spacing: var(--tracking-h3);
   }
 
   .entry .tag {
     max-width: var(--measure-wide);
     margin-top: var(--hx-space-2);
     font-size: var(--text-small);
-    line-height: var(--leading-small);
+    line-height: var(--leading-lead);
     color: var(--ink-2);
   }
 
   .entry .pubrec {
+    max-width: 860px;
     margin-top: 18px;
   }
 
   .entry .tlink {
-    margin-top: var(--hx-space-2);
+    margin-top: var(--hx-space-4);
   }
 
   /* A term defined where it is first used, inline in the field it appears in. */
   .defnote {
     display: block;
-    margin-top: var(--hx-space-1);
+    margin-top: 5px;
     font-size: 13px;
     line-height: var(--leading-small);
     color: var(--ink-2);
@@ -835,6 +929,7 @@
    */
   .dw {
     position: relative;
+    width: 100%;
   }
 
   .dw-pins,
@@ -856,15 +951,17 @@
   }
 
   .dw-pins .big {
-    font-size: var(--text-small);
+    font-size: 14px;
+    letter-spacing: var(--tracking-mono);
     font-weight: var(--weight-sub);
     color: var(--ink);
   }
 
   .dw-pins .sm {
     font-family: var(--font-mono);
-    font-size: var(--text-illus);
-    letter-spacing: 0.06em;
+    font-size: var(--text-coordinate);
+    letter-spacing: 0.03em;
+    text-transform: none;
     color: var(--ink-2);
   }
 
@@ -877,7 +974,8 @@
   }
 
   .dw-labels .inset {
-    padding-left: var(--hx-space-10);
+    padding-left: 15%;
+    text-align: left;
   }
 
   .dw-labels .center {
@@ -887,8 +985,9 @@
 
   .dw-labels .q {
     font-family: var(--font-mono);
-    font-size: var(--text-illus);
-    letter-spacing: 0.06em;
+    font-size: 11.5px;
+    letter-spacing: 0.03em;
+    text-transform: none;
     color: var(--ink-2);
   }
 
@@ -1186,6 +1285,7 @@
    * compound into a double indent.
    */
   .bodywrap {
+    position: relative;
     padding: 0 var(--pad) 0 var(--rail);
   }
 
@@ -1193,12 +1293,37 @@
     padding-inline: 0;
   }
 
-  /* The first answer on a page reads at the lead size, because it is the
-   * sentence the page exists to say. */
+  /*
+   * The first answer on a page is the one moment of scale it has, because it is
+   * the sentence the page exists to say and the sentence a machine quotes from
+   * it. Verbatim from `definition-page.html` block 1, except the left rule,
+   * which stays at the system's 1.5 px hairline (departure 1 in the header).
+   */
+  .answer-lead {
+    padding-left: 26px;
+  }
+
   .answer-lead p {
-    font-size: clamp(19px, 1.8vw, 23px);
-    line-height: var(--leading-h3);
+    max-width: 38ch;
+    font-size: clamp(20px, 2.15vw, 30px);
+    line-height: var(--leading-h4);
+    letter-spacing: -0.014em;
     color: var(--ink);
+  }
+
+  /* The research article sets the same block one step smaller and one measure
+   * wider, from `research-article.html` block 1. */
+  .answer-lead-study p {
+    max-width: 40ch;
+    font-size: clamp(19px, 1.95vw, 27px);
+    line-height: 1.32;
+    letter-spacing: var(--tracking-h3);
+  }
+
+  @media (max-width: 37.4375rem) {
+    .answer-lead {
+      padding-left: 16px;
+    }
   }
 
   /*
@@ -1206,35 +1331,42 @@
    * questions in the Selection Intelligence hero read as the pair they are.
    */
   .qline {
-    max-width: var(--measure-wide);
-    font-size: var(--text-h3);
-    line-height: var(--leading-h3);
-    letter-spacing: var(--tracking-h3);
+    max-width: var(--measure-narrow);
+    font-size: clamp(19px, 1.8vw, 23px);
+    line-height: var(--leading-h4);
+    letter-spacing: -0.014em;
     color: var(--ink);
   }
 
   /* The operating line, set as its own statement rather than as body copy. */
   .opline {
-    max-width: none;
-    font-size: var(--text-lead);
-    line-height: var(--leading-lead);
+    max-width: 40ch;
+    margin-top: 30px;
+    padding-top: var(--hx-space-5);
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
+    font-size: clamp(17px, 1.7vw, 21px);
+    line-height: 1.35;
+    letter-spacing: -0.014em;
     color: var(--ink);
   }
 
   /* A list that keeps its marker because the items are read as a set. */
   .plainlist {
-    max-width: var(--measure-wide);
-    padding-left: var(--hx-space-5);
-    list-style: disc;
+    border-top: var(--hx-stroke-1) solid var(--rule-2);
   }
 
   .plainlist > li {
-    padding-block: var(--hx-space-1);
-    color: var(--ink-3);
+    max-width: var(--measure-wide);
+    padding-block: 11px;
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+    font-size: 15.5px;
+    line-height: var(--leading-lead);
+    color: var(--ink);
   }
 
   /* A list separated by hairlines instead of by markers. */
   .ruled {
+    max-width: var(--measure-wide);
     border-top: var(--hx-stroke-1) solid var(--rule-2);
   }
 
@@ -1247,25 +1379,58 @@
 
   /* The stage rail: an ordered path where each rung carries its own coordinate
    * and the rungs share one left edge. */
+  /*
+   * The path rail. One vertical line in the customer-path blue with a knockout
+   * node on every stage and the resolved signal dot on the last, which is the
+   * one radius canvas.md section 2 allows outside a control: a mark that punches
+   * a hole in the line it crosses, filled with the page ground and nothing else.
+   */
   .pathrail {
-    border-top: var(--hx-stroke-1) solid var(--rule-2);
+    position: relative;
+  }
+
+  .pathrail::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    bottom: 14px;
+    left: 7px;
+    width: 0;
+    border-left: var(--hx-stroke-1-5) solid var(--path);
   }
 
   .pathrail > li {
-    display: grid;
-    grid-template-columns: minmax(0, 88px) minmax(0, 1fr);
-    gap: var(--hx-space-4);
-    align-items: baseline;
-    padding-block: 9px;
-    border-bottom: var(--hx-stroke-1) solid var(--rule);
-    font-size: var(--text-small);
+    position: relative;
+    max-width: 40ch;
+    padding: 9px 0 9px var(--hx-space-10);
+    font-size: var(--text-body);
+    line-height: 1.4;
     color: var(--ink);
   }
 
+  .pathrail > li::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 1px;
+    width: 14px;
+    height: 14px;
+    border: var(--hx-stroke-1-5) solid var(--path);
+    border-radius: 50%;
+    background: var(--bg);
+  }
+
+  .pathrail > li:last-child::before {
+    border-color: var(--signal-dot);
+    background: var(--signal-dot);
+  }
+
   .pathrail .st {
+    display: block;
+    margin-bottom: 2px;
     font-family: var(--font-mono);
     font-size: var(--text-illus);
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-mono);
     text-transform: uppercase;
     color: var(--ink-2);
   }
@@ -1275,7 +1440,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: var(--hx-space-2) var(--hx-space-6);
+    gap: 6px 26px;
     max-width: none;
   }
 
@@ -1283,6 +1448,7 @@
    * and a sentence stacked rather than an index beside an item. */
   .rlist-links > li {
     grid-template-columns: minmax(0, 1fr);
+    padding: 14px 0 16px;
   }
 
   /* A related row whose first line is a link and a kind. */
@@ -1290,14 +1456,14 @@
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: var(--hx-space-2) var(--hx-space-4);
+    gap: 6px var(--hx-space-4);
   }
 
   .rlist .kind {
     font-family: var(--font-mono);
     font-size: var(--text-illus);
     font-weight: var(--weight-mono);
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-mono);
     text-transform: uppercase;
     color: var(--ink-2);
   }
@@ -1323,7 +1489,7 @@
     margin-bottom: var(--hx-space-2);
     padding-left: var(--hx-space-3);
     border-left: var(--hx-stroke-1-5) solid var(--caution);
-    font-size: 13px;
+    font-size: 12.5px;
     line-height: var(--leading-small);
     color: var(--ink-2);
   }
@@ -1332,7 +1498,7 @@
   .fieldpair {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px var(--hx-space-5);
+    gap: 18px var(--pad);
   }
 
   @media (max-width: 37.4375rem) {
@@ -1345,6 +1511,7 @@
    * still submitted, so a bot that fills every field identifies itself. */
   .hp {
     position: absolute;
+    left: -10000px;
     width: 1px;
     height: 1px;
     overflow: hidden;
@@ -1354,28 +1521,29 @@
 
   /* A question and its answer, separated by hairlines. */
   .faq {
+    max-width: 900px;
     border-top: var(--hx-stroke-1) solid var(--rule-2);
   }
 
   .faq > div {
-    padding-block: 18px;
+    padding: 20px 0 22px;
     border-bottom: var(--hx-stroke-1) solid var(--rule);
   }
 
   .faq h2,
   .faq h3 {
-    max-width: var(--measure-wide);
-    font-size: var(--text-h3);
+    max-width: var(--measure);
+    font-size: 17.5px;
     line-height: var(--leading-h3);
-    font-weight: var(--weight-sub);
-    letter-spacing: var(--tracking-h3);
+    font-weight: var(--weight-semibold);
+    letter-spacing: -0.008em;
   }
 
   .faq p {
     max-width: var(--measure-wide);
     margin-top: var(--hx-space-2);
     font-size: 14.5px;
-    line-height: var(--leading-body);
+    line-height: 1.6;
     color: var(--ink-2);
   }
 
@@ -1387,23 +1555,24 @@
    */
   .classrow .ix {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-family: var(--font-mono);
     font-size: var(--text-illus);
     font-weight: var(--weight-mono);
-    letter-spacing: var(--tracking-mono);
+    letter-spacing: var(--tracking-coordinate);
     color: var(--ink-2);
   }
 
   .classrow h3 {
     max-width: 22ch;
+    margin-bottom: 10px;
     font-size: 16.5px;
     font-weight: var(--weight-sub);
     letter-spacing: var(--tracking-h4);
   }
 
   .classrow p {
-    max-width: 30ch;
+    max-width: 32ch;
     margin-top: 7px;
     font-size: 13.5px;
     line-height: var(--leading-lead);
@@ -1416,14 +1585,14 @@
    * bordered panel, because the system has no panel.
    */
   .layer-note {
-    max-width: var(--measure-wide);
+    max-width: none;
     margin-top: var(--hx-space-6);
-    padding-left: 18px;
+    padding-left: 20px;
     border-left: var(--hx-stroke-1-5) solid var(--path);
   }
 
   .layer-note h3 {
-    max-width: var(--measure);
+    max-width: 40ch;
     font-size: 17px;
     font-weight: var(--weight-semibold);
     letter-spacing: var(--tracking-h4);
@@ -1431,7 +1600,7 @@
 
   .layer-note p {
     max-width: var(--measure-wide);
-    margin-top: 6px;
+    margin-top: 8px;
     font-size: 14.5px;
     line-height: var(--leading-body);
     color: var(--ink-2);
@@ -1444,14 +1613,14 @@
    */
   .portrait img {
     width: 100%;
-    max-width: 420px;
+    max-width: 520px;
     height: auto;
     margin-top: var(--hx-space-4);
     filter: none;
   }
 
   .portrait figcaption {
-    margin-top: var(--hx-space-3);
+    margin-top: 14px;
   }
 
   /*
@@ -1461,7 +1630,7 @@
    */
   .terms {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
     gap: 0 var(--hx-space-8);
     max-width: 1000px;
     margin-top: var(--hx-space-8);
@@ -1484,8 +1653,8 @@
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: var(--hx-space-2) var(--hx-space-3);
-    max-width: 1000px;
+    gap: 14px 20px;
+    max-width: none;
   }
 
   .formula > li {
@@ -1517,10 +1686,10 @@
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: var(--hx-space-2) 0;
+    gap: 4px 10px;
     font-family: var(--font-mono);
     font-size: var(--text-illus);
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-coordinate);
     text-transform: uppercase;
     color: var(--ink-2);
   }
@@ -1533,17 +1702,17 @@
 
   /* A study's own title, at the display size the flagship earns. */
   .flagship-title {
-    max-width: 26ch;
+    max-width: 24ch;
     margin-top: var(--hx-space-4);
-    font-size: var(--text-h2);
-    line-height: var(--leading-h2);
-    letter-spacing: var(--tracking-h2);
+    font-size: clamp(26px, 4.4vw, 56px);
+    line-height: 1.03;
+    letter-spacing: -0.026em;
     font-weight: var(--weight-medium);
   }
 
   /* One mono line of study metadata: category, kind, claim class, cadence. */
   .meta-line {
-    max-width: none;
+    max-width: 64ch;
     font-family: var(--font-mono);
     font-size: 12.5px;
     letter-spacing: 0.02em;
@@ -1561,10 +1730,10 @@
 
   .studies > li {
     display: grid;
-    grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
-    gap: var(--hx-space-6) var(--pad);
+    grid-template-columns: minmax(0, 246px) minmax(0, 1fr);
+    gap: 14px var(--pad);
     align-items: start;
-    padding-block: 30px;
+    padding: 26px 0 28px;
     border-bottom: var(--hx-stroke-1) solid var(--rule);
   }
 
@@ -1573,12 +1742,12 @@
     margin-bottom: 10px;
     font-family: var(--font-mono);
     font-size: var(--text-illus);
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-coordinate);
     color: var(--ink-2);
   }
 
   .studies h3 {
-    max-width: var(--measure);
+    max-width: var(--measure-narrow);
     font-size: var(--text-h3);
     line-height: var(--leading-h3);
     font-weight: var(--weight-sub);
@@ -1586,41 +1755,42 @@
 
   .studies .desc {
     max-width: var(--measure-wide);
-    margin-top: var(--hx-space-3);
-    font-size: 14.5px;
+    margin-top: 10px;
+    font-size: var(--text-small);
     line-height: var(--leading-body);
     color: var(--ink-2);
   }
 
   .studies .note {
     max-width: var(--measure-wide);
-    margin-top: var(--hx-space-3);
+    margin-top: 10px;
     padding-left: 14px;
     border-left: var(--hx-stroke-1-5) solid var(--rule-strong);
     font-size: 13.5px;
-    line-height: var(--leading-small);
+    line-height: var(--leading-lead);
     color: var(--ink-2);
   }
 
   /* A compact record of dated fields beside a study. */
   .fields > div {
     display: grid;
-    grid-template-columns: minmax(0, 96px) minmax(0, 1fr);
-    gap: 2px var(--hx-space-4);
-    padding-block: 6px;
+    grid-template-columns: minmax(0, 104px) minmax(0, 1fr);
+    gap: 2px 14px;
+    padding-block: 5px;
     border-bottom: var(--hx-stroke-1) solid var(--rule);
   }
 
   .fields dt {
     font-family: var(--font-mono);
-    font-size: var(--text-illus);
-    letter-spacing: 0.08em;
+    font-size: 10.5px;
+    letter-spacing: var(--tracking-mono);
     text-transform: uppercase;
     color: var(--ink-2);
   }
 
   .fields dd {
-    font-size: 13.5px;
+    font-size: var(--text-caption);
+    line-height: var(--leading-small);
     color: var(--ink-3);
   }
 
@@ -1637,7 +1807,7 @@
    */
   .markblock {
     max-width: none;
-    padding-left: 18px;
+    padding-left: 20px;
     border-left: var(--hx-stroke-1-5) solid var(--rule-strong);
   }
 

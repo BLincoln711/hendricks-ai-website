@@ -99,10 +99,16 @@ export default function SearchPresenceEngineeringPage() {
                     is omitted rather than invented. */}
                 {layer.title ? <h3>{layer.title}</h3> : null}
                 <p>{layer.description}</p>
+                {/* The approved lead-in above each list, which also names the
+                    list for assistive technology so the name is the words on
+                    the page rather than a second reading of the heading. */}
+                <p id={`layer-${layer.number}-work`} className="mt-4 text-ink-2">
+                  {layers.workLeadIn}
+                </p>
                 <RuleList
-                  className="mt-4"
+                  className="mt-2"
                   items={layer.workItems}
-                  ariaLabel={layer.title ?? layer.description}
+                  ariaLabelledBy={`layer-${layer.number}-work`}
                 />
               </div>
             </li>

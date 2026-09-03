@@ -342,25 +342,3 @@ Applied in: the Selection Intelligence solution, the Methodology, the Search Int
 Run this reading on your own market.
 
 CTA: Start with a Search Intelligence Diagnostic
-
-## Series record, decision D-C, 2026-09-02
-
-The Answer Index is quarterly, so it is a repeatable series rather than a single capture, and the edition label and package version may now render. No next-capture date renders, because none has been scheduled.
-
-**Series:** The Answer Index
-
-**Edition:** Edition 1, September 2026
-
-**Package version:** v2026.09.1
-
-**Cadence:** Quarterly
-
-**Data DOI:** 10.5281/zenodo.22242103
-
-**Latest version:** 10.5281/zenodo.22242102
-
-## Cite this study, 2026-09-03
-
-**Heading:** Cite this study
-
-The citation string is composed from the study's own record, so a citation and the page it cites cannot disagree about the title, the author or the date.

@@ -48,6 +48,12 @@ export const hero = {
 export const layers = {
   eyebrow: 'Seven Engineering Layers',
   title: 'Seven conditions a brand can actually control.',
+  /**
+   * The approved markdown repeats this lead-in verbatim above all seven item
+   * lists (`content/pages/05-search-presence-engineering.md`), so it is stored
+   * once and rendered seven times rather than duplicated in every item.
+   */
+  workLeadIn: 'Work can include:',
   items: [
     {
       number: '01',

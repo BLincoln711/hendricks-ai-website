@@ -230,7 +230,7 @@ export default async function ResearchArticlePage({
         {/* Item 1a. The finding, before any explanation. */}
         <Answer
           id="direct-answer"
-          className="answer-lead mt-8"
+          className="answer-lead answer-lead-study mt-8"
           label={content.directAnswer.term}
           labelId="direct-answer-label"
           paragraphs={[content.directAnswer.answer]}

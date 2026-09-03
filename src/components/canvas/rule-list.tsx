@@ -14,14 +14,21 @@ import { cn } from '@/lib/utils/cn'
 export function RuleList({
   items,
   ariaLabel,
+  ariaLabelledBy,
   className,
 }: {
   items: readonly string[]
   ariaLabel?: string
+  /** Id of the visible lead-in that already names the list on the page. */
+  ariaLabelledBy?: string
   className?: string
 }) {
   return (
-    <ol className={cn('rlist', className)} aria-label={ariaLabel}>
+    <ol
+      className={cn('rlist', className)}
+      aria-label={ariaLabelledBy ? undefined : ariaLabel}
+      aria-labelledby={ariaLabelledBy}
+    >
       {items.map((item, index) => (
         <li key={item}>
           <span className="n" aria-hidden="true">

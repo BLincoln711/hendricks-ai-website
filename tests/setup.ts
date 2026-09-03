@@ -19,3 +19,28 @@ for (const key of ['localStorage', 'sessionStorage'] as const) {
     })
   }
 }
+
+/**
+ * jsdom does not implement `window.matchMedia`, and the table of contents
+ * disclosure asks it which side of 1024 px the viewport is on. The stub reports
+ * the wide side, which is the state the list ships in, and is a real EventTarget
+ * so the component's subscribe and unsubscribe run the same code they run in a
+ * browser. A test that needs the narrow side overrides `matches` on the object
+ * this returns.
+ */
+if (typeof window !== 'undefined' && typeof window.matchMedia !== 'function') {
+  Object.defineProperty(window, 'matchMedia', {
+    configurable: true,
+    writable: true,
+    value: (query: string) => {
+      const target = new EventTarget()
+      return Object.assign(target, {
+        media: query,
+        matches: false,
+        onchange: null,
+        addListener: () => {},
+        removeListener: () => {},
+      }) as unknown as MediaQueryList
+    },
+  })
+}

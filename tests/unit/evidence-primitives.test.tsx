@@ -1,16 +1,15 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import { Callout } from '@/components/ui/callout'
 import { DataTable } from '@/components/ui/data-table'
 import { EVIDENCE_GRADE_TABLE_HREF, EvidenceGrade } from '@/components/visuals/evidence-grade'
 import { SignalDot } from '@/components/visuals/signal-dot'
 import { evidenceGradeRows } from '@/content/shared/evidence-grades'
 
 /**
- * The evidence primitives (09 5.20, 5.35, 5.36, 5.46, 5.53): meaning carried
- * by shape, word and mark before hue; the grade standard read from one
- * source and never retyped; tables reachable and named by their caption.
+ * The evidence primitives (09 5.20, 5.35, 5.46, 5.53): meaning carried by
+ * shape, word and mark before hue; the grade standard read from one source and
+ * never retyped; tables reachable and named by their caption.
  */
 
 describe('EvidenceGrade', () => {
@@ -43,34 +42,6 @@ describe('SignalDot', () => {
     const dot = document.querySelector('span')!
     expect(dot).toHaveAttribute('aria-hidden', 'true')
     expect(dot).toHaveClass('bg-signal-dot')
-  })
-})
-
-describe('Callout', () => {
-  it.each(['insight', 'limitation', 'methodology', 'warning'] as const)(
-    'shows the %s label as visible text beside its icon',
-    (variant) => {
-      render(
-        <Callout variant={variant} title="A title">
-          <p>Body.</p>
-        </Callout>,
-      )
-
-      const note = screen.getByRole('note')
-      expect(note.querySelector('svg')).toHaveAttribute('aria-hidden', 'true')
-      expect(note.firstElementChild).toHaveTextContent(
-        variant.charAt(0).toUpperCase() + variant.slice(1),
-      )
-    },
-  )
-
-  it('promotes the title to an h2 on request', () => {
-    render(
-      <Callout headingLevel={2} title="Statement" titleId="statement-title">
-        <p>Body.</p>
-      </Callout>,
-    )
-    expect(screen.getByRole('heading', { level: 2 })).toHaveAttribute('id', 'statement-title')
   })
 })
 

@@ -179,19 +179,3 @@ three published category foundation pages, and the section publishes one study. 
 is reachable from the footer research column, which renders on every route, and from
 contextual links. The entry to restore in `src/config/navigation.ts`, and the condition
 that restores it, are recorded in a comment at the position it occupied.
-
-## Canvas conversion, 2026-09-03
-
-**Answer label:** What this section is
-
-**Supporting studies:** The studies behind it.
-
-Each study names its relation to the flagship in the flagship’s own words.
-
-**Relation label:** Relation to the flagship:
-
-**Coverage label:** Eight categories
-
-**Closing eyebrow:** Read in order
-
-**Series, decision D-C:** The Answer Index. Edition 1, September 2026. Package v2026.09.1. Quarterly.

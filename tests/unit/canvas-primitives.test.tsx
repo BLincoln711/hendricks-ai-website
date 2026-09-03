@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
 import { Answer } from '@/components/canvas/answer'
@@ -22,12 +22,15 @@ import { siteConfig } from '@/config/site'
  * The canvas interior primitives.
  *
  * Three properties are load-bearing across all of them and each is easy to undo
- * by accident. Nothing is a card: separation is a hairline class, never a
- * background or a boundary. Nothing is hidden behind an interaction, because
- * D-E requires every answer to be in the first paint. And nothing is carried by
- * colour or by a mark alone: an index that repeats an ordered list's own order
- * is `aria-hidden`, and a field whose meaning is not obvious from its content
- * keeps a name for assistive technology.
+ * by accident. Nothing is a card, which is a claim about computed style and so
+ * is asserted against real CSS in `tests/e2e/routes.spec.ts`; here the class
+ * names those rules key on are pinned instead. No answer is withheld until an
+ * interaction, because D-E requires every answer to be in the first paint: the
+ * one disclosure in the set collapses an outline whose entries are already in
+ * the document, and it ships open. And nothing is carried by colour or by a mark
+ * alone: an index that repeats an ordered list's own order is `aria-hidden`, and
+ * a field whose meaning is not obvious from its content keeps a name for
+ * assistive technology.
  */
 
 describe('Answer', () => {
@@ -45,9 +48,21 @@ describe('Answer', () => {
     expect(screen.getByText('around the decision.')).toHaveClass('cont')
   })
 
-  it('is a hairline-marked block rather than a card', () => {
+  it('stays a plain div, out of the landmark list, when nothing names it', () => {
+    // Whether `.answer` is a card or a hairline is a question about computed
+    // style, which jsdom has none of. `tests/e2e/routes.spec.ts` asserts the
+    // absence of fill, radius and heavy border against real CSS.
     const { container } = render(<Answer paragraphs={['One sentence.']} />)
-    expect(container.firstElementChild).toHaveClass('answer')
+
+    const block = container.firstElementChild!
+    expect(block).toHaveClass('answer')
+    expect(block.tagName).toBe('DIV')
+  })
+
+  it('becomes a named region when a label names it', () => {
+    render(<Answer label="The direct answer" labelId="answer-label" paragraphs={['One.']} />)
+
+    expect(screen.getByRole('region', { name: 'The direct answer' })).toBeInTheDocument()
   })
 
   it('names itself with a visually silent heading when one is given', () => {
@@ -75,6 +90,43 @@ describe('TableOfContents', () => {
     const link = screen.getByRole('link', { name: 'Signs of fit' })
     expect(link).toHaveAttribute('href', '#signals')
     expect(screen.getByText('01')).toHaveAttribute('aria-hidden', 'true')
+  })
+
+  it('ships the outline open, so a reader without JavaScript sees every entry', () => {
+    // D-E is satisfied by the markup, not by the control: the list is expanded
+    // in the server-rendered output and the disclosure only collapses it on a
+    // narrow viewport, after hydration.
+    render(<TableOfContents items={[{ id: 'signals', label: 'Signs of fit' }]} />)
+
+    expect(screen.getByRole('list')).toBeVisible()
+    expect(screen.getByRole('button', { name: 'On this page' })).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    )
+  })
+
+  it('collapses and restores the list it controls, keeping every entry in the document', () => {
+    render(
+      <TableOfContents
+        items={[
+          { id: 'signals', label: 'Signs of fit' },
+          { id: 'changes', label: 'What changes' },
+        ]}
+      />,
+    )
+
+    const toggle = screen.getByRole('button', { name: 'On this page' })
+    const list = document.getElementById(toggle.getAttribute('aria-controls')!)!
+
+    fireEvent.click(toggle)
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(list).toHaveAttribute('hidden')
+    // Collapsed, not cut: both entries are still parsed from the document.
+    expect(list.querySelectorAll('a')).toHaveLength(2)
+
+    fireEvent.click(toggle)
+    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    expect(list).not.toHaveAttribute('hidden')
   })
 })
 
@@ -117,6 +169,22 @@ describe('RuleList', () => {
     expect(container.querySelector('ol')).toHaveClass('rlist')
     expect(screen.getByText('01')).toHaveAttribute('aria-hidden', 'true')
     expect(screen.getByRole('listitem')).toHaveTextContent('Search influences shortlisting')
+  })
+
+  it('takes its name from the visible lead-in when one is given', () => {
+    // The seven layer lists on /solutions/search-presence-engineering are each
+    // introduced by the approved "Work can include:" line, so the list is named
+    // by the words on the page rather than by a second reading of the heading.
+    render(
+      <>
+        <p id="work">Work can include:</p>
+        <RuleList items={['Crawl and indexation']} ariaLabelledBy="work" />
+      </>,
+    )
+
+    const list = screen.getByRole('list')
+    expect(list).toHaveAccessibleName('Work can include:')
+    expect(list).not.toHaveAttribute('aria-label')
   })
 })
 
@@ -165,7 +233,9 @@ describe('MethodList', () => {
 })
 
 describe('Limitations', () => {
-  it('renders every limitation on one dashed hairline rather than in a warning box', () => {
+  it('lists every limitation and its label inside the limits block', () => {
+    // The no-box guarantee for `.limits` is asserted against real CSS in
+    // `tests/e2e/routes.spec.ts`; jsdom can only see the class name.
     const { container } = render(
       <Limitations label="Honest limitation" items={['Citation does not prove influence.']} />,
     )

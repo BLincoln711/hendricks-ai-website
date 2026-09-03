@@ -60,6 +60,18 @@ for (const { path, document } of documents) {
       await page.goto(path)
 
       const contents = page.getByRole('navigation', { name: 'Contents' })
+
+      // Below 1024 px the outline collapses behind its own control, so open it
+      // before reading the list. Nothing is cut either way: the count below is
+      // taken against the whole list, collapsed or not.
+      const toggle = contents.getByRole('button', { name: 'Contents' })
+      if (await toggle.isVisible()) {
+        // Collapsed, not cut: count the rows in the document, which a role query
+        // would skip while the list is hidden, then open it.
+        await expect(contents.locator('ol > li')).toHaveCount(document.sections.length)
+        await toggle.click()
+      }
+
       await expect(contents.getByRole('listitem')).toHaveCount(document.sections.length)
 
       for (const section of document.sections) {

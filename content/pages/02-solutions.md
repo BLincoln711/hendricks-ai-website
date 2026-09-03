@@ -127,14 +127,6 @@ Connect exposure, branded demand, referrals, site behavior, leads, CRM outcomes,
 
 **CTA:** Explore Search Impact Measurement
 
-## Related research
-
-# Research for the AI Search Era.
-
-Practical, source-supported research on how people search, how brands enter consideration, how AI-mediated discovery changes the buying journey, and how organizations can measure the commercial result.
-
-The latest study, and the Research Hub: every published study, with its capture window, its method, and its limitations.
-
 ## Engagement bridge
 
 # The solution mix follows the evidence.

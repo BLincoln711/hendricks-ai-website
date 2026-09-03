@@ -13,6 +13,14 @@ import { cn } from '@/lib/utils/cn'
  * `label` renders as the mono line above the answer and, when `labelId` is
  * given, names the block for assistive technology, which is how the definition
  * pages bind the term to its definition.
+ *
+ * A named block is a `section`, an ARIA region, so the name resolves. The design
+ * package writes `aria-labelledby` on a plain `div`, where the attribute is
+ * inert and the term never names the block that defines it. The markup is a
+ * carry-over rather than a design decision: it changes nothing on screen, and on
+ * a definition page it is the difference between the term naming its definition
+ * and the label going nowhere. An unnamed block stays a `div`, because a region
+ * with no accessible name is noise in the landmark list.
  */
 export function Answer({
   label,
@@ -38,12 +46,11 @@ export function Answer({
   className?: string
   children?: ReactNode
 }) {
+  const labelledBy = labelId ?? headingId
+  const Tag = labelledBy ? 'section' : 'div'
+
   return (
-    <div
-      id={id}
-      className={cn('answer', className)}
-      aria-labelledby={labelId ?? headingId}
-    >
+    <Tag id={id} className={cn('answer', className)} aria-labelledby={labelledBy}>
       {headingId && headingText ? (
         <h2 id={headingId} className="sr-only">
           {headingText}
@@ -65,6 +72,6 @@ export function Answer({
       {twoTone ? <TwoTone sentence={twoTone} /> : null}
 
       {children}
-    </div>
+    </Tag>
   )
 }
