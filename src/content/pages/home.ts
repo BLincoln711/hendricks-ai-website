@@ -220,54 +220,63 @@ export const system = {
    * never retyped, so the closed list of four cannot drift.
    */
   scope: [observedSystemsSentence, observedSystemsExclusion],
-  alt: 'Four linked phases. Map demand asks what demand is worth pursuing and produces the Demand Map. Observe selection asks where the brand is winning or losing consideration across the four observed systems and produces the Selection Map. Engineer the presence asks what should change across seven conditions the brand controls and produces the Intervention Roadmap. Measure impact asks whether the work produced business impact, produces the Impact Ledger, and feeds the next cycle.',
 } as const
 
 /* ========================================================================== */
 /* Station 4. Beyond visibility                                               */
 /* ========================================================================== */
 
+type Mark = 'observed' | 'inferred' | 'measured' | 'tested'
+
 type Rung = {
   name: string
   question: string
   /** How Hendricks knows. Present only while H10 is approved. */
   knows?: string
-  /** The evidence classes the rung's inline mark draws, in order. */
-  marks: readonly ('observed' | 'inferred' | 'measured' | 'tested')[]
+  /**
+   * The evidence classes the rung's inline mark draws, in order. Present only
+   * alongside `knows`, because canvas `home-v3.html` never draws a mark that
+   * the row does not also name in words, and canvas.md section 2 forbids
+   * carrying an evidence class by colour or shape alone.
+   */
+  marks?: readonly Mark[]
 }
 
+/**
+ * The approved ladder: seven rungs and their questions, and nothing else. The
+ * marks belong to the third column and arrive with it (H10), never before it.
+ */
 const approvedRungs: readonly Rung[] = [
-  { name: 'Visibility', question: 'Did the brand appear?', marks: ['observed'] },
-  { name: 'Understanding', question: 'Was the brand represented accurately?', marks: ['observed'] },
-  {
-    name: 'Relevance',
-    question: 'Was it connected to the customer’s specific need?',
-    marks: ['observed'],
-  },
-  { name: 'Consideration', question: 'Was it presented as a legitimate option?', marks: ['observed'] },
-  { name: 'Recommendation', question: 'Was it actively favored or shortlisted?', marks: ['observed'] },
-  { name: 'Selection', question: 'Did the customer choose it?', marks: ['measured'] },
-  {
-    name: 'Impact',
-    question: 'Did that choice produce commercial value?',
-    marks: ['measured', 'tested'],
-  },
+  { name: 'Visibility', question: 'Did the brand appear?' },
+  { name: 'Understanding', question: 'Was the brand represented accurately?' },
+  { name: 'Relevance', question: 'Was it connected to the customer’s specific need?' },
+  { name: 'Consideration', question: 'Was it presented as a legitimate option?' },
+  { name: 'Recommendation', question: 'Was it actively favored or shortlisted?' },
+  { name: 'Selection', question: 'Did the customer choose it?' },
+  { name: 'Impact', question: 'Did that choice produce commercial value?' },
 ]
 
+/** The third column and the mark that draws it, as one pair. */
+const observedInAnswer = { knows: 'observed in the answer', marks: ['observed'] } as const
+
 const proposedRungs: readonly Rung[] = [
-  { ...approvedRungs[0], knows: 'observed in the answer' },
-  { ...approvedRungs[1], knows: 'observed in the answer' },
-  { ...approvedRungs[2], knows: 'observed in the answer' },
+  { ...approvedRungs[0], ...observedInAnswer },
+  { ...approvedRungs[1], ...observedInAnswer },
+  { ...approvedRungs[2], ...observedInAnswer },
   {
     name: 'Trust',
     question: 'Did sufficient evidence support it?',
     knows: 'sources observed; sufficiency inferred',
     marks: ['observed', 'inferred'],
   },
-  { ...approvedRungs[3], knows: 'observed in the answer' },
-  { ...approvedRungs[4], knows: 'observed in the answer' },
-  { ...approvedRungs[5], knows: 'measured in your own systems' },
-  { ...approvedRungs[6], knows: 'measured, and tested where a control exists' },
+  { ...approvedRungs[3], ...observedInAnswer },
+  { ...approvedRungs[4], ...observedInAnswer },
+  { ...approvedRungs[5], knows: 'measured in your own systems', marks: ['measured'] },
+  {
+    ...approvedRungs[6],
+    knows: 'measured, and tested where a control exists',
+    marks: ['measured', 'tested'],
+  },
 ]
 
 export const ladder = {
@@ -278,9 +287,11 @@ export const ladder = {
     continuation: 'Selection Intelligence tells you what that appearance means.',
   },
   /**
-   * The Trust rung, the "How Hendricks knows" column and the citation note are
-   * one decision (04 decision 13). While H10 is pending the ladder is the
-   * approved seven rungs and their questions, with no third column.
+   * The Trust rung, the "How Hendricks knows" column, its inline marks and the
+   * citation note are one decision (04 decision 13). While H10 is pending the
+   * ladder is the approved seven rungs and their questions, with no third
+   * column and so no marks: a mark with no word beside it would state an
+   * evidence class the row never names.
    */
   rungs: gated('H10', proposedRungs, approvedRungs),
   note: addition('ladderCitationNote'),

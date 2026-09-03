@@ -13,9 +13,11 @@ import type { ladder } from '@/content/pages/home'
  *
  * The inline marks carry evidence class by shape first: a filled dot for
  * observed, a dashed hollow ring for inferred, a filled square for measured, a
- * hollow square for tested. They are decorative, because the class is written
- * beside them in words. Nothing on this ladder is conveyed by colour alone,
- * and no rung carries a score.
+ * hollow square for tested. A rung draws them only when it also carries the
+ * third column, because the mark is decorative exactly and only while the
+ * class is written beside it in words (canvas.md section 2). While H10 is
+ * pending no rung carries either. Nothing on this ladder is conveyed by colour
+ * alone, and no rung carries a score.
  */
 
 type Mark = 'observed' | 'inferred' | 'measured' | 'tested'
@@ -55,23 +57,32 @@ function RungMark({ kind, x }: { kind: Mark; x: number }) {
   }
 }
 
+/** The rung's marks, laid out on a 14 px pitch as the canvas draws them. */
+function MarkStrip({ marks }: { marks: readonly Mark[] }) {
+  const width = marks.length * 14 + 2
+
+  return (
+    <svg
+      width={width}
+      height={16}
+      viewBox={`0 0 ${width} 16`}
+      aria-hidden="true"
+      focusable="false"
+    >
+      {marks.map((kind, index) => (
+        <RungMark key={kind} kind={kind} x={index * 14} />
+      ))}
+    </svg>
+  )
+}
+
 export function ConsiderationLadder({ rungs }: { rungs: typeof ladder.rungs }) {
   return (
     <ul className="ladder">
       {rungs.map((rung) => (
         <li key={rung.name}>
           <span className="rung">
-            <svg
-              width={rung.marks.length * 16 - 2}
-              height={16}
-              viewBox={`0 0 ${rung.marks.length * 16 - 2} 16`}
-              aria-hidden="true"
-              focusable="false"
-            >
-              {rung.marks.map((kind, index) => (
-                <RungMark key={kind} kind={kind} x={index * 14} />
-              ))}
-            </svg>
+            {rung.marks && rung.knows ? <MarkStrip marks={rung.marks} /> : null}
             {rung.name}
           </span>
           <span className="qn">{rung.question}</span>

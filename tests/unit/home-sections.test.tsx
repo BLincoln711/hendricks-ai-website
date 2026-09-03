@@ -77,7 +77,9 @@ describe('PhaseRail', () => {
         'href',
         phase.href,
       )
-      expect(list).not.toHaveTextContent(new RegExp(`>${phase.index}<`))
+      // The numeral is present for a sighted reader and hidden from the
+      // accessibility tree, because the `ol` already carries the order.
+      expect(within(list).getByText(phase.index)).toHaveAttribute('aria-hidden', 'true')
     }
 
     expect(screen.getByText(system.returnLabel)).toBeInTheDocument()
@@ -85,14 +87,18 @@ describe('PhaseRail', () => {
 })
 
 describe('ConsiderationLadder', () => {
-  it('renders the approved seven rungs and no evidence column while H10 is pending', () => {
+  it('renders the approved seven rungs, with no evidence column and no unkeyed mark', () => {
     render(<ConsiderationLadder rungs={ladder.rungs} />)
 
     const rows = screen.getAllByRole('listitem')
     expect(rows).toHaveLength(7)
-    expect(rows.map((row) => row.textContent)).not.toContain(
-      expect.stringContaining('sufficiency inferred'),
-    )
+    // `toContain` compares array members by identity, so an asymmetric matcher
+    // inside it would never bite. Test the strings themselves.
+    expect(rows.some((row) => row.textContent?.includes('sufficiency inferred'))).toBe(false)
+    // canvas.md section 2: an evidence class is never carried by a mark with no
+    // word beside it, so while H10 is pending the ladder draws neither.
+    expect(document.querySelectorAll('.ladder .kn')).toHaveLength(0)
+    expect(document.querySelectorAll('.ladder svg')).toHaveLength(0)
     expect(screen.getByText('Did the brand appear?')).toBeInTheDocument()
   })
 

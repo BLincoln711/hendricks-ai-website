@@ -214,7 +214,12 @@
      * `hidden` because `hidden` would make this a scroll container, and a
      * scroll container here would take the sticky masthead with it. The labels
      * are `aria-hidden` duplicates of marks the text alternative already
-     * describes, so clipping removes no information. */
+     * describes, so clipping removes nothing from the accessibility tree. It
+     * does cost a sighted reader the tail of the longest label below about
+     * 360 px. That label layer already overprints itself at 320 and 390 in
+     * `07-hifi/home-v3.html` itself, so the legibility of the stage labels at
+     * those widths is an inherited canvas defect, raised for the next revision
+     * of `_canvas.css` rather than fixed here against the approved design. */
     overflow-x: clip;
   }
 
