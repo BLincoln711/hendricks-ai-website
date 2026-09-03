@@ -152,7 +152,7 @@ test.describe('the shared chrome', () => {
             // reloads the page the visitor is converting on (14 DX-05, which
             // `keyboard.spec.ts` owns). Normalised here so the rest of the
             // chrome is compared strictly.
-            href: href === '#fit' ? '/diagnostic' : href,
+            href: href === '#fit' || href === '#apply' ? '/diagnostic' : href,
           }
         })
       return {
