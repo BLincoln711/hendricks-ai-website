@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useState, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 
 import { ObservationResult } from '@/components/observation/observation-result'
 import { queued } from '@/content/pages/observe'
+import { fetchObservationJob, subscribeObservationJob } from '@/lib/observation/poll'
 import {
   readObservationSession,
   writeObservationSession,
@@ -13,8 +14,16 @@ import {
 /**
  * Queued board when the server has the handshake job, or when this browser
  * still holds the create payload. Preview memory stores can miss the next
- * GET. Session restore does not invent cited or invisible cells.
+ * GET. Restore does not invent cited or invisible cells.
  */
+
+const ObservationQueueContext = createContext<{
+  onQueued: (record: ObservationSessionRecord) => void
+} | null>(null)
+
+export function useObservationQueue() {
+  return useContext(ObservationQueueContext)
+}
 
 export function ObservationStation({
   jobId,
@@ -25,26 +34,38 @@ export function ObservationStation({
   record: ObservationSessionRecord | null
   children: ReactNode
 }) {
-  const [session, setSession] = useState<ObservationSessionRecord | null>(null)
-  const [checked, setChecked] = useState(() => Boolean(record) || !jobId)
+  const [created, setCreated] = useState<ObservationSessionRecord | null>(null)
+  const [settled, setSettled] = useState(() => Boolean(record) || !jobId)
 
   useEffect(() => {
-    if (record) {
-      writeObservationSession(record)
-      setSession(null)
-      setChecked(true)
-      return
+    if (record || !jobId) return undefined
+
+    const session = readObservationSession(jobId)
+    let cancelled = false
+
+    void fetchObservationJob(jobId).then((result) => {
+      if (cancelled) return
+      if (result) {
+        writeObservationSession(result)
+        setCreated(result)
+      } else if (session) {
+        setCreated(session)
+      }
+      setSettled(true)
+    })
+
+    const unsubscribe = subscribeObservationJob(jobId, (result) => {
+      writeObservationSession(result)
+      setCreated(result)
+    })
+
+    return () => {
+      cancelled = true
+      unsubscribe()
     }
-    if (!jobId) {
-      setSession(null)
-      setChecked(true)
-      return
-    }
-    setSession(readObservationSession(jobId))
-    setChecked(true)
   }, [jobId, record])
 
-  const resolved = record ?? session
+  const resolved = record ?? created
 
   if (resolved) {
     return (
@@ -59,7 +80,7 @@ export function ObservationStation({
     )
   }
 
-  if (jobId && !checked) {
+  if (jobId && !settled) {
     return (
       <h2 id="observe-form-title" className="text-h2 text-ink">
         {queued.status}
@@ -67,5 +88,17 @@ export function ObservationStation({
     )
   }
 
-  return children
+  return (
+    <ObservationQueueContext.Provider
+      value={{
+        onQueued: (next) => {
+          writeObservationSession(next)
+          setCreated(next)
+          setSettled(true)
+        },
+      }}
+    >
+      {children}
+    </ObservationQueueContext.Provider>
+  )
 }

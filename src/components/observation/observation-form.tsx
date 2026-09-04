@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 
 import { queueObservation } from '@/app/(marketing)/observe/actions'
 import { describedBy, Field } from '@/components/forms/form-parts'
+import { useObservationQueue } from '@/components/observation/observation-station'
 import { Button } from '@/components/ui/button'
 import { routes } from '@/config/routes'
 import {
@@ -18,7 +19,6 @@ import { trackEvent } from '@/lib/analytics/events'
 import { observeCreatePath } from '@/lib/observation/handshake'
 import { isObservationCategoryId } from '@/lib/observation/parse'
 import type { ObservationJob, ObservationPayload } from '@/lib/observation/schema'
-import { writeObservationSession } from '@/lib/observation/session-cache'
 
 /**
  * Brand plus category. Posts JSON to observeCreatePath when script runs.
@@ -44,6 +44,7 @@ export function ObservationForm({
   errors?: { brand?: string; category?: string }
 }) {
   const router = useRouter()
+  const queue = useObservationQueue()
   const [submitting, setSubmitting] = useState(false)
   const [queueError, setQueueError] = useState<string | undefined>()
 
@@ -90,7 +91,7 @@ export function ObservationForm({
           .then(async (response) => {
             const body = (await response.json()) as CreateResponse
             if (response.ok && body.ok && body.job?.job_id && body.payload) {
-              writeObservationSession({ job: body.job, payload: body.payload })
+              queue?.onQueued({ job: body.job, payload: body.payload })
               router.push(`/observe?job=${encodeURIComponent(body.job.job_id)}`)
               return
             }
