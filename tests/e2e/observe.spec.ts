@@ -93,9 +93,10 @@ test.describe('Observation doors', () => {
 
     await expect(page.locator('#plate-01 .plate-no')).toHaveText('Plate 01')
     await expect(page.locator('#plate-01 .plate-title')).toHaveText('Selection Map')
-    await expect(page.locator('#plate-01 .illus')).toHaveText(
-      'Illustrative interface. Not a client result.',
-    )
+    await expect(page.locator('#plate-01 .illus')).toHaveCount(0)
+    await expect(
+      page.locator('.illus', { hasText: 'Illustrative interface. Not a client result.' }),
+    ).toHaveCount(1)
   })
 
   test('diagnostic offers a secondary observation door', async ({ page }) => {

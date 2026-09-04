@@ -9,6 +9,10 @@ import { observeCreatePath, observePollPath } from '@/lib/observation/handshake'
 import { pendingPayload } from '@/lib/observation/pending-fixture'
 import { probeEngineIds, type ObservationJob } from '@/lib/observation/schema'
 import {
+  readObservationSession,
+  writeObservationSession,
+} from '@/lib/observation/session-cache'
+import {
   displayBrand,
   parseObservationSearch,
   sampleIntentsFor,
@@ -131,5 +135,41 @@ describe('ObservationResult', () => {
     expect(engineList).toHaveTextContent('Gemini')
     expect(engineList).toHaveTextContent('unmeasured')
     expect(engineList).toHaveTextContent('not probed in this sample')
+  })
+})
+
+describe('observation session cache', () => {
+  it('round-trips a pending handshake payload and refuses a cited Gemini row', () => {
+    const contexts = [...sampleIntentsFor('b2b-software')]
+    const job: ObservationJob = {
+      job_id: 'job-session',
+      created_at: '2026-09-04T00:00:00.000Z',
+      status: 'queued',
+      brand_name: 'Northwind',
+      category: 'b2b-software',
+      contexts,
+      engines_requested: [...probeEngineIds],
+      cost_ceiling_usd: 2,
+    }
+    const payload = pendingPayload({ run_id: 'run-session', job_id: job.job_id, contexts })
+
+    writeObservationSession({ job, payload })
+    const stored = readObservationSession(job.job_id)
+    expect(stored?.job.job_id).toBe(job.job_id)
+    expect(stored?.payload.cells.some((cell) => cell.state === 'cited' || cell.state === 'invisible')).toBe(
+      false,
+    )
+
+    sessionStorage.setItem(
+      `hx:observe:job:${job.job_id}`,
+      JSON.stringify({
+        job,
+        payload: {
+          ...payload,
+          gemini_row: { ...payload.gemini_row, state: 'cited' },
+        },
+      }),
+    )
+    expect(readObservationSession(job.job_id)).toBeNull()
   })
 })

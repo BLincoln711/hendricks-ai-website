@@ -3,10 +3,8 @@ import { redirect } from 'next/navigation'
 
 import { CanvasPageHero } from '@/components/canvas/page-hero'
 import { ObservationForm } from '@/components/observation/observation-form'
-import {
-  ObservationDisclosure,
-  ObservationResult,
-} from '@/components/observation/observation-result'
+import { ObservationDisclosure } from '@/components/observation/observation-result'
+import { ObservationStation } from '@/components/observation/observation-station'
 import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
 import { routes } from '@/config/routes'
@@ -55,7 +53,6 @@ export default async function ObservePage({
     }
   }
 
-  const showBoard = Boolean(record)
   const showMissing = Boolean(jobId && !record)
 
   return (
@@ -83,16 +80,7 @@ export default async function ObservePage({
       />
 
       <Station id="observe-form" ariaLabelledBy="observe-form-title">
-        {showBoard && record ? (
-          <>
-            <h2 id="observe-form-title" className="text-h2 text-ink">
-              {queued.status}
-            </h2>
-            <div className="mt-[34px]">
-              <ObservationResult job={record.job} payload={record.payload} />
-            </div>
-          </>
-        ) : (
+        <ObservationStation jobId={jobId} record={record}>
           <>
             <h2 id="observe-form-title" className="text-h2 text-ink">
               {formCopy.heading}
@@ -111,7 +99,7 @@ export default async function ObservePage({
               <ObservationDisclosure />
             </div>
           </>
-        )}
+        </ObservationStation>
       </Station>
     </div>
   )

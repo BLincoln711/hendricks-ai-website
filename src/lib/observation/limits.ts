@@ -18,8 +18,17 @@ export const OBSERVE_CELL_COST_USD = {
 
 export const OBSERVE_JOB_TTL_SECONDS = 60 * 60 * 24
 
+function positiveInt(raw: string | undefined, fallback: number): number {
+  if (!raw) return fallback
+  const parsed = Number.parseInt(raw, 10)
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback
+}
+
 /** Three creates per hashed IP per hour. Conservative until Ultra is wired. */
-export const OBSERVE_IP_RATE_LIMIT = { limit: 3, windowSeconds: 60 * 60 } as const
+export const OBSERVE_IP_RATE_LIMIT = {
+  limit: positiveInt(process.env.OBSERVE_IP_RATE_LIMIT, 3),
+  windowSeconds: 60 * 60,
+} as const
 
 /** Two creates per hashed email per hour when an email is supplied. */
 export const OBSERVE_EMAIL_RATE_LIMIT = { limit: 2, windowSeconds: 60 * 60 } as const

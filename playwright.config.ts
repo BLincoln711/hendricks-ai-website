@@ -43,6 +43,11 @@ export default defineConfig({
     // request before consent" would prove nothing — the vendors were never a
     // possibility. Production keeps it off until these tests pass on a
     // deployment (docs/11, privacy phase).
-    env: { NEXT_PUBLIC_ENABLE_OPTIONAL_ANALYTICS: 'true' },
+    env: {
+      NEXT_PUBLIC_ENABLE_OPTIONAL_ANALYTICS: 'true',
+      OBSERVE_JOB_STORE: 'fs',
+      OBSERVE_IP_RATE_LIMIT: '100',
+      OBSERVE_FIXTURE: '0',
+    },
   },
 })
