@@ -2,10 +2,10 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { queueObservation } from '@/app/(marketing)/observe/actions'
-import { describedBy, Field } from '@/components/forms/form-parts'
+import { describedBy, Field, Honeypot } from '@/components/forms/form-parts'
 import { useObservationQueue } from '@/components/observation/observation-station'
 import { Button } from '@/components/ui/button'
 import { routes } from '@/config/routes'
@@ -15,7 +15,6 @@ import {
   type ObservationCategoryId,
 } from '@/content/instruments/observation-data'
 import { formCopy } from '@/content/pages/observe'
-import { trackEvent } from '@/lib/analytics/events'
 import { observeCreatePath } from '@/lib/observation/handshake'
 import { isObservationCategoryId } from '@/lib/observation/parse'
 import {
@@ -27,7 +26,8 @@ import {
 /**
  * Brand plus category. Posts JSON to observeCreatePath when script runs.
  * Falls back to the queueObservation server action without JavaScript.
- * Analytics events carry no brand string.
+ * Honeypot and startedAt travel with the create body. No analytics events
+ * until those names are approved.
  */
 
 type CreateResponse = {
@@ -38,23 +38,30 @@ type CreateResponse = {
   message?: string
 }
 
+function abuseFields(data: FormData) {
+  const token = String(data.get('turnstileToken') ?? '')
+  return {
+    honeypot: String(data.get('honeypot') ?? ''),
+    startedAt: Number(data.get('startedAt') ?? 0),
+    ...(token ? { turnstileToken: token } : {}),
+  }
+}
+
 export function ObservationForm({
   brand,
   category,
   errors,
+  startedAt,
 }: {
   brand?: string
   category?: string
   errors?: { brand?: string; category?: string }
+  startedAt: number
 }) {
   const router = useRouter()
   const queue = useObservationQueue()
   const [submitting, setSubmitting] = useState(false)
   const [queueError, setQueueError] = useState<string | undefined>()
-
-  useEffect(() => {
-    trackEvent('observe_start', { form_name: 'observe', page_name: 'observe' })
-  }, [])
 
   const brandId = 'observe-brand'
   const categoryId = 'observe-category'
@@ -68,10 +75,6 @@ export function ObservationForm({
         const form = event.currentTarget
         const data = new FormData(form)
         const chosen = data.get('category')
-        trackEvent('observe_submit', {
-          form_name: 'observe',
-          ...(typeof chosen === 'string' && chosen.length > 0 ? { category: chosen } : {}),
-        })
 
         const brand_name = String(data.get('brand_name') ?? '').trim()
         const selected = String(chosen ?? '')
@@ -96,7 +99,7 @@ export function ObservationForm({
         void fetch(observeCreatePath, {
           method: 'POST',
           headers: { 'content-type': 'application/json', accept: 'application/json' },
-          body: JSON.stringify(parsed.data),
+          body: JSON.stringify({ ...parsed.data, ...abuseFields(data) }),
         })
           .then(async (response) => {
             const body = (await response.json()) as CreateResponse
@@ -114,6 +117,9 @@ export function ObservationForm({
           })
       }}
     >
+      <input type="hidden" name="startedAt" value={startedAt} />
+      <Honeypot id="observe-honeypot" />
+
       <Field
         label={formCopy.brandLabel}
         htmlFor={brandId}

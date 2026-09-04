@@ -15,6 +15,9 @@ import {
  * Queued board when the server has the handshake job, or when this browser
  * still holds the create payload. Preview memory stores can miss the next
  * GET. Restore does not invent cited or invisible cells.
+ *
+ * A live poll always runs when a job id is present so a later worker fill
+ * can replace a stale server render. The latest poll wins over SSR.
  */
 
 const ObservationQueueContext = createContext<{
@@ -38,10 +41,15 @@ export function ObservationStation({
   const [settled, setSettled] = useState(() => Boolean(record) || !jobId)
 
   useEffect(() => {
-    if (record || !jobId) return undefined
+    if (!jobId) return undefined
 
     const session = readObservationSession(jobId)
     let cancelled = false
+
+    if (!record && session) {
+      setCreated(session)
+      setSettled(true)
+    }
 
     void fetchObservationJob(jobId).then((result) => {
       if (cancelled) return
@@ -57,6 +65,7 @@ export function ObservationStation({
     const unsubscribe = subscribeObservationJob(jobId, (result) => {
       writeObservationSession(result)
       setCreated(result)
+      setSettled(true)
     })
 
     return () => {
@@ -65,7 +74,7 @@ export function ObservationStation({
     }
   }, [jobId, record])
 
-  const resolved = record ?? created
+  const resolved = created ?? record
 
   if (resolved) {
     return (

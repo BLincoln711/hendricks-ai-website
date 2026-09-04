@@ -3,7 +3,7 @@ import { z } from 'zod'
 /**
  * Public-mini observation contract.
  *
- * Site PR 32 owns `/observe` chrome (GET brand plus category, queued board).
+ * Site PR 32 owns `/observe` chrome (brand plus category form, queued board).
  * This module owns the job payload both PRs import. Cell grain is only
  * cited | invisible | unmeasured. pending and reading are job states, never
  * a selection reading. Gemini is unmeasured_by_policy on this public sample.

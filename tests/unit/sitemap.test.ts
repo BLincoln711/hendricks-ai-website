@@ -101,6 +101,8 @@ describe('sitemap', () => {
     expect(advertised.has(absolute(routes.results.path))).toBe(false)
     // Built, but a transactional form rather than a page worth ranking.
     expect(advertised.has(absolute(routes.privacyRequest.path))).toBe(false)
+    // Built, but /observe copy is still waiting on Brand and QA.
+    expect(advertised.has(absolute(routes.observe.path))).toBe(false)
   })
 
   it('never advertises the same URL twice', () => {

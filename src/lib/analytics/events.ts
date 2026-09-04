@@ -65,12 +65,6 @@ type EventMap = {
     field_name: string
   }
   diagnostic_cta_click: { page_path: string }
-  /**
-   * Public observation shell. Parameters are categories only. Never a brand
-   * string or any other visitor-typed value.
-   */
-  observe_start: FormEventBase & { page_name: string }
-  observe_submit: FormEventBase & { category?: string }
 }
 
 export type FormErrorType = 'rate_limited' | 'delivery' | 'anti_abuse' | 'unknown'

@@ -1,6 +1,23 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
 
 import { disclosure, formCopy, hero, queued } from '@/content/pages/observe'
+import { MINIMUM_SUBMIT_SECONDS } from '@/lib/forms/limits'
+
+async function waitForObserveTimingFloor(page: Page) {
+  await expect
+    .poll(async () => {
+      const value = await page.locator('input[name="startedAt"]').inputValue()
+      return Date.now() - Number(value)
+    })
+    .toBeGreaterThanOrEqual(MINIMUM_SUBMIT_SECONDS * 1000)
+}
+
+function publicObserveAbuse(overrides?: { honeypot?: string; startedAt?: number }) {
+  return {
+    honeypot: overrides?.honeypot ?? '',
+    startedAt: overrides?.startedAt ?? Date.now() - 5_000,
+  }
+}
 
 test.describe('/observe shell', () => {
   test('returns 200 with the brand and category form and the disclosure', async ({ page }) => {
@@ -14,12 +31,17 @@ test.describe('/observe shell', () => {
     await expect(page.getByText(disclosure.sample)).toBeVisible()
     await expect(page.getByText(disclosure.limits)).toBeVisible()
     await expect(page.getByRole('link', { name: 'Start with a Search Intelligence Diagnostic' })).toBeVisible()
+    await expect(page.locator('input[name="honeypot"]')).toHaveCount(1)
+    await expect(page.locator('input[name="startedAt"]')).toHaveCount(1)
+    const robots = await page.locator('head meta[name="robots"]').getAttribute('content')
+    expect(robots ?? '').toMatch(/noindex/)
   })
 
   test('queues an observation and shows a pending board without a selection map', async ({ page }) => {
     await page.goto('/observe')
     await page.getByLabel(new RegExp('^Brand')).fill('Northwind')
     await page.getByLabel(new RegExp('^Category')).selectOption('b2b-software')
+    await waitForObserveTimingFloor(page)
     await page.getByRole('button', { name: formCopy.submit }).click()
 
     await expect(page).toHaveURL(/\/observe\?job=/)
@@ -46,6 +68,17 @@ test.describe('/observe shell', () => {
     await expect(page.getByText(formCopy.categoryError)).toBeVisible()
     await expect(page.getByText(queued.boardCaption)).toHaveCount(0)
   })
+
+  test('prefills a valid query without creating a job', async ({ page }) => {
+    const response = await page.goto('/observe?brand=Northwind&category=b2b-software')
+    expect(response?.status()).toBe(200)
+
+    await expect(page).toHaveURL(/\/observe\?brand=Northwind&category=b2b-software/)
+    await expect(page.getByLabel(new RegExp('^Brand'))).toHaveValue('Northwind')
+    await expect(page.getByLabel(new RegExp('^Category'))).toHaveValue('b2b-software')
+    await expect(page.getByRole('button', { name: formCopy.submit })).toBeVisible()
+    await expect(page.getByText(queued.boardCaption)).toHaveCount(0)
+  })
 })
 
 test.describe('Observation job API', () => {
@@ -61,6 +94,7 @@ test.describe('Observation job API', () => {
           'Which option fits a team replacing a spreadsheet process in this category?',
         ],
         consent: true,
+        ...publicObserveAbuse(),
       },
     })
 
@@ -80,6 +114,23 @@ test.describe('Observation job API', () => {
     const text = await polled.text()
     expect(text).not.toMatch(/"state":"cited"/)
     expect(text).not.toMatch(/"state":"invisible"/)
+  })
+
+  test('POST without honeypot and timing fields is rejected', async ({ request }) => {
+    const created = await request.post('/api/observe/jobs', {
+      data: {
+        brand_name: 'Northwind',
+        category: 'b2b-software',
+        contexts: [
+          'Which platform should a mid-market operations team use in this category?',
+          'Who should a buyer compare for this category this quarter?',
+          'What should a first-time buyer compare before choosing a vendor in this category?',
+        ],
+        consent: true,
+      },
+    })
+
+    expect(created.status()).toBe(400)
   })
 })
 

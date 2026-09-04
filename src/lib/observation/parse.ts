@@ -10,8 +10,9 @@ import {
 
 /**
  * Parse the `/observe` query. Brand is visitor-typed and never forwarded to
- * analytics. Category is a closed list. Job create lives on the handshake
- * schema in `src/lib/observation/schema.ts`.
+ * analytics. Category is a closed list. A valid brand plus category prefills
+ * the form. Job create lives on the handshake schema and only runs after a
+ * real submit.
  */
 
 const BrandSchema = z.string().trim().min(1).max(80)

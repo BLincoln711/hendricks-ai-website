@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 
+import { guardPublicObserveCreate } from '@/lib/observation/public-abuse'
 import { identifierFromHeaders } from '@/lib/observation/rate-limit'
 import { observationCreateSchema } from '@/lib/observation/schema'
 import { createObservationJob } from '@/lib/observation/service'
@@ -26,6 +27,13 @@ export async function POST(request: Request) {
         code: 'VALIDATION_ERROR',
         message: 'Send a JSON object with brand_name, category, contexts, and consent.',
       },
+      { status: 400 },
+    )
+  }
+
+  if (!(await guardPublicObserveCreate(body)).ok) {
+    return NextResponse.json(
+      { ok: false, code: 'VALIDATION_ERROR', message: 'This observation could not be queued.' },
       { status: 400 },
     )
   }

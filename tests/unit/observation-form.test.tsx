@@ -10,9 +10,11 @@ import { ObservationDisclosure } from '@/components/observation/observation-resu
 import { disclosure, formCopy } from '@/content/pages/observe'
 import { observeCreatePath } from '@/lib/observation/handshake'
 
+const STARTED_AT = 1_756_000_000_000
+
 describe('ObservationForm', () => {
   it('asks for a brand and a category and names the handshake create path', () => {
-    render(<ObservationForm />)
+    const { container } = render(<ObservationForm startedAt={STARTED_AT} />)
 
     expect(screen.getByRole('form')).toBeInTheDocument()
     expect(observeCreatePath).toBe('/api/observe/jobs')
@@ -26,10 +28,17 @@ describe('ObservationForm', () => {
       'href',
       '/privacy',
     )
+    expect(container.querySelector('input[name="startedAt"]')).toHaveValue(String(STARTED_AT))
+    const honeypot = container.querySelector('input[name="honeypot"]')
+    expect(honeypot).toHaveAttribute('tabindex', '-1')
+    expect(honeypot).toHaveAttribute('autocomplete', 'off')
+    expect(honeypot?.closest('[aria-hidden="true"]')).not.toBeNull()
   })
 
   it('shows empty-state field errors without inventing a result', () => {
-    render(<ObservationForm errors={{ brand: 'brand', category: 'category' }} />)
+    render(
+      <ObservationForm startedAt={STARTED_AT} errors={{ brand: 'brand', category: 'category' }} />,
+    )
 
     expect(screen.getByText(formCopy.brandError)).toBeInTheDocument()
     expect(screen.getByText(formCopy.categoryError)).toBeInTheDocument()

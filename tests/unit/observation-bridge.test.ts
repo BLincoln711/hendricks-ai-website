@@ -17,6 +17,7 @@ import {
   observeQueueHook,
 } from '@/lib/observation/handshake'
 import { pendingCellsFor } from '@/lib/observation/pending-fixture'
+import { sampleIntentsFor } from '@/lib/observation/parse'
 import {
   observationCreateSchema,
   observationWorkerWriteSchema,
@@ -47,6 +48,13 @@ const createInput = {
   consent: true as const,
 }
 
+function publicObserveAbuse(overrides?: { honeypot?: string; startedAt?: number }) {
+  return {
+    honeypot: overrides?.honeypot ?? '',
+    startedAt: overrides?.startedAt ?? Date.now() - 5_000,
+  }
+}
+
 beforeEach(() => {
   resetObservationStoreForTests()
   resetMemoryStoreForTests()
@@ -71,6 +79,8 @@ describe('create and poll', () => {
 
     expect(created.job.status).toBe('queued')
     expect(created.job.engines_requested).toEqual(['google_aio', 'chat_gpt', 'perplexity'])
+    expect(created.job.contexts).toEqual([...sampleIntentsFor('b2b-software')])
+    expect(created.job.contexts.join(' ')).not.toMatch(/shortlist/i)
     expect(created.payload.cells.every((cell) => cell.state === 'pending')).toBe(true)
     expect(created.payload.gemini_row).toEqual(geminiPublicMiniRow())
     expect(created.payload.disclaimer).toBe(disclosure.sample)
@@ -249,7 +259,7 @@ describe('API routes', () => {
     const request = new Request('http://localhost/api/observe/jobs', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(createInput),
+      body: JSON.stringify({ ...createInput, ...publicObserveAbuse() }),
     })
 
     const created = await createJob(request)
@@ -270,5 +280,27 @@ describe('API routes', () => {
     expect(polled.status).toBe(200)
     const pollBody = (await polled.json()) as { payload: { cells: ObservationCell[] } }
     expect(pollBody.payload.cells.every((cell) => cell.state === 'pending')).toBe(true)
+  })
+
+  it('rejects a create without the honeypot and timing fields', async () => {
+    const request = new Request('http://localhost/api/observe/jobs', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(createInput),
+    })
+
+    const created = await createJob(request)
+    expect(created.status).toBe(400)
+  })
+
+  it('rejects a create with a filled honeypot', async () => {
+    const request = new Request('http://localhost/api/observe/jobs', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ ...createInput, ...publicObserveAbuse({ honeypot: 'bot' }) }),
+    })
+
+    const created = await createJob(request)
+    expect(created.status).toBe(400)
   })
 })

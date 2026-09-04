@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { redirect } from 'next/navigation'
 
 import { CanvasPageHero } from '@/components/canvas/page-hero'
 import { ObservationForm } from '@/components/observation/observation-form'
@@ -9,8 +8,9 @@ import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
 import { routes } from '@/config/routes'
 import { formCopy, hero, meta, queued } from '@/content/pages/observe'
-import { parseObservationJobId, parseObservationSearch, sampleIntentsFor } from '@/lib/observation/parse'
-import { createObservationJob, readObservationJob } from '@/lib/observation/service'
+import { requestTimestamp } from '@/lib/forms/request-time'
+import { parseObservationJobId, parseObservationSearch } from '@/lib/observation/parse'
+import { readObservationJob } from '@/lib/observation/service'
 import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
@@ -18,15 +18,19 @@ import { buildMetadata } from '@/lib/seo/metadata'
  * `/observe`. Public observation shell.
  *
  * Brand plus category in. Create goes through observeCreatePath /
- * createObservationJob. Poll goes through observePollPath /
- * readObservationJob. Gemini is unmeasured from first paint. No invented
- * map cells and no invented peers.
+ * createObservationJob after a real submit. A valid `?brand=&category=`
+ * query prefills the form and does not enqueue a job. Poll goes through
+ * observePollPath / readObservationJob. Gemini is unmeasured from first
+ * paint. No invented map cells and no invented peers.
+ *
+ * The route stays noindex until Brand and QA sign the /observe copy.
  */
 
 export const metadata: Metadata = buildMetadata({
   title: meta.title,
   description: meta.description,
   path: routes.observe.path,
+  index: false,
 })
 
 export default async function ObservePage({
@@ -34,26 +38,19 @@ export default async function ObservePage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const search = await searchParams
+  const [search, startedAt] = await Promise.all([searchParams, requestTimestamp()])
   const jobId = parseObservationJobId(search)
   const read = jobId ? await readObservationJob(jobId) : null
   const record = read?.ok ? { job: read.job, payload: read.payload } : null
   const parsed = parseObservationSearch(search)
-
-  if (!jobId && parsed.status === 'queued') {
-    const created = await createObservationJob({
-      brand_name: parsed.query.brand,
-      brand_host: undefined,
-      category: parsed.query.category,
-      contexts: [...sampleIntentsFor(parsed.query.category)],
-      consent: true,
-    })
-    if (created.ok) {
-      redirect(`${routes.observe.path}?job=${encodeURIComponent(created.job.job_id)}`)
-    }
-  }
-
   const showMissing = Boolean(jobId && !record)
+
+  const prefill =
+    parsed.status === 'queued'
+      ? { brand: parsed.query.brand, category: parsed.query.category }
+      : parsed.status === 'invalid'
+        ? { brand: parsed.brand, category: parsed.category }
+        : undefined
 
   return (
     <div className="wrap">
@@ -90,9 +87,10 @@ export default async function ObservePage({
             ) : null}
             <div className="mt-[34px]">
               <ObservationForm
-                brand={parsed.status === 'invalid' ? parsed.brand : undefined}
-                category={parsed.status === 'invalid' ? parsed.category : undefined}
+                brand={prefill?.brand}
+                category={prefill?.category}
                 errors={parsed.status === 'invalid' ? parsed.errors : undefined}
+                startedAt={startedAt}
               />
             </div>
             <div className="mt-10">

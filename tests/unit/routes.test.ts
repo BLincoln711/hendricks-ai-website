@@ -82,6 +82,11 @@ describe('Route registry', () => {
     expect(indexableBuiltRoutes().map((route) => route.path)).not.toContain('/privacy-request')
   })
 
+  it('keeps the unreviewed observation shell out of the sitemap', () => {
+    expect(routes.observe.indexable).toBe(false)
+    expect(indexableBuiltRoutes().map((route) => route.path)).not.toContain('/observe')
+  })
+
   it('keeps the flagged Results route out of the sitemap', () => {
     expect(routes.results.indexable).toBe(false)
     expect(indexableBuiltRoutes().map((route) => route.path)).not.toContain('/results')

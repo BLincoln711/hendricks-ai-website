@@ -5,6 +5,7 @@ import { randomUUID } from 'node:crypto'
 import { env } from '@/lib/env'
 import { OBSERVE_COST_CEILING_USD_DEFAULT, estimatedRunCostUsd } from '@/lib/observation/limits'
 import { pendingPayload } from '@/lib/observation/pending-fixture'
+import { constrainPublicSample } from '@/lib/observation/public-sample'
 import {
   checkObserveEmailLimit,
   checkObserveIpLimit,
@@ -58,6 +59,17 @@ export async function createObservationJob(
   input: ObservationCreateInput,
   options?: { ip?: string },
 ): Promise<ObservationCreateResult> {
+  const constrained = constrainPublicSample(input)
+  if (!constrained.ok) {
+    return {
+      ok: false,
+      code: constrained.code,
+      message: constrained.message,
+      fieldErrors: constrained.fieldErrors,
+    }
+  }
+  input = constrained.input
+
   const brandHost = input.brand_host ? normalizeBrandHost(input.brand_host) : undefined
   if (input.brand_host && !brandHost) {
     return {

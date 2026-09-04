@@ -77,6 +77,13 @@ describe('observation data instance', () => {
     expect(chrome).toContain("from '@/lib/observation/copy'")
     expect(chrome).not.toContain('observeWorkerWritePath')
     expect(chrome).not.toContain('/cells')
+    expect(chrome).not.toContain('trackEvent')
+    expect(chrome).not.toContain('observe_start')
+    expect(chrome).not.toContain('observe_submit')
+    expect(readFileSync('src/app/(marketing)/observe/page.tsx', 'utf8')).toContain('index: false')
+    expect(readFileSync('src/app/(marketing)/observe/page.tsx', 'utf8')).not.toContain(
+      'createObservationJob',
+    )
     expect(JSON.stringify(pendingPayload({ run_id: 'r', job_id: 'j', contexts: ['a', 'b', 'c'] }))).not.toMatch(
       /"state":"(cited|invisible)"/,
     )
@@ -125,7 +132,7 @@ describe('parseObservationSearch', () => {
     }
   })
 
-  it('accepts brand_name as an alias for the GET fallback', () => {
+  it('accepts brand_name as an alias for the form prefill query', () => {
     const parsed = parseObservationSearch({ brand_name: 'Northwind', category: 'industrial' })
     expect(parsed.status).toBe('queued')
   })
