@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { POST as createJob } from '@/app/api/observe/jobs/route'
-import { GET as pollJob } from '@/app/api/observe/jobs/[jobId]/route'
+import { GET as pollJob } from '@/app/api/observe/jobs/[job_id]/route'
 import {
   competitorsObservedInAnswers,
   shortlistFromObservation,
@@ -55,7 +55,7 @@ beforeEach(() => {
 describe('observation handshake', () => {
   it('locks the Site create and poll paths and the three requested engines', () => {
     expect(observeCreatePath).toBe('/api/observe/jobs')
-    expect(observeQueueHook.pollPath).toBe('/api/observe/jobs/:jobId')
+    expect(observeQueueHook.pollPath).toBe('/api/observe/jobs/:job_id')
     expect(observeEnginesRequested).toEqual(['google_aio', 'chat_gpt', 'perplexity'])
     expect(observeEnginesRequested).not.toContain('gemini')
     expect(observeDisclaimer).toBe(disclosure.sample)
@@ -265,7 +265,7 @@ describe('API routes', () => {
     expect(body.payload.gemini_row.reason).toBe('not_probed_public_mini_v1')
 
     const polled = await pollJob(new Request(`http://localhost/api/observe/jobs/${body.job.job_id}`), {
-      params: Promise.resolve({ jobId: body.job.job_id }),
+      params: Promise.resolve({ job_id: body.job.job_id }),
     })
     expect(polled.status).toBe(200)
     const pollBody = (await polled.json()) as { payload: { cells: ObservationCell[] } }

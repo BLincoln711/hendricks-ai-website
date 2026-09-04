@@ -16,8 +16,8 @@ import {
  */
 
 export const observeCreatePath = '/api/observe/jobs'
-export const observePollPath = (jobId: string) => `/api/observe/jobs/${jobId}`
-export const observeWorkerWritePath = (jobId: string) => `/api/observe/jobs/${jobId}/cells`
+export const observePollPath = (job_id: string) => `/api/observe/jobs/${job_id}`
+export const observeWorkerWritePath = (job_id: string) => `/api/observe/jobs/${job_id}/cells`
 
 export const observeEnginesRequested: readonly ProbeEngineId[] = probeEngineIds
 
@@ -50,7 +50,7 @@ export const observeQueueHook = {
   wired: true,
   method: OBSERVE_METHOD,
   createPath: observeCreatePath,
-  pollPath: '/api/observe/jobs/:jobId',
+  pollPath: '/api/observe/jobs/:job_id',
   enginesWhenQueued: ['Google AI Overviews', 'ChatGPT', 'Perplexity'] as const,
   notProbed: ['Gemini'] as const,
   grain: ['cited', 'invisible', 'unmeasured'] as const,

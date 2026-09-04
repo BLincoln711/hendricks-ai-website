@@ -8,7 +8,7 @@ import {
 } from '@/lib/observation/service'
 
 /**
- * POST /api/observe/jobs/:jobId/cells
+ * POST /api/observe/jobs/:job_id/cells
  *
  * Ultra write path. The Next app does not hold DataForSEO keys. Ultra probes
  * off-box and posts grain-only cell updates. Absent OBSERVE_WORKER_SECRET,
@@ -20,7 +20,7 @@ export const runtime = 'nodejs'
 
 export async function POST(
   request: Request,
-  context: { params: Promise<{ jobId: string }> },
+  context: { params: Promise<{ job_id: string }> },
 ) {
   if (!workerWriteConfigured()) {
     return NextResponse.json(
@@ -40,7 +40,7 @@ export async function POST(
     )
   }
 
-  const { jobId } = await context.params
+  const { job_id } = await context.params
 
   let body: unknown
   try {
@@ -64,7 +64,7 @@ export async function POST(
     )
   }
 
-  const result = await writeObservationCells(jobId, parsed.data)
+  const result = await writeObservationCells(job_id, parsed.data)
   if (!result.ok) {
     const status =
       result.code === 'NOT_FOUND' ? 404 : result.code === 'WORKER_UNAVAILABLE' ? 503 : 400

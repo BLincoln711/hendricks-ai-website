@@ -9,7 +9,7 @@ import { createObservationJob } from '@/lib/observation/service'
  *
  * Enqueue a public-mini observation. Returns job_id plus a queued board:
  * AIO, ChatGPT, and Perplexity pending; Gemini unmeasured_by_policy.
- * Does not call a probe. Site polls GET /api/observe/jobs/:jobId.
+ * Does not call a probe. Site polls GET /api/observe/jobs/:job_id.
  */
 
 export const dynamic = 'force-dynamic'
