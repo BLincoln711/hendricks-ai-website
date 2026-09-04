@@ -18,9 +18,9 @@ import type { SelectionMapData } from '@/lib/selection-map/schema'
  * before and after hydration, and it takes over the frame only when a visitor
  * asks for a different one or the automatic cycle steps.
  *
- * Illustrative interface. Not a client result. The caption is rendered from
- * the locked constant in `SelectionMapFrame`; this line is here so the sample
- * data gate reads it on the component it registers.
+ * Illustrative interface. Not a client result. The locked line is the page
+ * legend, not a per-plate caption; this line is here so the sample data gate
+ * reads it on the component it registers.
  */
 const SelectionMapIsland = dynamic(() =>
   import('@/components/visuals/selection-map-island').then((module) => module.SelectionMapIsland),

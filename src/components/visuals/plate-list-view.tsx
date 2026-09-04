@@ -1,4 +1,4 @@
-import { ILLUSTRATIVE_CAPTION, plateChrome } from '@/content/shared/chrome'
+import { plateChrome } from '@/content/shared/chrome'
 import { evidenceOf, hasGap, reaches, type ResolvedBrand, type ResolvedScenario } from '@/lib/selection-map/resolve'
 import { BRAND_STAGES, type BrandStage, type SelectionMapData } from '@/lib/selection-map/schema'
 
@@ -75,8 +75,9 @@ export function PlateListView({
   // One string for the caption and the region's name (SM-08). A region named
   // more briefly than its caption tells a screen reader moving by landmark less
   // than the table tells a reader already inside it, including which of the
-  // three questions is on screen and that the data is illustrative.
-  const caption = `${plateChrome.listRegion}, question ${index} of ${count}. ${ILLUSTRATIVE_CAPTION}`
+  // three questions is on screen. The page legend carries the locked line, so
+  // this keeps a brief illustrative cue rather than restating it on every control.
+  const caption = `${plateChrome.listRegion}, question ${index} of ${count}. Illustrative.`
 
   return (
     <div className="plate-listview" hidden={hidden}>

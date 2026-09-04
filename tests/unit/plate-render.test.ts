@@ -44,12 +44,12 @@ describe('the resting frame', () => {
     expect(drawings).toHaveLength(2)
   })
 
-  it('carries the locked illustrative line and the full text alternative', () => {
-    const caption = resting.querySelector('figcaption.plate-cap')!
-    expect(caption.querySelector('.illus')!.textContent).toBe(ILLUSTRATIVE_CAPTION)
-
-    const alternative = caption.querySelector('#plate-01-alt')!
-    expect(alternative.textContent).toBe(selectionMapData.scenarios[0].textAlternative)
+  it('carries the full text alternative without a visible locked caption', () => {
+    const caption = resting.querySelector('figcaption')!
+    expect(caption.id).toBe('plate-01-alt')
+    expect(caption.classList.contains('sr-only')).toBe(true)
+    expect(caption.textContent).toBe(selectionMapData.scenarios[0].textAlternative)
+    expect(caption.querySelector('.illus')).toBeNull()
     // Each drawing points at that one alternative, so it is read once.
     for (const svg of drawings) expect(svg.getAttribute('aria-describedby')).toBe('plate-01-alt')
   })
@@ -62,15 +62,16 @@ describe('the resting frame', () => {
     }
   })
 
-  it('states the illustrative line once, in the caption, not inside each drawing', () => {
+  it('does not put the locked illustrative line inside the plate or each drawing', () => {
     // Two drawings ship at once, one per breakpoint, so a `desc` carrying the
-    // disclaimer would put it into the accessibility tree three times over.
+    // disclaimer would put it into the accessibility tree twice. The page
+    // legend carries the locked line once, outside this frame.
     for (const svg of drawings) expect(svg.querySelector('desc')).toBeNull()
 
     const spoken = [...resting.querySelectorAll('.illus')].filter(
       (node) => node.textContent === ILLUSTRATIVE_CAPTION,
     )
-    expect(spoken).toHaveLength(1)
+    expect(spoken).toHaveLength(0)
   })
 
   it('renders the answer in words as well as in marks', () => {
@@ -88,7 +89,8 @@ describe('the resting frame', () => {
     const view = resting.querySelector('.plate-listview')!
     expect(view.hasAttribute('hidden')).toBe(true)
     expect(view.querySelectorAll('tbody tr')).toHaveLength(5)
-    expect(view.querySelector('caption')!.textContent).toContain(ILLUSTRATIVE_CAPTION)
+    expect(view.querySelector('caption')!.textContent).toContain('Illustrative.')
+    expect(view.querySelector('caption')!.textContent).not.toContain(ILLUSTRATIVE_CAPTION)
   })
 
   it('makes the table’s scroll region a named keyboard stop', () => {

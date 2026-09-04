@@ -204,7 +204,10 @@ test.describe('the resting frame', () => {
     await expect(plate(page).locator('svg.dts')).toHaveCount(2)
     await expect(plate(page).locator('.plate-states li')).toHaveCount(5)
     await expect(plate(page).locator('.sources li')).toHaveCount(6)
-    await expect(plate(page).locator('.illus')).toHaveText('Illustrative interface. Not a client result.')
+    await expect(page.locator('.illus')).toHaveText('Illustrative interface. Not a client result.')
+    await expect(plate(page).locator('#plate-01-alt')).toContainText(
+      'An illustrative diagram, not a client result.',
+    )
     await expect(plate(page).locator('.plate-list')).toBeHidden()
     await expect(plate(page).getByRole('radio', { name: /^Question 1/ })).toBeChecked()
 
@@ -320,9 +323,9 @@ test.describe('VZ-02 and VZ-08, the drawing is read once and read in words', () 
       const first = await svg.evaluate((node) => node.children[0]?.tagName)
       expect(first).toBe('title')
 
-      // The description comes from `aria-describedby`, and the locked
-      // illustrative line from the figcaption. A `desc` element would repeat
-      // both in the accessibility tree, once for each breakpoint variant.
+      // The description comes from `aria-describedby`. The locked illustrative
+      // line is the page legend, outside the figure. A `desc` element would
+      // repeat the alternative in the accessibility tree, once per breakpoint.
       await expect(svg.locator('desc')).toHaveCount(0)
     }
 
