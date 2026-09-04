@@ -2,9 +2,14 @@ import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
 import { ObservationResult } from '@/components/observation/observation-result'
-import { emptyObservation, observationEngines, observeQueueHook } from '@/content/instruments/observation-data'
+import {
+  emptyObservation,
+  observationEngines,
+  observeQueueHook,
+  sampleIntentsByCategory,
+} from '@/content/instruments/observation-data'
 import { selectionMapData } from '@/content/instruments/selection-map-data'
-import { disclosure, queued } from '@/content/pages/observe'
+import { diagnosticDoor, disclosure, engines, formCopy, queued } from '@/content/pages/observe'
 import { observeCreatePath, observePollPath } from '@/lib/observation/handshake'
 import { pendingPayload } from '@/lib/observation/pending-fixture'
 import { probeEngineIds, type ObservationJob } from '@/lib/observation/schema'
@@ -40,6 +45,31 @@ describe('observation data instance', () => {
     expect(observeQueueHook.createPath).toBe(observeCreatePath)
     expect(observeQueueHook.pollPath).toBe('/api/observe/jobs/:job_id')
     expect(observeQueueHook.wired).toBe(true)
+  })
+
+  it('locks the pull contract to queued engines and presence words only', () => {
+    const surface = JSON.stringify({
+      formCopy,
+      queued,
+      disclosure,
+      engines,
+      diagnosticDoor,
+      observationEngines,
+      sampleIntentsByCategory,
+    })
+
+    expect(surface).not.toMatch(/AI Mode|Copilot/i)
+    expect(surface).not.toMatch(/shortlist|consideration|recommendation/i)
+    expect(observationEngines.map((engine) => engine.label)).toEqual([
+      'Google AI Overviews',
+      'ChatGPT',
+      'Perplexity',
+      'Gemini',
+    ])
+    expect(observationEngines.filter((engine) => engine.status === 'unmeasured').map((engine) => engine.id)).toEqual([
+      'gemini',
+    ])
+    expect(disclosure.sample).toContain('when the queue runs')
   })
 })
 

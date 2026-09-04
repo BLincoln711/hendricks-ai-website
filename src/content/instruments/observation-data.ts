@@ -64,7 +64,7 @@ export const observationCategories = [
 export const sampleIntentsByCategory: Record<ObservationCategoryId, readonly string[]> = {
   'b2b-software': [
     'Which platform should a mid-market operations team use in this category?',
-    'Who should a buyer shortlist for this category this quarter?',
+    'Who should a buyer compare for this category this quarter?',
     'What should a first-time buyer compare before choosing a vendor in this category?',
     'Which option fits a team replacing a spreadsheet process in this category?',
   ],
@@ -72,19 +72,19 @@ export const sampleIntentsByCategory: Record<ObservationCategoryId, readonly str
     'Which firm should a first-time buyer hire in this category?',
     'Who should a board compare for this category this quarter?',
     'What should a buyer ask before retaining a firm in this category?',
-    'Which option belongs on a shortlist for this category?',
+    'Which option should a buyer compare for this category?',
   ],
   industrial: [
     'Which provider should a plant manager hire in this category?',
     'Who should a maintenance lead compare for this category?',
     'What should a buyer check before awarding this category of work?',
-    'Which option belongs on a shortlist for this category?',
+    'Which option should a buyer compare for this category?',
   ],
   other: [
-    'Which option should a buyer shortlist in this category?',
+    'Which option should a buyer compare in this category?',
     'Who appears as a legitimate choice for this category?',
     'What should a first-time buyer compare in this category?',
-    'Which option belongs on a shortlist for this category?',
+    'Which option fits a first look at this category?',
   ],
 }
 

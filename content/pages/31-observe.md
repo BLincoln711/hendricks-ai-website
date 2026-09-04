@@ -14,7 +14,7 @@
 
 ## Status
 
-Shell only. Brand/QA: every public sentence on this page is new and needs review before merge. No live engine pulls. No Selection Map drawing. No mock stage cells. No invented peers. The queued surface is confirmation, an empty or unmeasured engine board, disclosure, and the Diagnostic door. Fixtures do not emit cited or invisible cells.
+Shell only. Brand/QA: every public sentence on this page is new and needs review before merge. No live engine pulls. Queue now, offline probes later. Engine matrix: Google AI Overviews, ChatGPT, and Perplexity when the queue runs; Gemini unmeasured; never AI Mode or Copilot. Presence words, if used, are only cited, invisible, or unmeasured. No shortlist or consideration language. No Selection Map. The queued surface is confirmation, an empty or unmeasured engine board, disclosure, the Diagnostic door, and the home and Diagnostic links.
 
 ## Hero
 

@@ -11,7 +11,9 @@ import { diagnosticCta } from '@/content/shared/ctas'
  * as the Search Intelligence Diagnostic.
  *
  * This is a public sample shell. It queues. It does not invent a selection map,
- * peers, or engine results.
+ * peers, or engine results. No live pulls. Presence words, if used, are only
+ * cited, invisible, or unmeasured. Do not imply shortlist or consideration.
+ * Never name AI Mode or Copilot. Gemini stays unmeasured.
  */
 
 export const meta = {
@@ -107,6 +109,6 @@ export const related = [
   {
     href: routes.whatIsSelectionIntelligence.path,
     label: 'What Is Selection Intelligence?',
-    description: 'What consideration and recommendation mean when they are observed.',
+    description: 'What observed presence means in AI-mediated search.',
   },
 ] as const

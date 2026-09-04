@@ -56,7 +56,7 @@ test.describe('Observation job API', () => {
         category: 'b2b-software',
         contexts: [
           'Which platform should a mid-market operations team use in this category?',
-          'Who should a buyer shortlist for this category this quarter?',
+          'Who should a buyer compare for this category this quarter?',
           'What should a first-time buyer compare before choosing a vendor in this category?',
           'Which option fits a team replacing a spreadsheet process in this category?',
         ],
