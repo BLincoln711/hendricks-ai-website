@@ -22,7 +22,14 @@ vi.mock('next/navigation', () => ({
 vi.mock('next/link', () => ({
   default({ href, onClick, children, ...props }: ComponentProps<'a'> & { href: string }) {
     return (
-      <a href={href} onClick={onClick} {...props}>
+      <a
+        href={href}
+        onClick={(event) => {
+          event.preventDefault()
+          onClick?.(event)
+        }}
+        {...props}
+      >
         {children}
       </a>
     )
@@ -56,7 +63,7 @@ describe('PrimaryNav route-menu clicks', () => {
     pathname.current = '/about'
     const { toggle, nav } = openMenu()
 
-    fireEvent.click(screen.getByRole('link', { name: 'About', exact: true }))
+    fireEvent.click(screen.getByRole('link', { name: /^About$/ }))
 
     expect(toggle).toHaveAttribute('aria-expanded', 'false')
     expect(nav).not.toHaveAttribute('data-open')
