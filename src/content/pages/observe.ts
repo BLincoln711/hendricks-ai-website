@@ -41,14 +41,26 @@ export const formCopy = {
 
 export const queued = {
   instrumentLabel: 'Observation',
-  gloss: 'A queued public sample. No selection map is drawn until a run is observed.',
-  status: 'Queued. This run has not been observed yet.',
+  gloss: 'A queued public sample. The board stays empty until a run is observed.',
+  status: 'Run pending. This run has not been observed yet.',
+  jobLabel: 'Job',
+  jobMissing: 'That observation job was not found. Queue a new sample.',
+  boardCaption:
+    'Observation board. Empty cells are pending or unmeasured. This is not a selection map.',
   mapEmpty:
     'No selection map is drawn on this page. Empty means unmeasured or not observed in this run. Cells are not invented.',
+  cellPending: 'pending',
+  cellUnmeasured: 'unmeasured',
+  engineColumn: 'Engine',
+  sampleColumn: 'Sample',
   intentsLegend: 'Sample intents',
   intentsNote:
     'Sample intents. These are templates for the category, not observed questions from this run.',
   anotherLabel: 'Queue another observation',
+  statusQueued: 'Run pending. This run has not been observed yet.',
+  statusRunning: 'Run in progress. Cells stay empty until a probe settles.',
+  statusPartial: 'Partial. Settled engines stay unmeasured until a real fill lands.',
+  statusComplete: 'Complete. Empty cells are unmeasured.',
 } as const
 
 /**
@@ -70,8 +82,9 @@ export const disclosure = {
 
 export const engines = {
   legend: 'Engines named in this sample',
-  queued: 'queued',
-  notProbed: 'not probed in this sample',
+  queued: 'pending',
+  notProbed: 'unmeasured',
+  notProbedNote: 'not probed in this sample',
 } as const
 
 export const diagnosticDoor = {

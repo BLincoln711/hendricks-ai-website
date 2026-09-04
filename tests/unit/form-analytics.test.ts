@@ -43,6 +43,9 @@ describe('Query allowlist', () => {
     expect(redactUrl('https://hendricks.ai/observe?brand=Acme&category=b2b-software')).toBe(
       'https://hendricks.ai/observe',
     )
+    expect(redactUrl('https://hendricks.ai/observe?job=obs_v1.hidden-brand')).toBe(
+      'https://hendricks.ai/observe',
+    )
     expect(redactUrl('not a url')).toBe('')
     expect(redactUrl('')).toBe('')
   })

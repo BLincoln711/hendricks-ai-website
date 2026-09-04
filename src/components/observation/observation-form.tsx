@@ -9,8 +9,9 @@ import { formCopy } from '@/content/pages/observe'
 import { trackEvent } from '@/lib/analytics/events'
 
 /**
- * Brand plus category. One primary action. GET so a visitor without JavaScript
- * still reaches the queued state. Analytics events carry no brand string.
+ * Brand plus category. One primary action. POST /api/observe/jobs so a visitor
+ * without JavaScript still reaches the pending board. Analytics events carry no
+ * brand string.
  */
 
 export function ObservationForm({
@@ -31,8 +32,8 @@ export function ObservationForm({
 
   return (
     <form
-      method="get"
-      action="/observe"
+      method="post"
+      action="/api/observe/jobs"
       aria-label={formCopy.heading}
       className="flex max-w-[36rem] flex-col gap-6"
       onSubmit={(event) => {
@@ -53,7 +54,7 @@ export function ObservationForm({
       >
         <input
           id={brandId}
-          name="brand"
+          name="brand_name"
           type="text"
           autoComplete="organization"
           required

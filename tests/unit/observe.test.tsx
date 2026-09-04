@@ -2,9 +2,11 @@ import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
 import { ObservationResult } from '@/components/observation/observation-result'
-import { emptyObservation, observationEngines } from '@/content/instruments/observation-data'
+import { emptyObservation, observationEngines, observeQueueHook } from '@/content/instruments/observation-data'
 import { selectionMapData } from '@/content/instruments/selection-map-data'
 import { disclosure, queued } from '@/content/pages/observe'
+import { OBSERVE_ENGINE_IDS } from '@/lib/observation/contract'
+import { createObservationJob } from '@/lib/observation/jobs'
 import {
   displayBrand,
   parseObservationSearch,
@@ -20,13 +22,17 @@ describe('observation data instance', () => {
     expect(selectionMapData.brands.map((brand) => brand.label)).toContain('Your Brand')
   })
 
-  it('keeps Perplexity in the later queue and leaves only Gemini unprobed', () => {
+  it('keeps Perplexity in the later queue and leaves only Gemini unmeasured', () => {
     const byId = Object.fromEntries(observationEngines.map((engine) => [engine.id, engine]))
 
-    expect(byId['google-ai-overviews']?.status).toBe('queued')
-    expect(byId.chatgpt?.status).toBe('queued')
-    expect(byId.perplexity?.status).toBe('queued')
-    expect(byId.gemini?.status).toBe('not_probed')
+    expect(byId.google_aio?.status).toBe('pending')
+    expect(byId.chat_gpt?.status).toBe('pending')
+    expect(byId.perplexity?.status).toBe('pending')
+    expect(byId.gemini?.status).toBe('unmeasured')
+    expect([...observationEngines.map((engine) => engine.id)]).toEqual([...OBSERVE_ENGINE_IDS])
+    expect(observeQueueHook.create).toBe('POST /api/observe/jobs')
+    expect(observeQueueHook.poll).toBe('GET /api/observe/jobs/:job_id')
+    expect(observeQueueHook.wired).toBe(false)
   })
 })
 
@@ -45,6 +51,11 @@ describe('parseObservationSearch', () => {
     if (parsed.status === 'queued') {
       expect(sampleIntentsFor(parsed.query.category)).toHaveLength(4)
     }
+  })
+
+  it('accepts brand_name as an alias for the GET fallback', () => {
+    const parsed = parseObservationSearch({ brand_name: 'Northwind', category: 'industrial' })
+    expect(parsed.status).toBe('queued')
   })
 
   it('returns field errors for an empty submit', () => {
@@ -80,26 +91,33 @@ describe('displayBrand', () => {
 })
 
 describe('ObservationResult', () => {
-  it('renders a queued empty map and does not invent shortlisted cells', () => {
-    render(
-      <ObservationResult
-        query={{ brand: 'Northwind Logistics Group', category: 'industrial' }}
-      />,
-    )
+  it('renders a pending board and does not invent shortlisted cells', () => {
+    const job = createObservationJob({
+      brand_name: 'Northwind Logistics Group',
+      category: 'industrial',
+      contexts: [...sampleIntentsFor('industrial')],
+    })
+
+    render(<ObservationResult job={job} />)
 
     expect(screen.getByText(queued.instrumentLabel)).toBeInTheDocument()
-    expect(screen.getByText(queued.status)).toBeInTheDocument()
-    expect(screen.getByText(queued.mapEmpty)).toBeInTheDocument()
+    expect(screen.getAllByText(queued.status).length).toBeGreaterThan(0)
+    expect(screen.getByText(queued.boardCaption)).toBeInTheDocument()
     expect(screen.getByText(disclosure.sample)).toBeInTheDocument()
     expect(screen.getByLabelText('Northwind Logistics Group')).toBeInTheDocument()
+    expect(screen.getByTitle(job.job_id)).toBeInTheDocument()
 
     expect(screen.queryByText('Brand A')).not.toBeInTheDocument()
     expect(screen.queryByText('shortlisted')).not.toBeInTheDocument()
     expect(screen.queryByText('Your Brand')).not.toBeInTheDocument()
+    expect(screen.queryByText('cited')).not.toBeInTheDocument()
+    expect(screen.queryByText('invisible')).not.toBeInTheDocument()
 
-    expect(screen.getByText('Perplexity').closest('li')).toHaveTextContent('queued')
-    expect(screen.getByText('Gemini').closest('li')).toHaveTextContent(
-      'not probed in this sample',
-    )
+    const engineList = screen.getByRole('list', { name: 'Engines named in this sample' })
+    expect(engineList).toHaveTextContent('Perplexity')
+    expect(engineList).toHaveTextContent('pending')
+    expect(engineList).toHaveTextContent('Gemini')
+    expect(engineList).toHaveTextContent('unmeasured')
+    expect(engineList).toHaveTextContent('not probed in this sample')
   })
 })

@@ -1,6 +1,8 @@
 import Link from 'next/link'
 
 import { WordmarkLink } from '@/components/layout/wordmark'
+import { ObservationBoard } from '@/components/observation/observation-board'
+import { ObservationJobPoll } from '@/components/observation/observation-poll'
 import { PrimaryCta, RuleLink } from '@/components/ui/cta'
 import { observationEngines } from '@/content/instruments/observation-data'
 import {
@@ -10,19 +12,19 @@ import {
   queued,
 } from '@/content/pages/observe'
 import { routes } from '@/config/routes'
-import { categoryLabel, displayBrand, sampleIntentsFor } from '@/lib/observation/parse'
-import type { ObservationQuery } from '@/lib/observation/parse'
+import type { ObservationJob } from '@/lib/observation/contract'
+import { categoryLabel, displayBrand } from '@/lib/observation/parse'
 
 /**
- * Queued observation chrome. Wordmark, Observation label, empty map area,
+ * Queued observation chrome. Wordmark, Observation label, pending board,
  * sample intent chips, disclosure, Diagnostic door.
  *
- * No Selection Map drawing. No shortlisted cells. No invented peers.
+ * No Selection Map drawing. No shortlisted cells. No invented peers. Gemini
+ * is unmeasured from first paint.
  */
 
-export function ObservationResult({ query }: { query: ObservationQuery }) {
-  const brand = displayBrand(query.brand)
-  const intents = sampleIntentsFor(query.category)
+export function ObservationResult({ job }: { job: ObservationJob }) {
+  const brand = displayBrand(job.brand_name)
 
   return (
     <figure className="plate" id="observation">
@@ -33,22 +35,26 @@ export function ObservationResult({ query }: { query: ObservationQuery }) {
       <p className="plate-gloss">{queued.gloss}</p>
 
       <p className="observation-brand">
-        <span className="text-coordinate text-ink-2">{categoryLabel(query.category)}</span>
+        <span className="text-coordinate text-ink-2">{categoryLabel(job.category)}</span>
         <span title={brand.full} aria-label={brand.full}>
           {brand.display}
         </span>
       </p>
 
-      <p className="observation-status">{queued.status}</p>
+      <p className="observation-job text-coordinate text-ink-2">
+        <span>{queued.jobLabel}</span>{' '}
+        <code title={job.job_id} data-observe-job={job.job_id}>
+          {job.job_id.length > 28 ? `${job.job_id.slice(0, 25)}...` : job.job_id}
+        </code>
+      </p>
 
-      <div className="observation-map" role="img" aria-label={queued.mapEmpty}>
-        <p>{queued.mapEmpty}</p>
-      </div>
+      <ObservationJobPoll jobId={job.job_id} status={job.status} />
+      <ObservationBoard job={job} />
 
       <div className="observation-intents">
         <p className="text-coordinate text-ink-2">{queued.intentsLegend}</p>
         <ul>
-          {intents.map((intent) => (
+          {job.contexts.map((intent) => (
             <li key={intent}>
               <span className="observation-chip">{intent}</span>
             </li>
@@ -62,7 +68,9 @@ export function ObservationResult({ query }: { query: ObservationQuery }) {
           <li key={engine.id}>
             <span>{engine.label}</span>
             <span>
-              {engine.status === 'not_probed' ? engineCopy.notProbed : engineCopy.queued}
+              {engine.status === 'unmeasured'
+                ? `${engineCopy.notProbed} (${engineCopy.notProbedNote})`
+                : engineCopy.queued}
             </span>
           </li>
         ))}

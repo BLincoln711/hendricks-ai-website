@@ -6,14 +6,15 @@ import { ObservationDisclosure } from '@/components/observation/observation-resu
 import { disclosure, formCopy } from '@/content/pages/observe'
 
 describe('ObservationForm', () => {
-  it('asks for a brand and a category with one primary action', () => {
+  it('asks for a brand and a category and posts to job create', () => {
     render(<ObservationForm />)
 
     const form = screen.getByRole('form')
-    expect(form).toHaveAttribute('method', 'get')
-    expect(form).toHaveAttribute('action', '/observe')
+    expect(form).toHaveAttribute('method', 'post')
+    expect(form).toHaveAttribute('action', '/api/observe/jobs')
 
     expect(screen.getByLabelText(new RegExp(formCopy.brandLabel))).toBeRequired()
+    expect(screen.getByLabelText(new RegExp(formCopy.brandLabel))).toHaveAttribute('name', 'brand_name')
     expect(screen.getByLabelText(new RegExp(formCopy.categoryLabel))).toBeRequired()
     expect(screen.getByRole('button', { name: formCopy.submit })).toBeInTheDocument()
   })

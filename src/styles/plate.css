@@ -674,6 +674,25 @@
     color: var(--ink);
   }
 
+  .observation-job {
+    margin: 0 0 var(--hx-space-4);
+  }
+
+  .observation-job code {
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    font-family: var(--font-mono);
+    font-size: var(--text-caption, 13px);
+  }
+
+  .observation-board {
+    margin: 0 0 var(--hx-space-5);
+    padding: var(--hx-space-4) 0;
+    border-top: var(--hx-stroke-1) solid var(--rule);
+    border-bottom: var(--hx-stroke-1) solid var(--rule);
+  }
+
   .observation-map {
     display: flex;
     align-items: center;

@@ -14,7 +14,7 @@
 
 ## Status
 
-Shell only. Brand/QA: every public sentence on this page is new and needs review before merge. No live engine pulls. No invented selection map.
+Shell only. Brand/QA: every public sentence on this page is new and needs review before merge. No live engine pulls. No invented selection map. Fixtures do not emit cited or invisible cells.
 
 ## Hero
 
@@ -34,25 +34,27 @@ Enter a brand and a category. This page queues a public sample. It is not the Se
 
 **Primary action:** Queue observation
 
+**Create:** `POST /api/observe/jobs`
+
 ## Queued state
 
 Instrument label: Observation.
 
-Queued. This run has not been observed yet.
+Run pending. This run has not been observed yet.
 
-No selection map is drawn on this page. Empty means unmeasured or not observed in this run. Cells are not invented.
+Observation board. Empty cells are pending or unmeasured. This is not a selection map.
 
 Sample intents. These are templates for the category, not observed questions from this run.
 
 ## Engines
 
-Google AI Overviews: queued
+Google AI Overviews: pending
 
-ChatGPT: queued
+ChatGPT: pending
 
-Perplexity: queued
+Perplexity: pending
 
-Gemini: not probed in this sample
+Gemini: unmeasured (not probed in this sample)
 
 ## Disclosure
 

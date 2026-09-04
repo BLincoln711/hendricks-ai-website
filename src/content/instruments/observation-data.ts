@@ -7,8 +7,8 @@ import { STAGE_IDS } from '@/lib/selection-map/schema'
  * This object is not `selectionMapData`. It carries no peers, no shortlisted
  * cells, and no intervention. Do not pass it to `SelectionMapDrawing`.
  *
- * Competitors stay omitted until a run observes them. Gemini stays unprobed
- * on this public sample until a named probe exists.
+ * The live board is `ObservationJob.board` from POST /api/observe/jobs. Engine
+ * ids stay locked as google_aio, chat_gpt, perplexity, gemini.
  */
 
 export const OBSERVE_BRAND_DISPLAY_LIMIT = 28
@@ -16,15 +16,15 @@ export const OBSERVE_BRAND_DISPLAY_LIMIT = 28
 export const observationStages = STAGE_IDS
 
 export const observationEngineIds = [
-  'google-ai-overviews',
-  'chatgpt',
+  'google_aio',
+  'chat_gpt',
   'perplexity',
   'gemini',
 ] as const
 
 export type ObservationEngineId = (typeof observationEngineIds)[number]
 
-export type ObservationEngineStatus = 'queued' | 'not_probed'
+export type ObservationEngineStatus = 'pending' | 'unmeasured'
 
 export type ObservationEngine = {
   id: ObservationEngineId
@@ -37,10 +37,10 @@ export type ObservationEngine = {
  * first three. Gemini is the only engine this sample does not probe.
  */
 export const observationEngines = [
-  { id: 'google-ai-overviews', label: 'Google AI Overviews', status: 'queued' },
-  { id: 'chatgpt', label: 'ChatGPT', status: 'queued' },
-  { id: 'perplexity', label: 'Perplexity', status: 'queued' },
-  { id: 'gemini', label: 'Gemini', status: 'not_probed' },
+  { id: 'google_aio', label: 'Google AI Overviews', status: 'pending' },
+  { id: 'chat_gpt', label: 'ChatGPT', status: 'pending' },
+  { id: 'perplexity', label: 'Perplexity', status: 'pending' },
+  { id: 'gemini', label: 'Gemini', status: 'unmeasured' },
 ] as const satisfies readonly ObservationEngine[]
 
 export const observationCategoryIds = [
@@ -61,7 +61,8 @@ export const observationCategories = [
 
 /**
  * Templated sample intents by category. Labeled as sample wherever rendered.
- * Not observed questions. Not a live prompt set.
+ * Not observed questions. Not a live prompt set. Used as default `contexts`
+ * when the form posts without an explicit list.
  */
 export const sampleIntentsByCategory: Record<ObservationCategoryId, readonly string[]> = {
   'b2b-software': [
@@ -92,8 +93,8 @@ export const sampleIntentsByCategory: Record<ObservationCategoryId, readonly str
 
 /**
  * The empty run. `brands` stays empty so peers cannot be invented. `cells`
- * stays empty so no shortlist can be drawn. A later PR fills this from a
- * real queue result, never from a fixture that looks like a win.
+ * stays empty so no shortlist can be drawn. A later PR fills a real board
+ * from Visibility Mode B, never from a fixture that looks like a win.
  */
 export const emptyObservation = {
   version: 'observe-shell-1',
@@ -105,11 +106,14 @@ export const emptyObservation = {
 } as const
 
 /**
- * PR2 hook. The shell records what the queue will call and leaves the call
+ * PR2 hook. The shell records the create and poll paths and leaves the probe
  * unwired. No Visibility API keys, no probe client, no secrets.
  */
 export const observeQueueHook = {
   wired: false,
-  enginesWhenQueued: ['Google AI Overviews', 'ChatGPT', 'Perplexity'] as const,
-  notProbed: ['Gemini'] as const,
+  create: 'POST /api/observe/jobs',
+  poll: 'GET /api/observe/jobs/:job_id',
+  enginesWhenQueued: ['google_aio', 'chat_gpt', 'perplexity'] as const,
+  notProbed: ['gemini'] as const,
+  geminiReason: 'not_probed_public_mini_v1' as const,
 }
