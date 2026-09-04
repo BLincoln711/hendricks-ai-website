@@ -26,7 +26,7 @@ test.describe('/observe shell', () => {
     await expect(page.getByText(queued.status).first()).toBeVisible()
     await expect(page.getByText(queued.boardCaption)).toBeVisible()
     await expect(page.getByText(queued.intentsNote)).toBeVisible()
-    await expect(page.getByText('Perplexity')).toBeVisible()
+    await expect(page.getByRole('rowheader', { name: 'Perplexity' })).toBeVisible()
     await expect(page.getByText('not probed in this sample').first()).toBeVisible()
     await expect(page.locator('[data-observe-poll]')).toHaveAttribute('data-observe-poll', 'queued')
 
