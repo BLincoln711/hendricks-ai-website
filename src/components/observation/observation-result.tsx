@@ -12,6 +12,7 @@ import {
   queued,
 } from '@/content/pages/observe'
 import { routes } from '@/config/routes'
+import { disclosure as handshakeCopy } from '@/lib/observation/copy'
 import type { ObservationJob, ObservationPayload } from '@/lib/observation/schema'
 import { categoryLabel, displayBrand, isObservationCategoryId } from '@/lib/observation/parse'
 
@@ -84,7 +85,7 @@ export function ObservationResult({
       </ul>
 
       <figcaption className="plate-cap">
-        <span>{payload.disclaimer || disclosure.sample}</span>
+        <span>{payload.disclaimer || handshakeCopy.sample}</span>
         <span>{disclosure.limits}</span>
         <span>{disclosure.diagnostic}</span>
       </figcaption>
@@ -101,7 +102,7 @@ export function ObservationResult({
 export function ObservationDisclosure() {
   return (
     <div className="measure flex flex-col gap-3 text-[0.9375rem] leading-relaxed text-ink-2">
-      <p>{disclosure.sample}</p>
+      <p>{handshakeCopy.sample}</p>
       <p>{disclosure.limits}</p>
       <p>{disclosure.diagnostic}</p>
       <p>

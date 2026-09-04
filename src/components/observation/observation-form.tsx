@@ -18,7 +18,11 @@ import { formCopy } from '@/content/pages/observe'
 import { trackEvent } from '@/lib/analytics/events'
 import { observeCreatePath } from '@/lib/observation/handshake'
 import { isObservationCategoryId } from '@/lib/observation/parse'
-import type { ObservationJob, ObservationPayload } from '@/lib/observation/schema'
+import {
+  observationCreateSchema,
+  type ObservationJob,
+  type ObservationPayload,
+} from '@/lib/observation/schema'
 
 /**
  * Brand plus category. Posts JSON to observeCreatePath when script runs.
@@ -77,16 +81,22 @@ export function ObservationForm({
         setSubmitting(true)
         setQueueError(undefined)
 
-        const contexts = [...sampleIntentsByCategory[selected as ObservationCategoryId]]
+        const parsed = observationCreateSchema.safeParse({
+          brand_name,
+          category: selected,
+          contexts: [...sampleIntentsByCategory[selected as ObservationCategoryId]],
+          consent: true,
+        })
+        if (!parsed.success) {
+          setQueueError(formCopy.queueError)
+          setSubmitting(false)
+          return
+        }
+
         void fetch(observeCreatePath, {
           method: 'POST',
           headers: { 'content-type': 'application/json', accept: 'application/json' },
-          body: JSON.stringify({
-            brand_name,
-            category: selected,
-            contexts,
-            consent: true,
-          }),
+          body: JSON.stringify(parsed.data),
         })
           .then(async (response) => {
             const body = (await response.json()) as CreateResponse

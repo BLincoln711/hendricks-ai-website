@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs'
+
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
@@ -10,9 +12,10 @@ import {
 } from '@/content/instruments/observation-data'
 import { selectionMapData } from '@/content/instruments/selection-map-data'
 import { diagnosticDoor, disclosure, engines, formCopy, queued } from '@/content/pages/observe'
-import { observeCreatePath, observePollPath } from '@/lib/observation/handshake'
+import { disclosure as handshakeCopy } from '@/lib/observation/copy'
+import { observeCreatePath, observePollPath, observeWorkerWritePath } from '@/lib/observation/handshake'
 import { pendingPayload } from '@/lib/observation/pending-fixture'
-import { probeEngineIds, type ObservationJob } from '@/lib/observation/schema'
+import { observationCreateSchema, probeEngineIds, type ObservationJob } from '@/lib/observation/schema'
 import {
   readObservationSession,
   writeObservationSession,
@@ -45,6 +48,38 @@ describe('observation data instance', () => {
     expect(observeQueueHook.createPath).toBe(observeCreatePath)
     expect(observeQueueHook.pollPath).toBe('/api/observe/jobs/:job_id')
     expect(observeQueueHook.wired).toBe(true)
+    expect(observeWorkerWritePath('job-1')).toBe('/api/observe/jobs/job-1/cells')
+    expect(handshakeCopy.sample).toBe(disclosure.sample)
+    expect(
+      observationCreateSchema.safeParse({
+        brand_name: 'Northwind',
+        category: 'b2b-software',
+        contexts: [...sampleIntentsFor('b2b-software')],
+        consent: true,
+      }).success,
+    ).toBe(true)
+  })
+
+  it('keeps browser chrome on create and poll and does not write cells', () => {
+    const chrome = [
+      'src/components/observation/observation-form.tsx',
+      'src/components/observation/observation-poll.tsx',
+      'src/components/observation/observation-result.tsx',
+      'src/lib/observation/poll.ts',
+      'src/app/(marketing)/observe/page.tsx',
+      'src/app/(marketing)/observe/actions.ts',
+    ]
+      .map((path) => readFileSync(path, 'utf8'))
+      .join('\n')
+
+    expect(chrome).toContain("from '@/lib/observation/handshake'")
+    expect(chrome).toContain("from '@/lib/observation/schema'")
+    expect(chrome).toContain("from '@/lib/observation/copy'")
+    expect(chrome).not.toContain('observeWorkerWritePath')
+    expect(chrome).not.toContain('/cells')
+    expect(JSON.stringify(pendingPayload({ run_id: 'r', job_id: 'j', contexts: ['a', 'b', 'c'] }))).not.toMatch(
+      /"state":"(cited|invisible)"/,
+    )
   })
 
   it('locks the pull contract to queued engines and presence words only', () => {
