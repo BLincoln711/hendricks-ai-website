@@ -17,11 +17,10 @@ import { buildMetadata } from '@/lib/seo/metadata'
 /**
  * `/observe`. Public observation shell.
  *
- * Brand plus category in. Create goes through observeCreatePath /
- * createObservationJob after a real submit. A valid `?brand=&category=`
- * query prefills the form and does not enqueue a job. Poll goes through
- * observePollPath / readObservationJob. Gemini is unmeasured from first
- * paint. No invented map cells and no invented peers.
+ * Brand plus category in. Create goes through observeCreatePath after a
+ * real submit. A valid `?brand=&category=` query prefills the form and
+ * does not enqueue a job. Poll goes through observePollPath. Gemini is
+ * unmeasured from first paint. No invented map cells and no invented peers.
  *
  * The route stays noindex until Brand and QA sign the /observe copy.
  */

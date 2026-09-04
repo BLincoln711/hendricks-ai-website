@@ -46,11 +46,6 @@ export function ObservationStation({
     const session = readObservationSession(jobId)
     let cancelled = false
 
-    if (!record && session) {
-      setCreated(session)
-      setSettled(true)
-    }
-
     void fetchObservationJob(jobId).then((result) => {
       if (cancelled) return
       if (result) {
@@ -72,7 +67,7 @@ export function ObservationStation({
       cancelled = true
       unsubscribe()
     }
-  }, [jobId, record])
+  }, [jobId])
 
   const resolved = created ?? record
 
