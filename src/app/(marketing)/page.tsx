@@ -8,10 +8,10 @@ import { TwoTone } from '@/components/ui/two-tone'
 import { ArtifactPreviewDrawing } from '@/components/visuals/artifact-previews'
 import { ConsiderationLadder } from '@/components/visuals/consideration-ladder'
 import { EvidenceClasses } from '@/components/visuals/evidence-classes'
+import { IllustrativeLegend } from '@/components/visuals/illustrative-legend'
 import { PhaseRail } from '@/components/visuals/phase-rail'
 import { SelectionMapPlate } from '@/components/visuals/selection-map-plate'
 import { TwoPathsPlate } from '@/components/visuals/two-paths-plate'
-import { ILLUSTRATIVE_CAPTION } from '@/content/shared/chrome'
 import { selectionMapData } from '@/content/instruments/selection-map-data'
 import {
   diagnostic,
@@ -94,6 +94,7 @@ export default function HomePage() {
         ) : null}
 
         <SelectionMapPlate data={selectionMapData} />
+        <IllustrativeLegend />
 
         <p className="mt-4">
           <RuleLink cta={hero.observeLink} />
@@ -202,15 +203,9 @@ export default function HomePage() {
           ))}
         </div>
 
-        <p className="text-caption mt-[22px] max-w-[60ch] text-ink-2">
-          {outputs.closing ? (
-            <>
-              {outputs.closing}
-              <br />
-            </>
-          ) : null}
-          <span className="illus">{ILLUSTRATIVE_CAPTION}</span>
-        </p>
+        {outputs.closing ? (
+          <p className="text-caption mt-[22px] max-w-[60ch] text-ink-2">{outputs.closing}</p>
+        ) : null}
       </Station>
 
       {/* 7. Audience pathways */}

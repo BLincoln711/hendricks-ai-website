@@ -12,9 +12,9 @@ import type { ReactNode } from 'react'
  * amber cross is an evidence gap.
  *
  * Sample data only, and only ever relative: no dollar figure, no percentage,
- * no client, and no brand but Brand A to Brand D and Your Brand. The station
- * carries the locked caption "Illustrative interface. Not a client result." for
- * the whole row.
+ * no client, and no brand but Brand A to Brand D and Your Brand. The page
+ * legend carries the locked caption "Illustrative interface. Not a client result."
+ * once; this row does not repeat it.
  *
  * Each preview is an image with an accessible name that says what it draws, so
  * a reader who cannot see it learns the same thing the drawing shows rather

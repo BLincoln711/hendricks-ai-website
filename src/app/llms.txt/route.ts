@@ -89,7 +89,8 @@ function pagesSection(): string {
  * site, so it stays true without maintenance, and each one answers a specific
  * fabrication risk carried by the cached retired file. The illustrative-data
  * sentence quotes the label enforced by `scripts/validate-content.ts` so the
- * sample figures in the interface visuals cannot be read as results.
+ * sample figures in the interface visuals cannot be read as results. The
+ * label is the page legend, not a caption on every figure.
  */
 function absenceSection(): string {
   return [
@@ -106,7 +107,7 @@ function absenceSection(): string {
     '- Case studies, published results, or performance metrics',
     '- Published fees',
     '',
-    'Figures shown inside an interface visual are sample data and carry the label "Illustrative interface. Not a client result."',
+    'Figures shown inside an interface visual are sample data. A page that shows them carries the label "Illustrative interface. Not a client result." once as a legend.',
   ].join('\n')
 }
 

@@ -2,7 +2,7 @@ import { EvidenceKey } from '@/components/visuals/evidence-key'
 import { PlateListView, PlateStates } from '@/components/visuals/plate-list-view'
 import { SelectionMapDrawing } from '@/components/visuals/selection-map-drawing'
 import { SourcesLedger } from '@/components/visuals/sources-ledger'
-import { ILLUSTRATIVE_CAPTION, plateChrome } from '@/content/shared/chrome'
+import { plateChrome } from '@/content/shared/chrome'
 import { keyItemsOf, resolveScenario } from '@/lib/selection-map/resolve'
 import type { SelectionMapData, SourceId } from '@/lib/selection-map/schema'
 
@@ -178,11 +178,8 @@ export function SelectionMapFrame({
         <EvidenceKey items={keyItemsOf(resolved)} />
       </div>
 
-      <figcaption className="plate-cap">
-        <span className="illus">{ILLUSTRATIVE_CAPTION}</span>
-        <span className="sr-only" id={altId}>
-          {scenario.textAlternative}
-        </span>
+      <figcaption className="sr-only" id={altId}>
+        {scenario.textAlternative}
       </figcaption>
 
       {/*

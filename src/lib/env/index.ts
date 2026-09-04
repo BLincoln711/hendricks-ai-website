@@ -81,6 +81,28 @@ const serverSchema = z.object({
     .min(32, 'RATE_LIMIT_HASH_SECRET must be at least 32 characters')
     .optional()
     .or(z.literal('').transform(() => undefined)),
+
+  /**
+   * Public-mini observation queue. Redis is optional and not on Vercel today.
+   * memory (default) and fs work locally. redis uses RATE_LIMIT_REDIS_*.
+   * Production Redis needs Brandon-approved env. Do not put DataForSEO or
+   * Ultra probe credentials in this app.
+   */
+  OBSERVE_JOB_STORE: z
+    .enum(['memory', 'fs', 'redis'])
+    .optional()
+    .or(z.literal('').transform(() => undefined)),
+  /**
+   * Non-production only. `1` or `true` loads the labeled filled fixture.
+   * Ignored when NEXT_PUBLIC_VERCEL_ENV is production.
+   */
+  OBSERVE_FIXTURE: z
+    .enum(['0', '1', 'true', 'false'])
+    .optional()
+    .or(z.literal('').transform(() => undefined)),
+  /** Optional bearer secret so Ultra can POST cell updates. Absent refuses writes. */
+  OBSERVE_WORKER_SECRET: z.string().optional().or(z.literal('').transform(() => undefined)),
+  OBSERVE_COST_CEILING_USD: z.string().optional().or(z.literal('').transform(() => undefined)),
 })
 
 const parsed = serverSchema.safeParse(process.env)

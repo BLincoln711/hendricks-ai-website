@@ -4,9 +4,8 @@
  * string per row and no two components can spell the same label differently.
  *
  * Every string below is verbatim from the approved canvas page
- * `07-hifi/home-v3.html`, checked word for word and case for case, except the
- * list-view caption, which uses the locked illustrative line in place of the
- * canvas's shortened variant of it.
+ * `07-hifi/home-v3.html`, checked word for word and case for case. The locked
+ * illustrative line is the page legend, not restated on every plate or control.
  *
  * Two pieces of the instrument's copy are deliberately not here. The six
  * source labels are data, not chrome, and live in

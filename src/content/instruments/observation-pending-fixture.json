@@ -1,0 +1,14 @@
+{
+  "label": "Observed sample. Not a client result.",
+  "method": "public_mini_v1",
+  "status": "queued",
+  "note": "Pending board only. Probe cells stay pending. Gemini is unmeasured_by_policy.",
+  "engines_requested": ["google_aio", "chat_gpt", "perplexity"],
+  "gemini_row": {
+    "engine": "gemini",
+    "state": "unmeasured",
+    "reason": "not_probed_public_mini_v1",
+    "policy": "unmeasured_by_policy"
+  },
+  "disclaimer": "This sample probes Google AI Overviews, ChatGPT, and Perplexity when the queue runs. Gemini is not probed in this sample."
+}
