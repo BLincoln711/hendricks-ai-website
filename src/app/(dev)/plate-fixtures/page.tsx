@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { Container } from '@/components/layout/container'
+import { IllustrativeLegend } from '@/components/visuals/illustrative-legend'
 import { SelectionMapPlate } from '@/components/visuals/selection-map-plate'
 import { selectionMapData } from '@/content/instruments/selection-map-data'
 import { isProduction } from '@/lib/env'
@@ -38,6 +39,7 @@ export default function PlateFixturesPage() {
           Plate 01, hero variant
         </h2>
         <SelectionMapPlate data={selectionMapData} />
+        <IllustrativeLegend />
       </section>
     </Container>
   )

@@ -83,6 +83,9 @@ describe('/llms.txt', () => {
     expect(body).toContain('- Testimonials')
     expect(body).toContain('- Case studies, published results, or performance metrics')
     expect(body).toContain('- Published fees')
+    expect(body).toContain(
+      'A page that shows them carries the label "Illustrative interface. Not a client result." once as a legend.',
+    )
   })
 
   it('leaves crawler policy to robots.txt', () => {

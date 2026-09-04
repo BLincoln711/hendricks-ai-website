@@ -18,7 +18,9 @@ import type { problem } from '@/content/pages/home'
  * carries the same content as one sentence pair, because a screen reader
  * reading twenty-two floating labels in grid order learns nothing.
  *
- * Illustrative interface. Not a client result.
+ * Illustrative interface. Not a client result. The locked line is the page
+ * legend; this plate keeps it in the text alternative, not as a second visible
+ * caption.
  */
 
 /** The grid the label layer is laid out on: seven step columns, eleven rows. */
@@ -166,12 +168,9 @@ export function TwoPathsPlate({ plate }: { plate: typeof problem.plate }) {
         </div>
       </div>
 
-      <figcaption className="plate-cap">
-        <span className="illus">{ILLUSTRATIVE_CAPTION}</span>
+      <figcaption className="sr-only" id="two-paths-alt">
+        {ILLUSTRATIVE_CAPTION} {plate.alt}
       </figcaption>
-      <p className="sr-only" id="two-paths-alt">
-        {plate.alt}
-      </p>
     </figure>
   )
 }

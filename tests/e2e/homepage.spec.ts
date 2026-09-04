@@ -44,9 +44,11 @@ test.describe('Homepage', () => {
   test('labels the Selection Map as illustrative and provides a text alternative', async ({
     page,
   }) => {
-    const illustrative = page.locator('#plate-01 .illus')
+    const illustrative = page.locator('.illus', {
+      hasText: 'Illustrative interface. Not a client result.',
+    })
+    await expect(illustrative).toHaveCount(1)
     await expect(illustrative).toBeVisible()
-    await expect(illustrative).toHaveText('Illustrative interface. Not a client result.')
 
     // The diagram's meaning must reach assistive technology as text, once. Both
     // breakpoint drawings point at this one alternative rather than carrying
@@ -56,16 +58,15 @@ test.describe('Homepage', () => {
     await expect(alternative).toContainText('An illustrative diagram, not a client result.')
   })
 
-  test('labels every sample-data figure as illustrative', async ({ page }) => {
-    // AGENTS.md and canvas.md section 2: each figure drawn from sample data
-    // carries the locked line verbatim. The homepage draws three, and asserting
-    // the count keeps a fourth from arriving unlabelled.
+  test('shows the locked illustrative line once as a page legend', async ({ page }) => {
+    // The homepage used to restate the locked line on Plate 01, Plate 02, and
+    // the artifact row. One visible legend covers every sample-data figure.
     const labels = page.locator('.illus', {
       hasText: 'Illustrative interface. Not a client result.',
     })
 
-    await expect(labels).toHaveCount(3)
-    for (const label of await labels.all()) await expect(label).toBeVisible()
+    await expect(labels).toHaveCount(1)
+    await expect(labels).toBeVisible()
   })
 
   test('exposes a working skip link as the first tab stop', async ({ page, browserName, isMobile }) => {
@@ -113,9 +114,11 @@ test.describe('Layout integrity', () => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto('/')
 
-    const illustrative = page.locator('#plate-01 .illus')
+    const illustrative = page.locator('.illus', {
+      hasText: 'Illustrative interface. Not a client result.',
+    })
+    await expect(illustrative).toHaveCount(1)
     await expect(illustrative).toBeVisible()
-    await expect(illustrative).toHaveText('Illustrative interface. Not a client result.')
     await expect(page.locator('#plate-01-alt')).toContainText(
       'An illustrative diagram, not a client result.',
     )

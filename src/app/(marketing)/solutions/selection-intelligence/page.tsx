@@ -12,6 +12,7 @@ import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
 import { RuleLink } from '@/components/ui/cta'
 import { TwoTone } from '@/components/ui/two-tone'
+import { IllustrativeLegend } from '@/components/visuals/illustrative-legend'
 import { NodePathDrawing } from '@/components/visuals/node-paths'
 import { RESTING, SelectionMapFrame } from '@/components/visuals/selection-map-frame'
 import { routes } from '@/config/routes'
@@ -188,6 +189,7 @@ export default function SelectionIntelligencePage() {
 
         <div className="mt-14">
           <SelectionMapFrame data={selectionMapData} state={RESTING} id="plate-01" />
+          <IllustrativeLegend />
         </div>
       </Station>
 

@@ -8,7 +8,9 @@ import { ArtifactPreviewDrawing } from '@/components/visuals/artifact-previews'
 import { ConsiderationLadder } from '@/components/visuals/consideration-ladder'
 import { EvidenceClasses } from '@/components/visuals/evidence-classes'
 import { PhaseRail } from '@/components/visuals/phase-rail'
+import { IllustrativeLegend } from '@/components/visuals/illustrative-legend'
 import { TwoPathsPlate } from '@/components/visuals/two-paths-plate'
+import { ILLUSTRATIVE_CAPTION } from '@/content/shared/chrome'
 import { evidence, founder, ladder, problem, system } from '@/content/pages/home'
 
 /**
@@ -141,12 +143,25 @@ describe('ArtifactPreviewDrawing', () => {
   })
 })
 
+describe('IllustrativeLegend', () => {
+  it('renders the locked caption once as a visible legend note', () => {
+    render(<IllustrativeLegend />)
+
+    const legend = screen.getByText(ILLUSTRATIVE_CAPTION)
+    expect(legend.tagName).toBe('P')
+    expect(legend).toHaveClass('illus')
+  })
+})
+
 describe('TwoPathsPlate', () => {
-  it('carries the locked illustrative caption and one text alternative', () => {
+  it('keeps an illustrative text alternative without a visible caption', () => {
     render(<TwoPathsPlate plate={problem.plate} />)
 
-    expect(screen.getByText('Illustrative interface. Not a client result.')).toBeInTheDocument()
-    expect(screen.getByText(problem.plate.alt)).toBeInTheDocument()
+    expect(document.querySelector('.illus')).toBeNull()
+    const alternative = document.getElementById('two-paths-alt')
+    expect(alternative).toHaveClass('sr-only')
+    expect(alternative?.textContent).toContain(ILLUSTRATIVE_CAPTION)
+    expect(alternative?.textContent).toContain(problem.plate.alt)
   })
 
   it('hides the label layer, so the drawing is read once and as a sentence', () => {
