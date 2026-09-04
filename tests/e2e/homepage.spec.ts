@@ -158,16 +158,10 @@ test.describe('System routes', () => {
  * asserted as published and neither is loosened to fit the build.
  *
  * The rebuild is well inside the design's own envelope: `main` is 7,417 px
- * against the design's 7,911 px, and 12,558 px against its 12,994 px. The
- * mobile ceiling nonetheless fails, by 52 px, and the whole of the overhang is
- * the site footer: 1,443 px at 390 against the canvas footer's 1,182 px. That
- * height is spent on the 44 by 44 px touch target `docs/04-DESIGN-SYSTEM.md`
- * and `docs/08-ACCESSIBILITY-PERFORMANCE-SECURITY.md` both require and the
- * canvas footer does not hold, so the footer is shared chrome this route may
- * not shorten, and shortening it would trade an accessibility rule for a
- * length budget. The mobile measurement is therefore marked as expected to
- * fail with the footer named, rather than passed by moving the line: when the
- * footer and the 44 px rule are reconciled the marker turns red and comes out.
+ * against the design's 7,911 px, and 12,558 px against its 12,994 px. Cutting
+ * the repeated illustrative captions to one page legend brought the document
+ * back inside the 14,350 px mobile ceiling, so that gate is asserted as a
+ * pass rather than an expected fail.
  */
 test.describe('Homepage compression budget', () => {
   // One engine, real viewports. The other projects would remeasure the same
@@ -197,8 +191,6 @@ test.describe('Homepage compression budget', () => {
   })
 
   test('stays inside the mobile height ceiling at 390 by 844', async ({ page }) => {
-    test.fail(true, 'Blocked by the shared footer, 261 px taller at 390 than the canvas footer')
-
     await page.setViewportSize({ width: 390, height: 844 })
     await page.goto('/')
 
