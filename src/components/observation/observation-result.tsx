@@ -12,19 +12,24 @@ import {
   queued,
 } from '@/content/pages/observe'
 import { routes } from '@/config/routes'
-import type { ObservationJob } from '@/lib/observation/contract'
-import { categoryLabel, displayBrand } from '@/lib/observation/parse'
+import type { ObservationJob, ObservationPayload } from '@/lib/observation/schema'
+import { categoryLabel, displayBrand, isObservationCategoryId } from '@/lib/observation/parse'
 
 /**
- * Queued observation chrome. Wordmark, Observation label, pending board,
- * sample intent chips, disclosure, Diagnostic door.
- *
- * No Selection Map drawing. No shortlisted cells. No invented peers. Gemini
- * is unmeasured from first paint.
+ * Queued observation chrome from a handshake job plus payload.
+ * No Selection Map drawing. No invented peers. Gemini is unmeasured from
+ * first paint via gemini_row.
  */
 
-export function ObservationResult({ job }: { job: ObservationJob }) {
+export function ObservationResult({
+  job,
+  payload,
+}: {
+  job: ObservationJob
+  payload: ObservationPayload
+}) {
   const brand = displayBrand(job.brand_name)
+  const category = isObservationCategoryId(job.category) ? job.category : undefined
 
   return (
     <figure className="plate" id="observation">
@@ -35,7 +40,9 @@ export function ObservationResult({ job }: { job: ObservationJob }) {
       <p className="plate-gloss">{queued.gloss}</p>
 
       <p className="observation-brand">
-        <span className="text-coordinate text-ink-2">{categoryLabel(job.category)}</span>
+        <span className="text-coordinate text-ink-2">
+          {category ? categoryLabel(category) : job.category}
+        </span>
         <span title={brand.full} aria-label={brand.full}>
           {brand.display}
         </span>
@@ -44,12 +51,12 @@ export function ObservationResult({ job }: { job: ObservationJob }) {
       <p className="observation-job text-coordinate text-ink-2">
         <span>{queued.jobLabel}</span>{' '}
         <code title={job.job_id} data-observe-job={job.job_id}>
-          {job.job_id.length > 28 ? `${job.job_id.slice(0, 25)}...` : job.job_id}
+          {job.job_id}
         </code>
       </p>
 
       <ObservationJobPoll jobId={job.job_id} status={job.status} />
-      <ObservationBoard job={job} />
+      <ObservationBoard job={job} payload={payload} />
 
       <div className="observation-intents">
         <p className="text-coordinate text-ink-2">{queued.intentsLegend}</p>
@@ -77,7 +84,7 @@ export function ObservationResult({ job }: { job: ObservationJob }) {
       </ul>
 
       <figcaption className="plate-cap">
-        <span>{disclosure.sample}</span>
+        <span>{payload.disclaimer || disclosure.sample}</span>
         <span>{disclosure.limits}</span>
         <span>{disclosure.diagnostic}</span>
       </figcaption>

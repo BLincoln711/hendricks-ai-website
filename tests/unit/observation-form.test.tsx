@@ -1,22 +1,31 @@
 import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push: vi.fn() }),
+}))
 
 import { ObservationForm } from '@/components/observation/observation-form'
 import { ObservationDisclosure } from '@/components/observation/observation-result'
 import { disclosure, formCopy } from '@/content/pages/observe'
+import { observeCreatePath } from '@/lib/observation/handshake'
 
 describe('ObservationForm', () => {
-  it('asks for a brand and a category and posts to job create', () => {
+  it('asks for a brand and a category and names the handshake create path', () => {
     render(<ObservationForm />)
 
-    const form = screen.getByRole('form')
-    expect(form).toHaveAttribute('method', 'post')
-    expect(form).toHaveAttribute('action', '/api/observe/jobs')
+    expect(screen.getByRole('form')).toBeInTheDocument()
+    expect(observeCreatePath).toBe('/api/observe/jobs')
 
     expect(screen.getByLabelText(new RegExp(formCopy.brandLabel))).toBeRequired()
     expect(screen.getByLabelText(new RegExp(formCopy.brandLabel))).toHaveAttribute('name', 'brand_name')
     expect(screen.getByLabelText(new RegExp(formCopy.categoryLabel))).toBeRequired()
     expect(screen.getByRole('button', { name: formCopy.submit })).toBeInTheDocument()
+    expect(screen.getByText(formCopy.notice, { exact: false })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: formCopy.privacyLabel })).toHaveAttribute(
+      'href',
+      '/privacy',
+    )
   })
 
   it('shows empty-state field errors without inventing a result', () => {

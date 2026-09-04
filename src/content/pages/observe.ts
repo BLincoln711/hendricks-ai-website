@@ -37,6 +37,10 @@ export const formCopy = {
   categoryPrompt: 'Select one',
   submit: 'Queue observation',
   submitting: 'Queuing observation...',
+  notice:
+    'Hendricks will use the brand and category you enter to queue this public sample and protect the form from abuse. This is not a Diagnostic application.',
+  privacyLabel: 'Privacy Notice',
+  queueError: 'This observation could not be queued. Check the fields and try again.',
 } as const
 
 export const queued = {
@@ -51,6 +55,8 @@ export const queued = {
     'No selection map is drawn on this page. Empty means unmeasured or not observed in this run. Cells are not invented.',
   cellPending: 'pending',
   cellUnmeasured: 'unmeasured',
+  cellCited: 'cited',
+  cellInvisible: 'invisible',
   engineColumn: 'Engine',
   sampleColumn: 'Sample',
   intentsLegend: 'Sample intents',

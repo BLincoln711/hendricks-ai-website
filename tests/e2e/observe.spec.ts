@@ -59,23 +59,26 @@ test.describe('Observation job API', () => {
           'What should a first-time buyer compare before choosing a vendor in this category?',
           'Which option fits a team replacing a spreadsheet process in this category?',
         ],
+        consent: true,
       },
     })
 
     expect(created.status()).toBe(201)
-    const job = (await created.json()) as {
-      job_id: string
-      status: string
-      board: { engines: { engine: string; state: string }[]; cells: { state: string }[] }
+    const body = (await created.json()) as {
+      ok: boolean
+      job: { job_id: string; status: string }
+      payload: { gemini_row: { state: string }; cells: { state: string }[] }
     }
-    expect(job.status).toBe('queued')
-    expect(job.board.engines.find((row) => row.engine === 'gemini')?.state).toBe('unmeasured')
+    expect(body.ok).toBe(true)
+    expect(body.job.status).toBe('queued')
+    expect(body.payload.gemini_row.state).toBe('unmeasured')
+    expect(body.payload.cells.every((cell) => cell.state === 'pending')).toBe(true)
 
-    const polled = await request.get(`/api/observe/jobs/${encodeURIComponent(job.job_id)}`)
+    const polled = await request.get(`/api/observe/jobs/${encodeURIComponent(body.job.job_id)}`)
     expect(polled.status()).toBe(200)
-    const body = await polled.text()
-    expect(body).not.toContain('cited')
-    expect(body).not.toContain('invisible')
+    const text = await polled.text()
+    expect(text).not.toMatch(/"state":"cited"/)
+    expect(text).not.toMatch(/"state":"invisible"/)
   })
 })
 

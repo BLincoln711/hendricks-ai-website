@@ -34,7 +34,9 @@ Enter a brand and a category. This page queues a public sample. It is not the Se
 
 **Primary action:** Queue observation
 
-**Create:** `POST /api/observe/jobs`
+**Create:** `POST /api/observe/jobs` via `observeCreatePath` in `src/lib/observation/handshake.ts`.
+
+**Poll:** `GET /api/observe/jobs/:job_id` via `observePollPath(job_id)`.
 
 ## Queued state
 

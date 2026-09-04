@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from 'react'
 
-import type { ObservationJobStatus } from '@/lib/observation/contract'
+import type { ObservationJobStatus } from '@/lib/observation/schema'
 import { subscribeObservationJob } from '@/lib/observation/poll'
 
 /**
- * Poll stub island. First paint is the server board. This only records the
- * latest honest status. It does not paint cited or invisible cells.
+ * Poll stub island. First paint is the server board. Polls observePollPath.
+ * Does not invent cited or invisible cells.
  */
 
 export function ObservationJobPoll({
@@ -20,8 +20,8 @@ export function ObservationJobPoll({
   const [polled, setPolled] = useState(status)
 
   useEffect(() => {
-    return subscribeObservationJob(jobId, (job) => {
-      setPolled(job.status)
+    return subscribeObservationJob(jobId, (result) => {
+      setPolled(result.job.status)
     })
   }, [jobId])
 

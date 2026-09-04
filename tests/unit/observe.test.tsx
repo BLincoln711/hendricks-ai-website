@@ -5,8 +5,9 @@ import { ObservationResult } from '@/components/observation/observation-result'
 import { emptyObservation, observationEngines, observeQueueHook } from '@/content/instruments/observation-data'
 import { selectionMapData } from '@/content/instruments/selection-map-data'
 import { disclosure, queued } from '@/content/pages/observe'
-import { OBSERVE_ENGINE_IDS } from '@/lib/observation/contract'
-import { createObservationJob } from '@/lib/observation/jobs'
+import { observeCreatePath, observePollPath } from '@/lib/observation/handshake'
+import { pendingPayload } from '@/lib/observation/pending-fixture'
+import { probeEngineIds, type ObservationJob } from '@/lib/observation/schema'
 import {
   displayBrand,
   parseObservationSearch,
@@ -22,17 +23,18 @@ describe('observation data instance', () => {
     expect(selectionMapData.brands.map((brand) => brand.label)).toContain('Your Brand')
   })
 
-  it('keeps Perplexity in the later queue and leaves only Gemini unmeasured', () => {
+  it('imports handshake create and poll paths and leaves only Gemini unmeasured', () => {
     const byId = Object.fromEntries(observationEngines.map((engine) => [engine.id, engine]))
 
-    expect(byId.google_aio?.status).toBe('pending')
-    expect(byId.chat_gpt?.status).toBe('pending')
+    expect(byId['google-ai-overviews']?.status).toBe('pending')
+    expect(byId.chatgpt?.status).toBe('pending')
     expect(byId.perplexity?.status).toBe('pending')
     expect(byId.gemini?.status).toBe('unmeasured')
-    expect([...observationEngines.map((engine) => engine.id)]).toEqual([...OBSERVE_ENGINE_IDS])
-    expect(observeQueueHook.create).toBe('POST /api/observe/jobs')
-    expect(observeQueueHook.poll).toBe('GET /api/observe/jobs/:job_id')
-    expect(observeQueueHook.wired).toBe(false)
+    expect(observeCreatePath).toBe('/api/observe/jobs')
+    expect(observePollPath('job-1')).toBe('/api/observe/jobs/job-1')
+    expect(observeQueueHook.createPath).toBe(observeCreatePath)
+    expect(observeQueueHook.pollPath).toBe('/api/observe/jobs/:job_id')
+    expect(observeQueueHook.wired).toBe(true)
   })
 })
 
@@ -91,14 +93,21 @@ describe('displayBrand', () => {
 })
 
 describe('ObservationResult', () => {
-  it('renders a pending board and does not invent shortlisted cells', () => {
-    const job = createObservationJob({
+  it('renders a pending handshake board and does not invent shortlisted cells', () => {
+    const contexts = [...sampleIntentsFor('industrial')]
+    const job: ObservationJob = {
+      job_id: 'job-test',
+      created_at: '2026-09-04T00:00:00.000Z',
+      status: 'queued',
       brand_name: 'Northwind Logistics Group',
       category: 'industrial',
-      contexts: [...sampleIntentsFor('industrial')],
-    })
+      contexts,
+      engines_requested: [...probeEngineIds],
+      cost_ceiling_usd: 2,
+    }
+    const payload = pendingPayload({ run_id: 'run-test', job_id: job.job_id, contexts })
 
-    render(<ObservationResult job={job} />)
+    render(<ObservationResult job={job} payload={payload} />)
 
     expect(screen.getByText(queued.instrumentLabel)).toBeInTheDocument()
     expect(screen.getAllByText(queued.status).length).toBeGreaterThan(0)
@@ -112,6 +121,9 @@ describe('ObservationResult', () => {
     expect(screen.queryByText('Your Brand')).not.toBeInTheDocument()
     expect(screen.queryByText('cited')).not.toBeInTheDocument()
     expect(screen.queryByText('invisible')).not.toBeInTheDocument()
+    expect(payload.cells.some((cell) => cell.state === 'cited' || cell.state === 'invisible')).toBe(
+      false,
+    )
 
     const engineList = screen.getByRole('list', { name: 'Engines named in this sample' })
     expect(engineList).toHaveTextContent('Perplexity')

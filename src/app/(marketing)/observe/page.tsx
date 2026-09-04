@@ -11,17 +11,18 @@ import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
 import { routes } from '@/config/routes'
 import { formCopy, hero, meta, queued } from '@/content/pages/observe'
-import { createObservationJob, getObservationJob } from '@/lib/observation/jobs'
 import { parseObservationJobId, parseObservationSearch, sampleIntentsFor } from '@/lib/observation/parse'
+import { createObservationJob, readObservationJob } from '@/lib/observation/service'
 import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
  * `/observe`. Public observation shell.
  *
- * Brand plus category in. POST /api/observe/jobs creates a job_id and a pending
- * board. Gemini is unmeasured from first paint. No live engine pulls, no
- * invented map cells, no invented peers.
+ * Brand plus category in. Create goes through observeCreatePath /
+ * createObservationJob. Poll goes through observePollPath /
+ * readObservationJob. Gemini is unmeasured from first paint. No invented
+ * map cells and no invented peers.
  */
 
 export const metadata: Metadata = buildMetadata({
@@ -37,20 +38,25 @@ export default async function ObservePage({
 }) {
   const search = await searchParams
   const jobId = parseObservationJobId(search)
-  const job = jobId ? getObservationJob(jobId) : null
+  const read = jobId ? await readObservationJob(jobId) : null
+  const record = read?.ok ? { job: read.job, payload: read.payload } : null
   const parsed = parseObservationSearch(search)
 
   if (!jobId && parsed.status === 'queued') {
-    const created = createObservationJob({
+    const created = await createObservationJob({
       brand_name: parsed.query.brand,
+      brand_host: undefined,
       category: parsed.query.category,
       contexts: [...sampleIntentsFor(parsed.query.category)],
+      consent: true,
     })
-    redirect(`${routes.observe.path}?job=${encodeURIComponent(created.job_id)}`)
+    if (created.ok) {
+      redirect(`${routes.observe.path}?job=${encodeURIComponent(created.job.job_id)}`)
+    }
   }
 
-  const showBoard = jobId ? Boolean(job) : false
-  const showMissing = Boolean(jobId && !job)
+  const showBoard = Boolean(record)
+  const showMissing = Boolean(jobId && !record)
 
   return (
     <div className="wrap">
@@ -77,13 +83,13 @@ export default async function ObservePage({
       />
 
       <Station id="observe-form" ariaLabelledBy="observe-form-title">
-        {showBoard && job ? (
+        {showBoard && record ? (
           <>
             <h2 id="observe-form-title" className="text-h2 text-ink">
               {queued.status}
             </h2>
             <div className="mt-[34px]">
-              <ObservationResult job={job} />
+              <ObservationResult job={record.job} payload={record.payload} />
             </div>
           </>
         ) : (

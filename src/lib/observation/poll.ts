@@ -1,34 +1,46 @@
-import { hasForbiddenFill, jobIsHonest, type ObservationJob } from '@/lib/observation/contract'
+import { observePollPath } from '@/lib/observation/handshake'
+import type { ObservationJob, ObservationPayload } from '@/lib/observation/schema'
 
 /**
- * Client poll/subscribe stub for GET /api/observe/jobs/:job_id.
+ * Client poll stub for GET /api/observe/jobs/:job_id via observePollPath.
  *
- * PR1 payloads stay queued with pending or unmeasured cells. A payload that
- * emits cited or invisible is ignored so a fixture cannot paint a fill.
+ * PR1 create and pending fixtures stay queued with pending or unmeasured cells.
+ * Real cited or invisible fills from a later worker are accepted when they
+ * arrive. This helper does not invent them.
  */
 
-export async function fetchObservationJob(jobId: string): Promise<ObservationJob | null> {
-  const response = await fetch(`/api/observe/jobs/${encodeURIComponent(jobId)}`, {
+export type ObservationPollResult = {
+  job: ObservationJob
+  payload: ObservationPayload
+}
+
+export async function fetchObservationJob(jobId: string): Promise<ObservationPollResult | null> {
+  const response = await fetch(observePollPath(jobId), {
     headers: { accept: 'application/json' },
     cache: 'no-store',
   })
   if (!response.ok) return null
-  return (await response.json()) as ObservationJob
+  const body = (await response.json()) as {
+    ok?: boolean
+    job?: ObservationJob
+    payload?: ObservationPayload
+  }
+  if (!body.ok || !body.job || !body.payload) return null
+  return { job: body.job, payload: body.payload }
 }
 
 export function subscribeObservationJob(
   jobId: string,
-  onUpdate: (job: ObservationJob) => void,
+  onUpdate: (result: ObservationPollResult) => void,
   intervalMs = 15000,
 ): () => void {
   let cancelled = false
 
   const pull = async () => {
     try {
-      const job = await fetchObservationJob(jobId)
-      if (cancelled || !job) return
-      if (hasForbiddenFill(job) || !jobIsHonest(job)) return
-      onUpdate(job)
+      const result = await fetchObservationJob(jobId)
+      if (cancelled || !result) return
+      onUpdate(result)
     } catch {
       return
     }

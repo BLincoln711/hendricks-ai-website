@@ -7,14 +7,11 @@ import {
   sampleIntentsByCategory,
   type ObservationCategoryId,
 } from '@/content/instruments/observation-data'
-import type { ObservationJobCreateInput } from '@/lib/observation/contract'
 
 /**
- * Parse the `/observe` query and the POST /api/observe/jobs body.
- *
- * Brand is visitor-typed and never forwarded to analytics. Category is a closed
- * list, so a slug may be reported. Contexts are required on the JSON body and
- * filled from the category templates on a form post. No probe is invoked here.
+ * Parse the `/observe` query. Brand is visitor-typed and never forwarded to
+ * analytics. Category is a closed list. Job create lives on the handshake
+ * schema in `src/lib/observation/schema.ts`.
  */
 
 const BrandSchema = z.string().trim().min(1).max(80)
@@ -26,19 +23,6 @@ const categoryValues = [
 
 const CategorySchema = z.enum(categoryValues)
 
-const HostSchema = z
-  .string()
-  .trim()
-  .min(1)
-  .max(253)
-  .refine((value) => !value.includes('://') && !value.includes(' '), 'host')
-
-const EmailSchema = z.string().trim().email().max(254)
-
-const ContextSchema = z.string().trim().min(1).max(200)
-
-const ContextsSchema = z.array(ContextSchema).min(3).max(4)
-
 export type ObservationQuery = {
   brand: string
   category: ObservationCategoryId
@@ -48,10 +32,6 @@ export type ObservationParse =
   | { status: 'idle' }
   | { status: 'invalid'; brand?: string; category?: string; errors: { brand?: string; category?: string } }
   | { status: 'queued'; query: ObservationQuery }
-
-export type ObservationCreateParse =
-  | { status: 'ok'; input: ObservationJobCreateInput }
-  | { status: 'invalid'; errors: Record<string, string> }
 
 function firstString(value: string | string[] | undefined): string | undefined {
   if (typeof value === 'string') return value
@@ -99,69 +79,6 @@ export function parseObservationSearch(search: {
   }
 }
 
-function readContexts(value: unknown): unknown {
-  if (Array.isArray(value)) return value
-  if (typeof value === 'string') {
-    return value
-      .split('\n')
-      .map((line) => line.trim())
-      .filter((line) => line.length > 0)
-  }
-  return value
-}
-
-export function parseObservationCreate(
-  raw: Record<string, unknown>,
-  options?: { fillContextsFromCategory?: boolean },
-): ObservationCreateParse {
-  const errors: Record<string, string> = {}
-  const brandResult = BrandSchema.safeParse(raw.brand_name ?? raw.brand ?? '')
-  const categoryResult = CategorySchema.safeParse(raw.category ?? '')
-  const hostRaw = raw.brand_host
-  const emailRaw = raw.email
-
-  if (!brandResult.success) errors.brand_name = 'brand_name'
-  if (!categoryResult.success) errors.category = 'category'
-
-  let contexts = readContexts(raw.contexts)
-  if (
-    options?.fillContextsFromCategory &&
-    categoryResult.success &&
-    (!Array.isArray(contexts) || contexts.length === 0)
-  ) {
-    contexts = [...sampleIntentsByCategory[categoryResult.data]]
-  }
-
-  const contextsResult = ContextsSchema.safeParse(contexts)
-  if (!contextsResult.success) errors.contexts = 'contexts'
-
-  let brand_host: string | undefined
-  if (typeof hostRaw === 'string' && hostRaw.trim().length > 0) {
-    const hostResult = HostSchema.safeParse(hostRaw)
-    if (!hostResult.success) errors.brand_host = 'brand_host'
-    else brand_host = hostResult.data
-  }
-
-  if (typeof emailRaw === 'string' && emailRaw.trim().length > 0) {
-    const emailResult = EmailSchema.safeParse(emailRaw)
-    if (!emailResult.success) errors.email = 'email'
-  }
-
-  if (Object.keys(errors).length > 0 || !brandResult.success || !categoryResult.success || !contextsResult.success) {
-    return { status: 'invalid', errors }
-  }
-
-  return {
-    status: 'ok',
-    input: {
-      brand_name: brandResult.data,
-      category: categoryResult.data,
-      contexts: contextsResult.data,
-      ...(brand_host ? { brand_host } : {}),
-    },
-  }
-}
-
 export function displayBrand(brand: string): { display: string; full: string } {
   const full = brand.trim()
   if (full.length <= OBSERVE_BRAND_DISPLAY_LIMIT) return { display: full, full }
@@ -174,4 +91,8 @@ export function categoryLabel(id: ObservationCategoryId): string {
 
 export function sampleIntentsFor(id: ObservationCategoryId): readonly string[] {
   return sampleIntentsByCategory[id]
+}
+
+export function isObservationCategoryId(value: string): value is ObservationCategoryId {
+  return (observationCategoryIds as readonly string[]).includes(value)
 }

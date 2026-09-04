@@ -1,4 +1,5 @@
 import { STAGE_IDS } from '@/lib/selection-map/schema'
+import { observeQueueHook as handshakeQueueHook } from '@/lib/observation/handshake'
 
 /**
  * Empty observation instance for `/observe`.
@@ -7,8 +8,8 @@ import { STAGE_IDS } from '@/lib/selection-map/schema'
  * This object is not `selectionMapData`. It carries no peers, no shortlisted
  * cells, and no intervention. Do not pass it to `SelectionMapDrawing`.
  *
- * The live board is `ObservationJob.board` from POST /api/observe/jobs. Engine
- * ids stay locked as google_aio, chat_gpt, perplexity, gemini.
+ * API engine ids are snake_case on the handshake. Chrome ids stay kebab-case
+ * and map at the boundary through `siteEngineIds`.
  */
 
 export const OBSERVE_BRAND_DISPLAY_LIMIT = 28
@@ -16,8 +17,8 @@ export const OBSERVE_BRAND_DISPLAY_LIMIT = 28
 export const observationStages = STAGE_IDS
 
 export const observationEngineIds = [
-  'google_aio',
-  'chat_gpt',
+  'google-ai-overviews',
+  'chatgpt',
   'perplexity',
   'gemini',
 ] as const
@@ -37,8 +38,8 @@ export type ObservationEngine = {
  * first three. Gemini is the only engine this sample does not probe.
  */
 export const observationEngines = [
-  { id: 'google_aio', label: 'Google AI Overviews', status: 'pending' },
-  { id: 'chat_gpt', label: 'ChatGPT', status: 'pending' },
+  { id: 'google-ai-overviews', label: 'Google AI Overviews', status: 'pending' },
+  { id: 'chatgpt', label: 'ChatGPT', status: 'pending' },
   { id: 'perplexity', label: 'Perplexity', status: 'pending' },
   { id: 'gemini', label: 'Gemini', status: 'unmeasured' },
 ] as const satisfies readonly ObservationEngine[]
@@ -93,8 +94,7 @@ export const sampleIntentsByCategory: Record<ObservationCategoryId, readonly str
 
 /**
  * The empty run. `brands` stays empty so peers cannot be invented. `cells`
- * stays empty so no shortlist can be drawn. A later PR fills a real board
- * from Visibility Mode B, never from a fixture that looks like a win.
+ * stays empty so no shortlist can be drawn.
  */
 export const emptyObservation = {
   version: 'observe-shell-1',
@@ -105,15 +105,4 @@ export const emptyObservation = {
   stages: observationStages,
 } as const
 
-/**
- * PR2 hook. The shell records the create and poll paths and leaves the probe
- * unwired. No Visibility API keys, no probe client, no secrets.
- */
-export const observeQueueHook = {
-  wired: false,
-  create: 'POST /api/observe/jobs',
-  poll: 'GET /api/observe/jobs/:job_id',
-  enginesWhenQueued: ['google_aio', 'chat_gpt', 'perplexity'] as const,
-  notProbed: ['gemini'] as const,
-  geminiReason: 'not_probed_public_mini_v1' as const,
-}
+export const observeQueueHook = handshakeQueueHook

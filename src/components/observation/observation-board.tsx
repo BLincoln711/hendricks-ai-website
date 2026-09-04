@@ -1,15 +1,36 @@
 import { TableRegion } from '@/components/canvas/table-region'
 import { engines as engineCopy, queued } from '@/content/pages/observe'
-import { engineLabel, isGemini, type ObservationJob } from '@/lib/observation/contract'
+import type {
+  BoardEngineId,
+  ObservationCellState,
+  ObservationJob,
+  ObservationPayload,
+} from '@/lib/observation/schema'
 
 /**
- * Pending observation board. Engines as rows, sample contexts as columns.
- * Cells are pending or unmeasured. Gemini is unmeasured from first paint.
- * This is not a Selection Map and is never passed to SelectionMapDrawing.
+ * Pending observation board from the handshake payload. Probe engines come
+ * from cells. Gemini comes from gemini_row and starts unmeasured. This is not
+ * a Selection Map and is never passed to SelectionMapDrawing.
  */
 
-function cellLabel(state: 'pending' | 'unmeasured' | 'cited' | 'invisible'): string {
+const ENGINE_LABEL: Record<BoardEngineId, string> = {
+  google_aio: 'Google AI Overviews',
+  chat_gpt: 'ChatGPT',
+  perplexity: 'Perplexity',
+  gemini: 'Gemini',
+}
+
+const BOARD_ENGINES: readonly BoardEngineId[] = [
+  'google_aio',
+  'chat_gpt',
+  'perplexity',
+  'gemini',
+]
+
+function cellLabel(state: ObservationCellState): string {
   if (state === 'unmeasured') return queued.cellUnmeasured
+  if (state === 'cited') return queued.cellCited
+  if (state === 'invisible') return queued.cellInvisible
   return queued.cellPending
 }
 
@@ -26,7 +47,13 @@ function statusCopy(status: ObservationJob['status']): string {
   }
 }
 
-export function ObservationBoard({ job }: { job: ObservationJob }) {
+export function ObservationBoard({
+  job,
+  payload,
+}: {
+  job: ObservationJob
+  payload: ObservationPayload
+}) {
   const columns = [
     { key: 'engine', header: queued.engineColumn, rowHeader: true },
     ...job.contexts.map((context, index) => ({
@@ -35,15 +62,18 @@ export function ObservationBoard({ job }: { job: ObservationJob }) {
     })),
   ]
 
-  const rows = job.board.engines.map((row) => {
+  const rows = BOARD_ENGINES.map((engine) => {
+    const isGemini = engine === 'gemini'
     const cells: Record<string, string> = {
-      engine: `${engineLabel(row.engine)}${isGemini(row.engine) ? ` (${engineCopy.notProbedNote})` : ''}`,
+      engine: `${ENGINE_LABEL[engine]}${isGemini ? ` (${engineCopy.notProbedNote})` : ''}`,
     }
     job.contexts.forEach((context, index) => {
-      const cell = job.board.cells.find(
-        (entry) => entry.engine === row.engine && entry.context === context,
-      )
-      cells[`c${index}`] = cellLabel(cell?.state === 'unmeasured' ? 'unmeasured' : 'pending')
+      if (isGemini) {
+        cells[`c${index}`] = cellLabel(payload.gemini_row.state)
+        return
+      }
+      const cell = payload.cells.find((entry) => entry.engine === engine && entry.context === context)
+      cells[`c${index}`] = cellLabel(cell?.state ?? 'pending')
     })
     return cells
   })
@@ -55,5 +85,3 @@ export function ObservationBoard({ job }: { job: ObservationJob }) {
     </div>
   )
 }
-
-export { statusCopy }
