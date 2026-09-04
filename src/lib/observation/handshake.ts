@@ -18,6 +18,7 @@ import {
 export const observeCreatePath = '/api/observe/jobs'
 export const observePollPath = (job_id: string) => `/api/observe/jobs/${job_id}`
 export const observeWorkerWritePath = (job_id: string) => `/api/observe/jobs/${job_id}/cells`
+export const observeWorkerScript = 'scripts/observe-ultra-worker.ts'
 
 export const observeEnginesRequested: readonly ProbeEngineId[] = probeEngineIds
 
