@@ -44,7 +44,7 @@ const FILLED: readonly FilledSpec[] = [
 export function filledCellsFor(
   contexts: readonly string[],
   brandHost?: string,
-): ObservationCell[] {
+): Array<Omit<ObservationCell, 'engine'> & { engine: ProbeEngineId }> {
   return contexts.flatMap((context) =>
     FILLED.map((spec) => {
       const cited_urls =
