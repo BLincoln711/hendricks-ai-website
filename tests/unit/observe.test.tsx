@@ -23,6 +23,7 @@ describe('observation data instance', () => {
     expect(emptyObservation.brands).toEqual([])
     expect(emptyObservation.cells).toEqual([])
     expect(emptyObservation.status).toBe('queued')
+    expect(emptyObservation).not.toHaveProperty('stages')
     expect(emptyObservation).not.toBe(selectionMapData)
     expect(selectionMapData.brands.map((brand) => brand.label)).toContain('Your Brand')
   })
@@ -125,6 +126,10 @@ describe('ObservationResult', () => {
     expect(screen.queryByText('Your Brand')).not.toBeInTheDocument()
     expect(screen.queryByText('cited')).not.toBeInTheDocument()
     expect(screen.queryByText('invisible')).not.toBeInTheDocument()
+    expect(screen.queryByText('Consideration')).not.toBeInTheDocument()
+    expect(screen.queryByText('Recommendation')).not.toBeInTheDocument()
+    expect(document.querySelector('#plate-01')).toBeNull()
+    expect(document.querySelector('.drawing-desktop, .drawing-mobile')).toBeNull()
     expect(payload.cells.some((cell) => cell.state === 'cited' || cell.state === 'invisible')).toBe(
       false,
     )

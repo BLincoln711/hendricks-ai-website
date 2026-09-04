@@ -14,7 +14,7 @@
 
 ## Status
 
-Shell only. Brand/QA: every public sentence on this page is new and needs review before merge. No live engine pulls. No invented selection map. Fixtures do not emit cited or invisible cells.
+Shell only. Brand/QA: every public sentence on this page is new and needs review before merge. No live engine pulls. No Selection Map drawing. No mock stage cells. No invented peers. The queued surface is confirmation, an empty or unmeasured engine board, disclosure, and the Diagnostic door. Fixtures do not emit cited or invisible cells.
 
 ## Hero
 
