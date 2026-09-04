@@ -75,6 +75,11 @@ describe('Homepage content', () => {
     expect(heroCopy).toContain('Start with a Search Intelligence Diagnostic')
   })
 
+  it('offers a public observation door that is not the Diagnostic', () => {
+    expect(home.hero.observeLink.href).toBe('/observe')
+    expect(home.hero.observeLink.label).toBe('Try a public observation')
+  })
+
   it('names the four phases in the approved order, each linked to its solution', () => {
     expect(home.system.phases.map((phase) => phase.name)).toEqual([
       'Map demand',

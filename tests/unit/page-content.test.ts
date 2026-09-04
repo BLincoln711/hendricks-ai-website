@@ -9,6 +9,7 @@ import * as forAgencies from '@/content/pages/for-agencies'
 import * as forBrands from '@/content/pages/for-brands'
 import * as howItWorks from '@/content/pages/how-it-works'
 import * as methodology from '@/content/pages/methodology'
+import * as observe from '@/content/pages/observe'
 import * as sdi from '@/content/pages/search-demand-intelligence'
 import * as sim from '@/content/pages/search-impact-measurement'
 import * as spe from '@/content/pages/search-presence-engineering'
@@ -49,6 +50,7 @@ const pages = [
   { route: '/for-agencies', meta: forAgencies.meta, content: forAgencies },
   { route: '/about', meta: about.meta, content: about },
   { route: '/diagnostic', meta: diagnostic.meta, content: diagnostic },
+  { route: '/observe', meta: observe.meta, content: observe },
   { route: '/contact', meta: contact.meta, content: contact },
   {
     route: '/what-is-search-intelligence-engineering',
@@ -413,5 +415,11 @@ describe('Diagnostic page', () => {
   it('publishes no price until it is approved', () => {
     // CONTENT_VERIFICATION.md P1 — the fee is not cleared for publication.
     expect(JSON.stringify(diagnostic)).not.toMatch(/\$\s?\d/)
+  })
+
+  it('offers a public observation door that is not the Diagnostic', () => {
+    expect(diagnostic.observeDoor.link.href).toBe('/observe')
+    expect(diagnostic.observeDoor.link.label).toBe('try an observation')
+    expect(diagnostic.observeDoor.note.toLowerCase()).toContain('not the diagnostic')
   })
 })

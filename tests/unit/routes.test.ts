@@ -46,6 +46,7 @@ describe('Route registry', () => {
         '/for-brands',
         '/how-it-works',
         '/methodology',
+        '/observe',
         '/privacy',
         '/privacy-request',
         // R5 recorded the hub as blocked on Sanity credentials. docs/17 §7 wave
