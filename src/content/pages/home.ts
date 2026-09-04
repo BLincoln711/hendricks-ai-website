@@ -93,6 +93,15 @@ export const hero = {
     analytics: { location: 'home_hero_secondary' },
   } satisfies Cta,
   /**
+   * Brand/QA: new public link. Short on purpose so it stays a door, not a
+   * claim. It must not read as the Diagnostic or as Plate 01.
+   */
+  observeLink: {
+    label: 'Try a public observation',
+    href: '/observe',
+    analytics: { location: 'home_plate' },
+  } satisfies Cta,
+  /**
    * The definer, bound to the primary CTA by `aria-describedby`. It adds to the
    * hero rather than replacing an approved line, so while H4 is pending it is
    * not rendered and the button carries no description.

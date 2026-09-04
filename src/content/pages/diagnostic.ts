@@ -36,6 +36,19 @@ export const hero = {
   } satisfies Cta,
 } as const
 
+/**
+ * Brand/QA: new public sentences. A door to the public sample, never presented
+ * as the Diagnostic itself.
+ */
+export const observeDoor = {
+  note: 'A public observation is a sample. It is not the Diagnostic.',
+  link: {
+    label: 'try an observation',
+    href: routes.observe.path,
+    analytics: { location: 'diagnostic_observe' },
+  } satisfies Cta,
+} as const
+
 export const questions = {
   eyebrow: 'Questions Answered',
   title: 'Thirteen questions the Diagnostic is designed to answer.',

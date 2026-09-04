@@ -1,0 +1,65 @@
+import { render, screen } from '@testing-library/react'
+import { describe, expect, it, vi } from 'vitest'
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push: vi.fn() }),
+}))
+
+import { ObservationForm } from '@/components/observation/observation-form'
+import { ObservationDisclosure } from '@/components/observation/observation-result'
+import { disclosure, formCopy } from '@/content/pages/observe'
+import { observeCreatePath } from '@/lib/observation/handshake'
+
+const STARTED_AT = 1_756_000_000_000
+
+describe('ObservationForm', () => {
+  it('asks for a brand and a category and names the handshake create path', () => {
+    const { container } = render(<ObservationForm startedAt={STARTED_AT} />)
+
+    expect(screen.getByRole('form')).toBeInTheDocument()
+    expect(observeCreatePath).toBe('/api/observe/jobs')
+
+    expect(screen.getByLabelText(new RegExp(formCopy.brandLabel))).toBeRequired()
+    expect(screen.getByLabelText(new RegExp(formCopy.brandLabel))).toHaveAttribute('name', 'brand_name')
+    expect(screen.getByLabelText(new RegExp(formCopy.categoryLabel))).toBeRequired()
+    expect(screen.getByRole('button', { name: formCopy.submit })).toBeInTheDocument()
+    expect(screen.getByText(formCopy.notice, { exact: false })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: formCopy.privacyLabel })).toHaveAttribute(
+      'href',
+      '/privacy',
+    )
+    expect(container.querySelector('input[name="startedAt"]')).toHaveValue(String(STARTED_AT))
+    const honeypot = container.querySelector('input[name="honeypot"]')
+    expect(honeypot).toHaveAttribute('tabindex', '-1')
+    expect(honeypot).toHaveAttribute('autocomplete', 'off')
+    expect(honeypot?.closest('[aria-hidden="true"]')).not.toBeNull()
+  })
+
+  it('shows empty-state field errors without inventing a result', () => {
+    render(
+      <ObservationForm startedAt={STARTED_AT} errors={{ brand: 'brand', category: 'category' }} />,
+    )
+
+    expect(screen.getByText(formCopy.brandError)).toBeInTheDocument()
+    expect(screen.getByText(formCopy.categoryError)).toBeInTheDocument()
+    expect(screen.queryByText('shortlisted')).not.toBeInTheDocument()
+  })
+})
+
+describe('ObservationDisclosure', () => {
+  it('names the later queue and keeps Gemini the only unprobed engine', () => {
+    render(<ObservationDisclosure />)
+
+    expect(screen.getByText(disclosure.sample)).toBeInTheDocument()
+    expect(disclosure.sample).toContain('Google AI Overviews')
+    expect(disclosure.sample).toContain('ChatGPT')
+    expect(disclosure.sample).toContain('Perplexity')
+    expect(disclosure.sample).toContain('Gemini is not probed in this sample')
+    expect(disclosure.sample).not.toMatch(/Perplexity and Gemini|Gemini and Perplexity/)
+    expect(disclosure.sample).not.toContain('unmeasured')
+    expect(screen.getByRole('link', { name: 'Start with a Search Intelligence Diagnostic' })).toHaveAttribute(
+      'href',
+      '/diagnostic',
+    )
+  })
+})

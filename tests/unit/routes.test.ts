@@ -46,6 +46,7 @@ describe('Route registry', () => {
         '/for-brands',
         '/how-it-works',
         '/methodology',
+        '/observe',
         '/privacy',
         '/privacy-request',
         // R5 recorded the hub as blocked on Sanity credentials. docs/17 §7 wave
@@ -79,6 +80,11 @@ describe('Route registry', () => {
     // transactional form with no reason to compete in search results.
     expect(routes.privacyRequest.indexable).toBe(false)
     expect(indexableBuiltRoutes().map((route) => route.path)).not.toContain('/privacy-request')
+  })
+
+  it('keeps the unreviewed observation shell out of the sitemap', () => {
+    expect(routes.observe.indexable).toBe(false)
+    expect(indexableBuiltRoutes().map((route) => route.path)).not.toContain('/observe')
   })
 
   it('keeps the flagged Results route out of the sitemap', () => {

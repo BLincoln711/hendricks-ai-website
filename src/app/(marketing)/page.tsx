@@ -96,6 +96,10 @@ export default function HomePage() {
         <SelectionMapPlate data={selectionMapData} />
         <IllustrativeLegend />
 
+        <p className="mt-4">
+          <RuleLink cta={hero.observeLink} />
+        </p>
+
         <p className="hero-foot text-coordinate text-ink-2">
           <span className="op">{hero.operatingLine}</span>
           <span>{hero.proofLine}</span>

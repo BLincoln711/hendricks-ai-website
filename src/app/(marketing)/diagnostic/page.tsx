@@ -9,6 +9,7 @@ import { DiagnosticApplicationForm } from '@/components/forms/diagnostic-applica
 import { Deliverables } from '@/components/sections/deliverables'
 import { RelatedLinks } from '@/components/sections/related-links'
 import { JsonLd } from '@/components/seo/json-ld'
+import { RuleLink } from '@/components/ui/cta'
 import { FitList, SignalList } from '@/components/ui/signal-list'
 import { SignalDot } from '@/components/visuals/signal-dot'
 import {
@@ -24,6 +25,7 @@ import {
   fit,
   hero,
   investment,
+  observeDoor,
   meta,
   phases,
   questions,
@@ -94,6 +96,17 @@ export default async function DiagnosticPage() {
           { label: routes.diagnostic.label },
         ]}
       />
+
+      <Section variant="field" size="small" ariaLabelledBy="observe-door-title">
+        <Container>
+          <h2 id="observe-door-title" className="sr-only">
+            Public observation
+          </h2>
+          <p className="text-[0.9375rem] leading-relaxed text-ink-2">
+            {observeDoor.note} <RuleLink cta={observeDoor.link} />
+          </p>
+        </Container>
+      </Section>
 
       <Section variant="field" size="major" ariaLabelledBy="questions-title">
         <Container>

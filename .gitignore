@@ -44,6 +44,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Local observation job files when OBSERVE_JOB_STORE=fs
+.data/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

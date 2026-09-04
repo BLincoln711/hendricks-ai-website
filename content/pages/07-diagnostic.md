@@ -24,6 +24,8 @@ You leave with a system map and an evidence-based roadmap, not a generic audit.
 
 **Primary CTA:** Apply for a Diagnostic
 
+**Observation door (Brand/QA):** A public observation is a sample. It is not the Diagnostic. Link: try an observation. Destination `/observe`. Never presented as the Diagnostic.
+
 ## Questions answered
 
 - What customer decisions are commercially important?

@@ -1,0 +1,252 @@
+import { readFileSync } from 'node:fs'
+
+import { render, screen } from '@testing-library/react'
+import { describe, expect, it } from 'vitest'
+
+import { ObservationResult } from '@/components/observation/observation-result'
+import {
+  emptyObservation,
+  observationEngines,
+  observeQueueHook,
+  sampleIntentsByCategory,
+} from '@/content/instruments/observation-data'
+import { selectionMapData } from '@/content/instruments/selection-map-data'
+import { diagnosticDoor, disclosure, engines, formCopy, queued } from '@/content/pages/observe'
+import { disclosure as handshakeCopy } from '@/lib/observation/copy'
+import { observeCreatePath, observePollPath, observeWorkerWritePath } from '@/lib/observation/handshake'
+import { pendingPayload } from '@/lib/observation/pending-fixture'
+import { observationCreateSchema, probeEngineIds, type ObservationJob } from '@/lib/observation/schema'
+import {
+  readObservationSession,
+  writeObservationSession,
+} from '@/lib/observation/session-cache'
+import {
+  displayBrand,
+  parseObservationSearch,
+  sampleIntentsFor,
+} from '@/lib/observation/parse'
+
+describe('observation data instance', () => {
+  it('is empty and is not the home Selection Map data', () => {
+    expect(emptyObservation.brands).toEqual([])
+    expect(emptyObservation.cells).toEqual([])
+    expect(emptyObservation.status).toBe('queued')
+    expect(emptyObservation).not.toHaveProperty('stages')
+    expect(emptyObservation).not.toBe(selectionMapData)
+    expect(selectionMapData.brands.map((brand) => brand.label)).toContain('Your Brand')
+  })
+
+  it('imports handshake create and poll paths and leaves only Gemini unmeasured', () => {
+    const byId = Object.fromEntries(observationEngines.map((engine) => [engine.id, engine]))
+
+    expect(byId['google-ai-overviews']?.status).toBe('pending')
+    expect(byId.chatgpt?.status).toBe('pending')
+    expect(byId.perplexity?.status).toBe('pending')
+    expect(byId.gemini?.status).toBe('unmeasured')
+    expect(observeCreatePath).toBe('/api/observe/jobs')
+    expect(observePollPath('job-1')).toBe('/api/observe/jobs/job-1')
+    expect(observeQueueHook.createPath).toBe(observeCreatePath)
+    expect(observeQueueHook.pollPath).toBe('/api/observe/jobs/:job_id')
+    expect(observeQueueHook.wired).toBe(true)
+    expect(observeWorkerWritePath('job-1')).toBe('/api/observe/jobs/job-1/cells')
+    expect(handshakeCopy.sample).toBe(disclosure.sample)
+    expect(
+      observationCreateSchema.safeParse({
+        brand_name: 'Northwind',
+        category: 'b2b-software',
+        contexts: [...sampleIntentsFor('b2b-software')],
+        consent: true,
+      }).success,
+    ).toBe(true)
+  })
+
+  it('keeps browser chrome on create and poll and does not write cells', () => {
+    const chrome = [
+      'src/components/observation/observation-form.tsx',
+      'src/components/observation/observation-poll.tsx',
+      'src/components/observation/observation-result.tsx',
+      'src/lib/observation/poll.ts',
+      'src/app/(marketing)/observe/page.tsx',
+      'src/app/(marketing)/observe/actions.ts',
+    ]
+      .map((path) => readFileSync(path, 'utf8'))
+      .join('\n')
+
+    expect(chrome).toContain("from '@/lib/observation/handshake'")
+    expect(chrome).toContain("from '@/lib/observation/schema'")
+    expect(chrome).toContain("from '@/lib/observation/copy'")
+    expect(chrome).not.toContain('observeWorkerWritePath')
+    expect(chrome).not.toContain('/cells')
+    expect(chrome).not.toContain('trackEvent')
+    expect(chrome).not.toContain('observe_start')
+    expect(chrome).not.toContain('observe_submit')
+    expect(readFileSync('src/app/(marketing)/observe/page.tsx', 'utf8')).toContain('index: false')
+    expect(readFileSync('src/app/(marketing)/observe/page.tsx', 'utf8')).not.toContain(
+      'createObservationJob',
+    )
+    expect(JSON.stringify(pendingPayload({ run_id: 'r', job_id: 'j', contexts: ['a', 'b', 'c'] }))).not.toMatch(
+      /"state":"(cited|invisible)"/,
+    )
+  })
+
+  it('locks the pull contract to queued engines and presence words only', () => {
+    const surface = JSON.stringify({
+      formCopy,
+      queued,
+      disclosure,
+      engines,
+      diagnosticDoor,
+      observationEngines,
+      sampleIntentsByCategory,
+    })
+
+    expect(surface).not.toMatch(/AI Mode|Copilot/i)
+    expect(surface).not.toMatch(/shortlist|consideration|recommendation/i)
+    expect(observationEngines.map((engine) => engine.label)).toEqual([
+      'Google AI Overviews',
+      'ChatGPT',
+      'Perplexity',
+      'Gemini',
+    ])
+    expect(observationEngines.filter((engine) => engine.status === 'unmeasured').map((engine) => engine.id)).toEqual([
+      'gemini',
+    ])
+    expect(disclosure.sample).toContain('when the queue runs')
+  })
+})
+
+describe('parseObservationSearch', () => {
+  it('stays idle when the query is empty', () => {
+    expect(parseObservationSearch({})).toEqual({ status: 'idle' })
+  })
+
+  it('queues a valid brand and category without inventing peers', () => {
+    const parsed = parseObservationSearch({ brand: 'Northwind', category: 'b2b-software' })
+
+    expect(parsed).toEqual({
+      status: 'queued',
+      query: { brand: 'Northwind', category: 'b2b-software' },
+    })
+    if (parsed.status === 'queued') {
+      expect(sampleIntentsFor(parsed.query.category)).toHaveLength(4)
+    }
+  })
+
+  it('accepts brand_name as an alias for the form prefill query', () => {
+    const parsed = parseObservationSearch({ brand_name: 'Northwind', category: 'industrial' })
+    expect(parsed.status).toBe('queued')
+  })
+
+  it('returns field errors for an empty submit', () => {
+    const parsed = parseObservationSearch({ brand: '', category: '' })
+
+    expect(parsed.status).toBe('invalid')
+    if (parsed.status === 'invalid') {
+      expect(parsed.errors.brand).toBe('brand')
+      expect(parsed.errors.category).toBe('category')
+    }
+  })
+
+  it('rejects an unknown category rather than inventing one', () => {
+    const parsed = parseObservationSearch({ brand: 'Northwind', category: 'real-estate' })
+
+    expect(parsed.status).toBe('invalid')
+    if (parsed.status === 'invalid') {
+      expect(parsed.errors.category).toBe('category')
+    }
+  })
+})
+
+describe('displayBrand', () => {
+  it('keeps a short brand intact and truncates a long one for display', () => {
+    expect(displayBrand('Acme')).toEqual({ display: 'Acme', full: 'Acme' })
+
+    const long = 'A Very Long Brand Name For Display Truncation'
+    const shown = displayBrand(long)
+    expect(shown.full).toBe(long)
+    expect(shown.display.length).toBeLessThanOrEqual(28)
+    expect(shown.display.endsWith('...')).toBe(true)
+  })
+})
+
+describe('ObservationResult', () => {
+  it('renders a pending handshake board and does not invent shortlisted cells', () => {
+    const contexts = [...sampleIntentsFor('industrial')]
+    const job: ObservationJob = {
+      job_id: 'job-test',
+      created_at: '2026-09-04T00:00:00.000Z',
+      status: 'queued',
+      brand_name: 'Northwind Logistics Group',
+      category: 'industrial',
+      contexts,
+      engines_requested: [...probeEngineIds],
+      cost_ceiling_usd: 2,
+    }
+    const payload = pendingPayload({ run_id: 'run-test', job_id: job.job_id, contexts })
+
+    render(<ObservationResult job={job} payload={payload} />)
+
+    expect(screen.getByText(queued.instrumentLabel)).toBeInTheDocument()
+    expect(screen.getAllByText(queued.status).length).toBeGreaterThan(0)
+    expect(screen.getByText(queued.boardCaption)).toBeInTheDocument()
+    expect(screen.getByText(disclosure.sample)).toBeInTheDocument()
+    expect(screen.getByLabelText('Northwind Logistics Group')).toBeInTheDocument()
+    expect(screen.getByTitle(job.job_id)).toBeInTheDocument()
+
+    expect(screen.queryByText('Brand A')).not.toBeInTheDocument()
+    expect(screen.queryByText('shortlisted')).not.toBeInTheDocument()
+    expect(screen.queryByText('Your Brand')).not.toBeInTheDocument()
+    expect(screen.queryByText('cited')).not.toBeInTheDocument()
+    expect(screen.queryByText('invisible')).not.toBeInTheDocument()
+    expect(screen.queryByText('Consideration')).not.toBeInTheDocument()
+    expect(screen.queryByText('Recommendation')).not.toBeInTheDocument()
+    expect(document.querySelector('#plate-01')).toBeNull()
+    expect(document.querySelector('.drawing-desktop, .drawing-mobile')).toBeNull()
+    expect(payload.cells.some((cell) => cell.state === 'cited' || cell.state === 'invisible')).toBe(
+      false,
+    )
+
+    const engineList = screen.getByRole('list', { name: 'Engines named in this sample' })
+    expect(engineList).toHaveTextContent('Perplexity')
+    expect(engineList).toHaveTextContent('pending')
+    expect(engineList).toHaveTextContent('Gemini')
+    expect(engineList).toHaveTextContent('unmeasured')
+    expect(engineList).toHaveTextContent('not probed in this sample')
+  })
+})
+
+describe('observation session cache', () => {
+  it('round-trips a pending handshake payload and refuses a cited Gemini row', () => {
+    const contexts = [...sampleIntentsFor('b2b-software')]
+    const job: ObservationJob = {
+      job_id: 'job-session',
+      created_at: '2026-09-04T00:00:00.000Z',
+      status: 'queued',
+      brand_name: 'Northwind',
+      category: 'b2b-software',
+      contexts,
+      engines_requested: [...probeEngineIds],
+      cost_ceiling_usd: 2,
+    }
+    const payload = pendingPayload({ run_id: 'run-session', job_id: job.job_id, contexts })
+
+    writeObservationSession({ job, payload })
+    const stored = readObservationSession(job.job_id)
+    expect(stored?.job.job_id).toBe(job.job_id)
+    expect(stored?.payload.cells.some((cell) => cell.state === 'cited' || cell.state === 'invisible')).toBe(
+      false,
+    )
+
+    sessionStorage.setItem(
+      `hx:observe:job:${job.job_id}`,
+      JSON.stringify({
+        job,
+        payload: {
+          ...payload,
+          gemini_row: { ...payload.gemini_row, state: 'cited' },
+        },
+      }),
+    )
+    expect(readObservationSession(job.job_id)).toBeNull()
+  })
+})

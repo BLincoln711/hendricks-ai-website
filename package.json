@@ -18,6 +18,7 @@
     "check:tokens": "tsx scripts/check-tokens.ts",
     "check:contrast": "tsx scripts/check-contrast.ts",
     "check:jsonld": "tsx scripts/check-jsonld.ts",
+    "observe:worker": "tsx scripts/observe-ultra-worker.ts",
     "verify": "pnpm lint && pnpm typecheck && pnpm check:content && pnpm check:tokens && pnpm check:contrast && pnpm check:links && pnpm check:jsonld && pnpm test && pnpm build && pnpm test:e2e"
   },
   "dependencies": {

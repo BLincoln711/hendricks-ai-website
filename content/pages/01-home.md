@@ -70,6 +70,8 @@ Anchor: `#hero`
 
 **Instrument:** Plate 01, the Selection Map. Title, gloss, three-question picker, nine nodes, five sample brands, the sources ledger, the four state markers, the list view and the pause control. Caption: Illustrative interface. Not a client result.
 
+**Observation door (Brand/QA):** Try a public observation. Destination `/observe`. Secondary text link after Plate 01. Not the Diagnostic.
+
 ---
 
 ## Station 2. The loss before the click

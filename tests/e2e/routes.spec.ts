@@ -11,6 +11,7 @@ import * as forAgencies from '@/content/pages/for-agencies'
 import * as forBrands from '@/content/pages/for-brands'
 import * as howItWorks from '@/content/pages/how-it-works'
 import * as methodology from '@/content/pages/methodology'
+import * as observe from '@/content/pages/observe'
 import * as sdi from '@/content/pages/search-demand-intelligence'
 import * as sim from '@/content/pages/search-impact-measurement'
 import * as spe from '@/content/pages/search-presence-engineering'
@@ -53,6 +54,7 @@ const commercialRoutes = [
   { path: '/about', meta: about.meta, h1: headingText(about.hero) },
   { path: '/diagnostic', meta: diagnostic.meta, h1: headingText(diagnostic.hero) },
   { path: '/contact', meta: contact.meta, h1: headingText(contact.hero) },
+  { path: '/observe', meta: observe.meta, h1: headingText(observe.hero) },
 ] as const
 
 const editorialRoutes = [

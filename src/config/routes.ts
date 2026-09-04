@@ -49,6 +49,18 @@ export const routes = {
     indexable: true,
     built: true,
   },
+  /**
+   * Public observation shell. Brand plus category in, queued confirmation out.
+   * Not a home embed and not part of the Diagnostic body. This route does not
+   * call a probe in the shell PR; live pulls land later. Stay out of the
+   * sitemap until Brand and QA sign the /observe copy.
+   */
+  observe: {
+    path: '/observe',
+    label: 'Observation',
+    indexable: false,
+    built: true,
+  },
   howItWorks: { path: '/how-it-works', label: 'How It Works', indexable: true, built: true },
   forBrands: { path: '/for-brands', label: 'For Brands', indexable: true, built: true },
   forAgencies: { path: '/for-agencies', label: 'For Agencies', indexable: true, built: true },
