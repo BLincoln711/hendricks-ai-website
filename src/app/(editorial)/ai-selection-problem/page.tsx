@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { Answer } from '@/components/canvas/answer'
 import { Byline } from '@/components/canvas/byline'
 import { ChangeHistory } from '@/components/canvas/change-history'
 import { ClosingStation } from '@/components/canvas/closing-station'
@@ -31,6 +32,7 @@ import {
   relatedSection,
   response,
   sources,
+  termDefinition,
 } from '@/content/pages/ai-selection-problem'
 import { isDefinitionRoute } from '@/content/shared/definition-routes'
 import { publicationChrome } from '@/content/shared/publication-record'
@@ -89,6 +91,14 @@ export default function AiSelectionProblemPage() {
         <Byline
           authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`}
           reviewed={sources.reviewed}
+        />
+
+        <Answer
+          id="term-definition"
+          className="answer-lead mt-[26px]"
+          label={termDefinition.term}
+          labelId="term-definition-label"
+          paragraphs={[termDefinition.answer]}
         />
 
         <div className="mt-[26px] max-w-[60ch]">

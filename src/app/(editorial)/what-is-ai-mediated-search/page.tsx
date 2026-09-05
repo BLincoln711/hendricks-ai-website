@@ -86,6 +86,14 @@ export default function WhatIsAiMediatedSearchPage() {
             path: routes.whatIsAiMediatedSearch.path,
             term: directAnswer.term,
             directAnswer: directAnswer.answer,
+            sameAs: [
+              new URL(routes.researchHendricksSelectionBaseline.path, siteConfig.url).toString(),
+              new URL(routes.researchNoSharedSourceAcrossEngines.path, siteConfig.url).toString(),
+            ],
+            citation: [
+              new URL(routes.researchHendricksSelectionBaseline.path, siteConfig.url).toString(),
+              new URL(routes.researchNoSharedSourceAcrossEngines.path, siteConfig.url).toString(),
+            ],
           }),
         )}
       />
@@ -201,6 +209,7 @@ export default function WhatIsAiMediatedSearchPage() {
             </div>
 
             <RuleLink cta={absence.cta} />
+            <RuleLink cta={absence.laterRun} />
           </Station>
 
           {/* 04. Ruling causes out */}

@@ -23,6 +23,7 @@ import {
   contents,
   directAnswer,
   hero,
+  illustratedBy,
   meta,
   outcomes,
   path,
@@ -96,6 +97,11 @@ export default function WhatIsSearchIntelligenceEngineeringPage() {
             path: routes.whatIsSearchIntelligenceEngineering.path,
             term: directAnswer.term,
             directAnswer: directAnswer.answer,
+            sameAs: new URL(routes.researchHendricksSelectionBaseline.path, siteConfig.url).toString(),
+            citation: new URL(
+              routes.researchHendricksSelectionBaseline.path,
+              siteConfig.url,
+            ).toString(),
           }),
         )}
       />
@@ -119,6 +125,22 @@ export default function WhatIsSearchIntelligenceEngineeringPage() {
           labelId="direct-answer-label"
           paragraphs={[directAnswer.answer]}
         />
+
+        <div className="prose mt-[26px]">
+          <p>{illustratedBy.body}</p>
+          <RuleLink cta={illustratedBy.study} />
+          <p>{illustratedBy.roleNaming.body}</p>
+          <p>
+            <a
+              href={illustratedBy.roleNaming.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {illustratedBy.roleNaming.label}
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          </p>
+        </div>
 
         <Byline authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`} reviewed={sources.reviewed} />
 
