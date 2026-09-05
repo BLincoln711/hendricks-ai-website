@@ -14,9 +14,11 @@ import { RuleList } from '@/components/canvas/rule-list'
 import { SourcesStation } from '@/components/canvas/sources-station'
 import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
+import { RuleLink } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 import { siteConfig } from '@/config/site'
 import {
+  citationPresenceOnly,
   closing,
   contents,
   directAnswer,
@@ -90,6 +92,11 @@ export default function WhatIsSelectionIntelligencePage() {
             path: routes.whatIsSelectionIntelligence.path,
             term: directAnswer.term,
             directAnswer: directAnswer.answer,
+            sameAs: new URL(routes.researchHendricksSelectionBaseline.path, siteConfig.url).toString(),
+            citation: new URL(
+              routes.researchHendricksSelectionBaseline.path,
+              siteConfig.url,
+            ).toString(),
           }),
         )}
       />
@@ -182,6 +189,11 @@ export default function WhatIsSelectionIntelligencePage() {
                 definition: [metric.definition],
               }))}
             />
+
+            <div className="prose">
+              <p>{citationPresenceOnly.body}</p>
+            </div>
+            <RuleLink cta={citationPresenceOnly.cta} />
           </Station>
 
           {/* 05. The honest limitation */}

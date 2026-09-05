@@ -294,12 +294,20 @@ export function definedTermSchema({
   path,
   term,
   directAnswer,
+  sameAs,
+  citation,
 }: {
   path: string
   term: string
   directAnswer: string
+  /** Study URL this definition is supported by. */
+  sameAs?: string | readonly string[]
+  /** Study URL cited as supporting evidence, where the type allows it. */
+  citation?: string | readonly string[]
 }) {
   const url = new URL(path, siteConfig.url).toString()
+  const asList = (value: string | readonly string[]) =>
+    typeof value === 'string' ? value : [...value]
   return {
     '@type': 'DefinedTerm',
     '@id': `${url}#term`,
@@ -310,6 +318,8 @@ export function definedTermSchema({
     // so the vocabulary resolves to a single node that actually lists members
     // rather than to an inline stub repeated on each page with none.
     inDefinedTermSet: { '@id': `${siteConfig.url}/#vocabulary` },
+    ...(sameAs ? { sameAs: asList(sameAs) } : {}),
+    ...(citation ? { citation: asList(citation) } : {}),
   }
 }
 

@@ -284,12 +284,21 @@ export const relatedSection = {
   title: 'Related research',
 } as const
 
+export const publishedSelfRun = {
+  body: 'The published Hendricks self-run, 2026-08-19-110930, measured citation presence only. It is not a full Selection Intelligence baseline. Read the run on the Hendricks Selection Baseline.',
+  cta: {
+    label: 'Read the Hendricks Selection Baseline',
+    href: routes.researchHendricksSelectionBaseline.path,
+    analytics: { location: 'methodology_self_run' },
+  } satisfies Cta,
+} as const
+
 export const related: readonly RelatedEntry[] = [
   {
     href: routes.researchHendricksSelectionBaseline.path,
     label: 'Hendricks Selection Baseline',
     description:
-      'This methodology run end to end on Hendricks itself, with its denominators published: 47 of 51 cells measured in the 2026-08-19 run, 20 of them citing at least one source, all read from an archived run a reader can ask for by id.',
+      'Published self-run 2026-08-19-110930 measured citation presence only, with its denominators published: 47 of 51 cells measured, 20 of them citing at least one source.',
   },
   {
     href: routes.selectionIntelligence.path,
