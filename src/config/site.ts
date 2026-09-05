@@ -23,12 +23,25 @@ export const siteConfig = {
   // CONTENT_VERIFICATION.md F9 — confirm this is the title to publish.
   founderRole: 'Search Intelligence Engineer',
   /*
-    Decision D-B, 2026-09-02. One identity across both properties: the `Person`
-    node on hendricks.ai carries this `@id`, so a machine reading a research
-    byline here and a machine reading the biography at brandonlincolnhendricks.com
-    resolve to the same entity rather than to two people with the same name.
+    The Person node lives on /about. jobTitle is JSON-LD only. Visible bylines
+    print the name and stop.
   */
-  founderPersonId: 'https://brandonlincolnhendricks.com/#person',
+  founderPersonId: 'https://hendricks.ai/about#person',
+  /**
+   * Organization sameAs. Company LinkedIn only. The Search Economy is a
+   * Person-level join and must never appear here.
+   */
+  organizationSameAs: ['https://www.linkedin.com/company/hendricksai'] as const,
+  /**
+   * Person sameAs on /about#person only. Medium essay, The Search Economy,
+   * personal LinkedIn, and X. Company LinkedIn stays off this list.
+   */
+  personSameAs: [
+    'https://medium.com/@brandonlincolnhendricks/what-is-a-search-intelligence-engineer-f6211b8339a6',
+    'https://thesearcheconomy.com',
+    'https://www.linkedin.com/in/brandonlincolnhendricks',
+    'https://x.com/brandonlincolnh',
+  ] as const,
 } as const
 
 export const primaryCta = {

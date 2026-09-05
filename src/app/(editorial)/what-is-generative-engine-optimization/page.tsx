@@ -15,6 +15,7 @@ import { SourcesStation } from '@/components/canvas/sources-station'
 import { TableRegion } from '@/components/canvas/table-region'
 import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
+import { RuleLink } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 import { siteConfig } from '@/config/site'
 import {
@@ -35,7 +36,7 @@ import {
 } from '@/content/pages/what-is-generative-engine-optimization'
 import { isDefinitionRoute } from '@/content/shared/definition-routes'
 import { publicationChrome } from '@/content/shared/publication-record'
-import { definedTermSchema, jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
+import { definedTermSchema, jsonLdGraph, personAuthor, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
@@ -70,11 +71,20 @@ export default function WhatIsGenerativeEngineOptimizationPage() {
             about: null,
             hasBreadcrumb: true,
             dateModified: sources.reviewed,
+            author: personAuthor(),
           }),
           definedTermSchema({
             path: routes.whatIsGenerativeEngineOptimization.path,
             term: directAnswer.term,
             directAnswer: directAnswer.answer,
+            sameAs: [
+              new URL(routes.researchNoSharedSourceAcrossEngines.path, siteConfig.url).toString(),
+              new URL(routes.researchWhoGetsCitedInAiAnswers.path, siteConfig.url).toString(),
+            ],
+            citation: [
+              new URL(routes.researchNoSharedSourceAcrossEngines.path, siteConfig.url).toString(),
+              new URL(routes.researchWhoGetsCitedInAiAnswers.path, siteConfig.url).toString(),
+            ],
           }),
         )}
       />
@@ -98,10 +108,7 @@ export default function WhatIsGenerativeEngineOptimizationPage() {
           paragraphs={[directAnswer.answer]}
         />
 
-        <Byline
-          authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`}
-          reviewed={sources.reviewed}
-        />
+        <Byline reviewed={sources.reviewed} reviewedLabel="last-reviewed" showDates={false} />
 
         <div className="mt-[26px] max-w-[60ch]">
           {hero.lead.map((paragraph) => (
@@ -164,6 +171,12 @@ export default function WhatIsGenerativeEngineOptimizationPage() {
                 value: item.description,
               }))}
             />
+
+            <div className="prose">
+              <p>{runsOut.citationPresence.body}</p>
+            </div>
+            <RuleLink cta={runsOut.citationPresence.noShared} />
+            <RuleLink cta={runsOut.citationPresence.whoGetsCited} />
           </Station>
 
           {/* 04. What Hendricks observes */}

@@ -23,6 +23,7 @@ import {
   contents,
   directAnswer,
   hero,
+  illustratedBy,
   meta,
   outcomes,
   path,
@@ -40,6 +41,7 @@ import {
   definedTermSchema,
   definedTermSetSchema,
   jsonLdGraph,
+  personAuthor,
   webPageSchema,
 } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
@@ -84,6 +86,7 @@ export default function WhatIsSearchIntelligenceEngineeringPage() {
             // Emitted only because this page renders the same date visibly in
             // its sources station. Pages without a visible date get none.
             dateModified: sources.reviewed,
+            author: personAuthor(),
           }),
           definedTermSetSchema([
             {
@@ -96,6 +99,11 @@ export default function WhatIsSearchIntelligenceEngineeringPage() {
             path: routes.whatIsSearchIntelligenceEngineering.path,
             term: directAnswer.term,
             directAnswer: directAnswer.answer,
+            sameAs: new URL(routes.researchHendricksSelectionBaseline.path, siteConfig.url).toString(),
+            citation: new URL(
+              routes.researchHendricksSelectionBaseline.path,
+              siteConfig.url,
+            ).toString(),
           }),
         )}
       />
@@ -120,7 +128,23 @@ export default function WhatIsSearchIntelligenceEngineeringPage() {
           paragraphs={[directAnswer.answer]}
         />
 
-        <Byline authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`} reviewed={sources.reviewed} />
+        <div className="prose mt-[26px]">
+          <p>{illustratedBy.body}</p>
+          <RuleLink cta={illustratedBy.study} />
+          <p>{illustratedBy.roleNaming.body}</p>
+          <p>
+            <a
+              href={illustratedBy.roleNaming.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {illustratedBy.roleNaming.label}
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          </p>
+        </div>
+
+        <Byline reviewed={sources.reviewed} reviewedLabel="last-reviewed" showDates={false} />
 
         <p className="text-lead mt-[26px] max-w-[60ch] text-ink">{hero.lead[0]}</p>
       </CanvasPageHero>

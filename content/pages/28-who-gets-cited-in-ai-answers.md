@@ -169,7 +169,7 @@ The overlap table compares Perplexity and ChatGPT and stops there. ChatGPT fille
 
 Four of the 51 cells returned no measurement, all four of them Google AI Overviews cells. An errored cell is a broken instrument rather than an answer that cited nothing, so the 6 domains attributed to Google AI Overviews are what 13 successful probes returned and nothing on this page estimates what the other 4 would have returned.
 
-Every figure in these tables is read from run 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. A reader checking a figure on this page can name that run id and ask for the file it came from.
+Every figure in these tables is read from run 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. A reader checking a figure on this page can name that run id and ask for the file it came from. The public path is /history/runs/hendricks-2026-08-19-110930.json.
 
 ## How these numbers were produced
 

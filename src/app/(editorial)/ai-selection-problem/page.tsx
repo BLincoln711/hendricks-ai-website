@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { Answer } from '@/components/canvas/answer'
 import { Byline } from '@/components/canvas/byline'
 import { ChangeHistory } from '@/components/canvas/change-history'
 import { ClosingStation } from '@/components/canvas/closing-station'
@@ -16,7 +17,6 @@ import { JsonLd } from '@/components/seo/json-ld'
 import { RuleLink } from '@/components/ui/cta'
 import { NodePathDrawing } from '@/components/visuals/node-paths'
 import { routes } from '@/config/routes'
-import { siteConfig } from '@/config/site'
 import {
   closing,
   competitorRecommendation,
@@ -31,10 +31,11 @@ import {
   relatedSection,
   response,
   sources,
+  termDefinition,
 } from '@/content/pages/ai-selection-problem'
 import { isDefinitionRoute } from '@/content/shared/definition-routes'
 import { publicationChrome } from '@/content/shared/publication-record'
-import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
+import { jsonLdGraph, personAuthor, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
@@ -71,6 +72,7 @@ export default function AiSelectionProblemPage() {
             description: meta.description,
             hasBreadcrumb: true,
             dateModified: sources.reviewed,
+            author: personAuthor(),
           }),
         )}
       />
@@ -86,9 +88,14 @@ export default function AiSelectionProblemPage() {
         ]}
         primaryCta={hero.primaryCta}
       >
-        <Byline
-          authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`}
-          reviewed={sources.reviewed}
+        <Byline reviewed={sources.reviewed} reviewedLabel="last-reviewed" showDates={false} />
+
+        <Answer
+          id="term-definition"
+          className="answer-lead mt-[26px]"
+          label={termDefinition.term}
+          labelId="term-definition-label"
+          paragraphs={[termDefinition.answer]}
         />
 
         <div className="mt-[26px] max-w-[60ch]">

@@ -143,7 +143,7 @@ Both runs used the same 17 questions and the same three engines, with nothing ch
 
 Run A errored on 4 of its 51 cells, all of them Google AI Overviews. Run B errored on 2. An errored cell returns no answer and therefore no citations, so on the citation-state comparison it registers as a cell that cited nothing. None of the errored cells in either run is a cell where the other run found a citation, so no match among the 51 rests on an error standing in for an answer. What no figure here can say is what those cells would have returned.
 
-Every figure above is read from one of two archived files: run A at history/runs/hendricks-2026-08-19-110930.json and run B at history/runs/hendricks-2026-08-19-181155.json, each with a manifest beside it named for the same run id. Both files are immutable. A reader checking a figure on this page can name the run id and ask for the file it came from.
+Every figure above is read from one of two archived files: run A at history/runs/hendricks-2026-08-19-110930.json and run B at history/runs/hendricks-2026-08-19-181155.json, each with a manifest beside it named for the same run id. Both files are immutable. A reader checking a figure on this page can name the run id and ask for the file it came from. Public paths are /history/runs/hendricks-2026-08-19-110930.json and /history/runs/hendricks-2026-08-19-181155.json.
 
 ## How this comparison was produced
 

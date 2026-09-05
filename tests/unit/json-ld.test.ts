@@ -47,13 +47,18 @@ describe('serializeJsonLd', () => {
 
 describe('organizationSchema', () => {
   it('omits fields that have not been verified', () => {
-    // CONTENT_VERIFICATION.md O1–O4 — these may not be emitted until approved.
+    // CONTENT_VERIFICATION.md O1–O3 — these may not be emitted until approved.
     const schema = organizationSchema() as Record<string, unknown>
 
     expect(schema).not.toHaveProperty('foundingDate')
     expect(schema).not.toHaveProperty('address')
     expect(schema).not.toHaveProperty('contactPoint')
-    expect(schema).not.toHaveProperty('sameAs')
+  })
+
+  it('puts only the company LinkedIn URL on Organization sameAs', () => {
+    const schema = organizationSchema() as { sameAs?: unknown }
+
+    expect(schema.sameAs).toEqual(['https://www.linkedin.com/company/hendricksai'])
   })
 
   it('includes the verified core identity fields', () => {
@@ -273,17 +278,26 @@ describe('personSchema alumniOf', () => {
     const schema = personSchema({
       jobTitle: siteConfig.founderRole,
       imagePath: '/images/brandon-lincoln-hendricks-portrait.jpg',
-      alumniOf: ['Merkle', 'SolarWinds'],
-    }) as { alumniOf?: { name: string }[] }
-
-    for (const org of schema.alumniOf ?? []) {
-      expect(visibleEmployers, `"${org.name}" is in alumniOf but not on the page`).toContain(
-        org.name,
-      )
+      alumniOf: [
+        { name: 'Merkle', jobTitle: 'Global Paid Search Director' },
+        { name: 'SolarWinds', jobTitle: 'Global Search and Innovation Lead' },
+      ],
+    }) as {
+      alumniOf?: { alumniOf?: { name: string }; roleName?: string }[]
     }
 
-    expect(schema.alumniOf?.map((org) => org.name)).toEqual(['Merkle', 'SolarWinds'])
+    const names = (schema.alumniOf ?? []).map((role) => role.alumniOf?.name)
+    for (const name of names) {
+      expect(visibleEmployers, `"${name}" is in alumniOf but not on the page`).toContain(name)
+    }
+
+    expect(names).toEqual(['Merkle', 'SolarWinds'])
+    expect(schema.alumniOf?.map((role) => role.roleName)).toEqual([
+      'Global Paid Search Director',
+      'Global Search and Innovation Lead',
+    ])
     expect(JSON.stringify(schema)).not.toContain('Ahrefs')
+    expect(JSON.stringify(schema)).not.toContain('Dentsu')
     expect(schema).not.toHaveProperty('memberOf')
   })
 })

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { Answer } from '@/components/canvas/answer'
+import { Byline } from '@/components/canvas/byline'
 import { ClosingStation } from '@/components/canvas/closing-station'
 import { DefinitionList } from '@/components/canvas/definition-list'
 import { Ledger } from '@/components/canvas/ledger'
@@ -12,6 +13,7 @@ import { TableOfContents } from '@/components/canvas/table-of-contents'
 import { TableRegion } from '@/components/canvas/table-region'
 import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
+import { RuleLink } from '@/components/ui/cta'
 import { TwoTone } from '@/components/ui/two-tone'
 import { EvidenceClasses } from '@/components/visuals/evidence-classes'
 import { routes } from '@/config/routes'
@@ -28,6 +30,7 @@ import {
   limitations,
   meta,
   metrics,
+  publishedSelfRun,
   related,
   relatedSection,
   reproducibility,
@@ -38,7 +41,7 @@ import {
 import { evidenceRule } from '@/content/shared/evidence-rule'
 import { observedSystemsSentence } from '@/content/shared/observed-systems'
 import { publicationChrome } from '@/content/shared/publication-record'
-import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
+import { jsonLdGraph, personAuthor, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 import { formatLongDate } from '@/lib/utils/format-date'
 
@@ -78,6 +81,7 @@ export default function MethodologyPage() {
             // Emitted only because this page renders the same date visibly in
             // its related-research station. Pages without a visible date get none.
             dateModified: sources.reviewed,
+            author: personAuthor(),
           }),
         )}
       />
@@ -95,6 +99,7 @@ export default function MethodologyPage() {
         primaryCta={hero.primaryCta}
       >
         <Answer className="mt-8" label={hero.answerLabel} twoTone={hero.answerTwoTone} />
+        <Byline reviewed={sources.reviewed} reviewedLabel="last-reviewed" showDates={false} />
       </CanvasPageHero>
 
       {/* 2. Contents */}
@@ -255,6 +260,9 @@ export default function MethodologyPage() {
         <p className="text-lead mt-[26px] text-ink">{reproducibility.lead}</p>
 
         <RuleList className="mt-6" items={reproducibility.items} ariaLabel={reproducibility.lead} />
+
+        <p className="measure-wide mt-8 text-ink-2">{publishedSelfRun.body}</p>
+        <RuleLink cta={publishedSelfRun.cta} />
       </Station>
 
       {/* 12. Limitations */}

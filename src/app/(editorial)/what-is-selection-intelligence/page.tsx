@@ -14,9 +14,11 @@ import { RuleList } from '@/components/canvas/rule-list'
 import { SourcesStation } from '@/components/canvas/sources-station'
 import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
+import { RuleLink } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 import { siteConfig } from '@/config/site'
 import {
+  citationPresenceOnly,
   closing,
   contents,
   directAnswer,
@@ -37,6 +39,7 @@ import {
   definedTermSchema,
   definedTermSetSchema,
   jsonLdGraph,
+  personAuthor,
   webPageSchema,
 } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
@@ -78,6 +81,7 @@ export default function WhatIsSelectionIntelligencePage() {
             // Emitted only because this page renders the same date visibly in
             // its sources station. Pages without a visible date get none.
             dateModified: sources.reviewed,
+            author: personAuthor(),
           }),
           definedTermSetSchema([
             {
@@ -90,6 +94,11 @@ export default function WhatIsSelectionIntelligencePage() {
             path: routes.whatIsSelectionIntelligence.path,
             term: directAnswer.term,
             directAnswer: directAnswer.answer,
+            sameAs: new URL(routes.researchHendricksSelectionBaseline.path, siteConfig.url).toString(),
+            citation: new URL(
+              routes.researchHendricksSelectionBaseline.path,
+              siteConfig.url,
+            ).toString(),
           }),
         )}
       />
@@ -113,10 +122,7 @@ export default function WhatIsSelectionIntelligencePage() {
           paragraphs={[directAnswer.answer]}
         />
 
-        <Byline
-          authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`}
-          reviewed={sources.reviewed}
-        />
+        <Byline reviewed={sources.reviewed} reviewedLabel="last-reviewed" showDates={false} />
 
         <p className="text-lead mt-[26px] max-w-[60ch] text-ink">{hero.lead[0]}</p>
       </CanvasPageHero>
@@ -182,6 +188,11 @@ export default function WhatIsSelectionIntelligencePage() {
                 definition: [metric.definition],
               }))}
             />
+
+            <div className="prose">
+              <p>{citationPresenceOnly.body}</p>
+            </div>
+            <RuleLink cta={citationPresenceOnly.cta} />
           </Station>
 
           {/* 05. The honest limitation */}

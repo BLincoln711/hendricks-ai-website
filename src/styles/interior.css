@@ -187,8 +187,8 @@
     }
   }
 
-  /* The byline. D-B: the author link resolves to the one Person node at
-   * https://brandonlincolnhendricks.com/#person. */
+  /* The byline. The author link resolves to the one Person node at
+   * https://hendricks.ai/about#person. */
   .byline {
     display: flex;
     flex-wrap: wrap;

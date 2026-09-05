@@ -4,9 +4,9 @@ import { siteConfig } from '@/config/site'
 /**
  * The byline (canvas `.byline`).
  *
- * D-B: the author link resolves to the one `Person` node at
- * `https://brandonlincolnhendricks.com/#person`, so a machine reading a
- * research page and a machine reading the biography resolve to the same entity.
+ * The author link resolves to the one Person node at
+ * `https://hendricks.ai/about#person`. jobTitle stays in JSON-LD. Visible
+ * vocabulary bylines print the name and stop.
  *
  * A date the site has not recorded renders the page's own "Not yet recorded"
  * string rather than a date nobody has approved. The field stays, because a
@@ -22,6 +22,7 @@ export function Byline({
   published,
   updated,
   showDates = true,
+  reviewedLabel = 'sources',
 }: {
   authorName?: string
   authorTitle?: string
@@ -36,6 +37,11 @@ export function Byline({
    * biography, omits them rather than printing "Not yet recorded" twice.
    */
   showDates?: boolean
+  /**
+   * Vocabulary and decision pages use "Last reviewed". Research pages keep
+   * "Sources reviewed".
+   */
+  reviewedLabel?: 'sources' | 'last-reviewed'
 }) {
   return (
     <p className="byline">
@@ -44,12 +50,14 @@ export function Byline({
         <a href={siteConfig.founderPersonId} rel="author">
           {authorName}
         </a>
-        {authorTitle ? `, ${authorTitle}` : null}
+        {authorTitle ? `, ${authorTitle}` : '.'}
       </span>
 
       {reviewed ? (
         <span>
-          Sources reviewed <time dateTime={reviewed}>{formatLongDate(reviewed)}</time>
+          {reviewedLabel === 'last-reviewed' ? 'Last reviewed' : 'Sources reviewed'}{' '}
+          <time dateTime={reviewed}>{formatLongDate(reviewed)}</time>
+          {reviewedLabel === 'last-reviewed' ? '.' : null}
         </span>
       ) : null}
 

@@ -77,7 +77,10 @@ export default function AboutPage() {
             // "Dentsu" was asserted here while `about.ts` records the opposite
             // decision: the employer is Merkle alone, because that is what the
             // public record shows (CONTENT_VERIFICATION.md F4).
-            alumniOf: ['Merkle', 'SolarWinds'],
+            alumniOf: [
+              { name: 'Merkle', jobTitle: 'Global Paid Search Director' },
+              { name: 'SolarWinds', jobTitle: 'Global Search and Innovation Lead' },
+            ],
           }),
         )}
       />

@@ -12,18 +12,22 @@
  *    siteConfig.founderPersonId.
  * 3. Every Article node has an author reference and both datePublished and
  *    dateModified.
- * 4. Every Dataset node has a DOI identifier and at least one distribution.
+ * 4. Every Dataset node has an identifier (DOI or run id) and at least one
+ *    distribution. Citation-presence Datasets must use the locked
+ *    measurementTechnique.
  * 5. Every @type value is a known schema.org type (an allowlist of the types
  *    this site deliberately emits).
- * 6. Every Article author value is an @id reference, never an inline object
- *    with a name field, so the author is linked not duplicated.
+ * 6. Every Article author value carries the founder @id. It may be expanded
+ *    with name, jobTitle, and url.
  *
  * The string-in-visible-text assertion (the last rule in HANDOFF 4.2) is
  * enforced at e2e test time against the built output, where the rendered page
  * is available. This script covers what can be checked statically.
  */
 import { researchArticles } from '../src/content/research/index'
+import { CITATION_PROBE_MEASUREMENT_TECHNIQUE } from '../src/content/research/citation-run-constants'
 import { articleSchema, datasetSchema } from '../src/lib/seo/json-ld'
+import { citationRunNodes } from '../src/lib/seo/citation-run-nodes'
 import { siteConfig } from '../src/config/site'
 
 /** Every @type this site deliberately emits. Extend when a new type is added. */
@@ -47,6 +51,7 @@ const ALLOWED_TYPES = new Set([
   'ImageObject',
   'Thing',
   'PropertyValue',
+  'OrganizationRole',
 ])
 
 const BANNED_TYPES = new Set(['FAQPage', 'Review', 'Rating', 'Offer', 'AggregateRating'])
@@ -80,10 +85,9 @@ function walk(node: unknown, path: string, failures: Failure[]): void {
 function checkArticleNode(node: Record<string, unknown>, where: string, failures: Failure[]): void {
   if (node['@type'] !== 'Article') return
 
-  // author must be an @id reference, not an inline object with name
   const author = node['author']
   if (!author || typeof author !== 'object' || !('@id' in (author as object))) {
-    failures.push({ where, message: 'Article author must be an @id reference' })
+    failures.push({ where, message: 'Article author must include an @id' })
   } else {
     const authorId = (author as Record<string, unknown>)['@id']
     if (authorId !== siteConfig.founderPersonId) {
@@ -106,8 +110,39 @@ function checkDatasetNode(node: Record<string, unknown>, where: string, failures
   if (node['@type'] !== 'Dataset') return
 
   const identifier = node['identifier']
-  if (!identifier || typeof identifier !== 'string' || !identifier.startsWith('https://doi.org/')) {
-    failures.push({ where, message: 'Dataset must have a DOI as identifier (https://doi.org/...)' })
+  const isDoi = typeof identifier === 'string' && identifier.startsWith('https://doi.org/')
+  const isRunId =
+    typeof identifier === 'string' && /^\d{4}-\d{2}-\d{2}(-\d{6})?$/.test(identifier)
+  if (!isDoi && !isRunId) {
+    failures.push({
+      where,
+      message: 'Dataset identifier must be a DOI (https://doi.org/...) or a run id',
+    })
+  }
+
+  if (isRunId) {
+    if (node['measurementTechnique'] !== CITATION_PROBE_MEASUREMENT_TECHNIQUE) {
+      failures.push({
+        where,
+        message: 'Citation-presence Dataset must use the locked measurementTechnique',
+      })
+    }
+    const description = String(node['description'] ?? '')
+    for (const banned of [
+      'OCR',
+      'ORR',
+      'Observed Consideration Rate',
+      'Observed Recommendation Rate',
+      'Selection Stability',
+      'Commercial Selection Gap',
+    ]) {
+      if (description.includes(banned)) {
+        failures.push({
+          where,
+          message: `Citation-presence Dataset description names "${banned}"`,
+        })
+      }
+    }
   }
 
   const distribution = node['distribution']
@@ -134,6 +169,8 @@ function checkGraph(graph: unknown[], routePath: string): Failure[] {
 
 function buildResearchGraphs(): { path: string; graph: unknown[] }[] {
   return researchArticles.map((article) => {
+    const citationGraph = citationRunNodes(article)
+
     const nodes: unknown[] = [
       articleSchema({
         path: article.path,
@@ -143,7 +180,10 @@ function buildResearchGraphs(): { path: string; graph: unknown[] }[] {
         datePublished: article.publishedDate,
         dateModified: article.updatedDate,
         claimClass: article.claimClass,
+        identifier: citationGraph.articleExtras?.identifier,
+        isBasedOn: citationGraph.articleExtras?.isBasedOn,
       }),
+      ...citationGraph.datasets,
     ]
 
     const ds = article.content.dataset

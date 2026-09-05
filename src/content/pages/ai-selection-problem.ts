@@ -30,6 +30,12 @@ export const hero = {
   } satisfies Cta,
 } as const
 
+export const termDefinition = {
+  term: 'The AI Selection Problem',
+  answer:
+    'The AI Selection Problem is the loss of control over the path between being discovered and being chosen.',
+} as const
+
 export const journeys = {
   eyebrow: 'Journey Comparison',
   title: 'The shape of the journey changed.',
@@ -152,7 +158,7 @@ export const competitorRecommendation = {
   title: 'Why does ChatGPT recommend a competitor instead of your brand?',
   lead: 'A competitor recommendation is one observation, not a ranking. It records that a competitor was named once, on one surface, on one date, under one set of conditions. Nothing in a single answer screen establishes that the same competitor is named on the next run, or that a shortlist formed and the brand lost a place on it.',
   body: [
-    'Hendricks published a dated run of this measurement against its own brand. In the 2026-08-19 run, 247 distinct domains filled 308 citation slots across the answers that cited anything, and 212 of those domains were cited exactly once.',
+    'Hendricks published a dated run of this measurement against its own brand. In run 2026-08-19-110930, 247 distinct domains filled 308 citation slots across the answers that cited anything, and 212 of those domains were cited exactly once.',
     'A citation set distributed that way is not a standings table with a competitor placed above a brand in it. It is a wide, shallow spread in which most sources appear once and then do not appear again. That is what a reader is looking at when a competitor is named in an answer and their own brand is not.',
   ],
   limitation: {
@@ -167,8 +173,8 @@ export const competitorRecommendation = {
     'No firm controls whether an AI system recommends a brand, and Hendricks does not sell that outcome. What can be established is whether a brand enters consideration, under which customer contexts, on which observed surfaces, and on which dates. A brand that has seen a competitor recommended once knows that it happened once. The What Is Selection Intelligence page states what a baseline reports instead, and why it is reported that way.',
   ],
   cta: {
-    label: 'See the run these figures come from',
-    href: routes.researchHendricksSelectionBaseline.path,
+    label: 'See who gets cited in AI answers',
+    href: routes.researchWhoGetsCitedInAiAnswers.path,
     analytics: { location: 'asp_competitor_recommendation' },
   } satisfies Cta,
 } as const

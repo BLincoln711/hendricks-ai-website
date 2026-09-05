@@ -161,6 +161,28 @@ export type ResearchDataset = {
   }
 }
 
+/**
+ * A first-party citation-presence archive a study is based on.
+ *
+ * `filename` is the public file under `/history/runs/`. Bytes are not invented
+ * here. The page and the Dataset node share this record.
+ */
+export type CitationRunDataset = {
+  runId: string
+  name: string
+  description: string
+  temporalCoverage: string
+  filename: string
+  role: 'primary' | 'secondary'
+}
+
+/** A visible archive path rendered beside the study's ask-for-the-file note. */
+export type ResearchArchiveLink = {
+  filename: string
+  label: string
+  note: string
+}
+
 export type ResearchArticleContent = {
   meta: { title: string; description: string }
   hero: { eyebrow: string; title: string; lead: readonly string[]; primaryCta?: Cta }
@@ -195,6 +217,12 @@ export type ResearchArticleContent = {
     lead?: string
     tables: readonly ResearchEvidenceTable[]
     note?: readonly string[]
+    /**
+     * Public citation-presence archive paths, rendered next to the
+     * ask-for-the-file note. A path becomes a download link only when the file
+     * is actually present under `public/history/runs/`.
+     */
+    archiveLinks?: readonly ResearchArchiveLink[]
   }
   /**
    * Optional downloads, for a study that ships artifacts beside the page: a
@@ -220,6 +248,14 @@ export type ResearchArticleContent = {
    * does not show.
    */
   dataset?: ResearchDataset
+  /**
+   * First-party citation-presence runs this study is based on.
+   *
+   * Separate from `dataset`, which is the DOI data package used by The Answer
+   * Index. These nodes identify a run id, point at `/history/runs/`, and use
+   * the locked measurementTechnique. Descriptions name citation presence only.
+   */
+  citationRuns?: readonly CitationRunDataset[]
   /**
    * Item 4, the checked half. Optional: a study that only counts has nothing to
    * put here. Where it is used, every entry states the verification method and

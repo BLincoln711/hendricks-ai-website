@@ -210,6 +210,7 @@ export const absence = {
   lead: 'A brand is missing from a ChatGPT answer for one of two reasons that look identical on screen and are not the same problem. Either the answer cited sources and the brand was not among them, or the answer cited nothing at all. An answer that cites nobody has no slot for any brand to win.',
   body: [
     'Hendricks measured that split on its own brand and published the run. On 2026-08-19, all three engines were sent the same 17 buyer questions. ChatGPT cited sources on 2 of them and answered the rest with no source attached. Perplexity cited sources on 17. Google AI Overviews returned a measurement on 13 of its 17 and cited sources on 1 of those. The run produced 51 cells, measured 47 of them, and 20 of those carried a citation of any kind. It is archived as run 2026-08-19-110930.',
+    'A later archived run, 2026-08-20-110653, published on the study of whether any source was cited by all three engines, recorded ChatGPT citing a source on 2 of 17 questions. Those were the same two questions across six dated runs. That count is citation presence only.',
     'Those figures describe 17 questions, three systems, one geography, and one date. Nothing was changed between that run and the one before it, and nothing was held back for comparison, so the run establishes what those answers looked like and nothing about what a change to a website would do to them. It is a baseline, not evidence that any tactic works.',
     'What the split changes is the first question worth asking. Before a brand asks why it lost a ChatGPT answer, it has to establish whether the answer had anything to lose. For most of the questions in that run, the honest reading is not that a shortlist formed without the brand. It is that no shortlist was published at all.',
     'An answer that names a source is not the same as an answer that is right. In the run a day earlier, ChatGPT answered a question about who audits brand visibility in AI assistants by listing viaudit.com, a domain that returned no DNS record and no response when it was checked with dig and curl on 2026-08-18.',
@@ -218,6 +219,11 @@ export const absence = {
     label: 'Read the run, its denominators, and its limits',
     href: routes.researchHendricksSelectionBaseline.path,
     analytics: { location: 'wiams_absence' },
+  } satisfies Cta,
+  laterRun: {
+    label: 'Read the 2026-08-20-110653 study',
+    href: routes.researchNoSharedSourceAcrossEngines.path,
+    analytics: { location: 'wiams_absence_110653' },
   } satisfies Cta,
 } as const
 

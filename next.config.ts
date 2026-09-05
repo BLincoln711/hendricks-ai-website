@@ -166,7 +166,16 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
   },
   async headers() {
-    return [{ source: '/:path*', headers: securityHeaders }]
+    return [
+      {
+        source: '/history/runs/:path*',
+        headers: [
+          ...securityHeaders,
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      { source: '/:path*', headers: securityHeaders },
+    ]
   },
   /**
    * Next matches these top to bottom.

@@ -39,6 +39,7 @@ import { publicationChrome } from '@/content/shared/publication-record'
 import {
   definedTermSchema,
   jsonLdGraph,
+  personAuthor,
   webPageSchema,
 } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
@@ -81,11 +82,20 @@ export default function WhatIsAiMediatedSearchPage() {
             about: null,
             hasBreadcrumb: true,
             dateModified: sources.reviewed,
+            author: personAuthor(),
           }),
           definedTermSchema({
             path: routes.whatIsAiMediatedSearch.path,
             term: directAnswer.term,
             directAnswer: directAnswer.answer,
+            sameAs: [
+              new URL(routes.researchHendricksSelectionBaseline.path, siteConfig.url).toString(),
+              new URL(routes.researchNoSharedSourceAcrossEngines.path, siteConfig.url).toString(),
+            ],
+            citation: [
+              new URL(routes.researchHendricksSelectionBaseline.path, siteConfig.url).toString(),
+              new URL(routes.researchNoSharedSourceAcrossEngines.path, siteConfig.url).toString(),
+            ],
           }),
         )}
       />
@@ -109,10 +119,7 @@ export default function WhatIsAiMediatedSearchPage() {
           paragraphs={[directAnswer.answer]}
         />
 
-        <Byline
-          authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`}
-          reviewed={sources.reviewed}
-        />
+        <Byline reviewed={sources.reviewed} reviewedLabel="last-reviewed" showDates={false} />
 
         <div className="mt-[26px] max-w-[60ch]">
           {hero.lead.map((paragraph) => (
@@ -201,6 +208,7 @@ export default function WhatIsAiMediatedSearchPage() {
             </div>
 
             <RuleLink cta={absence.cta} />
+            <RuleLink cta={absence.laterRun} />
           </Station>
 
           {/* 04. Ruling causes out */}

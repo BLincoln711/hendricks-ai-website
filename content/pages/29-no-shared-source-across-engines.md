@@ -165,7 +165,7 @@ All 51 cells in this run returned a measurement and none errored. The two studie
 
 The six-run table is the only object on this page that spans runs. Its six run ids are named in the sample section. A parser change to how one engine's citations are read landed inside that window and is described under Errors Found; it does not affect the populated-cell counts in that table, which depend only on whether any source was present.
 
-Every single-run figure on this page is read from run 2026-08-20-110653, archived at history/runs/hendricks-2026-08-20-110653.json with its manifest at history/runs/manifest-2026-08-20-110653.json. A reader checking a figure can name that run id and ask for the file it came from.
+Every single-run figure on this page is read from run 2026-08-20-110653, archived at history/runs/hendricks-2026-08-20-110653.json with its manifest at history/runs/manifest-2026-08-20-110653.json. A reader checking a figure can name that run id and ask for the file it came from. The public path is /history/runs/hendricks-2026-08-20-110653.json.
 
 ## Two instrument defects, both caught after they had produced a wrong reading
 

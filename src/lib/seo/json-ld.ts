@@ -1,4 +1,5 @@
 import { siteConfig } from '@/config/site'
+import { CITATION_PROBE_MEASUREMENT_TECHNIQUE } from '@/content/research/citation-run-constants'
 
 /**
  * Escapes characters that could break out of a <script> context.
@@ -19,8 +20,9 @@ export function serializeJsonLd(data: unknown): string {
 /**
  * Organization node.
  *
- * Founding date, address, contact point, and sameAs are deliberately omitted
- * until verified — see CONTENT_VERIFICATION.md items O1–O4 and docs/06 §8.
+ * Founding date, address, and contact point stay omitted until verified.
+ * sameAs is the company LinkedIn URL only. The Search Economy is not an
+ * Organization profile and must not appear here.
  */
 export function organizationSchema() {
   return {
@@ -35,11 +37,12 @@ export function organizationSchema() {
 
       This is the one identity field that resolves the "Hendricks" collision
       against a filing a machine can check, which is why it belongs here while
-      address, contactPoint, foundingDate, and sameAs stay omitted: those are
-      still unverified per CONTENT_VERIFICATION.md O1-O4 and a test pins their
-      absence.
+      address, contactPoint, and foundingDate stay omitted: those are still
+      unverified per CONTENT_VERIFICATION.md O1-O3. sameAs is the confirmed
+      company LinkedIn URL only.
     */
     legalName: 'Hendricks Agency LLC',
+    sameAs: [...siteConfig.organizationSameAs],
     url: siteConfig.url,
     logo: {
       '@type': 'ImageObject',
@@ -121,6 +124,7 @@ export function webPageSchema({
   hasBreadcrumb = false,
   datePublished,
   dateModified,
+  author,
 }: {
   path: string
   title: string
@@ -139,6 +143,8 @@ export function webPageSchema({
   hasBreadcrumb?: boolean
   datePublished?: string
   dateModified?: string
+  /** Expanded Person author. sameAs stays on /about#person only. */
+  author?: ReturnType<typeof personAuthor>
 }) {
   const url = new URL(path, siteConfig.url).toString()
   const aboutNode = about === undefined ? { '@id': `${siteConfig.url}/#organization` } : about
@@ -156,6 +162,7 @@ export function webPageSchema({
     ...(hasBreadcrumb ? { breadcrumb: { '@id': `${url}#breadcrumb` } } : {}),
     ...(datePublished ? { datePublished } : {}),
     ...(dateModified ? { dateModified } : {}),
+    ...(author ? { author } : {}),
     inLanguage: 'en-US',
   }
 }
@@ -242,12 +249,31 @@ export function itemListSchema({
 }
 
 /**
+ * Expanded Person author for page and article graphs.
+ *
+ * sameAs is omitted here. It is emitted only on the /about#person node.
+ */
+export function personAuthor() {
+  return {
+    '@type': 'Person',
+    '@id': siteConfig.founderPersonId,
+    name: siteConfig.founder,
+    jobTitle: siteConfig.founderRole,
+    url: new URL('/about', siteConfig.url).toString(),
+  }
+}
+
+export type AlumniRole = {
+  name: string
+  jobTitle: string
+}
+
+/**
  * Person node for the founder, emitted on /about only.
  *
- * `@id` matches the reference in `organizationSchema`. Every field here is
- * supported by visible copy on that page, as docs/06 §9 requires. `sameAs` is
- * omitted until the official profile list is approved (CONTENT_VERIFICATION.md
- * O4), and no employer, award, or credential is asserted while F3–F7 are pending.
+ * `@id` is https://hendricks.ai/about#person. sameAs is the Person-level join
+ * list: Medium essay, The Search Economy, personal LinkedIn, and X.
+ * Company LinkedIn stays off this node.
  */
 export function personSchema({
   jobTitle,
@@ -263,19 +289,25 @@ export function personSchema({
    * clients through a former employer are excluded by docs/12 §6, so this list
    * must never grow to include them.
    */
-  alumniOf?: readonly string[]
+  alumniOf?: readonly AlumniRole[]
 }) {
   return {
     '@type': 'Person',
-    // D-B: one Person node across hendricks.ai and brandonlincolnhendricks.com.
     '@id': siteConfig.founderPersonId,
     name: siteConfig.founder,
     jobTitle,
     url: new URL('/about', siteConfig.url).toString(),
     image: new URL(imagePath, siteConfig.url).toString(),
     worksFor: { '@id': `${siteConfig.url}/#organization` },
+    sameAs: [...siteConfig.personSameAs],
     ...(alumniOf?.length
-      ? { alumniOf: alumniOf.map((name) => ({ '@type': 'Organization', name })) }
+      ? {
+          alumniOf: alumniOf.map((role) => ({
+            '@type': 'OrganizationRole',
+            roleName: role.jobTitle,
+            alumniOf: { '@type': 'Organization', name: role.name },
+          })),
+        }
       : {}),
   }
 }
@@ -294,12 +326,20 @@ export function definedTermSchema({
   path,
   term,
   directAnswer,
+  sameAs,
+  citation,
 }: {
   path: string
   term: string
   directAnswer: string
+  /** Study URL this definition is supported by. */
+  sameAs?: string | readonly string[]
+  /** Study URL cited as supporting evidence, where the type allows it. */
+  citation?: string | readonly string[]
 }) {
   const url = new URL(path, siteConfig.url).toString()
+  const asList = (value: string | readonly string[]) =>
+    typeof value === 'string' ? value : [...value]
   return {
     '@type': 'DefinedTerm',
     '@id': `${url}#term`,
@@ -310,6 +350,8 @@ export function definedTermSchema({
     // so the vocabulary resolves to a single node that actually lists members
     // rather than to an inline stub repeated on each page with none.
     inDefinedTermSet: { '@id': `${siteConfig.url}/#vocabulary` },
+    ...(sameAs ? { sameAs: asList(sameAs) } : {}),
+    ...(citation ? { citation: asList(citation) } : {}),
   }
 }
 
@@ -373,6 +415,10 @@ export function breadcrumbSchema(items: BreadcrumbEntry[], path?: string) {
  * Commercial and reputation fields are absent for the same reason they are
  * absent from serviceSchema: no offers, aggregateRating, or review.
  */
+export function articleAuthor() {
+  return personAuthor()
+}
+
 export function articleSchema({
   path,
   headline,
@@ -381,6 +427,8 @@ export function articleSchema({
   datePublished,
   dateModified,
   claimClass,
+  identifier,
+  isBasedOn,
 }: {
   path: string
   headline: string
@@ -389,6 +437,10 @@ export function articleSchema({
   datePublished: string
   dateModified: string
   claimClass?: string
+  /** Primary run id or ids this article is read from. */
+  identifier?: string | readonly string[]
+  /** Dataset nodes this article is based on. */
+  isBasedOn?: readonly { '@id': string }[]
 }) {
   const url = new URL(path, siteConfig.url).toString()
   return {
@@ -400,11 +452,15 @@ export function articleSchema({
     articleSection,
     datePublished,
     dateModified,
-    author: { '@id': siteConfig.founderPersonId },
+    author: articleAuthor(),
     publisher: { '@id': `${siteConfig.url}/#organization` },
     isPartOf: { '@id': `${siteConfig.url}/#website` },
     mainEntityOfPage: { '@id': `${url}#webpage` },
     inLanguage: 'en-US',
+    ...(identifier
+      ? { identifier: typeof identifier === 'string' ? identifier : [...identifier] }
+      : {}),
+    ...(isBasedOn?.length ? { isBasedOn: [...isBasedOn] } : {}),
     ...(claimClass
       ? {
           about: {
@@ -480,6 +536,59 @@ export function datasetSchema({
       },
     ],
     isPartOf: { '@id': `${url}#article` },
+  }
+}
+
+/**
+ * Dataset node for a first-party citation-presence run archive.
+ *
+ * Identifier is the run id, not a DOI. measurementTechnique is the locked
+ * citation-presence sentence. Description must name citation presence and must
+ * not name consideration, OCR, ORR, Selection Stability, or Commercial
+ * Selection Gap.
+ */
+export function citationDatasetSchema({
+  path,
+  runId,
+  name,
+  description,
+  temporalCoverage,
+  contentUrl,
+  hasPart,
+}: {
+  path: string
+  runId: string
+  name: string
+  description: string
+  temporalCoverage: string
+  contentUrl: string
+  hasPart?: readonly { '@id': string }[]
+}) {
+  const url = new URL(path, siteConfig.url).toString()
+  return {
+    '@type': 'Dataset',
+    '@id': `${url}#dataset-${runId}`,
+    name,
+    description,
+    identifier: runId,
+    url: new URL(contentUrl, siteConfig.url).toString(),
+    creator: articleAuthor(),
+    publisher: { '@id': `${siteConfig.url}/#organization` },
+    measurementTechnique: CITATION_PROBE_MEASUREMENT_TECHNIQUE,
+    temporalCoverage,
+    variableMeasured: [
+      { '@type': 'PropertyValue', name: 'Citation presence' },
+      { '@type': 'PropertyValue', name: 'Cited URL host' },
+    ],
+    distribution: [
+      {
+        '@type': 'DataDownload',
+        contentUrl: new URL(contentUrl, siteConfig.url).toString(),
+        encodingFormat: 'application/json',
+      },
+    ],
+    isPartOf: { '@id': `${url}#article` },
+    ...(hasPart?.length ? { hasPart: [...hasPart] } : {}),
   }
 }
 

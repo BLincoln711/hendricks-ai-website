@@ -1,0 +1,1569 @@
+[
+  {
+    "engine": "chat_gpt",
+    "slug": "why-is-my-brand-not-showing-up-in-chatgpt",
+    "query": "why is my brand not showing up in ChatGPT",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 5389,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 14,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "kampaio.com",
+      "stridec.com",
+      "help-lb.openai.com",
+      "geochecktool.com",
+      "spyderbot.net"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "why-is-my-brand-not-showing-up-in-chatgpt",
+    "query": "why is my brand not showing up in ChatGPT",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 1895,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 19,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "allmo.ai",
+      "linkedin.com",
+      "kampaio.com",
+      "pixis.ai",
+      "three29.com",
+      "aicitationmonitor.com",
+      "mybrandi.ai",
+      "omnigroai.com",
+      "searchintel.tech",
+      "usetidepool.com",
+      "medium.com",
+      "busylike.com",
+      "madebyunderscore.com",
+      "llmreach.ai",
+      "botsee.io",
+      "reddit.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "why-is-my-brand-not-showing-up-in-chatgpt",
+    "query": "why is my brand not showing up in ChatGPT",
+    "url": "(dataforseo:google_aio)",
+    "body_len": 1113,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 7,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "linkedin.com",
+      "allmo.ai",
+      "three29.com",
+      "windgrove.ai",
+      "indexly.ai",
+      "glinfotech.net"
+    ],
+    "measured": true,
+    "ai_overview_present": true
+  },
+  {
+    "engine": "gemini",
+    "slug": "why-is-my-brand-not-showing-up-in-chatgpt",
+    "query": "why is my brand not showing up in ChatGPT",
+    "url": "(dataforseo:gemini)",
+    "body_len": 3590,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 34,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "we-rank-1-on-google-but-don-t-appear-in-ai-answe",
+    "query": "we rank #1 on Google but don't appear in AI answers",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 3240,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "we-rank-1-on-google-but-don-t-appear-in-ai-answe",
+    "query": "we rank #1 on Google but don't appear in AI answers",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 1711,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 18,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "citadex.io",
+      "rankinaioverview.com",
+      "formativedigital.com",
+      "maxaeo.ai",
+      "ftaglobal.in",
+      "vyncedigital.com",
+      "clicklaboratory.com",
+      "linkedin.com",
+      "doctorrank.com",
+      "daniellebirriel.com",
+      "searchpod.com",
+      "pepper.inc",
+      "pitchkitchen.com",
+      "reddit.com",
+      "advantagebizmarketing.com",
+      "topify.ai"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "we-rank-1-on-google-but-don-t-appear-in-ai-answe",
+    "query": "we rank #1 on Google but don't appear in AI answers",
+    "url": "(dataforseo:google_aio)",
+    "body_len": 715,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 5,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "youtube.com",
+      "instagram.com",
+      "linkedin.com",
+      "facebook.com"
+    ],
+    "measured": true,
+    "ai_overview_present": true
+  },
+  {
+    "engine": "gemini",
+    "slug": "we-rank-1-on-google-but-don-t-appear-in-ai-answe",
+    "query": "we rank #1 on Google but don't appear in AI answers",
+    "url": "(dataforseo:gemini)",
+    "body_len": 5096,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 59,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "why-does-chatgpt-recommend-my-competitor-instead",
+    "query": "why does ChatGPT recommend my competitor instead of us",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 1704,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "why-does-chatgpt-recommend-my-competitor-instead",
+    "query": "why does ChatGPT recommend my competitor instead of us",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 1374,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 20,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "contexthints.com",
+      "rankry.ai",
+      "dupple.com",
+      "probablygenius.com",
+      "spawned.com",
+      "leadrescue.app",
+      "outriggerai.com",
+      "mavel.ai",
+      "visible.md",
+      "generative.qa",
+      "growtika.com",
+      "lovedby.ai",
+      "airanklab.com",
+      "zapier.com",
+      "linkeddit.com",
+      "lindy.ai",
+      "semaphore.io",
+      "m1-project.com",
+      "igmguru.com",
+      "yotpo.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "why-does-chatgpt-recommend-my-competitor-instead",
+    "query": "why does ChatGPT recommend my competitor instead of us",
+    "ok": false,
+    "reason": "task 40101 Internal SE Server Error.",
+    "detected": {
+      "hendricks.ai": false
+    },
+    "body_len": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": false
+  },
+  {
+    "engine": "gemini",
+    "slug": "why-does-chatgpt-recommend-my-competitor-instead",
+    "query": "why does ChatGPT recommend my competitor instead of us",
+    "url": "(dataforseo:gemini)",
+    "body_len": 5632,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 41,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "why-did-my-organic-traffic-drop-but-rankings-sta",
+    "query": "why did my organic traffic drop but rankings stayed the same",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 2181,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "why-did-my-organic-traffic-drop-but-rankings-sta",
+    "query": "why did my organic traffic drop but rankings stayed the same",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 2008,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 20,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "reddit.com",
+      "cosmoforge.io",
+      "developers.google.com",
+      "goodsignals.com",
+      "seerinteractive.com",
+      "highervisibility.com",
+      "ahrefs.com",
+      "linkedin.com",
+      "seoclarity.net",
+      "searchengineland.com",
+      "cognitiveseo.com",
+      "conductor.com",
+      "thriveagency.com",
+      "semji.com",
+      "fuelonline.com",
+      "seoprofy.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "why-did-my-organic-traffic-drop-but-rankings-sta",
+    "query": "why did my organic traffic drop but rankings stayed the same",
+    "url": "(dataforseo:google_aio)",
+    "body_len": 1548,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 9,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "reddit.com",
+      "exploredigital.com",
+      "facebook.com",
+      "quora.com",
+      "cosmoforge.io",
+      "semji.com",
+      "linkedin.com"
+    ],
+    "measured": true,
+    "ai_overview_present": true
+  },
+  {
+    "engine": "gemini",
+    "slug": "why-did-my-organic-traffic-drop-but-rankings-sta",
+    "query": "why did my organic traffic drop but rankings stayed the same",
+    "url": "(dataforseo:gemini)",
+    "body_len": 4857,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 41,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "chatgpt-is-giving-wrong-information-about-my-com",
+    "query": "ChatGPT is giving wrong information about my company how do I fix it",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 2314,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "chatgpt-is-giving-wrong-information-about-my-com",
+    "query": "ChatGPT is giving wrong information about my company how do I fix it",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 1538,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 18,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "inspeccia.com",
+      "maxaeo.ai",
+      "margen.net",
+      "morrismclane.com",
+      "arthurdosik.com",
+      "signalbat.com",
+      "trackmybusiness.ai",
+      "growtika.com",
+      "pixelmojo.io",
+      "community.openai.com",
+      "bandziuk.com",
+      "kaizenaire.ai",
+      "wikibusines.net",
+      "semrush.com",
+      "platinum.ai",
+      "mention.network",
+      "senso.ai",
+      "llms.unusual.ai"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "chatgpt-is-giving-wrong-information-about-my-com",
+    "query": "ChatGPT is giving wrong information about my company how do I fix it",
+    "ok": false,
+    "reason": "task 40101 Internal SE Server Error.",
+    "detected": {
+      "hendricks.ai": false
+    },
+    "body_len": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": false
+  },
+  {
+    "engine": "gemini",
+    "slug": "chatgpt-is-giving-wrong-information-about-my-com",
+    "query": "ChatGPT is giving wrong information about my company how do I fix it",
+    "url": "(dataforseo:gemini)",
+    "body_len": 4065,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 31,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "our-traffic-is-flat-but-demos-are-down-what-chan",
+    "query": "our traffic is flat but demos are down what changed",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 2452,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "our-traffic-is-flat-but-demos-are-down-what-chan",
+    "query": "our traffic is flat but demos are down what changed",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 2231,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 20,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "salespeak.ai",
+      "factors.ai",
+      "revenuehero.io",
+      "eagrowthsolutions.com",
+      "walnut.io",
+      "reddit.com",
+      "support.google.com",
+      "surferseo.com",
+      "almcorp.com",
+      "seohandbook.co.uk",
+      "searchengineland.com",
+      "seoteric.com",
+      "anotherconcept.co.uk",
+      "linkedin.com",
+      "searchenginejournal.com",
+      "marshassoc.com",
+      "community.shopify.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "our-traffic-is-flat-but-demos-are-down-what-chan",
+    "query": "our traffic is flat but demos are down what changed",
+    "ok": false,
+    "reason": "task 40101 Internal SE Server Error.",
+    "detected": {
+      "hendricks.ai": false
+    },
+    "body_len": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": false
+  },
+  {
+    "engine": "gemini",
+    "slug": "our-traffic-is-flat-but-demos-are-down-what-chan",
+    "query": "our traffic is flat but demos are down what changed",
+    "url": "(dataforseo:gemini)",
+    "body_len": 5640,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 28,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "seo-vs-aeo-vs-geo-which-one-do-i-actually-need",
+    "query": "SEO vs AEO vs GEO which one do I actually need",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 2475,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "seo-vs-aeo-vs-geo-which-one-do-i-actually-need",
+    "query": "SEO vs AEO vs GEO which one do I actually need",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 1953,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 17,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "seocrawl.ai",
+      "terrahq.com",
+      "llmrefs.com",
+      "stackmatix.com",
+      "w3era.com",
+      "ibeamconsulting.com",
+      "searchable.com",
+      "elsner.com",
+      "launchcodex.com",
+      "reddit.com",
+      "digiday.com",
+      "shanikaw.medium.com",
+      "progress.com",
+      "hibu.com",
+      "digitalmarketinginstitute.com",
+      "neilpatel.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "seo-vs-aeo-vs-geo-which-one-do-i-actually-need",
+    "query": "SEO vs AEO vs GEO which one do I actually need",
+    "url": "(dataforseo:google_aio)",
+    "body_len": 1457,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 10,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "reddit.com",
+      "shanikaw.medium.com",
+      "atakinteractive.com",
+      "seocrawl.ai",
+      "digitalagencynetwork.com",
+      "refinery89.com",
+      "terrahq.com",
+      "quora.com",
+      "specbee.com",
+      "magnetoitsolutions.com"
+    ],
+    "measured": true,
+    "ai_overview_present": true
+  },
+  {
+    "engine": "gemini",
+    "slug": "seo-vs-aeo-vs-geo-which-one-do-i-actually-need",
+    "query": "SEO vs AEO vs GEO which one do I actually need",
+    "url": "(dataforseo:gemini)",
+    "body_len": 3160,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 35,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "how-do-i-know-which-ai-prompts-my-buyers-are-act",
+    "query": "how do I know which AI prompts my buyers are actually using",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 3355,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "how-do-i-know-which-ai-prompts-my-buyers-are-act",
+    "query": "how do I know which AI prompts my buyers are actually using",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 2332,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 20,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "seranking.com",
+      "42a.ai",
+      "searchable.com",
+      "frostbitemarketing.com",
+      "singularity.digital",
+      "semrush.com",
+      "maxaeo.ai",
+      "getvisoryn.com",
+      "novastacks-ai.com",
+      "radyant.io",
+      "ahrefs.com",
+      "rankshift.ai",
+      "fastslowmotion.com",
+      "ranktracking.ai",
+      "convert.com",
+      "prompts-gpt.com",
+      "get-ryze.ai",
+      "searchenginejournal.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "how-do-i-know-which-ai-prompts-my-buyers-are-act",
+    "query": "how do I know which AI prompts my buyers are actually using",
+    "url": "(dataforseo:google_aio)",
+    "body_len": 977,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 6,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "linkedin.com",
+      "convert.com",
+      "reddit.com",
+      "youtube.com",
+      "medium.com",
+      "42a.ai"
+    ],
+    "measured": true,
+    "ai_overview_present": true
+  },
+  {
+    "engine": "gemini",
+    "slug": "how-do-i-know-which-ai-prompts-my-buyers-are-act",
+    "query": "how do I know which AI prompts my buyers are actually using",
+    "url": "(dataforseo:gemini)",
+    "body_len": 3476,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 24,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "how-do-i-measure-roi-of-ai-search-visibility",
+    "query": "how do I measure ROI of AI search visibility",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 3990,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "how-do-i-measure-roi-of-ai-search-visibility",
+    "query": "how do I measure ROI of AI search visibility",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 2354,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 20,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "topicintelligence.ai",
+      "semrush.com",
+      "blog.hubspot.com",
+      "omnibound.ai",
+      "grro.io",
+      "scope.online",
+      "searchflex.com",
+      "partnerize.com",
+      "prompts-gpt.com",
+      "segmentstream.com",
+      "hexxen.com",
+      "usegrowthos.com",
+      "foglift.io",
+      "similarweb.com",
+      "snezzi.com",
+      "superlines.io",
+      "seranking.com",
+      "linkedin.com",
+      "peec.ai"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "how-do-i-measure-roi-of-ai-search-visibility",
+    "query": "how do I measure ROI of AI search visibility",
+    "url": "(dataforseo:google_aio)",
+    "body_len": 1271,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 9,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "topicintelligence.ai",
+      "semrush.com",
+      "xseek.io",
+      "digitalscouts.co",
+      "youtube.com",
+      "derivatex.agency",
+      "linkedin.com",
+      "segmentstream.com"
+    ],
+    "measured": true,
+    "ai_overview_present": true
+  },
+  {
+    "engine": "gemini",
+    "slug": "how-do-i-measure-roi-of-ai-search-visibility",
+    "query": "how do I measure ROI of AI search visibility",
+    "url": "(dataforseo:gemini)",
+    "body_len": 6859,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 83,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "how-do-i-report-ai-search-visibility-to-my-ceo-o",
+    "query": "how do I report AI search visibility to my CEO or board",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 3228,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "how-do-i-report-ai-search-visibility-to-my-ceo-o",
+    "query": "how do I report AI search visibility to my CEO or board",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 2990,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 20,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "novastacks-ai.com",
+      "parse.gl",
+      "loudmink.ai",
+      "supermetrics.com",
+      "fastslowmotion.com",
+      "therankmasters.com",
+      "semrush.com",
+      "maxaeo.ai",
+      "wordlift.io",
+      "a-impact.dev",
+      "seenos.ai",
+      "akii.com",
+      "frictionai.co",
+      "topify.ai",
+      "meltwater.com",
+      "percepture.com",
+      "linkedin.com",
+      "tryprofound.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "how-do-i-report-ai-search-visibility-to-my-ceo-o",
+    "query": "how do I report AI search visibility to my CEO or board",
+    "ok": false,
+    "reason": "task 40101 Internal SE Server Error.",
+    "detected": {
+      "hendricks.ai": false
+    },
+    "body_len": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": false
+  },
+  {
+    "engine": "gemini",
+    "slug": "how-do-i-report-ai-search-visibility-to-my-ceo-o",
+    "query": "how do I report AI search visibility to my CEO or board",
+    "url": "(dataforseo:gemini)",
+    "body_len": 5683,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 54,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "how-do-i-track-ai-referral-traffic-in-ga4",
+    "query": "how do I track AI referral traffic in GA4",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 3180,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "how-do-i-track-ai-referral-traffic-in-ga4",
+    "query": "how do I track AI referral traffic in GA4",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 1695,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 18,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "orbitmedia.com",
+      "amicited.com",
+      "swydo.com",
+      "fatjoe.com",
+      "analyticsmania.com",
+      "hovi.ai",
+      "dashthis.com",
+      "ecommercefastlane.com",
+      "asrafmasum.com",
+      "martech.org",
+      "twooctobers.com",
+      "reddit.com",
+      "ferguseo.com",
+      "gafix.ai",
+      "dev.to",
+      "pros.com",
+      "linkedin.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "how-do-i-track-ai-referral-traffic-in-ga4",
+    "query": "how do I track AI referral traffic in GA4",
+    "url": "(dataforseo:google_aio)",
+    "body_len": 733,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 5,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "analyticsmania.com",
+      "youtube.com",
+      "trackfunnels.com",
+      "finance.yahoo.com",
+      "cognizo.ai"
+    ],
+    "measured": true,
+    "ai_overview_present": true
+  },
+  {
+    "engine": "gemini",
+    "slug": "how-do-i-track-ai-referral-traffic-in-ga4",
+    "query": "how do I track AI referral traffic in GA4",
+    "url": "(dataforseo:gemini)",
+    "body_len": 3910,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 36,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "do-ai-visibility-scores-actually-mean-anything",
+    "query": "do AI visibility scores actually mean anything",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 2322,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "do-ai-visibility-scores-actually-mean-anything",
+    "query": "do AI visibility scores actually mean anything",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 1466,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 15,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "campaigncreators.com",
+      "authoritytech.io",
+      "optimizegeo.ai",
+      "semrush.com",
+      "derivatex.agency",
+      "machinerelations.ai",
+      "webtrek.io",
+      "geocara.com",
+      "maxaeo.ai",
+      "useomnia.com",
+      "surferseo.com",
+      "help.milestoneinternet.com",
+      "techwyse.com",
+      "reddit.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "do-ai-visibility-scores-actually-mean-anything",
+    "query": "do AI visibility scores actually mean anything",
+    "url": "(dataforseo:google_aio)",
+    "body_len": 1772,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 12,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "reddit.com",
+      "authoritytech.io",
+      "campaigncreators.com",
+      "knowmad.com",
+      "handraise.com",
+      "visiblie.com",
+      "pixis.ai",
+      "tryprofound.com",
+      "webtrek.io",
+      "surferseo.com",
+      "youtube.com",
+      "optimizegeo.ai"
+    ],
+    "measured": true,
+    "ai_overview_present": true
+  },
+  {
+    "engine": "gemini",
+    "slug": "do-ai-visibility-scores-actually-mean-anything",
+    "query": "do AI visibility scores actually mean anything",
+    "url": "(dataforseo:gemini)",
+    "body_len": 3758,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 37,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "ai-visibility-tool-vs-agency-which-do-i-need",
+    "query": "AI visibility tool vs agency which do I need",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 2000,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "ai-visibility-tool-vs-agency-which-do-i-need",
+    "query": "AI visibility tool vs agency which do I need",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 1161,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 19,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "fortitudemedia.ai",
+      "hamstergarage.com",
+      "brandmentions.link",
+      "tryprofound.com",
+      "tryanalyze.ai",
+      "slatehq.com",
+      "ekamoira.com",
+      "cognizo.ai",
+      "aeo-copilot.com",
+      "amicited.com",
+      "trygeosuite.it",
+      "aeovision.ai",
+      "visibilitystack.ai",
+      "semrush.com",
+      "forbes.com",
+      "foglift.io",
+      "linkedin.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "ai-visibility-tool-vs-agency-which-do-i-need",
+    "query": "AI visibility tool vs agency which do I need",
+    "url": "(dataforseo:google_aio)",
+    "body_len": 826,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 6,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "hamstergarage.com",
+      "42dm.net",
+      "youtube.com",
+      "business.com",
+      "fortitudemedia.ai",
+      "medium.com"
+    ],
+    "measured": true,
+    "ai_overview_present": true
+  },
+  {
+    "engine": "gemini",
+    "slug": "ai-visibility-tool-vs-agency-which-do-i-need",
+    "query": "AI visibility tool vs agency which do I need",
+    "url": "(dataforseo:gemini)",
+    "body_len": 3924,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 32,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "how-much-does-geo-cost-per-month",
+    "query": "how much does GEO cost per month",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 4442,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 13,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "pepper.inc",
+      "subscribepr.com",
+      "useorion.ai",
+      "geovector.ai",
+      "geoly.ai",
+      "getgeopulse.com",
+      "getgeoforge.com",
+      "aktion.geo.de",
+      "globalequity.org"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "how-much-does-geo-cost-per-month",
+    "query": "how much does GEO cost per month",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 739,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 19,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "nutshell.com",
+      "singularity.digital",
+      "subscribepr.com",
+      "astral3.io",
+      "revvgrowth.com",
+      "webfx.com",
+      "unosearch.io",
+      "brainz.digital",
+      "staycitable.com",
+      "bowenaistrategygroup.com",
+      "pagetraffic.com",
+      "media-village.co.uk",
+      "aruntastic.com",
+      "reachroller.com",
+      "tribeupacademy.com",
+      "scalenut.com",
+      "factoryjet.com",
+      "linkedin.com",
+      "reddit.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "how-much-does-geo-cost-per-month",
+    "query": "how much does GEO cost per month",
+    "url": "(dataforseo:google_aio)",
+    "body_len": 1823,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 13,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "platform.teamai.com",
+      "nutshell.com",
+      "tribeupacademy.com",
+      "heliuxdigital.com",
+      "ngmdomsubs.nationalgeographic.com",
+      "nationalgeographic.com",
+      "magazineline.com",
+      "gnssdecoded.com",
+      "seranking.com",
+      "cnet.com",
+      "webfx.com"
+    ],
+    "measured": true,
+    "ai_overview_present": true
+  },
+  {
+    "engine": "gemini",
+    "slug": "how-much-does-geo-cost-per-month",
+    "query": "how much does GEO cost per month",
+    "url": "(dataforseo:gemini)",
+    "body_len": 1912,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 31,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "how-do-i-vet-an-ai-visibility-agency-what-to-ask",
+    "query": "how do I vet an AI visibility agency what to ask before signing",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 2586,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "how-do-i-vet-an-ai-visibility-agency-what-to-ask",
+    "query": "how do I vet an AI visibility agency what to ask before signing",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 2885,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 19,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "forbes.com",
+      "soar.sh",
+      "shadow.inc",
+      "ekamoira.com",
+      "amicited.com",
+      "simaia.co",
+      "probablygenius.com",
+      "reddit.com",
+      "hamstergarage.com",
+      "cintra.run",
+      "make-lemonade.co.uk",
+      "discovered-labs.ghost.io",
+      "aiadvantageagency.com",
+      "junto.fr",
+      "graph.digital",
+      "linkedin.com",
+      "aeovision.ai",
+      "vocal.media"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "how-do-i-vet-an-ai-visibility-agency-what-to-ask",
+    "query": "how do I vet an AI visibility agency what to ask before signing",
+    "url": "(dataforseo:google_aio)",
+    "body_len": 859,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 6,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "cintra.run",
+      "hamstergarage.com",
+      "hackernoon.com",
+      "digitalpromenade.com",
+      "verbatimdigital.com",
+      "cognizo.ai"
+    ],
+    "measured": true,
+    "ai_overview_present": true
+  },
+  {
+    "engine": "gemini",
+    "slug": "how-do-i-vet-an-ai-visibility-agency-what-to-ask",
+    "query": "how do I vet an AI visibility agency what to ask before signing",
+    "url": "(dataforseo:gemini)",
+    "body_len": 4404,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 21,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "white-label-aeo-services-for-agencies",
+    "query": "white label AEO services for agencies",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 3573,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "white-label-aeo-services-for-agencies",
+    "query": "white label AEO services for agencies",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 1502,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 20,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "aeoengine.ai",
+      "stackmatix.com",
+      "novusaeo.com",
+      "dallasaicompany.com",
+      "thebusinessrover.com",
+      "brandify.io",
+      "blobic.com",
+      "socialhackettes.com",
+      "loudmink.ai",
+      "airanklab.com",
+      "51blocks.com",
+      "quantumagency.io",
+      "posirank.com",
+      "moosend.com",
+      "outerboxdesign.com",
+      "clicksgeek.com",
+      "agencyelevation.com",
+      "reddit.com",
+      "whitelabelseo.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "white-label-aeo-services-for-agencies",
+    "query": "white label AEO services for agencies",
+    "url": "(dataforseo:google_aio)",
+    "body_len": 1856,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 14,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "youtube.com",
+      "reddit.com",
+      "seoreseller.com",
+      "whitelabelseo.com",
+      "agencyelevation.com",
+      "semify.com",
+      "outerboxdesign.com",
+      "clicksgeek.com",
+      "dialedinweb.com",
+      "mapranking.com",
+      "seodiscovery.com",
+      "semrush.com",
+      "adguysco.com",
+      "respona.com"
+    ],
+    "measured": true,
+    "ai_overview_present": true
+  },
+  {
+    "engine": "gemini",
+    "slug": "white-label-aeo-services-for-agencies",
+    "query": "white label AEO services for agencies",
+    "url": "(dataforseo:gemini)",
+    "body_len": 3032,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 39,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "chat_gpt",
+    "slug": "what-do-i-tell-my-client-when-they-ask-why-they-",
+    "query": "what do I tell my client when they ask why they're not in ChatGPT",
+    "url": "(dataforseo:chat_gpt)",
+    "body_len": 1135,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 0,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [],
+    "measured": true
+  },
+  {
+    "engine": "perplexity",
+    "slug": "what-do-i-tell-my-client-when-they-ask-why-they-",
+    "query": "what do I tell my client when they ask why they're not in ChatGPT",
+    "url": "(dataforseo:perplexity)",
+    "body_len": 1187,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 19,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "help.openai.com",
+      "wikihow.com",
+      "chatgpt.com",
+      "pcguide.com",
+      "ct.nl",
+      "setapp.com",
+      "openai.com",
+      "androidauthority.com",
+      "hubspot.jp",
+      "reddit.com",
+      "ai-toolbox.co",
+      "community.openai.com",
+      "whatsmydns.me",
+      "en.wikipedia.org",
+      "play.google.com",
+      "apps.apple.com"
+    ],
+    "measured": true
+  },
+  {
+    "engine": "google_aio",
+    "slug": "what-do-i-tell-my-client-when-they-ask-why-they-",
+    "query": "what do I tell my client when they ask why they're not in ChatGPT",
+    "url": "(dataforseo:google_aio)",
+    "body_len": 107,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 1,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "pwd.com.au"
+    ],
+    "measured": true,
+    "ai_overview_present": true
+  },
+  {
+    "engine": "gemini",
+    "slug": "what-do-i-tell-my-client-when-they-ask-why-they-",
+    "query": "what do I tell my client when they ask why they're not in ChatGPT",
+    "url": "(dataforseo:gemini)",
+    "body_len": 4310,
+    "detected": {
+      "hendricks.ai": false
+    },
+    "owned_citations": 0,
+    "total_citations": 28,
+    "source": "dataforseo",
+    "cited_urls": [],
+    "all_cited_domains": [
+      "vertexaisearch.cloud.google.com"
+    ],
+    "measured": true
+  }
+]
