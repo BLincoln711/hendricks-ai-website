@@ -41,6 +41,7 @@ import {
   definedTermSchema,
   definedTermSetSchema,
   jsonLdGraph,
+  personAuthor,
   webPageSchema,
 } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
@@ -85,6 +86,7 @@ export default function WhatIsSearchIntelligenceEngineeringPage() {
             // Emitted only because this page renders the same date visibly in
             // its sources station. Pages without a visible date get none.
             dateModified: sources.reviewed,
+            author: personAuthor(),
           }),
           definedTermSetSchema([
             {
@@ -142,7 +144,7 @@ export default function WhatIsSearchIntelligenceEngineeringPage() {
           </p>
         </div>
 
-        <Byline authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`} reviewed={sources.reviewed} />
+        <Byline reviewed={sources.reviewed} reviewedLabel="last-reviewed" showDates={false} />
 
         <p className="text-lead mt-[26px] max-w-[60ch] text-ink">{hero.lead[0]}</p>
       </CanvasPageHero>

@@ -51,6 +51,7 @@ const ALLOWED_TYPES = new Set([
   'ImageObject',
   'Thing',
   'PropertyValue',
+  'OrganizationRole',
 ])
 
 const BANNED_TYPES = new Set(['FAQPage', 'Review', 'Rating', 'Offer', 'AggregateRating'])

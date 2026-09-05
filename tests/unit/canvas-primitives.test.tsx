@@ -314,6 +314,14 @@ describe('Byline', () => {
     render(<Byline />)
     expect(screen.getAllByText(new RegExp(NOT_YET_RECORDED))).toHaveLength(2)
   })
+
+  it('prints a name-only vocabulary byline without the job title', () => {
+    render(<Byline reviewed="2026-08-16" reviewedLabel="last-reviewed" showDates={false} />)
+
+    expect(screen.getByText(/By/)).toHaveTextContent('By Brandon Lincoln Hendricks.')
+    expect(screen.getByText(/Last reviewed/)).toBeInTheDocument()
+    expect(screen.queryByText(/Search Intelligence Engineer/)).not.toBeInTheDocument()
+  })
 })
 
 describe('CiteThis', () => {

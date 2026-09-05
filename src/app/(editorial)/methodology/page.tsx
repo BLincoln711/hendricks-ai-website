@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { Answer } from '@/components/canvas/answer'
+import { Byline } from '@/components/canvas/byline'
 import { ClosingStation } from '@/components/canvas/closing-station'
 import { DefinitionList } from '@/components/canvas/definition-list'
 import { Ledger } from '@/components/canvas/ledger'
@@ -40,7 +41,7 @@ import {
 import { evidenceRule } from '@/content/shared/evidence-rule'
 import { observedSystemsSentence } from '@/content/shared/observed-systems'
 import { publicationChrome } from '@/content/shared/publication-record'
-import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
+import { jsonLdGraph, personAuthor, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 import { formatLongDate } from '@/lib/utils/format-date'
 
@@ -80,6 +81,7 @@ export default function MethodologyPage() {
             // Emitted only because this page renders the same date visibly in
             // its related-research station. Pages without a visible date get none.
             dateModified: sources.reviewed,
+            author: personAuthor(),
           }),
         )}
       />
@@ -97,6 +99,7 @@ export default function MethodologyPage() {
         primaryCta={hero.primaryCta}
       >
         <Answer className="mt-8" label={hero.answerLabel} twoTone={hero.answerTwoTone} />
+        <Byline reviewed={sources.reviewed} reviewedLabel="last-reviewed" showDates={false} />
       </CanvasPageHero>
 
       {/* 2. Contents */}

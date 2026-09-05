@@ -20,8 +20,9 @@ export function serializeJsonLd(data: unknown): string {
 /**
  * Organization node.
  *
- * Founding date, address, contact point, and sameAs are deliberately omitted
- * until verified — see CONTENT_VERIFICATION.md items O1–O4 and docs/06 §8.
+ * Founding date, address, and contact point stay omitted until verified.
+ * sameAs is the company LinkedIn URL only. The Search Economy is not an
+ * Organization profile and must not appear here.
  */
 export function organizationSchema() {
   return {
@@ -36,11 +37,12 @@ export function organizationSchema() {
 
       This is the one identity field that resolves the "Hendricks" collision
       against a filing a machine can check, which is why it belongs here while
-      address, contactPoint, foundingDate, and sameAs stay omitted: those are
-      still unverified per CONTENT_VERIFICATION.md O1-O4 and a test pins their
-      absence.
+      address, contactPoint, and foundingDate stay omitted: those are still
+      unverified per CONTENT_VERIFICATION.md O1-O3. sameAs is the confirmed
+      company LinkedIn URL only.
     */
     legalName: 'Hendricks Agency LLC',
+    sameAs: [...siteConfig.organizationSameAs],
     url: siteConfig.url,
     logo: {
       '@type': 'ImageObject',
@@ -122,6 +124,7 @@ export function webPageSchema({
   hasBreadcrumb = false,
   datePublished,
   dateModified,
+  author,
 }: {
   path: string
   title: string
@@ -140,6 +143,8 @@ export function webPageSchema({
   hasBreadcrumb?: boolean
   datePublished?: string
   dateModified?: string
+  /** Expanded Person author. sameAs stays on /about#person only. */
+  author?: ReturnType<typeof personAuthor>
 }) {
   const url = new URL(path, siteConfig.url).toString()
   const aboutNode = about === undefined ? { '@id': `${siteConfig.url}/#organization` } : about
@@ -157,6 +162,7 @@ export function webPageSchema({
     ...(hasBreadcrumb ? { breadcrumb: { '@id': `${url}#breadcrumb` } } : {}),
     ...(datePublished ? { datePublished } : {}),
     ...(dateModified ? { dateModified } : {}),
+    ...(author ? { author } : {}),
     inLanguage: 'en-US',
   }
 }
@@ -243,12 +249,31 @@ export function itemListSchema({
 }
 
 /**
+ * Expanded Person author for page and article graphs.
+ *
+ * sameAs is omitted here. It is emitted only on the /about#person node.
+ */
+export function personAuthor() {
+  return {
+    '@type': 'Person',
+    '@id': siteConfig.founderPersonId,
+    name: siteConfig.founder,
+    jobTitle: siteConfig.founderRole,
+    url: new URL('/about', siteConfig.url).toString(),
+  }
+}
+
+export type AlumniRole = {
+  name: string
+  jobTitle: string
+}
+
+/**
  * Person node for the founder, emitted on /about only.
  *
- * `@id` matches the reference in `organizationSchema`. Every field here is
- * supported by visible copy on that page, as docs/06 §9 requires. `sameAs` is
- * omitted until the official profile list is approved (CONTENT_VERIFICATION.md
- * O4), and no employer, award, or credential is asserted while F3–F7 are pending.
+ * `@id` is https://hendricks.ai/about#person. sameAs is the Person-level join
+ * list: Medium essay, The Search Economy, personal LinkedIn, and X.
+ * Company LinkedIn stays off this node.
  */
 export function personSchema({
   jobTitle,
@@ -264,19 +289,25 @@ export function personSchema({
    * clients through a former employer are excluded by docs/12 §6, so this list
    * must never grow to include them.
    */
-  alumniOf?: readonly string[]
+  alumniOf?: readonly AlumniRole[]
 }) {
   return {
     '@type': 'Person',
-    // D-B: one Person node across hendricks.ai and brandonlincolnhendricks.com.
     '@id': siteConfig.founderPersonId,
     name: siteConfig.founder,
     jobTitle,
     url: new URL('/about', siteConfig.url).toString(),
     image: new URL(imagePath, siteConfig.url).toString(),
     worksFor: { '@id': `${siteConfig.url}/#organization` },
+    sameAs: [...siteConfig.personSameAs],
     ...(alumniOf?.length
-      ? { alumniOf: alumniOf.map((name) => ({ '@type': 'Organization', name })) }
+      ? {
+          alumniOf: alumniOf.map((role) => ({
+            '@type': 'OrganizationRole',
+            roleName: role.jobTitle,
+            alumniOf: { '@type': 'Organization', name: role.name },
+          })),
+        }
       : {}),
   }
 }
@@ -385,13 +416,7 @@ export function breadcrumbSchema(items: BreadcrumbEntry[], path?: string) {
  * absent from serviceSchema: no offers, aggregateRating, or review.
  */
 export function articleAuthor() {
-  return {
-    '@type': 'Person',
-    '@id': siteConfig.founderPersonId,
-    name: siteConfig.founder,
-    jobTitle: siteConfig.founderRole,
-    url: new URL('/about', siteConfig.url).toString(),
-  }
+  return personAuthor()
 }
 
 export function articleSchema({

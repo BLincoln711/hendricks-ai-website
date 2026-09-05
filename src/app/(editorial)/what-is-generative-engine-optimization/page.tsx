@@ -17,7 +17,6 @@ import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
 import { RuleLink } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
-import { siteConfig } from '@/config/site'
 import {
   closing,
   contents,
@@ -36,7 +35,7 @@ import {
 } from '@/content/pages/what-is-generative-engine-optimization'
 import { isDefinitionRoute } from '@/content/shared/definition-routes'
 import { publicationChrome } from '@/content/shared/publication-record'
-import { definedTermSchema, jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
+import { definedTermSchema, jsonLdGraph, personAuthor, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
@@ -71,6 +70,7 @@ export default function WhatIsGenerativeEngineOptimizationPage() {
             about: null,
             hasBreadcrumb: true,
             dateModified: sources.reviewed,
+            author: personAuthor(),
           }),
           definedTermSchema({
             path: routes.whatIsGenerativeEngineOptimization.path,
@@ -107,10 +107,7 @@ export default function WhatIsGenerativeEngineOptimizationPage() {
           paragraphs={[directAnswer.answer]}
         />
 
-        <Byline
-          authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`}
-          reviewed={sources.reviewed}
-        />
+        <Byline reviewed={sources.reviewed} reviewedLabel="last-reviewed" showDates={false} />
 
         <div className="mt-[26px] max-w-[60ch]">
           {hero.lead.map((paragraph) => (

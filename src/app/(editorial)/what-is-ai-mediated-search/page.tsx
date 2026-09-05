@@ -16,7 +16,6 @@ import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
 import { RuleLink } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
-import { siteConfig } from '@/config/site'
 import {
   absence,
   closing,
@@ -39,6 +38,7 @@ import { publicationChrome } from '@/content/shared/publication-record'
 import {
   definedTermSchema,
   jsonLdGraph,
+  personAuthor,
   webPageSchema,
 } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
@@ -81,6 +81,7 @@ export default function WhatIsAiMediatedSearchPage() {
             about: null,
             hasBreadcrumb: true,
             dateModified: sources.reviewed,
+            author: personAuthor(),
           }),
           definedTermSchema({
             path: routes.whatIsAiMediatedSearch.path,
@@ -117,10 +118,7 @@ export default function WhatIsAiMediatedSearchPage() {
           paragraphs={[directAnswer.answer]}
         />
 
-        <Byline
-          authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`}
-          reviewed={sources.reviewed}
-        />
+        <Byline reviewed={sources.reviewed} reviewedLabel="last-reviewed" showDates={false} />
 
         <div className="mt-[26px] max-w-[60ch]">
           {hero.lead.map((paragraph) => (

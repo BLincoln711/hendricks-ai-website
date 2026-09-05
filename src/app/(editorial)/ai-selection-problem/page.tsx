@@ -17,7 +17,6 @@ import { JsonLd } from '@/components/seo/json-ld'
 import { RuleLink } from '@/components/ui/cta'
 import { NodePathDrawing } from '@/components/visuals/node-paths'
 import { routes } from '@/config/routes'
-import { siteConfig } from '@/config/site'
 import {
   closing,
   competitorRecommendation,
@@ -36,7 +35,7 @@ import {
 } from '@/content/pages/ai-selection-problem'
 import { isDefinitionRoute } from '@/content/shared/definition-routes'
 import { publicationChrome } from '@/content/shared/publication-record'
-import { jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
+import { jsonLdGraph, personAuthor, webPageSchema } from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
@@ -73,6 +72,7 @@ export default function AiSelectionProblemPage() {
             description: meta.description,
             hasBreadcrumb: true,
             dateModified: sources.reviewed,
+            author: personAuthor(),
           }),
         )}
       />
@@ -88,10 +88,7 @@ export default function AiSelectionProblemPage() {
         ]}
         primaryCta={hero.primaryCta}
       >
-        <Byline
-          authorTitle={`${siteConfig.founderRole}, ${siteConfig.name}`}
-          reviewed={sources.reviewed}
-        />
+        <Byline reviewed={sources.reviewed} reviewedLabel="last-reviewed" showDates={false} />
 
         <Answer
           id="term-definition"
