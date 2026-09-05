@@ -17,6 +17,7 @@ import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
 import { RuleLink } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
+import { siteConfig } from '@/config/site'
 import {
   closing,
   contents,
