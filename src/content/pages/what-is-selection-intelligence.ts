@@ -104,6 +104,20 @@ export const metrics = {
   items: metricDefinitions,
 } as const
 
+/**
+ * Citation-presence only. The self-run does not report the four named
+ * Selection Intelligence metrics, and this block must not invent numbers for
+ * them.
+ */
+export const citationPresenceOnly = {
+  body: 'A Hendricks self-run, 2026-08-19-110930, measured citation presence only. It does not report Observed Consideration Rate, Observed Recommendation Rate, Selection Stability, or Commercial Selection Gap. Those metrics are defined on this page. That run does not report numbers for them.',
+  cta: {
+    label: 'Read the Hendricks Selection Baseline',
+    href: routes.researchHendricksSelectionBaseline.path,
+    analytics: { location: 'wisi_citation_presence' },
+  } satisfies Cta,
+} as const
+
 export const limitation = {
   label: 'Honest limitation',
   title: 'Selection Intelligence does not reveal a model’s private reasoning.',

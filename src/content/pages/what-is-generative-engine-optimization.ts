@@ -126,6 +126,19 @@ export const runsOut = {
         'A citation is exposure. Hendricks treats exposure as the first level of evidence rather than the last, and connects it to branded demand, website behavior, CRM outcomes, pipeline, and controlled experiments through Search Impact Measurement.',
     },
   ],
+  citationPresence: {
+    body: 'Two first-party citation-presence runs sit under this limit. Run 2026-08-20-110653 found zero domains cited by all three engines. Run 2026-08-19-110930 found 247 distinct domains across 308 citation slots, 86 percent of them once. Neither run shows that GEO tactics produce citations.',
+    noShared: {
+      label: 'Read the no-shared-source study',
+      href: routes.researchNoSharedSourceAcrossEngines.path,
+      analytics: { location: 'wgeo_runs_out_110653' },
+    } satisfies Cta,
+    whoGetsCited: {
+      label: 'Read who gets cited in AI answers',
+      href: routes.researchWhoGetsCitedInAiAnswers.path,
+      analytics: { location: 'wgeo_runs_out_110930' },
+    } satisfies Cta,
+  },
 } as const
 
 /**

@@ -36,6 +36,24 @@ export const directAnswer = {
     'Search Intelligence Engineering is the discipline of designing systems that connect customer search demand, traditional and AI-mediated visibility, brand evidence, paid and organic acquisition, analytics, and business outcomes so organizations can understand where they are losing consideration and act on evidence.',
 } as const
 
+/**
+ * Citation-presence illustration. Sits immediately after the definition.
+ * The Medium link names the role only. It does not carry a measurement.
+ */
+export const illustratedBy = {
+  body: 'This discipline is illustrated by Hendricks self-baseline run 2026-08-19-110930, which measured citation presence, not consideration.',
+  study: {
+    label: 'Read the Hendricks Selection Baseline',
+    href: routes.researchHendricksSelectionBaseline.path,
+    analytics: { location: 'wisie_illustrated_by' },
+  } satisfies Cta,
+  roleNaming: {
+    body: 'The role name Search Intelligence Engineer is also set out in a public essay. That essay names the role. It is not a measurement.',
+    label: 'What is a Search Intelligence Engineer',
+    href: 'https://medium.com/@brandonlincolnhendricks/what-is-a-search-intelligence-engineer-f6211b8339a6',
+  },
+} as const
+
 export const whyItExists = {
   eyebrow: 'Why It Exists',
   title: 'Traditional search disciplines often optimize one part of the journey.',

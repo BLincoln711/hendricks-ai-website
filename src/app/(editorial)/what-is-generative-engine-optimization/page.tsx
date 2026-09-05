@@ -15,6 +15,7 @@ import { SourcesStation } from '@/components/canvas/sources-station'
 import { TableRegion } from '@/components/canvas/table-region'
 import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
+import { RuleLink } from '@/components/ui/cta'
 import { routes } from '@/config/routes'
 import { siteConfig } from '@/config/site'
 import {
@@ -75,6 +76,14 @@ export default function WhatIsGenerativeEngineOptimizationPage() {
             path: routes.whatIsGenerativeEngineOptimization.path,
             term: directAnswer.term,
             directAnswer: directAnswer.answer,
+            sameAs: [
+              new URL(routes.researchNoSharedSourceAcrossEngines.path, siteConfig.url).toString(),
+              new URL(routes.researchWhoGetsCitedInAiAnswers.path, siteConfig.url).toString(),
+            ],
+            citation: [
+              new URL(routes.researchNoSharedSourceAcrossEngines.path, siteConfig.url).toString(),
+              new URL(routes.researchWhoGetsCitedInAiAnswers.path, siteConfig.url).toString(),
+            ],
           }),
         )}
       />
@@ -164,6 +173,12 @@ export default function WhatIsGenerativeEngineOptimizationPage() {
                 value: item.description,
               }))}
             />
+
+            <div className="prose">
+              <p>{runsOut.citationPresence.body}</p>
+            </div>
+            <RuleLink cta={runsOut.citationPresence.noShared} />
+            <RuleLink cta={runsOut.citationPresence.whoGetsCited} />
           </Station>
 
           {/* 04. What Hendricks observes */}

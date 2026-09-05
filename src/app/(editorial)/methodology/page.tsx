@@ -12,6 +12,7 @@ import { TableOfContents } from '@/components/canvas/table-of-contents'
 import { TableRegion } from '@/components/canvas/table-region'
 import { Station } from '@/components/sections/station'
 import { JsonLd } from '@/components/seo/json-ld'
+import { RuleLink } from '@/components/ui/cta'
 import { TwoTone } from '@/components/ui/two-tone'
 import { EvidenceClasses } from '@/components/visuals/evidence-classes'
 import { routes } from '@/config/routes'
@@ -28,6 +29,7 @@ import {
   limitations,
   meta,
   metrics,
+  publishedSelfRun,
   related,
   relatedSection,
   reproducibility,
@@ -255,6 +257,9 @@ export default function MethodologyPage() {
         <p className="text-lead mt-[26px] text-ink">{reproducibility.lead}</p>
 
         <RuleList className="mt-6" items={reproducibility.items} ariaLabel={reproducibility.lead} />
+
+        <p className="measure-wide mt-8 text-ink-2">{publishedSelfRun.body}</p>
+        <RuleLink cta={publishedSelfRun.cta} />
       </Station>
 
       {/* 12. Limitations */}
