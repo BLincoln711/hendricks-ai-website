@@ -370,9 +370,52 @@ export const data = {
   note: [
     'Both runs used the same 17 questions and the same three engines, with nothing changed between them. That is what makes the pair comparable, and it is also the whole of the design. Elapsed time is the only variable that moved.',
     'Run A errored on 4 of its 51 cells, all of them Google AI Overviews. Run B errored on 2. An errored cell returns no answer and therefore no citations, so on the citation-state comparison it registers as a cell that cited nothing. None of the errored cells in either run is a cell where the other run found a citation, so no match among the 51 rests on an error standing in for an answer. What no figure here can say is what those cells would have returned.',
-    'Every figure above is read from one of two archived files: run A at history/runs/hendricks-2026-08-19-110930.json and run B at history/runs/hendricks-2026-08-19-181155.json, each with a manifest beside it named for the same run id. Both files are immutable. A reader checking a figure on this page can name the run id and ask for the file it came from.',
+    'Every figure above is read from one of two archived files: run A at history/runs/hendricks-2026-08-19-110930.json and run B at history/runs/hendricks-2026-08-19-181155.json, each with a manifest beside it named for the same run id. Both files are immutable. A reader checking a figure on this page can name the run id and ask for the file it came from. Public paths are /history/runs/hendricks-2026-08-19-110930.json and /history/runs/hendricks-2026-08-19-181155.json.',
+  ],
+  archiveLinks: [
+    {
+      filename: 'hendricks-2026-08-19-110930.json',
+      label: 'Run 2026-08-19-110930 result file',
+      note: 'Run A citation-presence archive.',
+    },
+    {
+      filename: 'hendricks-2026-08-19-181155.json',
+      label: 'Run 2026-08-19-181155 result file',
+      note: 'Run B citation-presence archive.',
+    },
+    {
+      filename: 'manifest-2026-08-19-110930.json',
+      label: 'Run 2026-08-19-110930 manifest',
+      note: 'Companion manifest for run A.',
+    },
+    {
+      filename: 'manifest-2026-08-19-181155.json',
+      label: 'Run 2026-08-19-181155 manifest',
+      note: 'Companion manifest for run B.',
+    },
   ],
 } as const
+
+export const citationRuns = [
+  {
+    runId: '2026-08-19-110930',
+    name: 'Hendricks citation-presence archive 2026-08-19-110930',
+    description:
+      'First-party citation-presence archive for run 2026-08-19-110930, the first of two dated runs compared for cited-host overlap.',
+    temporalCoverage: '2026-08-19',
+    filename: 'hendricks-2026-08-19-110930.json',
+    role: 'primary',
+  },
+  {
+    runId: '2026-08-19-181155',
+    name: 'Hendricks citation-presence archive 2026-08-19-181155',
+    description:
+      'First-party citation-presence archive for run 2026-08-19-181155, the second of two dated runs compared for cited-host overlap.',
+    temporalCoverage: '2026-08-19',
+    filename: 'hendricks-2026-08-19-181155.json',
+    role: 'primary',
+  },
+] as const
 
 /** Element 5. */
 export const methodology = {

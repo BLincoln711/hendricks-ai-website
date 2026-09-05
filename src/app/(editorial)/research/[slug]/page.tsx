@@ -28,7 +28,20 @@ import {
 } from '@/content/research'
 import { series } from '@/content/research/the-answer-index'
 import { publicationChrome } from '@/content/shared/publication-record'
-import { articleSchema, datasetSchema, jsonLdGraph, webPageSchema } from '@/lib/seo/json-ld'
+import {
+  allNoSharedPartResultsPublished,
+  archiveFileExists,
+  historyRunsHref,
+  NO_SHARED_PART_RUN_IDS,
+  resultFilenameForRunId,
+} from '@/content/research/citation-runs'
+import {
+  articleSchema,
+  citationDatasetSchema,
+  datasetSchema,
+  jsonLdGraph,
+  webPageSchema,
+} from '@/lib/seo/json-ld'
 import { buildMetadata } from '@/lib/seo/metadata'
 import { formatLongDate } from '@/lib/utils/format-date'
 
@@ -80,7 +93,13 @@ export async function generateMetadata({
  * `src/lib/seo/json-ld.ts` so all Article nodes across the site share one
  * definition and one test.
  */
-function researchArticleSchema(article: ResearchArticle) {
+function researchArticleSchema(
+  article: ResearchArticle,
+  extras?: {
+    identifier?: string | readonly string[]
+    isBasedOn?: readonly { '@id': string }[]
+  },
+) {
   return articleSchema({
     path: article.path,
     headline: article.title,
@@ -89,7 +108,59 @@ function researchArticleSchema(article: ResearchArticle) {
     datePublished: article.publishedDate,
     dateModified: article.updatedDate,
     claimClass: article.claimClass,
+    identifier: extras?.identifier,
+    isBasedOn: extras?.isBasedOn,
   })
+}
+
+function citationRunNodes(article: ResearchArticle) {
+  const runs = article.content.citationRuns ?? []
+  if (runs.length === 0) return { articleExtras: undefined, datasets: [] as object[] }
+
+  const includeParts =
+    article.slug === 'no-shared-source-across-engines' && allNoSharedPartResultsPublished()
+
+  const datasets = runs.map((run) =>
+    citationDatasetSchema({
+      path: article.path,
+      runId: run.runId,
+      name: run.name,
+      description: run.description,
+      temporalCoverage: run.temporalCoverage,
+      contentUrl: historyRunsHref(run.filename),
+      hasPart:
+        includeParts && run.role === 'primary'
+          ? NO_SHARED_PART_RUN_IDS.map((runId) => ({
+              '@id': `${new URL(article.path, siteConfig.url).toString()}#dataset-${runId}`,
+            }))
+          : undefined,
+    }),
+  )
+
+  const partDatasets = includeParts
+    ? NO_SHARED_PART_RUN_IDS.filter((runId) => !runs.some((run) => run.runId === runId)).map(
+        (runId) =>
+          citationDatasetSchema({
+            path: article.path,
+            runId,
+            name: `Citation-presence archive ${runId}`,
+            description: 'First-party citation-presence archive. Records cited URL hosts per cell.',
+            temporalCoverage: runId.slice(0, 10),
+            contentUrl: historyRunsHref(resultFilenameForRunId(runId)),
+          }),
+      )
+    : []
+
+  const allDatasets = [...datasets, ...partDatasets]
+  const primaryIds = runs.filter((run) => run.role === 'primary').map((run) => run.runId)
+
+  return {
+    articleExtras: {
+      identifier: primaryIds.length === 1 ? primaryIds[0] : primaryIds,
+      isBasedOn: allDatasets.map((node) => ({ '@id': (node as { '@id': string })['@id'] })),
+    },
+    datasets: allDatasets,
+  }
 }
 
 /** Findings, checks, method steps and limits all render as the method list. */
@@ -154,6 +225,7 @@ export default async function ResearchArticlePage({
 
   const appliedIn = content.sources.appliedIn.filter((item) => isBuilt(item.href))
   const isAnswerIndex = article.slug === 'the-answer-index'
+  const citationGraph = citationRunNodes(article)
 
   /*
     The contents list, built from the sections that actually render. A fixed
@@ -183,7 +255,8 @@ export default async function ResearchArticlePage({
     <div className="wrap">
       <JsonLd
         data={jsonLdGraph(
-          researchArticleSchema(article),
+          researchArticleSchema(article, citationGraph.articleExtras),
+          ...citationGraph.datasets,
           ...(content.dataset
             ? [
                 datasetSchema({
@@ -362,6 +435,29 @@ export default async function ResearchArticlePage({
                   <p key={line}>{line}</p>
                 ))}
               </div>
+            ) : null}
+
+            {content.data.archiveLinks?.length ? (
+              <ul className="downloads">
+                {content.data.archiveLinks.map((item) => {
+                  const href = historyRunsHref(item.filename)
+                  const available = archiveFileExists(item.filename)
+                  return (
+                    <li key={item.filename}>
+                      {available ? (
+                        <a href={href}>
+                          <span className="dl-name">{item.label}</span>
+                        </a>
+                      ) : (
+                        <span className="dl-name">{item.label}</span>
+                      )}
+                      <p className="dl-note">
+                        {item.note} Public path: {href}.
+                      </p>
+                    </li>
+                  )
+                })}
+              </ul>
             ) : null}
           </Station>
 

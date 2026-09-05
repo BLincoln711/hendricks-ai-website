@@ -119,7 +119,7 @@ Table caption: Run totals for 2026-08-18 and 2026-08-19, by measure.
 | Citation slots filled | 324 | 308 |
 | Domains cited exactly once | 221, or 87 percent | 212 |
 | API spend for the run | $0.47 | $0.3769 |
-| Run of record | The 2026-08-18 result file, unchanged | Run 2026-08-19-110930 |
+| Run of record | hendricks-2026-08-18.json, unchanged | Run 2026-08-19-110930 |
 
 Table caption: Cells in which each engine cited at least one source, by run.
 
@@ -156,7 +156,7 @@ Run 1 errored on 6 of its 45 cells, all of them Google AI Overviews. That is why
 
 The single cell citing hendricks.ai in run 1 cites a page Hendricks published on 2025-11-25 and retired on 2026-08-17. The citation is counted here because it happened. The page it points at is gone, which is a separate fact and is reported next to it rather than folded into the count. Key finding 01 and the corrections section carry the detail.
 
-Every run 2 figure above is read from run 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. The manifest records all three engines as requested, none carried forward from an earlier run, 51 cells, 47 measured, and $0.3769 spent. A reader checking a figure on this page can name that run id and ask for the file it came from.
+Every run 2 figure above is read from run 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. The manifest records all three engines as requested, none carried forward from an earlier run, 51 cells, 47 measured, and $0.3769 spent. A reader checking a figure on this page can name that run id and ask for the file it came from. The public path is /history/runs/hendricks-2026-08-19-110930.json.
 
 ## One checkable error in these answers
 
@@ -229,7 +229,7 @@ Eyebrow: Sample and Date Range
 - Cells: 45 in run 1, of which 39 were measured and 6 errored. 51 in run 2, of which 47 were measured and 4 errored.
 - Geography and language: one setting, held constant across both runs.
 - Instrument: a first-party probe.
-- Run of record: run 2 is 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. Run 1 reproduces from its own 2026-08-18 result file, unchanged.
+- Run of record: run 2 is 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. Run 1 reproduces from hendricks-2026-08-18.json, unchanged.
 - Resolution check: the one cited hendricks.ai address was fetched by hand on 2026-08-18 and returned HTTP 410 Gone.
 
 The manifest for run 2026-08-19-110930 records all three engines as requested, none carried forward from an earlier run, 51 cells, 47 measured, and $0.3769 in API spend. Requested, carried forward, and not run are three different states, and a result file on its own cannot tell them apart after the fact.

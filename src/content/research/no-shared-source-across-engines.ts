@@ -396,9 +396,33 @@ export const data = {
     'Every overlap figure involving ChatGPT rests on 9 citation slots. An engine that filled 9 slots had few chances to overlap with anything, so those two rows are observations on one run and not rates. The Perplexity and Google AI Overviews row rests on 304 and 136 slots and does not carry that limitation.',
     'All 51 cells in this run returned a measurement and none errored. The two studies published before this one both carried an errored-cell caveat, so the absence of one here is stated rather than assumed. It is a fact about this run and not an improvement being claimed.',
     'The six-run table is the only object on this page that spans runs. Its six run ids are named in the sample section. A parser change to how one engine’s citations are read landed inside that window and is described under Errors Found; it does not affect the populated-cell counts in that table, which depend only on whether any source was present.',
-    'Every single-run figure on this page is read from run 2026-08-20-110653, archived at history/runs/hendricks-2026-08-20-110653.json with its manifest at history/runs/manifest-2026-08-20-110653.json. A reader checking a figure can name that run id and ask for the file it came from.',
+    'Every single-run figure on this page is read from run 2026-08-20-110653, archived at history/runs/hendricks-2026-08-20-110653.json with its manifest at history/runs/manifest-2026-08-20-110653.json. A reader checking a figure can name that run id and ask for the file it came from. The public path is /history/runs/hendricks-2026-08-20-110653.json.',
+  ],
+  archiveLinks: [
+    {
+      filename: 'hendricks-2026-08-20-110653.json',
+      label: 'Run 2026-08-20-110653 result file',
+      note: 'Primary citation-presence archive for every single-run figure on this page.',
+    },
+    {
+      filename: 'manifest-2026-08-20-110653.json',
+      label: 'Run 2026-08-20-110653 manifest',
+      note: 'Companion manifest for the primary run.',
+    },
   ],
 } as const
+
+export const citationRuns = [
+  {
+    runId: '2026-08-20-110653',
+    name: 'Hendricks citation-presence archive 2026-08-20-110653',
+    description:
+      'First-party citation-presence archive for run 2026-08-20-110653. Records cited URL hosts per cell.',
+    temporalCoverage: '2026-08-20',
+    filename: 'hendricks-2026-08-20-110653.json',
+    role: 'primary',
+  },
+] as const
 
 /**
  * Element 4, the checked half, and the section this study exists to be honest in.

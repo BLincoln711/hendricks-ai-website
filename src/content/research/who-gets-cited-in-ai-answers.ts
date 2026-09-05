@@ -391,9 +391,33 @@ export const data = {
     'The concentration figure counts the ten most-cited domains, and this page does not publish those ten as a ranked list. Twenty-nine domains in this run each filled exactly two slots, and the run record does not break a 29-way tie. The tables therefore publish domains in bands by slot count, and the concentration figure is published as the run reported it, 46 of 308 slots.',
     'The overlap table compares Perplexity and ChatGPT and stops there. ChatGPT filled 11 citation slots in this run and Google AI Overviews filled 6, so the smaller sets had few chances to overlap with anything, and a single shared domain out of 243 is reported as an observation on one run rather than as a rate.',
     'Four of the 51 cells returned no measurement, all four of them Google AI Overviews cells. An errored cell is a broken instrument rather than an answer that cited nothing, so the 6 domains attributed to Google AI Overviews are what 13 successful probes returned and nothing on this page estimates what the other 4 would have returned.',
-    'Every figure in these tables is read from run 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. A reader checking a figure on this page can name that run id and ask for the file it came from.',
+    'Every figure in these tables is read from run 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. A reader checking a figure on this page can name that run id and ask for the file it came from. The public path is /history/runs/hendricks-2026-08-19-110930.json.',
+  ],
+  archiveLinks: [
+    {
+      filename: 'hendricks-2026-08-19-110930.json',
+      label: 'Run 2026-08-19-110930 result file',
+      note: 'Citation-presence archive for every figure on this page.',
+    },
+    {
+      filename: 'manifest-2026-08-19-110930.json',
+      label: 'Run 2026-08-19-110930 manifest',
+      note: 'Companion manifest for the run of record.',
+    },
   ],
 } as const
+
+export const citationRuns = [
+  {
+    runId: '2026-08-19-110930',
+    name: 'Hendricks citation-presence archive 2026-08-19-110930',
+    description:
+      'First-party citation-presence archive for run 2026-08-19-110930. Records cited URL hosts per cell.',
+    temporalCoverage: '2026-08-19',
+    filename: 'hendricks-2026-08-19-110930.json',
+    role: 'primary',
+  },
+] as const
 
 /** Element 5. */
 export const methodology = {

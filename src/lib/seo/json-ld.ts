@@ -1,4 +1,5 @@
 import { siteConfig } from '@/config/site'
+import { CITATION_PROBE_MEASUREMENT_TECHNIQUE } from '@/content/research/citation-run-constants'
 
 /**
  * Escapes characters that could break out of a <script> context.
@@ -373,6 +374,16 @@ export function breadcrumbSchema(items: BreadcrumbEntry[], path?: string) {
  * Commercial and reputation fields are absent for the same reason they are
  * absent from serviceSchema: no offers, aggregateRating, or review.
  */
+export function articleAuthor() {
+  return {
+    '@type': 'Person',
+    '@id': siteConfig.founderPersonId,
+    name: siteConfig.founder,
+    jobTitle: siteConfig.founderRole,
+    url: new URL('/about', siteConfig.url).toString(),
+  }
+}
+
 export function articleSchema({
   path,
   headline,
@@ -381,6 +392,8 @@ export function articleSchema({
   datePublished,
   dateModified,
   claimClass,
+  identifier,
+  isBasedOn,
 }: {
   path: string
   headline: string
@@ -389,6 +402,10 @@ export function articleSchema({
   datePublished: string
   dateModified: string
   claimClass?: string
+  /** Primary run id or ids this article is read from. */
+  identifier?: string | readonly string[]
+  /** Dataset nodes this article is based on. */
+  isBasedOn?: readonly { '@id': string }[]
 }) {
   const url = new URL(path, siteConfig.url).toString()
   return {
@@ -400,11 +417,15 @@ export function articleSchema({
     articleSection,
     datePublished,
     dateModified,
-    author: { '@id': siteConfig.founderPersonId },
+    author: articleAuthor(),
     publisher: { '@id': `${siteConfig.url}/#organization` },
     isPartOf: { '@id': `${siteConfig.url}/#website` },
     mainEntityOfPage: { '@id': `${url}#webpage` },
     inLanguage: 'en-US',
+    ...(identifier
+      ? { identifier: typeof identifier === 'string' ? identifier : [...identifier] }
+      : {}),
+    ...(isBasedOn?.length ? { isBasedOn: [...isBasedOn] } : {}),
     ...(claimClass
       ? {
           about: {
@@ -480,6 +501,59 @@ export function datasetSchema({
       },
     ],
     isPartOf: { '@id': `${url}#article` },
+  }
+}
+
+/**
+ * Dataset node for a first-party citation-presence run archive.
+ *
+ * Identifier is the run id, not a DOI. measurementTechnique is the locked
+ * citation-presence sentence. Description must name citation presence and must
+ * not name consideration, OCR, ORR, Selection Stability, or Commercial
+ * Selection Gap.
+ */
+export function citationDatasetSchema({
+  path,
+  runId,
+  name,
+  description,
+  temporalCoverage,
+  contentUrl,
+  hasPart,
+}: {
+  path: string
+  runId: string
+  name: string
+  description: string
+  temporalCoverage: string
+  contentUrl: string
+  hasPart?: readonly { '@id': string }[]
+}) {
+  const url = new URL(path, siteConfig.url).toString()
+  return {
+    '@type': 'Dataset',
+    '@id': `${url}#dataset-${runId}`,
+    name,
+    description,
+    identifier: runId,
+    url: new URL(contentUrl, siteConfig.url).toString(),
+    creator: articleAuthor(),
+    publisher: { '@id': `${siteConfig.url}/#organization` },
+    measurementTechnique: CITATION_PROBE_MEASUREMENT_TECHNIQUE,
+    temporalCoverage,
+    variableMeasured: [
+      { '@type': 'PropertyValue', name: 'Citation presence' },
+      { '@type': 'PropertyValue', name: 'Cited URL host' },
+    ],
+    distribution: [
+      {
+        '@type': 'DataDownload',
+        contentUrl: new URL(contentUrl, siteConfig.url).toString(),
+        encodingFormat: 'application/json',
+      },
+    ],
+    isPartOf: { '@id': `${url}#article` },
+    ...(hasPart?.length ? { hasPart: [...hasPart] } : {}),
   }
 }
 

@@ -376,7 +376,7 @@ const runSummaryRows = [
   { measure: 'API spend for the run', run1: '$0.47', run2: '$0.3769' },
   {
     measure: 'Run of record',
-    run1: 'The 2026-08-18 result file, unchanged',
+    run1: 'hendricks-2026-08-18.json, unchanged',
     run2: 'Run 2026-08-19-110930',
   },
 ] as const satisfies readonly DataTableRow[]
@@ -466,9 +466,47 @@ export const data = {
     'The domain tables record which sources these answers cited. They are facts about the answers and nothing else. They are not a ranking of firms, they carry no judgment about any company behind a domain, and no page on this site publishes one.',
     'Run 1 errored on 6 of its 45 cells, all of them Google AI Overviews. That is why the Google AI Overviews figure for run 1 reads against 9 successful probes rather than 15. Run 2 errored on 4 of its 51 cells, which is an upstream server error rather than a finding about any engine. All four were Google AI Overviews cells, exactly as in run 1, so the Google AI Overviews figure for run 2 reads against 13 successful probes rather than 17. ChatGPT and Perplexity each returned a measurement on all 17 questions they were sent, so their columns read against 17.',
     'The single cell citing hendricks.ai in run 1 cites a page Hendricks published on 2025-11-25 and retired on 2026-08-17. The citation is counted here because it happened. The page it points at is gone, which is a separate fact and is reported next to it rather than folded into the count. Key finding 01 and the corrections section carry the detail.',
-    'Every run 2 figure above is read from run 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. The manifest records all three engines as requested, none carried forward from an earlier run, 51 cells, 47 measured, and $0.3769 spent. A reader checking a figure on this page can name that run id and ask for the file it came from.',
+    'Every run 2 figure above is read from run 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. The manifest records all three engines as requested, none carried forward from an earlier run, 51 cells, 47 measured, and $0.3769 spent. A reader checking a figure on this page can name that run id and ask for the file it came from. The public path is /history/runs/hendricks-2026-08-19-110930.json.',
+  ],
+  archiveLinks: [
+    {
+      filename: 'hendricks-2026-08-19-110930.json',
+      label: 'Run 2026-08-19-110930 result file',
+      note: 'Primary citation-presence archive for every 2026-08-19 figure on this page.',
+    },
+    {
+      filename: 'manifest-2026-08-19-110930.json',
+      label: 'Run 2026-08-19-110930 manifest',
+      note: 'Companion manifest for the primary run.',
+    },
+    {
+      filename: 'hendricks-2026-08-18.json',
+      label: '2026-08-18 result file',
+      note: 'Stable public name for the earlier self-run, previously described as the 2026-08-18 result file, unchanged.',
+    },
   ],
 } as const
+
+export const citationRuns = [
+  {
+    runId: '2026-08-19-110930',
+    name: 'Hendricks citation-presence archive 2026-08-19-110930',
+    description:
+      'First-party citation-presence archive for Hendricks self-run 2026-08-19-110930. Records whether each answer cell cited a URL host.',
+    temporalCoverage: '2026-08-19',
+    filename: 'hendricks-2026-08-19-110930.json',
+    role: 'primary',
+  },
+  {
+    runId: '2026-08-18',
+    name: 'Hendricks citation-presence archive 2026-08-18',
+    description:
+      'First-party citation-presence archive for the 2026-08-18 Hendricks self-run. Records whether each answer cell cited a URL host.',
+    temporalCoverage: '2026-08-18',
+    filename: 'hendricks-2026-08-18.json',
+    role: 'secondary',
+  },
+] as const
 
 /**
  * Element 4, second half. One answer defect, verified outside the probe by a
@@ -582,7 +620,7 @@ export const sample = {
     'Cells: 45 in run 1, of which 39 were measured and 6 errored. 51 in run 2, of which 47 were measured and 4 errored.',
     'Geography and language: one setting, held constant across both runs.',
     'Instrument: a first-party probe.',
-    'Run of record: run 2 is 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. Run 1 reproduces from its own 2026-08-18 result file, unchanged.',
+    'Run of record: run 2 is 2026-08-19-110930, archived at history/runs/hendricks-2026-08-19-110930.json with its manifest at history/runs/manifest-2026-08-19-110930.json. Run 1 reproduces from hendricks-2026-08-18.json, unchanged.',
     'Resolution check: the one cited hendricks.ai address was fetched by hand on 2026-08-18 and returned HTTP 410 Gone.',
   ],
   note: [
