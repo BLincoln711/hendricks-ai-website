@@ -1,0 +1,24 @@
+{
+  "run_id": "2026-08-20-105338",
+  "date_stamp": "2026-08-20",
+  "engines_requested": [
+    "chat_gpt",
+    "perplexity",
+    "google_aio",
+    "gemini"
+  ],
+  "engines_carried_forward": [],
+  "clients": [
+    "hendricks"
+  ],
+  "cost_usd": 1.0224,
+  "cells": {
+    "hendricks": 68
+  },
+  "measured": {
+    "hendricks": 64
+  },
+  "carried": {
+    "hendricks": 0
+  }
+}
