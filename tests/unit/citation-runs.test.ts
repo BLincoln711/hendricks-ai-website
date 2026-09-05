@@ -9,9 +9,11 @@ import {
   REQUIRED_MANIFEST_FILES,
   REQUIRED_RESULT_FILES,
   RUN_2026_08_18_FILENAME,
+  archiveFileExists,
   expectedArchiveFiles,
 } from '@/content/research/citation-runs'
-import { articleSchema, citationDatasetSchema } from '@/lib/seo/json-ld'
+import { citationRunNodes } from '@/lib/seo/citation-run-nodes'
+import { articleSchema } from '@/lib/seo/json-ld'
 
 const VENDOR_NEEDLES = ['Data' + 'ForSEO', 'data' + 'forseo', 'Optimization' + ' API']
 
@@ -45,9 +47,10 @@ describe('citation-presence archives', () => {
     ])
     expect(RUN_2026_08_18_FILENAME).toBe('hendricks-2026-08-18.json')
 
-    for (const file of expectedArchiveFiles()) {
-      expect(file.present, `${file.filename} must not be fabricated in this commit`).toBe(false)
-    }
+    const aug18 = expectedArchiveFiles().find((file) => file.filename === RUN_2026_08_18_FILENAME)
+    expect(aug18?.required).toBe(false)
+    expect(aug18?.present, 'Aug 18 archive must not be fabricated').toBe(false)
+    expect(archiveFileExists(RUN_2026_08_18_FILENAME)).toBe(false)
   })
 
   it('locks measurementTechnique to the citation-presence sentence', () => {
@@ -70,17 +73,8 @@ describe('citation-presence archives', () => {
       const runs = article!.content.citationRuns ?? []
       expect(runs.map((run) => run.runId)).toEqual([...runIds])
 
-      const datasets = runs.map((run) =>
-        citationDatasetSchema({
-          path: article!.path,
-          runId: run.runId,
-          name: run.name,
-          description: run.description,
-          temporalCoverage: run.temporalCoverage,
-          contentUrl: `/history/runs/${run.filename}`,
-        }),
-      )
-
+      const { datasets, articleExtras } = citationRunNodes(article!)
+      const publishedRuns = runs.filter((run) => archiveFileExists(run.filename))
       const primaryIds = runs.filter((run) => run.role === 'primary').map((run) => run.runId)
       const articleNode = articleSchema({
         path: article!.path,
@@ -90,8 +84,8 @@ describe('citation-presence archives', () => {
         datePublished: article!.publishedDate,
         dateModified: article!.updatedDate,
         claimClass: article!.claimClass,
-        identifier: primaryIds.length === 1 ? primaryIds[0] : primaryIds,
-        isBasedOn: datasets.map((node) => ({ '@id': node['@id'] })),
+        identifier: articleExtras?.identifier,
+        isBasedOn: articleExtras?.isBasedOn,
       })
 
       expect(articleNode.author).toMatchObject({
@@ -103,17 +97,69 @@ describe('citation-presence archives', () => {
       expect(articleNode.identifier).toEqual(
         primaryIds.length === 1 ? primaryIds[0] : [...primaryIds],
       )
-      expect(articleNode.isBasedOn).toEqual(datasets.map((node) => ({ '@id': node['@id'] })))
+      expect(articleNode.isBasedOn).toEqual(
+        datasets.map((node) => ({ '@id': (node as { '@id': string })['@id'] })),
+      )
+      expect(articleExtras?.isBasedOn).toEqual(
+        datasets.map((node) => ({ '@id': (node as { '@id': string })['@id'] })),
+      )
 
-      for (const dataset of datasets) {
-        expect(dataset.measurementTechnique).toBe(CITATION_PROBE_MEASUREMENT_TECHNIQUE)
-        expect(dataset.identifier).toMatch(/^\d{4}-\d{2}-\d{2}(-\d{6})?$/)
-        expect(dataset.description.toLowerCase()).toContain('citation-presence')
-        for (const banned of BANNED_METRIC_NAMES) {
-          expect(dataset.description, `${slug} ${dataset.identifier}`).not.toContain(banned)
+      const publishedRunIds = new Set(publishedRuns.map((run) => run.runId))
+      const unpublishedRunIds = runs
+        .filter((run) => !archiveFileExists(run.filename))
+        .map((run) => run.runId)
+
+      expect(
+        (datasets as Array<{ identifier: string }>).map((dataset) => dataset.identifier).filter(
+          (id) => unpublishedRunIds.includes(id),
+        ),
+      ).toEqual([])
+
+      for (const dataset of datasets as Array<{
+        identifier: string
+        measurementTechnique: string
+        description: string
+      }>) {
+        if (publishedRunIds.has(dataset.identifier)) {
+          expect(dataset.measurementTechnique).toBe(CITATION_PROBE_MEASUREMENT_TECHNIQUE)
+          expect(dataset.identifier).toMatch(/^\d{4}-\d{2}-\d{2}(-\d{6})?$/)
+          expect(dataset.description.toLowerCase()).toContain('citation-presence')
+          for (const banned of BANNED_METRIC_NAMES) {
+            expect(dataset.description, `${slug} ${dataset.identifier}`).not.toContain(banned)
+          }
         }
       }
     }
+  })
+
+  it('omits Dataset contentUrl for the Aug 18 archive until that file exists', () => {
+    const article = researchArticles.find((entry) => entry.slug === 'hendricks-selection-baseline')
+    expect(article).toBeDefined()
+
+    const { datasets, articleExtras } = citationRunNodes(article!)
+    const serialized = JSON.stringify({ datasets, articleExtras })
+    const aug18Path = '/history/runs/hendricks-2026-08-18.json'
+    const aug19Path = '/history/runs/hendricks-2026-08-19-110930.json'
+
+    if (archiveFileExists(RUN_2026_08_18_FILENAME)) {
+      expect(serialized).toContain(aug18Path)
+    } else {
+      expect(serialized).not.toContain(aug18Path)
+      expect(serialized).not.toContain('hendricks-2026-08-18.json')
+      expect(serialized.toLowerCase()).not.toContain('downloadurl')
+      expect(JSON.stringify(articleExtras?.isBasedOn ?? [])).not.toContain('dataset-2026-08-18')
+    }
+
+    if (archiveFileExists('hendricks-2026-08-19-110930.json')) {
+      expect(serialized).toContain(aug19Path)
+      expect(JSON.stringify(articleExtras?.isBasedOn ?? [])).toContain('dataset-2026-08-19-110930')
+    }
+  })
+
+  it('builds research-page Dataset nodes through the archive-presence gate', () => {
+    const page = readRepoFile('src/app/(editorial)/research/[slug]/page.tsx')
+    expect(page).toContain("import { citationRunNodes } from '@/lib/seo/citation-run-nodes'")
+    expect(page).not.toContain('citationDatasetSchema')
   })
 
   it('does not put hasPart on no-shared while the six result files are unpublished', () => {
@@ -137,6 +183,7 @@ describe('citation-presence archives', () => {
       'src/content/research/who-gets-cited-in-ai-answers.ts',
       'src/content/research/no-shared-source-across-engines.ts',
       'src/lib/seo/json-ld.ts',
+      'src/lib/seo/citation-run-nodes.ts',
     ]
 
     for (const file of files) {

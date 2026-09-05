@@ -88,9 +88,12 @@ export function archiveFileExists(filename: string): boolean {
   return existsSync(path.join(publicHistoryRunsDir(), filename))
 }
 
-export function publishedResultHref(runId: string): string | null {
-  const filename = resultFilenameForRunId(runId)
+export function publishedArchiveHref(filename: string): string | null {
   return archiveFileExists(filename) ? historyRunsHref(filename) : null
+}
+
+export function publishedResultHref(runId: string): string | null {
+  return publishedArchiveHref(resultFilenameForRunId(runId))
 }
 
 export function allNoSharedPartResultsPublished(): boolean {

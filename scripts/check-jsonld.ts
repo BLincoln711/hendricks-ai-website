@@ -26,8 +26,8 @@
  */
 import { researchArticles } from '../src/content/research/index'
 import { CITATION_PROBE_MEASUREMENT_TECHNIQUE } from '../src/content/research/citation-run-constants'
-import { articleSchema, citationDatasetSchema, datasetSchema } from '../src/lib/seo/json-ld'
-import { historyRunsHref } from '../src/content/research/citation-runs'
+import { articleSchema, datasetSchema } from '../src/lib/seo/json-ld'
+import { citationRunNodes } from '../src/lib/seo/citation-run-nodes'
 import { siteConfig } from '../src/config/site'
 
 /** Every @type this site deliberately emits. Extend when a new type is added. */
@@ -169,18 +169,7 @@ function checkGraph(graph: unknown[], routePath: string): Failure[] {
 
 function buildResearchGraphs(): { path: string; graph: unknown[] }[] {
   return researchArticles.map((article) => {
-    const citationRuns = article.content.citationRuns ?? []
-    const citationDatasets = citationRuns.map((run) =>
-      citationDatasetSchema({
-        path: article.path,
-        runId: run.runId,
-        name: run.name,
-        description: run.description,
-        temporalCoverage: run.temporalCoverage,
-        contentUrl: historyRunsHref(run.filename),
-      }),
-    )
-    const primaryIds = citationRuns.filter((run) => run.role === 'primary').map((run) => run.runId)
+    const citationGraph = citationRunNodes(article)
 
     const nodes: unknown[] = [
       articleSchema({
@@ -191,10 +180,10 @@ function buildResearchGraphs(): { path: string; graph: unknown[] }[] {
         datePublished: article.publishedDate,
         dateModified: article.updatedDate,
         claimClass: article.claimClass,
-        identifier: primaryIds.length === 1 ? primaryIds[0] : primaryIds.length ? primaryIds : undefined,
-        isBasedOn: citationDatasets.map((node) => ({ '@id': node['@id'] })),
+        identifier: citationGraph.articleExtras?.identifier,
+        isBasedOn: citationGraph.articleExtras?.isBasedOn,
       }),
-      ...citationDatasets,
+      ...citationGraph.datasets,
     ]
 
     const ds = article.content.dataset

@@ -28,16 +28,10 @@ import {
 } from '@/content/research'
 import { series } from '@/content/research/the-answer-index'
 import { publicationChrome } from '@/content/shared/publication-record'
-import {
-  allNoSharedPartResultsPublished,
-  archiveFileExists,
-  historyRunsHref,
-  NO_SHARED_PART_RUN_IDS,
-  resultFilenameForRunId,
-} from '@/content/research/citation-runs'
+import { archiveFileExists, historyRunsHref } from '@/content/research/citation-runs'
+import { citationRunNodes } from '@/lib/seo/citation-run-nodes'
 import {
   articleSchema,
-  citationDatasetSchema,
   datasetSchema,
   jsonLdGraph,
   webPageSchema,
@@ -111,56 +105,6 @@ function researchArticleSchema(
     identifier: extras?.identifier,
     isBasedOn: extras?.isBasedOn,
   })
-}
-
-function citationRunNodes(article: ResearchArticle) {
-  const runs = article.content.citationRuns ?? []
-  if (runs.length === 0) return { articleExtras: undefined, datasets: [] as object[] }
-
-  const includeParts =
-    article.slug === 'no-shared-source-across-engines' && allNoSharedPartResultsPublished()
-
-  const datasets = runs.map((run) =>
-    citationDatasetSchema({
-      path: article.path,
-      runId: run.runId,
-      name: run.name,
-      description: run.description,
-      temporalCoverage: run.temporalCoverage,
-      contentUrl: historyRunsHref(run.filename),
-      hasPart:
-        includeParts && run.role === 'primary'
-          ? NO_SHARED_PART_RUN_IDS.map((runId) => ({
-              '@id': `${new URL(article.path, siteConfig.url).toString()}#dataset-${runId}`,
-            }))
-          : undefined,
-    }),
-  )
-
-  const partDatasets = includeParts
-    ? NO_SHARED_PART_RUN_IDS.filter((runId) => !runs.some((run) => run.runId === runId)).map(
-        (runId) =>
-          citationDatasetSchema({
-            path: article.path,
-            runId,
-            name: `Citation-presence archive ${runId}`,
-            description: 'First-party citation-presence archive. Records cited URL hosts per cell.',
-            temporalCoverage: runId.slice(0, 10),
-            contentUrl: historyRunsHref(resultFilenameForRunId(runId)),
-          }),
-      )
-    : []
-
-  const allDatasets = [...datasets, ...partDatasets]
-  const primaryIds = runs.filter((run) => run.role === 'primary').map((run) => run.runId)
-
-  return {
-    articleExtras: {
-      identifier: primaryIds.length === 1 ? primaryIds[0] : primaryIds,
-      isBasedOn: allDatasets.map((node) => ({ '@id': (node as { '@id': string })['@id'] })),
-    },
-    datasets: allDatasets,
-  }
 }
 
 /** Findings, checks, method steps and limits all render as the method list. */
